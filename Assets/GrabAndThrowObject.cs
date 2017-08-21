@@ -9,6 +9,8 @@ public class GrabAndThrowObject : MonoBehaviour
     GameObject target;
     GameObject wall;
     List<Vector3> positions = new List<Vector3>();
+    float deltaTime;
+    float timeForPositions = 0.01f;
 
     void Start()
     {
@@ -55,10 +57,15 @@ public class GrabAndThrowObject : MonoBehaviour
             {
                 if (hit.transform.tag.Equals("Wall"))
                 {
-                    positions.Add(hit.point);
-                    if (positions.Count > 9)
+                    deltaTime += Time.deltaTime;
+                    if (deltaTime > timeForPositions)
                     {
-                        positions.RemoveAt(0);
+                        positions.Add(hit.point);
+                        if (positions.Count > 9)
+                        {
+                            positions.RemoveAt(0);
+                        }
+                        deltaTime = 0;
                     }
                     target.transform.position = hit.point;
                 }
@@ -79,6 +86,7 @@ public class GrabAndThrowObject : MonoBehaviour
             }
             target.GetComponent<Rigidbody>().useGravity = true;
             target.GetComponent<Collider>().enabled = true;
+            target.tag = "Untagged";
         }
         wall.GetComponent<BoxCollider>().enabled = false;
         target = null;
@@ -93,7 +101,8 @@ public class GrabAndThrowObject : MonoBehaviour
             target = hit.collider.gameObject;
             if (target.tag.Equals("Ingredient"))
             {
-                return hit.collider.gameObject;
+                GameObject newIngredient = Instantiate(hit.collider.gameObject);
+                return newIngredient;
             }
         }
         return null;

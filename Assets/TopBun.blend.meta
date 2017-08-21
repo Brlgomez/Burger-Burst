@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 1e96aa47d7a484288ae331e0fd6d4a53
-timeCreated: 1503287258
+guid: 56c3f4c2ab3884abeafc3fa4595544ce
+timeCreated: 1503341949
 licenseType: Free
 ModelImporter:
   serializedVersion: 21
@@ -9,7 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Restaurant
+    4300000: Top_Bun
     7400000: Default Take
     9500000: //RootNode
   materials:
