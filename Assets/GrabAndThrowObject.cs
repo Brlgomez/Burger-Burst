@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Collections.Generic;
 
 public class GrabAndThrowObject : MonoBehaviour
 {
@@ -42,6 +41,7 @@ public class GrabAndThrowObject : MonoBehaviour
         {
             Physics.IgnoreCollision(wall.GetComponent<Collider>(), target.GetComponent<Collider>());
             target.GetComponent<Collider>().enabled = false;
+            target.GetComponent<Rigidbody>().isKinematic = false;
             target.GetComponent<Rigidbody>().useGravity = false;
             wall.GetComponent<BoxCollider>().enabled = true;
         }
@@ -80,8 +80,8 @@ public class GrabAndThrowObject : MonoBehaviour
             if (positions.Count > 1)
             {
                 float xVelocity = (positions[positions.Count - 1].x - positions[0].x) * 2;
-                float yVelocity = (positions[positions.Count - 1].y - positions[0].y);
-                float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 5;
+                float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 0.75f;
+                float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 7;
                 target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity);
             }
             target.GetComponent<Rigidbody>().useGravity = true;
