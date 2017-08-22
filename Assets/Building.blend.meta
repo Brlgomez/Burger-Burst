@@ -20,6 +20,9 @@ ModelImporter:
     100024: Cylinder_010
     100026: Pipes
     100028: CeilingDecor
+    100030: Counter
+    100032: Counter2
+    100034: CounterShade
     400000: //RootNode
     400002: Building
     400004: Cylinder
@@ -35,6 +38,9 @@ ModelImporter:
     400024: Cylinder_010
     400026: Pipes
     400028: CeilingDecor
+    400030: Counter
+    400032: Counter2
+    400034: CounterShade
     2300000: //RootNode
     2300002: Building
     2300004: Cylinder
@@ -50,6 +56,9 @@ ModelImporter:
     2300024: Cylinder_010
     2300026: Pipes
     2300028: CeilingDecor
+    2300030: Counter
+    2300032: Counter2
+    2300034: CounterShade
     3300000: //RootNode
     3300002: Building
     3300004: Cylinder
@@ -65,6 +74,9 @@ ModelImporter:
     3300024: Cylinder_010
     3300026: Pipes
     3300028: CeilingDecor
+    3300030: Counter
+    3300032: Counter2
+    3300034: CounterShade
     4300000: Building
     4300002: Cylinder
     4300004: Cylinder_001
@@ -79,6 +91,9 @@ ModelImporter:
     4300022: Cylinder_010
     4300024: Pipes
     4300026: CeilingDecor
+    4300028: Counter2
+    4300030: Counter
+    4300032: CounterShade
     7400000: Default Take
     9500000: //RootNode
   materials:
