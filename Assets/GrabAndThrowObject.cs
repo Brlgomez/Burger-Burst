@@ -6,14 +6,14 @@ public class GrabAndThrowObject : MonoBehaviour
 {
     Vector3 velocity;
     GameObject target;
-    GameObject wall;
+    GameObject invisibleWall;
     List<Vector3> positions = new List<Vector3>();
     float deltaTime;
     float timeForPositions = 0.01f;
 
     void Start()
     {
-        wall = GameObject.FindGameObjectWithTag("Wall");
+        invisibleWall = GameObject.FindGameObjectWithTag("Wall");
     }
 
     void Update() 
@@ -39,11 +39,11 @@ public class GrabAndThrowObject : MonoBehaviour
         target = returnClickedObject(out hitInfo);
         if (target != null)
         {
-            Physics.IgnoreCollision(wall.GetComponent<Collider>(), target.GetComponent<Collider>());
+            Physics.IgnoreCollision(invisibleWall.GetComponent<Collider>(), target.GetComponent<Collider>());
             target.GetComponent<Collider>().enabled = false;
             target.GetComponent<Rigidbody>().isKinematic = false;
             target.GetComponent<Rigidbody>().useGravity = false;
-            wall.GetComponent<BoxCollider>().enabled = true;
+            invisibleWall.GetComponent<BoxCollider>().enabled = true;
         }
     }
 
@@ -86,9 +86,10 @@ public class GrabAndThrowObject : MonoBehaviour
             }
             target.GetComponent<Rigidbody>().useGravity = true;
             target.GetComponent<Collider>().enabled = true;
-            target.tag = "Untagged";
+            target.tag = "Thrown";
+            target.AddComponent<RemoveObjects>();
         }
-        wall.GetComponent<BoxCollider>().enabled = false;
+        invisibleWall.GetComponent<BoxCollider>().enabled = false;
         target = null;
     }
 

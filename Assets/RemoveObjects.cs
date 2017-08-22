@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RemoveObjects : MonoBehaviour {
 
-    public float lifetime = 3;
+    float lifetime = 3;
 
 	void Start () 
     {
