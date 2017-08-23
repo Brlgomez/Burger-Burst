@@ -23,6 +23,8 @@ ModelImporter:
     100030: Counter
     100032: Counter2
     100034: CounterShade
+    100036: CashRegister
+    100038: Window
     400000: //RootNode
     400002: Building
     400004: Cylinder
@@ -41,6 +43,8 @@ ModelImporter:
     400030: Counter
     400032: Counter2
     400034: CounterShade
+    400036: CashRegister
+    400038: Window
     2300000: //RootNode
     2300002: Building
     2300004: Cylinder
@@ -59,6 +63,8 @@ ModelImporter:
     2300030: Counter
     2300032: Counter2
     2300034: CounterShade
+    2300036: CashRegister
+    2300038: Window
     3300000: //RootNode
     3300002: Building
     3300004: Cylinder
@@ -77,6 +83,8 @@ ModelImporter:
     3300030: Counter
     3300032: Counter2
     3300034: CounterShade
+    3300036: CashRegister
+    3300038: Window
     4300000: Building
     4300002: Cylinder
     4300004: Cylinder_001
@@ -94,6 +102,8 @@ ModelImporter:
     4300028: Counter2
     4300030: Counter
     4300032: CounterShade
+    4300034: CashRegister
+    4300036: Window
     7400000: Default Take
     9500000: //RootNode
   materials:
