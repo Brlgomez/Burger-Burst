@@ -352,6 +352,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 62c974ace3c914c348f38cf8ff9e2648, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9500000, guid: 62c974ace3c914c348f38cf8ff9e2648, type: 3}
   m_ParentPrefab: {fileID: 100100000, guid: 62c974ace3c914c348f38cf8ff9e2648, type: 3}
@@ -557,7 +561,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 62c974ace3c914c348f38cf8ff9e2648, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.9
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 62c974ace3c914c348f38cf8ff9e2648, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9500000, guid: 62c974ace3c914c348f38cf8ff9e2648, type: 3}
@@ -589,7 +597,7 @@ Light:
   serializedVersion: 8
   m_Type: 1
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 0.5
+  m_Intensity: 0.75
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -608,7 +616,7 @@ Light:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
   m_FalloffTable:
@@ -726,7 +734,7 @@ MeshCollider:
   m_Convex: 1
   m_InflateMesh: 0
   m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: 62c974ace3c914c348f38cf8ff9e2648, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 62c974ace3c914c348f38cf8ff9e2648, type: 3}
 --- !u!1001 &227478866
 Prefab:
   m_ObjectHideFlags: 0
@@ -1019,7 +1027,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 7ba713975fe334bbaab455bd91b1d539, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 0
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9500000, guid: 7ba713975fe334bbaab455bd91b1d539, type: 3}
@@ -1089,6 +1097,10 @@ Prefab:
     - target: {fileID: 100000, guid: 7ba713975fe334bbaab455bd91b1d539, type: 3}
       propertyPath: m_Name
       value: Table (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 7ba713975fe334bbaab455bd91b1d539, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9500000, guid: 7ba713975fe334bbaab455bd91b1d539, type: 3}
@@ -1222,19 +1234,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 05bad1f73b8bb417b9ee1d3374c1cf8e, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 6.4262822e-12
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 05bad1f73b8bb417b9ee1d3374c1cf8e, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 05bad1f73b8bb417b9ee1d3374c1cf8e, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000018318508
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 05bad1f73b8bb417b9ee1d3374c1cf8e, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.0000035952676
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 05bad1f73b8bb417b9ee1d3374c1cf8e, type: 3}
       propertyPath: m_RootOrder
@@ -1252,6 +1264,14 @@ Prefab:
       propertyPath: m_ReflectionProbeUsage
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 05bad1f73b8bb417b9ee1d3374c1cf8e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 05bad1f73b8bb417b9ee1d3374c1cf8e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4d6dbfb617b0f4fb5972c3501118adc6, type: 2}
     m_RemovedComponents:
     - {fileID: 9500000, guid: 05bad1f73b8bb417b9ee1d3374c1cf8e, type: 3}
   m_ParentPrefab: {fileID: 100100000, guid: 05bad1f73b8bb417b9ee1d3374c1cf8e, type: 3}
@@ -1273,7 +1293,7 @@ MeshCollider:
   m_Convex: 1
   m_InflateMesh: 0
   m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: 05bad1f73b8bb417b9ee1d3374c1cf8e, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 05bad1f73b8bb417b9ee1d3374c1cf8e, type: 3}
 --- !u!54 &511592762
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1618,6 +1638,18 @@ Prefab:
       propertyPath: m_ReflectionProbeUsage
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 100038, guid: 0957a9f80c43e427aac83d0c98d173ba, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300038, guid: 0957a9f80c43e427aac83d0c98d173ba, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300038, guid: 0957a9f80c43e427aac83d0c98d173ba, type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9500000, guid: 0957a9f80c43e427aac83d0c98d173ba, type: 3}
   m_ParentPrefab: {fileID: 100100000, guid: 0957a9f80c43e427aac83d0c98d173ba, type: 3}
@@ -1755,6 +1787,14 @@ Prefab:
     - target: {fileID: 400000, guid: fabf6181a557847a59de44bde0108964, type: 3}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: fabf6181a557847a59de44bde0108964, type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: fabf6181a557847a59de44bde0108964, type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9500000, guid: fabf6181a557847a59de44bde0108964, type: 3}
@@ -2069,7 +2109,7 @@ MeshCollider:
   m_Convex: 1
   m_InflateMesh: 0
   m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: 62c974ace3c914c348f38cf8ff9e2648, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 62c974ace3c914c348f38cf8ff9e2648, type: 3}
 --- !u!1 &1051156207 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100002, guid: 0957a9f80c43e427aac83d0c98d173ba, type: 3}
@@ -2129,11 +2169,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 62c974ace3c914c348f38cf8ff9e2648, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.9
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 62c974ace3c914c348f38cf8ff9e2648, type: 3}
       propertyPath: m_Name
       value: Table2 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 62c974ace3c914c348f38cf8ff9e2648, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9500000, guid: 62c974ace3c914c348f38cf8ff9e2648, type: 3}
@@ -2308,7 +2352,7 @@ MeshCollider:
   m_Convex: 1
   m_InflateMesh: 0
   m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: 62c974ace3c914c348f38cf8ff9e2648, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 62c974ace3c914c348f38cf8ff9e2648, type: 3}
 --- !u!1001 &1290366021
 Prefab:
   m_ObjectHideFlags: 0
@@ -2347,6 +2391,10 @@ Prefab:
     - target: {fileID: 400000, guid: 7ba713975fe334bbaab455bd91b1d539, type: 3}
       propertyPath: m_RootOrder
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 7ba713975fe334bbaab455bd91b1d539, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9500000, guid: 7ba713975fe334bbaab455bd91b1d539, type: 3}
@@ -2451,6 +2499,10 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: d7d44d1e68eac49fa9bb05c6da52893b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9500000, guid: d7d44d1e68eac49fa9bb05c6da52893b, type: 3}
   m_ParentPrefab: {fileID: 100100000, guid: d7d44d1e68eac49fa9bb05c6da52893b, type: 3}
@@ -2503,8 +2555,8 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 0.7758621, g: 0.71143067, b: 0.6389453, a: 1}
-  m_Intensity: 3
-  m_Range: 20
+  m_Intensity: 2
+  m_Range: 30
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -2901,6 +2953,10 @@ Prefab:
     - target: {fileID: 400000, guid: 9a1f0e120a09b4b938d1b7d3c402c8dd, type: 3}
       propertyPath: m_RootOrder
       value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 9a1f0e120a09b4b938d1b7d3c402c8dd, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9500000, guid: 9a1f0e120a09b4b938d1b7d3c402c8dd, type: 3}
@@ -3461,11 +3517,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 62c974ace3c914c348f38cf8ff9e2648, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.9
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 62c974ace3c914c348f38cf8ff9e2648, type: 3}
       propertyPath: m_Name
       value: Table2 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 62c974ace3c914c348f38cf8ff9e2648, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9500000, guid: 62c974ace3c914c348f38cf8ff9e2648, type: 3}
@@ -3488,7 +3548,7 @@ MeshCollider:
   m_Convex: 1
   m_InflateMesh: 0
   m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: 62c974ace3c914c348f38cf8ff9e2648, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 62c974ace3c914c348f38cf8ff9e2648, type: 3}
 --- !u!4 &1947526286 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 62c974ace3c914c348f38cf8ff9e2648, type: 3}
