@@ -25,6 +25,11 @@ ModelImporter:
     100034: CounterShade
     100036: CashRegister
     100038: Window
+    100040: KitchenCounter
+    100042: KitchenCounter_001
+    100044: KitchenCounterTop
+    100046: KitchenBox
+    100048: KitchenBox_001
     400000: //RootNode
     400002: Building
     400004: Cylinder
@@ -45,6 +50,11 @@ ModelImporter:
     400034: CounterShade
     400036: CashRegister
     400038: Window
+    400040: KitchenCounter
+    400042: KitchenCounter_001
+    400044: KitchenCounterTop
+    400046: KitchenBox
+    400048: KitchenBox_001
     2300000: //RootNode
     2300002: Building
     2300004: Cylinder
@@ -65,6 +75,11 @@ ModelImporter:
     2300034: CounterShade
     2300036: CashRegister
     2300038: Window
+    2300040: KitchenCounter
+    2300042: KitchenCounter_001
+    2300044: KitchenCounterTop
+    2300046: KitchenBox
+    2300048: KitchenBox_001
     3300000: //RootNode
     3300002: Building
     3300004: Cylinder
@@ -85,6 +100,11 @@ ModelImporter:
     3300034: CounterShade
     3300036: CashRegister
     3300038: Window
+    3300040: KitchenCounter
+    3300042: KitchenCounter_001
+    3300044: KitchenCounterTop
+    3300046: KitchenBox
+    3300048: KitchenBox_001
     4300000: Building
     4300002: Cylinder
     4300004: Cylinder_001
@@ -104,6 +124,11 @@ ModelImporter:
     4300032: CounterShade
     4300034: CashRegister
     4300036: Window
+    4300038: KitchenCounter
+    4300040: KitchenCounter_001
+    4300042: KitchenCounterTop
+    4300044: KitchenBox
+    4300046: KitchenBox_001
     7400000: Default Take
     9500000: //RootNode
   materials:
