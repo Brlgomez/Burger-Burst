@@ -9,6 +9,7 @@ public class Gameplay : MonoBehaviour
     int neededDrinks;
     bool orderReady;
     List<GameObject> onPlatter = new List<GameObject>();
+    GameObject platter;
 
 	void Start () 
     {
@@ -17,6 +18,7 @@ public class Gameplay : MonoBehaviour
 	
     public void SetOrder () 
     {
+        platter = GameObject.FindGameObjectWithTag("CurrentWaiter");
         for (int i = 0; i < onPlatter.Count; i++)
         {
             Destroy(onPlatter[i]);
@@ -67,5 +69,13 @@ public class Gameplay : MonoBehaviour
             }
         }
         return true;
+    }
+
+    public void addFoodToTray() {
+        for (int i = 0; i < onPlatter.Count; i++)
+        {
+            onPlatter[i].GetComponent<Rigidbody>().isKinematic = true;
+            onPlatter[i].transform.parent = platter.transform;
+        }
     }
 }

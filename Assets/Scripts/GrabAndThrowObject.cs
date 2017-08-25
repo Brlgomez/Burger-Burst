@@ -12,7 +12,7 @@ public class GrabAndThrowObject : MonoBehaviour
     float timeForPositions = 0.01f;
     bool win;
     float time;
-    float timeToWin = 1.0f;
+    float timeToWin = 0.5f;
 
     void Start()
     {
@@ -42,7 +42,8 @@ public class GrabAndThrowObject : MonoBehaviour
                 {
                     win = true;
                     GameObject.Find("Order").GetComponent<TextMesh>().text = "Thanks!";
-                    //Debug.Log("GOOD JOB!");
+                    GameObject.FindGameObjectWithTag("CurrentWaiter").GetComponent<Waiter>().EndPosition();
+                    Camera.main.GetComponent<Gameplay>().addFoodToTray();
                 }
             } else
             {
