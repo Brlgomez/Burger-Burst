@@ -6,15 +6,11 @@ public class RemoveObjects : MonoBehaviour {
 
     float lifetime = 3;
 
-	void Start () 
-    {
-	    
-    }
-
     void OnCollisionEnter (Collision col)
     {
         if(col.gameObject.tag == "Building")
         {
+            Camera.main.GetComponent<Gameplay>().removeFromPlatter(gameObject);
             Destroy(gameObject, lifetime);
         }
     }

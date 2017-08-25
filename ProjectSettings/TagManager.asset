@@ -8,6 +8,7 @@ TagManager:
   - Wall
   - Building
   - Thrown
+  - OnPlatter
   layers:
   - Default
   - TransparentFX

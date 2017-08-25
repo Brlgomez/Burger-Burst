@@ -10,6 +10,9 @@ public class GrabAndThrowObject : MonoBehaviour
     List<Vector3> positions = new List<Vector3>();
     float deltaTime;
     float timeForPositions = 0.01f;
+    bool win;
+    float time;
+    float timeToWin = 1.0f;
 
     void Start()
     {
@@ -29,6 +32,25 @@ public class GrabAndThrowObject : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             mouseUp();
+        }
+        if (Camera.main.GetComponent<Gameplay>().isOrderReady() && !win)
+        {
+            if (Camera.main.GetComponent<Gameplay>().checkRigidbodyVelocities())
+            {
+                time += Time.deltaTime;
+                if (time > timeToWin)
+                {
+                    win = true;
+                    Debug.Log("GOOD JOB!");
+                }
+            } else
+            {
+                time = 0;
+            }
+        }
+        else
+        {
+            time = 0;
         }
     }
 
@@ -107,5 +129,10 @@ public class GrabAndThrowObject : MonoBehaviour
             }
         }
         return null;
+    }
+
+    public void newOrder () {
+        win = false;
+        time = 0;
     }
 }
