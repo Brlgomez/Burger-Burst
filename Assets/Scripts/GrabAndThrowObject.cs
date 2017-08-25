@@ -41,7 +41,8 @@ public class GrabAndThrowObject : MonoBehaviour
                 if (time > timeToWin)
                 {
                     win = true;
-                    Debug.Log("GOOD JOB!");
+                    GameObject.Find("Order").GetComponent<TextMesh>().text = "Thanks!";
+                    //Debug.Log("GOOD JOB!");
                 }
             } else
             {

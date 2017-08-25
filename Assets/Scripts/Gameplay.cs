@@ -25,14 +25,14 @@ public class Gameplay : MonoBehaviour
         GameObject.Find("OnPlatter").GetComponent<CheckOnPlatter>().restartAmounts();
         Camera.main.GetComponent<GrabAndThrowObject>().newOrder();
         orderReady = false;
-        neededBurgers = Random.Range(0, 2);
-        neededFries = Random.Range(0, 2);
-        neededDrinks = Random.Range(0, 2);
+        neededBurgers = Random.Range(0, 3);
+        neededFries = Random.Range(0, 3);
+        neededDrinks = Random.Range(0, 3);
         if (neededBurgers + neededDrinks + neededFries == 0)
         {
             neededBurgers = 1;
         }
-        Debug.Log("OBJECTIVE - Burger:"+ neededBurgers + "Drink:"+ neededDrinks + "Fries:" + neededFries);
+        GameObject.Find("Order").GetComponent<TextMesh>().text = "Burger: "+ neededBurgers + " Drink: "+ neededDrinks + " Fries: " + neededFries;
     }
 
     public void checkOrder (int b, int d, int f) 
