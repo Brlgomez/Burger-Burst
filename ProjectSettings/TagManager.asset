@@ -12,6 +12,7 @@ TagManager:
   - CurrentWaiter
   - Waiter
   - Table
+  - Start
   layers:
   - Default
   - TransparentFX

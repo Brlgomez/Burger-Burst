@@ -27,9 +27,9 @@ public class Gameplay : MonoBehaviour
         GameObject.Find("OnPlatter").GetComponent<CheckOnPlatter>().restartAmounts();
         Camera.main.GetComponent<GrabAndThrowObject>().newOrder();
         orderReady = false;
-        neededBurgers = Random.Range(0, 3);
-        neededFries = Random.Range(0, 3);
-        neededDrinks = Random.Range(0, 3);
+        //neededBurgers = Random.Range(0, 3);
+        //neededFries = Random.Range(0, 3);
+        //neededDrinks = Random.Range(0, 3);
         if (neededBurgers + neededDrinks + neededFries == 0)
         {
             neededBurgers = 1;
@@ -63,9 +63,12 @@ public class Gameplay : MonoBehaviour
     public bool checkRigidbodyVelocities () {
         for (int i = 0; i < onPlatter.Count; i++)
         {
-            if (onPlatter[i].GetComponent<Rigidbody>().velocity.magnitude > 0.05f || !onPlatter[i].GetComponent<Rigidbody>().IsSleeping())
+            if (onPlatter[i] != null)
             {
-                return false;
+                if (onPlatter[i].GetComponent<Rigidbody>().velocity.magnitude > 0.05f || !onPlatter[i].GetComponent<Rigidbody>().IsSleeping())
+                {
+                    return false;
+                }
             }
         }
         return true;

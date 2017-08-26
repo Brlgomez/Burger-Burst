@@ -5,9 +5,10 @@ using UnityEngine.AI;
 
 public class Waiter : MonoBehaviour {
 
-    public Transform start;
+    Transform start;
     Transform end;
     List<GameObject> tablePositions = new List<GameObject>();
+    List<GameObject> startPositions = new List<GameObject>();
     Transform current;
     NavMeshAgent agent;
 
@@ -16,6 +17,11 @@ public class Waiter : MonoBehaviour {
         for (int i = 0; i < temp.Length; i++)
         {
             tablePositions.Add(temp[i]);
+        }
+        temp = GameObject.FindGameObjectsWithTag("Start");
+        for (int i = 0; i < temp.Length; i++)
+        {
+            startPositions.Add(temp[i]);
         }
         agent = GetComponent<NavMeshAgent>();
         StartPosition();
@@ -31,12 +37,13 @@ public class Waiter : MonoBehaviour {
                 Quaternion rotation = Quaternion.LookRotation(lookPos);
                 transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * 5);
             }
-        } else if (current == end)
+        } 
+        else if (current == end)
         {
-            if (agent.remainingDistance < 4)
+            if (Vector3.Distance(transform.position, end.position) < 3.5f)
             {
-                Camera.main.GetComponent<Gameplay>().SetOrder();
                 StartPosition();
+                Camera.main.GetComponent<Gameplay>().SetOrder();
             }
         }
     }
@@ -50,6 +57,7 @@ public class Waiter : MonoBehaviour {
     }
 
     public void StartPosition() {
+        start = startPositions[Random.Range(0, startPositions.Count)].transform;
         current = start;
         agent.destination = current.position;
     }
