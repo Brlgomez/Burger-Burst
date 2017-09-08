@@ -10,7 +10,6 @@ public class RemoveObjects : MonoBehaviour {
     {
         if(col.gameObject.tag == "Building")
         {
-            Camera.main.GetComponent<Gameplay>().removeFromPlatter(gameObject);
             Destroy(gameObject, lifetime);
         }
     }

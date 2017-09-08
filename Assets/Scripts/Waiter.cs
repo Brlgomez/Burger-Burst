@@ -5,6 +5,12 @@ using UnityEngine.AI;
 
 public class Waiter : MonoBehaviour {
 
+    int neededBurgers, neededFries, neededDrinks;
+    int amountOfBurgers, amountOfFries, amountOfDrinks;
+    bool orderReady;
+    List<GameObject> onPlatter = new List<GameObject>();
+    GameObject platter;
+
     Transform start;
     Transform end;
     List<GameObject> tablePositions = new List<GameObject>();
@@ -12,7 +18,11 @@ public class Waiter : MonoBehaviour {
     Transform current;
     NavMeshAgent agent;
 
-	void Start () {
+    float currentTimeToWin;
+    float timeToWin = 0.5f;
+
+	void Start () 
+    {
         GameObject[] temp = GameObject.FindGameObjectsWithTag("Table");
         for (int i = 0; i < temp.Length; i++)
         {
@@ -25,9 +35,11 @@ public class Waiter : MonoBehaviour {
         }
         agent = GetComponent<NavMeshAgent>();
         StartPosition();
+        SetOrder();
 	}
 
-    void Update () {
+    void Update () 
+    {
         if (current == start)
         {
             if (agent.velocity.magnitude < 0.1f)
@@ -43,22 +55,136 @@ public class Waiter : MonoBehaviour {
             if (Vector3.Distance(transform.position, end.position) < 3.5f)
             {
                 StartPosition();
-                Camera.main.GetComponent<Gameplay>().SetOrder();
+                SetOrder();
+            }
+        }
+        if (orderReady)
+        {
+            if (CheckRigidbodyVelocities())
+            {
+                currentTimeToWin += Time.deltaTime;
+                if (currentTimeToWin > timeToWin)
+                {
+                    transform.GetChild(1).gameObject.GetComponent<TextMesh>().text = "Thanks!";
+                    EndPosition();
+                    StickFoodToTray();
+                }
+            }
+            else
+            {
+                currentTimeToWin = 0;
             }
         }
     }
 
-    public void EndPosition() {
-        //tag = "Waiter";
+    void SetOrder () 
+    {
+        platter = transform.GetChild(0).gameObject;
+        for (int i = 0; i < onPlatter.Count; i++)
+        {
+            Destroy(onPlatter[i]);
+        }
+        RestartCurrentPlatter();
+        neededBurgers = Random.Range(0, 3);
+        neededFries = Random.Range(0, 3);
+        neededDrinks = Random.Range(0, 3);
+        if (neededBurgers + neededDrinks + neededFries == 0)
+        {
+            neededBurgers = 1;
+        }
+        transform.GetChild(1).gameObject.GetComponent<TextMesh>().text = "Burger: "+ neededBurgers + " Drink: "+ neededDrinks + " Fries: " + neededFries;
+    }
+
+    void EndPosition() 
+    {
         end = tablePositions[Random.Range(0, tablePositions.Count)].transform;
         current = end;
         agent.destination = current.position;
 
     }
 
-    public void StartPosition() {
+    public void StartPosition() 
+    {
         start = startPositions[Random.Range(0, startPositions.Count)].transform;
         current = start;
         agent.destination = current.position;
+    }
+
+    public void AddToPlatter (GameObject obj) 
+    {
+        if (obj.name == "Burger(Clone)")
+        {
+            amountOfBurgers++;
+        } else if (obj.name == "Drink(Clone)")
+        {
+            amountOfDrinks++;
+        } else if (obj.name == "Fries(Clone)")
+        {
+            amountOfFries++;
+        }
+        obj.tag = "OnPlatter";
+        onPlatter.Add(obj);
+        CheckOrder();
+    }
+
+    public void RemoveFromPlatter (GameObject obj)
+    {
+        if (obj.name == "Burger(Clone)")
+        {
+            amountOfBurgers--;
+        } else if (obj.name == "Drink(Clone)")
+        {
+            amountOfDrinks--;
+        } else if (obj.name == "Fries(Clone)")
+        {
+            amountOfFries--;
+        }
+        obj.tag = "Thrown";
+        onPlatter.Remove(obj);
+        CheckOrder();
+    }
+
+    void RestartCurrentPlatter() 
+    {
+        onPlatter.Clear();
+        amountOfBurgers = 0;
+        amountOfDrinks = 0;
+        amountOfFries = 0;
+        orderReady = false;
+        currentTimeToWin = 0;
+    }
+
+    void CheckOrder () 
+    {
+        if (amountOfBurgers >= neededBurgers && amountOfFries >= neededFries && amountOfDrinks >= neededDrinks)
+        {
+            orderReady = true;
+        } else
+        {
+            orderReady = false;
+            currentTimeToWin = 0;
+        }
+    }
+
+    bool CheckRigidbodyVelocities () {
+        for (int i = 0; i < onPlatter.Count; i++)
+        {
+            if (onPlatter[i] != null)
+            {
+                if (onPlatter[i].GetComponent<Rigidbody>().velocity.magnitude > 0.05f || !onPlatter[i].GetComponent<Rigidbody>().IsSleeping())
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    void StickFoodToTray() {
+        for (int i = 0; i < onPlatter.Count; i++)
+        {
+            onPlatter[i].GetComponent<Rigidbody>().isKinematic = true;
+            onPlatter[i].transform.parent = platter.transform;
+        }
     }
 }
