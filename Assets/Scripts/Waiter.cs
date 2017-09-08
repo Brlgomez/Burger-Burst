@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Waiter : MonoBehaviour {
-
+public class Waiter : MonoBehaviour
+{
     int neededBurgers, neededFries, neededDrinks;
     int amountOfBurgers, amountOfFries, amountOfDrinks;
     bool orderReady;
@@ -21,8 +21,9 @@ public class Waiter : MonoBehaviour {
     float currentTimeToWin;
     float timeToWin = 0.5f;
 
-	void Start () 
+    void Start()
     {
+        platter = transform.GetChild(0).gameObject;
         GameObject[] temp = GameObject.FindGameObjectsWithTag("Table");
         for (int i = 0; i < temp.Length; i++)
         {
@@ -36,9 +37,9 @@ public class Waiter : MonoBehaviour {
         agent = GetComponent<NavMeshAgent>();
         StartPosition();
         SetOrder();
-	}
+    }
 
-    void Update () 
+    void Update()
     {
         if (current == start)
         {
@@ -49,7 +50,7 @@ public class Waiter : MonoBehaviour {
                 Quaternion rotation = Quaternion.LookRotation(lookPos);
                 transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * 5);
             }
-        } 
+        }
         else if (current == end)
         {
             if (Vector3.Distance(transform.position, end.position) < 3.5f)
@@ -77,9 +78,8 @@ public class Waiter : MonoBehaviour {
         }
     }
 
-    void SetOrder () 
+    void SetOrder()
     {
-        platter = transform.GetChild(0).gameObject;
         for (int i = 0; i < onPlatter.Count; i++)
         {
             Destroy(onPlatter[i]);
@@ -92,10 +92,10 @@ public class Waiter : MonoBehaviour {
         {
             neededBurgers = 1;
         }
-        transform.GetChild(1).gameObject.GetComponent<TextMesh>().text = "Burger: "+ neededBurgers + " Drink: "+ neededDrinks + " Fries: " + neededFries;
+        transform.GetChild(1).gameObject.GetComponent<TextMesh>().text = "Burger: " + neededBurgers + " Drink: " + neededDrinks + " Fries: " + neededFries;
     }
 
-    void EndPosition() 
+    void EndPosition()
     {
         end = tablePositions[Random.Range(0, tablePositions.Count)].transform;
         current = end;
@@ -103,22 +103,24 @@ public class Waiter : MonoBehaviour {
 
     }
 
-    public void StartPosition() 
+    public void StartPosition()
     {
         start = startPositions[Random.Range(0, startPositions.Count)].transform;
         current = start;
         agent.destination = current.position;
     }
 
-    public void AddToPlatter (GameObject obj) 
+    public void AddToPlatter(GameObject obj)
     {
         if (obj.name == "Burger(Clone)")
         {
             amountOfBurgers++;
-        } else if (obj.name == "Drink(Clone)")
+        }
+        else if (obj.name == "Drink(Clone)")
         {
             amountOfDrinks++;
-        } else if (obj.name == "Fries(Clone)")
+        }
+        else if (obj.name == "Fries(Clone)")
         {
             amountOfFries++;
         }
@@ -127,15 +129,17 @@ public class Waiter : MonoBehaviour {
         CheckOrder();
     }
 
-    public void RemoveFromPlatter (GameObject obj)
+    public void RemoveFromPlatter(GameObject obj)
     {
         if (obj.name == "Burger(Clone)")
         {
             amountOfBurgers--;
-        } else if (obj.name == "Drink(Clone)")
+        }
+        else if (obj.name == "Drink(Clone)")
         {
             amountOfDrinks--;
-        } else if (obj.name == "Fries(Clone)")
+        }
+        else if (obj.name == "Fries(Clone)")
         {
             amountOfFries--;
         }
@@ -144,7 +148,7 @@ public class Waiter : MonoBehaviour {
         CheckOrder();
     }
 
-    void RestartCurrentPlatter() 
+    void RestartCurrentPlatter()
     {
         onPlatter.Clear();
         amountOfBurgers = 0;
@@ -154,19 +158,21 @@ public class Waiter : MonoBehaviour {
         currentTimeToWin = 0;
     }
 
-    void CheckOrder () 
+    void CheckOrder()
     {
         if (amountOfBurgers >= neededBurgers && amountOfFries >= neededFries && amountOfDrinks >= neededDrinks)
         {
             orderReady = true;
-        } else
+        }
+        else
         {
             orderReady = false;
             currentTimeToWin = 0;
         }
     }
 
-    bool CheckRigidbodyVelocities () {
+    bool CheckRigidbodyVelocities()
+    {
         for (int i = 0; i < onPlatter.Count; i++)
         {
             if (onPlatter[i] != null)
@@ -180,7 +186,8 @@ public class Waiter : MonoBehaviour {
         return true;
     }
 
-    void StickFoodToTray() {
+    void StickFoodToTray()
+    {
         for (int i = 0; i < onPlatter.Count; i++)
         {
             onPlatter[i].GetComponent<Rigidbody>().isKinematic = true;

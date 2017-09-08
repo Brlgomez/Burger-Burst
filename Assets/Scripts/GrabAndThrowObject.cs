@@ -16,27 +16,27 @@ public class GrabAndThrowObject : MonoBehaviour
         invisibleWall = GameObject.FindGameObjectWithTag("Wall");
     }
 
-    void Update() 
+    void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            mouseDown();
+            MouseDown();
         } 
-        if (Input.GetMouseButton(0)) 
+        if (Input.GetMouseButton(0))
         {
-            mouseDrag();
+            MouseDrag();
         }
         if (Input.GetMouseButtonUp(0))
         {
-            mouseUp();
+            MouseUp();
         }
     }
 
-    void mouseDown()
+    void MouseDown()
     {
         positions.Clear();
         RaycastHit hitInfo;
-        target = returnClickedObject(out hitInfo);
+        target = ReturnClickedObject(out hitInfo);
         if (target != null)
         {
             Physics.IgnoreCollision(invisibleWall.GetComponent<Collider>(), target.GetComponent<Collider>());
@@ -47,7 +47,7 @@ public class GrabAndThrowObject : MonoBehaviour
         }
     }
 
-    void mouseDrag()
+    void MouseDrag()
     {
         if (target != null)
         {
@@ -73,7 +73,7 @@ public class GrabAndThrowObject : MonoBehaviour
         }
     }
 
-    void mouseUp()
+    void MouseUp()
     {
         if (target != null)
         {
@@ -93,7 +93,7 @@ public class GrabAndThrowObject : MonoBehaviour
         target = null;
     }
 
-    GameObject returnClickedObject(out RaycastHit hit)
+    GameObject ReturnClickedObject(out RaycastHit hit)
     {
         GameObject target = null;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
