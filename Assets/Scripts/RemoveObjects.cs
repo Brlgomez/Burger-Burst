@@ -10,6 +10,7 @@ public class RemoveObjects : MonoBehaviour {
     {
         if(col.gameObject.tag == "Building")
         {
+            Camera.main.GetComponent<Gameplay>().IncreaseNumberOfLostProduct(1);
             Destroy(gameObject, lifetime);
         }
     }

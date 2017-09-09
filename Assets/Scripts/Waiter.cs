@@ -80,6 +80,7 @@ public class Waiter : MonoBehaviour
 
     void SetOrder()
     {
+        CheckSentOrder();
         for (int i = 0; i < onPlatter.Count; i++)
         {
             Destroy(onPlatter[i]);
@@ -92,7 +93,7 @@ public class Waiter : MonoBehaviour
         {
             neededBurgers = 1;
         }
-        transform.GetChild(1).gameObject.GetComponent<TextMesh>().text = "Burger: " + neededBurgers + " Drink: " + neededDrinks + " Fries: " + neededFries;
+        transform.GetChild(1).gameObject.GetComponent<TextMesh>().text = "Burger: " + neededBurgers + "\nDrink: " + neededDrinks + "\nFries: " + neededFries;
     }
 
     void EndPosition()
@@ -171,6 +172,16 @@ public class Waiter : MonoBehaviour
         }
     }
 
+    void CheckSentOrder() 
+    {
+        Camera.main.GetComponent<Gameplay>().IncreaseNumberOfLostProduct((amountOfBurgers - neededBurgers));
+        Camera.main.GetComponent<Gameplay>().IncreaseNumberOfLostProduct((amountOfFries - neededFries));
+        Camera.main.GetComponent<Gameplay>().IncreaseNumberOfLostProduct((amountOfDrinks - neededDrinks));
+        Camera.main.GetComponent<Gameplay>().IncreaseNumberOfSentProduct(neededBurgers);
+        Camera.main.GetComponent<Gameplay>().IncreaseNumberOfSentProduct(neededFries);
+        Camera.main.GetComponent<Gameplay>().IncreaseNumberOfSentProduct(neededDrinks);
+    }
+
     bool CheckRigidbodyVelocities()
     {
         for (int i = 0; i < onPlatter.Count; i++)
@@ -190,8 +201,11 @@ public class Waiter : MonoBehaviour
     {
         for (int i = 0; i < onPlatter.Count; i++)
         {
-            onPlatter[i].GetComponent<Rigidbody>().isKinematic = true;
-            onPlatter[i].transform.parent = platter.transform;
+            if (onPlatter[i] != null)
+            {
+                onPlatter[i].GetComponent<Rigidbody>().isKinematic = true;
+                onPlatter[i].transform.parent = platter.transform;
+            }
         }
     }
 }
