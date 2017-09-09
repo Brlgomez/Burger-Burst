@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gameplay : MonoBehaviour {
+public class Gameplay : MonoBehaviour
+{
 
     int numberOfLostProducts = 0;
     int numberOfSentProducts = 0;
@@ -12,21 +13,49 @@ public class Gameplay : MonoBehaviour {
     float costOfBurger = 4.95f;
     float costOfFries = 3.95f;
     float costOfDrink = 2.95f;
-    GameObject lostText;
-    GameObject sentText;
+    float profit;
+    GameObject profitText;
 
-	void Start () {
-        lostText = GameObject.Find("LostProducts");
-        sentText = GameObject.Find("SentProducts");
-    }
-	
-    public void IncreaseNumberOfLostProduct (int n) {
-        numberOfLostProducts += n;
-        lostText.GetComponent<TextMesh>().text = numberOfLostProducts.ToString();
+    void Start()
+    {
+        profitText = GameObject.Find("ProfitText");
     }
 
-    public void IncreaseNumberOfSentProduct (int n) {
-        numberOfSentProducts += n;
-        sentText.GetComponent<TextMesh>().text = numberOfSentProducts.ToString();
+    public void IncreaseNumberOfLostProduct(GameObject obj)
+    {
+        numberOfLostProducts++;
+        if (obj.name == "Burger(Clone)")
+        {
+            profit -= costToMakeBurger;
+        }
+        else if (obj.name == "Drink(Clone)")
+        {
+            profit -= costToMakeFries;
+        }
+        else if (obj.name == "Fries(Clone)")
+        {
+            profit -= costToMakeDrink;
+        }
+        profit = Mathf.Round(profit * 100f) / 100f;
+        profitText.GetComponent<TextMesh>().text = "$" + profit.ToString("F2");
+    }
+
+    public void IncreaseNumberOfSentProduct(GameObject obj)
+    {
+        numberOfSentProducts++;
+        if (obj.name == "Burger(Clone)")
+        {
+            profit += costOfBurger - costToMakeBurger;
+        }
+        else if (obj.name == "Drink(Clone)")
+        {
+            profit += costOfFries - costToMakeFries;
+        }
+        else if (obj.name == "Fries(Clone)")
+        {
+            profit += costOfDrink - costToMakeDrink;
+        }
+        profit = Mathf.Round(profit * 100f) / 100f;
+        profitText.GetComponent<TextMesh>().text = "$" + profit.ToString("F2");
     }
 }

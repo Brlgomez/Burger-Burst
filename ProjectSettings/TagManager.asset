@@ -9,10 +9,9 @@ TagManager:
   - Building
   - Thrown
   - OnPlatter
-  - CurrentWaiter
-  - Waiter
   - Table
   - Start
+  - Fallen
   layers:
   - Default
   - TransparentFX

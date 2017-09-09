@@ -8,9 +8,10 @@ public class RemoveObjects : MonoBehaviour {
 
     void OnCollisionEnter (Collision col)
     {
-        if(col.gameObject.tag == "Building")
+        if(col.gameObject.tag == "Building" && gameObject.tag != "Fallen")
         {
-            Camera.main.GetComponent<Gameplay>().IncreaseNumberOfLostProduct(1);
+            gameObject.tag = "Fallen";
+            Camera.main.GetComponent<Gameplay>().IncreaseNumberOfLostProduct(gameObject);
             Destroy(gameObject, lifetime);
         }
     }

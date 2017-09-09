@@ -174,12 +174,51 @@ public class Waiter : MonoBehaviour
 
     void CheckSentOrder() 
     {
-        Camera.main.GetComponent<Gameplay>().IncreaseNumberOfLostProduct((amountOfBurgers - neededBurgers));
-        Camera.main.GetComponent<Gameplay>().IncreaseNumberOfLostProduct((amountOfFries - neededFries));
-        Camera.main.GetComponent<Gameplay>().IncreaseNumberOfLostProduct((amountOfDrinks - neededDrinks));
-        Camera.main.GetComponent<Gameplay>().IncreaseNumberOfSentProduct(neededBurgers);
-        Camera.main.GetComponent<Gameplay>().IncreaseNumberOfSentProduct(neededFries);
-        Camera.main.GetComponent<Gameplay>().IncreaseNumberOfSentProduct(neededDrinks);
+        int tempBurger = 0; 
+        int tempFries = 0; 
+        int tempDrink = 0;
+        for (int i = 0; i < onPlatter.Count; i++)
+        {
+            if (onPlatter[i] != null)
+            {
+                if (onPlatter[i].name == "Burger(Clone)")
+                {
+                    tempBurger++;
+                    if (tempBurger <= neededBurgers)
+                    {
+                        Camera.main.GetComponent<Gameplay>().IncreaseNumberOfSentProduct(onPlatter[i]);
+                    }
+                    else
+                    {
+                        Camera.main.GetComponent<Gameplay>().IncreaseNumberOfLostProduct(onPlatter[i]);
+                    }
+                }
+                else if (onPlatter[i].name == "Drink(Clone)")
+                {
+                    tempDrink++;
+                    if (tempDrink <= neededDrinks)
+                    {
+                        Camera.main.GetComponent<Gameplay>().IncreaseNumberOfSentProduct(onPlatter[i]);
+                    } 
+                    else
+                    {
+                        Camera.main.GetComponent<Gameplay>().IncreaseNumberOfLostProduct(onPlatter[i]);
+                    }
+                }
+                else if (onPlatter[i].name == "Fries(Clone)")
+                {
+                    tempFries++;
+                    if (tempFries <= neededFries)
+                    {
+                        Camera.main.GetComponent<Gameplay>().IncreaseNumberOfSentProduct(onPlatter[i]);
+                    }
+                    else
+                    {
+                        Camera.main.GetComponent<Gameplay>().IncreaseNumberOfLostProduct(onPlatter[i]);
+                    }
+                }
+            }
+        }
     }
 
     bool CheckRigidbodyVelocities()
