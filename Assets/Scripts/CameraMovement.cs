@@ -8,12 +8,12 @@ public class CameraMovement : MonoBehaviour
     GameObject menu;
     GameObject gameplay;
     GameObject towards;
-    float speed = 2f;
+    float speed = 3f;
 
     void Update()
     {
         transform.position = Vector3.Slerp(transform.position, towards.transform.position, Time.deltaTime * speed);
-        transform.rotation = Quaternion.Lerp(transform.rotation, towards.transform.rotation, Time.deltaTime * speed);
+        transform.rotation = Quaternion.Lerp(transform.rotation, towards.transform.rotation, Time.deltaTime * speed * 2);
         if (Vector3.Distance(transform.position, towards.transform.position) < 0.005f)
         {
             transform.position = towards.transform.position;
@@ -22,10 +22,11 @@ public class CameraMovement : MonoBehaviour
             {
                 gameObject.AddComponent<Gameplay>();
                 gameObject.AddComponent<GrabAndThrowObject>();
+                GameObject.Find("Waiter").AddComponent<Waiter>();
             }
             else if (towards == menu)
             {
-
+                gameObject.AddComponent<MainMenu>();
             }
             Destroy(GetComponent<CameraMovement>());
         }

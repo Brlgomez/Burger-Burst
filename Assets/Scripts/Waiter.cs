@@ -8,6 +8,7 @@ public class Waiter : MonoBehaviour
     int neededBurgers, neededFries, neededDrinks;
     int amountOfBurgers, amountOfFries, amountOfDrinks;
     bool orderReady;
+    float timeForBonus = 0;
     List<GameObject> onPlatter = new List<GameObject>();
     GameObject platter;
 
@@ -35,6 +36,7 @@ public class Waiter : MonoBehaviour
             startPositions.Add(temp[i]);
         }
         agent = GetComponent<NavMeshAgent>();
+        RestartPosition();
         StartPosition();
         SetOrder();
     }
@@ -45,6 +47,14 @@ public class Waiter : MonoBehaviour
         {
             if (agent.velocity.magnitude < 0.1f)
             {
+                if (timeForBonus > 0)
+                {
+                    timeForBonus -= Time.deltaTime;
+                }
+                else
+                {
+                    timeForBonus = 0;
+                }
                 Vector3 lookPos = Camera.main.transform.position - transform.position;
                 lookPos.y = 0;
                 Quaternion rotation = Quaternion.LookRotation(lookPos);
@@ -89,6 +99,7 @@ public class Waiter : MonoBehaviour
         neededBurgers = Random.Range(0, 3);
         neededFries = Random.Range(0, 3);
         neededDrinks = Random.Range(0, 3);
+        timeForBonus = (neededBurgers * 5) + (neededFries * 5) + (neededDrinks * 5);
         if (neededBurgers + neededDrinks + neededFries == 0)
         {
             neededBurgers = 1;
@@ -246,5 +257,13 @@ public class Waiter : MonoBehaviour
                 onPlatter[i].transform.parent = platter.transform;
             }
         }
+    }
+
+    public void RestartPosition()
+    {
+        agent.ResetPath();
+        transform.position = GameObject.Find("Waiter Position").transform.position;
+        transform.rotation = GameObject.Find("Waiter Position").transform.rotation;
+        transform.GetChild(1).gameObject.GetComponent<TextMesh>().text = "";
     }
 }

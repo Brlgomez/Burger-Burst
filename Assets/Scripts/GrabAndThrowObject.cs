@@ -109,26 +109,72 @@ public class GrabAndThrowObject : MonoBehaviour
             }
             else if (target.name == "Pause Button")
             {
+                target.GetComponent<Animator>().Play("ButtonClick");
                 if (Time.timeScale > 0)
                 {
-                    paused = true;
-                    Time.timeScale = 0;
+                    PauseGame();
                 }
                 else
                 {
-                    paused = false;
-                    Time.timeScale = 1;
+                    UnPauseGame();
                 }
             }
             else if (target.name == "Restart Button")
             {
-
+                DeleteProducts();
+                Destroy(GetComponent<Gameplay>());
+                gameObject.AddComponent<Gameplay>();
+                target.GetComponent<Animator>().Play("ButtonClick");
+                GameObject.Find("Waiter").GetComponent<Waiter>().RestartPosition();
+                Destroy(GameObject.Find("Waiter").GetComponent<Waiter>());
+                GameObject.Find("Waiter").AddComponent<Waiter>();
+                UnPauseGame();
             }
             else if (target.name == "Quit Button")
             {
-
+                DeleteProducts();
+                Destroy(GetComponent<Gameplay>());
+                target.GetComponent<Animator>().Play("ButtonClick");
+                UnPauseGame();
+                gameObject.AddComponent<CameraMovement>();
+                gameObject.GetComponent<CameraMovement>().MoveToMenu();
+                GameObject.Find("Waiter").GetComponent<Waiter>().RestartPosition();
+                Destroy(GameObject.Find("Waiter").GetComponent<Waiter>());
+                Destroy(GetComponent<GrabAndThrowObject>());
             }
         }
         return null;
+    }
+
+    void PauseGame()
+    {
+        paused = true;
+        Time.timeScale = 0;
+        invisibleWall.GetComponent<Renderer>().material.color = new Color(1, 1, 1, 0.5f);
+    }
+
+    void UnPauseGame()
+    {
+        paused = false;
+        Time.timeScale = 1;
+        invisibleWall.GetComponent<Renderer>().material.color = new Color(1, 1, 1, 0);
+    }
+
+    void DeleteProducts () {
+        GameObject[] thrown = GameObject.FindGameObjectsWithTag("Thrown");
+        GameObject[] onPlatter = GameObject.FindGameObjectsWithTag("OnPlatter");
+        GameObject[] fallen = GameObject.FindGameObjectsWithTag("Fallen");
+        foreach (GameObject obj in thrown)
+        {
+            Destroy(obj);
+        }
+        foreach (GameObject obj in onPlatter)
+        {
+            Destroy(obj);
+        }
+        foreach (GameObject obj in fallen)
+        {
+            Destroy(obj);
+        }
     }
 }

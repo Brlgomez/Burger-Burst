@@ -15,13 +15,17 @@ public class Gameplay : MonoBehaviour
     bool gameOver = false;
     GameObject profitText;
     GameObject mistakeText;
+    Color originalScreenColor;
 
     void Start()
     {
+        originalScreenColor = new Color(0.117f, 0.445f, 0.773f);
         profitText = GameObject.Find("ProfitText");
         mistakeText = GameObject.Find("MistakeText");
         profitText.GetComponent<TextMesh>().text = "$0.00";
-        mistakeText.GetComponent<TextMesh>().text = "Mistakes Allowed: " + numberOfLostProductsAllowed.ToString();
+        mistakeText.GetComponent<TextMesh>().text = "Errors Left:\n" + numberOfLostProductsAllowed.ToString();
+        mistakeText.GetComponent<Renderer>().material.color = originalScreenColor;
+        profitText.GetComponent<Renderer>().material.color = originalScreenColor;
     }
 
     public void IncreaseNumberOfLostProduct(GameObject obj)
@@ -41,11 +45,16 @@ public class Gameplay : MonoBehaviour
         }
         profit = Mathf.Round(profit * 100f) / 100f;
         profitText.GetComponent<TextMesh>().text = "$" + profit.ToString("F2");
-        mistakeText.GetComponent<TextMesh>().text = "Mistakes Allowed: " + numberOfLostProductsAllowed.ToString();
+        mistakeText.GetComponent<TextMesh>().text = "Errors Left:\n" + numberOfLostProductsAllowed.ToString();
+        mistakeText.GetComponent<Renderer>().material.color = Color.Lerp(Color.red, originalScreenColor, (float)numberOfLostProductsAllowed/10);
         if (numberOfLostProductsAllowed < 0)
         {
-            mistakeText.GetComponent<TextMesh>().text = "YOU'RE FIRED!";
+            mistakeText.GetComponent<TextMesh>().text = "YOU'RE\nFIRED!";
             gameOver = true;
+        }
+        if (profit < 0)
+        {
+            profitText.GetComponent<Renderer>().material.color = Color.red;
         }
     }
 
@@ -65,6 +74,10 @@ public class Gameplay : MonoBehaviour
         }
         profit = Mathf.Round(profit * 100f) / 100f;
         profitText.GetComponent<TextMesh>().text = "$" + profit.ToString("F2");
+        if (profit > 0)
+        {
+            profitText.GetComponent<Renderer>().material.color = originalScreenColor;
+        }
     }
 
     public bool IsGameOver()
