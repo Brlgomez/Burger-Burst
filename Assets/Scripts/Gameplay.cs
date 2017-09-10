@@ -20,6 +20,7 @@ public class Gameplay : MonoBehaviour
     {
         profitText = GameObject.Find("ProfitText");
         mistakeText = GameObject.Find("MistakeText");
+        profitText.GetComponent<TextMesh>().text = "$0.00";
         mistakeText.GetComponent<TextMesh>().text = "Mistakes Allowed: " + numberOfLostProductsAllowed.ToString();
     }
 
