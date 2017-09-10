@@ -18,17 +18,20 @@ public class GrabAndThrowObject : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (!Camera.main.GetComponent<Gameplay>().IsGameOver())
         {
-            MouseDown();
-        } 
-        if (Input.GetMouseButton(0))
-        {
-            MouseDrag();
-        }
-        if (Input.GetMouseButtonUp(0))
-        {
-            MouseUp();
+            if (Input.GetMouseButtonDown(0))
+            {
+                MouseDown();
+            } 
+            if (Input.GetMouseButton(0))
+            {
+                MouseDrag();
+            }
+            if (Input.GetMouseButtonUp(0))
+            {
+                MouseUp();
+            }
         }
     }
 
@@ -43,6 +46,7 @@ public class GrabAndThrowObject : MonoBehaviour
             target.GetComponent<Collider>().enabled = false;
             target.GetComponent<Rigidbody>().isKinematic = false;
             target.GetComponent<Rigidbody>().useGravity = false;
+            target.GetComponent<Collider>().isTrigger = false;
             invisibleWall.GetComponent<BoxCollider>().enabled = true;
         }
     }

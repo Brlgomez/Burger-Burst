@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class Gameplay : MonoBehaviour
 {
-
-    int numberOfLostProducts = 0;
-    int numberOfSentProducts = 0;
+    int numberOfLostProductsAllowed = 10;
     float costToMakeBurger = 2.48f;
     float costToMakeFries = 1.98f;
     float costToMakeDrink = 0.98f;
@@ -14,16 +12,20 @@ public class Gameplay : MonoBehaviour
     float costOfFries = 3.95f;
     float costOfDrink = 2.95f;
     float profit;
+    bool gameOver = false;
     GameObject profitText;
+    GameObject mistakeText;
 
     void Start()
     {
         profitText = GameObject.Find("ProfitText");
+        mistakeText = GameObject.Find("MistakeText");
+        mistakeText.GetComponent<TextMesh>().text = "Mistakes Allowed: " + numberOfLostProductsAllowed.ToString();
     }
 
     public void IncreaseNumberOfLostProduct(GameObject obj)
     {
-        numberOfLostProducts++;
+        numberOfLostProductsAllowed--;
         if (obj.name == "Burger(Clone)")
         {
             profit -= costToMakeBurger;
@@ -38,11 +40,16 @@ public class Gameplay : MonoBehaviour
         }
         profit = Mathf.Round(profit * 100f) / 100f;
         profitText.GetComponent<TextMesh>().text = "$" + profit.ToString("F2");
+        mistakeText.GetComponent<TextMesh>().text = "Mistakes Allowed: " + numberOfLostProductsAllowed.ToString();
+        if (numberOfLostProductsAllowed < 0)
+        {
+            mistakeText.GetComponent<TextMesh>().text = "YOU'RE FIRED!";
+            gameOver = true;
+        }
     }
 
     public void IncreaseNumberOfSentProduct(GameObject obj)
     {
-        numberOfSentProducts++;
         if (obj.name == "Burger(Clone)")
         {
             profit += costOfBurger - costToMakeBurger;
@@ -57,5 +64,9 @@ public class Gameplay : MonoBehaviour
         }
         profit = Mathf.Round(profit * 100f) / 100f;
         profitText.GetComponent<TextMesh>().text = "$" + profit.ToString("F2");
+    }
+
+    public bool IsGameOver() {
+        return gameOver;
     }
 }
