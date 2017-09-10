@@ -172,7 +172,7 @@ public class Waiter : MonoBehaviour
         }
     }
 
-    void CheckSentOrder() 
+    void CheckSentOrder()
     {
         int tempBurger = 0; 
         int tempFries = 0; 
@@ -199,7 +199,7 @@ public class Waiter : MonoBehaviour
                     if (tempDrink <= neededDrinks)
                     {
                         Camera.main.GetComponent<Gameplay>().IncreaseNumberOfSentProduct(onPlatter[i]);
-                    } 
+                    }
                     else
                     {
                         Camera.main.GetComponent<Gameplay>().IncreaseNumberOfLostProduct(onPlatter[i]);

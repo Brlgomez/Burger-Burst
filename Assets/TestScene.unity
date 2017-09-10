@@ -3831,6 +3831,83 @@ MeshCollider:
   m_InflateMesh: 0
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: d7d44d1e68eac49fa9bb05c6da52893b, type: 3}
+--- !u!1001 &1743595281
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 400000, guid: 3fb32bd98b57b4f2f9d63672e83a4729, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3fb32bd98b57b4f2f9d63672e83a4729, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3fb32bd98b57b4f2f9d63672e83a4729, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3fb32bd98b57b4f2f9d63672e83a4729, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 6.4262822e-12
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3fb32bd98b57b4f2f9d63672e83a4729, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3fb32bd98b57b4f2f9d63672e83a4729, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.0000018318508
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3fb32bd98b57b4f2f9d63672e83a4729, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.0000035952676
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3fb32bd98b57b4f2f9d63672e83a4729, type: 3}
+      propertyPath: m_RootOrder
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 3fb32bd98b57b4f2f9d63672e83a4729, type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 3fb32bd98b57b4f2f9d63672e83a4729, type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 3fb32bd98b57b4f2f9d63672e83a4729, type: 3}
+      propertyPath: m_Name
+      value: Pause Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 3fb32bd98b57b4f2f9d63672e83a4729, type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 9500000, guid: 3fb32bd98b57b4f2f9d63672e83a4729, type: 3}
+  m_ParentPrefab: {fileID: 100100000, guid: 3fb32bd98b57b4f2f9d63672e83a4729, type: 3}
+  m_IsPrefabParent: 0
+--- !u!1 &1743595282 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100000, guid: 3fb32bd98b57b4f2f9d63672e83a4729, type: 3}
+  m_PrefabInternal: {fileID: 1743595281}
+--- !u!64 &1743595283
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1743595282}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: 3fb32bd98b57b4f2f9d63672e83a4729, type: 3}
 --- !u!1 &1825612703
 GameObject:
   m_ObjectHideFlags: 0

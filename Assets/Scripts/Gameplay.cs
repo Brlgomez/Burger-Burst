@@ -67,7 +67,8 @@ public class Gameplay : MonoBehaviour
         profitText.GetComponent<TextMesh>().text = "$" + profit.ToString("F2");
     }
 
-    public bool IsGameOver() {
+    public bool IsGameOver()
+    {
         return gameOver;
     }
 }

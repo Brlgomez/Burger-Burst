@@ -2,21 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainMenu : MonoBehaviour 
+public class MainMenu : MonoBehaviour
 {
 
-	void Start () 
+    void Start()
     {
 		
-	}
-	
-	void Update () 
+    }
+
+    void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
             MouseDown();
         } 
-	}
+    }
 
     void MouseDown()
     {
@@ -27,7 +27,7 @@ public class MainMenu : MonoBehaviour
             if (Button.name == "Play Button")
             {
                 gameObject.AddComponent<CameraMovement>();
-                gameObject.GetComponent<CameraMovement>().MoveToGameplay();;
+                gameObject.GetComponent<CameraMovement>().MoveToGameplay();
                 Destroy(GetComponent<MainMenu>());
             }
         }

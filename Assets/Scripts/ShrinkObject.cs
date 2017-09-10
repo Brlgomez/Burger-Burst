@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShrinkObject : MonoBehaviour {
+public class ShrinkObject : MonoBehaviour
+{
 
     float time;
     int maxTime = 3;
-	
-	void Update () 
+
+    void Update()
     {
         time += Time.deltaTime;
         float scale = ((maxTime / maxTime) - (time / maxTime));
         gameObject.transform.localScale = new Vector3(scale, scale, scale);
-	}
+    }
 }

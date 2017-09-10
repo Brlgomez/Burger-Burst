@@ -22,7 +22,9 @@ public class CameraMovement : MonoBehaviour
             {
                 gameObject.AddComponent<Gameplay>();
                 gameObject.AddComponent<GrabAndThrowObject>();
-            } else if (towards == menu) {
+            }
+            else if (towards == menu)
+            {
 
             }
             Destroy(GetComponent<CameraMovement>());

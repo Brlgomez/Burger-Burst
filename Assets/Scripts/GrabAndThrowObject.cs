@@ -10,6 +10,7 @@ public class GrabAndThrowObject : MonoBehaviour
     List<Vector3> positions = new List<Vector3>();
     float deltaTime;
     float timeForPositions = 0.01f;
+    bool paused = false;
 
     void Start()
     {
@@ -18,20 +19,17 @@ public class GrabAndThrowObject : MonoBehaviour
 
     void Update()
     {
-        if (!Camera.main.GetComponent<Gameplay>().IsGameOver())
+        if (Input.GetMouseButtonDown(0))
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                MouseDown();
-            } 
-            if (Input.GetMouseButton(0))
-            {
-                MouseDrag();
-            }
-            if (Input.GetMouseButtonUp(0))
-            {
-                MouseUp();
-            }
+            MouseDown();
+        } 
+        if (Input.GetMouseButton(0))
+        {
+            MouseDrag();
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            MouseUp();
         }
     }
 
@@ -104,10 +102,31 @@ public class GrabAndThrowObject : MonoBehaviour
         if (Physics.Raycast(ray.origin, ray.direction * 10, out hit))
         {
             target = hit.collider.gameObject;
-            if (target.tag.Equals("Ingredient"))
+            if (target.tag.Equals("Ingredient") && !paused && !Camera.main.GetComponent<Gameplay>().IsGameOver())
             {
                 GameObject newIngredient = Instantiate(hit.collider.gameObject);
                 return newIngredient;
+            }
+            else if (target.name == "Pause Button")
+            {
+                if (Time.timeScale > 0)
+                {
+                    paused = true;
+                    Time.timeScale = 0;
+                }
+                else
+                {
+                    paused = false;
+                    Time.timeScale = 1;
+                }
+            }
+            else if (target.name == "Restart Button")
+            {
+
+            }
+            else if (target.name == "Quit Button")
+            {
+
             }
         }
         return null;
