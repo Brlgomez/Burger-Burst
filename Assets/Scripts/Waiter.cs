@@ -24,6 +24,7 @@ public class Waiter : MonoBehaviour
 
     void Start()
     {
+        transform.GetChild(1).gameObject.GetComponent<Renderer>().material.color = Color.white;
         platter = transform.GetChild(0).gameObject;
         GameObject[] temp = GameObject.FindGameObjectsWithTag("Table");
         for (int i = 0; i < temp.Length; i++)
