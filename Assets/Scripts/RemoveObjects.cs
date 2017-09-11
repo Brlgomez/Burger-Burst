@@ -5,7 +5,7 @@ using UnityEngine;
 public class RemoveObjects : MonoBehaviour
 {
 
-    float lifetime = 3;
+    float lifetime = 1;
 
     void OnCollisionEnter(Collision col)
     {

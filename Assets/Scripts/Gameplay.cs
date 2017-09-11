@@ -60,13 +60,10 @@ public class Gameplay : MonoBehaviour
         {
             profitText.GetComponent<Renderer>().material.color = Color.red;
         }
-        GameObject newAftermathText = Instantiate(aftermathText);
-        newAftermathText.GetComponent<Renderer>().material.color = Color.red;
-        newAftermathText.transform.position = new Vector3(obj.transform.position.x, obj.transform.position.y + 1, obj.transform.position.z);
-        newAftermathText.AddComponent<AftermathText>().GetComponent<AftermathText>().updateText("$-" + cost.ToString());
+        AddFloatingText(obj, Color.red, "-$" + cost.ToString());
     }
 
-    public void IncreaseNumberOfSentProduct(GameObject obj)
+    public float IncreaseNumberOfSentProduct(GameObject obj)
     {
         float cost = 0;
         if (obj.name == "Burger(Clone)")
@@ -88,10 +85,16 @@ public class Gameplay : MonoBehaviour
         {
             profitText.GetComponent<Renderer>().material.color = originalScreenColor;
         }
-        GameObject newAftermathText = Instantiate(aftermathText);
-        newAftermathText.GetComponent<Renderer>().material.color = Color.green;
-        newAftermathText.transform.position = new Vector3(obj.transform.position.x, obj.transform.position.y + Random.Range(0.0f, 1.0f), obj.transform.position.z);
-        newAftermathText.AddComponent<AftermathText>().GetComponent<AftermathText>().updateText("$" + cost.ToString());
+        AddFloatingText(obj, Color.green, "+$" + cost.ToString());
+        return cost;
+    }
+
+    public void AddTip (GameObject obj, float tipAmount)
+    {
+        profit += tipAmount;
+        profit = Mathf.Round(profit * 100f) / 100f;
+        profitText.GetComponent<TextMesh>().text = "$" + profit.ToString("F2");
+        AddFloatingText(obj, Color.green, "TIP +$" + tipAmount);
     }
 
     public bool IsGameOver()
@@ -99,9 +102,23 @@ public class Gameplay : MonoBehaviour
         return gameOver;
     }
 
-    public void AddLife(int n) {
+    public void AddLife(int n)
+    {
         numberOfLostProductsAllowed += n;
         mistakeText.GetComponent<TextMesh>().text = "Errors Left:\n" + numberOfLostProductsAllowed.ToString();
         mistakeText.GetComponent<Renderer>().material.color = Color.Lerp(Color.red, originalScreenColor, (float)numberOfLostProductsAllowed/10);
+    }
+
+    public void AddFloatingText (GameObject obj, Color c, string text)
+    {
+        GameObject newAftermathText = Instantiate(aftermathText);
+        newAftermathText.GetComponent<Renderer>().material.color = c;
+        newAftermathText.transform.position = new Vector3(obj.transform.position.x, obj.transform.position.y + Random.Range(0.0f, 1.0f), obj.transform.position.z);
+        newAftermathText.AddComponent<AftermathText>().GetComponent<AftermathText>().updateText(text);
+    }
+
+    public float GetProfit () 
+    {
+        return profit;
     }
 }

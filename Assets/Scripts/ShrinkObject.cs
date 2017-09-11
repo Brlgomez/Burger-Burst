@@ -6,7 +6,7 @@ public class ShrinkObject : MonoBehaviour
 {
 
     float time;
-    int maxTime = 3;
+    int maxTime = 1;
 
     void Update()
     {
