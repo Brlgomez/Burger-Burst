@@ -34,6 +34,15 @@ ModelImporter:
     100052: Tower
     100054: Tower_001
     100056: Tower_002
+    100058: Tower_003
+    100060: Tower_004
+    100062: Cube
+    100064: Tower_005
+    100066: Tower_006
+    100068: Tower_007
+    100070: Tower_008
+    100072: Tower_009
+    100074: Tower_010
     400000: //RootNode
     400002: Building
     400004: Cylinder
@@ -63,6 +72,15 @@ ModelImporter:
     400052: Tower
     400054: Tower_001
     400056: Tower_002
+    400058: Tower_003
+    400060: Tower_004
+    400062: Cube
+    400064: Tower_005
+    400066: Tower_006
+    400068: Tower_007
+    400070: Tower_008
+    400072: Tower_009
+    400074: Tower_010
     2300000: //RootNode
     2300002: Building
     2300004: Cylinder
@@ -92,6 +110,15 @@ ModelImporter:
     2300052: Tower
     2300054: Tower_001
     2300056: Tower_002
+    2300058: Tower_003
+    2300060: Tower_004
+    2300062: Cube
+    2300064: Tower_005
+    2300066: Tower_006
+    2300068: Tower_007
+    2300070: Tower_008
+    2300072: Tower_009
+    2300074: Tower_010
     3300000: //RootNode
     3300002: Building
     3300004: Cylinder
@@ -121,6 +148,15 @@ ModelImporter:
     3300052: Tower
     3300054: Tower_001
     3300056: Tower_002
+    3300058: Tower_003
+    3300060: Tower_004
+    3300062: Cube
+    3300064: Tower_005
+    3300066: Tower_006
+    3300068: Tower_007
+    3300070: Tower_008
+    3300072: Tower_009
+    3300074: Tower_010
     4300000: Building
     4300002: Cylinder
     4300004: Cylinder_001
@@ -149,6 +185,15 @@ ModelImporter:
     4300050: Tower
     4300052: Tower_001
     4300054: Tower_002
+    4300056: Tower_003
+    4300058: Tower_004
+    4300060: Cube
+    4300062: Tower_005
+    4300064: Tower_006
+    4300066: Tower_007
+    4300068: Tower_008
+    4300070: Tower_009
+    4300072: Tower_010
     7400000: Default Take
     9500000: //RootNode
   materials:
