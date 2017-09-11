@@ -9,6 +9,8 @@ public class Waiter : MonoBehaviour
     int amountOfBurgers, amountOfFries, amountOfDrinks;
     bool orderReady;
     float timeForBonus = 0;
+    float maxTimeOfBonus;
+    float ratioOfTime;
     List<GameObject> onPlatter = new List<GameObject>();
     GameObject platter;
 
@@ -19,12 +21,13 @@ public class Waiter : MonoBehaviour
     Transform current;
     NavMeshAgent agent;
 
+    float timeToWin = 0.25f;
     float currentTimeToWin;
-    float timeToWin = 0.5f;
 
     void Start()
     {
         transform.GetChild(1).gameObject.GetComponent<Renderer>().material.color = Color.white;
+        transform.GetChild(2).gameObject.GetComponent<Renderer>().material.color = Color.green;
         platter = transform.GetChild(0).gameObject;
         GameObject[] temp = GameObject.FindGameObjectsWithTag("Table");
         for (int i = 0; i < temp.Length; i++)
@@ -51,10 +54,12 @@ public class Waiter : MonoBehaviour
                 if (timeForBonus > 0)
                 {
                     timeForBonus -= Time.deltaTime;
+                    transform.GetChild(2).gameObject.GetComponent<TextMesh>().text = timeForBonus.ToString("F1");
                 }
                 else
                 {
                     timeForBonus = 0;
+                    transform.GetChild(2).gameObject.GetComponent<TextMesh>().text = timeForBonus.ToString("F1");
                 }
                 Vector3 lookPos = Camera.main.transform.position - transform.position;
                 lookPos.y = 0;
@@ -66,6 +71,15 @@ public class Waiter : MonoBehaviour
         {
             if (Vector3.Distance(transform.position, end.position) < 3.5f)
             {
+                ratioOfTime = timeForBonus / maxTimeOfBonus;
+                if (ratioOfTime > 0)
+                {
+                    //TODO: ADD TIP ratioOfTime * cost
+                }
+                if (ratioOfTime > 0.3f)
+                {
+                    Camera.main.GetComponent<Gameplay>().AddLife(1);
+                }
                 StartPosition();
                 SetOrder();
             }
@@ -101,6 +115,7 @@ public class Waiter : MonoBehaviour
         neededFries = Random.Range(0, 3);
         neededDrinks = Random.Range(0, 3);
         timeForBonus = (neededBurgers * 5) + (neededFries * 5) + (neededDrinks * 5);
+        maxTimeOfBonus = timeForBonus;
         if (neededBurgers + neededDrinks + neededFries == 0)
         {
             neededBurgers = 1;
@@ -113,7 +128,6 @@ public class Waiter : MonoBehaviour
         end = tablePositions[Random.Range(0, tablePositions.Count)].transform;
         current = end;
         agent.destination = current.position;
-
     }
 
     public void StartPosition()

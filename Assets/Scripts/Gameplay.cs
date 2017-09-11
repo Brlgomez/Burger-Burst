@@ -98,4 +98,10 @@ public class Gameplay : MonoBehaviour
     {
         return gameOver;
     }
+
+    public void AddLife(int n) {
+        numberOfLostProductsAllowed += n;
+        mistakeText.GetComponent<TextMesh>().text = "Errors Left:\n" + numberOfLostProductsAllowed.ToString();
+        mistakeText.GetComponent<Renderer>().material.color = Color.Lerp(Color.red, originalScreenColor, (float)numberOfLostProductsAllowed/10);
+    }
 }
