@@ -81,9 +81,9 @@ public class GrabAndThrowObject : MonoBehaviour
         {
             if (positions.Count > 1)
             {
-                float xVelocity = (positions[positions.Count - 1].x - positions[0].x) * 2;
-                float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 0.75f;
-                float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 10;
+                float xVelocity = (positions[positions.Count - 1].x - positions[0].x) * 3;
+                float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 1;
+                float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 12;
                 target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity);
             }
             target.GetComponent<Rigidbody>().useGravity = true;
@@ -107,34 +107,36 @@ public class GrabAndThrowObject : MonoBehaviour
                 GameObject newIngredient = Instantiate(hit.collider.gameObject);
                 return newIngredient;
             }
-            else if (target.name == "Pause Button")
+            else if (target.name == "Pause Button" && !paused)
             {
                 target.GetComponent<Animator>().Play("ButtonClick");
-                if (Time.timeScale > 0)
-                {
-                    PauseGame();
-                }
-                else
-                {
-                    UnPauseGame();
-                }
+                gameObject.AddComponent<CameraMovement>();
+                gameObject.GetComponent<CameraMovement>().MoveToPause();
+                PauseGame();
             }
-            else if (target.name == "Restart Button")
+            else if (target.name == "Pause Button Screen" && paused)
             {
+                gameObject.AddComponent<CameraMovement>();
+                gameObject.GetComponent<CameraMovement>().MoveToGameplay();
+                Camera.main.GetComponent<ScreenTextManagment>().SetSecondScreenText("", Color.white);
+            }
+            else if (target.name == "Restart Button" && paused)
+            {
+                Camera.main.GetComponent<ScreenTextManagment>().SetSecondScreenText("", Color.white);
                 DeleteProducts();
                 Destroy(GetComponent<Gameplay>());
                 gameObject.AddComponent<Gameplay>();
-                target.GetComponent<Animator>().Play("ButtonClick");
                 GameObject.Find("Waiter").GetComponent<Waiter>().RestartPosition();
                 Destroy(GameObject.Find("Waiter").GetComponent<Waiter>());
                 GameObject.Find("Waiter").AddComponent<Waiter>();
-                UnPauseGame();
+                gameObject.AddComponent<CameraMovement>();
+                gameObject.GetComponent<CameraMovement>().MoveToGameplay();
             }
-            else if (target.name == "Quit Button")
+            else if (target.name == "Quit Button" && paused)
             {
+                Camera.main.GetComponent<ScreenTextManagment>().SetSecondScreenText("", Color.white);
                 DeleteProducts();
                 Destroy(GetComponent<Gameplay>());
-                target.GetComponent<Animator>().Play("ButtonClick");
                 UnPauseGame();
                 gameObject.AddComponent<CameraMovement>();
                 gameObject.GetComponent<CameraMovement>().MoveToMenu();
@@ -150,14 +152,16 @@ public class GrabAndThrowObject : MonoBehaviour
     {
         paused = true;
         Time.timeScale = 0;
-        invisibleWall.GetComponent<Renderer>().material.color = new Color(1, 1, 1, 0.5f);
     }
 
-    void UnPauseGame()
+    public void UnPauseGame()
     {
         paused = false;
         Time.timeScale = 1;
-        invisibleWall.GetComponent<Renderer>().material.color = new Color(1, 1, 1, 0);
+    }
+
+    public bool GetPausedState () {
+        return paused;
     }
 
     void DeleteProducts () {

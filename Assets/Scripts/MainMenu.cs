@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
-   
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0))

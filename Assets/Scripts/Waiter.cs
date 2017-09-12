@@ -266,7 +266,7 @@ public class Waiter : MonoBehaviour
             }
         }
         ratioOfTime = timeForBonus / maxTimeOfBonus;
-        Debug.Log(ratioOfTime);
+        Camera.main.GetComponent<ScreenTextManagment>().SetSecondScreenText("", Color.white);
         if (ratioOfTime > 0)
         {
             float tipAmount = ratioOfTime * costOfMeal * 0.5f;
@@ -276,6 +276,7 @@ public class Waiter : MonoBehaviour
         if (ratioOfTime > 0.5f)
         {
             Camera.main.GetComponent<Gameplay>().AddLife(1);
+            Camera.main.GetComponent<ScreenTextManagment>().SetSecondScreenText("Excellent!", Color.white);
         }
     }
 
