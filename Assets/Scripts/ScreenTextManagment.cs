@@ -15,8 +15,6 @@ public class ScreenTextManagment : MonoBehaviour
         profitText = GameObject.Find("ProfitText");
         mistakeText = GameObject.Find("MistakeText");
         secondScreenText = GameObject.Find("Pause Text");
-        profitText.GetComponent<TextMesh>().text = "$0.00";
-        mistakeText.GetComponent<TextMesh>().text = "Errors Left:\n10";
         mistakeText.GetComponent<Renderer>().material.color = originalScreenColor;
         profitText.GetComponent<Renderer>().material.color = originalScreenColor;
     }
