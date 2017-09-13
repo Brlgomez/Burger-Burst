@@ -18,7 +18,7 @@ public class CameraMovement : MonoBehaviour
             speed += Time.unscaledDeltaTime * 10;
         }
         transform.position = Vector3.Lerp(transform.position, towards.transform.position, Time.unscaledDeltaTime * speed);
-        transform.rotation = Quaternion.Lerp(transform.rotation, towards.transform.rotation, Time.unscaledDeltaTime * speed * 2);
+        transform.rotation = Quaternion.Lerp(transform.rotation, towards.transform.rotation, Time.unscaledDeltaTime * speed);
         if (Vector3.Distance(transform.position, towards.transform.position) < 0.005f)
         {
             transform.position = towards.transform.position;
