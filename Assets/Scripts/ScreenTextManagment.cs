@@ -43,7 +43,7 @@ public class ScreenTextManagment : MonoBehaviour
         {
             mistakeText.GetComponent<TextMesh>().text = "YOU'RE\nFIRED!";
         }
-        Color newColor = Color.Lerp(Color.red, originalScreenColor, (float)initialLostProductsAllowed / n);
+        Color newColor = Color.Lerp(Color.red, originalScreenColor, ((float)n) / initialLostProductsAllowed);
         mistakeText.GetComponent<Renderer>().material.color = newColor;
     }
 

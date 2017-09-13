@@ -9,11 +9,15 @@ public class CameraMovement : MonoBehaviour
     GameObject gameplay;
     GameObject pause;
     GameObject towards;
-    float speed = 3f;
+    float speed = 0;
 
     void Update()
     {
-        transform.position = Vector3.Slerp(transform.position, towards.transform.position, Time.unscaledDeltaTime * speed);
+        if (speed < 5f)
+        {
+            speed += Time.unscaledDeltaTime * 10;
+        }
+        transform.position = Vector3.Lerp(transform.position, towards.transform.position, Time.unscaledDeltaTime * speed);
         transform.rotation = Quaternion.Lerp(transform.rotation, towards.transform.rotation, Time.unscaledDeltaTime * speed * 2);
         if (Vector3.Distance(transform.position, towards.transform.position) < 0.005f)
         {

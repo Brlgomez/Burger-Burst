@@ -11,10 +11,12 @@ public class GrabAndThrowObject : MonoBehaviour
     float deltaTime;
     float timeForPositions = 0.01f;
     bool paused = false;
+    GameObject[] ingredients;
 
     void Start()
     {
         invisibleWall = GameObject.FindGameObjectWithTag("Wall");
+        ingredients = GameObject.FindGameObjectsWithTag("Ingredient");
     }
 
     void Update()
@@ -42,10 +44,15 @@ public class GrabAndThrowObject : MonoBehaviour
         {
             Physics.IgnoreCollision(invisibleWall.GetComponent<Collider>(), target.GetComponent<Collider>());
             target.GetComponent<Collider>().enabled = false;
+            target.GetComponent<BoxCollider>().enabled = false;
             target.GetComponent<Rigidbody>().isKinematic = false;
             target.GetComponent<Rigidbody>().useGravity = false;
             target.GetComponent<Collider>().isTrigger = false;
             invisibleWall.GetComponent<BoxCollider>().enabled = true;
+            foreach(GameObject obj in ingredients) 
+            {
+                obj.GetComponent<BoxCollider>().enabled = false;
+            }
         }
     }
 
@@ -82,8 +89,8 @@ public class GrabAndThrowObject : MonoBehaviour
             if (positions.Count > 1)
             {
                 float xVelocity = (positions[positions.Count - 1].x - positions[0].x) * 3;
-                float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 1;
-                float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 12;
+                float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 3;
+                float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 15;
                 target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity);
             }
             target.GetComponent<Rigidbody>().useGravity = true;
@@ -93,6 +100,10 @@ public class GrabAndThrowObject : MonoBehaviour
         }
         invisibleWall.GetComponent<BoxCollider>().enabled = false;
         target = null;
+        foreach(GameObject obj in ingredients) 
+        {
+            obj.GetComponent<BoxCollider>().enabled = true;
+        }
     }
 
     GameObject ReturnClickedObject(out RaycastHit hit)
