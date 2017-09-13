@@ -56,7 +56,7 @@ LightmapSettings:
   m_LightmapEditorSettings:
     serializedVersion: 9
     m_Resolution: 2
-    m_BakeResolution: 40
+    m_BakeResolution: 10
     m_TextureWidth: 1024
     m_TextureHeight: 1024
     m_AO: 0
@@ -419,6 +419,10 @@ Prefab:
       propertyPath: m_ReflectionProbeUsage
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 62c974ace3c914c348f38cf8ff9e2648, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9500000, guid: 62c974ace3c914c348f38cf8ff9e2648, type: 3}
   m_ParentPrefab: {fileID: 100100000, guid: 62c974ace3c914c348f38cf8ff9e2648, type: 3}
@@ -489,6 +493,10 @@ Prefab:
     - target: {fileID: 2300000, guid: d7d44d1e68eac49fa9bb05c6da52893b, type: 3}
       propertyPath: m_ReflectionProbeUsage
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: d7d44d1e68eac49fa9bb05c6da52893b, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9500000, guid: d7d44d1e68eac49fa9bb05c6da52893b, type: 3}
@@ -893,6 +901,10 @@ Prefab:
     - target: {fileID: 2300000, guid: d7d44d1e68eac49fa9bb05c6da52893b, type: 3}
       propertyPath: m_ReflectionProbeUsage
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: d7d44d1e68eac49fa9bb05c6da52893b, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9500000, guid: d7d44d1e68eac49fa9bb05c6da52893b, type: 3}
@@ -1364,7 +1376,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: a2c6cb373c60942c4aa306a4569a5ea6, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 0
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: a2c6cb373c60942c4aa306a4569a5ea6, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: a2c6cb373c60942c4aa306a4569a5ea6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9500000, guid: a2c6cb373c60942c4aa306a4569a5ea6, type: 3}
@@ -2033,61 +2053,6 @@ MeshCollider:
   m_InflateMesh: 0
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: d7d44d1e68eac49fa9bb05c6da52893b, type: 3}
---- !u!1001 &610480565
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 400000, guid: f3395d14d88bf404fb342cad238fc075, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: f3395d14d88bf404fb342cad238fc075, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: f3395d14d88bf404fb342cad238fc075, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 57.34
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: f3395d14d88bf404fb342cad238fc075, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 6.4262822e-12
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: f3395d14d88bf404fb342cad238fc075, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: f3395d14d88bf404fb342cad238fc075, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.0000018318508
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: f3395d14d88bf404fb342cad238fc075, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.0000035952676
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: f3395d14d88bf404fb342cad238fc075, type: 3}
-      propertyPath: m_RootOrder
-      value: 17
-      objectReference: {fileID: 0}
-    - target: {fileID: 2300000, guid: f3395d14d88bf404fb342cad238fc075, type: 3}
-      propertyPath: m_LightProbeUsage
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2300000, guid: f3395d14d88bf404fb342cad238fc075, type: 3}
-      propertyPath: m_ReflectionProbeUsage
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: f3395d14d88bf404fb342cad238fc075, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 9500000, guid: f3395d14d88bf404fb342cad238fc075, type: 3}
-  m_ParentPrefab: {fileID: 100100000, guid: f3395d14d88bf404fb342cad238fc075, type: 3}
-  m_IsPrefabParent: 0
 --- !u!1 &656262992
 GameObject:
   m_ObjectHideFlags: 0
@@ -2546,7 +2511,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100050, guid: 0957a9f80c43e427aac83d0c98d173ba, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 0
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 2300050, guid: 0957a9f80c43e427aac83d0c98d173ba, type: 3}
       propertyPath: m_LightProbeUsage
@@ -2666,6 +2631,26 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 2300038, guid: 0957a9f80c43e427aac83d0c98d173ba, type: 3}
       propertyPath: m_ReflectionProbeUsage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300050, guid: 0957a9f80c43e427aac83d0c98d173ba, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300050, guid: 0957a9f80c43e427aac83d0c98d173ba, type: 3}
+      propertyPath: m_ImportantGI
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300050, guid: 0957a9f80c43e427aac83d0c98d173ba, type: 3}
+      propertyPath: m_MotionVectors
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300050, guid: 0957a9f80c43e427aac83d0c98d173ba, type: 3}
+      propertyPath: m_MinimumChartSize
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300002, guid: 0957a9f80c43e427aac83d0c98d173ba, type: 3}
+      propertyPath: m_ScaleInLightmap
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
@@ -2922,6 +2907,10 @@ Prefab:
     - target: {fileID: 2300000, guid: d7d44d1e68eac49fa9bb05c6da52893b, type: 3}
       propertyPath: m_ReflectionProbeUsage
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: d7d44d1e68eac49fa9bb05c6da52893b, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9500000, guid: d7d44d1e68eac49fa9bb05c6da52893b, type: 3}
@@ -3536,6 +3525,10 @@ Prefab:
       propertyPath: m_ReflectionProbeUsage
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 62c974ace3c914c348f38cf8ff9e2648, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9500000, guid: 62c974ace3c914c348f38cf8ff9e2648, type: 3}
   m_ParentPrefab: {fileID: 100100000, guid: 62c974ace3c914c348f38cf8ff9e2648, type: 3}
@@ -3693,6 +3686,10 @@ Prefab:
     - target: {fileID: 2300000, guid: d7d44d1e68eac49fa9bb05c6da52893b, type: 3}
       propertyPath: m_ReflectionProbeUsage
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: d7d44d1e68eac49fa9bb05c6da52893b, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9500000, guid: d7d44d1e68eac49fa9bb05c6da52893b, type: 3}
@@ -4004,6 +4001,10 @@ Prefab:
     - target: {fileID: 2300000, guid: d7d44d1e68eac49fa9bb05c6da52893b, type: 3}
       propertyPath: m_ReflectionProbeUsage
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: d7d44d1e68eac49fa9bb05c6da52893b, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9500000, guid: d7d44d1e68eac49fa9bb05c6da52893b, type: 3}
@@ -4326,6 +4327,10 @@ Prefab:
     - target: {fileID: 2300000, guid: d7d44d1e68eac49fa9bb05c6da52893b, type: 3}
       propertyPath: m_ReflectionProbeUsage
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: d7d44d1e68eac49fa9bb05c6da52893b, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9500000, guid: d7d44d1e68eac49fa9bb05c6da52893b, type: 3}
@@ -5475,6 +5480,10 @@ Prefab:
     - target: {fileID: 2300000, guid: 62c974ace3c914c348f38cf8ff9e2648, type: 3}
       propertyPath: m_ReflectionProbeUsage
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 62c974ace3c914c348f38cf8ff9e2648, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9500000, guid: 62c974ace3c914c348f38cf8ff9e2648, type: 3}
