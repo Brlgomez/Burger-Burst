@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Gameplay : MonoBehaviour
 {
-    int initialLostProductsAllowed = 10;
     int numberOfLostProductsAllowed = 10;
     float costToMakeBurger = 2.48f;
     float costToMakeFries = 1.98f;
@@ -14,11 +13,10 @@ public class Gameplay : MonoBehaviour
     float costOfDrink = 2.95f;
     float profit;
     bool gameOver = false;
-    GameObject aftermathText;
 
     void Start()
     {
-        aftermathText = GameObject.Find("Aftermath Text");
+        Camera.main.GetComponent<ScreenTextManagment>().RestartScreens();
     }
 
     public void IncreaseNumberOfLostProduct(GameObject obj)
@@ -39,14 +37,13 @@ public class Gameplay : MonoBehaviour
         }
         profit -= cost;
         profit = Mathf.Round(profit * 100f) / 100f;
-        Camera.main.GetComponent<ScreenTextManagment>().ChangeProfitText("$" + profit.ToString("F2"), profit);
-        Camera.main.GetComponent<ScreenTextManagment>().ChangeMistakeText("Errors Left:\n" + numberOfLostProductsAllowed.ToString(), numberOfLostProductsAllowed, initialLostProductsAllowed);
+        Camera.main.GetComponent<ScreenTextManagment>().ChangeProfitText(profit);
+        Camera.main.GetComponent<ScreenTextManagment>().ChangeMistakeText(numberOfLostProductsAllowed);
         if (numberOfLostProductsAllowed < 0)
         {
-            Camera.main.GetComponent<ScreenTextManagment>().ChangeMistakeText("YOU'RE\nFIRED", numberOfLostProductsAllowed, initialLostProductsAllowed);
             gameOver = true;
         }
-        AddFloatingText(obj, Color.red, "-$" + cost.ToString());
+        Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(obj, -cost);
     }
 
     public float IncreaseNumberOfSentProduct(GameObject obj)
@@ -66,8 +63,8 @@ public class Gameplay : MonoBehaviour
         }
         profit += cost;
         profit = Mathf.Round(profit * 100f) / 100f;
-        Camera.main.GetComponent<ScreenTextManagment>().ChangeProfitText("$" + profit.ToString("F2"), profit);
-        AddFloatingText(obj, Color.green, "+$" + cost.ToString());
+        Camera.main.GetComponent<ScreenTextManagment>().ChangeProfitText(profit);
+        Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(obj, cost);
         return cost;
     }
 
@@ -75,8 +72,8 @@ public class Gameplay : MonoBehaviour
     {
         profit += tipAmount;
         profit = Mathf.Round(profit * 100f) / 100f;
-        Camera.main.GetComponent<ScreenTextManagment>().ChangeProfitText("$" + profit.ToString("F2"), profit);
-        AddFloatingText(obj, Color.green, "TIP +$" + tipAmount);
+        Camera.main.GetComponent<ScreenTextManagment>().ChangeProfitText(profit);
+        Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(obj, tipAmount);
     }
 
     public bool IsGameOver()
@@ -87,15 +84,7 @@ public class Gameplay : MonoBehaviour
     public void AddLife(int n)
     {
         numberOfLostProductsAllowed += n;
-        Camera.main.GetComponent<ScreenTextManagment>().ChangeMistakeText("Errors Left:\n" + numberOfLostProductsAllowed.ToString(), numberOfLostProductsAllowed, initialLostProductsAllowed);
-    }
-
-    public void AddFloatingText (GameObject obj, Color c, string text)
-    {
-        GameObject newAftermathText = Instantiate(aftermathText);
-        newAftermathText.GetComponent<Renderer>().material.color = c;
-        newAftermathText.transform.position = new Vector3(obj.transform.position.x, obj.transform.position.y + Random.Range(0.0f, 1.0f), obj.transform.position.z);
-        newAftermathText.AddComponent<AftermathText>().GetComponent<AftermathText>().updateText(text);
+        Camera.main.GetComponent<ScreenTextManagment>().ChangeMistakeText(numberOfLostProductsAllowed);
     }
 
     public float GetProfit () 

@@ -122,8 +122,8 @@ public class GrabAndThrowObject : MonoBehaviour
             }
             else if (target.name == "Restart Button" && paused)
             {
-                Camera.main.GetComponent<ScreenTextManagment>().SetSecondScreenText("", Color.white);
                 DeleteProducts();
+                Camera.main.GetComponent<FloatingTextManagement>().DeleteAllText();
                 Destroy(GetComponent<Gameplay>());
                 gameObject.AddComponent<Gameplay>();
                 GameObject.Find("Waiter").GetComponent<Waiter>().RestartPosition();
@@ -134,8 +134,8 @@ public class GrabAndThrowObject : MonoBehaviour
             }
             else if (target.name == "Quit Button" && paused)
             {
-                Camera.main.GetComponent<ScreenTextManagment>().SetSecondScreenText("", Color.white);
                 DeleteProducts();
+                Camera.main.GetComponent<FloatingTextManagement>().DeleteAllText();
                 Destroy(GetComponent<Gameplay>());
                 UnPauseGame();
                 gameObject.AddComponent<CameraMovement>();

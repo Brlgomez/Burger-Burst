@@ -140,6 +140,7 @@ public class Waiter : MonoBehaviour
         timeForBonus = 5 + (neededBurgers * 5) + (neededFries * 5) + (neededDrinks * 5);
         maxTimeOfBonus = timeForBonus;
         transform.GetChild(1).gameObject.GetComponent<TextMesh>().text = "Burger: " + neededBurgers + "\nDrink: " + neededDrinks + "\nFries: " + neededFries;
+        transform.GetChild(2).gameObject.GetComponent<TextMesh>().text = timeForBonus.ToString("F1");
     }
 
     void EndPosition()
@@ -311,5 +312,6 @@ public class Waiter : MonoBehaviour
         transform.position = GameObject.Find("Waiter Position").transform.position;
         transform.rotation = GameObject.Find("Waiter Position").transform.rotation;
         transform.GetChild(1).gameObject.GetComponent<TextMesh>().text = "";
+        transform.GetChild(2).gameObject.GetComponent<TextMesh>().text = "";
     }
 }

@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class ScreenTextManagment : MonoBehaviour
 {
+    int initialLostProductsAllowed = 10;
     GameObject profitText;
     GameObject mistakeText;
-    Color originalScreenColor;
     GameObject secondScreenText;
+    Color originalScreenColor;
 
     void Start()
     {
@@ -19,10 +20,10 @@ public class ScreenTextManagment : MonoBehaviour
         profitText.GetComponent<Renderer>().material.color = originalScreenColor;
     }
 
-    public void ChangeProfitText(string text, float profit)
+    public void ChangeProfitText(float profit)
     {
-        profitText.GetComponent<TextMesh>().text = text;
-        if (profit > 0)
+        profitText.GetComponent<TextMesh>().text = "$" + profit.ToString("F2");
+        if (profit >= 0)
         {
             profitText.GetComponent<Renderer>().material.color = originalScreenColor;
         }
@@ -32,10 +33,17 @@ public class ScreenTextManagment : MonoBehaviour
         }
     }
 
-    public void ChangeMistakeText(string text, int n, int max)
+    public void ChangeMistakeText(int n)
     {
-        mistakeText.GetComponent<TextMesh>().text = text;
-        Color newColor = Color.Lerp(Color.red, originalScreenColor, (float)n / max);
+        if (n >= 0)
+        {
+            mistakeText.GetComponent<TextMesh>().text = "Errors Left:\n" + n.ToString();
+        }
+        else
+        {
+            mistakeText.GetComponent<TextMesh>().text = "YOU'RE\nFIRED!";
+        }
+        Color newColor = Color.Lerp(Color.red, originalScreenColor, (float)initialLostProductsAllowed / n);
         mistakeText.GetComponent<Renderer>().material.color = newColor;
     }
 
@@ -46,5 +54,11 @@ public class ScreenTextManagment : MonoBehaviour
         {
             secondScreenText.GetComponent<Renderer>().material.color = c;
         }
+    }
+
+    public void RestartScreens () {
+        ChangeProfitText(0);
+        ChangeMistakeText(initialLostProductsAllowed);
+        SetSecondScreenText("", Color.white);
     }
 }

@@ -5,6 +5,10 @@ using UnityEngine;
 public class MainMenu : MonoBehaviour
 {
 
+    void Start () {
+        Application.targetFrameRate = 60;
+    }
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -21,6 +25,7 @@ public class MainMenu : MonoBehaviour
         {
             if (Button.name == "Play Button")
             {
+                Camera.main.GetComponent<ScreenTextManagment>().RestartScreens();
                 gameObject.AddComponent<CameraMovement>();
                 gameObject.GetComponent<CameraMovement>().MoveToGameplay();
                 Destroy(GetComponent<MainMenu>());

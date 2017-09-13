@@ -12,6 +12,7 @@ TagManager:
   - Table
   - Start
   - Fallen
+  - FloatingText
   layers:
   - Default
   - TransparentFX
