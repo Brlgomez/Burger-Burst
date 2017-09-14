@@ -7,6 +7,7 @@ public class Waiter : MonoBehaviour
 {
     int neededBurgers, neededFries, neededDrinks;
     int amountOfBurgers, amountOfFries, amountOfDrinks;
+    int completedOrders;
     bool orderReady;
     float timeForBonus = 0;
     float maxTimeOfBonus;
@@ -105,12 +106,7 @@ public class Waiter : MonoBehaviour
             Destroy(onPlatter[i]);
         }
         RestartCurrentPlatter();
-        maxAmountOfProduct = Mathf.RoundToInt(Camera.main.GetComponent<Gameplay>().GetProfit());
-        maxAmountOfProduct /= 10;
-        if (maxAmountOfProduct < 2)
-        {
-            maxAmountOfProduct = 2;
-        }
+        maxAmountOfProduct = (completedOrders/3) + 2;
         amountOfProduct = Random.Range(1, maxAmountOfProduct);
         if (amountOfProduct > 10)
         {
@@ -141,6 +137,7 @@ public class Waiter : MonoBehaviour
         maxTimeOfBonus = timeForBonus;
         transform.GetChild(1).gameObject.GetComponent<TextMesh>().text = "Burger: " + neededBurgers + "\nDrink: " + neededDrinks + "\nFries: " + neededFries;
         transform.GetChild(2).gameObject.GetComponent<TextMesh>().text = timeForBonus.ToString("F1");
+        completedOrders += 1;
     }
 
     void EndPosition()
