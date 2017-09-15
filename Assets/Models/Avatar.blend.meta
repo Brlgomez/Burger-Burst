@@ -22,6 +22,18 @@ ModelImporter:
     100028: Upper_Arm_Right
     100030: Lower_Body
     100032: Upper_Body
+    100034: Left_Foot
+    100036: Left_Forearm
+    100038: Left_Hand
+    100040: Left_Leg
+    100042: Left_Thigh
+    100044: Left_Upper_Arm
+    100046: Right_Foot
+    100048: Right_Forearm
+    100050: Right_Hand
+    100052: Right_Leg
+    100054: Right_Thigh
+    100056: Right_Upper_Arm
     400000: //RootNode
     400002: Body
     400004: Foot_Left
@@ -39,6 +51,18 @@ ModelImporter:
     400028: Upper_Arm_Right
     400030: Lower_Body
     400032: Upper_Body
+    400034: Left_Foot
+    400036: Left_Forearm
+    400038: Left_Hand
+    400040: Left_Leg
+    400042: Left_Thigh
+    400044: Left_Upper_Arm
+    400046: Right_Foot
+    400048: Right_Forearm
+    400050: Right_Hand
+    400052: Right_Leg
+    400054: Right_Thigh
+    400056: Right_Upper_Arm
     2300000: Body
     2300002: Foot_Left
     2300004: Foot_Right
@@ -55,6 +79,18 @@ ModelImporter:
     2300026: Upper_Arm_Right
     2300028: Lower_Body
     2300030: Upper_Body
+    2300032: Left_Foot
+    2300034: Left_Forearm
+    2300036: Left_Hand
+    2300038: Left_Leg
+    2300040: Left_Thigh
+    2300042: Left_Upper_Arm
+    2300044: Right_Foot
+    2300046: Right_Forearm
+    2300048: Right_Hand
+    2300050: Right_Leg
+    2300052: Right_Thigh
+    2300054: Right_Upper_Arm
     3300000: Body
     3300002: Foot_Left
     3300004: Foot_Right
@@ -71,6 +107,18 @@ ModelImporter:
     3300026: Upper_Arm_Right
     3300028: Lower_Body
     3300030: Upper_Body
+    3300032: Left_Foot
+    3300034: Left_Forearm
+    3300036: Left_Hand
+    3300038: Left_Leg
+    3300040: Left_Thigh
+    3300042: Left_Upper_Arm
+    3300044: Right_Foot
+    3300046: Right_Forearm
+    3300048: Right_Hand
+    3300050: Right_Leg
+    3300052: Right_Thigh
+    3300054: Right_Upper_Arm
     4300000: Head
     4300002: Body
     4300004: Leg_Left
@@ -87,6 +135,18 @@ ModelImporter:
     4300026: Upper_Arm_Left
     4300028: Lower_Body
     4300030: Upper_Body
+    4300032: Right_Leg
+    4300034: Right_Foot
+    4300036: Left_Foot
+    4300038: Left_Leg
+    4300040: Right_Thigh
+    4300042: Left_Thigh
+    4300044: Left_Forearm
+    4300046: Left_Upper_Arm
+    4300048: Left_Hand
+    4300050: Right_Forearm
+    4300052: Right_Hand
+    4300054: Right_Upper_Arm
     7400000: Default Take
     9500000: //RootNode
   materials:
