@@ -97,6 +97,7 @@ public class GrabAndThrowObject : MonoBehaviour
             target.GetComponent<Collider>().enabled = true;
             target.tag = "Thrown";
             target.AddComponent<RemoveObjects>();
+            Destroy(target.GetComponent<BoxCollider>());
         }
         invisibleWall.GetComponent<BoxCollider>().enabled = false;
         target = null;

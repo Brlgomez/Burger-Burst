@@ -13,6 +13,7 @@ TagManager:
   - Start
   - Fallen
   - FloatingText
+  - Waiter
   layers:
   - Default
   - TransparentFX

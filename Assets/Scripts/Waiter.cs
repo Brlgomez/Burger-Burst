@@ -8,13 +8,11 @@ public class Waiter : MonoBehaviour
     int neededBurgers, neededFries, neededDrinks;
     int amountOfBurgers, amountOfFries, amountOfDrinks;
     int completedOrders;
-    bool orderReady;
     float timeForBonus = 0;
     float maxTimeOfBonus;
     float ratioOfTime;
     float costOfMeal;
     List<GameObject> onPlatter = new List<GameObject>();
-    GameObject platter;
 
     Transform start;
     Transform end;
@@ -23,14 +21,10 @@ public class Waiter : MonoBehaviour
     Transform current;
     NavMeshAgent agent;
 
-    float timeToWin = 0.25f;
-    float currentTimeToWin;
-
     void Start()
     {
-        transform.GetChild(1).gameObject.GetComponent<Renderer>().material.color = Color.white;
-        transform.GetChild(2).gameObject.GetComponent<Renderer>().material.color = Color.green;
-        platter = transform.GetChild(0).gameObject;
+        transform.GetChild(0).gameObject.GetComponent<Renderer>().material.color = Color.white;
+        transform.GetChild(1).gameObject.GetComponent<Renderer>().material.color = Color.green;
         GameObject[] temp = GameObject.FindGameObjectsWithTag("Table");
         for (int i = 0; i < temp.Length; i++)
         {
@@ -56,12 +50,12 @@ public class Waiter : MonoBehaviour
                 if (timeForBonus > 0 && !Camera.main.GetComponent<Gameplay>().IsGameOver())
                 {
                     timeForBonus -= Time.deltaTime;
-                    transform.GetChild(2).gameObject.GetComponent<TextMesh>().text = timeForBonus.ToString("F1");
+                    transform.GetChild(1).gameObject.GetComponent<TextMesh>().text = timeForBonus.ToString("F1");
                 }
                 else
                 {
                     timeForBonus = 0;
-                    transform.GetChild(2).gameObject.GetComponent<TextMesh>().text = timeForBonus.ToString("F1");
+                    transform.GetChild(1).gameObject.GetComponent<TextMesh>().text = timeForBonus.ToString("F1");
                 }
                 Vector3 lookPos = Camera.main.transform.position - transform.position;
                 lookPos.y = 0;
@@ -75,23 +69,6 @@ public class Waiter : MonoBehaviour
             {
                 StartPosition();
                 SetOrder();
-            }
-        }
-        if (orderReady)
-        {
-            if (CheckRigidbodyVelocities())
-            {
-                currentTimeToWin += Time.deltaTime;
-                if (currentTimeToWin > timeToWin)
-                {
-                    transform.GetChild(1).gameObject.GetComponent<TextMesh>().text = "Thanks!";
-                    EndPosition();
-                    StickFoodToTray();
-                }
-            }
-            else
-            {
-                currentTimeToWin = 0;
             }
         }
     }
@@ -135,8 +112,8 @@ public class Waiter : MonoBehaviour
         }
         timeForBonus = 5 + (neededBurgers * 5) + (neededFries * 5) + (neededDrinks * 5);
         maxTimeOfBonus = timeForBonus;
-        transform.GetChild(1).gameObject.GetComponent<TextMesh>().text = "Burger: " + neededBurgers + "\nDrink: " + neededDrinks + "\nFries: " + neededFries;
-        transform.GetChild(2).gameObject.GetComponent<TextMesh>().text = timeForBonus.ToString("F1");
+        transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Burger: " + neededBurgers + "\nDrink: " + neededDrinks + "\nFries: " + neededFries;
+        transform.GetChild(1).gameObject.GetComponent<TextMesh>().text = timeForBonus.ToString("F1");
         completedOrders += 1;
     }
 
@@ -156,21 +133,25 @@ public class Waiter : MonoBehaviour
 
     public void AddToPlatter(GameObject obj)
     {
-        if (obj.name == "Burger(Clone)")
+        if (obj.tag == "Thrown")
         {
-            amountOfBurgers++;
+            Destroy(obj.GetComponent<Rigidbody>());
+            if (obj.name == "Burger(Clone)")
+            {
+                amountOfBurgers++;
+            }
+            else if (obj.name == "Drink(Clone)")
+            {
+                amountOfDrinks++;
+            }
+            else if (obj.name == "Fries(Clone)")
+            {
+                amountOfFries++;
+            }
+            obj.tag = "OnPlatter";
+            onPlatter.Add(obj);
+            CheckOrder();
         }
-        else if (obj.name == "Drink(Clone)")
-        {
-            amountOfDrinks++;
-        }
-        else if (obj.name == "Fries(Clone)")
-        {
-            amountOfFries++;
-        }
-        obj.tag = "OnPlatter";
-        onPlatter.Add(obj);
-        CheckOrder();
     }
 
     public void RemoveFromPlatter(GameObject obj)
@@ -198,20 +179,22 @@ public class Waiter : MonoBehaviour
         amountOfBurgers = 0;
         amountOfDrinks = 0;
         amountOfFries = 0;
-        orderReady = false;
-        currentTimeToWin = 0;
+    }
+
+    public void RestartPosition()
+    {
+        agent.ResetPath();
+        transform.position = GameObject.Find("Waiter Position").transform.position;
+        transform.rotation = GameObject.Find("Waiter Position").transform.rotation;
+        transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "";
+        transform.GetChild(1).gameObject.GetComponent<TextMesh>().text = "";
     }
 
     void CheckOrder()
     {
         if (amountOfBurgers >= neededBurgers && amountOfFries >= neededFries && amountOfDrinks >= neededDrinks)
         {
-            orderReady = true;
-        }
-        else
-        {
-            orderReady = false;
-            currentTimeToWin = 0;
+            EndPosition();
         }
     }
 
@@ -274,41 +257,5 @@ public class Waiter : MonoBehaviour
         {
             Camera.main.GetComponent<Gameplay>().AddLife(1);
         }
-    }
-
-    bool CheckRigidbodyVelocities()
-    {
-        for (int i = 0; i < onPlatter.Count; i++)
-        {
-            if (onPlatter[i] != null)
-            {
-                if (onPlatter[i].GetComponent<Rigidbody>().velocity.magnitude > 0.05f || !onPlatter[i].GetComponent<Rigidbody>().IsSleeping())
-                {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    void StickFoodToTray()
-    {
-        for (int i = 0; i < onPlatter.Count; i++)
-        {
-            if (onPlatter[i] != null)
-            {
-                onPlatter[i].GetComponent<Rigidbody>().isKinematic = true;
-                onPlatter[i].transform.parent = platter.transform;
-            }
-        }
-    }
-
-    public void RestartPosition()
-    {
-        agent.ResetPath();
-        transform.position = GameObject.Find("Waiter Position").transform.position;
-        transform.rotation = GameObject.Find("Waiter Position").transform.rotation;
-        transform.GetChild(1).gameObject.GetComponent<TextMesh>().text = "";
-        transform.GetChild(2).gameObject.GetComponent<TextMesh>().text = "";
     }
 }
