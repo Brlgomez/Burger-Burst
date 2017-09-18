@@ -43,6 +43,12 @@ public class Waiter : MonoBehaviour
 
     void Update()
     {
+        /*
+        GameObject.Find("Right_Foot").transform.position = Vector3.MoveTowards(
+            GameObject.Find("Right_Foot").transform.position, 
+            GameObject.Find("FOLLOW").transform.position, 
+            Time.deltaTime);
+*/
         if (current == start)
         {
             if (agent.velocity.magnitude < 0.1f)
