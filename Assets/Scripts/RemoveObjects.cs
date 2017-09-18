@@ -16,7 +16,7 @@ public class RemoveObjects : MonoBehaviour
             Camera.main.GetComponent<Gameplay>().IncreaseNumberOfLostProduct(gameObject);
             Destroy(gameObject, lifetime);
             Destroy(GetComponent<RemoveObjects>());
-        } 
+        }
         else if (col.gameObject.tag == "Waiter")
         {
             Vector3 closestPointOnItem = gameObject.GetComponent<MeshCollider>().ClosestPoint(col.gameObject.transform.position);
