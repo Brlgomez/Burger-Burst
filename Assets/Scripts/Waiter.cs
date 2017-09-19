@@ -21,10 +21,20 @@ public class Waiter : MonoBehaviour
     Transform current;
     NavMeshAgent agent;
 
+    GameObject head, rightFoot, leftFoot;
+    GameObject followRight, followLeft;
+    bool left = false;
+    bool leftComplete, rightComplete;
+
     void Start()
     {
-        transform.GetChild(0).gameObject.GetComponent<Renderer>().material.color = Color.white;
-        transform.GetChild(1).gameObject.GetComponent<Renderer>().material.color = Color.green;
+        head = GameObject.Find("Head");
+        rightFoot = GameObject.Find("Right_Foot");
+        leftFoot = GameObject.Find("Left_Foot");
+        followLeft = GameObject.Find("Follow Left Foot");
+        followRight = GameObject.Find("Follow Right Foot");
+        head.transform.GetChild(0).gameObject.GetComponent<Renderer>().material.color = Color.white;
+        head.transform.GetChild(1).gameObject.GetComponent<Renderer>().material.color = Color.green;
         GameObject[] temp = GameObject.FindGameObjectsWithTag("Table");
         for (int i = 0; i < temp.Length; i++)
         {
@@ -36,19 +46,15 @@ public class Waiter : MonoBehaviour
             startPositions.Add(temp[i]);
         }
         agent = GetComponent<NavMeshAgent>();
-        RestartPosition();
-        StartPosition();
+        //RestartPosition();
+        //StartPosition();
         SetOrder();
     }
 
     void Update()
     {
+        MoveToCashier();
         /*
-        GameObject.Find("Right_Foot").transform.position = Vector3.MoveTowards(
-            GameObject.Find("Right_Foot").transform.position, 
-            GameObject.Find("FOLLOW").transform.position, 
-            Time.deltaTime);
-*/
         if (current == start)
         {
             if (agent.velocity.magnitude < 0.1f)
@@ -56,12 +62,12 @@ public class Waiter : MonoBehaviour
                 if (timeForBonus > 0 && !Camera.main.GetComponent<Gameplay>().IsGameOver())
                 {
                     timeForBonus -= Time.deltaTime;
-                    transform.GetChild(1).gameObject.GetComponent<TextMesh>().text = timeForBonus.ToString("F1");
+                    head.transform.GetChild(1).gameObject.GetComponent<TextMesh>().text = timeForBonus.ToString("F1");
                 }
                 else
                 {
                     timeForBonus = 0;
-                    transform.GetChild(1).gameObject.GetComponent<TextMesh>().text = timeForBonus.ToString("F1");
+                    head.transform.GetChild(1).gameObject.GetComponent<TextMesh>().text = timeForBonus.ToString("F1");
                 }
                 Vector3 lookPos = Camera.main.transform.position - transform.position;
                 lookPos.y = 0;
@@ -75,6 +81,63 @@ public class Waiter : MonoBehaviour
             {
                 StartPosition();
                 SetOrder();
+            }
+        }
+        */
+    }
+
+    void MoveToCashier () 
+    {
+        if (!left && !rightComplete)
+        {
+            rightFoot.transform.position = Vector3.MoveTowards(
+                rightFoot.transform.position, 
+                followRight.transform.position, 
+                Time.deltaTime * 2
+            );
+            if (Vector3.Distance(rightFoot.transform.position, followRight.transform.position) < 0.1f)
+            {
+                int num = 0;
+                if (Mathf.Abs(followLeft.transform.position.z - -2) < 1.25f)
+                {
+                    num = -1;
+                }
+                else
+                {
+                    num = -2;
+                }
+                followLeft.transform.position = new Vector3(followLeft.transform.position.x, followLeft.transform.position.y, followLeft.transform.position.z + num);       
+                left = true;
+                if (followRight.transform.position.z == -2)
+                {
+                    rightComplete = true;
+                }
+            }
+        }
+        else if (left && !leftComplete)
+        {
+            leftFoot.transform.position = Vector3.MoveTowards(
+                leftFoot.transform.position, 
+                followLeft.transform.position, 
+                Time.deltaTime * 2
+            );
+            if (Vector3.Distance(leftFoot.transform.position, followLeft.transform.position) < 0.1f)
+            {
+                int num = 0;
+                if (Mathf.Abs(followRight.transform.position.z - -2) < 1.25f)
+                {
+                    num = -1;
+                }
+                else
+                {
+                    num = -2;
+                }
+                followRight.transform.position = new Vector3(followRight.transform.position.x, followRight.transform.position.y, followRight.transform.position.z + num);
+                left = false;
+                if (followLeft.transform.position.z == -2)
+                {
+                    leftComplete = true;
+                }
             }
         }
     }
@@ -118,8 +181,8 @@ public class Waiter : MonoBehaviour
         }
         timeForBonus = 5 + (neededBurgers * 5) + (neededFries * 5) + (neededDrinks * 5);
         maxTimeOfBonus = timeForBonus;
-        transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Burger: " + neededBurgers + "\nDrink: " + neededDrinks + "\nFries: " + neededFries;
-        transform.GetChild(1).gameObject.GetComponent<TextMesh>().text = timeForBonus.ToString("F1");
+        head.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Burger: " + neededBurgers + "\nDrink: " + neededDrinks + "\nFries: " + neededFries;
+        head.transform.GetChild(1).gameObject.GetComponent<TextMesh>().text = timeForBonus.ToString("F1");
         completedOrders += 1;
     }
 
@@ -192,8 +255,8 @@ public class Waiter : MonoBehaviour
         agent.ResetPath();
         transform.position = GameObject.Find("Waiter Position").transform.position;
         transform.rotation = GameObject.Find("Waiter Position").transform.rotation;
-        transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "";
-        transform.GetChild(1).gameObject.GetComponent<TextMesh>().text = "";
+        head.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "";
+        head.transform.GetChild(1).gameObject.GetComponent<TextMesh>().text = "";
     }
 
     void CheckOrder()
