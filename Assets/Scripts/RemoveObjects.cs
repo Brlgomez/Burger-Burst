@@ -21,11 +21,9 @@ public class RemoveObjects : MonoBehaviour
         {
             Vector3 closestPointOnItem = gameObject.GetComponent<MeshCollider>().ClosestPoint(col.gameObject.transform.position);
             Vector3 closestPointOnWaiter = col.gameObject.GetComponent<Collider>().ClosestPoint(closestPointOnItem);
-            //Debug.Log("POINT: " + closestPointOnWaiter);
-            //Debug.Log("DISTANCE: " + Vector3.Distance(closestPointOnItem, closestPointOnWaiter));
-            if (Vector3.Distance(closestPointOnItem, closestPointOnWaiter) < 0.1f)
+            if (Vector3.Distance(closestPointOnItem, closestPointOnWaiter) < 0.15f)
             {
-                GameObject.Find("Waiter").GetComponent<Waiter>().AddToPlatter(gameObject);
+                col.transform.root.gameObject.GetComponent<Waiter>().AddToPlatter(gameObject);
                 transform.parent = col.gameObject.transform;
                 Destroy(GetComponent<RemoveObjects>());
             }

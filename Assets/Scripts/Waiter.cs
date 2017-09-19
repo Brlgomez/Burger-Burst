@@ -7,138 +7,128 @@ public class Waiter : MonoBehaviour
 {
     int neededBurgers, neededFries, neededDrinks;
     int amountOfBurgers, amountOfFries, amountOfDrinks;
-    int completedOrders;
     float timeForBonus = 0;
     float maxTimeOfBonus;
     float ratioOfTime;
     float costOfMeal;
+    bool orderComplete;
     List<GameObject> onPlatter = new List<GameObject>();
 
-    Transform start;
-    Transform end;
-    List<GameObject> tablePositions = new List<GameObject>();
-    List<GameObject> startPositions = new List<GameObject>();
-    Transform current;
-    NavMeshAgent agent;
-
-    GameObject head, rightFoot, leftFoot;
+    GameObject head, rightFoot, leftFoot, text;
     GameObject followRight, followLeft;
     bool left = false;
     bool leftComplete, rightComplete;
+    bool firstMove = true;
+    bool moving = false;
 
     void Start()
     {
-        head = GameObject.Find("Head");
-        rightFoot = GameObject.Find("Right_Foot");
-        leftFoot = GameObject.Find("Left_Foot");
-        followLeft = GameObject.Find("Follow Left Foot");
-        followRight = GameObject.Find("Follow Right Foot");
-        head.transform.GetChild(0).gameObject.GetComponent<Renderer>().material.color = Color.white;
-        head.transform.GetChild(1).gameObject.GetComponent<Renderer>().material.color = Color.green;
-        GameObject[] temp = GameObject.FindGameObjectsWithTag("Table");
-        for (int i = 0; i < temp.Length; i++)
+        text = transform.GetChild(0).gameObject;
+        followRight = transform.GetChild(1).gameObject;
+        followLeft = transform.GetChild(2).gameObject;
+        for (int i = 3; i < transform.childCount; i++)
         {
-            tablePositions.Add(temp[i]);
+            if (transform.GetChild(i).name == "Right_Foot")
+            {
+                rightFoot = transform.GetChild(i).gameObject;
+            }
+            else if (transform.GetChild(i).name == "Left_Foot")
+            {
+                leftFoot = transform.GetChild(i).gameObject;
+            }
+            else if (transform.GetChild(i).name == "Head")
+            {
+                head = transform.GetChild(i).gameObject;
+            }
         }
-        temp = GameObject.FindGameObjectsWithTag("Start");
-        for (int i = 0; i < temp.Length; i++)
-        {
-            startPositions.Add(temp[i]);
-        }
-        agent = GetComponent<NavMeshAgent>();
+        text.transform.GetChild(0).gameObject.GetComponent<Renderer>().material.color = Color.white;
+        text.transform.GetChild(1).gameObject.GetComponent<Renderer>().material.color = Color.green;
         //RestartPosition();
         //StartPosition();
+        WakeUp();
         SetOrder();
     }
 
     void Update()
     {
-        MoveToCashier();
-        /*
-        if (current == start)
+        if (moving)
         {
-            if (agent.velocity.magnitude < 0.1f)
-            {
-                if (timeForBonus > 0 && !Camera.main.GetComponent<Gameplay>().IsGameOver())
-                {
-                    timeForBonus -= Time.deltaTime;
-                    head.transform.GetChild(1).gameObject.GetComponent<TextMesh>().text = timeForBonus.ToString("F1");
-                }
-                else
-                {
-                    timeForBonus = 0;
-                    head.transform.GetChild(1).gameObject.GetComponent<TextMesh>().text = timeForBonus.ToString("F1");
-                }
-                Vector3 lookPos = Camera.main.transform.position - transform.position;
-                lookPos.y = 0;
-                Quaternion rotation = Quaternion.LookRotation(lookPos);
-                transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * 5);
-            }
+            text.transform.position = new Vector3(head.transform.position.x, text.transform.position.y, head.transform.position.z);
+            MoveLeft();
         }
-        else if (current == end)
-        {
-            if (Vector3.Distance(transform.position, end.position) < 3.5f)
-            {
-                StartPosition();
-                SetOrder();
-            }
-        }
-        */
     }
 
-    void MoveToCashier () 
+    void MoveLeft()
     {
-        if (!left && !rightComplete)
+        int xDirection = -1;
+        if (!left && !leftComplete)
         {
             rightFoot.transform.position = Vector3.MoveTowards(
                 rightFoot.transform.position, 
                 followRight.transform.position, 
-                Time.deltaTime * 2
+                Time.deltaTime * 5
             );
-            if (Vector3.Distance(rightFoot.transform.position, followRight.transform.position) < 0.1f)
+            if (Vector3.Distance(rightFoot.transform.position, followRight.transform.position) < 0.5f)
             {
-                int num = 0;
-                if (Mathf.Abs(followLeft.transform.position.z - -2) < 1.25f)
+                int stepLength = 0;
+                if (firstMove)
                 {
-                    num = -1;
+                    stepLength = 1 * xDirection;
+                    firstMove = false;
                 }
                 else
                 {
-                    num = -2;
+                    stepLength = 2 * xDirection;
                 }
-                followLeft.transform.position = new Vector3(followLeft.transform.position.x, followLeft.transform.position.y, followLeft.transform.position.z + num);       
-                left = true;
-                if (followRight.transform.position.z == -2)
+                Vector3 nextPosition = new Vector3(followLeft.transform.position.x + stepLength, followLeft.transform.position.y, followLeft.transform.position.z);
+                if (followLeft.transform.position.x + stepLength < -9)
                 {
-                    rightComplete = true;
+                    leftComplete = true;
                 }
+                followLeft.transform.position = nextPosition;
+                left = true;
             }
         }
-        else if (left && !leftComplete)
+        else if (left && !rightComplete)
         {
             leftFoot.transform.position = Vector3.MoveTowards(
                 leftFoot.transform.position, 
                 followLeft.transform.position, 
-                Time.deltaTime * 2
+                Time.deltaTime * 5
             );
-            if (Vector3.Distance(leftFoot.transform.position, followLeft.transform.position) < 0.1f)
+            if (Vector3.Distance(leftFoot.transform.position, followLeft.transform.position) < 0.5f)
             {
-                int num = 0;
-                if (Mathf.Abs(followRight.transform.position.z - -2) < 1.25f)
+                int stepLength = 0;
+                if (firstMove)
                 {
-                    num = -1;
+                    stepLength = 1 * xDirection;
+                    firstMove = false;
                 }
                 else
                 {
-                    num = -2;
+                    stepLength = 2 * xDirection;
                 }
-                followRight.transform.position = new Vector3(followRight.transform.position.x, followRight.transform.position.y, followRight.transform.position.z + num);
-                left = false;
-                if (followLeft.transform.position.z == -2)
+                Vector3 nextPosition = new Vector3(followRight.transform.position.x + stepLength, followRight.transform.position.y, followRight.transform.position.z);
+                if (followRight.transform.position.x + stepLength < -9)
                 {
-                    leftComplete = true;
+                    rightComplete = true;
                 }
+                followRight.transform.position = nextPosition;
+                left = false;
             }
+        }
+        else if (rightComplete && leftComplete && !orderComplete)
+        {
+            //TODO: ADD PUNISHMENT
+            GameObject newWaiter = Instantiate(GameObject.Find("Waiter"));
+            newWaiter.AddComponent<Waiter>();
+            Destroy(gameObject);
+        }
+        else if (rightComplete && leftComplete && orderComplete)
+        {
+            GameObject newWaiter = Instantiate(GameObject.Find("Waiter"));
+            newWaiter.AddComponent<Waiter>();
+            Destroy(gameObject);
         }
     }
 
@@ -146,14 +136,13 @@ public class Waiter : MonoBehaviour
     {
         int maxAmountOfProduct;
         int amountOfProduct;
-        CheckSentOrder();
+        orderComplete = false;
         for (int i = 0; i < onPlatter.Count; i++)
         {
             Destroy(onPlatter[i]);
         }
         RestartCurrentPlatter();
-        maxAmountOfProduct = (completedOrders/3) + 2;
-        amountOfProduct = Random.Range(1, maxAmountOfProduct);
+        amountOfProduct = Random.Range(1, 2);
         if (amountOfProduct > 10)
         {
             amountOfProduct = 10;
@@ -181,28 +170,13 @@ public class Waiter : MonoBehaviour
         }
         timeForBonus = 5 + (neededBurgers * 5) + (neededFries * 5) + (neededDrinks * 5);
         maxTimeOfBonus = timeForBonus;
-        head.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Burger: " + neededBurgers + "\nDrink: " + neededDrinks + "\nFries: " + neededFries;
-        head.transform.GetChild(1).gameObject.GetComponent<TextMesh>().text = timeForBonus.ToString("F1");
-        completedOrders += 1;
-    }
-
-    void EndPosition()
-    {
-        end = tablePositions[Random.Range(0, tablePositions.Count)].transform;
-        current = end;
-        agent.destination = current.position;
-    }
-
-    public void StartPosition()
-    {
-        start = startPositions[Random.Range(0, startPositions.Count)].transform;
-        current = start;
-        agent.destination = current.position;
+        text.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Burger: " + neededBurgers + "\nDrink: " + neededDrinks + "\nFries: " + neededFries;
+        text.transform.GetChild(1).gameObject.GetComponent<TextMesh>().text = timeForBonus.ToString("F1");
     }
 
     public void AddToPlatter(GameObject obj)
     {
-        if (obj.tag == "Thrown")
+        if (obj.tag == "Thrown" && !orderComplete)
         {
             Destroy(obj.GetComponent<Rigidbody>());
             if (obj.name == "Burger(Clone)")
@@ -220,6 +194,11 @@ public class Waiter : MonoBehaviour
             obj.tag = "OnPlatter";
             onPlatter.Add(obj);
             CheckOrder();
+        }
+        else if (orderComplete)
+        {
+            Destroy(obj.GetComponent<Rigidbody>());
+            Camera.main.GetComponent<Gameplay>().IncreaseNumberOfLostProduct(obj);
         }
     }
 
@@ -252,19 +231,18 @@ public class Waiter : MonoBehaviour
 
     public void RestartPosition()
     {
-        agent.ResetPath();
-        transform.position = GameObject.Find("Waiter Position").transform.position;
-        transform.rotation = GameObject.Find("Waiter Position").transform.rotation;
-        head.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "";
-        head.transform.GetChild(1).gameObject.GetComponent<TextMesh>().text = "";
+        text.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "";
+        text.transform.GetChild(1).gameObject.GetComponent<TextMesh>().text = "";
     }
 
     void CheckOrder()
     {
         if (amountOfBurgers >= neededBurgers && amountOfFries >= neededFries && amountOfDrinks >= neededDrinks)
         {
-            EndPosition();
-        }
+            text.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Thanks";
+            orderComplete = true;
+            CheckSentOrder();
+        } 
     }
 
     void CheckSentOrder()
@@ -325,6 +303,50 @@ public class Waiter : MonoBehaviour
         if (ratioOfTime > 0.5f)
         {
             Camera.main.GetComponent<Gameplay>().AddLife(1);
+        }
+    }
+
+
+    void Reset()
+    {
+
+    }
+
+    void WakeUp()
+    {
+        moving = true;
+        for (int i = 3; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).GetComponent<Rigidbody>() != null)
+            {
+                transform.GetChild(i).GetComponent<Rigidbody>().useGravity = true;
+                transform.GetChild(i).GetComponent<Rigidbody>().isKinematic = false;
+            }
+            if (transform.GetChild(i).GetComponent<ConstantForce>() != null)
+            {
+                transform.GetChild(i).GetComponent<ConstantForce>().enabled = true;
+            }
+            if (transform.GetChild(i).GetComponent<Collider>() != null)
+            {
+                transform.GetChild(i).GetComponent<Collider>().enabled = true;
+            }
+        }
+    }
+
+    void Sleep()
+    {
+        moving = false;
+        for (int i = 3; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).GetComponent<Rigidbody>() != null)
+            {
+                transform.GetChild(i).GetComponent<Rigidbody>().useGravity = false;
+                transform.GetChild(i).GetComponent<Rigidbody>().isKinematic = true;
+            }
+            if (transform.GetChild(i).GetComponent<ConstantForce>() != null)
+            {
+                transform.GetChild(i).GetComponent<ConstantForce>().enabled = false;
+            }
         }
     }
 }

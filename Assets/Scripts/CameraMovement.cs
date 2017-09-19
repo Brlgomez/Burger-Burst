@@ -33,7 +33,8 @@ public class CameraMovement : MonoBehaviour
                 {
                     gameObject.AddComponent<Gameplay>();
                     gameObject.AddComponent<GrabAndThrowObject>();
-                    GameObject.Find("Waiter").AddComponent<Waiter>();
+                    GameObject newWaiter = Instantiate(GameObject.Find("Waiter"));
+                    newWaiter.AddComponent<Waiter>();
                 }
             }
             else if (towards == menu)
