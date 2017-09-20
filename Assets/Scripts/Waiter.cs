@@ -21,6 +21,8 @@ public class Waiter : MonoBehaviour
     bool firstMove = true;
     bool moving = false;
 
+    float speed = 3;
+
     void Start()
     {
         text = transform.GetChild(0).gameObject;
@@ -51,7 +53,18 @@ public class Waiter : MonoBehaviour
     {
         if (moving)
         {
-            //TODO: DECREASE TIMER
+            if (!orderComplete && timeForBonus > 0)
+            {
+                if (timeForBonus > 0)
+                {
+                    timeForBonus -= Time.deltaTime;
+                }
+                else
+                {
+                    timeForBonus = 0;
+                }
+                text.transform.GetChild(1).GetComponent<TextMesh>().text = timeForBonus.ToString("F1");
+            }
             text.transform.position = new Vector3(head.transform.position.x, text.transform.position.y, head.transform.position.z);
             MoveLeft();
         }
@@ -65,7 +78,7 @@ public class Waiter : MonoBehaviour
             rightFoot.transform.position = Vector3.MoveTowards(
                 rightFoot.transform.position, 
                 followRight.transform.position, 
-                Time.deltaTime * 4
+                Time.deltaTime * speed
             );
             if (Vector3.Distance(rightFoot.transform.position, followRight.transform.position) < 0.5f)
             {
@@ -93,7 +106,7 @@ public class Waiter : MonoBehaviour
             leftFoot.transform.position = Vector3.MoveTowards(
                 leftFoot.transform.position, 
                 followLeft.transform.position, 
-                Time.deltaTime * 4
+                Time.deltaTime * speed
             );
             if (Vector3.Distance(leftFoot.transform.position, followLeft.transform.position) < 0.5f)
             {
@@ -119,13 +132,11 @@ public class Waiter : MonoBehaviour
         else if (rightComplete && leftComplete && !orderComplete)
         {
             //TODO: ADD PUNISHMENT FOR NOT A COMPLETE ORDER
-            Camera.main.GetComponent<WaiterManager>().AddNewWaiter();
-            Destroy(gameObject);
+            Camera.main.GetComponent<WaiterManager>().RemoveWaiter(gameObject);
         }
         else if (rightComplete && leftComplete && orderComplete)
         {
-            Camera.main.GetComponent<WaiterManager>().AddNewWaiter();
-            Destroy(gameObject);
+            Camera.main.GetComponent<WaiterManager>().RemoveWaiter(gameObject);
         }
     }
 
@@ -135,6 +146,7 @@ public class Waiter : MonoBehaviour
         int maxAmountOfProduct = 2;
         int amountOfProduct;
         orderComplete = false;
+        costOfMeal = 0;
         for (int i = 0; i < onPlatter.Count; i++)
         {
             Destroy(onPlatter[i]);
@@ -179,14 +191,38 @@ public class Waiter : MonoBehaviour
             if (obj.name == "Burger(Clone)")
             {
                 amountOfBurgers++;
+                if (amountOfBurgers > neededBurgers)
+                {
+                    Camera.main.GetComponent<Gameplay>().IncreaseNumberOfLostProduct(obj);
+                }
+                else
+                {
+                    costOfMeal += Camera.main.GetComponent<Gameplay>().IncreaseNumberOfSentProduct(obj);
+                }
             }
             else if (obj.name == "Drink(Clone)")
             {
                 amountOfDrinks++;
+                if (amountOfDrinks > neededDrinks)
+                {
+                    Camera.main.GetComponent<Gameplay>().IncreaseNumberOfLostProduct(obj);
+                }
+                else
+                {
+                    costOfMeal += Camera.main.GetComponent<Gameplay>().IncreaseNumberOfSentProduct(obj);
+                }
             }
             else if (obj.name == "Fries(Clone)")
             {
                 amountOfFries++;
+                if (amountOfFries > neededFries)
+                {
+                    Camera.main.GetComponent<Gameplay>().IncreaseNumberOfLostProduct(obj);
+                }
+                else
+                {
+                    costOfMeal += Camera.main.GetComponent<Gameplay>().IncreaseNumberOfSentProduct(obj);
+                }
             }
             obj.tag = "OnPlatter";
             onPlatter.Add(obj);
@@ -205,64 +241,19 @@ public class Waiter : MonoBehaviour
         {
             text.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Thanks";
             orderComplete = true;
-            CheckSentOrder();
+            CheckTip();
         } 
     }
 
-    void CheckSentOrder()
+
+    void CheckTip()
     {
-        int tempBurger = 0; 
-        int tempFries = 0; 
-        int tempDrink = 0;
-        costOfMeal = 0;
-        for (int i = 0; i < onPlatter.Count; i++)
-        {
-            if (onPlatter[i] != null)
-            {
-                if (onPlatter[i].name == "Burger(Clone)")
-                {
-                    tempBurger++;
-                    if (tempBurger <= neededBurgers)
-                    {
-                        costOfMeal += Camera.main.GetComponent<Gameplay>().IncreaseNumberOfSentProduct(onPlatter[i]);
-                    }
-                    else
-                    {
-                        Camera.main.GetComponent<Gameplay>().IncreaseNumberOfLostProduct(onPlatter[i]);
-                    }
-                }
-                else if (onPlatter[i].name == "Drink(Clone)")
-                {
-                    tempDrink++;
-                    if (tempDrink <= neededDrinks)
-                    {
-                        costOfMeal += Camera.main.GetComponent<Gameplay>().IncreaseNumberOfSentProduct(onPlatter[i]);
-                    }
-                    else
-                    {
-                        Camera.main.GetComponent<Gameplay>().IncreaseNumberOfLostProduct(onPlatter[i]);
-                    }
-                }
-                else if (onPlatter[i].name == "Fries(Clone)")
-                {
-                    tempFries++;
-                    if (tempFries <= neededFries)
-                    {
-                        costOfMeal += Camera.main.GetComponent<Gameplay>().IncreaseNumberOfSentProduct(onPlatter[i]);
-                    }
-                    else
-                    {
-                        Camera.main.GetComponent<Gameplay>().IncreaseNumberOfLostProduct(onPlatter[i]);
-                    }
-                }
-            }
-        }
         ratioOfTime = timeForBonus / maxTimeOfBonus;
         if (ratioOfTime > 0)
         {
             float tipAmount = ratioOfTime * costOfMeal * 0.5f;
             tipAmount = Mathf.Round(tipAmount * 100f) / 100f;
-            Camera.main.GetComponent<Gameplay>().AddTip(gameObject, tipAmount);
+            Camera.main.GetComponent<Gameplay>().AddTip(head, tipAmount);
         }
         if (ratioOfTime > 0.5f)
         {

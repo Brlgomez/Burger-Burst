@@ -12,6 +12,9 @@ public class GrabAndThrowObject : MonoBehaviour
     float timeForPositions = 0.01f;
     bool paused = false;
     GameObject[] ingredients;
+    int timeForNewPerson = 6;
+    float newPersonTime = 0;
+    int maxAmountOfPeople = 3;
 
     void Start()
     {
@@ -21,6 +24,7 @@ public class GrabAndThrowObject : MonoBehaviour
 
     void Update()
     {
+        AddMorePeople();
         if (Input.GetMouseButtonDown(0))
         {
             MouseDown();
@@ -32,6 +36,21 @@ public class GrabAndThrowObject : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             MouseUp();
+        }
+    }
+
+    void AddMorePeople () 
+    {
+        if (!paused && !Camera.main.GetComponent<Gameplay>().IsGameOver()) {
+            newPersonTime += Time.deltaTime;
+            if (newPersonTime > timeForNewPerson)
+            {
+                if (Camera.main.GetComponent<WaiterManager>().GetCount() < maxAmountOfPeople)
+                {
+                    Camera.main.GetComponent<WaiterManager>().AddNewWaiter();
+                    newPersonTime = 0;
+                }
+            }
         }
     }
 
