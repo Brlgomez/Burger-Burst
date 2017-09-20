@@ -36,9 +36,7 @@ public class CameraMovement : MonoBehaviour
                     {
                         gameObject.AddComponent<Gameplay>();
                         gameObject.AddComponent<GrabAndThrowObject>();
-                        GameObject newWaiter = Instantiate(GameObject.Find("Waiter"));
-                        newWaiter.AddComponent<Waiter>();
-                        newWaiter.tag = "Clone";
+                        Camera.main.GetComponent<WaiterManager>().AddNewWaiter();
                     }
                 }
                 else if (towards == menu)

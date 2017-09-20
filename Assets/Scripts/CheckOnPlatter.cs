@@ -15,12 +15,4 @@ public class CheckOnPlatter : MonoBehaviour
             transform.parent.GetComponent<Waiter>().AddToPlatter(gameObject);
         }
     }
-        
-    void OnTriggerExit(Collider col)
-    {
-        if (col.gameObject.tag == "OnPlatter")
-        {
-            transform.parent.GetComponent<Waiter>().RemoveFromPlatter(col.gameObject);
-        }
-    }
 }

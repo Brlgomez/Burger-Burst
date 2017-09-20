@@ -51,6 +51,7 @@ public class Waiter : MonoBehaviour
     {
         if (moving)
         {
+            //TODO: DECREASE TIMER
             text.transform.position = new Vector3(head.transform.position.x, text.transform.position.y, head.transform.position.z);
             MoveLeft();
         }
@@ -118,22 +119,19 @@ public class Waiter : MonoBehaviour
         else if (rightComplete && leftComplete && !orderComplete)
         {
             //TODO: ADD PUNISHMENT FOR NOT A COMPLETE ORDER
-            GameObject newWaiter = Instantiate(GameObject.Find("Waiter"));
-            newWaiter.AddComponent<Waiter>();
-            newWaiter.tag = "Clone";
+            Camera.main.GetComponent<WaiterManager>().AddNewWaiter();
             Destroy(gameObject);
         }
         else if (rightComplete && leftComplete && orderComplete)
         {
-            GameObject newWaiter = Instantiate(GameObject.Find("Waiter"));
-            newWaiter.AddComponent<Waiter>();
-            newWaiter.tag = "Clone";
+            Camera.main.GetComponent<WaiterManager>().AddNewWaiter();
             Destroy(gameObject);
         }
     }
 
     void SetOrder()
     {
+        //TODO: ADD WAY TO INCREASE MAX AMOUNT
         int maxAmountOfProduct = 2;
         int amountOfProduct;
         orderComplete = false;
@@ -141,7 +139,6 @@ public class Waiter : MonoBehaviour
         {
             Destroy(onPlatter[i]);
         }
-        RestartCurrentPlatter();
         amountOfProduct = Random.Range(1, maxAmountOfProduct);
         if (amountOfProduct > 10)
         {
@@ -200,33 +197,6 @@ public class Waiter : MonoBehaviour
             Destroy(obj.GetComponent<Rigidbody>());
             Camera.main.GetComponent<Gameplay>().IncreaseNumberOfLostProduct(obj);
         }
-    }
-
-    public void RemoveFromPlatter(GameObject obj)
-    {
-        if (obj.name == "Burger(Clone)")
-        {
-            amountOfBurgers--;
-        }
-        else if (obj.name == "Drink(Clone)")
-        {
-            amountOfDrinks--;
-        }
-        else if (obj.name == "Fries(Clone)")
-        {
-            amountOfFries--;
-        }
-        obj.tag = "Thrown";
-        onPlatter.Remove(obj);
-        CheckOrder();
-    }
-
-    void RestartCurrentPlatter()
-    {
-        onPlatter.Clear();
-        amountOfBurgers = 0;
-        amountOfDrinks = 0;
-        amountOfFries = 0;
     }
 
     void CheckOrder()
