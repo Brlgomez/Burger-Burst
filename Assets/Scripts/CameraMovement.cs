@@ -10,41 +10,47 @@ public class CameraMovement : MonoBehaviour
     GameObject pause;
     GameObject towards;
     float speed = 0;
+    bool moveToPosition = false;
 
     void Update()
     {
-        if (speed < 5f)
+        if (moveToPosition)
         {
-            speed += Time.unscaledDeltaTime * 10;
-        }
-        transform.position = Vector3.Lerp(transform.position, towards.transform.position, Time.unscaledDeltaTime * speed);
-        transform.rotation = Quaternion.Lerp(transform.rotation, towards.transform.rotation, Time.unscaledDeltaTime * speed);
-        if (Vector3.Distance(transform.position, towards.transform.position) < 0.005f)
-        {
-            transform.position = towards.transform.position;
-            transform.rotation = towards.transform.rotation;
-            if (towards == gameplay)
+            if (speed < 5f)
             {
-                if (GetComponent<GrabAndThrowObject>() != null)
-                {
-                    GetComponent<GrabAndThrowObject>().UnPauseGame();
-                }
-                else
-                {
-                    gameObject.AddComponent<Gameplay>();
-                    gameObject.AddComponent<GrabAndThrowObject>();
-                    GameObject newWaiter = Instantiate(GameObject.Find("Waiter"));
-                    newWaiter.AddComponent<Waiter>();
-                }
+                speed += Time.unscaledDeltaTime * 10;
             }
-            else if (towards == menu)
+            transform.position = Vector3.Lerp(transform.position, towards.transform.position, Time.unscaledDeltaTime * speed);
+            transform.rotation = Quaternion.Lerp(transform.rotation, towards.transform.rotation, Time.unscaledDeltaTime * speed);
+            if (Vector3.Distance(transform.position, towards.transform.position) < 0.005f)
             {
-                gameObject.AddComponent<MainMenu>();
-            } 
-            else if (towards == pause) {
-                Camera.main.GetComponent<ScreenTextManagment>().SetSecondScreenText("Resume\nRestart\nQuit", Color.white);
+                transform.position = towards.transform.position;
+                transform.rotation = towards.transform.rotation;
+                if (towards == gameplay)
+                {
+                    if (GetComponent<GrabAndThrowObject>() != null)
+                    {
+                        GetComponent<GrabAndThrowObject>().UnPauseGame();
+                    }
+                    if (gameObject.GetComponent<Gameplay>() == null)
+                    {
+                        gameObject.AddComponent<Gameplay>();
+                        gameObject.AddComponent<GrabAndThrowObject>();
+                        GameObject newWaiter = Instantiate(GameObject.Find("Waiter"));
+                        newWaiter.AddComponent<Waiter>();
+                        newWaiter.tag = "Clone";
+                    }
+                }
+                else if (towards == menu)
+                {
+                    gameObject.AddComponent<MainMenu>();
+                }
+                else if (towards == pause)
+                {
+                    Camera.main.GetComponent<ScreenTextManagment>().SetSecondScreenText("Resume\nRestart\nQuit", Color.white);
+                }
+                Destroy(GetComponent<CameraMovement>());
             }
-            Destroy(GetComponent<CameraMovement>());
         }
     }
 
@@ -52,17 +58,20 @@ public class CameraMovement : MonoBehaviour
     {
         menu = GameObject.Find("Menu Camera Position");
         towards = menu;
+        moveToPosition = true;
     }
 
     public void MoveToGameplay()
     {
         gameplay = GameObject.Find("Gameplay Camera Position");
         towards = gameplay;
+        moveToPosition = true;
     }
 
     public void MoveToPause () 
     {
         pause = GameObject.Find("Pause Camera Position");
         towards = pause;
+        moveToPosition = true;
     }
 }

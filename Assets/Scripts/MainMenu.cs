@@ -27,8 +27,7 @@ public class MainMenu : MonoBehaviour
             if (Button.name == "Play Button")
             {
                 Camera.main.GetComponent<ScreenTextManagment>().RestartScreens();
-                gameObject.AddComponent<CameraMovement>();
-                gameObject.GetComponent<CameraMovement>().MoveToGameplay();
+                gameObject.AddComponent<CameraMovement>().MoveToGameplay();
                 Destroy(GetComponent<MainMenu>());
             }
         }

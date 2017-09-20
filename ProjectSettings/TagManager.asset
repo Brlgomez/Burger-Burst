@@ -15,6 +15,7 @@ TagManager:
   - FloatingText
   - Waiter
   - PathRecieve
+  - Clone
   layers:
   - Default
   - TransparentFX

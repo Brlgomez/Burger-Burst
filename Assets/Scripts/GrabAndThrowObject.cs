@@ -88,7 +88,7 @@ public class GrabAndThrowObject : MonoBehaviour
         {
             if (positions.Count > 1)
             {
-                float xVelocity = (positions[positions.Count - 1].x - positions[0].x) * 3;
+                float xVelocity = (positions[positions.Count - 1].x - positions[0].x) * 5;
                 float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 3;
                 float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 15;
                 target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity);
@@ -122,38 +122,26 @@ public class GrabAndThrowObject : MonoBehaviour
             else if (target.name == "Pause Button" && !paused)
             {
                 target.GetComponent<Animator>().Play("ButtonClick");
-                gameObject.AddComponent<CameraMovement>();
-                gameObject.GetComponent<CameraMovement>().MoveToPause();
+                gameObject.AddComponent<CameraMovement>().MoveToPause();
                 PauseGame();
             }
             else if (target.name == "Pause Button Screen" && paused)
             {
-                gameObject.AddComponent<CameraMovement>();
-                gameObject.GetComponent<CameraMovement>().MoveToGameplay();
+                gameObject.AddComponent<CameraMovement>().MoveToGameplay();
                 Camera.main.GetComponent<ScreenTextManagment>().SetSecondScreenText("", Color.white);
             }
             else if (target.name == "Restart Button" && paused)
             {
-                DeleteProducts();
-                Camera.main.GetComponent<FloatingTextManagement>().DeleteAllText();
+                DeleteObjects();
                 Destroy(GetComponent<Gameplay>());
-                gameObject.AddComponent<Gameplay>();
-                GameObject.Find("Waiter").GetComponent<Waiter>().RestartPosition();
-                Destroy(GameObject.Find("Waiter").GetComponent<Waiter>());
-                GameObject.Find("Waiter").AddComponent<Waiter>();
-                gameObject.AddComponent<CameraMovement>();
-                gameObject.GetComponent<CameraMovement>().MoveToGameplay();
+                gameObject.AddComponent<CameraMovement>().MoveToGameplay();
             }
             else if (target.name == "Quit Button" && paused)
             {
-                DeleteProducts();
-                Camera.main.GetComponent<FloatingTextManagement>().DeleteAllText();
+                DeleteObjects();
                 Destroy(GetComponent<Gameplay>());
                 UnPauseGame();
-                gameObject.AddComponent<CameraMovement>();
-                gameObject.GetComponent<CameraMovement>().MoveToMenu();
-                GameObject.Find("Waiter").GetComponent<Waiter>().RestartPosition();
-                Destroy(GameObject.Find("Waiter").GetComponent<Waiter>());
+                gameObject.AddComponent<CameraMovement>().MoveToMenu();
                 Destroy(GetComponent<GrabAndThrowObject>());
             }
         }
@@ -176,10 +164,11 @@ public class GrabAndThrowObject : MonoBehaviour
         return paused;
     }
 
-    void DeleteProducts () {
+    void DeleteObjects() {
         GameObject[] thrown = GameObject.FindGameObjectsWithTag("Thrown");
         GameObject[] onPlatter = GameObject.FindGameObjectsWithTag("OnPlatter");
         GameObject[] fallen = GameObject.FindGameObjectsWithTag("Fallen");
+        GameObject[] clones = GameObject.FindGameObjectsWithTag("Clone");
         foreach (GameObject obj in thrown)
         {
             Destroy(obj);
@@ -192,5 +181,10 @@ public class GrabAndThrowObject : MonoBehaviour
         {
             Destroy(obj);
         }
+        foreach (GameObject obj in clones)
+        {
+            Destroy(obj);
+        }
+        Camera.main.GetComponent<FloatingTextManagement>().DeleteAllText();
     }
 }

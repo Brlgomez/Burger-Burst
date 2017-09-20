@@ -43,8 +43,6 @@ public class Waiter : MonoBehaviour
         }
         text.transform.GetChild(0).gameObject.GetComponent<Renderer>().material.color = Color.white;
         text.transform.GetChild(1).gameObject.GetComponent<Renderer>().material.color = Color.green;
-        //RestartPosition();
-        //StartPosition();
         WakeUp();
         SetOrder();
     }
@@ -66,7 +64,7 @@ public class Waiter : MonoBehaviour
             rightFoot.transform.position = Vector3.MoveTowards(
                 rightFoot.transform.position, 
                 followRight.transform.position, 
-                Time.deltaTime * 5
+                Time.deltaTime * 4
             );
             if (Vector3.Distance(rightFoot.transform.position, followRight.transform.position) < 0.5f)
             {
@@ -94,7 +92,7 @@ public class Waiter : MonoBehaviour
             leftFoot.transform.position = Vector3.MoveTowards(
                 leftFoot.transform.position, 
                 followLeft.transform.position, 
-                Time.deltaTime * 5
+                Time.deltaTime * 4
             );
             if (Vector3.Distance(leftFoot.transform.position, followLeft.transform.position) < 0.5f)
             {
@@ -119,22 +117,24 @@ public class Waiter : MonoBehaviour
         }
         else if (rightComplete && leftComplete && !orderComplete)
         {
-            //TODO: ADD PUNISHMENT
+            //TODO: ADD PUNISHMENT FOR NOT A COMPLETE ORDER
             GameObject newWaiter = Instantiate(GameObject.Find("Waiter"));
             newWaiter.AddComponent<Waiter>();
+            newWaiter.tag = "Clone";
             Destroy(gameObject);
         }
         else if (rightComplete && leftComplete && orderComplete)
         {
             GameObject newWaiter = Instantiate(GameObject.Find("Waiter"));
             newWaiter.AddComponent<Waiter>();
+            newWaiter.tag = "Clone";
             Destroy(gameObject);
         }
     }
 
     void SetOrder()
     {
-        int maxAmountOfProduct;
+        int maxAmountOfProduct = 2;
         int amountOfProduct;
         orderComplete = false;
         for (int i = 0; i < onPlatter.Count; i++)
@@ -142,7 +142,7 @@ public class Waiter : MonoBehaviour
             Destroy(onPlatter[i]);
         }
         RestartCurrentPlatter();
-        amountOfProduct = Random.Range(1, 2);
+        amountOfProduct = Random.Range(1, maxAmountOfProduct);
         if (amountOfProduct > 10)
         {
             amountOfProduct = 10;
@@ -195,7 +195,7 @@ public class Waiter : MonoBehaviour
             onPlatter.Add(obj);
             CheckOrder();
         }
-        else if (orderComplete)
+        else if (obj.tag == "Thrown" && orderComplete)
         {
             Destroy(obj.GetComponent<Rigidbody>());
             Camera.main.GetComponent<Gameplay>().IncreaseNumberOfLostProduct(obj);
@@ -227,12 +227,6 @@ public class Waiter : MonoBehaviour
         amountOfBurgers = 0;
         amountOfDrinks = 0;
         amountOfFries = 0;
-    }
-
-    public void RestartPosition()
-    {
-        text.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "";
-        text.transform.GetChild(1).gameObject.GetComponent<TextMesh>().text = "";
     }
 
     void CheckOrder()
@@ -304,12 +298,6 @@ public class Waiter : MonoBehaviour
         {
             Camera.main.GetComponent<Gameplay>().AddLife(1);
         }
-    }
-
-
-    void Reset()
-    {
-
     }
 
     void WakeUp()
