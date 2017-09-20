@@ -28,15 +28,23 @@ public class CameraMovement : MonoBehaviour
                 transform.rotation = towards.transform.rotation;
                 if (towards == gameplay)
                 {
-                    if (GetComponent<GrabAndThrowObject>() != null)
+                    // restart game
+                    if (GetComponent<GrabAndThrowObject>() != null && GetComponent<Gameplay>() == null)
                     {
                         GetComponent<GrabAndThrowObject>().UnPauseGame();
+                        gameObject.AddComponent<Gameplay>();
                     }
-                    if (gameObject.GetComponent<Gameplay>() == null)
+                    // quit game
+                    else if (GetComponent<Gameplay>() == null)
                     {
                         gameObject.AddComponent<Gameplay>();
                         gameObject.AddComponent<GrabAndThrowObject>();
                         Camera.main.GetComponent<WaiterManager>().AddNewWaiter();
+                    }
+                    // unpause
+                    else
+                    {
+                        GetComponent<GrabAndThrowObject>().UnPauseGame();
                     }
                 }
                 else if (towards == menu)
