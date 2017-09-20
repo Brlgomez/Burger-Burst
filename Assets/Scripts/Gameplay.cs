@@ -6,9 +6,9 @@ public class Gameplay : MonoBehaviour
 {
     int numberOfLostProductsAllowed = 10;
     int completedOrders;
-    float costToMakeBurger = 2.48f;
-    float costToMakeFries = 1.98f;
-    float costToMakeDrink = 1.48f;
+    float costToMakeBurger = 1.24f;
+    float costToMakeFries = 0.99f;
+    float costToMakeDrink = 0.74f;
     float costOfBurger = 4.95f;
     float costOfFries = 3.95f;
     float costOfDrink = 2.95f;
@@ -22,7 +22,6 @@ public class Gameplay : MonoBehaviour
 
     public void IncreaseNumberOfLostProduct(GameObject obj)
     {
-        numberOfLostProductsAllowed--;
         float cost = 0;
         if (obj.name == "Burger(Clone)")
         {
@@ -39,11 +38,6 @@ public class Gameplay : MonoBehaviour
         profit -= cost;
         profit = Mathf.Round(profit * 100f) / 100f;
         Camera.main.GetComponent<ScreenTextManagment>().ChangeProfitText(profit);
-        Camera.main.GetComponent<ScreenTextManagment>().ChangeMistakeText(numberOfLostProductsAllowed);
-        if (numberOfLostProductsAllowed < 0)
-        {
-            gameOver = true;
-        }
         Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(obj, -cost);
     }
 
@@ -101,5 +95,15 @@ public class Gameplay : MonoBehaviour
     public int GetCompletedOrdersCount () 
     {
         return completedOrders;
+    }
+
+    public void DeductNumberOfErrors () 
+    {
+        numberOfLostProductsAllowed--;
+        if (numberOfLostProductsAllowed < 0)
+        {
+            gameOver = true;
+        }
+        Camera.main.GetComponent<ScreenTextManagment>().ChangeMistakeText(numberOfLostProductsAllowed);
     }
 }

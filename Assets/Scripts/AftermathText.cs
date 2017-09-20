@@ -5,7 +5,7 @@ using UnityEngine;
 public class AftermathText : MonoBehaviour 
 {
     float time;
-    int maxTime = 2;
+    int maxTime = 1;
     Vector3 startPosition;
 
     void Start () 

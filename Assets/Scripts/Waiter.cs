@@ -44,7 +44,6 @@ public class Waiter : MonoBehaviour
             }
         }
         text.transform.GetChild(0).gameObject.GetComponent<Renderer>().material.color = Color.white;
-        text.transform.GetChild(1).gameObject.GetComponent<Renderer>().material.color = Color.green;
         WakeUp();
         SetOrder();
     }
@@ -53,18 +52,6 @@ public class Waiter : MonoBehaviour
     {
         if (moving)
         {
-            if (!orderComplete && timeForBonus > 0)
-            {
-                if (timeForBonus > 0)
-                {
-                    timeForBonus -= Time.deltaTime;
-                }
-                else
-                {
-                    timeForBonus = 0;
-                }
-                text.transform.GetChild(1).GetComponent<TextMesh>().text = timeForBonus.ToString("F1");
-            }
             text.transform.position = new Vector3(head.transform.position.x, text.transform.position.y, head.transform.position.z);
             MoveLeft();
         }
@@ -92,7 +79,7 @@ public class Waiter : MonoBehaviour
                 {
                     stepLength = 2 * xDirection;
                 }
-                Vector3 nextPosition = new Vector3(followLeft.transform.position.x + stepLength, followLeft.transform.position.y, followLeft.transform.position.z);
+                Vector3 nextPosition = new Vector3(followLeft.transform.position.x + stepLength, 0.25f, followLeft.transform.position.z);
                 if (followLeft.transform.position.x + stepLength < -9)
                 {
                     leftComplete = true;
@@ -120,7 +107,7 @@ public class Waiter : MonoBehaviour
                 {
                     stepLength = 2 * xDirection;
                 }
-                Vector3 nextPosition = new Vector3(followRight.transform.position.x + stepLength, followRight.transform.position.y, followRight.transform.position.z);
+                Vector3 nextPosition = new Vector3(followRight.transform.position.x + stepLength, 0.25f, followRight.transform.position.z);
                 if (followRight.transform.position.x + stepLength < -9)
                 {
                     rightComplete = true;
@@ -131,7 +118,7 @@ public class Waiter : MonoBehaviour
         }
         else if (rightComplete && leftComplete && !orderComplete)
         {
-            //TODO: ADD PUNISHMENT FOR NOT A COMPLETE ORDER
+            Camera.main.GetComponent<Gameplay>().DeductNumberOfErrors();
             Camera.main.GetComponent<WaiterManager>().RemoveWaiter(gameObject);
         }
         else if (rightComplete && leftComplete && orderComplete)
@@ -142,7 +129,6 @@ public class Waiter : MonoBehaviour
 
     void SetOrder()
     {
-        //TODO: ADD WAY TO INCREASE MAX AMOUNT
         int maxAmountOfProduct = Mathf.CeilToInt(Camera.main.GetComponent<Gameplay>().GetCompletedOrdersCount()/5) + 1;
         int amountOfProduct;
         orderComplete = false;
@@ -180,7 +166,6 @@ public class Waiter : MonoBehaviour
         timeForBonus = 5 + (neededBurgers * 5) + (neededFries * 5) + (neededDrinks * 5);
         maxTimeOfBonus = timeForBonus;
         text.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Burger: " + neededBurgers + "\nDrink: " + neededDrinks + "\nFries: " + neededFries;
-        text.transform.GetChild(1).gameObject.GetComponent<TextMesh>().text = timeForBonus.ToString("F1");
     }
 
     public void AddToPlatter(GameObject obj)
@@ -242,7 +227,7 @@ public class Waiter : MonoBehaviour
             Camera.main.GetComponent<Gameplay>().IncreaseCompletedOrders();
             text.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Thanks";
             orderComplete = true;
-            CheckTip();
+            //CheckTip();
         } 
     }
 
