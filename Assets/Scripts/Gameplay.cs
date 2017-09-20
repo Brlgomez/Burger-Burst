@@ -5,6 +5,7 @@ using UnityEngine;
 public class Gameplay : MonoBehaviour
 {
     int numberOfLostProductsAllowed = 10;
+    int completedOrders;
     float costToMakeBurger = 2.48f;
     float costToMakeFries = 1.98f;
     float costToMakeDrink = 1.48f;
@@ -90,5 +91,15 @@ public class Gameplay : MonoBehaviour
     public float GetProfit () 
     {
         return profit;
+    }
+
+    public void IncreaseCompletedOrders () 
+    {
+        completedOrders++;
+    }
+
+    public int GetCompletedOrdersCount () 
+    {
+        return completedOrders;
     }
 }

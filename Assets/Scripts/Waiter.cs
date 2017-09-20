@@ -143,7 +143,7 @@ public class Waiter : MonoBehaviour
     void SetOrder()
     {
         //TODO: ADD WAY TO INCREASE MAX AMOUNT
-        int maxAmountOfProduct = 2;
+        int maxAmountOfProduct = Mathf.CeilToInt(Camera.main.GetComponent<Gameplay>().GetCompletedOrdersCount()/5) + 1;
         int amountOfProduct;
         orderComplete = false;
         costOfMeal = 0;
@@ -152,9 +152,9 @@ public class Waiter : MonoBehaviour
             Destroy(onPlatter[i]);
         }
         amountOfProduct = Random.Range(1, maxAmountOfProduct);
-        if (amountOfProduct > 10)
+        if (amountOfProduct > 5)
         {
-            amountOfProduct = 10;
+            amountOfProduct = 5;
         }
         neededBurgers = 0;
         neededFries = 0;
@@ -239,6 +239,7 @@ public class Waiter : MonoBehaviour
     {
         if (amountOfBurgers >= neededBurgers && amountOfFries >= neededFries && amountOfDrinks >= neededDrinks)
         {
+            Camera.main.GetComponent<Gameplay>().IncreaseCompletedOrders();
             text.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Thanks";
             orderComplete = true;
             CheckTip();
