@@ -14,7 +14,6 @@ TagManager:
   - Fallen
   - FloatingText
   - Waiter
-  - PathRecieve
   - Clone
   layers:
   - Default
@@ -27,8 +26,8 @@ TagManager:
   - 
   - Ingredients
   - Wall
-  - 
-  - 
+  - Rigidbodies
+  - Uninteractable
   - 
   - 
   - 

@@ -9,7 +9,7 @@ public class RemoveObjects : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
-        if ((col.gameObject.tag == "Building" || col.gameObject.tag == "Table") && gameObject.tag != "Fallen" && gameObject.tag != "OnPlatter")
+        if (col.gameObject.tag == "Building" && gameObject.tag != "Fallen" && gameObject.tag != "OnPlatter")
         {
             gameObject.tag = "Fallen";
             gameObject.AddComponent<FadeObject>();

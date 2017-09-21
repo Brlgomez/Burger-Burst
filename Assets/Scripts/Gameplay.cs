@@ -6,9 +6,9 @@ public class Gameplay : MonoBehaviour
 {
     int numberOfLostProductsAllowed = 10;
     int completedOrders;
-    float costToMakeBurger = 1.24f;
-    float costToMakeFries = 0.99f;
-    float costToMakeDrink = 0.74f;
+    float costToMakeBurger = 0.99f;
+    float costToMakeFries = 0.79f;
+    float costToMakeDrink = 0.59f;
     float costOfBurger = 4.95f;
     float costOfFries = 3.95f;
     float costOfDrink = 2.95f;
@@ -100,7 +100,7 @@ public class Gameplay : MonoBehaviour
     public void DeductNumberOfErrors () 
     {
         numberOfLostProductsAllowed--;
-        if (numberOfLostProductsAllowed < 0)
+        if (numberOfLostProductsAllowed < 1)
         {
             gameOver = true;
         }

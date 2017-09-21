@@ -26,7 +26,7 @@ public class Waiter : MonoBehaviour
     int maxDeathTime = 1;
     float alpha = 1;
 
-    int timeForDamage = 1;
+    int timeForDamage = 3;
     float damageTime = 0;
 
     void Start()
@@ -145,6 +145,7 @@ public class Waiter : MonoBehaviour
         }
         else if (rightComplete && leftComplete)
         {
+            Camera.main.GetComponent<Gameplay>().DeductNumberOfErrors();
             moving = false;
         }
     }
@@ -305,6 +306,7 @@ public class Waiter : MonoBehaviour
     {
         for (int i = 3; i < transform.childCount; i++)
         {
+            transform.GetChild(i).gameObject.layer = 11;
             transform.GetChild(i).GetComponent<Renderer>().material = Camera.main.GetComponent<Materials>().zombieClear;
             if (transform.GetChild(i).GetComponent<ConstantForce>() != null)
             {
@@ -313,7 +315,13 @@ public class Waiter : MonoBehaviour
         }
         for (int i = 0; i < onPlatter.Count; i++)
         {
+            onPlatter[i].gameObject.layer = 11;
             onPlatter[i].AddComponent<FadeObject>();
         }
+    }
+
+    public void SetSpeed(float s) 
+    {
+        speed = s;
     }
 }

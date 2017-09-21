@@ -35,9 +35,9 @@ public class ScreenTextManagment : MonoBehaviour
 
     public void ChangeMistakeText(int n)
     {
-        if (n >= 0)
+        if (n >= 1)
         {
-            mistakeText.GetComponent<TextMesh>().text = "Lives: " + n.ToString();
+            mistakeText.GetComponent<TextMesh>().text = "Health: " + n.ToString();
         }
         else
         {

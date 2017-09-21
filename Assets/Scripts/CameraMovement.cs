@@ -10,19 +10,21 @@ public class CameraMovement : MonoBehaviour
     GameObject pause;
     GameObject towards;
     float speed = 0;
+    int maxSpeed = 6;
+    int accelerating = 10;
     bool moveToPosition = false;
 
     void Update()
     {
         if (moveToPosition)
         {
-            if (speed < 5f)
+            if (speed < maxSpeed)
             {
-                speed += Time.unscaledDeltaTime * 10;
+                speed += Time.unscaledDeltaTime * accelerating;
             }
             transform.position = Vector3.Lerp(transform.position, towards.transform.position, Time.unscaledDeltaTime * speed);
             transform.rotation = Quaternion.Lerp(transform.rotation, towards.transform.rotation, Time.unscaledDeltaTime * speed);
-            if (Vector3.Distance(transform.position, towards.transform.position) < 0.005f)
+            if (Vector3.Distance(transform.position, towards.transform.position) < 0.001f)
             {
                 transform.position = towards.transform.position;
                 transform.rotation = towards.transform.rotation;
@@ -74,7 +76,7 @@ public class CameraMovement : MonoBehaviour
         moveToPosition = true;
     }
 
-    public void MoveToPause () 
+    public void MoveToPause()
     {
         pause = GameObject.Find("Pause Camera Position");
         towards = pause;
