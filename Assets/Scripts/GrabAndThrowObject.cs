@@ -107,9 +107,9 @@ public class GrabAndThrowObject : MonoBehaviour
         {
             if (positions.Count > 1)
             {
-                float xVelocity = (positions[positions.Count - 1].x - positions[0].x) * 5;
+                float xVelocity = (positions[positions.Count - 1].x - positions[0].x) * 7.5f;
                 float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 3;
-                float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 15;
+                float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 20;
                 target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity);
             }
             target.GetComponent<Rigidbody>().useGravity = true;

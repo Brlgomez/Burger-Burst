@@ -23,6 +23,12 @@ public class Waiter : MonoBehaviour
 
     float speed = 3;
 
+    int maxDeathTime = 1;
+    float alpha = 1;
+
+    int timeForDamage = 1;
+    float damageTime = 0;
+
     void Start()
     {
         text = transform.GetChild(0).gameObject;
@@ -50,14 +56,35 @@ public class Waiter : MonoBehaviour
 
     void Update()
     {
-        if (moving)
+        text.transform.position = new Vector3(head.transform.position.x, text.transform.position.y, head.transform.position.z);
+        if (moving && !orderComplete)
         {
-            text.transform.position = new Vector3(head.transform.position.x, text.transform.position.y, head.transform.position.z);
-            MoveLeft();
+            Walk();
+        }
+        else if (orderComplete)
+        {
+            alpha -= Time.deltaTime;
+            for (int i = 3; i < transform.childCount; i++)
+            {
+                transform.GetChild(i).GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha / maxDeathTime);
+            }
+            if (alpha < 0.01f)
+            {
+                Camera.main.GetComponent<WaiterManager>().RemoveWaiter(gameObject);
+            }
+        }
+        else if (!moving && !orderComplete)
+        {
+            damageTime += Time.deltaTime;
+            if (damageTime > timeForDamage)
+            {
+                damageTime = 0;
+                Camera.main.GetComponent<Gameplay>().DeductNumberOfErrors();
+            }
         }
     }
 
-    void MoveLeft()
+    void Walk()
     {
         int xDirection = -1;
         if (!left && !leftComplete)
@@ -79,8 +106,8 @@ public class Waiter : MonoBehaviour
                 {
                     stepLength = 2 * xDirection;
                 }
-                Vector3 nextPosition = new Vector3(followLeft.transform.position.x + stepLength, 0.25f, followLeft.transform.position.z);
-                if (followLeft.transform.position.x + stepLength < -9)
+                Vector3 nextPosition = new Vector3(followLeft.transform.position.x, 0.25f, followLeft.transform.position.z + stepLength);
+                if (followLeft.transform.position.z + stepLength < -4)
                 {
                     leftComplete = true;
                 }
@@ -107,8 +134,8 @@ public class Waiter : MonoBehaviour
                 {
                     stepLength = 2 * xDirection;
                 }
-                Vector3 nextPosition = new Vector3(followRight.transform.position.x + stepLength, 0.25f, followRight.transform.position.z);
-                if (followRight.transform.position.x + stepLength < -9)
+                Vector3 nextPosition = new Vector3(followRight.transform.position.x, 0.25f, followRight.transform.position.z + stepLength);
+                if (followRight.transform.position.z + stepLength < -4)
                 {
                     rightComplete = true;
                 }
@@ -116,14 +143,9 @@ public class Waiter : MonoBehaviour
                 left = false;
             }
         }
-        else if (rightComplete && leftComplete && !orderComplete)
+        else if (rightComplete && leftComplete)
         {
-            Camera.main.GetComponent<Gameplay>().DeductNumberOfErrors();
-            Camera.main.GetComponent<WaiterManager>().RemoveWaiter(gameObject);
-        }
-        else if (rightComplete && leftComplete && orderComplete)
-        {
-            Camera.main.GetComponent<WaiterManager>().RemoveWaiter(gameObject);
+            moving = false;
         }
     }
 
@@ -133,18 +155,11 @@ public class Waiter : MonoBehaviour
         int amountOfProduct;
         orderComplete = false;
         costOfMeal = 0;
-        for (int i = 0; i < onPlatter.Count; i++)
-        {
-            Destroy(onPlatter[i]);
-        }
         amountOfProduct = Random.Range(1, maxAmountOfProduct);
         if (amountOfProduct > 5)
         {
             amountOfProduct = 5;
         }
-        neededBurgers = 0;
-        neededFries = 0;
-        neededDrinks = 0;
         for (int i = 0; i < amountOfProduct; i++)
         {
             float rand = Random.Range(0.0f, 1.0f);
@@ -227,6 +242,7 @@ public class Waiter : MonoBehaviour
             Camera.main.GetComponent<Gameplay>().IncreaseCompletedOrders();
             text.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Thanks";
             orderComplete = true;
+            TurnOffForces();
             //CheckTip();
         } 
     }
@@ -282,6 +298,22 @@ public class Waiter : MonoBehaviour
             {
                 transform.GetChild(i).GetComponent<ConstantForce>().enabled = false;
             }
+        }
+    }
+
+    void TurnOffForces() 
+    {
+        for (int i = 3; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).GetComponent<Renderer>().material = Camera.main.GetComponent<Materials>().zombieClear;
+            if (transform.GetChild(i).GetComponent<ConstantForce>() != null)
+            {
+                transform.GetChild(i).GetComponent<ConstantForce>().enabled = false;
+            }
+        }
+        for (int i = 0; i < onPlatter.Count; i++)
+        {
+            onPlatter[i].AddComponent<FadeObject>();
         }
     }
 }

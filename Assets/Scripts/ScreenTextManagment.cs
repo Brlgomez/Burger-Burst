@@ -37,11 +37,11 @@ public class ScreenTextManagment : MonoBehaviour
     {
         if (n >= 0)
         {
-            mistakeText.GetComponent<TextMesh>().text = "Errors Left:\n" + n.ToString();
+            mistakeText.GetComponent<TextMesh>().text = "Lives: " + n.ToString();
         }
         else
         {
-            mistakeText.GetComponent<TextMesh>().text = "YOU'RE\nFIRED!";
+            mistakeText.GetComponent<TextMesh>().text = "YOU'RE\nDEAD";
         }
         Color newColor = Color.Lerp(Color.red, originalScreenColor, ((float)n) / initialLostProductsAllowed);
         mistakeText.GetComponent<Renderer>().material.color = newColor;

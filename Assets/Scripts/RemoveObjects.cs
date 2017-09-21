@@ -12,7 +12,7 @@ public class RemoveObjects : MonoBehaviour
         if ((col.gameObject.tag == "Building" || col.gameObject.tag == "Table") && gameObject.tag != "Fallen" && gameObject.tag != "OnPlatter")
         {
             gameObject.tag = "Fallen";
-            gameObject.AddComponent<ShrinkObject>();
+            gameObject.AddComponent<FadeObject>();
             Camera.main.GetComponent<Gameplay>().IncreaseNumberOfLostProduct(gameObject);
             Destroy(gameObject, lifetime);
             Destroy(GetComponent<RemoveObjects>());
