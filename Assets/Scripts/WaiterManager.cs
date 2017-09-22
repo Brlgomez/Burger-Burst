@@ -17,7 +17,7 @@ public class WaiterManager : MonoBehaviour
     {
         amountOfWaiters++;
         GameObject newWaiter = Instantiate(waiter);
-        newWaiter.transform.position = new Vector3(Random.Range(-2f, 2f), 0, 13);
+        newWaiter.transform.position = new Vector3(Random.Range(-1f, 1f), 0.5f, 21);
         newWaiter.AddComponent<Waiter>().SetSpeed(Random.Range(2.5f, 3.5f));
         newWaiter.tag = "Clone";
     }

@@ -12,9 +12,9 @@ public class GrabAndThrowObject : MonoBehaviour
     float timeForPositions = 0.01f;
     bool paused = false;
     GameObject[] ingredients;
-    int timeForNewPerson = 6;
-    float newPersonTime = 0;
-    int maxAmountOfPeople = 3;
+    int timeForNewPerson = 8;
+    float newPersonTime = 8;
+    int maxAmountOfPeople = 5;
 
     void Start()
     {
@@ -47,7 +47,7 @@ public class GrabAndThrowObject : MonoBehaviour
             {
                 if (Camera.main.GetComponent<WaiterManager>().GetCount() < maxAmountOfPeople)
                 {
-                    Camera.main.GetComponent<WaiterManager>().AddNewWaiter();
+                    Camera.main.GetComponent<CarManager>().CreateNewCar();
                     newPersonTime = 0;
                 }
             }

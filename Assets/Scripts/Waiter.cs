@@ -64,6 +64,7 @@ public class Waiter : MonoBehaviour
         else if (orderComplete)
         {
             alpha -= Time.deltaTime;
+            text.transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha / maxDeathTime);
             for (int i = 3; i < transform.childCount; i++)
             {
                 transform.GetChild(i).GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha / maxDeathTime);
@@ -241,7 +242,7 @@ public class Waiter : MonoBehaviour
         if (amountOfBurgers >= neededBurgers && amountOfFries >= neededFries && amountOfDrinks >= neededDrinks)
         {
             Camera.main.GetComponent<Gameplay>().IncreaseCompletedOrders();
-            text.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Thanks";
+            text.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Yummy!";
             orderComplete = true;
             TurnOffForces();
             //CheckTip();

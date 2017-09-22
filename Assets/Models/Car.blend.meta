@@ -11,27 +11,32 @@ ModelImporter:
     100006: Ture_Back_Right
     100008: Ture_Front_Left
     100010: Ture_Front_Right
+    100012: Car_Frame
     400000: //RootNode
     400002: Car
     400004: Ture_Back_Left
     400006: Ture_Back_Right
     400008: Ture_Front_Left
     400010: Ture_Front_Right
+    400012: Car_Frame
     2300000: Car
     2300002: Ture_Back_Left
     2300004: Ture_Back_Right
     2300006: Ture_Front_Left
     2300008: Ture_Front_Right
+    2300010: Car_Frame
     3300000: Car
     3300002: Ture_Back_Left
     3300004: Ture_Back_Right
     3300006: Ture_Front_Left
     3300008: Ture_Front_Right
+    3300010: Car_Frame
     4300000: Ture_Front_Left
     4300002: Car
     4300004: Ture_Back_Left
     4300006: Ture_Back_Right
     4300008: Ture_Front_Right
+    4300010: Car_Frame
     7400000: Default Take
     9500000: //RootNode
   materials:

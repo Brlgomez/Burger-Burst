@@ -36,12 +36,11 @@ public class CameraMovement : MonoBehaviour
                         GetComponent<GrabAndThrowObject>().UnPauseGame();
                         gameObject.AddComponent<Gameplay>();
                     }
-                    // quit game
+                    // start game
                     else if (GetComponent<Gameplay>() == null)
                     {
                         gameObject.AddComponent<Gameplay>();
                         gameObject.AddComponent<GrabAndThrowObject>();
-                        Camera.main.GetComponent<WaiterManager>().AddNewWaiter();
                     }
                     // unpause
                     else
