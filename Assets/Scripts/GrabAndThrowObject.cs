@@ -188,6 +188,7 @@ public class GrabAndThrowObject : MonoBehaviour
         GameObject[] onPlatter = GameObject.FindGameObjectsWithTag("OnPlatter");
         GameObject[] fallen = GameObject.FindGameObjectsWithTag("Fallen");
         GameObject[] clones = GameObject.FindGameObjectsWithTag("Clone");
+        GameObject[] cars = GameObject.FindGameObjectsWithTag("Car");
         foreach (GameObject obj in thrown)
         {
             Destroy(obj);
@@ -201,6 +202,10 @@ public class GrabAndThrowObject : MonoBehaviour
             Destroy(obj);
         }
         foreach (GameObject obj in clones)
+        {
+            Destroy(obj);
+        }
+        foreach (GameObject obj in cars)
         {
             Destroy(obj);
         }

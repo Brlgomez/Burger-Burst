@@ -19,6 +19,7 @@ public class Car : MonoBehaviour {
     {
         if (dropOff)
         {
+            RotateTires();
             transform.position = Vector3.MoveTowards(transform.position, dropOffPosition, Time.deltaTime * speed);
             if (Vector3.Distance(transform.position, dropOffPosition) < 0.01f)
             {
@@ -28,6 +29,7 @@ public class Car : MonoBehaviour {
         }
         else
         {
+            RotateTires();
             transform.position = Vector3.MoveTowards(transform.position, leavePosition, Time.deltaTime * speed);
             if (Vector3.Distance(transform.position, leavePosition) < 0.1f)
             {
@@ -35,4 +37,10 @@ public class Car : MonoBehaviour {
             }
         }
 	}
+
+    void RotateTires () 
+    {
+        transform.GetChild(1).RotateAround(transform.GetChild(1).transform.position, Vector3.forward, Time.deltaTime * speed * 25);
+        transform.GetChild(2).RotateAround(transform.GetChild(2).transform.position, Vector3.forward, Time.deltaTime * speed * 25);
+    }
 }

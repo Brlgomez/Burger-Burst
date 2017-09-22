@@ -15,5 +15,6 @@ public class CarManager : MonoBehaviour {
     {
         GameObject newCar = Instantiate(car);
         newCar.AddComponent<Car>();
+        newCar.tag = "Car";
     }
 }

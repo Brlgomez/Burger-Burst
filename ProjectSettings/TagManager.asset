@@ -15,6 +15,7 @@ TagManager:
   - FloatingText
   - Waiter
   - Clone
+  - Car
   layers:
   - Default
   - TransparentFX
