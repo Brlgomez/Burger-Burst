@@ -43,6 +43,7 @@ ModelImporter:
     100070: Tower_008
     100072: Tower_009
     100074: Tower_010
+    100076: Floor
     400000: //RootNode
     400002: Building
     400004: Cylinder
@@ -81,6 +82,7 @@ ModelImporter:
     400070: Tower_008
     400072: Tower_009
     400074: Tower_010
+    400076: Floor
     2300000: //RootNode
     2300002: Building
     2300004: Cylinder
@@ -119,6 +121,7 @@ ModelImporter:
     2300070: Tower_008
     2300072: Tower_009
     2300074: Tower_010
+    2300076: Floor
     3300000: //RootNode
     3300002: Building
     3300004: Cylinder
@@ -157,6 +160,7 @@ ModelImporter:
     3300070: Tower_008
     3300072: Tower_009
     3300074: Tower_010
+    3300076: Floor
     4300000: Building
     4300002: Cylinder
     4300004: Cylinder_001
@@ -194,6 +198,7 @@ ModelImporter:
     4300068: Tower_008
     4300070: Tower_009
     4300072: Tower_010
+    4300074: Floor
     7400000: Default Take
     9500000: //RootNode
   materials:
