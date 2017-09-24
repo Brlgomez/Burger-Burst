@@ -108,7 +108,7 @@ public class Waiter : MonoBehaviour
                     stepLength = 2 * xDirection;
                 }
                 Vector3 nextPosition = new Vector3(followLeft.transform.position.x, 0.25f, followLeft.transform.position.z + stepLength);
-                if (followLeft.transform.position.z + stepLength < -4)
+                if (followLeft.transform.position.z + stepLength < 0)
                 {
                     leftComplete = true;
                 }
@@ -136,7 +136,7 @@ public class Waiter : MonoBehaviour
                     stepLength = 2 * xDirection;
                 }
                 Vector3 nextPosition = new Vector3(followRight.transform.position.x, 0.25f, followRight.transform.position.z + stepLength);
-                if (followRight.transform.position.z + stepLength < -4)
+                if (followRight.transform.position.z + stepLength < 0)
                 {
                     rightComplete = true;
                 }

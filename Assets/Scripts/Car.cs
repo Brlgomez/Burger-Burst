@@ -11,8 +11,8 @@ public class Car : MonoBehaviour {
 
 	void Start () 
     {
-        dropOffPosition = new Vector3(0, 0, 18);
-        leavePosition = new Vector3(-25, 0, 18);
+        dropOffPosition = new Vector3(0, 0, 20);
+        leavePosition = new Vector3(-37, 0, 20);
 	}
 	
 	void Update ()
