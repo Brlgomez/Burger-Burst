@@ -1,80 +1,15 @@
 fileFormatVersion: 2
-guid: a1414f0b5e00349e1ab48101e0303018
-timeCreated: 1506383855
+guid: 3bbc68c94237b40bbb762b088f00b525
+timeCreated: 1506458558
 licenseType: Free
 ModelImporter:
   serializedVersion: 21
   fileIDToRecycleName:
     100000: //RootNode
-    100002: Food_Truck
-    100004: Prep_Table
-    100006: Fridge
-    100008: Grill
-    100010: Air_Vent
-    100012: Counter
-    100014: Fryer
-    100016: Register_Counter
-    100018: Sink
-    100020: Front_Window
-    100022: Back_Window
-    100024: Left_Window
-    100026: Right_Window
     400000: //RootNode
-    400002: Food_Truck
-    400004: Prep_Table
-    400006: Fridge
-    400008: Grill
-    400010: Air_Vent
-    400012: Counter
-    400014: Fryer
-    400016: Register_Counter
-    400018: Sink
-    400020: Front_Window
-    400022: Back_Window
-    400024: Left_Window
-    400026: Right_Window
     2300000: //RootNode
-    2300002: Food_Truck
-    2300004: Prep_Table
-    2300006: Fridge
-    2300008: Grill
-    2300010: Air_Vent
-    2300012: Counter
-    2300014: Fryer
-    2300016: Register_Counter
-    2300018: Sink
-    2300020: Front_Window
-    2300022: Back_Window
-    2300024: Left_Window
-    2300026: Right_Window
     3300000: //RootNode
-    3300002: Food_Truck
-    3300004: Prep_Table
-    3300006: Fridge
-    3300008: Grill
-    3300010: Air_Vent
-    3300012: Counter
-    3300014: Fryer
-    3300016: Register_Counter
-    3300018: Sink
-    3300020: Front_Window
-    3300022: Back_Window
-    3300024: Left_Window
-    3300026: Right_Window
-    4300000: FoodTruck
-    4300002: Prep_Table
-    4300004: Food_Truck
-    4300006: Fridge
-    4300008: Grill
-    4300010: Air_Vent
-    4300012: Fryer
-    4300014: Counter
-    4300016: Sink
-    4300018: Register_Counter
-    4300020: Front_Window
-    4300022: Back_Window
-    4300024: Right_Window
-    4300026: Left_Window
+    4300000: City_Floor
     7400000: Default Take
     9500000: //RootNode
   materials:
