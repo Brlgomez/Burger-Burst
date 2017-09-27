@@ -19,6 +19,9 @@ ModelImporter:
     100022: Back_Window
     100024: Left_Window
     100026: Right_Window
+    100028: High_Storage
+    100030: Chair
+    100032: Steering_Wheel
     400000: //RootNode
     400002: Food_Truck
     400004: Prep_Table
@@ -33,6 +36,9 @@ ModelImporter:
     400022: Back_Window
     400024: Left_Window
     400026: Right_Window
+    400028: High_Storage
+    400030: Chair
+    400032: Steering_Wheel
     2300000: //RootNode
     2300002: Food_Truck
     2300004: Prep_Table
@@ -47,6 +53,9 @@ ModelImporter:
     2300022: Back_Window
     2300024: Left_Window
     2300026: Right_Window
+    2300028: High_Storage
+    2300030: Chair
+    2300032: Steering_Wheel
     3300000: //RootNode
     3300002: Food_Truck
     3300004: Prep_Table
@@ -61,6 +70,9 @@ ModelImporter:
     3300022: Back_Window
     3300024: Left_Window
     3300026: Right_Window
+    3300028: High_Storage
+    3300030: Chair
+    3300032: Steering_Wheel
     4300000: FoodTruck
     4300002: Prep_Table
     4300004: Food_Truck
@@ -75,6 +87,9 @@ ModelImporter:
     4300022: Back_Window
     4300024: Right_Window
     4300026: Left_Window
+    4300028: High_Storage
+    4300030: Chair
+    4300032: Steering_Wheel
     7400000: Default Take
     9500000: //RootNode
   materials:
