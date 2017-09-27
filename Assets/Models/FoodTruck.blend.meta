@@ -23,6 +23,7 @@ ModelImporter:
     100030: Chair
     100032: Steering_Wheel
     100034: Computer_Counter
+    100036: Oil
     400000: //RootNode
     400002: Food_Truck
     400004: Prep_Table
@@ -41,6 +42,7 @@ ModelImporter:
     400030: Chair
     400032: Steering_Wheel
     400034: Computer_Counter
+    400036: Oil
     2300000: //RootNode
     2300002: Food_Truck
     2300004: Prep_Table
@@ -59,6 +61,7 @@ ModelImporter:
     2300030: Chair
     2300032: Steering_Wheel
     2300034: Computer_Counter
+    2300036: Oil
     3300000: //RootNode
     3300002: Food_Truck
     3300004: Prep_Table
@@ -77,6 +80,7 @@ ModelImporter:
     3300030: Chair
     3300032: Steering_Wheel
     3300034: Computer_Counter
+    3300036: Oil
     4300000: FoodTruck
     4300002: Prep_Table
     4300004: Food_Truck
@@ -95,6 +99,7 @@ ModelImporter:
     4300030: Chair
     4300032: Steering_Wheel
     4300034: Computer_Counter
+    4300036: Oil
     7400000: Default Take
     9500000: //RootNode
   materials:
