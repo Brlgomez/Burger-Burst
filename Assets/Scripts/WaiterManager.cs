@@ -7,6 +7,7 @@ public class WaiterManager : MonoBehaviour
 
     GameObject waiter;
     int amountOfWaiters;
+    public GameObject thinkBubble, burger, fries, drink;
 
     void Start()
     {

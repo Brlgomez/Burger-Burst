@@ -29,7 +29,7 @@ public class Car : MonoBehaviour
         }
         else if (!slowDown && speed < 10)
         {
-            speed += Time.deltaTime * 4.5f;
+            speed += Time.deltaTime * 9f;
             if (speed > 10)
             {
                 speed = 10;
@@ -68,9 +68,12 @@ public class Car : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        if (speed > 0)
+        if (col.name == "SlowDown")
         {
-            slowDown = true;
+            if (speed > 0)
+            {
+                slowDown = true;
+            }
         }
     }
 }

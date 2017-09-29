@@ -14,7 +14,7 @@ public class Waiter : MonoBehaviour
     bool orderComplete;
     List<GameObject> onPlatter = new List<GameObject>();
 
-    GameObject head, rightFoot, leftFoot, text;
+    GameObject head, rightFoot, leftFoot, order;
     GameObject followRight, followLeft;
     bool left = false;
     bool leftComplete, rightComplete;
@@ -28,10 +28,16 @@ public class Waiter : MonoBehaviour
 
     int timeForDamage = 3;
     float damageTime = 0;
+    Vector3[] availableSpritePositions;
 
     void Start()
     {
-        text = transform.GetChild(0).gameObject;
+        availableSpritePositions = new Vector3[4];
+        availableSpritePositions[0] = new Vector3(0, 1, 0);
+        availableSpritePositions[1] = new Vector3(0, 0, 0.2f);
+        availableSpritePositions[2] = new Vector3 (-0.5f, 1, 0.15f);
+        availableSpritePositions[3] = new Vector3(0.5f, 1, 0.1f);
+        order = transform.GetChild(0).gameObject;
         followRight = transform.GetChild(1).gameObject;
         followLeft = transform.GetChild(2).gameObject;
         for (int i = 3; i < transform.childCount; i++)
@@ -49,14 +55,13 @@ public class Waiter : MonoBehaviour
                 head = transform.GetChild(i).gameObject;
             }
         }
-        text.transform.GetChild(0).gameObject.GetComponent<Renderer>().material.color = Color.white;
         WakeUp();
         SetOrder();
     }
 
     void Update()
     {
-        text.transform.position = new Vector3(head.transform.position.x, text.transform.position.y, head.transform.position.z);
+        order.transform.position = new Vector3(head.transform.position.x, order.transform.position.y, head.transform.position.z);
         if (moving && !orderComplete)
         {
             Walk();
@@ -64,7 +69,10 @@ public class Waiter : MonoBehaviour
         else if (orderComplete)
         {
             alpha -= Time.deltaTime;
-            text.transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha / maxDeathTime);
+            for (int i = 0; i < transform.GetChild(0).childCount; i++)
+			{
+                transform.GetChild(0).GetChild(i).GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha / maxDeathTime);
+			}
             for (int i = 3; i < transform.childCount; i++)
             {
                 transform.GetChild(i).GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha / maxDeathTime);
@@ -180,9 +188,34 @@ public class Waiter : MonoBehaviour
                 neededDrinks++;
             }
         }
+        SetUpSprites();
         timeForBonus = 5 + (neededBurgers * 5) + (neededFries * 5) + (neededDrinks * 5);
         maxTimeOfBonus = timeForBonus;
-        text.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Burger: " + neededBurgers + "\nDrink: " + neededDrinks + "\nFries: " + neededFries;
+    }
+
+    void SetUpSprites () {
+		int spritePosition = 0;
+		GameObject thinkBubble = Instantiate(Camera.main.GetComponent<WaiterManager>().thinkBubble, order.transform);
+		thinkBubble.transform.localPosition = availableSpritePositions[spritePosition];
+        spritePosition++;
+		if (neededBurgers > 0)
+		{
+            GameObject sprite = Instantiate(Camera.main.GetComponent<WaiterManager>().burger, thinkBubble.transform);
+			sprite.transform.localPosition = availableSpritePositions[spritePosition];
+			spritePosition++;
+		}
+		if (neededFries > 0)
+		{
+			GameObject sprite = Instantiate(Camera.main.GetComponent<WaiterManager>().fries, thinkBubble.transform);
+			sprite.transform.localPosition = availableSpritePositions[spritePosition];
+			spritePosition++;
+		}
+		if (neededDrinks > 0)
+		{
+			GameObject sprite = Instantiate(Camera.main.GetComponent<WaiterManager>().drink, thinkBubble.transform);
+			sprite.transform.localPosition = availableSpritePositions[spritePosition];
+			spritePosition++;
+		}
     }
 
     public void AddToPlatter(GameObject obj)
@@ -242,7 +275,6 @@ public class Waiter : MonoBehaviour
         if (amountOfBurgers >= neededBurgers && amountOfFries >= neededFries && amountOfDrinks >= neededDrinks)
         {
             Camera.main.GetComponent<Gameplay>().IncreaseCompletedOrders();
-            text.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Yummy!";
             orderComplete = true;
             TurnOffForces();
             //CheckTip();
