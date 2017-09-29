@@ -16,6 +16,8 @@ ModelImporter:
     100016: Tire_Back_Right
     100018: Tire_Front_Left
     100020: Tire_Front_Right
+    100022: Back_Tires
+    100024: Front_Tires
     400000: //RootNode
     400002: Car
     400004: Ture_Back_Left
@@ -27,6 +29,8 @@ ModelImporter:
     400016: Tire_Back_Right
     400018: Tire_Front_Left
     400020: Tire_Front_Right
+    400022: Back_Tires
+    400024: Front_Tires
     2300000: Car
     2300002: Ture_Back_Left
     2300004: Ture_Back_Right
@@ -37,6 +41,9 @@ ModelImporter:
     2300014: Tire_Back_Right
     2300016: Tire_Front_Left
     2300018: Tire_Front_Right
+    2300020: Back_Tires
+    2300022: Front_Tires
+    2300024: //RootNode
     3300000: Car
     3300002: Ture_Back_Left
     3300004: Ture_Back_Right
@@ -47,6 +54,9 @@ ModelImporter:
     3300014: Tire_Back_Right
     3300016: Tire_Front_Left
     3300018: Tire_Front_Right
+    3300020: Back_Tires
+    3300022: Front_Tires
+    3300024: //RootNode
     4300000: Ture_Front_Left
     4300002: Car
     4300004: Ture_Back_Left
@@ -57,6 +67,8 @@ ModelImporter:
     4300014: Tire_Back_Left
     4300016: Tire_Back_Right
     4300018: Tire_Front_Right
+    4300020: Back_Tires
+    4300022: Front_Tires
     7400000: Default Take
     9500000: //RootNode
   materials:

@@ -47,7 +47,11 @@ public class GrabAndThrowObject : MonoBehaviour
             {
                 if (Camera.main.GetComponent<WaiterManager>().GetCount() < maxAmountOfPeople)
                 {
-                    Camera.main.GetComponent<CarManager>().CreateNewCar();
+                    Camera.main.GetComponent<CarManager>().CreateNewCarWithZombie();
+                    if (Random.value < 0.25f) 
+                    {
+						Camera.main.GetComponent<CarManager>().CreateNewCarWithNoZombie();
+					}
                     newPersonTime = 0;
                 }
             }

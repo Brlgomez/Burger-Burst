@@ -2,45 +2,75 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Car : MonoBehaviour {
+public class Car : MonoBehaviour
+{
 
-    Vector3 dropOffPosition;
-    Vector3 leavePosition;
+    Vector3 startPosition;
     float speed = 10;
     bool dropOff = true;
+    bool dropOffZombie = false;
+    bool slowDown = false;
 
-	void Start () 
+    void Start()
     {
-        dropOffPosition = new Vector3(0, 0, 20);
-        leavePosition = new Vector3(-37, 0, 20);
-	}
-	
-	void Update ()
+        startPosition = transform.position;
+    }
+
+    void Update()
     {
-        if (dropOff)
+        if (slowDown && speed > 0)
         {
-            RotateTires();
-            transform.position = Vector3.MoveTowards(transform.position, dropOffPosition, Time.deltaTime * speed);
-            if (Vector3.Distance(transform.position, dropOffPosition) < 0.01f)
+            speed -= Time.deltaTime * 4.5f;
+            if (speed < 0)
             {
-                dropOff = false;
-                Camera.main.GetComponent<WaiterManager>().AddNewWaiter();
+                speed = 0;
+                AddZombie();
             }
         }
-        else
+        else if (!slowDown && speed < 10)
         {
-            RotateTires();
-            transform.position = Vector3.MoveTowards(transform.position, leavePosition, Time.deltaTime * speed);
-            if (Vector3.Distance(transform.position, leavePosition) < 0.1f)
+            speed += Time.deltaTime * 4.5f;
+            if (speed > 10)
             {
-                Destroy(gameObject);
+                speed = 10;
             }
         }
-	}
+        RotateTires();
+        transform.Translate(-Vector3.forward * Time.deltaTime * speed);
+        if (Vector3.Distance(transform.position, startPosition) > 80)
+        {
+            Destroy(gameObject);
+        }
+    }
 
-    void RotateTires () 
+    void AddZombie () 
     {
-        transform.GetChild(1).RotateAround(transform.GetChild(1).transform.position, Vector3.forward, Time.deltaTime * speed * 25);
-        transform.GetChild(2).RotateAround(transform.GetChild(2).transform.position, Vector3.forward, Time.deltaTime * speed * 25);
+		if (Mathf.RoundToInt(speed) == 0 && slowDown)
+		{
+			if (dropOffZombie)
+			{
+                Camera.main.GetComponent<WaiterManager>().AddNewWaiter(new Vector3(transform.position.x, 0, transform.position.z + 4));
+			}
+			slowDown = false;
+		} 
+    }
+
+    void RotateTires()
+    {
+        transform.GetChild(0).RotateAround(transform.GetChild(0).transform.position, -transform.right, Time.deltaTime * speed * 100);
+        transform.GetChild(1).RotateAround(transform.GetChild(1).transform.position, -transform.right, Time.deltaTime * speed * 100);
+    }
+
+    public void MakeCarDropOffZombie()
+    {
+        dropOffZombie = true;
+    }
+
+    void OnTriggerEnter(Collider col)
+    {
+        if (speed > 0)
+        {
+            slowDown = true;
+        }
     }
 }
