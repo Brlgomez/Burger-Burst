@@ -7,7 +7,10 @@ public class WaiterManager : MonoBehaviour
 
     GameObject waiter;
     int amountOfWaiters;
-    public GameObject thinkBubble, burger, fries, drink;
+    public GameObject thinkBubble;
+    public GameObject[] burgers;
+    public GameObject[] fries;
+    public GameObject[] drinks;
 
     void Start()
     {

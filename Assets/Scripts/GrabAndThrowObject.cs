@@ -8,16 +8,17 @@ public class GrabAndThrowObject : MonoBehaviour
     GameObject target;
     GameObject invisibleWall;
     List<Vector3> positions = new List<Vector3>();
-    float deltaTime;
+	GameObject[] ingredients;
+	float deltaTime;
     float timeForPositions = 0.01f;
     bool paused = false;
-    GameObject[] ingredients;
     int timeForNewPerson = 8;
-    float newPersonTime = 8;
+    float newPersonTime;
     int maxAmountOfPeople = 5;
 
     void Start()
     {
+        newPersonTime = timeForNewPerson;
         invisibleWall = GameObject.FindGameObjectWithTag("Wall");
         ingredients = GameObject.FindGameObjectsWithTag("Ingredient");
     }
@@ -28,7 +29,7 @@ public class GrabAndThrowObject : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             MouseDown();
-        } 
+        }
         if (Input.GetMouseButton(0))
         {
             MouseDrag();
@@ -39,19 +40,20 @@ public class GrabAndThrowObject : MonoBehaviour
         }
     }
 
-    void AddMorePeople () 
+    void AddMorePeople()
     {
-        if (!paused && !Camera.main.GetComponent<Gameplay>().IsGameOver()) {
+        if (!paused && !Camera.main.GetComponent<Gameplay>().IsGameOver())
+        {
             newPersonTime += Time.deltaTime;
             if (newPersonTime > timeForNewPerson)
             {
                 if (Camera.main.GetComponent<WaiterManager>().GetCount() < maxAmountOfPeople)
                 {
                     Camera.main.GetComponent<CarManager>().CreateNewCarWithZombie();
-                    if (Random.value < 0.25f) 
+                    if (Random.value < 0.25f)
                     {
-						Camera.main.GetComponent<CarManager>().CreateNewCarWithNoZombie();
-					}
+                        Camera.main.GetComponent<CarManager>().CreateNewCarWithNoZombie();
+                    }
                     newPersonTime = 0;
                 }
             }
@@ -72,7 +74,7 @@ public class GrabAndThrowObject : MonoBehaviour
             target.GetComponent<Rigidbody>().useGravity = false;
             target.GetComponent<Collider>().isTrigger = false;
             invisibleWall.GetComponent<BoxCollider>().enabled = true;
-            foreach(GameObject obj in ingredients) 
+            foreach (GameObject obj in ingredients)
             {
                 obj.GetComponent<BoxCollider>().enabled = false;
             }
@@ -113,7 +115,7 @@ public class GrabAndThrowObject : MonoBehaviour
             {
                 float xVelocity = (positions[positions.Count - 1].x - positions[0].x) * 7.5f;
                 float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 3;
-                float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 25;
+                float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 50;
                 target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity);
             }
             target.GetComponent<Rigidbody>().useGravity = true;
@@ -124,7 +126,7 @@ public class GrabAndThrowObject : MonoBehaviour
         }
         invisibleWall.GetComponent<BoxCollider>().enabled = false;
         target = null;
-        foreach(GameObject obj in ingredients) 
+        foreach (GameObject obj in ingredients)
         {
             obj.GetComponent<BoxCollider>().enabled = true;
         }
@@ -142,33 +144,41 @@ public class GrabAndThrowObject : MonoBehaviour
                 GameObject newIngredient = Instantiate(hit.collider.gameObject);
                 return newIngredient;
             }
-            else if (target.name == "Pause Button" && !paused)
-            {
-                target.GetComponent<Animator>().Play("ButtonClick");
-                gameObject.AddComponent<CameraMovement>().MoveToPause();
-                PauseGame();
-            }
-            else if (target.name == "Pause Button Screen" && paused)
-            {
-                gameObject.AddComponent<CameraMovement>().MoveToGameplay();
-                Camera.main.GetComponent<ScreenTextManagment>().SetSecondScreenText("", Color.white);
-            }
-            else if (target.name == "Restart Button" && paused)
-            {
-                DeleteObjects();
-                Destroy(GetComponent<Gameplay>());
-                gameObject.AddComponent<CameraMovement>().MoveToGameplay();
-            }
-            else if (target.name == "Quit Button" && paused)
-            {
-                DeleteObjects();
-                Destroy(GetComponent<Gameplay>());
-                UnPauseGame();
-                gameObject.AddComponent<CameraMovement>().MoveToMenu();
-                Destroy(GetComponent<GrabAndThrowObject>());
-            }
+            Interface(target);
         }
         return null;
+    }
+
+    void Interface (GameObject target) {
+		if (gameObject.GetComponent<CameraMovement>() == null)
+		{
+			if (target.name == "Pause Button" && !paused)
+			{
+				target.GetComponent<Animator>().Play("ButtonClick");
+				gameObject.AddComponent<CameraMovement>().MoveToPause();
+				PauseGame();
+			}
+			else if (target.name == "Pause Button Screen" && paused)
+			{
+				gameObject.AddComponent<CameraMovement>().MoveToGameplay();
+				Camera.main.GetComponent<ScreenTextManagment>().SetSecondScreenText("", Color.white);
+			}
+			else if (target.name == "Restart Button" && paused)
+			{
+				DeleteObjects();
+				Destroy(GetComponent<Gameplay>());
+				gameObject.AddComponent<CameraMovement>().MoveToGameplay();
+				RestartValues();
+			}
+			else if (target.name == "Quit Button" && paused)
+			{
+				DeleteObjects();
+				Destroy(GetComponent<Gameplay>());
+				UnPauseGame();
+				gameObject.AddComponent<CameraMovement>().MoveToMenu();
+				Destroy(GetComponent<GrabAndThrowObject>());
+			}
+		}
     }
 
     void PauseGame()
@@ -183,11 +193,19 @@ public class GrabAndThrowObject : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public bool GetPausedState () {
+    public bool GetPausedState()
+    {
         return paused;
     }
 
-    void DeleteObjects() {
+    void RestartValues () 
+    {
+        deltaTime = 0;
+        newPersonTime = timeForNewPerson;
+    }
+
+    void DeleteObjects()
+    {
         GameObject[] thrown = GameObject.FindGameObjectsWithTag("Thrown");
         GameObject[] onPlatter = GameObject.FindGameObjectsWithTag("OnPlatter");
         GameObject[] fallen = GameObject.FindGameObjectsWithTag("Fallen");

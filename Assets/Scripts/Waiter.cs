@@ -14,7 +14,7 @@ public class Waiter : MonoBehaviour
     bool orderComplete;
     List<GameObject> onPlatter = new List<GameObject>();
 
-    GameObject head, rightFoot, leftFoot, order;
+    GameObject head, rightFoot, leftFoot, thinkBubble;
     GameObject followRight, followLeft;
     bool left = false;
     bool leftComplete, rightComplete;
@@ -32,12 +32,12 @@ public class Waiter : MonoBehaviour
 
     void Start()
     {
-        availableSpritePositions = new Vector3[4];
-        availableSpritePositions[0] = new Vector3(0, 1, 0);
-        availableSpritePositions[1] = new Vector3(0, 0, 0.2f);
-        availableSpritePositions[2] = new Vector3 (-0.5f, 1, 0.15f);
-        availableSpritePositions[3] = new Vector3(0.5f, 1, 0.1f);
-        order = transform.GetChild(0).gameObject;
+        availableSpritePositions = new Vector3[3];
+        availableSpritePositions[0] = new Vector3(0, -0.25f, 0.5f);
+        availableSpritePositions[1] = new Vector3 (-0.5f, 1, 0.4f);
+        availableSpritePositions[2] = new Vector3(0.5f, 1, 0.3f);
+        thinkBubble = transform.GetChild(0).gameObject;
+        thinkBubble.AddComponent<IncreaseSize>();
         followRight = transform.GetChild(1).gameObject;
         followLeft = transform.GetChild(2).gameObject;
         for (int i = 3; i < transform.childCount; i++)
@@ -61,7 +61,7 @@ public class Waiter : MonoBehaviour
 
     void Update()
     {
-        order.transform.position = new Vector3(head.transform.position.x, order.transform.position.y, head.transform.position.z);
+        thinkBubble.transform.position = new Vector3(head.transform.position.x, thinkBubble.transform.position.y, head.transform.position.z);
         if (moving && !orderComplete)
         {
             Walk();
@@ -69,6 +69,7 @@ public class Waiter : MonoBehaviour
         else if (orderComplete)
         {
             alpha -= Time.deltaTime;
+            transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha / maxDeathTime);
             for (int i = 0; i < transform.GetChild(0).childCount; i++)
 			{
                 transform.GetChild(0).GetChild(i).GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha / maxDeathTime);
@@ -193,26 +194,25 @@ public class Waiter : MonoBehaviour
         maxTimeOfBonus = timeForBonus;
     }
 
-    void SetUpSprites () {
+    void SetUpSprites () 
+    {
 		int spritePosition = 0;
-		GameObject thinkBubble = Instantiate(Camera.main.GetComponent<WaiterManager>().thinkBubble, order.transform);
-		thinkBubble.transform.localPosition = availableSpritePositions[spritePosition];
-        spritePosition++;
 		if (neededBurgers > 0)
 		{
-            GameObject sprite = Instantiate(Camera.main.GetComponent<WaiterManager>().burger, thinkBubble.transform);
+            GameObject sprite = Instantiate(Camera.main.GetComponent<WaiterManager>().burgers[neededBurgers - 1], thinkBubble.transform);
 			sprite.transform.localPosition = availableSpritePositions[spritePosition];
 			spritePosition++;
+
 		}
 		if (neededFries > 0)
 		{
-			GameObject sprite = Instantiate(Camera.main.GetComponent<WaiterManager>().fries, thinkBubble.transform);
+            GameObject sprite = Instantiate(Camera.main.GetComponent<WaiterManager>().fries[neededFries - 1], thinkBubble.transform);
 			sprite.transform.localPosition = availableSpritePositions[spritePosition];
 			spritePosition++;
 		}
 		if (neededDrinks > 0)
 		{
-			GameObject sprite = Instantiate(Camera.main.GetComponent<WaiterManager>().drink, thinkBubble.transform);
+            GameObject sprite = Instantiate(Camera.main.GetComponent<WaiterManager>().drinks[neededDrinks - 1], thinkBubble.transform);
 			sprite.transform.localPosition = availableSpritePositions[spritePosition];
 			spritePosition++;
 		}
