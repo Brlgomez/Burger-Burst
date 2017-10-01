@@ -8,9 +8,8 @@ public class GrabAndThrowObject : MonoBehaviour
     GameObject target;
     GameObject invisibleWall;
     List<Vector3> positions = new List<Vector3>();
+    Vector3 direction;
 	GameObject[] ingredients;
-	float deltaTime;
-    float timeForPositions = 0.01f;
     bool paused = false;
     int timeForNewPerson = 8;
     float newPersonTime;
@@ -69,11 +68,11 @@ public class GrabAndThrowObject : MonoBehaviour
         {
             Physics.IgnoreCollision(invisibleWall.GetComponent<Collider>(), target.GetComponent<Collider>());
             target.GetComponent<Collider>().enabled = false;
-            target.GetComponent<BoxCollider>().enabled = false;
+			target.GetComponent<Collider>().isTrigger = false;
+			target.GetComponent<BoxCollider>().enabled = false;
             target.GetComponent<Rigidbody>().isKinematic = false;
             target.GetComponent<Rigidbody>().useGravity = false;
-            target.GetComponent<Collider>().isTrigger = false;
-            invisibleWall.GetComponent<BoxCollider>().enabled = true;
+            invisibleWall.GetComponent<Collider>().enabled = true;
             foreach (GameObject obj in ingredients)
             {
                 obj.GetComponent<BoxCollider>().enabled = false;
@@ -85,21 +84,17 @@ public class GrabAndThrowObject : MonoBehaviour
     {
         if (target != null)
         {
+            invisibleWall.GetComponent<Collider>().enabled = true;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if (Physics.Raycast(ray.origin, ray.direction * 10, out hit))
+            if (Physics.Raycast(ray.origin, ray.direction * 1, out hit))
             {
                 if (hit.transform.tag.Equals("Wall"))
                 {
-                    deltaTime += Time.deltaTime;
-                    if (deltaTime > timeForPositions)
+                    positions.Add(hit.point);
+                    if (positions.Count > 9)
                     {
-                        positions.Add(hit.point);
-                        if (positions.Count > 9)
-                        {
-                            positions.RemoveAt(0);
-                        }
-                        deltaTime = 0;
+                        positions.RemoveAt(0);
                     }
                     target.transform.position = hit.point;
                 }
@@ -113,9 +108,10 @@ public class GrabAndThrowObject : MonoBehaviour
         {
             if (positions.Count > 1)
             {
-                float xVelocity = (positions[positions.Count - 1].x - positions[0].x) * 7.5f;
-                float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 3;
-                float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 50;
+                float speed = Vector3.Distance(positions[positions.Count - 1], positions[0]);
+                float xVelocity = ((positions[positions.Count - 1].x - positions[0].x) * 7) + ((target.transform.position.x) * speed * 3);
+				float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 3;
+				float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 20;
                 target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity);
             }
             target.GetComponent<Rigidbody>().useGravity = true;
@@ -124,7 +120,7 @@ public class GrabAndThrowObject : MonoBehaviour
             target.AddComponent<RemoveObjects>();
             Destroy(target.GetComponent<BoxCollider>());
         }
-        invisibleWall.GetComponent<BoxCollider>().enabled = false;
+        invisibleWall.GetComponent<Collider>().enabled = false;
         target = null;
         foreach (GameObject obj in ingredients)
         {
@@ -200,7 +196,6 @@ public class GrabAndThrowObject : MonoBehaviour
 
     void RestartValues () 
     {
-        deltaTime = 0;
         newPersonTime = timeForNewPerson;
     }
 
