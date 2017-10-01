@@ -22,6 +22,8 @@ public class WaiterManager : MonoBehaviour
         amountOfWaiters++;
         GameObject newWaiter = Instantiate(waiter);
         newWaiter.transform.position = position;
+        newWaiter.transform.LookAt(Camera.main.transform);
+        newWaiter.transform.eulerAngles = new Vector3(0, newWaiter.transform.eulerAngles.y, newWaiter.transform.eulerAngles.z);
         newWaiter.AddComponent<Waiter>().SetSpeed(Random.Range(2.5f, 3.5f));
         newWaiter.tag = "Clone";
     }

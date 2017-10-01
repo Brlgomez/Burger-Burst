@@ -4,36 +4,28 @@ using UnityEngine;
 
 public class Car : MonoBehaviour
 {
-
     Vector3 startPosition;
     float speed = 10;
-    bool dropOff = true;
     bool dropOffZombie = false;
     bool slowDown = false;
+    float randomPos;
+    bool slowingDown = false;
 
     void Start()
     {
         startPosition = transform.position;
+        randomPos = Random.Range(-16f, 16f);
     }
 
     void Update()
     {
-        if (slowDown && speed > 0)
+        if (!dropOffZombie)
         {
-            speed -= Time.deltaTime * 4.5f;
-            if (speed < 0)
-            {
-                speed = 0;
-                AddZombie();
-            }
+            NonZombieLogic();
         }
-        else if (!slowDown && speed < 10)
+        else 
         {
-            speed += Time.deltaTime * 9f;
-            if (speed > 10)
-            {
-                speed = 10;
-            }
+            ZombieLogic();
         }
         RotateTires();
         transform.Translate(-Vector3.forward * Time.deltaTime * speed);
@@ -43,16 +35,51 @@ public class Car : MonoBehaviour
         }
     }
 
+    void ZombieLogic () 
+    {
+        if (Mathf.Abs(randomPos - transform.position.x) < 1 && speed > 0)
+		{
+            slowingDown = true;
+
+		}
+        if (slowingDown) 
+        {
+			speed -= Time.deltaTime * 10;
+			if (speed < 0)
+			{
+				speed = 0;
+				slowDown = false;
+                slowingDown = false;
+				dropOffZombie = false;
+				AddZombie();
+			}
+        }
+	}
+
+    void NonZombieLogic () 
+    {
+		if (slowDown && speed > 0)
+		{
+			speed -= Time.deltaTime * 10;
+			if (speed < 0)
+			{
+				speed = 0;
+				slowDown = false;
+			}
+		}
+		else if (!slowDown && speed < 10)
+		{
+			speed += Time.deltaTime * 10;
+			if (speed > 10)
+			{
+				speed = 10;
+			}
+		}  
+    }
+
     void AddZombie () 
     {
-		if (Mathf.RoundToInt(speed) == 0 && slowDown)
-		{
-			if (dropOffZombie)
-			{
-                Camera.main.GetComponent<WaiterManager>().AddNewWaiter(new Vector3(transform.position.x, 0, transform.position.z + 4));
-			}
-			slowDown = false;
-		} 
+        Camera.main.GetComponent<WaiterManager>().AddNewWaiter(new Vector3(transform.position.x, 0, transform.position.z + 4));
     }
 
     void RotateTires()

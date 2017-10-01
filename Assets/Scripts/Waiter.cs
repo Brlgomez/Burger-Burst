@@ -34,7 +34,7 @@ public class Waiter : MonoBehaviour
     {
         availableSpritePositions = new Vector3[3];
         availableSpritePositions[0] = new Vector3(0, -0.25f, 0.5f);
-        availableSpritePositions[1] = new Vector3 (-0.5f, 1, 0.4f);
+        availableSpritePositions[1] = new Vector3(-0.5f, 1, 0.4f);
         availableSpritePositions[2] = new Vector3(0.5f, 1, 0.3f);
         thinkBubble = transform.GetChild(0).gameObject;
         thinkBubble.AddComponent<IncreaseSize>();
@@ -71,9 +71,9 @@ public class Waiter : MonoBehaviour
             alpha -= Time.deltaTime;
             transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha / maxDeathTime);
             for (int i = 0; i < transform.GetChild(0).childCount; i++)
-			{
+            {
                 transform.GetChild(0).GetChild(i).GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha / maxDeathTime);
-			}
+            }
             for (int i = 3; i < transform.childCount; i++)
             {
                 transform.GetChild(i).GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha / maxDeathTime);
@@ -96,15 +96,15 @@ public class Waiter : MonoBehaviour
 
     void Walk()
     {
-        int xDirection = -1;
+        int xDirection = 1;
         if (!left && !leftComplete)
         {
-            rightFoot.transform.position = Vector3.MoveTowards(
-                rightFoot.transform.position, 
-                followRight.transform.position, 
+            rightFoot.transform.localPosition = Vector3.MoveTowards(
+                rightFoot.transform.localPosition,
+                followRight.transform.localPosition,
                 Time.deltaTime * speed
             );
-            if (Vector3.Distance(rightFoot.transform.position, followRight.transform.position) < 0.5f)
+            if (Vector3.Distance(rightFoot.transform.localPosition, followRight.transform.localPosition) < 1)
             {
                 int stepLength = 0;
                 if (firstMove)
@@ -116,23 +116,27 @@ public class Waiter : MonoBehaviour
                 {
                     stepLength = 2 * xDirection;
                 }
-                Vector3 nextPosition = new Vector3(followLeft.transform.position.x, 0.25f, followLeft.transform.position.z + stepLength);
-                if (followLeft.transform.position.z + stepLength < 0)
+                Vector3 nextPosition = new Vector3(
+                    followLeft.transform.localPosition.x,
+                    followLeft.transform.localPosition.y, 
+                    followLeft.transform.localPosition.z + stepLength
+                );
+                if (Mathf.Abs(followLeft.transform.position.z - Camera.main.transform.position.z) < 4)
                 {
                     leftComplete = true;
                 }
-                followLeft.transform.position = nextPosition;
+                followLeft.transform.localPosition = nextPosition;
                 left = true;
             }
         }
         else if (left && !rightComplete)
         {
-            leftFoot.transform.position = Vector3.MoveTowards(
-                leftFoot.transform.position, 
-                followLeft.transform.position, 
+            leftFoot.transform.localPosition = Vector3.MoveTowards(
+                leftFoot.transform.localPosition,
+                followLeft.transform.localPosition,
                 Time.deltaTime * speed
             );
-            if (Vector3.Distance(leftFoot.transform.position, followLeft.transform.position) < 0.5f)
+            if (Vector3.Distance(leftFoot.transform.localPosition, followLeft.transform.localPosition) < 1)
             {
                 int stepLength = 0;
                 if (firstMove)
@@ -144,12 +148,16 @@ public class Waiter : MonoBehaviour
                 {
                     stepLength = 2 * xDirection;
                 }
-                Vector3 nextPosition = new Vector3(followRight.transform.position.x, 0.25f, followRight.transform.position.z + stepLength);
-                if (followRight.transform.position.z + stepLength < 0)
+                Vector3 nextPosition = new Vector3(
+                    followRight.transform.localPosition.x,
+                    followRight.transform.localPosition.y, 
+                    followRight.transform.localPosition.z + stepLength
+                );
+                if (Mathf.Abs(followRight.transform.position.z - Camera.main.transform.position.z) < 4)
                 {
                     rightComplete = true;
                 }
-                followRight.transform.position = nextPosition;
+                followRight.transform.localPosition = nextPosition;
                 left = false;
             }
         }
@@ -162,7 +170,7 @@ public class Waiter : MonoBehaviour
 
     void SetOrder()
     {
-        int maxAmountOfProduct = Mathf.CeilToInt(Camera.main.GetComponent<Gameplay>().GetCompletedOrdersCount()/5) + 1;
+        int maxAmountOfProduct = Mathf.CeilToInt(Camera.main.GetComponent<Gameplay>().GetCompletedOrdersCount() / 5) + 1;
         int amountOfProduct;
         orderComplete = false;
         costOfMeal = 0;
@@ -194,28 +202,28 @@ public class Waiter : MonoBehaviour
         maxTimeOfBonus = timeForBonus;
     }
 
-    void SetUpSprites () 
+    void SetUpSprites()
     {
-		int spritePosition = 0;
-		if (neededBurgers > 0)
-		{
+        int spritePosition = 0;
+        if (neededBurgers > 0)
+        {
             GameObject sprite = Instantiate(Camera.main.GetComponent<WaiterManager>().burgers[neededBurgers - 1], thinkBubble.transform);
-			sprite.transform.localPosition = availableSpritePositions[spritePosition];
-			spritePosition++;
+            sprite.transform.localPosition = availableSpritePositions[spritePosition];
+            spritePosition++;
 
-		}
-		if (neededFries > 0)
-		{
+        }
+        if (neededFries > 0)
+        {
             GameObject sprite = Instantiate(Camera.main.GetComponent<WaiterManager>().fries[neededFries - 1], thinkBubble.transform);
-			sprite.transform.localPosition = availableSpritePositions[spritePosition];
-			spritePosition++;
-		}
-		if (neededDrinks > 0)
-		{
+            sprite.transform.localPosition = availableSpritePositions[spritePosition];
+            spritePosition++;
+        }
+        if (neededDrinks > 0)
+        {
             GameObject sprite = Instantiate(Camera.main.GetComponent<WaiterManager>().drinks[neededDrinks - 1], thinkBubble.transform);
-			sprite.transform.localPosition = availableSpritePositions[spritePosition];
-			spritePosition++;
-		}
+            sprite.transform.localPosition = availableSpritePositions[spritePosition];
+            spritePosition++;
+        }
     }
 
     public void AddToPlatter(GameObject obj)
@@ -278,7 +286,7 @@ public class Waiter : MonoBehaviour
             orderComplete = true;
             TurnOffForces();
             //CheckTip();
-        } 
+        }
     }
 
 
@@ -335,7 +343,7 @@ public class Waiter : MonoBehaviour
         }
     }
 
-    void TurnOffForces() 
+    void TurnOffForces()
     {
         for (int i = 3; i < transform.childCount; i++)
         {
@@ -353,7 +361,7 @@ public class Waiter : MonoBehaviour
         }
     }
 
-    public void SetSpeed(float s) 
+    public void SetSpeed(float s)
     {
         speed = s;
     }
