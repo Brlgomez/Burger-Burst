@@ -150,6 +150,10 @@ public class GrabAndThrowObject : MonoBehaviour
 		{
 			if (target.name == "Pause Button" && !paused)
 			{
+                if (GetComponent<GettingHurt>() != null) 
+                {
+                    Destroy(GetComponent<GettingHurt>());
+                }
 				target.GetComponent<Animator>().Play("ButtonClick");
 				gameObject.AddComponent<CameraMovement>().MoveToPause();
 				PauseGame();
