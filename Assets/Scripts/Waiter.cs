@@ -16,14 +16,17 @@ public class Waiter : MonoBehaviour
     GameObject head, thinkBubble;
 
     float speed = 1;
+    float originalSpeed;
     int maxDeathTime = 1;
     float alpha = 1;
     int timeForDamage = 3;
     float damageTime = 0;
     Vector3[] availableSpritePositions;
+    bool playAttack = true;
 
     void Start()
     {
+        originalSpeed = speed;
         availableSpritePositions = new Vector3[3];
         availableSpritePositions[0] = new Vector3(0, -0.25f, 0.5f);
         availableSpritePositions[1] = new Vector3(-0.5f, 1, 0.4f);
@@ -39,7 +42,8 @@ public class Waiter : MonoBehaviour
             }
         }
         GetComponent<Animator>().Play("Walking");
-        GetComponent<Animator>().SetFloat("Speed", speed / 4);
+        GetComponent<Animator>().SetBool("Walking", true);
+        GetComponent<Animator>().SetFloat("Speed", speed / 2);
         WakeUp();
         SetOrder();
     }
@@ -70,23 +74,31 @@ public class Waiter : MonoBehaviour
         }
         else if (!orderComplete && head.transform.position.z < -1)
         {
+            GetComponent<Animator>().SetFloat("Speed", 0);
             damageTime += Time.deltaTime;
-            if (damageTime > timeForDamage)
+            if (damageTime > timeForDamage && playAttack)
             {
-                damageTime = 0;
-                Camera.main.GetComponent<Gameplay>().DeductNumberOfErrors();
+                GetComponent<Animator>().Play("Attack");
+                playAttack = false;
             }
+            if (damageTime > (timeForDamage + 0.5f)) 
+            {
+				Camera.main.GetComponent<Gameplay>().DeductNumberOfErrors();
+				damageTime = 0;
+                playAttack = true;
+			}
         }
     }
 
     void Walk()
     {
         transform.position = Vector3.MoveTowards(transform.position, transform.position + transform.forward, Time.deltaTime * speed);
-        GetComponent<Animator>().SetFloat("Speed", speed / 4);
-        speed = 1;
-        if (head.transform.position.z < -1) 
+        GetComponent<Animator>().SetFloat("Speed", speed / 2);
+        speed = originalSpeed;
+        if (Mathf.Round(transform.position.z) < -2f) 
         {
-			GetComponent<Animator>().SetFloat("Speed", 0);
+            GetComponent<Animator>().SetBool("Attacking", true);
+            GetComponent<Animator>().SetBool("Walking", false);
             speed = 0;
 		}
     }
@@ -123,29 +135,6 @@ public class Waiter : MonoBehaviour
         SetUpSprites();
         timeForBonus = 5 + (neededBurgers * 5) + (neededFries * 5) + (neededDrinks * 5);
         maxTimeOfBonus = timeForBonus;
-    }
-
-    void SetUpSprites()
-    {
-        int spritePosition = 0;
-        if (neededBurgers > 0)
-        {
-            GameObject sprite = Instantiate(Camera.main.GetComponent<WaiterManager>().burgers[neededBurgers - 1], thinkBubble.transform);
-            sprite.transform.localPosition = availableSpritePositions[spritePosition];
-            spritePosition++;
-        }
-        if (neededFries > 0)
-        {
-            GameObject sprite = Instantiate(Camera.main.GetComponent<WaiterManager>().fries[neededFries - 1], thinkBubble.transform);
-            sprite.transform.localPosition = availableSpritePositions[spritePosition];
-            spritePosition++;
-        }
-        if (neededDrinks > 0)
-        {
-            GameObject sprite = Instantiate(Camera.main.GetComponent<WaiterManager>().drinks[neededDrinks - 1], thinkBubble.transform);
-            sprite.transform.localPosition = availableSpritePositions[spritePosition];
-            spritePosition++;
-        }
     }
 
     public void AddToPlatter(GameObject obj)
@@ -216,7 +205,6 @@ public class Waiter : MonoBehaviour
         }
     }
 
-
     void CheckTip()
     {
         ratioOfTime = timeForBonus / maxTimeOfBonus;
@@ -277,8 +265,6 @@ public class Waiter : MonoBehaviour
     void Died()
     {
         GetComponent<Animator>().enabled = false;
-        GetComponent<Animator>().SetBool("Dead", true);
-        GetComponent<Animator>().SetFloat("Speed", 0);
         for (int i = 3; i < transform.childCount; i++)
         {
             TurnOffAllForces(transform.GetChild(i).gameObject);
@@ -286,7 +272,7 @@ public class Waiter : MonoBehaviour
         for (int i = 0; i < onPlatter.Count; i++)
         {
             onPlatter[i].gameObject.layer = 11;
-            onPlatter[i].AddComponent<FadeObject>();
+            Camera.main.GetComponent<FoodManager>().ChangeToTransparentMaterial(onPlatter[i].gameObject);
         }
     }
 
@@ -306,7 +292,10 @@ public class Waiter : MonoBehaviour
     void TurnOffForce (GameObject obj) 
     {
 		obj.gameObject.layer = 11;
-	    obj.GetComponent<Renderer>().material = Camera.main.GetComponent<Materials>().zombieClear;
+        if (obj.GetComponent<Renderer>() != null)
+        {
+            obj.GetComponent<Renderer>().material = Camera.main.GetComponent<Materials>().zombieClear;
+        }
 		if (obj.GetComponent<ConstantForce>() != null)
 		{
 			obj.GetComponent<ConstantForce>().enabled = false;
@@ -336,11 +325,38 @@ public class Waiter : MonoBehaviour
 
 	void MakeObjectInvisible(GameObject obj)
 	{
-        obj.GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha / maxDeathTime);
+        if (obj.GetComponent<Renderer>() != null)
+        {
+            obj.GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha / maxDeathTime);
+        }
 	}
 
     public void SetSpeed(float s)
     {
         speed = s;
+        originalSpeed = s;
     }
+
+	void SetUpSprites()
+	{
+		int spritePosition = 0;
+		if (neededBurgers > 0)
+		{
+			GameObject sprite = Instantiate(Camera.main.GetComponent<WaiterManager>().burgers[neededBurgers - 1], thinkBubble.transform);
+			sprite.transform.localPosition = availableSpritePositions[spritePosition];
+			spritePosition++;
+		}
+		if (neededFries > 0)
+		{
+			GameObject sprite = Instantiate(Camera.main.GetComponent<WaiterManager>().fries[neededFries - 1], thinkBubble.transform);
+			sprite.transform.localPosition = availableSpritePositions[spritePosition];
+			spritePosition++;
+		}
+		if (neededDrinks > 0)
+		{
+			GameObject sprite = Instantiate(Camera.main.GetComponent<WaiterManager>().drinks[neededDrinks - 1], thinkBubble.transform);
+			sprite.transform.localPosition = availableSpritePositions[spritePosition];
+			spritePosition++;
+		}
+	}
 }

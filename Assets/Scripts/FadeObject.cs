@@ -4,24 +4,12 @@ using UnityEngine;
 
 public class FadeObject : MonoBehaviour
 {
-
     float time;
     int maxTime = 1;
     float r, g, b;
 
     void Start () {
-        if (name == "Burger(Clone)")
-        {
-            GetComponent<Renderer>().material = Camera.main.GetComponent<Materials>().burgerClear;
-        }
-        else if (name == "Drink(Clone)")
-        {
-            GetComponent<Renderer>().material = Camera.main.GetComponent<Materials>().drinkClear;
-        }
-        else if (name == "Fries(Clone)")
-        {
-            GetComponent<Renderer>().material = Camera.main.GetComponent<Materials>().friesClear;
-        }
+        Camera.main.GetComponent<FoodManager>().ChangeToTransparentMaterial(gameObject);
         r = GetComponent<Renderer>().material.color.r;
         g = GetComponent<Renderer>().material.color.g;
         b = GetComponent<Renderer>().material.color.b;

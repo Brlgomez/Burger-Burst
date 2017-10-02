@@ -13,7 +13,7 @@ public class GrabAndThrowObject : MonoBehaviour
     bool paused = false;
     int timeForNewPerson = 8;
     float newPersonTime;
-    int maxAmountOfPeople = 5;
+    int maxAmountOfPeople = 10;
 
     void Start()
     {
