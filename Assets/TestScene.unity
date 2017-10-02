@@ -145,6 +145,8 @@ Transform:
   - {fileID: 1592578482}
   - {fileID: 2138284341}
   - {fileID: 23744912}
+  - {fileID: 984093023}
+  - {fileID: 461374153}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1519,12 +1521,13 @@ Transform:
   m_PrefabParentObject: {fileID: 400036, guid: 96cd97990a2874ad097c33ba6befd2b3, type: 3}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 327903928}
-  m_LocalRotation: {x: 6.4262822e-12, y: 1, z: -0.0000018318508, w: 0.0000035952676}
-  m_LocalPosition: {x: -0.5, y: 1.65, z: -0.000000072124074}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.5500001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1819058428}
-  m_RootOrder: 5
+  m_Children:
+  - {fileID: 1490945217}
+  m_Father: {fileID: 1828426556}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!144 &327903930
 CharacterJoint:
@@ -1536,7 +1539,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -5.157962e-13, y: -0.5500001, z: 0.000001918871}
+  m_ConnectedAnchor: {x: -2.794551e-11, y: -0.5500001, z: -0.0000018958258}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -2000,6 +2003,47 @@ Transform:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: a1414f0b5e00349e1ab48101e0303018, type: 3}
   m_PrefabInternal: {fileID: 1434200483}
+--- !u!1 &461374152
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 461374153}
+  - component: {fileID: 461374154}
+  m_Layer: 0
+  m_Name: GameObject (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &461374153
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 461374152}
+  m_LocalRotation: {x: 0, y: -0.38268343, z: 0, w: 0.92387956}
+  m_LocalPosition: {x: 6, y: 0, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2587686}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: -45, z: 0}
+--- !u!65 &461374154
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 461374152}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 10, z: 0.1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &499493200
 Prefab:
   m_ObjectHideFlags: 0
@@ -4099,6 +4143,47 @@ Transform:
   m_Father: {fileID: 1700825086}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
+--- !u!1 &984093022
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 984093023}
+  - component: {fileID: 984093024}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &984093023
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 984093022}
+  m_LocalRotation: {x: 0, y: 0.38268343, z: 0, w: 0.92387956}
+  m_LocalPosition: {x: -4.5, y: 0, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2587686}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
+--- !u!65 &984093024
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 984093022}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 10, z: 0.1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &988628535
 GameObject:
   m_ObjectHideFlags: 0
@@ -6461,12 +6546,12 @@ Transform:
   m_PrefabParentObject: {fileID: 400038, guid: 96cd97990a2874ad097c33ba6befd2b3, type: 3}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1490945216}
-  m_LocalRotation: {x: 6.4262822e-12, y: 1, z: -0.0000018318508, w: 0.0000035952676}
-  m_LocalPosition: {x: -0.5, y: 1.125, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.525, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1819058428}
-  m_RootOrder: 4
+  m_Father: {fileID: 327903929}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &1490945218
 MeshRenderer:
@@ -6519,7 +6604,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0.002519995, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -3.517184e-13, y: -0.52248, z: 0.0000018420867}
+  m_ConnectedAnchor: {x: -2.7778618e-11, y: -0.52248, z: 0.000000018384526}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -7332,7 +7417,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1819058428}
-  m_RootOrder: 8
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!75 &1649235479
 ConstantForce:
@@ -7341,7 +7426,7 @@ ConstantForce:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1649235472}
   m_Enabled: 0
-  m_Force: {x: 0, y: 50, z: 0}
+  m_Force: {x: 0, y: 25, z: 0}
   m_RelativeForce: {x: 0, y: 0, z: 0}
   m_Torque: {x: 0, y: 0, z: 0}
   m_RelativeTorque: {x: 0, y: 0, z: 0}
@@ -7749,9 +7834,10 @@ Transform:
   m_LocalRotation: {x: 6.4262822e-12, y: 1, z: -0.0000018318508, w: 0.0000035952676}
   m_LocalPosition: {x: 0.5, y: 2.2, z: -0.00000009616522}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 2078006314}
   m_Father: {fileID: 1819058428}
-  m_RootOrder: 12
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!144 &1717171363
 CharacterJoint:
@@ -8311,12 +8397,12 @@ Transform:
   m_PrefabParentObject: {fileID: 400050, guid: 96cd97990a2874ad097c33ba6befd2b3, type: 3}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1789638959}
-  m_LocalRotation: {x: 6.4262822e-12, y: 1, z: -0.0000018318508, w: 0.0000035952676}
-  m_LocalPosition: {x: 0.5, y: 1.125, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.525, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1819058428}
-  m_RootOrder: 9
+  m_Father: {fileID: 2078006314}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -179.99998, z: 0}
 --- !u!23 &1789638961
 MeshRenderer:
@@ -8369,7 +8455,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0.0025189966, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -3.517148e-13, y: -0.52248096, z: 0.0000018420908}
+  m_ConnectedAnchor: {x: -2.7778621e-11, y: -0.52248096, z: 0.00000001838771}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -8541,7 +8627,7 @@ Transform:
   m_Children:
   - {fileID: 1658752691}
   m_Father: {fileID: 1819058428}
-  m_RootOrder: 11
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: -179.99998, z: 0}
 --- !u!144 &1798265308
 CharacterJoint:
@@ -8692,13 +8778,9 @@ Transform:
   - {fileID: 1526332442}
   - {fileID: 1155352622}
   - {fileID: 1114939793}
-  - {fileID: 1490945217}
-  - {fileID: 327903929}
   - {fileID: 2051418889}
   - {fileID: 1828426556}
   - {fileID: 1649235478}
-  - {fileID: 1789638960}
-  - {fileID: 2078006314}
   - {fileID: 1798265307}
   - {fileID: 1717171362}
   - {fileID: 2134632423}
@@ -8849,9 +8931,10 @@ Transform:
   m_LocalRotation: {x: 6.4262822e-12, y: 1, z: -0.0000018318508, w: 0.0000035952676}
   m_LocalPosition: {x: -0.5, y: 2.2, z: -0.00000009616517}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 327903929}
   m_Father: {fileID: 1819058428}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!144 &1828426557
 CharacterJoint:
@@ -9522,7 +9605,7 @@ Transform:
   m_Children:
   - {fileID: 1745625266}
   m_Father: {fileID: 1819058428}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 29.159994, y: -179.99998, z: 0}
 --- !u!144 &2051418890
 CharacterJoint:
@@ -9874,12 +9957,13 @@ Transform:
   m_PrefabParentObject: {fileID: 400048, guid: 96cd97990a2874ad097c33ba6befd2b3, type: 3}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2078006313}
-  m_LocalRotation: {x: 6.4262822e-12, y: 1, z: -0.0000018318508, w: 0.0000035952676}
-  m_LocalPosition: {x: 0.5, y: 1.65, z: -0.00000007212362}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.5500001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1819058428}
-  m_RootOrder: 10
+  m_Children:
+  - {fileID: 1789638960}
+  m_Father: {fileID: 1717171362}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!144 &2078006315
 CharacterJoint:
@@ -9891,7 +9975,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -5.157966e-13, y: -0.5500001, z: 0.000001918871}
+  m_ConnectedAnchor: {x: -2.7945514e-11, y: -0.5500001, z: -0.0000018958262}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -10340,7 +10424,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1819058428}
-  m_RootOrder: 13
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &2134632424
 Rigidbody:
@@ -10350,8 +10434,8 @@ Rigidbody:
   m_GameObject: {fileID: 2134632422}
   serializedVersion: 2
   m_Mass: 3.125
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 15
+  m_AngularDrag: 15
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
@@ -10417,7 +10501,7 @@ ConstantForce:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2134632422}
   m_Enabled: 0
-  m_Force: {x: 0, y: 100, z: 0}
+  m_Force: {x: 0, y: 50, z: 0}
   m_RelativeForce: {x: 0, y: 0, z: 0}
   m_Torque: {x: 0, y: 0, z: 0}
   m_RelativeTorque: {x: 0, y: 0, z: 0}

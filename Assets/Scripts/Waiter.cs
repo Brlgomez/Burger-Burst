@@ -13,19 +13,11 @@ public class Waiter : MonoBehaviour
     float costOfMeal;
     bool orderComplete;
     List<GameObject> onPlatter = new List<GameObject>();
+    GameObject head, thinkBubble;
 
-    GameObject head, rightFoot, leftFoot, thinkBubble;
-    GameObject followRight, followLeft;
-    bool left = false;
-    bool leftComplete, rightComplete;
-    bool firstMove = true;
-    bool moving = false;
-
-    float speed = 2;
-
+    float speed = 1;
     int maxDeathTime = 1;
     float alpha = 1;
-
     int timeForDamage = 3;
     float damageTime = 0;
     Vector3[] availableSpritePositions;
@@ -38,21 +30,12 @@ public class Waiter : MonoBehaviour
         availableSpritePositions[2] = new Vector3(0.5f, 1, 0.3f);
         thinkBubble = transform.GetChild(0).gameObject;
         thinkBubble.AddComponent<IncreaseSize>();
-        followRight = transform.GetChild(1).gameObject;
-        followLeft = transform.GetChild(2).gameObject;
         for (int i = 3; i < transform.childCount; i++)
         {
-            if (transform.GetChild(i).name == "Right_Foot")
-            {
-                rightFoot = transform.GetChild(i).gameObject;
-            }
-            else if (transform.GetChild(i).name == "Left_Foot")
-            {
-                leftFoot = transform.GetChild(i).gameObject;
-            }
-            else if (transform.GetChild(i).name == "Head")
+            if (transform.GetChild(i).name == "Head")
             {
                 head = transform.GetChild(i).gameObject;
+                break;
             }
         }
         GetComponent<Animator>().Play("Walking");
@@ -64,7 +47,7 @@ public class Waiter : MonoBehaviour
     void Update()
     {
         thinkBubble.transform.position = new Vector3(head.transform.position.x, thinkBubble.transform.position.y, head.transform.position.z);
-        if (moving && !orderComplete)
+		if (!orderComplete && head.transform.position.z > -1)
         {
             Walk();
         }
@@ -78,14 +61,14 @@ public class Waiter : MonoBehaviour
             }
             for (int i = 3; i < transform.childCount; i++)
             {
-                transform.GetChild(i).GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha / maxDeathTime);
+                MakeAllObjectsInvisible(transform.GetChild(i).gameObject);
             }
             if (alpha < 0.01f)
             {
                 Camera.main.GetComponent<WaiterManager>().RemoveWaiter(gameObject);
             }
         }
-        else if (!moving && !orderComplete)
+        else if (!orderComplete && head.transform.position.z < -1)
         {
             damageTime += Time.deltaTime;
             if (damageTime > timeForDamage)
@@ -98,18 +81,14 @@ public class Waiter : MonoBehaviour
 
     void Walk()
     {
-        Vector3 camPosition = new Vector3(Camera.main.transform.position.x, transform.position.y, Camera.main.transform.position.z);
-        transform.position = Vector3.MoveTowards(transform.position, camPosition, Time.deltaTime * speed);
-        if (transform.position.z < 0) 
+        transform.position = Vector3.MoveTowards(transform.position, transform.position + transform.forward, Time.deltaTime * speed);
+        GetComponent<Animator>().SetFloat("Speed", speed / 4);
+        speed = 1;
+        if (head.transform.position.z < -1) 
         {
-            GetComponent<Animator>().SetFloat("Speed", speed / 4);
-			speed -= Time.deltaTime * 3;
-        }
-        if (speed < 0) {
+			GetComponent<Animator>().SetFloat("Speed", 0);
             speed = 0;
-            GetComponent<Animator>().SetFloat("Speed", speed / 4);
-            moving = false;
-        }
+		}
     }
 
     void SetOrder()
@@ -232,7 +211,7 @@ public class Waiter : MonoBehaviour
         {
             Camera.main.GetComponent<Gameplay>().IncreaseCompletedOrders();
             orderComplete = true;
-            TurnOffForces();
+            Died();
             //CheckTip();
         }
     }
@@ -255,53 +234,54 @@ public class Waiter : MonoBehaviour
 
     void WakeUp()
     {
-        moving = true;
         for (int i = 3; i < transform.childCount; i++)
         {
-            if (transform.GetChild(i).GetComponent<Rigidbody>() != null)
-            {
-                transform.GetChild(i).GetComponent<Rigidbody>().useGravity = true;
-                transform.GetChild(i).GetComponent<Rigidbody>().isKinematic = false;
-            }
-            if (transform.GetChild(i).GetComponent<ConstantForce>() != null)
-            {
-                transform.GetChild(i).GetComponent<ConstantForce>().enabled = true;
-            }
-            if (transform.GetChild(i).GetComponent<Collider>() != null)
-            {
-                transform.GetChild(i).GetComponent<Collider>().enabled = true;
-            }
+            TurnOnAllForces(transform.GetChild(i).gameObject);
         }
     }
 
-    void Sleep()
-    {
-        moving = false;
-        for (int i = 3; i < transform.childCount; i++)
-        {
-            if (transform.GetChild(i).GetComponent<Rigidbody>() != null)
-            {
-                transform.GetChild(i).GetComponent<Rigidbody>().useGravity = false;
-                transform.GetChild(i).GetComponent<Rigidbody>().isKinematic = true;
-            }
-            if (transform.GetChild(i).GetComponent<ConstantForce>() != null)
-            {
-                transform.GetChild(i).GetComponent<ConstantForce>().enabled = false;
-            }
-        }
-    }
+	void TurnOnAllForces(GameObject node)
+	{
+		if (node.transform.childCount == 0)
+		{
+			TurnOnForce(node.transform.gameObject);
+			return;
+		}
+		else
+		{
+			for (int i = 0; i < node.transform.childCount; i++)
+			{
+				TurnOnForce(node.transform.gameObject);
+				TurnOnAllForces(node.transform.GetChild(i).gameObject);
+			}
+		}
+	}
 
-    void TurnOffForces()
+	void TurnOnForce(GameObject obj)
+	{
+        if (obj.GetComponent<Rigidbody>() != null)
+		{
+			obj.GetComponent<Rigidbody>().useGravity = true;
+			obj.GetComponent<Rigidbody>().isKinematic = false;
+		}
+		if (obj.GetComponent<ConstantForce>() != null)
+		{
+			obj.GetComponent<ConstantForce>().enabled = true;
+		}
+		if (obj.GetComponent<Collider>() != null)
+		{
+			obj.GetComponent<Collider>().enabled = true;
+		}
+	}
+
+    void Died()
     {
+        GetComponent<Animator>().enabled = false;
+        GetComponent<Animator>().SetBool("Dead", true);
+        GetComponent<Animator>().SetFloat("Speed", 0);
         for (int i = 3; i < transform.childCount; i++)
         {
-            transform.GetChild(i).gameObject.layer = 11;
-            transform.GetChild(i).GetComponent<Renderer>().material = Camera.main.GetComponent<Materials>().zombieClear;
-            if (transform.GetChild(i).GetComponent<ConstantForce>() != null)
-            {
-                transform.GetChild(i).GetComponent<ConstantForce>().enabled = false;
-            }
-            transform.GetChild(i).GetComponent<Rigidbody>().mass *= 0.1f;
+            TurnOffAllForces(transform.GetChild(i).gameObject);
         }
         for (int i = 0; i < onPlatter.Count; i++)
         {
@@ -309,6 +289,55 @@ public class Waiter : MonoBehaviour
             onPlatter[i].AddComponent<FadeObject>();
         }
     }
+
+    void TurnOffAllForces(GameObject node)
+    {
+        if (node.transform.childCount == 0) {
+            TurnOffForce(node.transform.gameObject);
+            return;
+        } else {
+            for (int i = 0; i < node.transform.childCount; i++) {
+                TurnOffForce(node.transform.gameObject);
+                TurnOffAllForces(node.transform.GetChild(i).gameObject);
+            }
+        }
+    }
+
+    void TurnOffForce (GameObject obj) 
+    {
+		obj.gameObject.layer = 11;
+	    obj.GetComponent<Renderer>().material = Camera.main.GetComponent<Materials>().zombieClear;
+		if (obj.GetComponent<ConstantForce>() != null)
+		{
+			obj.GetComponent<ConstantForce>().enabled = false;
+		}
+        if (obj.GetComponent<Rigidbody>() != null)
+        {
+            obj.GetComponent<Rigidbody>().mass *= 0.25f;
+        }
+    }
+
+	void MakeAllObjectsInvisible(GameObject node)
+	{
+		if (node.transform.childCount == 0)
+		{
+            MakeObjectInvisible(node.transform.gameObject);
+			return;
+		}
+		else
+		{
+			for (int i = 0; i < node.transform.childCount; i++)
+			{
+                MakeObjectInvisible(node.transform.gameObject);
+                MakeAllObjectsInvisible(node.transform.GetChild(i).gameObject);
+			}
+		}
+	}
+
+	void MakeObjectInvisible(GameObject obj)
+	{
+        obj.GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha / maxDeathTime);
+	}
 
     public void SetSpeed(float s)
     {
