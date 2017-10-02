@@ -55,6 +55,8 @@ public class Waiter : MonoBehaviour
                 head = transform.GetChild(i).gameObject;
             }
         }
+        GetComponent<Animator>().Play("Walking");
+        GetComponent<Animator>().SetFloat("Speed", speed / 4);
         WakeUp();
         SetOrder();
     }
@@ -100,9 +102,12 @@ public class Waiter : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, camPosition, Time.deltaTime * speed);
         if (transform.position.z < 0) 
         {
+            GetComponent<Animator>().SetFloat("Speed", speed / 4);
 			speed -= Time.deltaTime * 3;
         }
         if (speed < 0) {
+            speed = 0;
+            GetComponent<Animator>().SetFloat("Speed", speed / 4);
             moving = false;
         }
     }
