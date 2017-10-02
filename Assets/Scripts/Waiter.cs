@@ -21,7 +21,7 @@ public class Waiter : MonoBehaviour
     bool firstMove = true;
     bool moving = false;
 
-    float speed = 3;
+    float speed = 2;
 
     int maxDeathTime = 1;
     float alpha = 1;
@@ -96,74 +96,13 @@ public class Waiter : MonoBehaviour
 
     void Walk()
     {
-        int xDirection = 1;
-        if (!left && !leftComplete)
+        Vector3 camPosition = new Vector3(Camera.main.transform.position.x, transform.position.y, Camera.main.transform.position.z);
+        transform.position = Vector3.MoveTowards(transform.position, camPosition, Time.deltaTime * speed);
+        if (transform.position.z < 0) 
         {
-            rightFoot.transform.localPosition = Vector3.MoveTowards(
-                rightFoot.transform.localPosition,
-                followRight.transform.localPosition,
-                Time.deltaTime * speed
-            );
-            if (Vector3.Distance(rightFoot.transform.localPosition, followRight.transform.localPosition) < 1)
-            {
-                int stepLength = 0;
-                if (firstMove)
-                {
-                    stepLength = 1 * xDirection;
-                    firstMove = false;
-                }
-                else
-                {
-                    stepLength = 2 * xDirection;
-                }
-                Vector3 nextPosition = new Vector3(
-                    followLeft.transform.localPosition.x,
-                    followLeft.transform.localPosition.y, 
-                    followLeft.transform.localPosition.z + stepLength
-                );
-                if (Mathf.Abs(followLeft.transform.position.z - Camera.main.transform.position.z) < 4)
-                {
-                    leftComplete = true;
-                }
-                followLeft.transform.localPosition = nextPosition;
-                left = true;
-            }
+			speed -= Time.deltaTime * 3;
         }
-        else if (left && !rightComplete)
-        {
-            leftFoot.transform.localPosition = Vector3.MoveTowards(
-                leftFoot.transform.localPosition,
-                followLeft.transform.localPosition,
-                Time.deltaTime * speed
-            );
-            if (Vector3.Distance(leftFoot.transform.localPosition, followLeft.transform.localPosition) < 1)
-            {
-                int stepLength = 0;
-                if (firstMove)
-                {
-                    stepLength = 1 * xDirection;
-                    firstMove = false;
-                }
-                else
-                {
-                    stepLength = 2 * xDirection;
-                }
-                Vector3 nextPosition = new Vector3(
-                    followRight.transform.localPosition.x,
-                    followRight.transform.localPosition.y, 
-                    followRight.transform.localPosition.z + stepLength
-                );
-                if (Mathf.Abs(followRight.transform.position.z - Camera.main.transform.position.z) < 4)
-                {
-                    rightComplete = true;
-                }
-                followRight.transform.localPosition = nextPosition;
-                left = false;
-            }
-        }
-        else if (rightComplete && leftComplete)
-        {
-            Camera.main.GetComponent<Gameplay>().DeductNumberOfErrors();
+        if (speed < 0) {
             moving = false;
         }
     }
@@ -210,7 +149,6 @@ public class Waiter : MonoBehaviour
             GameObject sprite = Instantiate(Camera.main.GetComponent<WaiterManager>().burgers[neededBurgers - 1], thinkBubble.transform);
             sprite.transform.localPosition = availableSpritePositions[spritePosition];
             spritePosition++;
-
         }
         if (neededFries > 0)
         {
@@ -230,17 +168,16 @@ public class Waiter : MonoBehaviour
     {
         if (obj.tag == "Thrown" && !orderComplete)
         {
-            Destroy(obj.GetComponent<Rigidbody>());
             if (obj.name == "Burger(Clone)")
             {
                 amountOfBurgers++;
                 if (amountOfBurgers > neededBurgers)
                 {
-                    Camera.main.GetComponent<Gameplay>().IncreaseNumberOfLostProduct(obj);
+                    obj.transform.parent = null;
                 }
                 else
                 {
-                    costOfMeal += Camera.main.GetComponent<Gameplay>().IncreaseNumberOfSentProduct(obj);
+                    AddToBody(obj);
                 }
             }
             else if (obj.name == "Drink(Clone)")
@@ -248,11 +185,11 @@ public class Waiter : MonoBehaviour
                 amountOfDrinks++;
                 if (amountOfDrinks > neededDrinks)
                 {
-                    Camera.main.GetComponent<Gameplay>().IncreaseNumberOfLostProduct(obj);
+                    obj.transform.parent = null;
                 }
                 else
                 {
-                    costOfMeal += Camera.main.GetComponent<Gameplay>().IncreaseNumberOfSentProduct(obj);
+                    AddToBody(obj);
                 }
             }
             else if (obj.name == "Fries(Clone)")
@@ -260,22 +197,28 @@ public class Waiter : MonoBehaviour
                 amountOfFries++;
                 if (amountOfFries > neededFries)
                 {
-                    Camera.main.GetComponent<Gameplay>().IncreaseNumberOfLostProduct(obj);
+                    obj.transform.parent = null;
                 }
                 else
                 {
-                    costOfMeal += Camera.main.GetComponent<Gameplay>().IncreaseNumberOfSentProduct(obj);
+                    AddToBody(obj);
                 }
             }
-            obj.tag = "OnPlatter";
-            onPlatter.Add(obj);
-            CheckOrder();
         }
         else if (obj.tag == "Thrown" && orderComplete)
         {
             Destroy(obj.GetComponent<Rigidbody>());
             Camera.main.GetComponent<Gameplay>().IncreaseNumberOfLostProduct(obj);
         }
+    }
+
+    void AddToBody(GameObject obj) {
+		Destroy(obj.GetComponent<Rigidbody>());
+		Destroy(obj.GetComponent<RemoveObjects>());
+		costOfMeal += Camera.main.GetComponent<Gameplay>().IncreaseNumberOfSentProduct(obj);
+		obj.tag = "OnPlatter";
+		onPlatter.Add(obj);
+		CheckOrder();
     }
 
     void CheckOrder()
@@ -353,6 +296,7 @@ public class Waiter : MonoBehaviour
             {
                 transform.GetChild(i).GetComponent<ConstantForce>().enabled = false;
             }
+            transform.GetChild(i).GetComponent<Rigidbody>().mass *= 0.1f;
         }
         for (int i = 0; i < onPlatter.Count; i++)
         {

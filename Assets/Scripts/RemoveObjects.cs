@@ -25,7 +25,6 @@ public class RemoveObjects : MonoBehaviour
             {
                 col.transform.root.gameObject.GetComponent<Waiter>().AddToPlatter(gameObject);
                 transform.parent = col.gameObject.transform;
-                Destroy(GetComponent<RemoveObjects>());
             }
         }
     }

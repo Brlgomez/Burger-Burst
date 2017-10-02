@@ -131,7 +131,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2587685}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.75, y: -0.75, z: 0}
+  m_LocalPosition: {x: -0.75, y: -0.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 457293663}
@@ -2311,24 +2311,6 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 3bbc68c94237b40bbb762b088f00b525, type: 3}
   m_PrefabInternal: {fileID: 518025249}
---- !u!1 &555609500 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 100000, guid: 3bbc68c94237b40bbb762b088f00b525, type: 3}
-  m_PrefabInternal: {fileID: 518025249}
---- !u!64 &555609501
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 555609500}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: 3bbc68c94237b40bbb762b088f00b525, type: 3}
 --- !u!1001 &557756516
 Prefab:
   m_ObjectHideFlags: 0
@@ -3283,6 +3265,7 @@ Transform:
   - {fileID: 280737575}
   - {fileID: 510590889}
   - {fileID: 1668527294}
+  - {fileID: 1538698590}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5060,7 +5043,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1155352621}
   m_LocalRotation: {x: -0.0000012953187, y: -0.70710427, z: 0.0000012953096, w: -0.7071094}
-  m_LocalPosition: {x: -0.25000003, y: 0.25, z: 0}
+  m_LocalPosition: {x: -0.25000003, y: 0.1, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1819058428}
@@ -6809,7 +6792,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1526332441}
   m_LocalRotation: {x: -0.0000012953187, y: -0.70710427, z: 0.0000012953096, w: -0.7071094}
-  m_LocalPosition: {x: 0.25000003, y: 0.25, z: 0}
+  m_LocalPosition: {x: 0.25000003, y: 0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1819058428}
@@ -6819,6 +6802,47 @@ Transform:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 93e21368ec8694ece8694cb821bb98b3, type: 3}
   m_PrefabInternal: {fileID: 1493308487}
+--- !u!1 &1538698589
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1538698590}
+  - component: {fileID: 1538698591}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Building
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1538698590
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1538698589}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 788492897}
+  m_RootOrder: 45
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1538698591
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1538698589}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 50, y: 1, z: 50}
+  m_Center: {x: 0, y: -0.5, z: 0}
 --- !u!4 &1550890444 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 776cb52dd40034f40a2bb77781778236, type: 3}
@@ -8641,6 +8665,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1819058428}
+  - component: {fileID: 1819058429}
   m_Layer: 0
   m_Name: Waiter
   m_TagString: Untagged
@@ -8679,6 +8704,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!65 &1819058429
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1819058427}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2.5, z: 1}
+  m_Center: {x: 0, y: 1.5, z: 0.25}
 --- !u!1 &1823268147
 GameObject:
   m_ObjectHideFlags: 0
