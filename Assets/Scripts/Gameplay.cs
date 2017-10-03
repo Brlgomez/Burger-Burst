@@ -13,7 +13,7 @@ public class Gameplay : MonoBehaviour
     float costOfFries = 3.95f;
     float costOfDrink = 2.95f;
     float profit;
-    bool gameOver = false;
+    bool gameOver;
 
     void Start()
     {
@@ -23,17 +23,17 @@ public class Gameplay : MonoBehaviour
     public void IncreaseNumberOfLostProduct(GameObject obj)
     {
         float cost = 0;
-        if (obj.name == "Burger(Clone)")
+        switch (obj.name)
         {
-            cost = costToMakeBurger;
-        }
-        else if (obj.name == "Drink(Clone)")
-        {
-            cost = costToMakeDrink;
-        }
-        else if (obj.name == "Fries(Clone)")
-        {
-            cost = costToMakeFries;
+            case "Burger(Clone)":
+                cost = costToMakeBurger;
+                break;
+            case "Drink(Clone)":
+                cost = costToMakeDrink;
+                break;
+            case "Fries(Clone)":
+                cost = costToMakeFries;
+                break;
         }
         profit -= cost;
         profit = Mathf.Round(profit * 100f) / 100f;
@@ -44,17 +44,17 @@ public class Gameplay : MonoBehaviour
     public float IncreaseNumberOfSentProduct(GameObject obj)
     {
         float cost = 0;
-        if (obj.name == "Burger(Clone)")
+        switch (obj.name)
         {
-            cost = costOfBurger - costToMakeBurger;
-        }
-        else if (obj.name == "Drink(Clone)")
-        {
-            cost = costOfFries - costToMakeFries;
-        }
-        else if (obj.name == "Fries(Clone)")
-        {
-            cost = costOfDrink - costToMakeDrink;
+            case "Burger(Clone)":
+                cost = costOfBurger - costToMakeBurger;
+                break;
+            case "Drink(Clone)":
+                cost = costOfFries - costToMakeFries;
+                break;
+            case "Fries(Clone)":
+                cost = costOfDrink - costToMakeDrink;
+                break;
         }
         profit += cost;
         profit = Mathf.Round(profit * 100f) / 100f;
@@ -100,10 +100,11 @@ public class Gameplay : MonoBehaviour
     public void DeductNumberOfErrors () 
     {
         numberOfLostProductsAllowed--;
-        if (numberOfLostProductsAllowed < 1)
+		Camera.main.GetComponent<ScreenTextManagment>().ChangeMistakeText(numberOfLostProductsAllowed);
+		if (numberOfLostProductsAllowed < 1)
         {
-            gameOver = true;
+			gameOver = true;
+            gameObject.AddComponent<CameraMovement>().MoveToGameOver();
         }
-        Camera.main.GetComponent<ScreenTextManagment>().ChangeMistakeText(numberOfLostProductsAllowed);
     }
 }

@@ -30,7 +30,7 @@ public class AftermathText : MonoBehaviour
         }
 	}
 
-    public void updateText (string text) 
+    public void UpdateText (string text) 
     {
         GetComponent<TextMesh>().text = text;    
     }

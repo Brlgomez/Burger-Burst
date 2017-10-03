@@ -8,7 +8,7 @@ public class GettingHurt : MonoBehaviour
     GameObject screen;
     float r, g, b, a;
     float lengthOfAnimation = 0.25f;
-    float currentTime = 0;
+    float currentTime;
     Transform initialTransform;
     float shakeIntensity = 0.25f;
 
@@ -30,7 +30,7 @@ public class GettingHurt : MonoBehaviour
         {
             a += Time.deltaTime * 4;
         }
-        else
+        else if (!Camera.main.gameObject.GetComponent<Gameplay>().IsGameOver() && currentTime > lengthOfAnimation / 2)
         {
             a -= Time.deltaTime * 4;
         }
@@ -46,6 +46,9 @@ public class GettingHurt : MonoBehaviour
     void OnDestroy()
     {
         a = 0;
-        screen.GetComponent<Renderer>().material.color = new Color(r, g, b, a);
+        if (!Camera.main.gameObject.GetComponent<Gameplay>().IsGameOver())
+        {
+            screen.GetComponent<Renderer>().material.color = new Color(r, g, b, a);
+        }
     }
 }

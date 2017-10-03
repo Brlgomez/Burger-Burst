@@ -38,4 +38,17 @@ public class WaiterManager : MonoBehaviour
     {
         return amountOfWaiters;
     }
+
+    public void DeleteAllScripts () 
+    {
+        GameObject[] clones = GameObject.FindGameObjectsWithTag("Clone");
+		foreach (GameObject obj in clones)
+		{
+            if (obj.GetComponent<Waiter>() != null)
+            {
+                obj.GetComponent<Waiter>().DestroyScript();
+            }
+		}
+    }
+
 }

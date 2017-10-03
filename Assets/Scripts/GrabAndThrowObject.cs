@@ -10,7 +10,7 @@ public class GrabAndThrowObject : MonoBehaviour
     List<Vector3> positions = new List<Vector3>();
     Vector3 direction;
 	GameObject[] ingredients;
-    bool paused = false;
+    bool paused;
     int timeForNewPerson = 8;
     float newPersonTime;
     int maxAmountOfPeople = 10;
@@ -160,11 +160,20 @@ public class GrabAndThrowObject : MonoBehaviour
 			}
 			else if (target.name == "Pause Button Screen" && paused)
 			{
-				gameObject.AddComponent<CameraMovement>().MoveToGameplay();
-				Camera.main.GetComponent<ScreenTextManagment>().SetSecondScreenText("", Color.white);
+                if (!gameObject.GetComponent<Gameplay>().IsGameOver())
+                {
+                    gameObject.AddComponent<CameraMovement>().MoveToGameplay();
+                    Camera.main.GetComponent<ScreenTextManagment>().SetSecondScreenText("", Color.white);
+                } 
+                else 
+                {
+                    gameObject.AddComponent<CameraMovement>().MoveToGameOver();
+                    Camera.main.GetComponent<ScreenTextManagment>().SetSecondScreenText("", Color.white);
+                }
 			}
 			else if (target.name == "Restart Button" && paused)
 			{
+                transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 0, 0, 0);
 				DeleteObjects();
 				Destroy(GetComponent<Gameplay>());
 				gameObject.AddComponent<CameraMovement>().MoveToGameplay();
@@ -172,6 +181,7 @@ public class GrabAndThrowObject : MonoBehaviour
 			}
 			else if (target.name == "Quit Button" && paused)
 			{
+                transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 0, 0, 0);
 				DeleteObjects();
 				Destroy(GetComponent<Gameplay>());
 				UnPauseGame();

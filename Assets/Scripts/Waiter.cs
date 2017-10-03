@@ -7,7 +7,7 @@ public class Waiter : MonoBehaviour
 {
     int neededBurgers, neededFries, neededDrinks;
     int amountOfBurgers, amountOfFries, amountOfDrinks;
-    float timeForBonus = 0;
+    float timeForBonus;
     float maxTimeOfBonus;
     float ratioOfTime;
     float costOfMeal;
@@ -20,7 +20,7 @@ public class Waiter : MonoBehaviour
     int maxDeathTime = 1;
     float alpha = 1;
     int timeForDamage = 3;
-    float damageTime = 0;
+    float damageTime;
     Vector3[] availableSpritePositions;
     bool playAttack = true;
 
@@ -83,13 +83,17 @@ public class Waiter : MonoBehaviour
             }
             if (damageTime > (timeForDamage + 0.25f))
             {
-                if (Camera.main.gameObject.GetComponent<GettingHurt>() == null)
+				Camera.main.GetComponent<Gameplay>().DeductNumberOfErrors();
+				if (Camera.main.gameObject.GetComponent<GettingHurt>() == null)
                 {
                     Camera.main.gameObject.AddComponent<GettingHurt>();
                 }
-                Camera.main.GetComponent<Gameplay>().DeductNumberOfErrors();
                 damageTime = 0;
                 playAttack = true;
+                if (Camera.main.GetComponent<Gameplay>().IsGameOver()) 
+                {
+                    Camera.main.GetComponent<WaiterManager>().DeleteAllScripts();
+                }
             }
         }
     }
@@ -145,41 +149,41 @@ public class Waiter : MonoBehaviour
     {
         if (obj.tag == "Thrown" && !orderComplete)
         {
-            if (obj.name == "Burger(Clone)")
+            switch(obj.name) 
             {
-                amountOfBurgers++;
-                if (amountOfBurgers > neededBurgers)
-                {
-                    obj.transform.parent = null;
-                }
-                else
-                {
-                    AddToBody(obj);
-                }
-            }
-            else if (obj.name == "Drink(Clone)")
-            {
-                amountOfDrinks++;
-                if (amountOfDrinks > neededDrinks)
-                {
-                    obj.transform.parent = null;
-                }
-                else
-                {
-                    AddToBody(obj);
-                }
-            }
-            else if (obj.name == "Fries(Clone)")
-            {
-                amountOfFries++;
-                if (amountOfFries > neededFries)
-                {
-                    obj.transform.parent = null;
-                }
-                else
-                {
-                    AddToBody(obj);
-                }
+                case "Burger(Clone)":
+					amountOfBurgers++;
+					if (amountOfBurgers > neededBurgers)
+					{
+						obj.transform.parent = null;
+					}
+					else
+					{
+						AddToBody(obj);
+					}
+                    break;
+                case "Drink(Clone)":
+                    amountOfDrinks++;
+					if (amountOfDrinks > neededDrinks)
+					{
+						obj.transform.parent = null;
+					}
+					else
+					{
+						AddToBody(obj);
+					}
+                    break;
+                case "Fries(Clone)":
+					amountOfFries++;
+					if (amountOfFries > neededFries)
+					{
+						obj.transform.parent = null;
+					}
+					else
+					{
+						AddToBody(obj);
+					}
+                    break;
             }
         }
         else if (obj.tag == "Thrown" && orderComplete)
@@ -314,6 +318,41 @@ public class Waiter : MonoBehaviour
             obj.GetComponent<Rigidbody>().mass *= 0.25f;
         }
     }
+
+	public void DestroyScript()
+	{
+		GetComponent<Animator>().enabled = false;
+		for (int i = 3; i < transform.childCount; i++)
+		{
+			TurnUpAllForces(transform.GetChild(i).gameObject);
+		}
+        Destroy(gameObject.GetComponent<Waiter>());
+	}
+
+	void TurnUpAllForces(GameObject node)
+	{
+		if (node.transform.childCount == 0)
+		{
+			TurnUpForce(node.transform.gameObject);
+			return;
+		}
+		else
+		{
+			for (int i = 0; i < node.transform.childCount; i++)
+			{
+				TurnUpForce(node.transform.gameObject);
+				TurnUpAllForces(node.transform.GetChild(i).gameObject);
+			}
+		}
+	}
+
+	void TurnUpForce(GameObject obj)
+	{
+		if (obj.GetComponent<ConstantForce>() != null)
+		{
+            obj.GetComponent<ConstantForce>().force *= 1.5f;
+		}
+	}
 
     void MakeAllObjectsInvisible(GameObject node)
     {

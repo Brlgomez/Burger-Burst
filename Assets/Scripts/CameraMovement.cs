@@ -9,10 +9,11 @@ public class CameraMovement : MonoBehaviour
     GameObject gameplay;
     GameObject pause;
     GameObject towards;
-    float speed = 0;
+    GameObject gameOver;
+    float speed;
     int maxSpeed = 6;
     int accelerating = 10;
-    bool moveToPosition = false;
+    bool moveToPosition;
 
     void Update()
     {
@@ -56,6 +57,10 @@ public class CameraMovement : MonoBehaviour
                 {
                     Camera.main.GetComponent<ScreenTextManagment>().SetSecondScreenText("Resume\nRestart\nQuit", Color.white);
                 }
+                else if (towards == gameOver)
+                {
+                    GetComponent<GrabAndThrowObject>().UnPauseGame();
+                }
                 Destroy(GetComponent<CameraMovement>());
             }
         }
@@ -79,6 +84,13 @@ public class CameraMovement : MonoBehaviour
     {
         pause = GameObject.Find("Pause Camera Position");
         towards = pause;
+        moveToPosition = true;
+    }
+
+    public void MoveToGameOver()
+    {
+        gameOver = GameObject.Find("Game Over Camera Position");
+        towards = gameOver;
         moveToPosition = true;
     }
 }
