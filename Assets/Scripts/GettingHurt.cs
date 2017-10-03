@@ -11,15 +11,20 @@ public class GettingHurt : MonoBehaviour
     float currentTime;
     Transform initialTransform;
     float shakeIntensity = 0.25f;
+    bool canShake = true;
 
     void Start()
     {
-        initialTransform = GameObject.Find("Gameplay Camera Position").transform;
+        initialTransform = Camera.main.GetComponent<GrabAndThrowObject>().GetInitialPosition();
         screen = Camera.main.transform.GetChild(0).gameObject;
         r = screen.GetComponent<Renderer>().material.color.r;
         g = screen.GetComponent<Renderer>().material.color.g;
         b = screen.GetComponent<Renderer>().material.color.b;
         a = 0;
+        if (Camera.main.GetComponent<CameraMovement>() != null)
+        {
+            canShake = false;
+        }
     }
 
     void Update()
@@ -35,10 +40,16 @@ public class GettingHurt : MonoBehaviour
             a -= Time.deltaTime * 4;
         }
         screen.GetComponent<Renderer>().material.color = new Color(r, g, b, a);
-        Camera.main.transform.position = initialTransform.position + Random.insideUnitSphere * shakeIntensity;
+        if (canShake) 
+        {
+			Camera.main.transform.position = initialTransform.position + Random.insideUnitSphere * shakeIntensity;
+		}
         if (currentTime > lengthOfAnimation)
         {
-            Camera.main.transform.position = initialTransform.position;
+            if (canShake)
+            {
+                Camera.main.transform.position = initialTransform.position;
+            }
             Destroy(GetComponent<GettingHurt>());
         }
     }

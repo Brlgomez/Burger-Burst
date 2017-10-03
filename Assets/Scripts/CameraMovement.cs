@@ -5,13 +5,9 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
 
-    GameObject menu;
-    GameObject gameplay;
-    GameObject pause;
-    GameObject towards;
-    GameObject gameOver;
+    Transform menu, gameplay, pause, towards, gameOver, grill, fryer, soda;
     float speed;
-    int maxSpeed = 6;
+    int maxSpeed = 10;
     int accelerating = 10;
     bool moveToPosition;
 
@@ -43,11 +39,11 @@ public class CameraMovement : MonoBehaviour
                         gameObject.AddComponent<Gameplay>();
                         gameObject.AddComponent<GrabAndThrowObject>();
                     }
-                    // unpause
-                    else
+                    // unpause or from other places
+                    else if (GetComponent<Gameplay>() != null)
                     {
                         GetComponent<GrabAndThrowObject>().UnPauseGame();
-                    }
+                    } 
                 }
                 else if (towards == menu)
                 {
@@ -68,29 +64,50 @@ public class CameraMovement : MonoBehaviour
 
     public void MoveToMenu()
     {
-        menu = GameObject.Find("Menu Camera Position");
+        menu = Camera.main.GetComponent<PositionManager>().MenuPosition();
         towards = menu;
         moveToPosition = true;
     }
 
     public void MoveToGameplay()
     {
-        gameplay = GameObject.Find("Gameplay Camera Position");
+        gameplay = Camera.main.GetComponent<PositionManager>().GameplayPosition();
         towards = gameplay;
         moveToPosition = true;
     }
 
     public void MoveToPause()
     {
-        pause = GameObject.Find("Pause Camera Position");
+        pause = Camera.main.GetComponent<PositionManager>().PausePosition();
         towards = pause;
         moveToPosition = true;
     }
 
     public void MoveToGameOver()
     {
-        gameOver = GameObject.Find("Game Over Camera Position");
+        gameOver = Camera.main.GetComponent<PositionManager>().GameOverPosition();
         towards = gameOver;
         moveToPosition = true;
     }
+
+	public void MoveToGrill()
+	{
+        grill = Camera.main.GetComponent<PositionManager>().GrillPosition();
+        towards = grill;
+		moveToPosition = true;
+	}
+
+	public void MoveToFryer()
+	{
+        fryer = Camera.main.GetComponent<PositionManager>().FryerPosition();
+        towards = fryer;
+		moveToPosition = true;
+	}
+
+	public void MoveToSodaMachine()
+	{
+        soda = Camera.main.GetComponent<PositionManager>().SodaPosition();
+        towards = soda;
+		moveToPosition = true;
+	}
 }

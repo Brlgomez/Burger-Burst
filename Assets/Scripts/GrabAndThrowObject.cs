@@ -10,6 +10,7 @@ public class GrabAndThrowObject : MonoBehaviour
     List<Vector3> positions = new List<Vector3>();
     Vector3 direction;
 	GameObject[] ingredients;
+    Transform initialPosition;
     bool paused;
     float timeForNewPerson = 12;
     float newPersonTime;
@@ -20,6 +21,7 @@ public class GrabAndThrowObject : MonoBehaviour
         newPersonTime = timeForNewPerson;
         invisibleWall = GameObject.FindGameObjectWithTag("Wall");
         ingredients = GameObject.FindGameObjectsWithTag("Ingredient");
+        initialPosition = Camera.main.GetComponent<PositionManager>().GameplayPosition();
     }
 
     void Update()
@@ -174,6 +176,7 @@ public class GrabAndThrowObject : MonoBehaviour
 		{
 			if (target.name == "Pause Button" && !paused)
 			{
+                initialPosition = Camera.main.GetComponent<PositionManager>().PausePosition();
                 if (GetComponent<GettingHurt>() != null) 
                 {
                     Destroy(GetComponent<GettingHurt>());
@@ -186,18 +189,21 @@ public class GrabAndThrowObject : MonoBehaviour
 			{
                 if (!gameObject.GetComponent<Gameplay>().IsGameOver())
                 {
-                    gameObject.AddComponent<CameraMovement>().MoveToGameplay();
+                    initialPosition = Camera.main.GetComponent<PositionManager>().GameplayPosition();
+					gameObject.AddComponent<CameraMovement>().MoveToGameplay();
                     Camera.main.GetComponent<ScreenTextManagment>().SetSecondScreenText("", Color.white);
                 } 
                 else 
                 {
-                    gameObject.AddComponent<CameraMovement>().MoveToGameOver();
+					initialPosition = Camera.main.GetComponent<PositionManager>().GameOverPosition();
+					gameObject.AddComponent<CameraMovement>().MoveToGameOver();
                     Camera.main.GetComponent<ScreenTextManagment>().SetSecondScreenText("", Color.white);
                 }
 			}
 			else if (target.name == "Restart Button" && paused)
 			{
-                transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 0, 0, 0);
+                initialPosition = Camera.main.GetComponent<PositionManager>().GameplayPosition();
+				transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 0, 0, 0);
 				DeleteObjects();
 				Destroy(GetComponent<Gameplay>());
 				gameObject.AddComponent<CameraMovement>().MoveToGameplay();
@@ -211,6 +217,25 @@ public class GrabAndThrowObject : MonoBehaviour
 				UnPauseGame();
 				gameObject.AddComponent<CameraMovement>().MoveToMenu();
 				Destroy(GetComponent<GrabAndThrowObject>());
+			}
+            else if (target.name == "Second Button" && !paused && !gameObject.GetComponent<Gameplay>().IsGameOver()) {
+                initialPosition = Camera.main.GetComponent<PositionManager>().GrillPosition();
+				gameObject.AddComponent<CameraMovement>().MoveToGrill();
+            }
+			else if (target.name == "Third Button" && !paused && !gameObject.GetComponent<Gameplay>().IsGameOver())
+			{
+                initialPosition = Camera.main.GetComponent<PositionManager>().FryerPosition();
+				gameObject.AddComponent<CameraMovement>().MoveToFryer();
+			}
+			else if (target.name == "Fourth Button" && !paused && !gameObject.GetComponent<Gameplay>().IsGameOver())
+			{
+                initialPosition = Camera.main.GetComponent<PositionManager>().SodaPosition();
+				gameObject.AddComponent<CameraMovement>().MoveToSodaMachine();
+			}
+			else if (target.name == "Fifth Button" && !paused && !gameObject.GetComponent<Gameplay>().IsGameOver())
+			{
+                initialPosition = Camera.main.GetComponent<PositionManager>().GameplayPosition();
+				gameObject.AddComponent<CameraMovement>().MoveToGameplay();
 			}
 		}
     }
@@ -265,5 +290,10 @@ public class GrabAndThrowObject : MonoBehaviour
             Destroy(obj);
         }
         Camera.main.GetComponent<FloatingTextManagement>().DeleteAllText();
+    }
+
+    public Transform GetInitialPosition () 
+    {
+        return initialPosition;
     }
 }

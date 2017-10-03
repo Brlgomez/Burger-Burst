@@ -23,7 +23,6 @@ public class Waiter : MonoBehaviour
     float damageTime;
     Vector3[] availableSpritePositions;
     bool playAttack = true;
-    bool attack;
 
     void Start()
     {
@@ -112,7 +111,6 @@ public class Waiter : MonoBehaviour
         {
             GetComponent<Animator>().SetBool("Attacking", true);
             GetComponent<Animator>().SetBool("Walking", false);
-            attack = true;
             speed = 0;
             GetComponent<Animator>().SetFloat("Speed", speed);
         } 
@@ -122,7 +120,6 @@ public class Waiter : MonoBehaviour
 			transform.position = Vector3.MoveTowards(transform.position, transform.position + transform.forward, Time.deltaTime * speed);
 			GetComponent<Animator>().SetFloat("Speed", speed / 2);
 			speed = originalSpeed;
-            attack = false;
         }
     }
 

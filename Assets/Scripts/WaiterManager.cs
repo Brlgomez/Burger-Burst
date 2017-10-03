@@ -6,6 +6,7 @@ public class WaiterManager : MonoBehaviour
 {
 
     GameObject waiter;
+    GameObject gameplayPosition;
     int amountOfWaiters;
     public GameObject thinkBubble;
     public GameObject[] burgers;
@@ -14,6 +15,7 @@ public class WaiterManager : MonoBehaviour
 
     void Start()
     {
+        gameplayPosition = GameObject.Find("Gameplay Camera Position");
         waiter = GameObject.Find("Waiter");
     }
 
@@ -22,7 +24,7 @@ public class WaiterManager : MonoBehaviour
         amountOfWaiters++;
         GameObject newWaiter = Instantiate(waiter);
         newWaiter.transform.position = position;
-        newWaiter.transform.LookAt(Camera.main.transform);
+        newWaiter.transform.LookAt(gameplayPosition.transform.position);
         newWaiter.transform.eulerAngles = new Vector3(0, newWaiter.transform.eulerAngles.y, newWaiter.transform.eulerAngles.z);
         newWaiter.AddComponent<Waiter>().SetSpeed(1);
         newWaiter.tag = "Clone";
