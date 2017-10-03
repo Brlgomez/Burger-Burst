@@ -17,12 +17,13 @@ public class Waiter : MonoBehaviour
 
     float speed = 1;
     float originalSpeed;
-    int maxDeathTime = 1;
+    int maxDeathTime = 2;
     float alpha = 1;
     int timeForDamage = 3;
     float damageTime;
     Vector3[] availableSpritePositions;
     bool playAttack = true;
+    bool attack;
 
     void Start()
     {
@@ -50,18 +51,18 @@ public class Waiter : MonoBehaviour
 
     void Update()
     {
-        thinkBubble.transform.position = new Vector3(head.transform.position.x, thinkBubble.transform.position.y, head.transform.position.z);
+        thinkBubble.transform.position = new Vector3(head.transform.position.x, head.transform.position.y + 1.25f, head.transform.position.z);
         if (!orderComplete && head.transform.position.z > -1)
         {
             Walk();
         }
         else if (orderComplete)
         {
-            alpha -= Time.deltaTime;
+            alpha -= Time.deltaTime / maxDeathTime;
             transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha / maxDeathTime);
             for (int i = 0; i < transform.GetChild(0).childCount; i++)
             {
-                transform.GetChild(0).GetChild(i).GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha / maxDeathTime);
+                transform.GetChild(0).GetChild(i).GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha);
             }
             for (int i = 3; i < transform.childCount; i++)
             {
@@ -74,11 +75,18 @@ public class Waiter : MonoBehaviour
         }
         else if (!orderComplete && head.transform.position.z < -1)
         {
-            GetComponent<Animator>().SetFloat("Speed", 0);
+           GetComponent<Animator>().SetFloat("Speed", 0);
             damageTime += Time.deltaTime;
             if (damageTime > timeForDamage && playAttack)
             {
-                GetComponent<Animator>().Play("Attack");
+                if (Random.value > 0.5f) 
+                {
+					GetComponent<Animator>().Play("Attack");
+				}
+                else
+                {
+                    GetComponent<Animator>().Play("Attack Left");
+                }
                 playAttack = false;
             }
             if (damageTime > (timeForDamage + 0.25f))
@@ -100,14 +108,21 @@ public class Waiter : MonoBehaviour
 
     void Walk()
     {
-        transform.position = Vector3.MoveTowards(transform.position, transform.position + transform.forward, Time.deltaTime * speed);
-        GetComponent<Animator>().SetFloat("Speed", speed / 2);
-        speed = originalSpeed;
-        if (Mathf.Round(transform.position.z) < -2f)
+        if (Mathf.Round(head.transform.position.z) < -1.25f)
         {
             GetComponent<Animator>().SetBool("Attacking", true);
             GetComponent<Animator>().SetBool("Walking", false);
+            attack = true;
             speed = 0;
+            GetComponent<Animator>().SetFloat("Speed", speed);
+        } 
+        else {
+			GetComponent<Animator>().SetBool("Attacking", false);
+			GetComponent<Animator>().SetBool("Walking", true);
+			transform.position = Vector3.MoveTowards(transform.position, transform.position + transform.forward, Time.deltaTime * speed);
+			GetComponent<Animator>().SetFloat("Speed", speed / 2);
+			speed = originalSpeed;
+            attack = false;
         }
     }
 
@@ -375,7 +390,7 @@ public class Waiter : MonoBehaviour
     {
         if (obj.GetComponent<Renderer>() != null)
         {
-            obj.GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha / maxDeathTime);
+            obj.GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha);
         }
     }
 
