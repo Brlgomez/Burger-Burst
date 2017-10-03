@@ -37,7 +37,6 @@ public class Gameplay : MonoBehaviour
         }
         profit -= cost;
         profit = Mathf.Round(profit * 100f) / 100f;
-        Camera.main.GetComponent<ScreenTextManagment>().ChangeProfitText(profit);
         Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(obj, -cost);
     }
 
@@ -58,7 +57,6 @@ public class Gameplay : MonoBehaviour
         }
         profit += cost;
         profit = Mathf.Round(profit * 100f) / 100f;
-        Camera.main.GetComponent<ScreenTextManagment>().ChangeProfitText(profit);
         Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(obj, cost);
         return cost;
     }
@@ -67,7 +65,6 @@ public class Gameplay : MonoBehaviour
     {
         profit += tipAmount;
         profit = Mathf.Round(profit * 100f) / 100f;
-        Camera.main.GetComponent<ScreenTextManagment>().ChangeProfitText(profit);
         Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(obj, tipAmount);
     }
 

@@ -5,9 +5,11 @@ using UnityEngine;
 public class MainMenu : MonoBehaviour
 {
 
-    void Start () {
+    void Start () 
+    { 
         Application.targetFrameRate = 60;
         Screen.orientation = ScreenOrientation.Landscape;
+        Input.multiTouchEnabled = false;
     }
 
     void Update()

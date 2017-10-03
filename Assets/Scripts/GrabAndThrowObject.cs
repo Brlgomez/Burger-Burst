@@ -11,7 +11,7 @@ public class GrabAndThrowObject : MonoBehaviour
     Vector3 direction;
 	GameObject[] ingredients;
     bool paused;
-    int timeForNewPerson = 8;
+    float timeForNewPerson = 12;
     float newPersonTime;
     int maxAmountOfPeople = 10;
 
@@ -118,6 +118,18 @@ public class GrabAndThrowObject : MonoBehaviour
             target.GetComponent<Collider>().enabled = true;
             target.tag = "Thrown";
             target.AddComponent<RemoveObjects>();
+            switch (target.name)
+			{
+				case "Burger(Clone)":
+                    Camera.main.GetComponent<ScreenTextManagment>().ChangeBurgerCount();
+					break;
+				case "Drink(Clone)":
+					Camera.main.GetComponent<ScreenTextManagment>().ChangeDrinkCount();
+					break;
+				case "Fries(Clone)":
+					Camera.main.GetComponent<ScreenTextManagment>().ChangeFriesCount();
+					break;
+			}
             Destroy(target.GetComponent<BoxCollider>());
         }
         invisibleWall.GetComponent<Collider>().enabled = false;
@@ -132,11 +144,23 @@ public class GrabAndThrowObject : MonoBehaviour
     {
         GameObject target = null;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray.origin, ray.direction * 10, out hit))
+        if (Physics.Raycast(ray.origin, ray.direction * 2, out hit))
         {
             target = hit.collider.gameObject;
             if (target.tag.Equals("Ingredient") && !paused && !Camera.main.GetComponent<Gameplay>().IsGameOver())
             {
+                if (target.name == "Burger" && Camera.main.GetComponent<ScreenTextManagment>().BurgerCount() < 1)
+				{
+                    return null;
+				}
+                else if(target.name == "Fries" && Camera.main.GetComponent<ScreenTextManagment>().FriesCount() < 1)
+                {
+                    return null;
+                }
+                else if (target.name == "Drink" && Camera.main.GetComponent<ScreenTextManagment>().DrinkCount() < 1)
+				{
+                    return null;
+				}
                 GameObject newIngredient = Instantiate(hit.collider.gameObject);
                 return newIngredient;
             }
