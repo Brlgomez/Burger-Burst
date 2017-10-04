@@ -66,7 +66,7 @@ public class GrabAndThrowObject : MonoBehaviour
         positions.Clear();
         RaycastHit hitInfo;
         target = ReturnClickedObject(out hitInfo);
-        if (target != null)
+        if (target != null && target.tag == "Ingredient")
         {
             Physics.IgnoreCollision(invisibleWall.GetComponent<Collider>(), target.GetComponent<Collider>());
             target.GetComponent<Collider>().enabled = false;
@@ -79,12 +79,12 @@ public class GrabAndThrowObject : MonoBehaviour
             {
                 obj.GetComponent<BoxCollider>().enabled = false;
             }
-        }
+		}
     }
 
     void MouseDrag()
     {
-        if (target != null)
+        if (target != null && target.tag == "Ingredient")
         {
             invisibleWall.GetComponent<Collider>().enabled = true;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -108,31 +108,39 @@ public class GrabAndThrowObject : MonoBehaviour
     {
         if (target != null)
         {
-            if (positions.Count > 1)
-            {
-                float speed = Vector3.Distance(positions[positions.Count - 1], positions[0]);
-                float xVelocity = ((positions[positions.Count - 1].x - positions[0].x) * 7) + ((target.transform.position.x) * speed * 3);
-				float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 3;
-				float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 20;
-                target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity);
-            }
-            target.GetComponent<Rigidbody>().useGravity = true;
-            target.GetComponent<Collider>().enabled = true;
-            target.tag = "Thrown";
-            target.AddComponent<RemoveObjects>();
-            switch (target.name)
+            Interface(target);
+			if (target.tag == "UI")
 			{
-				case "Burger(Clone)":
-                    Camera.main.GetComponent<Gameplay>().ReduceBurgers();
-					break;
-				case "Drink(Clone)":
-                    Camera.main.GetComponent<Gameplay>().ReduceDrinks();
-					break;
-				case "Fries(Clone)":
-                    Camera.main.GetComponent<Gameplay>().ReduceFries();
-					break;
-			}
-            Destroy(target.GetComponent<BoxCollider>());
+				Camera.main.GetComponent<ScreenTextManagment>().PressTextUp(target.transform.parent.gameObject);
+			} 
+            else if (target.tag == "Ingredient")
+            {
+				if (positions.Count > 1)
+				{
+					float speed = Vector3.Distance(positions[positions.Count - 1], positions[0]);
+					float xVelocity = ((positions[positions.Count - 1].x - positions[0].x) * 7) + ((target.transform.position.x) * speed * 3);
+					float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 3;
+					float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 20;
+					target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity);
+				}
+				target.GetComponent<Rigidbody>().useGravity = true;
+				target.GetComponent<Collider>().enabled = true;
+				target.tag = "Thrown";
+				target.AddComponent<RemoveObjects>();
+				switch (target.name)
+				{
+					case "Burger(Clone)":
+						Camera.main.GetComponent<Gameplay>().ReduceBurgers();
+						break;
+					case "Drink(Clone)":
+						Camera.main.GetComponent<Gameplay>().ReduceDrinks();
+						break;
+					case "Fries(Clone)":
+						Camera.main.GetComponent<Gameplay>().ReduceFries();
+						break;
+				}
+				Destroy(target.GetComponent<BoxCollider>());
+            }
         }
         invisibleWall.GetComponent<Collider>().enabled = false;
         target = null;
@@ -166,7 +174,15 @@ public class GrabAndThrowObject : MonoBehaviour
                 GameObject newIngredient = Instantiate(hit.collider.gameObject);
                 return newIngredient;
             }
-            Interface(target);
+			else if (target.tag == "UI")
+			{
+				Camera.main.GetComponent<ScreenTextManagment>().PressTextDown(target.transform.parent.gameObject);
+				return target;
+			}
+            else if (target.tag == "Pause")
+            {
+                return target;
+            }
         }
         return null;
     }
@@ -218,7 +234,8 @@ public class GrabAndThrowObject : MonoBehaviour
                 gameObject.AddComponent<Gameplay>();
 				Destroy(GetComponent<GrabAndThrowObject>());
 			}
-            else if (target.name == "Second Button" && !paused && !gameObject.GetComponent<Gameplay>().IsGameOver()) {
+            else if (target.name == "Second Button" && !paused && !gameObject.GetComponent<Gameplay>().IsGameOver()) 
+            {
                 initialPosition = Camera.main.GetComponent<PositionManager>().GrillPosition();
 				gameObject.AddComponent<CameraMovement>().MoveToGrill();
             }

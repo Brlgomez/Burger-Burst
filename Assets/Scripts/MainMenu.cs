@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
+    GameObject target;
 
-    void Start () 
-    { 
+    void Start()
+    {
         Application.targetFrameRate = 60;
         Screen.orientation = ScreenOrientation.Landscape;
         Input.multiTouchEnabled = false;
@@ -17,16 +18,33 @@ public class MainMenu : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             MouseDown();
-        } 
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            MouseUp();
+        }
     }
 
     void MouseDown()
     {
         RaycastHit hitInfo;
-        GameObject Button = ReturnClickedObject(out hitInfo);
-        if (Button != null)
+        target = null;
+        target = ReturnClickedObject(out hitInfo);
+        if (target != null)
         {
-            if (Button.name == "Second Button")
+            if (target.tag == "UI")
+            {
+                Camera.main.GetComponent<ScreenTextManagment>().PressTextDown(target.transform.parent.gameObject);
+            }
+        }
+    }
+
+    void MouseUp()
+    {
+        if (target != null && target.tag == "UI")
+        {
+            Camera.main.GetComponent<ScreenTextManagment>().PressTextUp(target.transform.parent.gameObject);
+            if (target.name == "Second Button")
             {
                 Camera.main.GetComponent<ScreenTextManagment>().RestartScreens();
                 gameObject.AddComponent<CameraMovement>().MoveToGameplay("Start");

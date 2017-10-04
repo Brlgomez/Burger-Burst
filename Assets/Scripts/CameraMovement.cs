@@ -31,13 +31,13 @@ public class CameraMovement : MonoBehaviour
                     // restart game
                     if (command == "Restart")
                     {
-						Camera.main.GetComponent<ScreenTextManagment>().ChangeToGamePlayText();
-						GetComponent<GrabAndThrowObject>().UnPauseGame();
+                        Camera.main.GetComponent<ScreenTextManagment>().ChangeToGamePlayText();
+                        GetComponent<GrabAndThrowObject>().UnPauseGame();
                     }
                     // start game 
                     else if (command == "Start")
                     {
-						Camera.main.GetComponent<ScreenTextManagment>().ChangeToGamePlayText();
+                        Camera.main.GetComponent<ScreenTextManagment>().ChangeToGamePlayText();
                         gameObject.AddComponent<GrabAndThrowObject>();
                     }
                     // unpause or from other places
@@ -45,12 +45,13 @@ public class CameraMovement : MonoBehaviour
                     {
                         Camera.main.GetComponent<ScreenTextManagment>().ChangeToGamePlayText();
                         GetComponent<GrabAndThrowObject>().UnPauseGame();
-                    } 
+                    }
+                    Camera.main.GetComponent<ScreenTextManagment>().MakeFrontUnpressable();
                 }
                 else if (towards == menu)
                 {
                     Camera.main.GetComponent<ScreenTextManagment>().ChangeToMenuText();
-					gameObject.AddComponent<MainMenu>();
+                    gameObject.AddComponent<MainMenu>();
                 }
                 else if (towards == pause)
                 {
@@ -60,6 +61,18 @@ public class CameraMovement : MonoBehaviour
                 {
                     GetComponent<GrabAndThrowObject>().UnPauseGame();
                     Camera.main.GetComponent<ScreenTextManagment>().ChangeToGamePlayText();
+                }
+                else if (towards == grill)
+                {
+                    Camera.main.GetComponent<ScreenTextManagment>().MakeGrillUnpressable();
+                }
+                else if (towards == fryer)
+                {
+                    Camera.main.GetComponent<ScreenTextManagment>().MakeFryerUnpressable();
+                }
+                else if (towards == soda)
+                {
+                    Camera.main.GetComponent<ScreenTextManagment>().MakeSodaUnpressable();
                 }
                 Destroy(GetComponent<CameraMovement>());
             }
@@ -95,24 +108,24 @@ public class CameraMovement : MonoBehaviour
         moveToPosition = true;
     }
 
-	public void MoveToGrill()
-	{
+    public void MoveToGrill()
+    {
         grill = Camera.main.GetComponent<PositionManager>().GrillPosition();
         towards = grill;
-		moveToPosition = true;
-	}
+        moveToPosition = true;
+    }
 
-	public void MoveToFryer()
-	{
+    public void MoveToFryer()
+    {
         fryer = Camera.main.GetComponent<PositionManager>().FryerPosition();
         towards = fryer;
-		moveToPosition = true;
-	}
+        moveToPosition = true;
+    }
 
-	public void MoveToSodaMachine()
-	{
+    public void MoveToSodaMachine()
+    {
         soda = Camera.main.GetComponent<PositionManager>().SodaPosition();
         towards = soda;
-		moveToPosition = true;
-	}
+        moveToPosition = true;
+    }
 }

@@ -33,17 +33,17 @@ public class PositionManager : MonoBehaviour
         return pause.transform;
 	}
 
-	public Transform GrillPosition()
+    public Transform GrillPosition()
 	{
         return grill.transform;
 	}
 
-	public Transform FryerPosition()
+    public Transform FryerPosition()
 	{
         return fryer.transform;
 	}
 
-	public Transform SodaPosition()
+    public Transform SodaPosition()
 	{
         return soda.transform;
 	}

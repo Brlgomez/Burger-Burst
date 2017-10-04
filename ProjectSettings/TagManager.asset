@@ -16,6 +16,8 @@ TagManager:
   - Waiter
   - Clone
   - Car
+  - UI
+  - Pause
   layers:
   - Default
   - TransparentFX
