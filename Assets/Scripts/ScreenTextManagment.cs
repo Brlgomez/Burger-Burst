@@ -2,106 +2,117 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScreenTextManagment : MonoBehaviour
+public class
+ScreenTextManagment : MonoBehaviour
 {
-    int initialLostProductsAllowed = 10;
-    int initialBurgers = 50;
-    int initialFries = 50;
-    int initialDrinks = 50;
-    int burgerAmount, friesAmount, drinkAmount;
-    GameObject mistakeText;
-    GameObject line1, line2, line3, line4;
-    GameObject secondScreenText;
+    int initialLife;
+    int initialBurgers;
+    int initialFries;
+    int initialDrinks;
+    GameObject line1, line2, line3, line4, line5;
     Color originalScreenColor;
 
     void Start()
     {
-        burgerAmount = initialBurgers;
-        friesAmount = initialFries;
-        drinkAmount = initialDrinks;
+        initialLife = gameObject.GetComponent<Gameplay>().GetLife();
+        initialBurgers = gameObject.GetComponent<Gameplay>().GetBurgerCount();
+        initialFries = gameObject.GetComponent<Gameplay>().GetFriesCount();
+        initialDrinks = gameObject.GetComponent<Gameplay>().GetDrinkCount();
         originalScreenColor = new Color(0.117f, 0.445f, 0.773f);
-        mistakeText = GameObject.Find("MistakeText");
         line1 = GameObject.Find("Line1");
         line2 = GameObject.Find("Line2");
         line3 = GameObject.Find("Line3");
         line4 = GameObject.Find("Line4");
-        secondScreenText = GameObject.Find("Pause Text");
-        mistakeText.GetComponent<Renderer>().material.color = originalScreenColor;
+        line5 = GameObject.Find("Line5");
+        line1.GetComponent<Renderer>().material.color = originalScreenColor;
+        ChangeToMenuText();
     }
 
-    public void ChangeMistakeText(int n)
+    public void ChangeToMenuText()
     {
-        if (n >= 1)
-        {
-            mistakeText.GetComponent<TextMesh>().text = "Health: " + n.ToString();
-        }
-        else
-        {
-            mistakeText.GetComponent<TextMesh>().text = "YOU'RE\nDEAD";
-        }
-        Color newColor = Color.Lerp(Color.red, originalScreenColor, ((float)n) / initialLostProductsAllowed);
-        mistakeText.GetComponent<Renderer>().material.color = newColor;
-    }
-
-    public void ChangeBurgerCount ()
-    {
-        burgerAmount--;
-        Color newColor = Color.Lerp(Color.red, originalScreenColor, ((float)burgerAmount) / initialBurgers);
-		line1.GetComponent<Renderer>().material.color = newColor;
-        line1.GetComponent<TextMesh>().text = "B : " + burgerAmount;
-    }
-
-	public void ChangeFriesCount()
-	{
-        friesAmount--;
-        Color newColor = Color.Lerp(Color.red, originalScreenColor, ((float)friesAmount) / initialFries);
-		line2.GetComponent<Renderer>().material.color = newColor;
-        line2.GetComponent<TextMesh>().text = "F : " + friesAmount;
-	}
-
-	public void ChangeDrinkCount()
-	{
-		drinkAmount--;
-        Color newColor = Color.Lerp(Color.red, originalScreenColor, ((float)drinkAmount) / initialDrinks);
-		line3.GetComponent<Renderer>().material.color = newColor;
-		line3.GetComponent<TextMesh>().text = "D : " + drinkAmount;
-	}
-
-	public int BurgerCount()
-	{
-		return burgerAmount;
-	}
-
-	public int FriesCount()
-	{
-		return friesAmount;
-	}
-
-	public int DrinkCount()
-	{
-		return drinkAmount;
-	}
-
-    public void SetSecondScreenText(string text, Color c)
-    {
-        secondScreenText.GetComponent<TextMesh>().text = text;
-        if (c != Color.white)
-        {
-            secondScreenText.GetComponent<Renderer>().material.color = c;
-        }
-    }
-
-    public void RestartScreens () {
-        ChangeMistakeText(initialLostProductsAllowed);
-        SetSecondScreenText("", Color.white);
-		burgerAmount = initialBurgers;
-		friesAmount = initialFries;
-		drinkAmount = initialDrinks;
         line1.GetComponent<Renderer>().material.color = originalScreenColor;
         line2.GetComponent<Renderer>().material.color = originalScreenColor;
         line3.GetComponent<Renderer>().material.color = originalScreenColor;
-		line1.GetComponent<TextMesh>().text = "B : " + burgerAmount;
-        line2.GetComponent<TextMesh>().text = "F : " + friesAmount;
-        line3.GetComponent<TextMesh>().text = "D : " + drinkAmount;
+        line4.GetComponent<Renderer>().material.color = originalScreenColor;
+        line1.GetComponent<TextMesh>().text = "GAME";
+        line2.GetComponent<TextMesh>().text = "Play";
+        line3.GetComponent<TextMesh>().text = "Scores";
+        line4.GetComponent<TextMesh>().text = "Settings";
+        line5.GetComponent<TextMesh>().text = "";
+    }
+
+    public void ChangeToGamePlayText()
+    {
+        ChangeMistakeText();
+        ChangeBurgerCount();
+        ChangeFriesCount();
+        ChangeDrinkCount();
+        line5.GetComponent<TextMesh>().text = "Back";
+    }
+
+    public void ChangeToPauseText()
+    {
+        line1.GetComponent<Renderer>().material.color = originalScreenColor;
+        line2.GetComponent<Renderer>().material.color = originalScreenColor;
+        line3.GetComponent<Renderer>().material.color = originalScreenColor;
+        line4.GetComponent<Renderer>().material.color = originalScreenColor;
+        line1.GetComponent<TextMesh>().text = "PAUSED";
+        line2.GetComponent<TextMesh>().text = "Resume";
+        line3.GetComponent<TextMesh>().text = "Restart";
+        line4.GetComponent<TextMesh>().text = "Quit";
+        line5.GetComponent<TextMesh>().text = "";
+    }
+
+    public void ChangeMistakeText()
+    {
+        int n = Camera.main.GetComponent<Gameplay>().GetLife();
+        if (n >= 1)
+        {
+            line1.GetComponent<TextMesh>().text = "Health: " + n.ToString();
+        }
+        else
+        {
+            line1.GetComponent<TextMesh>().text = "YOU'RE DEAD";
+        }
+        Color newColor = Color.Lerp(Color.red, originalScreenColor, ((float)n) / initialLife);
+        line1.GetComponent<Renderer>().material.color = newColor;
+    }
+
+    public void ChangeBurgerCount()
+    {
+        int n = Camera.main.GetComponent<Gameplay>().GetBurgerCount();
+        Color newColor = Color.Lerp(Color.red, originalScreenColor, ((float)n) / initialBurgers);
+        line2.GetComponent<Renderer>().material.color = newColor;
+        line2.GetComponent<TextMesh>().text = "B : " + n;
+    }
+
+    public void ChangeFriesCount()
+    {
+        int n = Camera.main.GetComponent<Gameplay>().GetFriesCount();
+        Color newColor = Color.Lerp(Color.red, originalScreenColor, ((float)n) / initialFries);
+        line3.GetComponent<Renderer>().material.color = newColor;
+        line3.GetComponent<TextMesh>().text = "F : " + n;
+    }
+
+    public void ChangeDrinkCount()
+    {
+        int n = Camera.main.GetComponent<Gameplay>().GetDrinkCount();
+        Color newColor = Color.Lerp(Color.red, originalScreenColor, ((float)n) / initialDrinks);
+        line4.GetComponent<Renderer>().material.color = newColor;
+        line4.GetComponent<TextMesh>().text = "D : " + n;
+    }
+
+    public void RestartScreens()
+    {
+        ChangeMistakeText();
+        line1.GetComponent<Renderer>().material.color = originalScreenColor;
+        line2.GetComponent<Renderer>().material.color = originalScreenColor;
+        line3.GetComponent<Renderer>().material.color = originalScreenColor;
+        line4.GetComponent<Renderer>().material.color = originalScreenColor;
+        line1.GetComponent<TextMesh>().text = "Health: " + initialLife;
+        line2.GetComponent<TextMesh>().text = "B : " + initialBurgers;
+        line3.GetComponent<TextMesh>().text = "F : " + initialFries;
+        line4.GetComponent<TextMesh>().text = "D : " + initialDrinks;
+        line5.GetComponent<TextMesh>().text = "Back";
     }
 }

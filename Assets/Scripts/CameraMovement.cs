@@ -10,6 +10,7 @@ public class CameraMovement : MonoBehaviour
     int maxSpeed = 10;
     int accelerating = 10;
     bool moveToPosition;
+    string command;
 
     void Update()
     {
@@ -28,34 +29,37 @@ public class CameraMovement : MonoBehaviour
                 if (towards == gameplay)
                 {
                     // restart game
-                    if (GetComponent<GrabAndThrowObject>() != null && GetComponent<Gameplay>() == null)
+                    if (command == "Restart")
                     {
-                        GetComponent<GrabAndThrowObject>().UnPauseGame();
-                        gameObject.AddComponent<Gameplay>();
+						Camera.main.GetComponent<ScreenTextManagment>().ChangeToGamePlayText();
+						GetComponent<GrabAndThrowObject>().UnPauseGame();
                     }
-                    // start game
-                    else if (GetComponent<Gameplay>() == null)
+                    // start game 
+                    else if (command == "Start")
                     {
-                        gameObject.AddComponent<Gameplay>();
+						Camera.main.GetComponent<ScreenTextManagment>().ChangeToGamePlayText();
                         gameObject.AddComponent<GrabAndThrowObject>();
                     }
                     // unpause or from other places
-                    else if (GetComponent<Gameplay>() != null)
+                    else if (command == "Unpause")
                     {
+                        Camera.main.GetComponent<ScreenTextManagment>().ChangeToGamePlayText();
                         GetComponent<GrabAndThrowObject>().UnPauseGame();
                     } 
                 }
                 else if (towards == menu)
                 {
-                    gameObject.AddComponent<MainMenu>();
+                    Camera.main.GetComponent<ScreenTextManagment>().ChangeToMenuText();
+					gameObject.AddComponent<MainMenu>();
                 }
                 else if (towards == pause)
                 {
-                    Camera.main.GetComponent<ScreenTextManagment>().SetSecondScreenText("Resume\nRestart\nQuit", Color.white);
+                    Camera.main.GetComponent<ScreenTextManagment>().ChangeToPauseText();
                 }
                 else if (towards == gameOver)
                 {
                     GetComponent<GrabAndThrowObject>().UnPauseGame();
+                    Camera.main.GetComponent<ScreenTextManagment>().ChangeToGamePlayText();
                 }
                 Destroy(GetComponent<CameraMovement>());
             }
@@ -69,11 +73,12 @@ public class CameraMovement : MonoBehaviour
         moveToPosition = true;
     }
 
-    public void MoveToGameplay()
+    public void MoveToGameplay(string c)
     {
         gameplay = Camera.main.GetComponent<PositionManager>().GameplayPosition();
         towards = gameplay;
         moveToPosition = true;
+        command = c;
     }
 
     public void MoveToPause()

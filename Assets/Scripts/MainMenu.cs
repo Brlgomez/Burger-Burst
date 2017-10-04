@@ -26,10 +26,10 @@ public class MainMenu : MonoBehaviour
         GameObject Button = ReturnClickedObject(out hitInfo);
         if (Button != null)
         {
-            if (Button.name == "Play Button")
+            if (Button.name == "Second Button")
             {
                 Camera.main.GetComponent<ScreenTextManagment>().RestartScreens();
-                gameObject.AddComponent<CameraMovement>().MoveToGameplay();
+                gameObject.AddComponent<CameraMovement>().MoveToGameplay("Start");
                 Destroy(GetComponent<MainMenu>());
             }
         }

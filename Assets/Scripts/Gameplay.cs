@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Gameplay : MonoBehaviour
 {
-    int numberOfLostProductsAllowed = 10;
+	int life = 10;
+	int burgers = 50;
+	int fries = 50;
+	int drinks = 50;
     int completedOrders;
     float costToMakeBurger = 0.99f;
     float costToMakeFries = 0.79f;
@@ -14,11 +17,6 @@ public class Gameplay : MonoBehaviour
     float costOfDrink = 2.95f;
     float profit;
     bool gameOver;
-
-    void Start()
-    {
-        Camera.main.GetComponent<ScreenTextManagment>().RestartScreens();
-    }
 
     public void IncreaseNumberOfLostProduct(GameObject obj)
     {
@@ -75,9 +73,47 @@ public class Gameplay : MonoBehaviour
 
     public void AddLife(int n)
     {
-        numberOfLostProductsAllowed += n;
-        Camera.main.GetComponent<ScreenTextManagment>().ChangeMistakeText(numberOfLostProductsAllowed);
+        life += n;
+        Camera.main.GetComponent<ScreenTextManagment>().ChangeMistakeText();
     }
+
+    public int GetLife ()
+    {
+        return life;
+    }
+
+	public int GetBurgerCount()
+	{
+		return burgers;
+	}
+
+	public int GetFriesCount()
+	{
+        return fries;
+	}
+
+	public int GetDrinkCount()
+	{
+		return drinks;
+	}
+
+    public void ReduceBurgers ()
+    {
+        burgers--;
+        Camera.main.GetComponent<ScreenTextManagment>().ChangeBurgerCount();
+    }
+
+	public void ReduceFries()
+	{
+        fries--;
+        Camera.main.GetComponent<ScreenTextManagment>().ChangeFriesCount();
+	}
+
+	public void ReduceDrinks()
+	{
+        drinks--;
+        Camera.main.GetComponent<ScreenTextManagment>().ChangeDrinkCount();
+	}
 
     public float GetProfit () 
     {
@@ -96,9 +132,9 @@ public class Gameplay : MonoBehaviour
 
     public void DeductNumberOfErrors () 
     {
-        numberOfLostProductsAllowed--;
-		Camera.main.GetComponent<ScreenTextManagment>().ChangeMistakeText(numberOfLostProductsAllowed);
-		if (numberOfLostProductsAllowed < 1)
+        life--;
+		Camera.main.GetComponent<ScreenTextManagment>().ChangeMistakeText();
+		if (life < 1)
         {
 			gameOver = true;
             gameObject.AddComponent<CameraMovement>().MoveToGameOver();

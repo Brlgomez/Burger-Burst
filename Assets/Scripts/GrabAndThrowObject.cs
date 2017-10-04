@@ -123,13 +123,13 @@ public class GrabAndThrowObject : MonoBehaviour
             switch (target.name)
 			{
 				case "Burger(Clone)":
-                    Camera.main.GetComponent<ScreenTextManagment>().ChangeBurgerCount();
+                    Camera.main.GetComponent<Gameplay>().ReduceBurgers();
 					break;
 				case "Drink(Clone)":
-					Camera.main.GetComponent<ScreenTextManagment>().ChangeDrinkCount();
+                    Camera.main.GetComponent<Gameplay>().ReduceDrinks();
 					break;
 				case "Fries(Clone)":
-					Camera.main.GetComponent<ScreenTextManagment>().ChangeFriesCount();
+                    Camera.main.GetComponent<Gameplay>().ReduceFries();
 					break;
 			}
             Destroy(target.GetComponent<BoxCollider>());
@@ -151,15 +151,15 @@ public class GrabAndThrowObject : MonoBehaviour
             target = hit.collider.gameObject;
             if (target.tag.Equals("Ingredient") && !paused && !Camera.main.GetComponent<Gameplay>().IsGameOver())
             {
-                if (target.name == "Burger" && Camera.main.GetComponent<ScreenTextManagment>().BurgerCount() < 1)
+                if (target.name == "Burger" && Camera.main.GetComponent<Gameplay>().GetBurgerCount() < 1)
 				{
                     return null;
 				}
-                else if(target.name == "Fries" && Camera.main.GetComponent<ScreenTextManagment>().FriesCount() < 1)
+                else if(target.name == "Fries" && Camera.main.GetComponent<Gameplay>().GetFriesCount() < 1)
                 {
                     return null;
                 }
-                else if (target.name == "Drink" && Camera.main.GetComponent<ScreenTextManagment>().DrinkCount() < 1)
+                else if (target.name == "Drink" && Camera.main.GetComponent<Gameplay>().GetDrinkCount() < 1)
 				{
                     return null;
 				}
@@ -185,37 +185,37 @@ public class GrabAndThrowObject : MonoBehaviour
 				gameObject.AddComponent<CameraMovement>().MoveToPause();
 				PauseGame();
 			}
-			else if (target.name == "Pause Button Screen" && paused)
+			else if (target.name == "Second Button" && paused) //resume
 			{
                 if (!gameObject.GetComponent<Gameplay>().IsGameOver())
                 {
                     initialPosition = Camera.main.GetComponent<PositionManager>().GameplayPosition();
-					gameObject.AddComponent<CameraMovement>().MoveToGameplay();
-                    Camera.main.GetComponent<ScreenTextManagment>().SetSecondScreenText("", Color.white);
+					gameObject.AddComponent<CameraMovement>().MoveToGameplay("Unpause");
                 } 
                 else 
                 {
 					initialPosition = Camera.main.GetComponent<PositionManager>().GameOverPosition();
 					gameObject.AddComponent<CameraMovement>().MoveToGameOver();
-                    Camera.main.GetComponent<ScreenTextManagment>().SetSecondScreenText("", Color.white);
                 }
 			}
-			else if (target.name == "Restart Button" && paused)
+			else if (target.name == "Third Button" && paused) //restart
 			{
                 initialPosition = Camera.main.GetComponent<PositionManager>().GameplayPosition();
 				transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 0, 0, 0);
 				DeleteObjects();
 				Destroy(GetComponent<Gameplay>());
-				gameObject.AddComponent<CameraMovement>().MoveToGameplay();
+                gameObject.AddComponent<Gameplay>();
+				gameObject.AddComponent<CameraMovement>().MoveToGameplay("Restart");
 				RestartValues();
 			}
-			else if (target.name == "Quit Button" && paused)
+			else if (target.name == "Fourth Button" && paused) //quit
 			{
                 transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 0, 0, 0);
 				DeleteObjects();
 				Destroy(GetComponent<Gameplay>());
 				UnPauseGame();
 				gameObject.AddComponent<CameraMovement>().MoveToMenu();
+                gameObject.AddComponent<Gameplay>();
 				Destroy(GetComponent<GrabAndThrowObject>());
 			}
             else if (target.name == "Second Button" && !paused && !gameObject.GetComponent<Gameplay>().IsGameOver()) {
@@ -235,7 +235,7 @@ public class GrabAndThrowObject : MonoBehaviour
 			else if (target.name == "Fifth Button" && !paused && !gameObject.GetComponent<Gameplay>().IsGameOver())
 			{
                 initialPosition = Camera.main.GetComponent<PositionManager>().GameplayPosition();
-				gameObject.AddComponent<CameraMovement>().MoveToGameplay();
+				gameObject.AddComponent<CameraMovement>().MoveToGameplay("Unpause");
 			}
 		}
     }
