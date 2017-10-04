@@ -11,6 +11,7 @@ ScreenTextManagment : MonoBehaviour
     int initialDrinks;
     GameObject line1, line2, line3, line4, line5;
     Color originalScreenColor;
+    Color red;
 
     void Start()
     {
@@ -19,6 +20,7 @@ ScreenTextManagment : MonoBehaviour
         initialFries = gameObject.GetComponent<Gameplay>().GetFriesCount();
         initialDrinks = gameObject.GetComponent<Gameplay>().GetDrinkCount();
         originalScreenColor = new Color(0.117f, 0.445f, 0.773f);
+        red = Color.red;
         line1 = GameObject.Find("Line1");
         line2 = GameObject.Find("Line2");
         line3 = GameObject.Find("Line3");
@@ -46,11 +48,11 @@ ScreenTextManagment : MonoBehaviour
     public void ChangeToGamePlayText()
     {
         line1.transform.GetChild(0).tag = "Untagged";
-        ChangeMistakeText();
         ChangeBurgerCount();
         ChangeFriesCount();
         ChangeDrinkCount();
-    }
+		ChangeMistakeText();
+	}
 
     public void ChangeToPauseText()
     {
@@ -76,16 +78,24 @@ ScreenTextManagment : MonoBehaviour
         }
         else
         {
-            line1.GetComponent<TextMesh>().text = "YOU'RE DEAD";
+            line1.GetComponent<TextMesh>().text = "DEAD";
+            line2.GetComponent<TextMesh>().text = "";
+			line3.GetComponent<TextMesh>().text = "Restart";
+			line4.GetComponent<TextMesh>().text = "Quit";
+            line5.GetComponent<TextMesh>().text = "";
+            line2.tag = "Untagged";
+			line5.tag = "Untagged";
+            line3.GetComponent<Renderer>().material.color = red;
+            line4.GetComponent<Renderer>().material.color = red;
         }
-        Color newColor = Color.Lerp(Color.red, originalScreenColor, ((float)n) / initialLife);
+        Color newColor = Color.Lerp(red, originalScreenColor, ((float)n) / initialLife);
         line1.GetComponent<Renderer>().material.color = newColor;
     }
 
     public void ChangeBurgerCount()
     {
         int n = Camera.main.GetComponent<Gameplay>().GetBurgerCount();
-        Color newColor = Color.Lerp(Color.red, originalScreenColor, ((float)n) / initialBurgers);
+        Color newColor = Color.Lerp(red, originalScreenColor, ((float)n) / initialBurgers);
         line2.GetComponent<Renderer>().material.color = newColor;
         line2.GetComponent<TextMesh>().text = "B : " + n;
     }
@@ -93,7 +103,7 @@ ScreenTextManagment : MonoBehaviour
     public void ChangeFriesCount()
     {
         int n = Camera.main.GetComponent<Gameplay>().GetFriesCount();
-        Color newColor = Color.Lerp(Color.red, originalScreenColor, ((float)n) / initialFries);
+        Color newColor = Color.Lerp(red, originalScreenColor, ((float)n) / initialFries);
         line3.GetComponent<Renderer>().material.color = newColor;
         line3.GetComponent<TextMesh>().text = "F : " + n;
     }
@@ -101,7 +111,7 @@ ScreenTextManagment : MonoBehaviour
     public void ChangeDrinkCount()
     {
         int n = Camera.main.GetComponent<Gameplay>().GetDrinkCount();
-        Color newColor = Color.Lerp(Color.red, originalScreenColor, ((float)n) / initialDrinks);
+        Color newColor = Color.Lerp(red, originalScreenColor, ((float)n) / initialDrinks);
         line4.GetComponent<Renderer>().material.color = newColor;
         line4.GetComponent<TextMesh>().text = "D : " + n;
     }
@@ -149,7 +159,7 @@ ScreenTextManagment : MonoBehaviour
         RevertButtons();
         line1.transform.GetChild(0).tag = "Untagged";
         line2.transform.GetChild(0).tag = "Untagged";
-        line5.GetComponent<TextMesh>().text = "Back";
+        line5.GetComponent<TextMesh>().text = "Front";
     }
 
     public void MakeFryerUnpressable()
@@ -157,7 +167,7 @@ ScreenTextManagment : MonoBehaviour
         RevertButtons();
         line1.transform.GetChild(0).tag = "Untagged";
         line3.transform.GetChild(0).tag = "Untagged";
-        line5.GetComponent<TextMesh>().text = "Back";
+        line5.GetComponent<TextMesh>().text = "Front";
     }
 
     public void MakeSodaUnpressable()
@@ -165,7 +175,7 @@ ScreenTextManagment : MonoBehaviour
         RevertButtons();
         line1.transform.GetChild(0).tag = "Untagged";
         line4.transform.GetChild(0).tag = "Untagged";
-        line5.GetComponent<TextMesh>().text = "Back";
+        line5.GetComponent<TextMesh>().text = "Front";
     }
 
     public void MakeFrontUnpressable()

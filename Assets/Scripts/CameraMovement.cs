@@ -6,10 +6,12 @@ public class CameraMovement : MonoBehaviour
 {
 
     Transform menu, gameplay, pause, towards, gameOver, grill, fryer, soda;
+    Transform deviceFront, deviceBack, deviceTowards;
     float speed;
     int maxSpeed = 10;
     int accelerating = 10;
     bool moveToPosition;
+    bool moveDevice;
     string command;
 
     void Update()
@@ -22,57 +24,65 @@ public class CameraMovement : MonoBehaviour
             }
             transform.position = Vector3.Lerp(transform.position, towards.transform.position, Time.unscaledDeltaTime * speed);
             transform.rotation = Quaternion.Lerp(transform.rotation, towards.transform.rotation, Time.unscaledDeltaTime * speed);
+            if (moveDevice)
+            {
+                transform.GetChild(1).localPosition = Vector3.Lerp(transform.GetChild(1).localPosition, deviceTowards.transform.localPosition, Time.unscaledDeltaTime * speed);
+                transform.GetChild(1).localRotation = Quaternion.Lerp(transform.GetChild(1).localRotation, deviceTowards.transform.localRotation, Time.unscaledDeltaTime * speed);
+            }
             if (Vector3.Distance(transform.position, towards.transform.position) < 0.001f)
             {
                 transform.position = towards.transform.position;
                 transform.rotation = towards.transform.rotation;
+                if (moveDevice)
+                {
+                    transform.GetChild(1).localPosition = deviceTowards.localPosition;
+                    transform.GetChild(1).localRotation = deviceTowards.localRotation;
+                }
                 if (towards == gameplay)
                 {
-                    // restart game
-                    if (command == "Restart")
+                    switch (command)
                     {
-                        Camera.main.GetComponent<ScreenTextManagment>().ChangeToGamePlayText();
-                        GetComponent<GrabAndThrowObject>().UnPauseGame();
+                        case "Restart":
+                            GetComponent<ScreenTextManagment>().ChangeToGamePlayText();
+                            GetComponent<GrabAndThrowObject>().UnPauseGame();
+                            break;
+                        case "Start":
+                            GetComponent<ScreenTextManagment>().ChangeToGamePlayText();
+                            gameObject.AddComponent<GrabAndThrowObject>();
+                            break;
+                        case "Unpause":
+                            GetComponent<ScreenTextManagment>().ChangeToGamePlayText();
+                            GetComponent<GrabAndThrowObject>().UnPauseGame();
+                            break;
                     }
-                    // start game 
-                    else if (command == "Start")
-                    {
-                        Camera.main.GetComponent<ScreenTextManagment>().ChangeToGamePlayText();
-                        gameObject.AddComponent<GrabAndThrowObject>();
-                    }
-                    // unpause or from other places
-                    else if (command == "Unpause")
-                    {
-                        Camera.main.GetComponent<ScreenTextManagment>().ChangeToGamePlayText();
-                        GetComponent<GrabAndThrowObject>().UnPauseGame();
-                    }
-                    Camera.main.GetComponent<ScreenTextManagment>().MakeFrontUnpressable();
+                    GetComponent<ScreenTextManagment>().MakeFrontUnpressable();
                 }
                 else if (towards == menu)
                 {
-                    Camera.main.GetComponent<ScreenTextManagment>().ChangeToMenuText();
+                    GetComponent<ScreenTextManagment>().ChangeToMenuText();
                     gameObject.AddComponent<MainMenu>();
                 }
                 else if (towards == pause)
                 {
-                    Camera.main.GetComponent<ScreenTextManagment>().ChangeToPauseText();
+                    GetComponent<ScreenTextManagment>().ChangeToPauseText();
                 }
                 else if (towards == gameOver)
                 {
+                    GetComponent<GrabAndThrowObject>().DeleteObjects();
                     GetComponent<GrabAndThrowObject>().UnPauseGame();
-                    Camera.main.GetComponent<ScreenTextManagment>().ChangeToGamePlayText();
+                    GetComponent<ScreenTextManagment>().ChangeToGamePlayText();
                 }
                 else if (towards == grill)
                 {
-                    Camera.main.GetComponent<ScreenTextManagment>().MakeGrillUnpressable();
+                    GetComponent<ScreenTextManagment>().MakeGrillUnpressable();
                 }
                 else if (towards == fryer)
                 {
-                    Camera.main.GetComponent<ScreenTextManagment>().MakeFryerUnpressable();
+                    GetComponent<ScreenTextManagment>().MakeFryerUnpressable();
                 }
                 else if (towards == soda)
                 {
-                    Camera.main.GetComponent<ScreenTextManagment>().MakeSodaUnpressable();
+                    GetComponent<ScreenTextManagment>().MakeSodaUnpressable();
                 }
                 Destroy(GetComponent<CameraMovement>());
             }
@@ -81,31 +91,43 @@ public class CameraMovement : MonoBehaviour
 
     public void MoveToMenu()
     {
-        menu = Camera.main.GetComponent<PositionManager>().MenuPosition();
+        menu = GetComponent<PositionManager>().MenuPosition();
+        deviceFront = GetComponent<PositionManager>().DeviceFrontPosition();
         towards = menu;
+        deviceTowards = deviceFront;
         moveToPosition = true;
+        moveDevice = true;
     }
 
     public void MoveToGameplay(string c)
     {
-        gameplay = Camera.main.GetComponent<PositionManager>().GameplayPosition();
+        gameplay = GetComponent<PositionManager>().GameplayPosition();
+        deviceBack = GetComponent<PositionManager>().DeviceBackPosition();
         towards = gameplay;
+        deviceTowards = deviceBack;
         moveToPosition = true;
+        moveDevice = true;
         command = c;
     }
 
     public void MoveToPause()
     {
-        pause = Camera.main.GetComponent<PositionManager>().PausePosition();
+        pause = GetComponent<PositionManager>().PausePosition();
+        deviceFront = GetComponent<PositionManager>().DeviceFrontPosition();
         towards = pause;
+        deviceTowards = deviceFront;
         moveToPosition = true;
+        moveDevice = true;
     }
 
     public void MoveToGameOver()
     {
-        gameOver = Camera.main.GetComponent<PositionManager>().GameOverPosition();
+        gameOver = GetComponent<PositionManager>().GameOverPosition();
+        deviceFront = GetComponent<PositionManager>().DeviceFrontPosition();
         towards = gameOver;
+        deviceTowards = deviceFront;
         moveToPosition = true;
+        moveDevice = true;
     }
 
     public void MoveToGrill()
@@ -117,14 +139,14 @@ public class CameraMovement : MonoBehaviour
 
     public void MoveToFryer()
     {
-        fryer = Camera.main.GetComponent<PositionManager>().FryerPosition();
+        fryer = GetComponent<PositionManager>().FryerPosition();
         towards = fryer;
         moveToPosition = true;
     }
 
     public void MoveToSodaMachine()
     {
-        soda = Camera.main.GetComponent<PositionManager>().SodaPosition();
+        soda = GetComponent<PositionManager>().SodaPosition();
         towards = soda;
         moveToPosition = true;
     }
