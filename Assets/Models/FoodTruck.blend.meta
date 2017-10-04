@@ -25,6 +25,10 @@ ModelImporter:
     100034: Computer_Counter
     100036: Oil
     100038: Water
+    100040: Review_Mirror
+    100042: Rear_View_Mirror
+    100044: Right_Side_Mirror
+    100046: Left_Side_Mirror
     400000: //RootNode
     400002: Food_Truck
     400004: Prep_Table
@@ -45,6 +49,10 @@ ModelImporter:
     400034: Computer_Counter
     400036: Oil
     400038: Water
+    400040: Review_Mirror
+    400042: Rear_View_Mirror
+    400044: Right_Side_Mirror
+    400046: Left_Side_Mirror
     2300000: //RootNode
     2300002: Food_Truck
     2300004: Prep_Table
@@ -65,6 +73,10 @@ ModelImporter:
     2300034: Computer_Counter
     2300036: Oil
     2300038: Water
+    2300040: Review_Mirror
+    2300042: Rear_View_Mirror
+    2300044: Right_Side_Mirror
+    2300046: Left_Side_Mirror
     3300000: //RootNode
     3300002: Food_Truck
     3300004: Prep_Table
@@ -85,6 +97,10 @@ ModelImporter:
     3300034: Computer_Counter
     3300036: Oil
     3300038: Water
+    3300040: Review_Mirror
+    3300042: Rear_View_Mirror
+    3300044: Right_Side_Mirror
+    3300046: Left_Side_Mirror
     4300000: FoodTruck
     4300002: Prep_Table
     4300004: Food_Truck
@@ -105,6 +121,10 @@ ModelImporter:
     4300034: Computer_Counter
     4300036: Oil
     4300038: Water
+    4300040: Review_Mirror
+    4300042: Rear_View_Mirror
+    4300044: Right_Side_Mirror
+    4300046: Left_Side_Mirror
     7400000: Default Take
     9500000: //RootNode
   materials:

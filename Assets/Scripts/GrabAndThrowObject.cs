@@ -10,6 +10,7 @@ public class GrabAndThrowObject : MonoBehaviour
     List<Vector3> positions = new List<Vector3>();
     Vector3 direction;
     GameObject[] ingredients;
+    GameObject phone;
     Transform initialPosition;
     bool paused;
     float timeForNewPerson = 12;
@@ -21,6 +22,7 @@ public class GrabAndThrowObject : MonoBehaviour
         newPersonTime = timeForNewPerson;
         invisibleWall = GameObject.FindGameObjectWithTag("Wall");
         ingredients = GameObject.FindGameObjectsWithTag("Ingredient");
+        phone = GameObject.Find("Phone");
         initialPosition = Camera.main.GetComponent<PositionManager>().GameplayPosition();
     }
 
@@ -139,6 +141,7 @@ public class GrabAndThrowObject : MonoBehaviour
                         Camera.main.GetComponent<Gameplay>().ReduceFries();
                         break;
                 }
+                TurnOnPhoneColliders();
                 Destroy(target.GetComponent<BoxCollider>());
             }
         }
@@ -173,6 +176,7 @@ public class GrabAndThrowObject : MonoBehaviour
                     {
                         return null;
                     }
+                    TurnOffPhoneColliders();
                     GameObject newIngredient = Instantiate(hit.collider.gameObject);
                     return newIngredient;
                 }
@@ -322,5 +326,23 @@ public class GrabAndThrowObject : MonoBehaviour
     public Transform GetInitialPosition()
     {
         return initialPosition;
+    }
+
+    void TurnOffPhoneColliders()
+    {
+        phone.GetComponent<Collider>().enabled = false;
+        for (int i = 0; i < phone.transform.childCount; i++)
+        {
+            phone.transform.GetChild(i).transform.GetChild(0).GetComponent<Collider>().enabled = false;
+        }
+    }
+
+    void TurnOnPhoneColliders ()
+    {
+		phone.GetComponent<Collider>().enabled = true;
+		for (int i = 0; i < phone.transform.childCount; i++)
+		{
+			phone.transform.GetChild(i).transform.GetChild(0).GetComponent<Collider>().enabled = true;
+		}
     }
 }
