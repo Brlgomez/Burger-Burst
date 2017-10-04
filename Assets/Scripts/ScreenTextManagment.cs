@@ -11,7 +11,6 @@ ScreenTextManagment : MonoBehaviour
     int initialDrinks;
     GameObject line1, line2, line3, line4, line5;
     Color originalScreenColor;
-    Color unpressable;
 
     void Start()
     {
@@ -20,7 +19,6 @@ ScreenTextManagment : MonoBehaviour
         initialFries = gameObject.GetComponent<Gameplay>().GetFriesCount();
         initialDrinks = gameObject.GetComponent<Gameplay>().GetDrinkCount();
         originalScreenColor = new Color(0.117f, 0.445f, 0.773f);
-        unpressable = new Color(0.9f, 0.9f, 0.9f);
         line1 = GameObject.Find("Line1");
         line2 = GameObject.Find("Line2");
         line3 = GameObject.Find("Line3");
@@ -32,6 +30,7 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToMenuText()
     {
+        line1.transform.GetChild(0).tag = "Untagged";
         line1.GetComponent<Renderer>().material.color = originalScreenColor;
         line2.GetComponent<Renderer>().material.color = originalScreenColor;
         line3.GetComponent<Renderer>().material.color = originalScreenColor;
@@ -46,15 +45,16 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToGamePlayText()
     {
+        line1.transform.GetChild(0).tag = "Untagged";
         ChangeMistakeText();
         ChangeBurgerCount();
         ChangeFriesCount();
         ChangeDrinkCount();
-        line5.GetComponent<TextMesh>().text = "Back";
     }
 
     public void ChangeToPauseText()
     {
+        line1.transform.GetChild(0).tag = "Untagged";
         line1.GetComponent<Renderer>().material.color = originalScreenColor;
         line2.GetComponent<Renderer>().material.color = originalScreenColor;
         line3.GetComponent<Renderer>().material.color = originalScreenColor;
@@ -117,7 +117,6 @@ ScreenTextManagment : MonoBehaviour
         line2.GetComponent<TextMesh>().text = "B : " + initialBurgers;
         line3.GetComponent<TextMesh>().text = "F : " + initialFries;
         line4.GetComponent<TextMesh>().text = "D : " + initialDrinks;
-        line5.GetComponent<TextMesh>().text = "Back";
     }
 
     public void PressTextDown(GameObject target)
@@ -143,38 +142,37 @@ ScreenTextManagment : MonoBehaviour
         line3.transform.GetChild(0).tag = "UI";
         line4.transform.GetChild(0).tag = "UI";
         line5.transform.GetChild(0).tag = "UI";
-        line1.GetComponent<Renderer>().material.color = originalScreenColor;
-        line2.GetComponent<Renderer>().material.color = originalScreenColor;
-        line3.GetComponent<Renderer>().material.color = originalScreenColor;
-        line4.GetComponent<Renderer>().material.color = originalScreenColor;
-        line5.GetComponent<Renderer>().material.color = originalScreenColor;
     }
 
     public void MakeGrillUnpressable()
     {
         RevertButtons();
+        line1.transform.GetChild(0).tag = "Untagged";
         line2.transform.GetChild(0).tag = "Untagged";
-        line2.GetComponent<Renderer>().material.color = unpressable;
+        line5.GetComponent<TextMesh>().text = "Back";
     }
 
     public void MakeFryerUnpressable()
     {
         RevertButtons();
+        line1.transform.GetChild(0).tag = "Untagged";
         line3.transform.GetChild(0).tag = "Untagged";
-        line3.GetComponent<Renderer>().material.color = unpressable;
+        line5.GetComponent<TextMesh>().text = "Back";
     }
 
     public void MakeSodaUnpressable()
     {
         RevertButtons();
+        line1.transform.GetChild(0).tag = "Untagged";
         line4.transform.GetChild(0).tag = "Untagged";
-        line4.GetComponent<Renderer>().material.color = unpressable;
+        line5.GetComponent<TextMesh>().text = "Back";
     }
 
     public void MakeFrontUnpressable()
     {
         RevertButtons();
+        line1.transform.GetChild(0).tag = "Untagged";
         line5.transform.GetChild(0).tag = "Untagged";
-        line5.GetComponent<Renderer>().material.color = unpressable;
+        line5.GetComponent<TextMesh>().text = "";
     }
 }

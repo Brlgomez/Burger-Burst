@@ -30,12 +30,9 @@ public class MainMenu : MonoBehaviour
         RaycastHit hitInfo;
         target = null;
         target = ReturnClickedObject(out hitInfo);
-        if (target != null)
+        if (target != null && target.tag == "UI")
         {
-            if (target.tag == "UI")
-            {
-                Camera.main.GetComponent<ScreenTextManagment>().PressTextDown(target.transform.parent.gameObject);
-            }
+            Camera.main.GetComponent<ScreenTextManagment>().PressTextDown(target.transform.parent.gameObject);
         }
     }
 
@@ -43,10 +40,9 @@ public class MainMenu : MonoBehaviour
     {
         if (target != null && target.tag == "UI")
         {
-            Camera.main.GetComponent<ScreenTextManagment>().PressTextUp(target.transform.parent.gameObject);
-            if (target.name == "Second Button")
+			Camera.main.GetComponent<ScreenTextManagment>().PressTextUp(target.transform.parent.gameObject);
+			if (target.name == "Second Button")
             {
-                Camera.main.GetComponent<ScreenTextManagment>().RestartScreens();
                 gameObject.AddComponent<CameraMovement>().MoveToGameplay("Start");
                 Destroy(GetComponent<MainMenu>());
             }

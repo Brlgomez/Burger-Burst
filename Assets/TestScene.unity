@@ -275,9 +275,9 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 9732429}
-  m_Text: 'D : 50'
+  m_Text: Text
   m_OffsetZ: 0
-  m_CharacterSize: 0.125
+  m_CharacterSize: 0.5
   m_LineSpacing: 1
   m_Anchor: 3
   m_Alignment: 0
@@ -5206,9 +5206,9 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1221748149}
-  m_Text: 'B : 50'
+  m_Text: Text
   m_OffsetZ: 0
-  m_CharacterSize: 0.125
+  m_CharacterSize: 0.5
   m_LineSpacing: 1
   m_Anchor: 3
   m_Alignment: 0
@@ -9523,9 +9523,9 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1874950111}
-  m_Text: Back
+  m_Text: Text
   m_OffsetZ: 0
-  m_CharacterSize: 0.125
+  m_CharacterSize: 0.5
   m_LineSpacing: 1
   m_Anchor: 3
   m_Alignment: 0
@@ -9607,9 +9607,9 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1989339527}
-  m_Text: 'F : 50'
+  m_Text: Text
   m_OffsetZ: 0
-  m_CharacterSize: 0.125
+  m_CharacterSize: 0.5
   m_LineSpacing: 1
   m_Anchor: 3
   m_Alignment: 0
@@ -10077,9 +10077,9 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2074089590}
-  m_Text: 'Health: 10'
+  m_Text: Text
   m_OffsetZ: 0
-  m_CharacterSize: 0.125
+  m_CharacterSize: 0.5
   m_LineSpacing: 1
   m_Anchor: 3
   m_Alignment: 0
