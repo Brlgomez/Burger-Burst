@@ -5,8 +5,6 @@ using UnityEngine;
 public class RemoveObjects : MonoBehaviour
 {
 
-    float lifetime = 1;
-
     void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.tag == "Building" && gameObject.tag != "Fallen" && gameObject.tag != "OnPlatter")
@@ -14,7 +12,6 @@ public class RemoveObjects : MonoBehaviour
             gameObject.tag = "Fallen";
             gameObject.AddComponent<FadeObject>();
             Camera.main.GetComponent<Gameplay>().IncreaseNumberOfLostProduct(gameObject);
-            Destroy(gameObject, lifetime);
             Destroy(GetComponent<RemoveObjects>());
         }
         else if (col.gameObject.tag == "Waiter")

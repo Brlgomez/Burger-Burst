@@ -20,5 +20,8 @@ public class FadeObject : MonoBehaviour
         time += Time.deltaTime;
         float alpha = ((maxTime / maxTime) - (time / maxTime));
         GetComponent<Renderer>().material.color = new Color(r, g, b, alpha);
+        if (alpha < 0.01f) {
+            Destroy(gameObject);
+        }
     }
 }

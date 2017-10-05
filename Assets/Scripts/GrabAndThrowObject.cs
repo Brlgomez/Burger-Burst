@@ -241,6 +241,10 @@ public class GrabAndThrowObject : MonoBehaviour
         target.GetComponent<Rigidbody>().isKinematic = false;
         target.GetComponent<Rigidbody>().useGravity = false;
         grillWall.GetComponent<Collider>().enabled = true;
+        if (target.GetComponent<CookMeat>())
+        {
+            target.GetComponent<CookMeat>().PickedUp();
+        }
     }
 
     GameObject GetCounterObject(GameObject obj)
@@ -368,10 +372,17 @@ public class GrabAndThrowObject : MonoBehaviour
             float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 5;
             target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity);
         }
+        if (target.tag == "GrillIngredient")
+		{
+            if (target.name == "Meat(Clone)") 
+            {
+				target.AddComponent<CookMeat>();
+			}
+            target.AddComponent<RemoveObjects>();
+		}
         target.tag = "GrillIngredientClone";
         target.GetComponent<Rigidbody>().useGravity = true;
         target.GetComponent<Collider>().enabled = true;
-        target.AddComponent<RemoveObjects>();
         grillWall.GetComponent<Collider>().enabled = false;
     }
 
