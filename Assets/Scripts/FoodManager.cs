@@ -10,11 +10,23 @@ public class FoodManager : MonoBehaviour {
 		{
 			obj.GetComponent<Renderer>().material = Camera.main.GetComponent<Materials>().burgerClear;
 		}
-		else if (obj.name == "Drink(Clone)")
+        if (obj.name == "Meat(Clone)")
+		{
+			obj.GetComponent<Renderer>().material = Camera.main.GetComponent<Materials>().burgerClear;
+		}
+        if (obj.name == "Top_Bun(Clone)")
+		{
+			obj.GetComponent<Renderer>().material = Camera.main.GetComponent<Materials>().burgerClear;
+		}
+        if (obj.name == "Bottom_Bun(Clone)")
+		{
+			obj.GetComponent<Renderer>().material = Camera.main.GetComponent<Materials>().burgerClear;
+		}
+		if (obj.name == "Drink(Clone)")
 		{
 			obj.GetComponent<Renderer>().material = Camera.main.GetComponent<Materials>().drinkClear;
 		}
-		else if (obj.name == "Fries(Clone)")
+		if (obj.name == "Fries(Clone)")
 		{
 			obj.GetComponent<Renderer>().material = Camera.main.GetComponent<Materials>().friesClear;
 		}

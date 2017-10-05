@@ -8,8 +8,8 @@ public class CameraMovement : MonoBehaviour
     Transform menu, gameplay, pause, towards, gameOver, grill, fryer, soda;
     Transform deviceFront, deviceBack, deviceTowards;
     float speed;
-    int maxSpeed = 10;
-    int accelerating = 10;
+    int maxSpeed = 15;
+    int accelerating = 15;
     bool moveToPosition;
     bool moveDevice;
     string command;

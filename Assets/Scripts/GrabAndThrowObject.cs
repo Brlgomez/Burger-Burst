@@ -6,7 +6,7 @@ public class GrabAndThrowObject : MonoBehaviour
 {
     Vector3 velocity;
     GameObject target;
-    GameObject invisibleWall;
+    GameObject counterWall, grillWall;
     List<Vector3> positions = new List<Vector3>();
     Vector3 direction;
     GameObject[] ingredients;
@@ -16,15 +16,19 @@ public class GrabAndThrowObject : MonoBehaviour
     float timeForNewPerson = 12;
     float newPersonTime;
     int maxAmountOfPeople = 10;
+    enum Area { counter, pause, gameOver, quit, grill, fryer, sodaMachine};
+	Area currentArea;
 
-    void Start()
+	void Start()
     {
         newPersonTime = timeForNewPerson;
-        invisibleWall = GameObject.FindGameObjectWithTag("Wall");
+        counterWall = GameObject.Find("Counter Wall");
+        grillWall = GameObject.Find("Grill Wall");
         ingredients = GameObject.FindGameObjectsWithTag("Ingredient");
         phone = GameObject.Find("Phone");
         initialPosition = Camera.main.GetComponent<PositionManager>().GameplayPosition();
-    }
+        currentArea = Area.counter;
+	}
 
     void Update()
     {
@@ -70,17 +74,26 @@ public class GrabAndThrowObject : MonoBehaviour
         target = ReturnClickedObject(out hitInfo);
         if (target != null && target.tag == "Ingredient")
         {
-            Physics.IgnoreCollision(invisibleWall.GetComponent<Collider>(), target.GetComponent<Collider>());
-            target.GetComponent<Collider>().enabled = false;
+            Physics.IgnoreCollision(counterWall.GetComponent<Collider>(), target.GetComponent<Collider>());
+			target.GetComponent<Collider>().enabled = false;
             target.GetComponent<Collider>().isTrigger = false;
             target.GetComponent<BoxCollider>().enabled = false;
             target.GetComponent<Rigidbody>().isKinematic = false;
             target.GetComponent<Rigidbody>().useGravity = false;
-            invisibleWall.GetComponent<Collider>().enabled = true;
-            foreach (GameObject obj in ingredients)
+			counterWall.GetComponent<Collider>().enabled = true;
+			foreach (GameObject obj in ingredients)
             {
                 obj.GetComponent<BoxCollider>().enabled = false;
             }
+        }
+        if (target != null && (target.tag == "GrillIngredient" || target.tag == "GrillIngredientClone")) 
+        {
+            Physics.IgnoreCollision(grillWall.GetComponent<Collider>(), target.GetComponent<Collider>());
+			target.GetComponent<Collider>().enabled = false;
+			target.GetComponent<Collider>().isTrigger = false;
+			target.GetComponent<Rigidbody>().isKinematic = false;
+			target.GetComponent<Rigidbody>().useGravity = false;
+            grillWall.GetComponent<Collider>().enabled = true;
         }
     }
 
@@ -88,12 +101,12 @@ public class GrabAndThrowObject : MonoBehaviour
     {
         if (target != null && target.tag == "Ingredient")
         {
-            invisibleWall.GetComponent<Collider>().enabled = true;
+            counterWall.GetComponent<Collider>().enabled = true;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray.origin, ray.direction * 1, out hit))
             {
-                if (hit.transform.tag.Equals("Wall"))
+                if (hit.transform.gameObject == counterWall)
                 {
                     positions.Add(hit.point);
                     if (positions.Count > 9)
@@ -104,18 +117,37 @@ public class GrabAndThrowObject : MonoBehaviour
                 }
             }
         }
+        if (target != null && (target.tag == "GrillIngredient" || target.tag == "GrillIngredientClone"))
+        {
+            grillWall.GetComponent<Collider>().enabled = true;
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			RaycastHit hit;
+			if (Physics.Raycast(ray.origin, ray.direction * 1, out hit))
+			{
+				if (hit.transform.gameObject == grillWall)
+				{
+					positions.Add(hit.point);
+					if (positions.Count > 9)
+					{
+						positions.RemoveAt(0);
+					}
+					target.transform.position = hit.point;
+				}
+			}
+        }
     }
 
     void MouseUp()
     {
         if (target != null)
         {
+			TurnOnPhoneColliders();
             Interface(target);
             if (target.tag == "UI")
             {
                 Camera.main.GetComponent<ScreenTextManagment>().PressTextUp(target.transform.parent.gameObject);
             }
-            else if (target.tag == "Ingredient")
+            if (target.tag == "Ingredient")
             {
                 if (positions.Count > 1)
                 {
@@ -141,11 +173,25 @@ public class GrabAndThrowObject : MonoBehaviour
                         Camera.main.GetComponent<Gameplay>().ReduceFries();
                         break;
                 }
-                TurnOnPhoneColliders();
                 Destroy(target.GetComponent<BoxCollider>());
+				counterWall.GetComponent<Collider>().enabled = false;
+            }
+            if (target.tag == "GrillIngredient" || target.tag == "GrillIngredientClone")
+            {
+				if (positions.Count > 1)
+				{
+					float xVelocity = ((positions[positions.Count - 1].x - positions[0].x) * 5);
+					float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 5;
+					float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 5;
+					target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity);
+				}
+                target.tag = "GrillIngredientClone";
+				target.GetComponent<Rigidbody>().useGravity = true;
+				target.GetComponent<Collider>().enabled = true;
+				target.AddComponent<RemoveObjects>();
+				grillWall.GetComponent<Collider>().enabled = false;
             }
         }
-        invisibleWall.GetComponent<Collider>().enabled = false;
         target = null;
         foreach (GameObject obj in ingredients)
         {
@@ -155,102 +201,121 @@ public class GrabAndThrowObject : MonoBehaviour
 
     GameObject ReturnClickedObject(out RaycastHit hit)
     {
-        GameObject target = null;
+        GameObject obj = null;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray.origin, ray.direction * 2, out hit))
         {
             if (gameObject.GetComponent<CameraMovement>() == null)
             {
-                target = hit.collider.gameObject;
-                if (target.tag.Equals("Ingredient") && !paused && !Camera.main.GetComponent<Gameplay>().IsGameOver())
+                obj = hit.collider.gameObject;
+                if (obj.tag.Equals("Ingredient") && !paused && !Camera.main.GetComponent<Gameplay>().IsGameOver() && currentArea == Area.counter)
                 {
-                    if (target.name == "Burger" && Camera.main.GetComponent<Gameplay>().GetBurgerCount() < 1)
+                    if (obj.name == "Burger" && Camera.main.GetComponent<Gameplay>().GetBurgerCount() < 1)
                     {
                         return null;
                     }
-                    if (target.name == "Fries" && Camera.main.GetComponent<Gameplay>().GetFriesCount() < 1)
+                    if (obj.name == "Fries" && Camera.main.GetComponent<Gameplay>().GetFriesCount() < 1)
                     {
                         return null;
                     }
-                    if (target.name == "Drink" && Camera.main.GetComponent<Gameplay>().GetDrinkCount() < 1)
+                    if (obj.name == "Drink" && Camera.main.GetComponent<Gameplay>().GetDrinkCount() < 1)
                     {
                         return null;
                     }
                     TurnOffPhoneColliders();
-                    GameObject newIngredient = Instantiate(hit.collider.gameObject);
+                    GameObject newIngredient = Instantiate(obj);
                     return newIngredient;
                 }
-                else if (target.tag == "UI")
+				if (obj.tag == "Pause" && currentArea == Area.counter)
+				{
+					return obj;
+				}
+                if (obj.tag == "UI")
                 {
-                    Camera.main.GetComponent<ScreenTextManagment>().PressTextDown(target.transform.parent.gameObject);
-                    return target;
+                    Camera.main.GetComponent<ScreenTextManagment>().PressTextDown(obj.transform.parent.gameObject);
+                    return obj;
                 }
-                else if (target.tag == "Pause")
-                {
-                    return target;
+                if (currentArea == Area.grill) {
+                    if (obj.tag == "GrillIngredient")
+                    {
+                        TurnOffPhoneColliders();
+                        GameObject newIngredient = Instantiate(obj);
+						return newIngredient;
+                    }
+                    if (obj.tag == "GrillIngredientClone")
+                    {
+                        return obj;
+                    }
                 }
             }
         }
         return null;
     }
 
-    void Interface(GameObject target)
+    void Interface(GameObject obj)
     {
-        if (target.name == "Pause Button" && !paused && !gameObject.GetComponent<Gameplay>().IsGameOver())
+        if (obj.name == "Pause Button" && !paused && !gameObject.GetComponent<Gameplay>().IsGameOver()) //pause
         {
+            currentArea = Area.pause;
             initialPosition = Camera.main.GetComponent<PositionManager>().PausePosition();
             if (GetComponent<GettingHurt>() != null)
             {
                 Destroy(GetComponent<GettingHurt>());
             }
-            target.GetComponent<Animator>().Play("ButtonClick");
+            obj.GetComponent<Animator>().Play("ButtonClick");
             gameObject.AddComponent<CameraMovement>().MoveToPause();
             PauseGame();
         }
-        else if (target.name == "Second Button" && paused && !gameObject.GetComponent<Gameplay>().IsGameOver()) //resume
+        else if (obj.name == "Second Button" && paused && !gameObject.GetComponent<Gameplay>().IsGameOver()) //resume
         {
+            currentArea = Area.counter;
             initialPosition = Camera.main.GetComponent<PositionManager>().GameplayPosition();
             gameObject.AddComponent<CameraMovement>().MoveToGameplay("Unpause");
         }
-        else if (target.name == "Third Button" && paused) //restart
+        else if (obj.name == "Third Button" && paused) //restart
         {
             Restart();
         }
-        else if (target.name == "Fourth Button" && paused) //quit
+        else if (obj.name == "Fourth Button" && paused) //quit
         {
             Quit();
         }
-        else if (target.name == "Second Button" && !paused && !gameObject.GetComponent<Gameplay>().IsGameOver())
+        else if (obj.name == "Second Button" && !paused && !gameObject.GetComponent<Gameplay>().IsGameOver())
         {
+            currentArea = Area.grill;
             initialPosition = Camera.main.GetComponent<PositionManager>().GrillPosition();
             gameObject.AddComponent<CameraMovement>().MoveToGrill();
         }
-        else if (target.name == "Third Button" && !paused && !gameObject.GetComponent<Gameplay>().IsGameOver())
+        else if (obj.name == "Third Button" && !paused && !gameObject.GetComponent<Gameplay>().IsGameOver())
         {
+            currentArea = Area.fryer;
             initialPosition = Camera.main.GetComponent<PositionManager>().FryerPosition();
             gameObject.AddComponent<CameraMovement>().MoveToFryer();
         }
-		else if (target.name == "Third Button" && !paused && gameObject.GetComponent<Gameplay>().IsGameOver())
-		{
-			Restart();
-		}
-        else if (target.name == "Fourth Button" && !paused && !gameObject.GetComponent<Gameplay>().IsGameOver())
+        else if (obj.name == "Fourth Button" && !paused && !gameObject.GetComponent<Gameplay>().IsGameOver())
         {
+            currentArea = Area.sodaMachine;
             initialPosition = Camera.main.GetComponent<PositionManager>().SodaPosition();
             gameObject.AddComponent<CameraMovement>().MoveToSodaMachine();
         }
-		else if (target.name == "Fourth Button" && !paused && gameObject.GetComponent<Gameplay>().IsGameOver())
-		{
-            Quit();
-		}
-        else if (target.name == "Fifth Button" && !paused && !gameObject.GetComponent<Gameplay>().IsGameOver())
+        else if (obj.name == "Fifth Button" && !paused && !gameObject.GetComponent<Gameplay>().IsGameOver())
         {
+            currentArea = Area.counter;
             initialPosition = Camera.main.GetComponent<PositionManager>().GameplayPosition();
             gameObject.AddComponent<CameraMovement>().MoveToGameplay("Unpause");
         }
+		else if (obj.name == "Third Button" && !paused && gameObject.GetComponent<Gameplay>().IsGameOver())
+		{
+			Restart();
+		}
+		else if (obj.name == "Fourth Button" && !paused && gameObject.GetComponent<Gameplay>().IsGameOver())
+		{
+			Quit();
+		}
     }
 
     void Restart() {
+        currentArea = Area.counter;
 		initialPosition = Camera.main.GetComponent<PositionManager>().GameplayPosition();
 		transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 0, 0, 0);
 		DeleteObjects();
@@ -262,6 +327,7 @@ public class GrabAndThrowObject : MonoBehaviour
 
     void Quit ()
     {
+        currentArea = Area.quit;
 		transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 0, 0, 0);
 		DeleteObjects();
 		Destroy(GetComponent<Gameplay>());
@@ -300,6 +366,7 @@ public class GrabAndThrowObject : MonoBehaviour
         GameObject[] fallen = GameObject.FindGameObjectsWithTag("Fallen");
         GameObject[] clones = GameObject.FindGameObjectsWithTag("Clone");
         GameObject[] cars = GameObject.FindGameObjectsWithTag("Car");
+        GameObject[] grillIngredients = GameObject.FindGameObjectsWithTag("GrillIngredientClone");
         foreach (GameObject obj in thrown)
         {
             Destroy(obj);
@@ -320,6 +387,10 @@ public class GrabAndThrowObject : MonoBehaviour
         {
             Destroy(obj);
         }
+        foreach (GameObject obj in grillIngredients)
+		{
+			Destroy(obj);
+		}
         Camera.main.GetComponent<FloatingTextManagement>().DeleteAllText();
     }
 
