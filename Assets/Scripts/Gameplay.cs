@@ -35,7 +35,7 @@ public class Gameplay : MonoBehaviour
         }
         profit -= cost;
         profit = Mathf.Round(profit * 100f) / 100f;
-        Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(obj, -cost);
+        //Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(obj, -cost);
     }
 
     public float IncreaseNumberOfSentProduct(GameObject obj)
@@ -55,7 +55,7 @@ public class Gameplay : MonoBehaviour
         }
         profit += cost;
         profit = Mathf.Round(profit * 100f) / 100f;
-        Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(obj, cost);
+        //Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(obj, cost);
         return cost;
     }
 
@@ -63,7 +63,7 @@ public class Gameplay : MonoBehaviour
     {
         profit += tipAmount;
         profit = Mathf.Round(profit * 100f) / 100f;
-        Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(obj, tipAmount);
+        //Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(obj, tipAmount);
     }
 
     public bool IsGameOver()

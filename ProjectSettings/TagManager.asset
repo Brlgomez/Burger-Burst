@@ -15,7 +15,6 @@ TagManager:
   - Car
   - UI
   - Pause
-  - GrillIngredient
   - GrillIngredientClone
   layers:
   - Default

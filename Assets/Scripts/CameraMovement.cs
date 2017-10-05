@@ -45,10 +45,12 @@ public class CameraMovement : MonoBehaviour
                         case "Restart":
                             GetComponent<ScreenTextManagment>().ChangeToGamePlayText();
                             GetComponent<GrabAndThrowObject>().UnPauseGame();
+                            Camera.main.GetComponent<DropMoreProducts>().DropGrillItems();
                             break;
                         case "Start":
                             GetComponent<ScreenTextManagment>().ChangeToGamePlayText();
                             gameObject.AddComponent<GrabAndThrowObject>();
+                            Camera.main.GetComponent<DropMoreProducts>().DropGrillItems();
                             break;
                         case "Unpause":
                             GetComponent<ScreenTextManagment>().ChangeToGamePlayText();

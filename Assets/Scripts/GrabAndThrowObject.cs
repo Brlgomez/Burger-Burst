@@ -150,7 +150,7 @@ public class GrabAndThrowObject : MonoBehaviour
         else if (gameObject.GetComponent<Gameplay>().IsGameOver())
         {
             GameOverPhoneInterface(obj);
-        } 
+        }
         else
         {
             PauseMenuInterface(obj);
@@ -159,45 +159,44 @@ public class GrabAndThrowObject : MonoBehaviour
 
     void GameplayPhoneInterface(GameObject obj)
     {
-        if (obj.name == "Second Button")
-		{
-			currentArea = Area.grill;
-			initialPosition = Camera.main.GetComponent<PositionManager>().GrillPosition();
-			gameObject.AddComponent<CameraMovement>().MoveToGrill();
-		}
-		else if (obj.name == "Third Button")
-		{
-			currentArea = Area.fryer;
-			initialPosition = Camera.main.GetComponent<PositionManager>().FryerPosition();
-			gameObject.AddComponent<CameraMovement>().MoveToFryer();
-		}
-		else if (obj.name == "Fourth Button")
-		{
-			currentArea = Area.sodaMachine;
-			initialPosition = Camera.main.GetComponent<PositionManager>().SodaPosition();
-			gameObject.AddComponent<CameraMovement>().MoveToSodaMachine();
-		}
-		else if (obj.name == "Fifth Button")
-		{
-			currentArea = Area.counter;
-			initialPosition = Camera.main.GetComponent<PositionManager>().GameplayPosition();
-			gameObject.AddComponent<CameraMovement>().MoveToGameplay("Unpause");
-		}
+        switch (obj.name)
+        {
+            case "Second Button":
+                currentArea = Area.grill;
+                initialPosition = Camera.main.GetComponent<PositionManager>().GrillPosition();
+                gameObject.AddComponent<CameraMovement>().MoveToGrill();
+                break;
+            case "Third Button":
+                currentArea = Area.fryer;
+                initialPosition = Camera.main.GetComponent<PositionManager>().FryerPosition();
+                gameObject.AddComponent<CameraMovement>().MoveToFryer();
+                break;
+            case "Fourth Button":
+                currentArea = Area.sodaMachine;
+                initialPosition = Camera.main.GetComponent<PositionManager>().SodaPosition();
+                gameObject.AddComponent<CameraMovement>().MoveToSodaMachine();
+                break;
+            case "Fifth Button":
+                currentArea = Area.counter;
+                initialPosition = Camera.main.GetComponent<PositionManager>().GameplayPosition();
+                gameObject.AddComponent<CameraMovement>().MoveToGameplay("Unpause");
+                break;
+        }
     }
 
-    void GameOverPhoneInterface (GameObject obj)
+    void GameOverPhoneInterface(GameObject obj)
     {
         if (obj.name == "Third Button")
-		{
-			Restart();
-		}
-		else if (obj.name == "Fourth Button")
-		{
-			Quit();
-		}
+        {
+            Restart();
+        }
+        else if (obj.name == "Fourth Button")
+        {
+            Quit();
+        }
     }
 
-    void PauseMenuInterface (GameObject obj) 
+    void PauseMenuInterface(GameObject obj)
     {
         if (paused)
         {
@@ -235,9 +234,7 @@ public class GrabAndThrowObject : MonoBehaviour
 
     void MouseDownGrill()
     {
-        Physics.IgnoreCollision(grillWall.GetComponent<Collider>(), target.GetComponent<Collider>());
         target.GetComponent<Collider>().enabled = false;
-        target.GetComponent<Collider>().isTrigger = false;
         target.GetComponent<Rigidbody>().isKinematic = false;
         target.GetComponent<Rigidbody>().useGravity = false;
         grillWall.GetComponent<Collider>().enabled = true;
@@ -268,12 +265,6 @@ public class GrabAndThrowObject : MonoBehaviour
 
     GameObject GetGrillObject(GameObject obj)
     {
-        if (obj.tag == "GrillIngredient")
-        {
-            TurnOffPhoneColliders();
-            GameObject newIngredient = Instantiate(obj);
-            return newIngredient;
-        }
         if (obj.tag == "GrillIngredientClone")
         {
             TurnOffPhoneColliders();
@@ -372,15 +363,17 @@ public class GrabAndThrowObject : MonoBehaviour
             float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 5;
             target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity);
         }
-        if (target.tag == "GrillIngredient")
-		{
-            if (target.name == "Meat(Clone)") 
+        if (target.tag == "GrillIngredientClone")
+        {
+            if (target.name == "Meat(Clone)" && target.GetComponent<CookMeat>() == null)
             {
-				target.AddComponent<CookMeat>();
-			}
-            target.AddComponent<RemoveObjects>();
-		}
-        target.tag = "GrillIngredientClone";
+                target.AddComponent<CookMeat>();
+            }
+            if (target.GetComponent<RemoveObjects>() == null)
+            {
+                target.AddComponent<RemoveObjects>();
+            }
+        }
         target.GetComponent<Rigidbody>().useGravity = true;
         target.GetComponent<Collider>().enabled = true;
         grillWall.GetComponent<Collider>().enabled = false;

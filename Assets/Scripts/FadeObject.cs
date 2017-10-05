@@ -13,7 +13,8 @@ public class FadeObject : MonoBehaviour
         r = GetComponent<Renderer>().material.color.r;
         g = GetComponent<Renderer>().material.color.g;
         b = GetComponent<Renderer>().material.color.b;
-    }
+		AddNewGrillItem();
+	}
 
     void Update()
     {
@@ -23,5 +24,21 @@ public class FadeObject : MonoBehaviour
         if (alpha < 0.01f) {
             Destroy(gameObject);
         }
+    }
+
+    void AddNewGrillItem()
+    {
+        if (name == "Top_Bun(Clone)")
+        {
+            Camera.main.GetComponent<DropMoreProducts>().DropTopBun();
+        }
+		if (name == "Bottom_Bun(Clone)")
+		{
+            Camera.main.GetComponent<DropMoreProducts>().DropBottomBun();
+		}
+		if (name == "Meat(Clone)")
+		{
+            Camera.main.GetComponent<DropMoreProducts>().DropMeat();
+		}
     }
 }

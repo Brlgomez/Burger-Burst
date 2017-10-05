@@ -33,6 +33,7 @@ ScreenTextManagment : MonoBehaviour
     public void ChangeToMenuText()
     {
         line1.transform.GetChild(0).tag = "Untagged";
+        line2.transform.GetChild(0).tag = "UI";
         line1.GetComponent<Renderer>().material.color = originalScreenColor;
         line2.GetComponent<Renderer>().material.color = originalScreenColor;
         line3.GetComponent<Renderer>().material.color = originalScreenColor;
