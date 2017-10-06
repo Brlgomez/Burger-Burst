@@ -61,34 +61,6 @@ public class CookMeat : MonoBehaviour
             }
             gameObject.GetComponent<Renderer>().material.color = new Color(iniR, iniG, iniB);
         }
-        if (touchingTop && touchingBottom)
-        {
-            int worth = Mathf.RoundToInt((maxTimeOnGrill / 2) - Mathf.Abs(timeOnGrill - (maxTimeOnGrill / 2)));
-            if (worth == 0)
-			{
-                Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Burgers", Color.gray);
-			}
-            else if (worth == 1) {
-                Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Burger", Color.green);
-            } 
-            else if (worth > 1){
-				Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Burgers", Color.green);
-			}
-            Camera.main.GetComponent<Gameplay>().AddBurgers(worth);
-            if (topBun.GetComponent<FadeObject>() == null)
-            {
-				topBun.AddComponent<FadeObject>();
-			}
-            if (bottomBun.GetComponent<FadeObject>() == null)
-            {
-				bottomBun.AddComponent<FadeObject>();
-			}
-            if (gameObject.GetComponent<FadeObject>() == null)
-            {
-				gameObject.AddComponent<FadeObject>();
-			}
-            Destroy(GetComponent<CookMeat>());
-        }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -113,6 +85,10 @@ public class CookMeat : MonoBehaviour
                 bottomBun = collision.gameObject;
             }
         }
+		if (touchingTop && touchingBottom)
+		{
+            BurgerCompleted();
+		}
     }
 
     public void PickedUp()
@@ -131,5 +107,36 @@ public class CookMeat : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    void BurgerCompleted()
+    {
+		int worth = Mathf.RoundToInt((maxTimeOnGrill / 2) - Mathf.Abs(timeOnGrill - (maxTimeOnGrill / 2)));
+		if (worth == 0)
+		{
+			Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Burgers", Color.gray);
+		}
+		else if (worth == 1)
+		{
+			Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Burger", Color.green);
+		}
+		else if (worth > 1)
+		{
+			Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Burgers", Color.green);
+		}
+		Camera.main.GetComponent<Gameplay>().AddBurgers(worth);
+		if (topBun.GetComponent<FadeObject>() == null)
+		{
+			topBun.AddComponent<FadeObject>();
+		}
+		if (bottomBun.GetComponent<FadeObject>() == null)
+		{
+			bottomBun.AddComponent<FadeObject>();
+		}
+		if (gameObject.GetComponent<FadeObject>() == null)
+		{
+			gameObject.AddComponent<FadeObject>();
+		}
+		Destroy(GetComponent<CookMeat>()); 
     }
 }

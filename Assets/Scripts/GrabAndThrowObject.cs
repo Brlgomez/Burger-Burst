@@ -6,7 +6,7 @@ public class GrabAndThrowObject : MonoBehaviour
 {
     Vector3 velocity;
     GameObject target;
-    GameObject counterWall, grillWall, rightFryer, leftFryer;
+    GameObject counterWall, grillWall, rightFryer, leftFryer, fryerWall;
     List<Vector3> positions = new List<Vector3>();
     Vector3 direction;
     GameObject[] ingredients;
@@ -26,6 +26,7 @@ public class GrabAndThrowObject : MonoBehaviour
         grillWall = GameObject.Find("Grill Wall");
         rightFryer = GameObject.Find("Fryer Basket Right");
         leftFryer = GameObject.Find("Fryer Basket Left");
+        fryerWall = GameObject.Find("Fryer Wall"); 
         ingredients = GameObject.FindGameObjectsWithTag("Ingredient");
         phone = GameObject.Find("Phone");
         initialPosition = Camera.main.GetComponent<PositionManager>().GameplayPosition();
@@ -64,7 +65,7 @@ public class GrabAndThrowObject : MonoBehaviour
             {
                 MouseDownGrill();
             }
-            if (currentArea == Area.fryer && target.tag == "FryerBasket")
+            if (currentArea == Area.fryer)
             {
                 MouseDownFryer();
             }
@@ -264,7 +265,13 @@ public class GrabAndThrowObject : MonoBehaviour
 
 	void MouseDownFryer()
 	{
-        
+        if (target.tag == "Fries")
+        {
+			target.GetComponent<Collider>().enabled = false;
+			target.GetComponent<Rigidbody>().isKinematic = false;
+			target.GetComponent<Rigidbody>().useGravity = false;
+            fryerWall.GetComponent<Collider>().enabled = true;
+        }
 	}
 
     GameObject GetCounterObject(GameObject obj)
@@ -306,6 +313,10 @@ public class GrabAndThrowObject : MonoBehaviour
 		{
 			return obj;
 		}
+        if (obj.tag == "Fries")
+        {
+            return obj;
+        }
         return null;
     }
 
@@ -349,7 +360,24 @@ public class GrabAndThrowObject : MonoBehaviour
 
     void DragFryerObject()
     {
-
+        if (target.tag == "Fries")
+        {
+            fryerWall.GetComponent<Collider>().enabled = true;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray.origin, ray.direction * 1, out hit))
+            {
+                if (hit.transform.gameObject == fryerWall)
+                {
+                    positions.Add(hit.point);
+                    if (positions.Count > 9)
+                    {
+                        positions.RemoveAt(0);
+                    }
+                    target.transform.position = hit.point;
+                }
+            }
+        }
     }
 
     void MouseUpPauseButton()
@@ -432,6 +460,23 @@ public class GrabAndThrowObject : MonoBehaviour
             target.GetComponent<Animator>().Play("ButtonClick");
             rightFryer.GetComponent<FryerBasket>().PressedButton();
 		}
+        if (target.tag == "Fries")
+        {
+			if (positions.Count > 1)
+			{
+				float xVelocity = ((positions[positions.Count - 1].x - positions[0].x) * 5);
+				float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 5;
+				float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 5;
+				target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity);
+			}
+			if (target.GetComponent<RemoveObjects>() == null)
+			{
+				target.AddComponent<RemoveObjects>();
+			}
+			target.GetComponent<Rigidbody>().useGravity = true;
+			target.GetComponent<Collider>().enabled = true;
+            fryerWall.GetComponent<Collider>().enabled = false;
+        }
     }
 
     void Restart()

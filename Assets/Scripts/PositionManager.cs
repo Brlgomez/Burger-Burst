@@ -8,6 +8,7 @@ public class PositionManager : MonoBehaviour
 	GameObject menu, gameplay, pause, gameOver, grill, fryer, soda;
     GameObject deviceFront, deviceBack;
     GameObject meatPos, topBunPos, bottomBunPos;
+    GameObject friesPos, basketPos;
 	
     void Awake () 
     {
@@ -23,6 +24,8 @@ public class PositionManager : MonoBehaviour
 		meatPos = GameObject.Find("Meat Position");
         topBunPos = GameObject.Find("Top Bun Position");
         bottomBunPos = GameObject.Find("Bottom Bun Position");
+        friesPos = GameObject.Find("Fries Position");
+        basketPos = GameObject.Find("Basket Position");
 	}
 
     public Transform MenuPosition()
@@ -83,5 +86,15 @@ public class PositionManager : MonoBehaviour
 	public Transform BottomBunSpawnPosition()
 	{
         return bottomBunPos.transform;
+	}
+
+	public Transform FriesPosition()
+	{
+        return friesPos.transform;
+	}
+
+	public Transform BasketPosition()
+	{
+        return basketPos.transform;
 	}
 }

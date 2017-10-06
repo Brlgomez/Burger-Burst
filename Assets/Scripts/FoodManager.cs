@@ -14,7 +14,7 @@ public class FoodManager : MonoBehaviour {
 		{
 			obj.GetComponent<Renderer>().material = Camera.main.GetComponent<Materials>().drinkClear;
 		}
-		if (obj.name == "Fries(Clone)")
+		if (obj.name == "Fries(Clone)" || obj.name == "Fries_No_Basket")
 		{
 			obj.GetComponent<Renderer>().material = Camera.main.GetComponent<Materials>().friesClear;
 		}
