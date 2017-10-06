@@ -26,19 +26,15 @@ ScreenTextManagment : MonoBehaviour
         line3 = GameObject.Find("Line3");
         line4 = GameObject.Find("Line4");
         line5 = GameObject.Find("Line5");
-        line1.GetComponent<Renderer>().material.color = originalScreenColor;
         ChangeToMenuText();
     }
 
     public void ChangeToMenuText()
     {
+        RevertButtons();
+        ChangeTextColorToOriginal();
         line1.transform.GetChild(0).tag = "Untagged";
-        line2.transform.GetChild(0).tag = "UI";
-        line1.GetComponent<Renderer>().material.color = originalScreenColor;
-        line2.GetComponent<Renderer>().material.color = originalScreenColor;
-        line3.GetComponent<Renderer>().material.color = originalScreenColor;
-        line4.GetComponent<Renderer>().material.color = originalScreenColor;
-        line5.GetComponent<Renderer>().material.color = originalScreenColor;
+        line5.transform.GetChild(0).tag = "Untagged";
         line1.GetComponent<TextMesh>().text = "GAME";
         line2.GetComponent<TextMesh>().text = "Play";
         line3.GetComponent<TextMesh>().text = "Scores";
@@ -48,6 +44,7 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToGamePlayText()
     {
+        RevertButtons();
         line1.transform.GetChild(0).tag = "Untagged";
         ChangeBurgerCount();
         ChangeFriesCount();
@@ -57,12 +54,10 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToPauseText()
     {
+        RevertButtons();
+        ChangeTextColorToOriginal();
         line1.transform.GetChild(0).tag = "Untagged";
-        line1.GetComponent<Renderer>().material.color = originalScreenColor;
-        line2.GetComponent<Renderer>().material.color = originalScreenColor;
-        line3.GetComponent<Renderer>().material.color = originalScreenColor;
-        line4.GetComponent<Renderer>().material.color = originalScreenColor;
-        line5.GetComponent<Renderer>().material.color = originalScreenColor;
+        line5.transform.GetChild(0).tag = "Untagged";
         line1.GetComponent<TextMesh>().text = "PAUSED";
         line2.GetComponent<TextMesh>().text = "Resume";
         line3.GetComponent<TextMesh>().text = "Restart";
@@ -120,42 +115,14 @@ ScreenTextManagment : MonoBehaviour
     public void RestartScreens()
     {
         ChangeMistakeText();
-        line1.GetComponent<Renderer>().material.color = originalScreenColor;
-        line2.GetComponent<Renderer>().material.color = originalScreenColor;
-        line3.GetComponent<Renderer>().material.color = originalScreenColor;
-        line4.GetComponent<Renderer>().material.color = originalScreenColor;
+        ChangeTextColorToOriginal();
         line1.GetComponent<TextMesh>().text = "Health: " + initialLife;
         line2.GetComponent<TextMesh>().text = "B : " + initialBurgers;
         line3.GetComponent<TextMesh>().text = "F : " + initialFries;
         line4.GetComponent<TextMesh>().text = "D : " + initialDrinks;
     }
 
-    public void PressTextDown(GameObject target)
-    {
-        float r = target.GetComponent<Renderer>().material.color.r;
-        float g = target.GetComponent<Renderer>().material.color.g;
-        float b = target.GetComponent<Renderer>().material.color.b;
-        target.GetComponent<Renderer>().material.color = new Color(r / 2, g / 2, b / 2);
-    }
-
-    public void PressTextUp(GameObject target)
-    {
-        float r = target.GetComponent<Renderer>().material.color.r;
-        float g = target.GetComponent<Renderer>().material.color.g;
-        float b = target.GetComponent<Renderer>().material.color.b;
-        target.GetComponent<Renderer>().material.color = new Color(r * 2, g * 2, b * 2);
-    }
-
-    public void RevertButtons()
-    {
-        line1.transform.GetChild(0).tag = "UI";
-        line2.transform.GetChild(0).tag = "UI";
-        line3.transform.GetChild(0).tag = "UI";
-        line4.transform.GetChild(0).tag = "UI";
-        line5.transform.GetChild(0).tag = "UI";
-    }
-
-    public void MakeGrillUnpressable()
+    public void ChangeToGrillArea()
     {
         RevertButtons();
         line1.transform.GetChild(0).tag = "Untagged";
@@ -163,7 +130,7 @@ ScreenTextManagment : MonoBehaviour
         line5.GetComponent<TextMesh>().text = "Front";
     }
 
-    public void MakeFryerUnpressable()
+    public void ChangeToFryerArea()
     {
         RevertButtons();
         line1.transform.GetChild(0).tag = "Untagged";
@@ -171,7 +138,7 @@ ScreenTextManagment : MonoBehaviour
         line5.GetComponent<TextMesh>().text = "Front";
     }
 
-    public void MakeSodaUnpressable()
+    public void ChangeToSodaMachineArea()
     {
         RevertButtons();
         line1.transform.GetChild(0).tag = "Untagged";
@@ -179,11 +146,45 @@ ScreenTextManagment : MonoBehaviour
         line5.GetComponent<TextMesh>().text = "Front";
     }
 
-    public void MakeFrontUnpressable()
+    public void ChangeToFrontArea()
     {
         RevertButtons();
         line1.transform.GetChild(0).tag = "Untagged";
         line5.transform.GetChild(0).tag = "Untagged";
         line5.GetComponent<TextMesh>().text = "";
     }
+
+	public void RevertButtons()
+	{
+		line1.transform.GetChild(0).tag = "UI";
+		line2.transform.GetChild(0).tag = "UI";
+		line3.transform.GetChild(0).tag = "UI";
+		line4.transform.GetChild(0).tag = "UI";
+		line5.transform.GetChild(0).tag = "UI";
+	}
+
+    void ChangeTextColorToOriginal()
+    {
+		line1.GetComponent<Renderer>().material.color = originalScreenColor;
+		line2.GetComponent<Renderer>().material.color = originalScreenColor;
+		line3.GetComponent<Renderer>().material.color = originalScreenColor;
+		line4.GetComponent<Renderer>().material.color = originalScreenColor;
+		line5.GetComponent<Renderer>().material.color = originalScreenColor;
+    }
+
+	public void PressTextDown(GameObject target)
+	{
+		float r = target.GetComponent<Renderer>().material.color.r;
+		float g = target.GetComponent<Renderer>().material.color.g;
+		float b = target.GetComponent<Renderer>().material.color.b;
+		target.GetComponent<Renderer>().material.color = new Color(r / 2, g / 2, b / 2);
+	}
+
+	public void PressTextUp(GameObject target)
+	{
+		float r = target.GetComponent<Renderer>().material.color.r;
+		float g = target.GetComponent<Renderer>().material.color.g;
+		float b = target.GetComponent<Renderer>().material.color.b;
+		target.GetComponent<Renderer>().material.color = new Color(r * 2, g * 2, b * 2);
+	}
 }

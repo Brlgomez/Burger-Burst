@@ -57,7 +57,7 @@ public class CameraMovement : MonoBehaviour
                             GetComponent<GrabAndThrowObject>().UnPauseGame();
                             break;
                     }
-                    GetComponent<ScreenTextManagment>().MakeFrontUnpressable();
+                    GetComponent<ScreenTextManagment>().ChangeToFrontArea();
                 }
                 else if (towards == menu)
                 {
@@ -76,15 +76,15 @@ public class CameraMovement : MonoBehaviour
                 }
                 else if (towards == grill)
                 {
-                    GetComponent<ScreenTextManagment>().MakeGrillUnpressable();
+                    GetComponent<ScreenTextManagment>().ChangeToGrillArea();
                 }
                 else if (towards == fryer)
                 {
-                    GetComponent<ScreenTextManagment>().MakeFryerUnpressable();
+                    GetComponent<ScreenTextManagment>().ChangeToFryerArea();
                 }
                 else if (towards == soda)
                 {
-                    GetComponent<ScreenTextManagment>().MakeSodaUnpressable();
+                    GetComponent<ScreenTextManagment>().ChangeToSodaMachineArea();
                 }
                 Destroy(GetComponent<CameraMovement>());
             }

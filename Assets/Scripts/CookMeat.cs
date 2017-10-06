@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CookMeat : MonoBehaviour
 {
-    bool onGrill = false;
+    bool onGrill;
     float timeOnGrill;
     int maxTimeOnGrill = 20;
     Color initialColor;
@@ -64,11 +64,29 @@ public class CookMeat : MonoBehaviour
         if (touchingTop && touchingBottom)
         {
             int worth = Mathf.RoundToInt((maxTimeOnGrill / 2) - Mathf.Abs(timeOnGrill - (maxTimeOnGrill / 2)));
-            Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Burgers", Color.green);
+            if (worth == 0)
+			{
+                Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Burgers", Color.gray);
+			}
+            else if (worth == 1) {
+                Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Burger", Color.green);
+            } 
+            else if (worth > 1){
+				Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Burgers", Color.green);
+			}
             Camera.main.GetComponent<Gameplay>().AddBurgers(worth);
-            topBun.AddComponent<FadeObject>();
-            bottomBun.AddComponent<FadeObject>();
-            gameObject.AddComponent<FadeObject>();
+            if (topBun.GetComponent<FadeObject>() == null)
+            {
+				topBun.AddComponent<FadeObject>();
+			}
+            if (bottomBun.GetComponent<FadeObject>() == null)
+            {
+				bottomBun.AddComponent<FadeObject>();
+			}
+            if (gameObject.GetComponent<FadeObject>() == null)
+            {
+				gameObject.AddComponent<FadeObject>();
+			}
             Destroy(GetComponent<CookMeat>());
         }
     }
@@ -81,7 +99,7 @@ public class CookMeat : MonoBehaviour
         }
         if (collision.gameObject.name == "Top_Bun(Clone)" && !touchingTop)
         {
-            if (checkDistance(collision.gameObject))
+            if (CheckDistance(collision.gameObject))
             {
                 touchingTop = true;
                 topBun = collision.gameObject;
@@ -89,7 +107,7 @@ public class CookMeat : MonoBehaviour
         }
         if (collision.gameObject.name == "Bottom_Bun(Clone)" && !touchingBottom)
         {
-            if (checkDistance(collision.gameObject))
+            if (CheckDistance(collision.gameObject))
             {
                 touchingBottom = true;
                 bottomBun = collision.gameObject;
@@ -106,7 +124,7 @@ public class CookMeat : MonoBehaviour
         bottomBun = null;
     }
 
-    bool checkDistance(GameObject obj)
+    bool CheckDistance(GameObject obj)
     {
         if (Vector3.Distance(gameObject.transform.position, obj.transform.position) < 0.1f)
         {

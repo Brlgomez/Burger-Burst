@@ -10,7 +10,10 @@ public class RemoveObjects : MonoBehaviour
         if (col.gameObject.tag == "Building" && gameObject.tag != "Fallen" && gameObject.tag != "OnPlatter")
         {
             gameObject.tag = "Fallen";
-            gameObject.AddComponent<FadeObject>();
+            if (gameObject.GetComponent<FadeObject>() == null)
+            {
+                gameObject.AddComponent<FadeObject>();
+            }
             Camera.main.GetComponent<Gameplay>().IncreaseNumberOfLostProduct(gameObject);
             Destroy(GetComponent<RemoveObjects>());
         }

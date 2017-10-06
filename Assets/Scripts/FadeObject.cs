@@ -28,17 +28,17 @@ public class FadeObject : MonoBehaviour
 
     void AddNewGrillItem()
     {
-        if (name == "Top_Bun(Clone)")
+        switch (name)
         {
-            Camera.main.GetComponent<DropMoreProducts>().DropTopBun();
+            case "Top_Bun(Clone)":
+                Camera.main.GetComponent<DropMoreProducts>().DropTopBun();
+                break;
+            case "Bottom_Bun(Clone)":
+                Camera.main.GetComponent<DropMoreProducts>().DropBottomBun();
+                break;
+            case "Meat(Clone)":
+                Camera.main.GetComponent<DropMoreProducts>().DropMeat();
+                break;
         }
-		if (name == "Bottom_Bun(Clone)")
-		{
-            Camera.main.GetComponent<DropMoreProducts>().DropBottomBun();
-		}
-		if (name == "Meat(Clone)")
-		{
-            Camera.main.GetComponent<DropMoreProducts>().DropMeat();
-		}
     }
 }
