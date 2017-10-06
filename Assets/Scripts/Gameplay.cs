@@ -143,6 +143,10 @@ public class Gameplay : MonoBehaviour
 		if (life < 1)
         {
 			gameOver = true;
+            if (gameObject.GetComponent<CameraMovement>() != null)
+            {
+                Destroy(gameObject.GetComponent<CameraMovement>());
+            }
             gameObject.AddComponent<CameraMovement>().MoveToGameOver();
         }
     }

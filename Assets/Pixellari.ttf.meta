@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 0bcf0fa5bcae34223a047791f4755f93
-timeCreated: 1505077159
+guid: f4c3ccef79de2492096986477baf6f8b
+timeCreated: 1507267561
 licenseType: Free
 TrueTypeFontImporter:
   serializedVersion: 4
@@ -9,9 +9,9 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: Poetsen One
+  fontName: Pixellari
   fontNames:
-  - Poetsen One
+  - Pixellari
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

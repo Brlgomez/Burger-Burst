@@ -110,6 +110,15 @@ public class CameraMovement : MonoBehaviour
         moveToPosition = true;
         moveDevice = true;
         command = c;
+		switch (command)
+		{
+			case "Restart":
+				Camera.main.GetComponent<DropMoreProducts>().DropGrillItems();
+				break;
+			case "Start":
+				Camera.main.GetComponent<DropMoreProducts>().DropGrillItems();
+				break;
+		}
     }
 
     public void MoveToPause()

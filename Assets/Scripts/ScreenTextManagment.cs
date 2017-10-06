@@ -19,7 +19,7 @@ ScreenTextManagment : MonoBehaviour
         initialBurgers = gameObject.GetComponent<Gameplay>().GetBurgerCount();
         initialFries = gameObject.GetComponent<Gameplay>().GetFriesCount();
         initialDrinks = gameObject.GetComponent<Gameplay>().GetDrinkCount();
-        originalScreenColor = new Color(0.117f, 0.445f, 0.773f);
+        originalScreenColor = new Color(0, 0.5f, 1);
         red = Color.red;
         line1 = GameObject.Find("Line1");
         line2 = GameObject.Find("Line2");
@@ -81,18 +81,18 @@ ScreenTextManagment : MonoBehaviour
             line5.GetComponent<TextMesh>().text = "";
             line2.tag = "Untagged";
 			line5.tag = "Untagged";
-            line3.GetComponent<Renderer>().material.color = red;
-            line4.GetComponent<Renderer>().material.color = red;
+            line3.GetComponent<TextMesh>().color = red;
+            line4.GetComponent<TextMesh>().color = red;
         }
         Color newColor = Color.Lerp(red, originalScreenColor, ((float)n) / initialLife);
-        line1.GetComponent<Renderer>().material.color = newColor;
+        line1.GetComponent<TextMesh>().color = newColor;
     }
 
     public void ChangeBurgerCount()
     {
         int n = Camera.main.GetComponent<Gameplay>().GetBurgerCount();
         Color newColor = Color.Lerp(red, originalScreenColor, ((float)n) / initialBurgers);
-        line2.GetComponent<Renderer>().material.color = newColor;
+        line2.GetComponent<TextMesh>().color = newColor;
         line2.GetComponent<TextMesh>().text = "B : " + n;
     }
 
@@ -100,7 +100,7 @@ ScreenTextManagment : MonoBehaviour
     {
         int n = Camera.main.GetComponent<Gameplay>().GetFriesCount();
         Color newColor = Color.Lerp(red, originalScreenColor, ((float)n) / initialFries);
-        line3.GetComponent<Renderer>().material.color = newColor;
+        line3.GetComponent<TextMesh>().color = newColor;
         line3.GetComponent<TextMesh>().text = "F : " + n;
     }
 
@@ -108,7 +108,7 @@ ScreenTextManagment : MonoBehaviour
     {
         int n = Camera.main.GetComponent<Gameplay>().GetDrinkCount();
         Color newColor = Color.Lerp(red, originalScreenColor, ((float)n) / initialDrinks);
-        line4.GetComponent<Renderer>().material.color = newColor;
+        line4.GetComponent<TextMesh>().color = newColor;
         line4.GetComponent<TextMesh>().text = "D : " + n;
     }
 
@@ -165,26 +165,26 @@ ScreenTextManagment : MonoBehaviour
 
     void ChangeTextColorToOriginal()
     {
-		line1.GetComponent<Renderer>().material.color = originalScreenColor;
-		line2.GetComponent<Renderer>().material.color = originalScreenColor;
-		line3.GetComponent<Renderer>().material.color = originalScreenColor;
-		line4.GetComponent<Renderer>().material.color = originalScreenColor;
-		line5.GetComponent<Renderer>().material.color = originalScreenColor;
+        line1.GetComponent<TextMesh>().color = originalScreenColor;
+        line2.GetComponent<TextMesh>().color = originalScreenColor;
+        line3.GetComponent<TextMesh>().color = originalScreenColor;
+        line4.GetComponent<TextMesh>().color = originalScreenColor;
+        line5.GetComponent<TextMesh>().color = originalScreenColor;
     }
 
 	public void PressTextDown(GameObject target)
 	{
-		float r = target.GetComponent<Renderer>().material.color.r;
-		float g = target.GetComponent<Renderer>().material.color.g;
-		float b = target.GetComponent<Renderer>().material.color.b;
-		target.GetComponent<Renderer>().material.color = new Color(r / 2, g / 2, b / 2);
+        float r = target.GetComponent<TextMesh>().color.r;
+        float g = target.GetComponent<TextMesh>().color.g;
+        float b = target.GetComponent<TextMesh>().color.b;
+        target.GetComponent<TextMesh>().color = new Color(r / 2, g / 2, b / 2);
 	}
 
 	public void PressTextUp(GameObject target)
 	{
-		float r = target.GetComponent<Renderer>().material.color.r;
-		float g = target.GetComponent<Renderer>().material.color.g;
-		float b = target.GetComponent<Renderer>().material.color.b;
-		target.GetComponent<Renderer>().material.color = new Color(r * 2, g * 2, b * 2);
+		float r = target.GetComponent<TextMesh>().color.r;
+		float g = target.GetComponent<TextMesh>().color.g;
+		float b = target.GetComponent<TextMesh>().color.b;
+		target.GetComponent<TextMesh>().color = new Color(r * 2, g * 2, b * 2);
 	}
 }
