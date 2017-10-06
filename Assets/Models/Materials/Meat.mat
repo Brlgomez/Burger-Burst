@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Meat
-  m_Shader: {fileID: 4800000, guid: ecdf2070235cc490f8c36ef47ff59c5c, type: 3}
+  m_Shader: {fileID: 4800000, guid: 0ac8836a76b3d4ef7aa38893fc2b5e5a, type: 3}
   m_ShaderKeywords: _GLOSSYREFLECTIONS_OFF _SPECULARHIGHLIGHTS_OFF
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0

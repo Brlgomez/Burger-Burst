@@ -6,19 +6,7 @@ public class FoodManager : MonoBehaviour {
 
     public void ChangeToTransparentMaterial (GameObject obj) 
     {
-		if (obj.name == "Burger(Clone)")
-		{
-			obj.GetComponent<Renderer>().material = Camera.main.GetComponent<Materials>().burgerClear;
-		}
-        if (obj.name == "Meat(Clone)")
-		{
-			obj.GetComponent<Renderer>().material = Camera.main.GetComponent<Materials>().burgerClear;
-		}
-        if (obj.name == "Top_Bun(Clone)")
-		{
-			obj.GetComponent<Renderer>().material = Camera.main.GetComponent<Materials>().burgerClear;
-		}
-        if (obj.name == "Bottom_Bun(Clone)")
+		if (obj.name == "Burger(Clone)" || obj.name == "Top_Bun(Clone)" || obj.name == "Bottom_Bun(Clone)")
 		{
 			obj.GetComponent<Renderer>().material = Camera.main.GetComponent<Materials>().burgerClear;
 		}

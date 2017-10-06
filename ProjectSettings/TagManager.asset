@@ -16,6 +16,7 @@ TagManager:
   - UI
   - Pause
   - GrillIngredientClone
+  - FryerBasket
   layers:
   - Default
   - TransparentFX

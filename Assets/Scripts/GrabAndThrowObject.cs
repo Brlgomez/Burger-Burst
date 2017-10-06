@@ -6,7 +6,7 @@ public class GrabAndThrowObject : MonoBehaviour
 {
     Vector3 velocity;
     GameObject target;
-    GameObject counterWall, grillWall;
+    GameObject counterWall, grillWall, rightFryer, leftFryer;
     List<Vector3> positions = new List<Vector3>();
     Vector3 direction;
     GameObject[] ingredients;
@@ -24,6 +24,8 @@ public class GrabAndThrowObject : MonoBehaviour
         newPersonTime = timeForNewPerson;
         counterWall = GameObject.Find("Counter Wall");
         grillWall = GameObject.Find("Grill Wall");
+        rightFryer = GameObject.Find("Fryer Basket Right");
+        leftFryer = GameObject.Find("Fryer Basket Left");
         ingredients = GameObject.FindGameObjectsWithTag("Ingredient");
         phone = GameObject.Find("Phone");
         initialPosition = Camera.main.GetComponent<PositionManager>().GameplayPosition();
@@ -62,6 +64,10 @@ public class GrabAndThrowObject : MonoBehaviour
             {
                 MouseDownGrill();
             }
+            if (currentArea == Area.fryer && target.tag == "FryerBasket")
+            {
+                MouseDownFryer();
+            }
         }
     }
 
@@ -89,6 +95,10 @@ public class GrabAndThrowObject : MonoBehaviour
             {
                 return GetGrillObject(obj);
             }
+            if (currentArea == Area.fryer && !paused && !Camera.main.GetComponent<Gameplay>().IsGameOver())
+			{
+				return GetFryerObject(obj);
+			}
         }
         return null;
     }
@@ -105,6 +115,10 @@ public class GrabAndThrowObject : MonoBehaviour
             {
                 DragGrillObject();
             }
+			if (currentArea == Area.fryer)
+			{
+				DragFryerObject();
+			}
         }
     }
 
@@ -132,6 +146,10 @@ public class GrabAndThrowObject : MonoBehaviour
                 {
                     MouseUpGrill();
                 }
+                if (currentArea == Area.fryer)
+				{
+					MouseUpFryer();
+				}
             }
         }
         foreach (GameObject obj in ingredients)
@@ -244,6 +262,11 @@ public class GrabAndThrowObject : MonoBehaviour
         }
     }
 
+	void MouseDownFryer()
+	{
+        
+	}
+
     GameObject GetCounterObject(GameObject obj)
     {
         if (obj.name == "Burger" && Camera.main.GetComponent<Gameplay>().GetBurgerCount() < 1)
@@ -270,6 +293,19 @@ public class GrabAndThrowObject : MonoBehaviour
             TurnOffPhoneColliders();
             return obj;
         }
+        return null;
+    }
+
+    GameObject GetFryerObject(GameObject obj)
+    {
+        if (obj.name == "Right Fryer Button")
+        {
+            return obj;
+        }
+		if (obj.name == "Left Fryer Button")
+		{
+			return obj;
+		}
         return null;
     }
 
@@ -309,6 +345,11 @@ public class GrabAndThrowObject : MonoBehaviour
                 target.transform.position = hit.point;
             }
         }
+    }
+
+    void DragFryerObject()
+    {
+
     }
 
     void MouseUpPauseButton()
@@ -377,6 +418,20 @@ public class GrabAndThrowObject : MonoBehaviour
         target.GetComponent<Rigidbody>().useGravity = true;
         target.GetComponent<Collider>().enabled = true;
         grillWall.GetComponent<Collider>().enabled = false;
+    }
+
+    void MouseUpFryer()
+    {
+		if (target.name == "Left Fryer Button")
+		{
+            target.GetComponent<Animator>().Play("ButtonClick");
+            leftFryer.GetComponent<FryerBasket>().PressedButton();
+		}
+		if (target.name == "Right Fryer Button")
+		{
+            target.GetComponent<Animator>().Play("ButtonClick");
+            rightFryer.GetComponent<FryerBasket>().PressedButton();
+		}
     }
 
     void Restart()
@@ -501,5 +556,7 @@ public class GrabAndThrowObject : MonoBehaviour
             Destroy(obj);
         }
         Camera.main.GetComponent<FloatingTextManagement>().DeleteAllText();
+        leftFryer.GetComponent<FryerBasket>().Restart();
+        rightFryer.GetComponent<FryerBasket>().Restart();
     }
 }
