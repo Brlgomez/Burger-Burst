@@ -469,6 +469,10 @@ public class GrabAndThrowObject : MonoBehaviour
 				float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 5;
 				target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity);
 			}
+            if (target.GetComponent<FryFries>() == null)
+			{
+                target.AddComponent<FryFries>();
+			}
 			if (target.GetComponent<RemoveObjects>() == null)
 			{
 				target.AddComponent<RemoveObjects>();

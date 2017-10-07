@@ -13,7 +13,7 @@ public class FadeObject : MonoBehaviour
         r = GetComponent<Renderer>().material.color.r;
         g = GetComponent<Renderer>().material.color.g;
         b = GetComponent<Renderer>().material.color.b;
-		AddNewGrillItem();
+		AddNewItem();
 	}
 
     void Update()
@@ -26,7 +26,7 @@ public class FadeObject : MonoBehaviour
         }
     }
 
-    void AddNewGrillItem()
+    void AddNewItem()
     {
         switch (name)
         {
@@ -38,6 +38,9 @@ public class FadeObject : MonoBehaviour
                 break;
             case "Meat(Clone)":
                 Camera.main.GetComponent<DropMoreProducts>().DropMeat();
+                break;
+            case "Fries_No_Basket(Clone)":
+                Camera.main.GetComponent<DropMoreProducts>().DropFries();
                 break;
         }
     }

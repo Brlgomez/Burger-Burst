@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DropMoreProducts : MonoBehaviour
 {
-    GameObject meat, topBun, bottomBun, fries, basket;
+    GameObject meat, topBun, bottomBun, fries;
     GameObject foodTruck;
     GameObject grillWall;
 
@@ -16,7 +16,6 @@ public class DropMoreProducts : MonoBehaviour
         bottomBun = GameObject.Find("Bottom_Bun");
         grillWall = GameObject.Find("Grill Wall");
         fries = GameObject.Find("Fries_No_Basket");
-        basket = GameObject.Find("Basket");
     }
 
     public void DropItems()
@@ -25,7 +24,6 @@ public class DropMoreProducts : MonoBehaviour
         DropTopBun();
         DropBottomBun();
 		DropFries();
-		//DropBasket();
     }
 
     public void DropMeat()
@@ -58,12 +56,6 @@ public class DropMoreProducts : MonoBehaviour
 		AddNewProduct(newProduct);
         newProduct.transform.position = Camera.main.GetComponent<PositionManager>().FriesPosition().position;
         newProduct.tag = "Fries";
-	}
-
-	public void DropBasket()
-	{
-        GameObject newProduct = Instantiate(basket);
-        newProduct.transform.position = Camera.main.GetComponent<PositionManager>().BasketPosition().position;
 	}
 
     void AddNewProduct(GameObject newProduct)

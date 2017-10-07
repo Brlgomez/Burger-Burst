@@ -11,7 +11,7 @@ public class FryerBasket : MonoBehaviour
 	void Start()
 	{
         bottomLimit = transform.localPosition.y;
-        heightLimit = bottomLimit + 0.3f;
+        heightLimit = bottomLimit + 0.325f;
 	}
 
     public void PressedButton ()
@@ -36,7 +36,7 @@ public class FryerBasket : MonoBehaviour
 
     public void Restart()
     {
-        down = false;
+        down = true;
         transform.localPosition = new Vector3(transform.localPosition.x, bottomLimit, transform.localPosition.z);
     }
 }
