@@ -26,7 +26,7 @@ public class GrabAndThrowObject : MonoBehaviour
         grillWall = GameObject.Find("Grill Wall");
         rightFryer = GameObject.Find("Fryer Basket Right");
         leftFryer = GameObject.Find("Fryer Basket Left");
-        fryerWall = GameObject.Find("Fryer Wall"); 
+        fryerWall = GameObject.Find("Fryer Wall");
         ingredients = GameObject.FindGameObjectsWithTag("Ingredient");
         phone = GameObject.Find("Phone");
         initialPosition = Camera.main.GetComponent<PositionManager>().GameplayPosition();
@@ -57,17 +57,17 @@ public class GrabAndThrowObject : MonoBehaviour
         target = ReturnClickedObject(out hitInfo);
         if (target != null && !paused)
         {
-            if (currentArea == Area.counter && target.tag == "Ingredient")
+            switch (currentArea)
             {
-                MouseDownCounter();
-            }
-            if (currentArea == Area.grill && (target.tag == "GrillIngredient" || target.tag == "GrillIngredientClone"))
-            {
-                MouseDownGrill();
-            }
-            if (currentArea == Area.fryer)
-            {
-                MouseDownFryer();
+                case Area.counter:
+                    MouseDownCounter();
+                    break;
+                case Area.grill:
+                    MouseDownGrill();
+                    break;
+                case Area.fryer:
+                    MouseDownFryer();
+                    break;
             }
         }
     }
@@ -79,47 +79,50 @@ public class GrabAndThrowObject : MonoBehaviour
         if (Physics.Raycast(ray.origin, ray.direction * 2, out hit) && gameObject.GetComponent<CameraMovement>() == null)
         {
             obj = hit.collider.gameObject;
-            if (obj.tag == "Pause" && currentArea == Area.counter && !Camera.main.GetComponent<Gameplay>().IsGameOver())
-            {
-                return obj;
-            }
             if (obj.tag == "UI")
             {
                 Camera.main.GetComponent<ScreenTextManagment>().PressTextDown(obj.transform.parent.gameObject);
                 return obj;
             }
-            if (currentArea == Area.counter && !paused && !Camera.main.GetComponent<Gameplay>().IsGameOver() && obj.tag == "Ingredient")
+            if (!paused && !Camera.main.GetComponent<Gameplay>().IsGameOver())
             {
-                return GetCounterObject(obj);
+                if (currentArea == Area.counter && obj.tag == "Pause")
+                {
+                    return obj;
+                }
+                if (currentArea == Area.counter)
+                {
+                    return GetCounterObject(obj);
+                }
+                if (currentArea == Area.grill)
+                {
+                    return GetGrillObject(obj);
+                }
+                if (currentArea == Area.fryer)
+                {
+                    return GetFryerObject(obj);
+                }
             }
-            if (currentArea == Area.grill && !paused && !Camera.main.GetComponent<Gameplay>().IsGameOver())
-            {
-                return GetGrillObject(obj);
-            }
-            if (currentArea == Area.fryer && !paused && !Camera.main.GetComponent<Gameplay>().IsGameOver())
-			{
-				return GetFryerObject(obj);
-			}
         }
         return null;
     }
 
     void MouseDrag()
     {
-        if (target != null && !paused)
+        if (target != null && !paused && !Camera.main.GetComponent<Gameplay>().IsGameOver())
         {
-            if (currentArea == Area.counter && target.tag == "Ingredient")
+            switch (currentArea)
             {
-                DragCounterObject();
+                case Area.counter:
+                    DragCounterObject();
+                    break;
+                case Area.grill:
+                    DragGrillObject();
+                    break;
+                case Area.fryer:
+                    DragFryerObject();
+                    break;
             }
-            if (currentArea == Area.grill && (target.tag == "GrillIngredient" || target.tag == "GrillIngredientClone"))
-            {
-                DragGrillObject();
-            }
-			if (currentArea == Area.fryer)
-			{
-				DragFryerObject();
-			}
         }
     }
 
@@ -135,22 +138,22 @@ public class GrabAndThrowObject : MonoBehaviour
             }
             if (!paused && !gameObject.GetComponent<Gameplay>().IsGameOver())
             {
-                if (currentArea == Area.counter && target.name == "Pause Button")
+                if (currentArea == Area.counter)
                 {
                     MouseUpPauseButton();
                 }
-                if (currentArea == Area.counter && target.tag == "Ingredient")
+                if (currentArea == Area.counter)
                 {
                     MouseUpCounter();
                 }
-                if (currentArea == Area.grill && (target.tag == "GrillIngredient" || target.tag == "GrillIngredientClone"))
+                if (currentArea == Area.grill)
                 {
                     MouseUpGrill();
                 }
                 if (currentArea == Area.fryer)
-				{
-					MouseUpFryer();
-				}
+                {
+                    MouseUpFryer();
+                }
             }
         }
         foreach (GameObject obj in ingredients)
@@ -238,41 +241,47 @@ public class GrabAndThrowObject : MonoBehaviour
 
     void MouseDownCounter()
     {
-        Physics.IgnoreCollision(counterWall.GetComponent<Collider>(), target.GetComponent<Collider>());
-        target.GetComponent<Collider>().enabled = false;
-        target.GetComponent<Collider>().isTrigger = false;
-        target.GetComponent<BoxCollider>().enabled = false;
-        target.GetComponent<Rigidbody>().isKinematic = false;
-        target.GetComponent<Rigidbody>().useGravity = false;
-        counterWall.GetComponent<Collider>().enabled = true;
-        foreach (GameObject obj in ingredients)
+        if (target.tag == "Ingredient")
         {
-            obj.GetComponent<BoxCollider>().enabled = false;
+            Physics.IgnoreCollision(counterWall.GetComponent<Collider>(), target.GetComponent<Collider>());
+            target.GetComponent<Collider>().enabled = false;
+            target.GetComponent<Collider>().isTrigger = false;
+            target.GetComponent<BoxCollider>().enabled = false;
+            target.GetComponent<Rigidbody>().isKinematic = false;
+            target.GetComponent<Rigidbody>().useGravity = false;
+            counterWall.GetComponent<Collider>().enabled = true;
+            foreach (GameObject obj in ingredients)
+            {
+                obj.GetComponent<BoxCollider>().enabled = false;
+            }
         }
     }
 
     void MouseDownGrill()
     {
-        target.GetComponent<Collider>().enabled = false;
-        target.GetComponent<Rigidbody>().isKinematic = false;
-        target.GetComponent<Rigidbody>().useGravity = false;
-        grillWall.GetComponent<Collider>().enabled = true;
-        if (target.GetComponent<CookMeat>())
+        if (target.tag == "GrillIngredientClone")
         {
-            target.GetComponent<CookMeat>().PickedUp();
+            target.GetComponent<Collider>().enabled = false;
+            target.GetComponent<Rigidbody>().isKinematic = false;
+            target.GetComponent<Rigidbody>().useGravity = false;
+            grillWall.GetComponent<Collider>().enabled = true;
+            if (target.GetComponent<CookMeat>())
+            {
+                target.GetComponent<CookMeat>().PickedUp();
+            }
         }
     }
 
-	void MouseDownFryer()
-	{
+    void MouseDownFryer()
+    {
         if (target.tag == "Fries")
         {
-			target.GetComponent<Collider>().enabled = false;
-			target.GetComponent<Rigidbody>().isKinematic = false;
-			target.GetComponent<Rigidbody>().useGravity = false;
+            target.GetComponent<Collider>().enabled = false;
+            target.GetComponent<Rigidbody>().isKinematic = false;
+            target.GetComponent<Rigidbody>().useGravity = false;
             fryerWall.GetComponent<Collider>().enabled = true;
         }
-	}
+    }
 
     GameObject GetCounterObject(GameObject obj)
     {
@@ -309,10 +318,10 @@ public class GrabAndThrowObject : MonoBehaviour
         {
             return obj;
         }
-		if (obj.name == "Left Fryer Button")
-		{
-			return obj;
-		}
+        if (obj.name == "Left Fryer Button")
+        {
+            return obj;
+        }
         if (obj.tag == "Fries")
         {
             return obj;
@@ -322,38 +331,44 @@ public class GrabAndThrowObject : MonoBehaviour
 
     void DragCounterObject()
     {
-        counterWall.GetComponent<Collider>().enabled = true;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(ray.origin, ray.direction * 1, out hit))
+        if (target.tag == "Ingredient")
         {
-            if (hit.transform.gameObject == counterWall)
+            counterWall.GetComponent<Collider>().enabled = true;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray.origin, ray.direction * 1, out hit))
             {
-                positions.Add(hit.point);
-                if (positions.Count > 9)
+                if (hit.transform.gameObject == counterWall)
                 {
-                    positions.RemoveAt(0);
+                    positions.Add(hit.point);
+                    if (positions.Count > 9)
+                    {
+                        positions.RemoveAt(0);
+                    }
+                    target.transform.position = hit.point;
                 }
-                target.transform.position = hit.point;
             }
         }
     }
 
     void DragGrillObject()
     {
-        grillWall.GetComponent<Collider>().enabled = true;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(ray.origin, ray.direction * 1, out hit))
+        if (target.tag == "GrillIngredientClone")
         {
-            if (hit.transform.gameObject == grillWall)
+            grillWall.GetComponent<Collider>().enabled = true;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray.origin, ray.direction * 1, out hit))
             {
-                positions.Add(hit.point);
-                if (positions.Count > 9)
+                if (hit.transform.gameObject == grillWall)
                 {
-                    positions.RemoveAt(0);
+                    positions.Add(hit.point);
+                    if (positions.Count > 9)
+                    {
+                        positions.RemoveAt(0);
+                    }
+                    target.transform.position = hit.point;
                 }
-                target.transform.position = hit.point;
             }
         }
     }
@@ -382,58 +397,65 @@ public class GrabAndThrowObject : MonoBehaviour
 
     void MouseUpPauseButton()
     {
-        currentArea = Area.pause;
-        initialPosition = Camera.main.GetComponent<PositionManager>().PausePosition();
-        if (GetComponent<GettingHurt>() != null)
+        if (target.name == "Pause Button")
         {
-            Destroy(GetComponent<GettingHurt>());
+            currentArea = Area.pause;
+            initialPosition = Camera.main.GetComponent<PositionManager>().PausePosition();
+            if (GetComponent<GettingHurt>() != null)
+            {
+                Destroy(GetComponent<GettingHurt>());
+            }
+            target.GetComponent<Animator>().Play("ButtonClick");
+            gameObject.AddComponent<CameraMovement>().MoveToPause();
+            PauseGame();
         }
-        target.GetComponent<Animator>().Play("ButtonClick");
-        gameObject.AddComponent<CameraMovement>().MoveToPause();
-        PauseGame();
     }
 
     void MouseUpCounter()
     {
-        if (positions.Count > 1)
+        if (target.tag == "Ingredient")
         {
-            float speed = Vector3.Distance(positions[positions.Count - 1], positions[0]);
-            float xVelocity = ((positions[positions.Count - 1].x - positions[0].x) * 7) + ((target.transform.position.x) * speed * 3);
-            float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 3;
-            float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 20;
-            target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity);
+            if (positions.Count > 1)
+            {
+                float speed = Vector3.Distance(positions[positions.Count - 1], positions[0]);
+                float xVelocity = ((positions[positions.Count - 1].x - positions[0].x) * 7) + ((target.transform.position.x) * speed * 3);
+                float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 3;
+                float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 20;
+                target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity);
+            }
+            target.GetComponent<Rigidbody>().freezeRotation = false;
+            target.GetComponent<Rigidbody>().useGravity = true;
+            target.GetComponent<Collider>().enabled = true;
+            target.tag = "Thrown";
+            target.AddComponent<RemoveObjects>();
+            switch (target.name)
+            {
+                case "Burger(Clone)":
+                    Camera.main.GetComponent<Gameplay>().ReduceBurgers();
+                    break;
+                case "Drink(Clone)":
+                    Camera.main.GetComponent<Gameplay>().ReduceDrinks();
+                    break;
+                case "Fries(Clone)":
+                    Camera.main.GetComponent<Gameplay>().ReduceFries();
+                    break;
+            }
+            Destroy(target.GetComponent<BoxCollider>());
+            counterWall.GetComponent<Collider>().enabled = false;
         }
-        target.GetComponent<Rigidbody>().useGravity = true;
-        target.GetComponent<Collider>().enabled = true;
-        target.tag = "Thrown";
-        target.AddComponent<RemoveObjects>();
-        switch (target.name)
-        {
-            case "Burger(Clone)":
-                Camera.main.GetComponent<Gameplay>().ReduceBurgers();
-                break;
-            case "Drink(Clone)":
-                Camera.main.GetComponent<Gameplay>().ReduceDrinks();
-                break;
-            case "Fries(Clone)":
-                Camera.main.GetComponent<Gameplay>().ReduceFries();
-                break;
-        }
-        Destroy(target.GetComponent<BoxCollider>());
-        counterWall.GetComponent<Collider>().enabled = false;
     }
 
     void MouseUpGrill()
     {
-        if (positions.Count > 1)
-        {
-            float xVelocity = ((positions[positions.Count - 1].x - positions[0].x) * 5);
-            float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 5;
-            float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 5;
-            target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity);
-        }
         if (target.tag == "GrillIngredientClone")
         {
+            if (positions.Count > 1)
+            {
+                float xVelocity = ((positions[positions.Count - 1].x - positions[0].x) * 5);
+                float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 5;
+                float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 5;
+                target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity);
+            }
             if (target.name == "Meat(Clone)" && target.GetComponent<CookMeat>() == null)
             {
                 target.AddComponent<CookMeat>();
@@ -442,43 +464,45 @@ public class GrabAndThrowObject : MonoBehaviour
             {
                 target.AddComponent<RemoveObjects>();
             }
+			target.GetComponent<Rigidbody>().freezeRotation = false;
+			target.GetComponent<Rigidbody>().useGravity = true;
+			target.GetComponent<Collider>().enabled = true;
+			grillWall.GetComponent<Collider>().enabled = false;
         }
-        target.GetComponent<Rigidbody>().useGravity = true;
-        target.GetComponent<Collider>().enabled = true;
-        grillWall.GetComponent<Collider>().enabled = false;
     }
 
     void MouseUpFryer()
     {
-		if (target.name == "Left Fryer Button")
-		{
+        if (target.name == "Left Fryer Button")
+        {
             target.GetComponent<Animator>().Play("ButtonClick");
             leftFryer.GetComponent<FryerBasket>().PressedButton();
-		}
-		if (target.name == "Right Fryer Button")
-		{
+        }
+        if (target.name == "Right Fryer Button")
+        {
             target.GetComponent<Animator>().Play("ButtonClick");
             rightFryer.GetComponent<FryerBasket>().PressedButton();
-		}
+        }
         if (target.tag == "Fries")
         {
-			if (positions.Count > 1)
-			{
-				float xVelocity = ((positions[positions.Count - 1].x - positions[0].x) * 5);
-				float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 5;
-				float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 5;
-				target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity);
-			}
+            if (positions.Count > 1)
+            {
+                float xVelocity = ((positions[positions.Count - 1].x - positions[0].x) * 5);
+                float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 5;
+                float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 5;
+                target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity);
+            }
             if (target.GetComponent<FryFries>() == null)
-			{
+            {
                 target.AddComponent<FryFries>();
-			}
-			if (target.GetComponent<RemoveObjects>() == null)
-			{
-				target.AddComponent<RemoveObjects>();
-			}
-			target.GetComponent<Rigidbody>().useGravity = true;
-			target.GetComponent<Collider>().enabled = true;
+            }
+            if (target.GetComponent<RemoveObjects>() == null)
+            {
+                target.AddComponent<RemoveObjects>();
+            }
+            target.GetComponent<Rigidbody>().freezeRotation = false;
+            target.GetComponent<Rigidbody>().useGravity = true;
+            target.GetComponent<Collider>().enabled = true;
             fryerWall.GetComponent<Collider>().enabled = false;
         }
     }
@@ -580,32 +604,24 @@ public class GrabAndThrowObject : MonoBehaviour
         GameObject[] clones = GameObject.FindGameObjectsWithTag("Clone");
         GameObject[] cars = GameObject.FindGameObjectsWithTag("Car");
         GameObject[] grillIngredients = GameObject.FindGameObjectsWithTag("GrillIngredientClone");
-        foreach (GameObject obj in thrown)
-        {
-            Destroy(obj);
-        }
-        foreach (GameObject obj in onPlatter)
-        {
-            Destroy(obj);
-        }
-        foreach (GameObject obj in fallen)
-        {
-            Destroy(obj);
-        }
-        foreach (GameObject obj in clones)
-        {
-            Destroy(obj);
-        }
-        foreach (GameObject obj in cars)
-        {
-            Destroy(obj);
-        }
-        foreach (GameObject obj in grillIngredients)
-        {
-            Destroy(obj);
-        }
+        GameObject[] fries = GameObject.FindGameObjectsWithTag("Fries");
+        DestroyArrayOfObjects(thrown);
+        DestroyArrayOfObjects(onPlatter);
+        DestroyArrayOfObjects(fallen);
+        DestroyArrayOfObjects(clones);
+        DestroyArrayOfObjects(cars);
+        DestroyArrayOfObjects(grillIngredients);
+        DestroyArrayOfObjects(fries);
         Camera.main.GetComponent<FloatingTextManagement>().DeleteAllText();
         leftFryer.GetComponent<FryerBasket>().Restart();
         rightFryer.GetComponent<FryerBasket>().Restart();
+    }
+
+    void DestroyArrayOfObjects(GameObject[] objects)
+    {
+        foreach (GameObject obj in objects)
+        {
+            Destroy(obj);
+        }
     }
 }

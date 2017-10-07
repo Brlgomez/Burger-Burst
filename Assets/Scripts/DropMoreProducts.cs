@@ -23,7 +23,7 @@ public class DropMoreProducts : MonoBehaviour
         DropMeat();
         DropTopBun();
         DropBottomBun();
-		DropFries();
+        DropFries();
     }
 
     public void DropMeat()
@@ -31,32 +31,32 @@ public class DropMoreProducts : MonoBehaviour
         GameObject newProduct = Instantiate(meat);
         AddNewProduct(newProduct);
         newProduct.transform.position = Camera.main.GetComponent<PositionManager>().MeatSpawnPosition().position;
-		newProduct.tag = "GrillIngredientClone";
-	}
+        newProduct.tag = "GrillIngredientClone";
+    }
 
     public void DropTopBun()
     {
         GameObject newProduct = Instantiate(topBun);
         AddNewProduct(newProduct);
         newProduct.transform.position = Camera.main.GetComponent<PositionManager>().TopBunSpawnPosition().position;
-		newProduct.tag = "GrillIngredientClone";
-	}
+        newProduct.tag = "GrillIngredientClone";
+    }
 
     public void DropBottomBun()
     {
         GameObject newProduct = Instantiate(bottomBun);
         AddNewProduct(newProduct);
         newProduct.transform.position = Camera.main.GetComponent<PositionManager>().BottomBunSpawnPosition().position;
-		newProduct.tag = "GrillIngredientClone";
-	}
+        newProduct.tag = "GrillIngredientClone";
+    }
 
-	public void DropFries()
-	{
+    public void DropFries()
+    {
         GameObject newProduct = Instantiate(fries);
-		AddNewProduct(newProduct);
+        AddNewProduct(newProduct);
         newProduct.transform.position = Camera.main.GetComponent<PositionManager>().FriesPosition().position;
         newProduct.tag = "Fries";
-	}
+    }
 
     void AddNewProduct(GameObject newProduct)
     {
@@ -64,6 +64,7 @@ public class DropMoreProducts : MonoBehaviour
         newProduct.GetComponent<Rigidbody>().isKinematic = false;
         newProduct.GetComponent<Rigidbody>().useGravity = true;
         newProduct.GetComponent<Collider>().enabled = true;
+        newProduct.GetComponent<Rigidbody>().freezeRotation = true;
         Physics.IgnoreCollision(grillWall.GetComponent<Collider>(), newProduct.GetComponent<Collider>());
     }
 }

@@ -10,7 +10,9 @@ public class CookMeat : MonoBehaviour
     Color initialColor;
     Color cookedColor;
     Color burntColor;
-    float iniR, iniG, iniB;
+    float r, g, b;
+    float incR, incG, incB;
+    float incR2, incG2, incB2;
     GameObject topBun, bottomBun;
     bool touchingTop, touchingBottom;
 
@@ -19,9 +21,15 @@ public class CookMeat : MonoBehaviour
         initialColor = gameObject.GetComponent<Renderer>().material.color;
         cookedColor = new Color(0.480f, 0.613f, 0.266f);
         burntColor = new Color(cookedColor.r * 0.25f, cookedColor.g * 0.25f, cookedColor.b * 0.25f);
-        iniR = initialColor.r;
-        iniG = initialColor.g;
-        iniB = initialColor.b;
+        r = initialColor.r;
+        g = initialColor.g;
+        b = initialColor.b;
+        incR = (initialColor.r - cookedColor.r) * (1.0f / (maxTimeOnGrill / 2.0f));
+        incG = (initialColor.g - cookedColor.g) * (1.0f / (maxTimeOnGrill / 2.0f));
+        incB = (initialColor.b - cookedColor.b) * (1.0f / (maxTimeOnGrill / 2.0f));
+        incR2 = (cookedColor.r - burntColor.r) * (1.0f / (maxTimeOnGrill / 2.0f));
+        incG2 = (cookedColor.g - burntColor.g) * (1.0f / (maxTimeOnGrill / 2.0f));
+        incB2 = (cookedColor.b - burntColor.b) * (1.0f / (maxTimeOnGrill / 2.0f));
     }
 
     void Update()
@@ -31,35 +39,35 @@ public class CookMeat : MonoBehaviour
             timeOnGrill += Time.deltaTime;
             if (timeOnGrill < maxTimeOnGrill / 2)
             {
-                if (iniR > cookedColor.r)
+                if (r > cookedColor.r)
                 {
-                    iniR -= Time.deltaTime / 20;
+                    r -= Time.deltaTime * incR;
+				}
+                if (g > cookedColor.g)
+                {
+                    g -= Time.deltaTime * incG;
                 }
-                if (iniG > cookedColor.g)
+                if (b > cookedColor.b)
                 {
-                    iniG -= Time.deltaTime / 15;
-                }
-                if (iniB > cookedColor.b)
-                {
-                    iniB -= Time.deltaTime / 10;
+                    b -= Time.deltaTime * incB;
                 }
             }
             else
             {
-                if (iniR > burntColor.r)
+                if (r > burntColor.r)
                 {
-                    iniR -= Time.deltaTime / 25;
+                    r -= Time.deltaTime * incR2;
                 }
-                if (iniG > burntColor.g)
+                if (g > burntColor.g)
                 {
-                    iniG -= Time.deltaTime / 20;
+                    g -= Time.deltaTime * incG2;
                 }
-                if (iniB > burntColor.b)
+                if (b > burntColor.b)
                 {
-                    iniB -= Time.deltaTime / 30;
+                    b -= Time.deltaTime * incB2;
                 }
             }
-            gameObject.GetComponent<Renderer>().material.color = new Color(iniR, iniG, iniB);
+            gameObject.GetComponent<Renderer>().material.color = new Color(r, g, b);
         }
     }
 
@@ -85,10 +93,10 @@ public class CookMeat : MonoBehaviour
                 bottomBun = collision.gameObject;
             }
         }
-		if (touchingTop && touchingBottom)
-		{
+        if (touchingTop && touchingBottom)
+        {
             BurgerCompleted();
-		}
+        }
     }
 
     public void PickedUp()
@@ -111,32 +119,32 @@ public class CookMeat : MonoBehaviour
 
     void BurgerCompleted()
     {
-		int worth = Mathf.RoundToInt((maxTimeOnGrill / 2) - Mathf.Abs(timeOnGrill - (maxTimeOnGrill / 2)));
-		if (worth == 0)
-		{
-			Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Burgers", Color.gray);
-		}
-		else if (worth == 1)
-		{
-			Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Burger", Color.green);
-		}
-		else if (worth > 1)
-		{
-			Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Burgers", Color.green);
-		}
-		Camera.main.GetComponent<Gameplay>().AddBurgers(worth);
-		if (topBun.GetComponent<FadeObject>() == null)
-		{
-			topBun.AddComponent<FadeObject>();
-		}
-		if (bottomBun.GetComponent<FadeObject>() == null)
-		{
-			bottomBun.AddComponent<FadeObject>();
-		}
-		if (gameObject.GetComponent<FadeObject>() == null)
-		{
-			gameObject.AddComponent<FadeObject>();
-		}
-		Destroy(GetComponent<CookMeat>()); 
+        int worth = Mathf.RoundToInt((maxTimeOnGrill / 2) - Mathf.Abs(timeOnGrill - (maxTimeOnGrill / 2)));
+        if (worth == 0)
+        {
+            Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Burgers", Color.gray);
+        }
+        else if (worth == 1)
+        {
+            Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Burger", Color.green);
+        }
+        else if (worth > 1)
+        {
+            Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Burgers", Color.green);
+        }
+        Camera.main.GetComponent<Gameplay>().AddBurgers(worth);
+        if (topBun.GetComponent<FadeObject>() == null)
+        {
+            topBun.AddComponent<FadeObject>();
+        }
+        if (bottomBun.GetComponent<FadeObject>() == null)
+        {
+            bottomBun.AddComponent<FadeObject>();
+        }
+        if (gameObject.GetComponent<FadeObject>() == null)
+        {
+            gameObject.AddComponent<FadeObject>();
+        }
+        Destroy(GetComponent<CookMeat>());
     }
 }

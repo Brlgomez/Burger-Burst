@@ -2,24 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FryerBasket : MonoBehaviour 
+public class FryerBasket : MonoBehaviour
 {
     bool down = true;
-	float heightLimit;
-	float bottomLimit;
+    float heightLimit;
+    float bottomLimit;
 
-	void Start()
-	{
+    void Start()
+    {
         bottomLimit = transform.localPosition.y;
         heightLimit = bottomLimit + 0.325f;
-	}
+    }
 
-    public void PressedButton ()
+    public void PressedButton()
     {
         down = !down;
         if (gameObject.GetComponent<FryerLift>() != null)
         {
-            Destroy(gameObject.GetComponent<FryerLift>());    
+            Destroy(gameObject.GetComponent<FryerLift>());
         }
         gameObject.AddComponent<FryerLift>().Direction(down);
     }

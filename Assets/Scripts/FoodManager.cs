@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FoodManager : MonoBehaviour {
-
+public class FoodManager : MonoBehaviour 
+{
     public void ChangeToTransparentMaterial (GameObject obj) 
     {
 		if (obj.name == "Burger(Clone)" || obj.name == "Top_Bun(Clone)" || obj.name == "Bottom_Bun(Clone)")

@@ -2,99 +2,99 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PositionManager : MonoBehaviour 
+public class PositionManager : MonoBehaviour
 {
 
-	GameObject menu, gameplay, pause, gameOver, grill, fryer, soda;
+    GameObject menu, gameplay, pause, gameOver, grill, fryer, soda;
     GameObject deviceFront, deviceBack;
     GameObject meatPos, topBunPos, bottomBunPos;
     GameObject friesPos, basketPos;
-	
-    void Awake () 
+
+    void Awake()
     {
-		menu = GameObject.Find("Menu Camera Position");
-		gameplay = GameObject.Find("Gameplay Camera Position");
-		pause = GameObject.Find("Pause Camera Position");
-		grill = GameObject.Find("Grill Position");
-		fryer = GameObject.Find("Fryer Position");
-		soda = GameObject.Find("Soda Machine Position");
-		gameOver = GameObject.Find("Game Over Camera Position");
+        menu = GameObject.Find("Menu Camera Position");
+        gameplay = GameObject.Find("Gameplay Camera Position");
+        pause = GameObject.Find("Pause Camera Position");
+        grill = GameObject.Find("Grill Position");
+        fryer = GameObject.Find("Fryer Position");
+        soda = GameObject.Find("Soda Machine Position");
+        gameOver = GameObject.Find("Game Over Camera Position");
         deviceFront = GameObject.Find("Device Front Position");
         deviceBack = GameObject.Find("Device Back Position");
-		meatPos = GameObject.Find("Meat Position");
+        meatPos = GameObject.Find("Meat Position");
         topBunPos = GameObject.Find("Top Bun Position");
         bottomBunPos = GameObject.Find("Bottom Bun Position");
         friesPos = GameObject.Find("Fries Position");
         basketPos = GameObject.Find("Basket Position");
-	}
+    }
 
     public Transform MenuPosition()
-	{
+    {
         return menu.transform;
-	}
+    }
 
-    public Transform GameplayPosition () 
+    public Transform GameplayPosition()
     {
         return gameplay.transform;
     }
 
-	public Transform PausePosition()
-	{
+    public Transform PausePosition()
+    {
         return pause.transform;
-	}
+    }
 
     public Transform GrillPosition()
-	{
+    {
         return grill.transform;
-	}
+    }
 
     public Transform FryerPosition()
-	{
+    {
         return fryer.transform;
-	}
+    }
 
     public Transform SodaPosition()
-	{
+    {
         return soda.transform;
-	}
+    }
 
-	public Transform GameOverPosition()
-	{
+    public Transform GameOverPosition()
+    {
         return gameOver.transform;
-	}
+    }
 
-	public Transform DeviceFrontPosition()
-	{
+    public Transform DeviceFrontPosition()
+    {
         return deviceFront.transform;
-	}
+    }
 
-	public Transform DeviceBackPosition()
-	{
+    public Transform DeviceBackPosition()
+    {
         return deviceBack.transform;
-	}
+    }
 
     public Transform MeatSpawnPosition()
     {
         return meatPos.transform;
     }
 
-	public Transform TopBunSpawnPosition()
-	{
+    public Transform TopBunSpawnPosition()
+    {
         return topBunPos.transform;
-	}
+    }
 
-	public Transform BottomBunSpawnPosition()
-	{
+    public Transform BottomBunSpawnPosition()
+    {
         return bottomBunPos.transform;
-	}
+    }
 
-	public Transform FriesPosition()
-	{
+    public Transform FriesPosition()
+    {
         return friesPos.transform;
-	}
+    }
 
-	public Transform BasketPosition()
-	{
+    public Transform BasketPosition()
+    {
         return basketPos.transform;
-	}
+    }
 }

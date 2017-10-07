@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Materials : MonoBehaviour {
-
+public class Materials : MonoBehaviour 
+{
     public Material burgerClear;
     public Material friesClear;
     public Material drinkClear;

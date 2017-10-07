@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AftermathText : MonoBehaviour 
+public class AftermathText : MonoBehaviour
 {
     float time;
     float maxTime = 1.5f;
@@ -11,22 +11,22 @@ public class AftermathText : MonoBehaviour
     float verticalSpeed = 0.1f;
     Vector3 startPosition;
 
-    void Start () 
+    void Start()
     {
         startPosition = transform.position;
         Vector3 v = Camera.main.transform.position - transform.position;
         v.y = v.z = 0.0f;
         transform.LookAt(Camera.main.transform.position - v);
         transform.Rotate(0, 180, 0);
-	}
+    }
 
-	void Update () 
+    void Update()
     {
         float alpha = ((maxTime / maxTime) - (time / maxTime));
         float newX = startPosition.x + (Mathf.Sin(time * horizontalSpeed) * horizontalDistance);
         float newY = transform.position.y + Time.deltaTime * verticalSpeed;
-		time += Time.deltaTime;
-		gameObject.GetComponent<Renderer>().material.color = new Color(
+        time += Time.deltaTime;
+        gameObject.GetComponent<Renderer>().material.color = new Color(
             gameObject.GetComponent<Renderer>().material.color.r,
             gameObject.GetComponent<Renderer>().material.color.g,
             gameObject.GetComponent<Renderer>().material.color.b,
@@ -37,10 +37,10 @@ public class AftermathText : MonoBehaviour
         {
             Destroy(gameObject);
         }
-	}
+    }
 
-    public void UpdateText (string text) 
+    public void UpdateText(string text)
     {
-        GetComponent<TextMesh>().text = text;    
+        GetComponent<TextMesh>().text = text;
     }
 }

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class IncreaseSize : MonoBehaviour 
 {
-
     float maxSize;
     float size;
 
