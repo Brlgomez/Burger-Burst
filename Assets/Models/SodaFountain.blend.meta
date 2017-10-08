@@ -6,10 +6,19 @@ ModelImporter:
   serializedVersion: 21
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Cup_Holder
+    100004: SodaFountain
     400000: //RootNode
+    400002: Cup_Holder
+    400004: SodaFountain
     2300000: //RootNode
+    2300002: Cup_Holder
+    2300004: SodaFountain
     3300000: //RootNode
+    3300002: Cup_Holder
+    3300004: SodaFountain
     4300000: SodaFountain
+    4300002: Cup_Holder
     7400000: Default Take
     9500000: //RootNode
   materials:
