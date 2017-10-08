@@ -6,7 +6,7 @@ public class GrabAndThrowObject : MonoBehaviour
 {
     Vector3 velocity;
     GameObject target;
-    GameObject counterWall, grillWall, rightFryer, leftFryer, fryerWall;
+    GameObject counterWall, grillWall, rightFryer, leftFryer, fryerWall, sodaWall;
     List<Vector3> positions = new List<Vector3>();
     Vector3 direction;
     GameObject[] ingredients;
@@ -27,6 +27,7 @@ public class GrabAndThrowObject : MonoBehaviour
         rightFryer = GameObject.Find("Fryer Basket Right");
         leftFryer = GameObject.Find("Fryer Basket Left");
         fryerWall = GameObject.Find("Fryer Wall");
+        sodaWall = GameObject.Find("Soda Wall");
         ingredients = GameObject.FindGameObjectsWithTag("Ingredient");
         phone = GameObject.Find("Phone");
         initialPosition = Camera.main.GetComponent<PositionManager>().GameplayPosition();
@@ -68,6 +69,9 @@ public class GrabAndThrowObject : MonoBehaviour
                 case Area.fryer:
                     MouseDownFryer();
                     break;
+                case Area.sodaMachine:
+                    MouseDownSodaMachine();
+                    break;
             }
         }
     }
@@ -102,6 +106,10 @@ public class GrabAndThrowObject : MonoBehaviour
                 {
                     return GetFryerObject(obj);
                 }
+                if (currentArea == Area.sodaMachine)
+                {
+                    return GetSodaMachineObject(obj);
+                }
             }
         }
         return null;
@@ -121,6 +129,9 @@ public class GrabAndThrowObject : MonoBehaviour
                     break;
                 case Area.fryer:
                     DragFryerObject();
+                    break;
+                case Area.sodaMachine:
+                    DragSodaMachineObject();
                     break;
             }
         }
@@ -153,6 +164,10 @@ public class GrabAndThrowObject : MonoBehaviour
                 if (currentArea == Area.fryer)
                 {
                     MouseUpFryer();
+                }
+                if (currentArea == Area.sodaMachine)
+                {
+                    MouseUpSodaMachine();
                 }
             }
         }
@@ -283,6 +298,17 @@ public class GrabAndThrowObject : MonoBehaviour
         }
     }
 
+    void MouseDownSodaMachine() 
+    {
+        if (target.tag == "Soda")
+        {
+			target.GetComponent<Collider>().enabled = false;
+			target.GetComponent<Rigidbody>().isKinematic = false;
+			target.GetComponent<Rigidbody>().useGravity = false;
+            sodaWall.GetComponent<Collider>().enabled = true;
+        }
+    }
+
     GameObject GetCounterObject(GameObject obj)
     {
         if (obj.name == "Burger" && Camera.main.GetComponent<Gameplay>().GetBurgerCount() < 1)
@@ -323,6 +349,29 @@ public class GrabAndThrowObject : MonoBehaviour
             return obj;
         }
         if (obj.tag == "Fries")
+        {
+            TurnOffPhoneColliders();
+            return obj;
+        }
+        return null;
+    }
+
+    GameObject GetSodaMachineObject(GameObject obj)
+    {
+        if (obj.name == "Empty_Cup")
+        {
+            TurnOffPhoneColliders();
+            GameObject newCup = Instantiate(obj);
+            newCup.transform.parent = obj.transform.parent;
+            newCup.transform.rotation = obj.transform.rotation;
+			newCup.tag = "Soda";
+            return newCup;
+        }
+        if (obj.tag == "Soda")
+        {
+            return obj;
+        }
+        if (obj.name == "Soda Button")
         {
             return obj;
         }
@@ -393,6 +442,28 @@ public class GrabAndThrowObject : MonoBehaviour
                 }
             }
         }
+    }
+
+    void DragSodaMachineObject()
+    {
+		if (target.tag == "Soda")
+		{
+            sodaWall.GetComponent<Collider>().enabled = true;
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			RaycastHit hit;
+			if (Physics.Raycast(ray.origin, ray.direction * 2, out hit))
+			{
+				if (hit.transform.gameObject == sodaWall)
+				{
+					positions.Add(hit.point);
+					if (positions.Count > 9)
+					{
+						positions.RemoveAt(0);
+					}
+					target.transform.position = hit.point;
+				}
+			}
+		}
     }
 
     void MouseUpPauseButton()
@@ -505,6 +576,40 @@ public class GrabAndThrowObject : MonoBehaviour
             target.GetComponent<Collider>().enabled = true;
             fryerWall.GetComponent<Collider>().enabled = false;
         }
+    }
+
+    void MouseUpSodaMachine()
+    {
+		if (target.name == "Soda Button")
+		{
+			target.GetComponent<Animator>().Play("ButtonClick");
+            if (target.transform.GetChild(0).gameObject.GetComponent<SodaMachine>() == null)
+            {
+                target.transform.GetChild(0).gameObject.AddComponent<SodaMachine>();
+            } 
+            else 
+            {
+                target.transform.GetChild(0).gameObject.GetComponent<SodaMachine>().ButtonPressed();
+            }
+		}
+		if (target.tag == "Soda")
+		{
+			if (positions.Count > 1)
+			{
+				float xVelocity = ((positions[positions.Count - 1].x - positions[0].x) * 5);
+				float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 5;
+				float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 5;
+				target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity);
+			}
+			if (target.GetComponent<RemoveObjects>() == null)
+			{
+				target.AddComponent<RemoveObjects>();
+			}
+			target.GetComponent<Rigidbody>().freezeRotation = false;
+			target.GetComponent<Rigidbody>().useGravity = true;
+			target.GetComponent<Collider>().enabled = true;
+            sodaWall.GetComponent<Collider>().enabled = false;
+		}
     }
 
     void Restart()

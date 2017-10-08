@@ -17,6 +17,7 @@ TagManager:
   - Pause
   - GrillIngredientClone
   - Fries
+  - Soda
   layers:
   - Default
   - TransparentFX
