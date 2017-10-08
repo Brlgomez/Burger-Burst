@@ -7,15 +7,25 @@ public class RemoveObjects : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
-        if (col.gameObject.tag == "Building" && gameObject.tag != "Fallen" && gameObject.tag != "OnPlatter")
+        if (gameObject.tag == "GrillIngredientClone")
         {
-            gameObject.tag = "Fallen";
-            if (gameObject.GetComponent<FadeObject>() == null)
+            Vector3 grillRange = Camera.main.GetComponent<PositionManager>().GrillRange().position;
+            if (Vector3.Distance(gameObject.transform.position, grillRange) > 1.25f)
             {
-                gameObject.AddComponent<FadeObject>();
+                HasFallen();
             }
-            Camera.main.GetComponent<Gameplay>().IncreaseNumberOfLostProduct(gameObject);
-            Destroy(GetComponent<RemoveObjects>());
+        }
+		if (gameObject.tag == "Fries")
+		{
+            Vector3 friesRange = Camera.main.GetComponent<PositionManager>().FriesRange().position;
+            if (Vector3.Distance(gameObject.transform.position, friesRange) > 1.5f)
+			{
+				HasFallen();
+			}
+		}
+		if (col.gameObject.tag == "Building" && gameObject.tag != "Fallen" && gameObject.tag != "OnPlatter")
+        {
+            HasFallen();
         }
         else if (col.gameObject.tag == "Waiter")
         {
@@ -27,5 +37,16 @@ public class RemoveObjects : MonoBehaviour
                 transform.parent = col.gameObject.transform;
             }
         }
+    }
+
+    void HasFallen()
+    {
+		gameObject.tag = "Fallen";
+		if (gameObject.GetComponent<FadeObject>() == null)
+		{
+			gameObject.AddComponent<FadeObject>();
+			Camera.main.GetComponent<Gameplay>().IncreaseNumberOfLostProduct(gameObject);
+			Destroy(GetComponent<RemoveObjects>());
+		}
     }
 }
