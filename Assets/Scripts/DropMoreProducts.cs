@@ -85,6 +85,11 @@ public class DropMoreProducts : MonoBehaviour
     {
         GameObject newDrink = Instantiate(drink);
         newDrink.transform.parent = oldProduct.transform.parent;
+		newDrink.transform.position = new Vector3(
+		   oldProduct.transform.position.x,
+		   oldProduct.transform.position.y - 0.25f,
+		   oldProduct.transform.position.z
+	   );
         newDrink.transform.rotation = oldProduct.transform.rotation;
         newDrink.transform.localScale = oldProduct.transform.localScale;
         newDrink.tag = "Soda";

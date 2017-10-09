@@ -93,8 +93,8 @@ public class GrabAndThrowObject : MonoBehaviour
             }
             if (!paused && !Camera.main.GetComponent<Gameplay>().IsGameOver())
             {
-				TurnOffPhoneColliders();
-				if (currentArea == Area.counter && obj.tag == "Pause")
+                TurnOffPhoneColliders();
+                if (currentArea == Area.counter && obj.tag == "Pause")
                 {
                     return obj;
                 }
@@ -258,6 +258,55 @@ public class GrabAndThrowObject : MonoBehaviour
         }
     }
 
+    GameObject GetCounterObject(GameObject obj)
+    {
+        if (obj.name == "Burger" && Camera.main.GetComponent<Gameplay>().GetBurgerCount() < 1)
+        {
+            return null;
+        }
+        if (obj.name == "Fries" && Camera.main.GetComponent<Gameplay>().GetFriesCount() < 1)
+        {
+            return null;
+        }
+        if (obj.name == "Drink" && Camera.main.GetComponent<Gameplay>().GetDrinkCount() < 1)
+        {
+            return null;
+        }
+        if (obj.tag == "Ingredient")
+        {
+            GameObject newIngredient = Instantiate(obj);
+            return newIngredient;
+        }
+        return null;
+    }
+
+    GameObject GetGrillObject(GameObject obj)
+    {
+        if (obj.tag == "GrillIngredientClone")
+        {
+            return obj;
+        }
+        return null;
+    }
+
+    GameObject GetFryerObject(GameObject obj)
+    {
+        if (obj.name == "Right Fryer Button" || obj.name == "Left Fryer Button" || obj.tag == "Fries")
+        {
+            return obj;
+        }
+        return null;
+    }
+
+    GameObject GetSodaMachineObject(GameObject obj)
+    {
+        if (obj.tag == "Soda" || obj.tag == "Lid" || obj.name == "Soda Button")
+        {
+            return obj;
+        }
+        return null;
+    }
+
     void MouseDownCounter()
     {
         counterWall.GetComponent<Collider>().enabled = false;
@@ -317,102 +366,11 @@ public class GrabAndThrowObject : MonoBehaviour
         }
     }
 
-    GameObject GetCounterObject(GameObject obj)
-    {
-        if (obj.name == "Burger" && Camera.main.GetComponent<Gameplay>().GetBurgerCount() < 1)
-        {
-            return null;
-        }
-        if (obj.name == "Fries" && Camera.main.GetComponent<Gameplay>().GetFriesCount() < 1)
-        {
-            return null;
-        }
-        if (obj.name == "Drink" && Camera.main.GetComponent<Gameplay>().GetDrinkCount() < 1)
-        {
-            return null;
-        }
-        if (obj.tag == "Ingredient")
-        {
-            GameObject newIngredient = Instantiate(obj);
-            return newIngredient;
-        }
-        return null;
-    }
-
-    GameObject GetGrillObject(GameObject obj)
-    {
-        if (obj.tag == "GrillIngredientClone")
-        {
-            return obj;
-        }
-        return null;
-    }
-
-    GameObject GetFryerObject(GameObject obj)
-    {
-        if (obj.name == "Right Fryer Button" || obj.name == "Left Fryer Button")
-        {
-            return obj;
-        }
-        if (obj.tag == "Fries")
-        {
-            return obj;
-        }
-        return null;
-    }
-
-    GameObject GetSodaMachineObject(GameObject obj)
-    {
-        if (obj.name == "Empty_Cup")
-        {
-            GameObject newCup = Instantiate(obj);
-            newCup.transform.parent = obj.transform.parent;
-            newCup.transform.rotation = obj.transform.rotation;
-            newCup.tag = "Soda";
-            return newCup;
-        }
-        if (obj.name == "Lid")
-        {
-            GameObject newCup = Instantiate(obj);
-            newCup.transform.position = obj.transform.position;
-            newCup.transform.rotation = new Quaternion(0, 0, 0, 0);
-            newCup.tag = "Lid";
-            return newCup;
-        }
-        if (obj.tag == "Soda")
-        {
-            return obj;
-        }
-        if (obj.tag == "Lid")
-        {
-            return obj;
-        }
-        if (obj.name == "Soda Button")
-        {
-            return obj;
-        }
-        return null;
-    }
-
     void DragCounterObject()
     {
         if (target.tag == "Ingredient")
         {
-            counterWall.GetComponent<Collider>().enabled = true;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray.origin, ray.direction * 1, out hit))
-            {
-                if (hit.transform.gameObject == counterWall)
-                {
-                    positions.Add(hit.point);
-                    if (positions.Count > 9)
-                    {
-                        positions.RemoveAt(0);
-                    }
-                    target.transform.position = hit.point;
-                }
-            }
+            ScreenPointToRayCalc(counterWall);
         }
     }
 
@@ -420,21 +378,7 @@ public class GrabAndThrowObject : MonoBehaviour
     {
         if (target.tag == "GrillIngredientClone")
         {
-            grillWall.GetComponent<Collider>().enabled = true;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray.origin, ray.direction * 1, out hit))
-            {
-                if (hit.transform.gameObject == grillWall)
-                {
-                    positions.Add(hit.point);
-                    if (positions.Count > 9)
-                    {
-                        positions.RemoveAt(0);
-                    }
-                    target.transform.position = hit.point;
-                }
-            }
+            ScreenPointToRayCalc(grillWall);
         }
     }
 
@@ -442,21 +386,7 @@ public class GrabAndThrowObject : MonoBehaviour
     {
         if (target.tag == "Fries")
         {
-            fryerWall.GetComponent<Collider>().enabled = true;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray.origin, ray.direction * 1, out hit))
-            {
-                if (hit.transform.gameObject == fryerWall)
-                {
-                    positions.Add(hit.point);
-                    if (positions.Count > 9)
-                    {
-                        positions.RemoveAt(0);
-                    }
-                    target.transform.position = hit.point;
-                }
-            }
+            ScreenPointToRayCalc(fryerWall);
         }
     }
 
@@ -464,21 +394,7 @@ public class GrabAndThrowObject : MonoBehaviour
     {
         if (target.tag == "Soda" || target.tag == "Lid")
         {
-            sodaWall.GetComponent<Collider>().enabled = true;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray.origin, ray.direction * 2, out hit))
-            {
-                if (hit.transform.gameObject == sodaWall)
-                {
-                    positions.Add(hit.point);
-                    if (positions.Count > 9)
-                    {
-                        positions.RemoveAt(0);
-                    }
-                    target.transform.position = hit.point;
-                }
-            }
+            ScreenPointToRayCalc(sodaWall);
         }
     }
 
@@ -502,6 +418,12 @@ public class GrabAndThrowObject : MonoBehaviour
     {
         if (target.tag == "Ingredient")
         {
+            target.GetComponent<Rigidbody>().freezeRotation = false;
+            target.GetComponent<Rigidbody>().useGravity = true;
+            target.GetComponent<Collider>().enabled = true;
+            target.tag = "Thrown";
+            target.AddComponent<RemoveObjects>();
+            counterWall.GetComponent<Collider>().enabled = false;
             if (positions.Count > 1)
             {
                 float speed = Vector3.Distance(positions[positions.Count - 1], positions[0]);
@@ -510,11 +432,6 @@ public class GrabAndThrowObject : MonoBehaviour
                 float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 20;
                 target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity);
             }
-            target.GetComponent<Rigidbody>().freezeRotation = false;
-            target.GetComponent<Rigidbody>().useGravity = true;
-            target.GetComponent<Collider>().enabled = true;
-            target.tag = "Thrown";
-            target.AddComponent<RemoveObjects>();
             switch (target.name)
             {
                 case "Burger(Clone)":
@@ -528,7 +445,6 @@ public class GrabAndThrowObject : MonoBehaviour
                     break;
             }
             Destroy(target.GetComponent<BoxCollider>());
-            counterWall.GetComponent<Collider>().enabled = false;
         }
     }
 
@@ -536,6 +452,10 @@ public class GrabAndThrowObject : MonoBehaviour
     {
         if (target.tag == "GrillIngredientClone")
         {
+            target.GetComponent<Rigidbody>().freezeRotation = false;
+            target.GetComponent<Rigidbody>().useGravity = true;
+            target.GetComponent<Collider>().enabled = true;
+            grillWall.GetComponent<Collider>().enabled = false;
             if (positions.Count > 1)
             {
                 float xVelocity = ((positions[positions.Count - 1].x - positions[0].x) * 5);
@@ -543,7 +463,7 @@ public class GrabAndThrowObject : MonoBehaviour
                 float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 5;
                 target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity);
             }
-            if (target.name == "Meat(Clone)" && target.GetComponent<CookMeat>() == null)
+            if (target.GetComponent<CookMeat>() == null && target.name == "Meat(Clone)")
             {
                 target.AddComponent<CookMeat>();
             }
@@ -551,10 +471,6 @@ public class GrabAndThrowObject : MonoBehaviour
             {
                 target.AddComponent<RemoveObjects>();
             }
-            target.GetComponent<Rigidbody>().freezeRotation = false;
-            target.GetComponent<Rigidbody>().useGravity = true;
-            target.GetComponent<Collider>().enabled = true;
-            grillWall.GetComponent<Collider>().enabled = false;
         }
     }
 
@@ -572,6 +488,10 @@ public class GrabAndThrowObject : MonoBehaviour
         }
         if (target.tag == "Fries")
         {
+            target.GetComponent<Rigidbody>().freezeRotation = false;
+            target.GetComponent<Rigidbody>().useGravity = true;
+            target.GetComponent<Collider>().enabled = true;
+            fryerWall.GetComponent<Collider>().enabled = false;
             if (positions.Count > 1)
             {
                 float xVelocity = ((positions[positions.Count - 1].x - positions[0].x) * 5);
@@ -587,10 +507,6 @@ public class GrabAndThrowObject : MonoBehaviour
             {
                 target.AddComponent<RemoveObjects>();
             }
-            target.GetComponent<Rigidbody>().freezeRotation = false;
-            target.GetComponent<Rigidbody>().useGravity = true;
-            target.GetComponent<Collider>().enabled = true;
-            fryerWall.GetComponent<Collider>().enabled = false;
         }
     }
 
@@ -608,10 +524,13 @@ public class GrabAndThrowObject : MonoBehaviour
                 target.transform.GetChild(0).gameObject.GetComponent<SodaMachine>().ButtonPressed();
             }
         }
-        if (target.tag == "Soda")
+        if (target.tag == "Soda" || target.tag == "Lid")
         {
-			target.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-			if (positions.Count > 1)
+            target.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+            target.GetComponent<Rigidbody>().useGravity = true;
+            target.GetComponent<Collider>().enabled = true;
+            sodaWall.GetComponent<Collider>().enabled = false;
+            if (positions.Count > 1)
             {
                 float xVelocity = ((positions[positions.Count - 1].x - positions[0].x) * 5);
                 float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 5;
@@ -622,31 +541,10 @@ public class GrabAndThrowObject : MonoBehaviour
             {
                 target.AddComponent<RemoveObjects>();
             }
-            if (target.GetComponent<SodaCup>() == null)
+            if (target.GetComponent<SodaCup>() == null && target.tag == "Soda")
             {
                 target.AddComponent<SodaCup>();
             }
-            target.GetComponent<Rigidbody>().useGravity = true;
-            target.GetComponent<Collider>().enabled = true;
-            sodaWall.GetComponent<Collider>().enabled = false;
-        }
-        if (target.tag == "Lid")
-        {
-			target.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-			if (positions.Count > 1)
-            {
-                float xVelocity = ((positions[positions.Count - 1].x - positions[0].x) * 5);
-                float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 5;
-                float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 5;
-                target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity);
-            }
-            if (target.GetComponent<RemoveObjects>() == null)
-            {
-                target.AddComponent<RemoveObjects>();
-            }
-            target.GetComponent<Rigidbody>().useGravity = true;
-            target.GetComponent<Collider>().enabled = true;
-            sodaWall.GetComponent<Collider>().enabled = false;
         }
     }
 
@@ -735,6 +633,25 @@ public class GrabAndThrowObject : MonoBehaviour
                     }
                     newPersonTime = 0;
                 }
+            }
+        }
+    }
+
+    void ScreenPointToRayCalc(GameObject wall)
+    {
+        wall.GetComponent<Collider>().enabled = true;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray.origin, ray.direction * 2, out hit))
+        {
+            if (hit.transform.gameObject == wall)
+            {
+                positions.Add(hit.point);
+                if (positions.Count > 9)
+                {
+                    positions.RemoveAt(0);
+                }
+                target.transform.position = hit.point;
             }
         }
     }
