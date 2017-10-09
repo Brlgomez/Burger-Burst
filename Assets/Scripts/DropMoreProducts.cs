@@ -76,30 +76,15 @@ public class DropMoreProducts : MonoBehaviour
     {
         GameObject newProduct = Instantiate(lid);
         AddNewProduct(newProduct);
-        newProduct.transform.position = Camera.main.GetComponent<PositionManager>().LidPosition().position + (Random.insideUnitSphere * 0.1f);
+        newProduct.transform.position = Camera.main.GetComponent<PositionManager>().LidPosition().position + (Random.insideUnitSphere * 0.2f);
         newProduct.transform.rotation = new Quaternion(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
         newProduct.tag = "Lid";
-    }
-
-    void AddNewProduct(GameObject newProduct)
-    {
-        newProduct.transform.parent = foodTruck.transform;
-        newProduct.GetComponent<Rigidbody>().isKinematic = false;
-        newProduct.GetComponent<Rigidbody>().useGravity = true;
-        newProduct.GetComponent<Collider>().enabled = true;
-        newProduct.GetComponent<Rigidbody>().freezeRotation = true;
-        Physics.IgnoreCollision(grillWall.GetComponent<Collider>(), newProduct.GetComponent<Collider>());
     }
 
     public void TrasformIntoDrink(GameObject oldProduct)
     {
         GameObject newDrink = Instantiate(drink);
         newDrink.transform.parent = oldProduct.transform.parent;
-        newDrink.transform.position = new Vector3(
-            oldProduct.transform.position.x, 
-            oldProduct.transform.position.y - 0.25f, 
-            oldProduct.transform.position.z
-        );
         newDrink.transform.rotation = oldProduct.transform.rotation;
         newDrink.transform.localScale = oldProduct.transform.localScale;
         newDrink.tag = "Soda";
@@ -107,4 +92,14 @@ public class DropMoreProducts : MonoBehaviour
         newDrink.GetComponent<BoxCollider>().enabled = false;
         Destroy(oldProduct);
     }
+
+	void AddNewProduct(GameObject newProduct)
+	{
+		newProduct.transform.parent = foodTruck.transform;
+		newProduct.GetComponent<Rigidbody>().isKinematic = false;
+		newProduct.GetComponent<Rigidbody>().useGravity = true;
+		newProduct.GetComponent<Collider>().enabled = true;
+		newProduct.GetComponent<Rigidbody>().freezeRotation = true;
+		Physics.IgnoreCollision(grillWall.GetComponent<Collider>(), newProduct.GetComponent<Collider>());
+	}
 }

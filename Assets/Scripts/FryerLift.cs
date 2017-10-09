@@ -10,7 +10,7 @@ public class FryerLift : MonoBehaviour
 
     void Start()
     {
-        currentY = transform.localPosition.y;
+        currentY = transform.position.y;
     }
 
     void Update()
@@ -31,7 +31,7 @@ public class FryerLift : MonoBehaviour
                 Destroy(GetComponent<FryerLift>());
             }
         }
-        transform.localPosition = new Vector3(transform.localPosition.x, currentY, transform.localPosition.z);
+        transform.position = new Vector3(transform.position.x, currentY, transform.position.z);
     }
 
     public void Direction(bool dir)

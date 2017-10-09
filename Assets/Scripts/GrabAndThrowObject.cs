@@ -93,7 +93,8 @@ public class GrabAndThrowObject : MonoBehaviour
             }
             if (!paused && !Camera.main.GetComponent<Gameplay>().IsGameOver())
             {
-                if (currentArea == Area.counter && obj.tag == "Pause")
+				TurnOffPhoneColliders();
+				if (currentArea == Area.counter && obj.tag == "Pause")
                 {
                     return obj;
                 }
@@ -262,7 +263,6 @@ public class GrabAndThrowObject : MonoBehaviour
         counterWall.GetComponent<Collider>().enabled = false;
         if (target.tag == "Ingredient")
         {
-            Physics.IgnoreCollision(counterWall.GetComponent<Collider>(), target.GetComponent<Collider>());
             target.GetComponent<Collider>().enabled = false;
             target.GetComponent<Collider>().isTrigger = false;
             target.GetComponent<BoxCollider>().enabled = false;
@@ -331,16 +331,18 @@ public class GrabAndThrowObject : MonoBehaviour
         {
             return null;
         }
-        TurnOffPhoneColliders();
-        GameObject newIngredient = Instantiate(obj);
-        return newIngredient;
+        if (obj.tag == "Ingredient")
+        {
+            GameObject newIngredient = Instantiate(obj);
+            return newIngredient;
+        }
+        return null;
     }
 
     GameObject GetGrillObject(GameObject obj)
     {
         if (obj.tag == "GrillIngredientClone")
         {
-            TurnOffPhoneColliders();
             return obj;
         }
         return null;
@@ -348,17 +350,12 @@ public class GrabAndThrowObject : MonoBehaviour
 
     GameObject GetFryerObject(GameObject obj)
     {
-        if (obj.name == "Right Fryer Button")
-        {
-            return obj;
-        }
-        if (obj.name == "Left Fryer Button")
+        if (obj.name == "Right Fryer Button" || obj.name == "Left Fryer Button")
         {
             return obj;
         }
         if (obj.tag == "Fries")
         {
-            TurnOffPhoneColliders();
             return obj;
         }
         return null;
@@ -366,7 +363,6 @@ public class GrabAndThrowObject : MonoBehaviour
 
     GameObject GetSodaMachineObject(GameObject obj)
     {
-        TurnOffPhoneColliders();
         if (obj.name == "Empty_Cup")
         {
             GameObject newCup = Instantiate(obj);
@@ -614,7 +610,8 @@ public class GrabAndThrowObject : MonoBehaviour
         }
         if (target.tag == "Soda")
         {
-            if (positions.Count > 1)
+			target.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+			if (positions.Count > 1)
             {
                 float xVelocity = ((positions[positions.Count - 1].x - positions[0].x) * 5);
                 float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 5;
@@ -629,14 +626,14 @@ public class GrabAndThrowObject : MonoBehaviour
             {
                 target.AddComponent<SodaCup>();
             }
-            target.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
             target.GetComponent<Rigidbody>().useGravity = true;
             target.GetComponent<Collider>().enabled = true;
             sodaWall.GetComponent<Collider>().enabled = false;
         }
         if (target.tag == "Lid")
         {
-            if (positions.Count > 1)
+			target.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+			if (positions.Count > 1)
             {
                 float xVelocity = ((positions[positions.Count - 1].x - positions[0].x) * 5);
                 float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 5;
@@ -647,7 +644,6 @@ public class GrabAndThrowObject : MonoBehaviour
             {
                 target.AddComponent<RemoveObjects>();
             }
-            target.GetComponent<Rigidbody>().freezeRotation = false;
             target.GetComponent<Rigidbody>().useGravity = true;
             target.GetComponent<Collider>().enabled = true;
             sodaWall.GetComponent<Collider>().enabled = false;

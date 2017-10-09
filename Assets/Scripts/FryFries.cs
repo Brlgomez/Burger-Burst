@@ -108,6 +108,8 @@ public class FryFries : MonoBehaviour
         Camera.main.GetComponent<Gameplay>().AddFries(worth);
         if (gameObject.GetComponent<FadeObject>() == null)
         {
+            gameObject.GetComponent<Rigidbody>().isKinematic = true;
+            gameObject.GetComponent<Rigidbody>().useGravity = false;
             gameObject.AddComponent<FadeObject>();
         }
         Destroy(GetComponent<CookMeat>());
