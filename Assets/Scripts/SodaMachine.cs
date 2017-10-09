@@ -18,15 +18,16 @@ public class SodaMachine : MonoBehaviour {
         }
         if (turnOn && sodaCurrentScale < sodaMaxScale)
         {
-            sodaCurrentScale += Time.deltaTime * 20;
+            sodaCurrentScale += Time.deltaTime * 50;
             transform.localScale = Vector3.one * sodaCurrentScale;
         }
         if (!turnOn && sodaCurrentScale > 0)
         {
-            sodaCurrentScale -= Time.deltaTime * 20;
+            sodaCurrentScale -= Time.deltaTime * 50;
             transform.localScale = Vector3.one * sodaCurrentScale;
             if (sodaCurrentScale < 0)
             {
+                transform.localScale = Vector3.zero;
                 Destroy(gameObject.GetComponent<SodaMachine>());
             }
         }
@@ -35,5 +36,11 @@ public class SodaMachine : MonoBehaviour {
     public void ButtonPressed ()
     {
         turnOn = false;
+    }
+
+    public void Restart ()
+    {
+		transform.localScale = Vector3.zero;
+		Destroy(gameObject.GetComponent<SodaMachine>());
     }
 }

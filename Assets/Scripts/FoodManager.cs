@@ -10,7 +10,7 @@ public class FoodManager : MonoBehaviour
 		{
 			obj.GetComponent<Renderer>().material = Camera.main.GetComponent<Materials>().burgerClear;
 		}
-        if (obj.name == "Drink(Clone)" || obj.name == "Empty_Cup(Clone)")
+        if (obj.name == "Drink(Clone)" || obj.name == "Empty_Cup(Clone)" || obj.name == "Lid(Clone)")
 		{
 			obj.GetComponent<Renderer>().material = Camera.main.GetComponent<Materials>().drinkClear;
 		}

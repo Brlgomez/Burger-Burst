@@ -7,6 +7,7 @@ public class DropMoreProducts : MonoBehaviour
     GameObject meat, topBun, bottomBun, fries;
     GameObject foodTruck;
     GameObject grillWall;
+    GameObject drink;
 
     void Start()
     {
@@ -16,6 +17,7 @@ public class DropMoreProducts : MonoBehaviour
         bottomBun = GameObject.Find("Bottom_Bun");
         grillWall = GameObject.Find("Grill Wall");
         fries = GameObject.Find("Fries_No_Basket");
+        drink = GameObject.Find("Drink");
     }
 
     public void DropItems()
@@ -66,5 +68,22 @@ public class DropMoreProducts : MonoBehaviour
         newProduct.GetComponent<Collider>().enabled = true;
         newProduct.GetComponent<Rigidbody>().freezeRotation = true;
         Physics.IgnoreCollision(grillWall.GetComponent<Collider>(), newProduct.GetComponent<Collider>());
+    }
+
+    public void TrasformIntoDrink(GameObject oldProduct)
+    {
+        GameObject newDrink = Instantiate(drink);
+        newDrink.transform.parent = oldProduct.transform.parent;
+        newDrink.transform.position = new Vector3(
+            oldProduct.transform.position.x, 
+            oldProduct.transform.position.y - 0.25f, 
+            oldProduct.transform.position.z
+        );
+        newDrink.transform.rotation = oldProduct.transform.rotation;
+        newDrink.transform.localScale = oldProduct.transform.localScale;
+        newDrink.tag = "Soda";
+        newDrink.AddComponent<FadeObject>();
+        newDrink.GetComponent<BoxCollider>().enabled = false;
+        Destroy(oldProduct);
     }
 }

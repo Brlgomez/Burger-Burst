@@ -23,6 +23,15 @@ public class RemoveObjects : MonoBehaviour
 				HasFallen();
 			}
 		}
+
+        if (gameObject.tag == "Soda" || gameObject.tag == "Lid")
+		{
+            Vector3 drinkRange = Camera.main.GetComponent<PositionManager>().DrinkRange().position;
+            if (Vector3.Distance(gameObject.transform.position, drinkRange) > 1.25f)
+			{
+				HasFallen();
+			}
+		}
 		if (col.gameObject.tag == "Building" && gameObject.tag != "Fallen" && gameObject.tag != "OnPlatter")
         {
             HasFallen();
