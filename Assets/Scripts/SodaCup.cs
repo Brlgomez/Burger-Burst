@@ -24,10 +24,13 @@ public class SodaCup : MonoBehaviour
     {
         if (other.name == "SodaFromMachine1" || other.name == "SodaFromMachine2" || other.name == "SodaFromMachine3")
         {
-            float angle = transform.rotation.eulerAngles.x;
-            if ((angle >= -10 && angle <= 10) || (angle >= 350 && angle <= 360))
+            if (other.transform.localScale.x > 1)
             {
-                FillCup();
+                float angle = transform.rotation.eulerAngles.x;
+                if ((angle >= -10 && angle <= 10) || (angle >= 350 && angle <= 360))
+                {
+                    FillCup();
+                }
             }
         }
     }

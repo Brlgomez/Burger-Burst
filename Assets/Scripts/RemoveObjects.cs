@@ -50,6 +50,10 @@ public class RemoveObjects : MonoBehaviour
 
     void HasFallen()
     {
+		if (gameObject.tag == "Soda")
+		{
+			Destroy(gameObject.GetComponent<SodaCup>());
+		}
 		gameObject.tag = "Fallen";
 		if (gameObject.GetComponent<FadeObject>() == null)
 		{
