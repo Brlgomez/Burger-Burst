@@ -605,6 +605,10 @@ public class GrabAndThrowObject : MonoBehaviour
 			{
 				target.AddComponent<RemoveObjects>();
 			}
+            if (target.GetComponent<SodaCup>() == null)
+			{
+                target.AddComponent<SodaCup>();
+			}
 			target.GetComponent<Rigidbody>().freezeRotation = false;
 			target.GetComponent<Rigidbody>().useGravity = true;
 			target.GetComponent<Collider>().enabled = true;

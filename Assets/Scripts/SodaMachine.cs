@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SodaMachine : MonoBehaviour {
 
-    int maxOnTime = 10;
+    int maxOnTime = 5;
     float currentTimeOn;
     bool turnOn = true;
     float sodaMaxScale = 2.22f;

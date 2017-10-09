@@ -124,6 +124,12 @@ public class Gameplay : MonoBehaviour
         Camera.main.GetComponent<ScreenTextManagment>().ChangeFriesCount();
     }
 
+	public void AddDrinks(int amount)
+	{
+        drinks += amount;
+        Camera.main.GetComponent<ScreenTextManagment>().ChangeDrinkCount();
+	}
+
     public float GetProfit()
     {
         return profit;
