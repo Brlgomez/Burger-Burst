@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DropMoreProducts : MonoBehaviour
 {
-    GameObject meat, topBun, bottomBun, fries;
+    GameObject meat, topBun, bottomBun, fries, cup, lid;
     GameObject foodTruck;
     GameObject grillWall;
     GameObject drink;
@@ -18,6 +18,8 @@ public class DropMoreProducts : MonoBehaviour
         grillWall = GameObject.Find("Grill Wall");
         fries = GameObject.Find("Fries_No_Basket");
         drink = GameObject.Find("Drink");
+        cup = GameObject.Find("Empty_Cup");
+        lid = GameObject.Find("Lid");
     }
 
     public void DropItems()
@@ -26,6 +28,8 @@ public class DropMoreProducts : MonoBehaviour
         DropTopBun();
         DropBottomBun();
         DropFries();
+        DropCup();
+        DropLid();
     }
 
     public void DropMeat()
@@ -58,6 +62,23 @@ public class DropMoreProducts : MonoBehaviour
         AddNewProduct(newProduct);
         newProduct.transform.position = Camera.main.GetComponent<PositionManager>().FriesPosition().position;
         newProduct.tag = "Fries";
+    }
+
+    public void DropCup()
+    {
+        GameObject newProduct = Instantiate(cup);
+        AddNewProduct(newProduct);
+        newProduct.transform.position = Camera.main.GetComponent<PositionManager>().CupPosition().position;
+        newProduct.tag = "Soda";
+    }
+
+    public void DropLid()
+    {
+        GameObject newProduct = Instantiate(lid);
+        AddNewProduct(newProduct);
+        newProduct.transform.position = Camera.main.GetComponent<PositionManager>().LidPosition().position + (Random.insideUnitSphere * 0.1f);
+        newProduct.transform.rotation = new Quaternion(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
+        newProduct.tag = "Lid";
     }
 
     void AddNewProduct(GameObject newProduct)

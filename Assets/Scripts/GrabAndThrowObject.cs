@@ -142,9 +142,9 @@ public class GrabAndThrowObject : MonoBehaviour
 
     void MouseUp()
     {
+        TurnOnPhoneColliders();
         if (target != null)
         {
-            TurnOnPhoneColliders();
             if (target.tag == "UI")
             {
                 PhoneInterface(target);
@@ -309,6 +309,7 @@ public class GrabAndThrowObject : MonoBehaviour
         sodaWall.GetComponent<Collider>().enabled = false;
         if (target.tag == "Soda" || target.tag == "Lid")
         {
+            target.transform.rotation = new Quaternion(0, 0, 0, 0);
             target.GetComponent<Collider>().enabled = false;
             target.GetComponent<Rigidbody>().isKinematic = false;
             target.GetComponent<Rigidbody>().useGravity = false;
@@ -628,7 +629,7 @@ public class GrabAndThrowObject : MonoBehaviour
             {
                 target.AddComponent<SodaCup>();
             }
-            target.GetComponent<Rigidbody>().freezeRotation = false;
+            target.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
             target.GetComponent<Rigidbody>().useGravity = true;
             target.GetComponent<Collider>().enabled = true;
             sodaWall.GetComponent<Collider>().enabled = false;

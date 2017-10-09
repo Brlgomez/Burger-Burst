@@ -113,6 +113,7 @@ public class CameraMovement : MonoBehaviour
 		switch (command)
 		{
 			case "Restart":
+				GetComponent<GrabAndThrowObject>().UnPauseGame();
 				Camera.main.GetComponent<DropMoreProducts>().DropItems();
 				break;
 			case "Start":

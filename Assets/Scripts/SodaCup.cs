@@ -78,6 +78,8 @@ public class SodaCup : MonoBehaviour
         Destroy(lid);
         gameObject.GetComponent<Rigidbody>().isKinematic = true;
         gameObject.GetComponent<Rigidbody>().useGravity = false;
+        Camera.main.GetComponent<DropMoreProducts>().DropCup();
+        Camera.main.GetComponent<DropMoreProducts>().DropLid();
         Camera.main.GetComponent<Gameplay>().AddDrinks(worth);
         Camera.main.GetComponent<DropMoreProducts>().TrasformIntoDrink(gameObject);
     }
