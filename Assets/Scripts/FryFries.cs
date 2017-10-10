@@ -13,6 +13,10 @@ public class FryFries : MonoBehaviour
     float r, g, b;
     float incR, incG, incB;
     float incR2, incG2, incB2;
+    bool onBasket;
+    GameObject basket;
+    float basketY;
+    float maxBasketY = 0.75f;
 
     void Start()
     {
@@ -67,6 +71,14 @@ public class FryFries : MonoBehaviour
             }
             gameObject.GetComponent<Renderer>().material.color = new Color(r, g, b);
         }
+        if (onBasket)
+        {
+            if (basketY < maxBasketY)
+            {
+                basketY += Time.deltaTime;
+                basket.transform.localScale = new Vector3(basket.transform.localScale.x, basketY, basket.transform.localScale.z);
+            }
+        }
     }
 
     void OnTriggerEnter(Collider col)
@@ -76,9 +88,13 @@ public class FryFries : MonoBehaviour
             inFryer = true;
         }
 
-        if (col.gameObject.name == "Basket")
+        if (col.gameObject.name == "Basket" && !onBasket)
         {
+            basket = Instantiate(col.gameObject);
+            basketY = basket.transform.localScale.y;
+            basket.transform.position = col.gameObject.transform.position;
             FriesCompleted();
+            onBasket = true;
         }
     }
 
@@ -111,7 +127,7 @@ public class FryFries : MonoBehaviour
             gameObject.GetComponent<Rigidbody>().isKinematic = true;
             gameObject.GetComponent<Rigidbody>().useGravity = false;
             gameObject.AddComponent<FadeObject>();
+            basket.AddComponent<FadeObject>();
         }
-        Destroy(GetComponent<CookMeat>());
     }
 }

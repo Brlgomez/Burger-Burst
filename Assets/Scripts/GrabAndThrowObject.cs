@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class GrabAndThrowObject : MonoBehaviour
 {
-    Vector3 velocity;
     GameObject target;
-    GameObject counterWall, grillWall, rightFryer, leftFryer, fryerWall, sodaWall, sodaFountain1, sodaFountain2, sodaFountain3;
+    GameObject counterWall, grillWall, fryerWall, sodaWall;
+    GameObject rightFryer, leftFryer, sodaFountain1, sodaFountain2, sodaFountain3;
     List<Vector3> positions = new List<Vector3>();
     Vector3 direction;
-    GameObject[] ingredients;
     GameObject phone;
     Transform initialPosition;
     bool paused;
@@ -28,7 +27,6 @@ public class GrabAndThrowObject : MonoBehaviour
         leftFryer = GameObject.Find("Fryer Basket Left");
         fryerWall = GameObject.Find("Fryer Wall");
         sodaWall = GameObject.Find("Soda Wall");
-        ingredients = GameObject.FindGameObjectsWithTag("Ingredient");
         phone = GameObject.Find("Phone");
         sodaFountain1 = GameObject.Find("SodaFromMachine1");
         sodaFountain2 = GameObject.Find("SodaFromMachine2");
@@ -94,7 +92,8 @@ public class GrabAndThrowObject : MonoBehaviour
             if (!paused && !Camera.main.GetComponent<Gameplay>().IsGameOver())
             {
                 TurnOffPhoneColliders();
-                if (currentArea == Area.counter && obj.tag == "Pause")
+                TurnOffSodaButtonColliders();
+				if (currentArea == Area.counter && obj.tag == "Pause")
                 {
                     return obj;
                 }
@@ -144,7 +143,8 @@ public class GrabAndThrowObject : MonoBehaviour
     void MouseUp()
     {
         TurnOnPhoneColliders();
-        if (target != null)
+		TurnOnSodaButtonColliders();
+		if (target != null)
         {
             if (target.tag == "UI")
             {
@@ -174,10 +174,6 @@ public class GrabAndThrowObject : MonoBehaviour
                     MouseUpSodaMachine();
                 }
             }
-        }
-        foreach (GameObject obj in ingredients)
-        {
-            obj.GetComponent<BoxCollider>().enabled = true;
         }
         target = null;
     }
@@ -260,22 +256,9 @@ public class GrabAndThrowObject : MonoBehaviour
 
     GameObject GetCounterObject(GameObject obj)
     {
-        if (obj.name == "Burger" && Camera.main.GetComponent<Gameplay>().GetBurgerCount() < 1)
-        {
-            return null;
-        }
-        if (obj.name == "Fries" && Camera.main.GetComponent<Gameplay>().GetFriesCount() < 1)
-        {
-            return null;
-        }
-        if (obj.name == "Drink" && Camera.main.GetComponent<Gameplay>().GetDrinkCount() < 1)
-        {
-            return null;
-        }
         if (obj.tag == "Ingredient")
         {
-            GameObject newIngredient = Instantiate(obj);
-            return newIngredient;
+            return obj;
         }
         return null;
     }
@@ -313,15 +296,9 @@ public class GrabAndThrowObject : MonoBehaviour
         if (target.tag == "Ingredient")
         {
             target.GetComponent<Collider>().enabled = false;
-            target.GetComponent<Collider>().isTrigger = false;
-            target.GetComponent<BoxCollider>().enabled = false;
             target.GetComponent<Rigidbody>().isKinematic = false;
             target.GetComponent<Rigidbody>().useGravity = false;
             counterWall.GetComponent<Collider>().enabled = true;
-            foreach (GameObject obj in ingredients)
-            {
-                obj.GetComponent<BoxCollider>().enabled = false;
-            }
         }
     }
 
@@ -421,7 +398,6 @@ public class GrabAndThrowObject : MonoBehaviour
             target.GetComponent<Rigidbody>().freezeRotation = false;
             target.GetComponent<Rigidbody>().useGravity = true;
             target.GetComponent<Collider>().enabled = true;
-            target.tag = "Thrown";
             target.AddComponent<RemoveObjects>();
             counterWall.GetComponent<Collider>().enabled = false;
             if (positions.Count > 1)
@@ -432,19 +408,6 @@ public class GrabAndThrowObject : MonoBehaviour
                 float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 20;
                 target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity);
             }
-            switch (target.name)
-            {
-                case "Burger(Clone)":
-                    Camera.main.GetComponent<Gameplay>().ReduceBurgers();
-                    break;
-                case "Drink(Clone)":
-                    Camera.main.GetComponent<Gameplay>().ReduceDrinks();
-                    break;
-                case "Fries(Clone)":
-                    Camera.main.GetComponent<Gameplay>().ReduceFries();
-                    break;
-            }
-            Destroy(target.GetComponent<BoxCollider>());
         }
     }
 
@@ -617,6 +580,20 @@ public class GrabAndThrowObject : MonoBehaviour
         }
     }
 
+    void TurnOffSodaButtonColliders()
+    {
+        sodaFountain1.transform.parent.GetComponent<Collider>().enabled = false;
+        sodaFountain2.transform.parent.GetComponent<Collider>().enabled = false;
+        sodaFountain3.transform.parent.GetComponent<Collider>().enabled = false;
+    }
+
+	void TurnOnSodaButtonColliders()
+	{
+		sodaFountain1.transform.parent.GetComponent<Collider>().enabled = true;
+		sodaFountain2.transform.parent.GetComponent<Collider>().enabled = true;
+		sodaFountain3.transform.parent.GetComponent<Collider>().enabled = true;
+	}
+
     void AddMorePeople()
     {
         if (!paused && !Camera.main.GetComponent<Gameplay>().IsGameOver())
@@ -658,7 +635,7 @@ public class GrabAndThrowObject : MonoBehaviour
 
     public void DeleteObjects()
     {
-        GameObject[] thrown = GameObject.FindGameObjectsWithTag("Thrown");
+        GameObject[] ingredients = GameObject.FindGameObjectsWithTag("Ingredient");
         GameObject[] onPlatter = GameObject.FindGameObjectsWithTag("OnPlatter");
         GameObject[] fallen = GameObject.FindGameObjectsWithTag("Fallen");
         GameObject[] clones = GameObject.FindGameObjectsWithTag("Clone");
@@ -667,7 +644,7 @@ public class GrabAndThrowObject : MonoBehaviour
         GameObject[] fries = GameObject.FindGameObjectsWithTag("Fries");
         GameObject[] cups = GameObject.FindGameObjectsWithTag("Soda");
         GameObject[] lids = GameObject.FindGameObjectsWithTag("Lid");
-        DestroyArrayOfObjects(thrown);
+        DestroyArrayOfObjects(ingredients);
         DestroyArrayOfObjects(onPlatter);
         DestroyArrayOfObjects(fallen);
         DestroyArrayOfObjects(clones);

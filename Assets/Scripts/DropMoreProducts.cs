@@ -4,17 +4,22 @@ using UnityEngine;
 
 public class DropMoreProducts : MonoBehaviour
 {
+    GameObject madeFries, burger, madeDrink;
     GameObject meat, topBun, bottomBun, fries, cup, lid;
     GameObject foodTruck;
-    GameObject grillWall, sodaWall;
+    GameObject counterWall, grillWall, sodaWall;
     GameObject drink;
 
     void Start()
     {
+        madeFries = GameObject.Find("Fries");
+        burger = GameObject.Find("Burger");
+        madeDrink = GameObject.Find("Drink");
         foodTruck = GameObject.Find("Food Truck");
         meat = GameObject.Find("Meat");
         topBun = GameObject.Find("Top_Bun");
         bottomBun = GameObject.Find("Bottom_Bun");
+        counterWall = GameObject.Find("Counter Wall");
         grillWall = GameObject.Find("Grill Wall");
         sodaWall = GameObject.Find("Soda Wall");
         fries = GameObject.Find("Fries_No_Basket");
@@ -32,6 +37,49 @@ public class DropMoreProducts : MonoBehaviour
         DropCup();
         DropLid();
     }
+
+    public void DropMadeProducts()
+    {
+        DropMadeFries();
+        DropBurger();
+        DropDrink();
+    }
+
+    public void DropMadeFries()
+    {
+        if (Camera.main.GetComponent<Gameplay>().GetFriesCount() > 1)
+        {
+            GameObject newProduct = Instantiate(madeFries);
+            AddNewProduct(newProduct);
+            newProduct.transform.position = Camera.main.GetComponent<PositionManager>().MadeFriesPosition().position;
+            newProduct.tag = "Ingredient";
+        }
+		Camera.main.GetComponent<Gameplay>().ReduceFries();
+	}
+
+    public void DropBurger()
+    {
+        if (Camera.main.GetComponent<Gameplay>().GetBurgerCount() > 1)
+        {
+            GameObject newProduct = Instantiate(burger);
+            AddNewProduct(newProduct);
+            newProduct.transform.position = Camera.main.GetComponent<PositionManager>().BurgerPosition().position;
+            newProduct.tag = "Ingredient";
+        }
+		Camera.main.GetComponent<Gameplay>().ReduceBurgers();
+	}
+
+    public void DropDrink()
+    {
+        if (Camera.main.GetComponent<Gameplay>().GetDrinkCount() > 1)
+        {
+            GameObject newProduct = Instantiate(madeDrink);
+            AddNewProduct(newProduct);
+            newProduct.transform.position = Camera.main.GetComponent<PositionManager>().DrinkPosition().position;
+            newProduct.tag = "Ingredient";
+        }
+		Camera.main.GetComponent<Gameplay>().ReduceDrinks();
+	}
 
     public void DropMeat()
     {
@@ -82,7 +130,7 @@ public class DropMoreProducts : MonoBehaviour
         {
             GameObject newProduct = Instantiate(lid);
             AddNewProduct(newProduct);
-            newProduct.transform.position = Camera.main.GetComponent<PositionManager>().LidPosition().position + (Random.insideUnitSphere * 0.2f);
+            newProduct.transform.position = Camera.main.GetComponent<PositionManager>().LidPosition().position + (Random.insideUnitSphere * 0.15f);
             newProduct.transform.rotation = new Quaternion(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
             newProduct.tag = "Lid";
         }
@@ -92,16 +140,11 @@ public class DropMoreProducts : MonoBehaviour
     {
         GameObject newDrink = Instantiate(drink);
         newDrink.transform.parent = oldProduct.transform.parent;
-		newDrink.transform.position = new Vector3(
-		   oldProduct.transform.position.x,
-		   oldProduct.transform.position.y - 0.25f,
-		   oldProduct.transform.position.z
-	   );
-        newDrink.transform.rotation = oldProduct.transform.rotation;
+        newDrink.transform.localPosition = oldProduct.transform.localPosition;
+        newDrink.transform.localRotation = oldProduct.transform.localRotation;
         newDrink.transform.localScale = oldProduct.transform.localScale;
         newDrink.tag = "Soda";
         newDrink.AddComponent<FadeObject>();
-        newDrink.GetComponent<BoxCollider>().enabled = false;
         Destroy(oldProduct);
     }
 
@@ -114,5 +157,6 @@ public class DropMoreProducts : MonoBehaviour
 		newProduct.GetComponent<Rigidbody>().freezeRotation = true;
 		Physics.IgnoreCollision(grillWall.GetComponent<Collider>(), newProduct.GetComponent<Collider>());
         Physics.IgnoreCollision(sodaWall.GetComponent<Collider>(), newProduct.GetComponent<Collider>());
+        Physics.IgnoreCollision(counterWall.GetComponent<Collider>(), newProduct.GetComponent<Collider>());
 	}
 }

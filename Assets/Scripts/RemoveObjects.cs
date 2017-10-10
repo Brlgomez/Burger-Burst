@@ -34,18 +34,37 @@ public class RemoveObjects : MonoBehaviour
 		}
 		if (col.gameObject.tag == "Building" && gameObject.tag != "Fallen" && gameObject.tag != "OnPlatter")
         {
+            DropProduct();
             HasFallen();
         }
-        else if (col.gameObject.tag == "Waiter")
+        if (col.gameObject.tag == "Waiter" && gameObject.tag == "Ingredient")
         {
             Vector3 closestPointOnItem = gameObject.GetComponent<MeshCollider>().ClosestPoint(col.gameObject.transform.position);
             Vector3 closestPointOnWaiter = col.gameObject.GetComponent<Collider>().ClosestPoint(closestPointOnItem);
             if (Vector3.Distance(closestPointOnItem, closestPointOnWaiter) < 0.15f)
             {
-                col.transform.root.gameObject.GetComponent<Waiter>().AddToPlatter(gameObject);
+				DropProduct();
+				col.transform.root.gameObject.GetComponent<Waiter>().AddToPlatter(gameObject);
                 transform.parent = col.gameObject.transform;
+                Destroy(GetComponent<RemoveObjects>());
             }
         }
+    }
+
+    void DropProduct()
+    {
+		if (gameObject.name == "Burger(Clone)")
+		{
+			Camera.main.GetComponent<DropMoreProducts>().DropBurger();
+		}
+		if (gameObject.name == "Drink(Clone)")
+		{
+			Camera.main.GetComponent<DropMoreProducts>().DropDrink();
+		}
+		if (gameObject.name == "Fries(Clone)")
+		{
+			Camera.main.GetComponent<DropMoreProducts>().DropMadeFries();
+		}
     }
 
     void HasFallen()

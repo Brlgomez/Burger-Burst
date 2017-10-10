@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class PositionManager : MonoBehaviour
 {
-
+    
     GameObject menu, gameplay, pause, gameOver, grill, fryer, soda;
     GameObject deviceFront, deviceBack;
+    GameObject madeFriesPos, burgerPos, drinkPos;
     GameObject meatPos, topBunPos, bottomBunPos;
     GameObject friesPos, basketPos;
     GameObject cupPos, lidPos;
@@ -23,6 +24,9 @@ public class PositionManager : MonoBehaviour
         gameOver = GameObject.Find("Game Over Camera Position");
         deviceFront = GameObject.Find("Device Front Position");
         deviceBack = GameObject.Find("Device Back Position");
+        madeFriesPos = GameObject.Find("Made Fries Position");
+        burgerPos = GameObject.Find("Burger Position");
+        drinkPos = GameObject.Find("Drink Position");
         meatPos = GameObject.Find("Meat Position");
         topBunPos = GameObject.Find("Top Bun Position");
         bottomBunPos = GameObject.Find("Bottom Bun Position");
@@ -68,6 +72,21 @@ public class PositionManager : MonoBehaviour
     public Transform GameOverPosition()
     {
         return gameOver.transform;
+    }
+
+    public Transform MadeFriesPosition()
+    {
+        return madeFriesPos.transform;
+    }
+
+    public Transform BurgerPosition()
+    {
+        return burgerPos.transform;
+    }
+
+    public Transform DrinkPosition()
+    {
+        return drinkPos.transform;
     }
 
     public Transform DeviceFrontPosition()

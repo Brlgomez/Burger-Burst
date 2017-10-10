@@ -159,7 +159,7 @@ public class Waiter : MonoBehaviour
 
     public void AddToPlatter(GameObject obj)
     {
-        if (obj.tag == "Thrown" && !orderComplete)
+        if (!orderComplete)
         {
             switch(obj.name) 
             {
