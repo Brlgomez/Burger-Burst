@@ -5,9 +5,9 @@ using UnityEngine;
 public class Gameplay : MonoBehaviour
 {
     int life = 10;
-    int burgers = 50;
-    int fries = 50;
-    int drinks = 50;
+    int burgers = 25;
+    int fries = 25;
+    int drinks = 25;
     int completedOrders;
     float costToMakeBurger = 0.99f;
     float costToMakeFries = 0.79f;
@@ -114,20 +114,44 @@ public class Gameplay : MonoBehaviour
 
     public void AddBurgers(int amount)
     {
-        burgers += amount;
-        Camera.main.GetComponent<ScreenTextManagment>().ChangeBurgerCount();
-    }
+        if (burgers <= 0)
+        {
+            burgers += amount;
+            Camera.main.GetComponent<DropMoreProducts>().DropBurger();
+        }
+        else 
+        {
+            burgers += amount;
+        }
+		Camera.main.GetComponent<ScreenTextManagment>().ChangeBurgerCount();
+	}
 
     public void AddFries(int amount)
     {
-        fries += amount;
+        if (fries <= 0)
+        {
+            fries += amount;
+            Camera.main.GetComponent<DropMoreProducts>().DropMadeFries();
+        }
+        else 
+        {
+			fries += amount;
+        }
         Camera.main.GetComponent<ScreenTextManagment>().ChangeFriesCount();
     }
 
 	public void AddDrinks(int amount)
 	{
-        drinks += amount;
-        Camera.main.GetComponent<ScreenTextManagment>().ChangeDrinkCount();
+        if (drinks <= 0)
+        {
+            drinks += amount;
+            Camera.main.GetComponent<DropMoreProducts>().DropDrink();
+        }
+        else 
+        {
+			drinks += amount;
+		}
+		Camera.main.GetComponent<ScreenTextManagment>().ChangeDrinkCount();
 	}
 
     public float GetProfit()

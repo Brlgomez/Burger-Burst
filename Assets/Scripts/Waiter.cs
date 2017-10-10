@@ -198,11 +198,6 @@ public class Waiter : MonoBehaviour
                     break;
             }
         }
-        else if (obj.tag == "Thrown" && orderComplete)
-        {
-            Destroy(obj.GetComponent<Rigidbody>());
-            Camera.main.GetComponent<Gameplay>().IncreaseNumberOfLostProduct(obj);
-        }
     }
 
     void AddToBody(GameObject obj)

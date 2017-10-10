@@ -81,7 +81,7 @@ public class GrabAndThrowObject : MonoBehaviour
     {
         GameObject obj = null;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray.origin, ray.direction * 2, out hit) && gameObject.GetComponent<CameraMovement>() == null)
+        if (Physics.Raycast(ray.origin, ray.direction, out hit, 2.5f) && gameObject.GetComponent<CameraMovement>() == null)
         {
             obj = hit.collider.gameObject;
             if (obj.tag == "UI")
@@ -398,7 +398,6 @@ public class GrabAndThrowObject : MonoBehaviour
             target.GetComponent<Rigidbody>().freezeRotation = false;
             target.GetComponent<Rigidbody>().useGravity = true;
             target.GetComponent<Collider>().enabled = true;
-            target.AddComponent<RemoveObjects>();
             counterWall.GetComponent<Collider>().enabled = false;
             if (positions.Count > 1)
             {
@@ -429,10 +428,6 @@ public class GrabAndThrowObject : MonoBehaviour
             if (target.GetComponent<CookMeat>() == null && target.name == "Meat(Clone)")
             {
                 target.AddComponent<CookMeat>();
-            }
-            if (target.GetComponent<RemoveObjects>() == null)
-            {
-                target.AddComponent<RemoveObjects>();
             }
         }
     }
@@ -466,10 +461,6 @@ public class GrabAndThrowObject : MonoBehaviour
             {
                 target.AddComponent<FryFries>();
             }
-            if (target.GetComponent<RemoveObjects>() == null)
-            {
-                target.AddComponent<RemoveObjects>();
-            }
         }
     }
 
@@ -499,10 +490,6 @@ public class GrabAndThrowObject : MonoBehaviour
                 float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 5;
                 float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 5;
                 target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity);
-            }
-            if (target.GetComponent<RemoveObjects>() == null)
-            {
-                target.AddComponent<RemoveObjects>();
             }
             if (target.GetComponent<SodaCup>() == null && target.tag == "Soda")
             {
@@ -619,7 +606,7 @@ public class GrabAndThrowObject : MonoBehaviour
         wall.GetComponent<Collider>().enabled = true;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(ray.origin, ray.direction * 2, out hit))
+        if (Physics.Raycast(ray.origin, ray.direction, out hit, 2.5f))
         {
             if (hit.transform.gameObject == wall)
             {

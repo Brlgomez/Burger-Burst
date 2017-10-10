@@ -47,38 +47,35 @@ public class DropMoreProducts : MonoBehaviour
 
     public void DropMadeFries()
     {
-        if (Camera.main.GetComponent<Gameplay>().GetFriesCount() > 1)
+        if (Camera.main.GetComponent<Gameplay>().GetFriesCount() >= 1)
         {
             GameObject newProduct = Instantiate(madeFries);
             AddNewProduct(newProduct);
             newProduct.transform.position = Camera.main.GetComponent<PositionManager>().MadeFriesPosition().position;
             newProduct.tag = "Ingredient";
         }
-		Camera.main.GetComponent<Gameplay>().ReduceFries();
 	}
 
     public void DropBurger()
     {
-        if (Camera.main.GetComponent<Gameplay>().GetBurgerCount() > 1)
+        if (Camera.main.GetComponent<Gameplay>().GetBurgerCount() >= 1)
         {
             GameObject newProduct = Instantiate(burger);
             AddNewProduct(newProduct);
             newProduct.transform.position = Camera.main.GetComponent<PositionManager>().BurgerPosition().position;
             newProduct.tag = "Ingredient";
         }
-		Camera.main.GetComponent<Gameplay>().ReduceBurgers();
 	}
 
     public void DropDrink()
     {
-        if (Camera.main.GetComponent<Gameplay>().GetDrinkCount() > 1)
+        if (Camera.main.GetComponent<Gameplay>().GetDrinkCount() >= 1)
         {
             GameObject newProduct = Instantiate(madeDrink);
             AddNewProduct(newProduct);
             newProduct.transform.position = Camera.main.GetComponent<PositionManager>().DrinkPosition().position;
             newProduct.tag = "Ingredient";
         }
-		Camera.main.GetComponent<Gameplay>().ReduceDrinks();
 	}
 
     public void DropMeat()
