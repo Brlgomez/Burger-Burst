@@ -93,7 +93,7 @@ public class GrabAndThrowObject : MonoBehaviour
                 Camera.main.GetComponent<ScreenTextManagment>().PressTextDown(obj.transform.parent.gameObject);
                 return obj;
             }
-            if (!paused && !Camera.main.GetComponent<Gameplay>().IsGameOver())
+            if (!paused && !Camera.main.GetComponent<Gameplay>().IsGameOver() && obj.GetComponent<FadeObject>() == null)
             {
                 TurnOffPhoneColliders();
                 TurnOffSodaButtonColliders();
@@ -309,7 +309,9 @@ public class GrabAndThrowObject : MonoBehaviour
     {
         if (target.tag == "GrillIngredientClone")
         {
+            target.transform.rotation = new Quaternion(0, 0, 0, 0);
             target.GetComponent<Collider>().enabled = false;
+            target.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
             target.GetComponent<Rigidbody>().isKinematic = false;
             target.GetComponent<Rigidbody>().useGravity = false;
             grillWall.GetComponent<Collider>().enabled = true;
@@ -325,6 +327,7 @@ public class GrabAndThrowObject : MonoBehaviour
         if (target.tag == "Fries")
         {
             target.GetComponent<Collider>().enabled = false;
+            target.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
             target.GetComponent<Rigidbody>().isKinematic = false;
             target.GetComponent<Rigidbody>().useGravity = false;
             fryerWall.GetComponent<Collider>().enabled = true;
@@ -335,8 +338,9 @@ public class GrabAndThrowObject : MonoBehaviour
     {
         if (target.tag == "Soda" || target.tag == "Lid")
         {
-            target.transform.rotation = new Quaternion(0, 0, 0, 0);
+            target.transform.rotation = new Quaternion(0, 0.1f, 0, 0);
             target.GetComponent<Collider>().enabled = false;
+            target.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
             target.GetComponent<Rigidbody>().isKinematic = false;
             target.GetComponent<Rigidbody>().useGravity = false;
             sodaWall.GetComponent<Collider>().enabled = true;

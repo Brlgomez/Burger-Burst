@@ -11,6 +11,7 @@ public class SodaCup : MonoBehaviour
     float maxScale = 1.5f;
     float currentScale;
     float incY, incS;
+    GameObject lid;
 
     void Start()
     {
@@ -39,7 +40,14 @@ public class SodaCup : MonoBehaviour
     {
         if (collision.gameObject.name == "Lid(Clone)")
         {
-            CupReady(collision.gameObject);
+			lid = collision.gameObject;
+			if (lid.transform.parent != null && gameObject.transform.parent != null)
+            {
+                gameObject.transform.parent = null;
+                lid.transform.parent = null;
+				CupReady();
+				Destroy(lid);
+            }
         }
     }
 
@@ -63,9 +71,9 @@ public class SodaCup : MonoBehaviour
         }
     }
 
-    void CupReady(GameObject lid)
+    void CupReady()
     {
-        int worth = Mathf.RoundToInt((maxTimeUnderFountain) - Mathf.Abs((timeUnderFountain) - (maxTimeUnderFountain)));
+		int worth = Mathf.RoundToInt((maxTimeUnderFountain) - Mathf.Abs((timeUnderFountain) - (maxTimeUnderFountain)));
         if (worth == 0)
         {
             Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Drinks", Color.gray);
@@ -78,11 +86,10 @@ public class SodaCup : MonoBehaviour
         {
             Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Drinks", Color.green);
         }
-        Destroy(lid);
         gameObject.GetComponent<Rigidbody>().isKinematic = true;
         gameObject.GetComponent<Rigidbody>().useGravity = false;
-        Camera.main.GetComponent<DropMoreProducts>().DropCup();
-        Camera.main.GetComponent<DropMoreProducts>().DropLid();
+		Camera.main.GetComponent<DropMoreProducts>().DropLid();
+		Camera.main.GetComponent<DropMoreProducts>().DropCup();
         Camera.main.GetComponent<Gameplay>().AddDrinks(worth);
         Camera.main.GetComponent<DropMoreProducts>().TrasformIntoDrink(gameObject);
         Destroy(gameObject.GetComponent<SodaCup>());

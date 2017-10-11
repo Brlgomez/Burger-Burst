@@ -202,6 +202,7 @@ public class Waiter : MonoBehaviour
 
     void AddToBody(GameObject obj)
     {
+        obj.GetComponent<RemoveObjects>().DropProduct();
         Destroy(obj.GetComponent<Rigidbody>());
         Destroy(obj.GetComponent<RemoveObjects>());
         costOfMeal += Camera.main.GetComponent<Gameplay>().IncreaseNumberOfSentProduct(obj);

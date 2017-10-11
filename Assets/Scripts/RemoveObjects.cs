@@ -24,7 +24,7 @@ public class RemoveObjects : MonoBehaviour
 				HasFallen();
 			}
 		}
-        else if (gameObject.tag == "Soda" || gameObject.tag == "Lid")
+        else if ((gameObject.tag == "Soda" || gameObject.tag == "Lid") && col.gameObject.tag != "Soda" && col.gameObject.tag != "Lid")
 		{
             Vector3 drinkRange = Camera.main.GetComponent<PositionManager>().DrinkRange().position;
             if (Vector3.Distance(gameObject.transform.position, drinkRange) > 1.25f)
@@ -43,7 +43,6 @@ public class RemoveObjects : MonoBehaviour
             Vector3 closestPointOnWaiter = col.gameObject.GetComponent<Collider>().ClosestPoint(closestPointOnItem);
             if (Vector3.Distance(closestPointOnItem, closestPointOnWaiter) < 0.15f)
             {
-				DropProduct();
 				transform.parent = col.gameObject.transform;
 				col.transform.root.gameObject.GetComponent<Waiter>().AddToPlatter(gameObject);
             }
@@ -58,7 +57,7 @@ public class RemoveObjects : MonoBehaviour
         }
     }
 
-    void DropProduct()
+    public void DropProduct()
     {
         if (!hasDropped)
         {
