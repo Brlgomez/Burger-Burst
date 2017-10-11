@@ -55,12 +55,12 @@ public class GrabAndThrowObject : MonoBehaviour
     void MouseDown()
     {
         positions.Clear();
+		counterWall.GetComponent<Collider>().enabled = false;
+		grillWall.GetComponent<Collider>().enabled = false;
+		fryerWall.GetComponent<Collider>().enabled = false;
+		sodaWall.GetComponent<Collider>().enabled = false;
         RaycastHit hitInfo;
         target = ReturnClickedObject(out hitInfo);
-        counterWall.GetComponent<Collider>().enabled = false;
-		grillWall.GetComponent<Collider>().enabled = false;
-        fryerWall.GetComponent<Collider>().enabled = false;
-        sodaWall.GetComponent<Collider>().enabled = false;
 		if (target != null && !paused)
         {
             switch (currentArea)
@@ -339,11 +339,18 @@ public class GrabAndThrowObject : MonoBehaviour
         if (target.tag == "Soda" || target.tag == "Lid")
         {
             target.transform.rotation = new Quaternion(0, 0.1f, 0, 0);
-            target.GetComponent<Collider>().enabled = false;
             target.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
             target.GetComponent<Rigidbody>().isKinematic = false;
             target.GetComponent<Rigidbody>().useGravity = false;
             sodaWall.GetComponent<Collider>().enabled = true;
+            if (target.tag == "Soda")
+            {
+                target.layer = 2;
+            }
+            else 
+            {
+				target.GetComponent<Collider>().enabled = false;
+			}
         }
     }
 
@@ -486,7 +493,6 @@ public class GrabAndThrowObject : MonoBehaviour
         {
             target.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
             target.GetComponent<Rigidbody>().useGravity = true;
-            target.GetComponent<Collider>().enabled = true;
             sodaWall.GetComponent<Collider>().enabled = false;
             if (positions.Count > 1)
             {
@@ -499,6 +505,14 @@ public class GrabAndThrowObject : MonoBehaviour
             {
                 target.AddComponent<SodaCup>();
             }
+			if (target.tag == "Soda")
+			{
+				target.layer = 0;
+			}
+            else 
+            {
+				target.GetComponent<Collider>().enabled = true;
+			}
         }
     }
 

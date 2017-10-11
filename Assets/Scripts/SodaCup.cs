@@ -11,14 +11,19 @@ public class SodaCup : MonoBehaviour
     float maxScale = 1.5f;
     float currentScale;
     float incY, incS;
+    float maxMass = 5;
+    float initialMass;
+    float incMass;
     GameObject lid;
 
     void Start()
     {
         currentY = transform.GetChild(0).transform.localPosition.y;
         currentScale = transform.GetChild(0).transform.localScale.x;
-        incY = (top - currentY) * (1.0f / maxTimeUnderFountain);
+		initialMass = gameObject.GetComponent<Rigidbody>().mass;
+		incY = (top - currentY) * (1.0f / maxTimeUnderFountain);
         incS = (maxScale - currentScale) * (1.0f / maxTimeUnderFountain);
+        incMass = (maxMass - initialMass) * (1.0f / maxMass);
     }
 
     void OnTriggerStay(Collider other)
@@ -58,6 +63,7 @@ public class SodaCup : MonoBehaviour
             timeUnderFountain += Time.deltaTime;
             currentY += Time.deltaTime * incY;
             currentScale += Time.deltaTime * incS;
+            gameObject.GetComponent<Rigidbody>().mass += Time.deltaTime * incMass;
             transform.GetChild(0).transform.localPosition = new Vector3(
                 transform.GetChild(0).transform.localPosition.x,
                 currentY,
@@ -86,8 +92,6 @@ public class SodaCup : MonoBehaviour
         {
             Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Drinks", Color.green);
         }
-        gameObject.GetComponent<Rigidbody>().isKinematic = true;
-        gameObject.GetComponent<Rigidbody>().useGravity = false;
 		Camera.main.GetComponent<DropMoreProducts>().DropLid();
 		Camera.main.GetComponent<DropMoreProducts>().DropCup();
         Camera.main.GetComponent<Gameplay>().AddDrinks(worth);

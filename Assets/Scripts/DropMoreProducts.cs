@@ -129,6 +129,7 @@ public class DropMoreProducts : MonoBehaviour
             AddNewProduct(newProduct);
             newProduct.transform.position = Camera.main.GetComponent<PositionManager>().LidPosition().position + (Random.insideUnitSphere * 0.15f);
             newProduct.transform.rotation = new Quaternion(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
+            newProduct.GetComponent<Rigidbody>().freezeRotation = false;
             newProduct.tag = "Lid";
         }
     }
@@ -140,6 +141,8 @@ public class DropMoreProducts : MonoBehaviour
         newDrink.transform.localPosition = oldProduct.transform.localPosition;
         newDrink.transform.localRotation = oldProduct.transform.localRotation;
         newDrink.transform.localScale = oldProduct.transform.localScale;
+		newDrink.GetComponent<Rigidbody>().isKinematic = false;
+		newDrink.GetComponent<Rigidbody>().useGravity = true;
         newDrink.tag = "Soda";
         newDrink.AddComponent<FadeObject>();
         Destroy(oldProduct);
