@@ -85,10 +85,14 @@ public class RemoveObjects : MonoBehaviour
 
     void HasFallen()
     {
-		if (gameObject.tag == "Soda")
-		{
-			Destroy(gameObject.GetComponent<SodaCup>());
-		}
+        if (gameObject.tag == "Soda")
+        {
+            Destroy(gameObject.GetComponent<SodaCup>());
+            if (gameObject.transform.GetChild(0).gameObject.GetComponent<FadeObject>() == null)
+            {
+                gameObject.transform.GetChild(0).gameObject.AddComponent<FadeObject>();
+            }
+        }
 		gameObject.tag = "Fallen";
 		if (gameObject.GetComponent<FadeObject>() == null)
 		{

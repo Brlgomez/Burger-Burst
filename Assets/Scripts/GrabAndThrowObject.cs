@@ -57,7 +57,11 @@ public class GrabAndThrowObject : MonoBehaviour
         positions.Clear();
         RaycastHit hitInfo;
         target = ReturnClickedObject(out hitInfo);
-        if (target != null && !paused)
+        counterWall.GetComponent<Collider>().enabled = false;
+		grillWall.GetComponent<Collider>().enabled = false;
+        fryerWall.GetComponent<Collider>().enabled = false;
+        sodaWall.GetComponent<Collider>().enabled = false;
+		if (target != null && !paused)
         {
             switch (currentArea)
             {
@@ -292,7 +296,6 @@ public class GrabAndThrowObject : MonoBehaviour
 
     void MouseDownCounter()
     {
-        counterWall.GetComponent<Collider>().enabled = false;
         if (target.tag == "Ingredient")
         {
             target.GetComponent<Collider>().enabled = false;
@@ -304,7 +307,6 @@ public class GrabAndThrowObject : MonoBehaviour
 
     void MouseDownGrill()
     {
-        grillWall.GetComponent<Collider>().enabled = false;
         if (target.tag == "GrillIngredientClone")
         {
             target.GetComponent<Collider>().enabled = false;
@@ -320,7 +322,6 @@ public class GrabAndThrowObject : MonoBehaviour
 
     void MouseDownFryer()
     {
-        fryerWall.GetComponent<Collider>().enabled = false;
         if (target.tag == "Fries")
         {
             target.GetComponent<Collider>().enabled = false;
@@ -332,7 +333,6 @@ public class GrabAndThrowObject : MonoBehaviour
 
     void MouseDownSodaMachine()
     {
-        sodaWall.GetComponent<Collider>().enabled = false;
         if (target.tag == "Soda" || target.tag == "Lid")
         {
             target.transform.rotation = new Quaternion(0, 0, 0, 0);

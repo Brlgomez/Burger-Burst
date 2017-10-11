@@ -70,7 +70,7 @@ ScreenTextManagment : MonoBehaviour
         int n = Camera.main.GetComponent<Gameplay>().GetLife();
         if (n >= 1)
         {
-            line1.GetComponent<TextMesh>().text = "Health: " + n.ToString();
+            line1.GetComponent<TextMesh>().text = "H : " + n.ToString();
         }
         else
         {
@@ -90,33 +90,42 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeBurgerCount()
     {
-        int n = Camera.main.GetComponent<Gameplay>().GetBurgerCount();
-        Color newColor = Color.Lerp(red, originalScreenColor, ((float)n) / initialBurgers);
-        line2.GetComponent<TextMesh>().color = newColor;
-        line2.GetComponent<TextMesh>().text = "B : " + n;
+        if (!Camera.main.GetComponent<Gameplay>().IsGameOver())
+        {
+            int n = Camera.main.GetComponent<Gameplay>().GetBurgerCount();
+            Color newColor = Color.Lerp(red, originalScreenColor, ((float)n) / initialBurgers);
+            line2.GetComponent<TextMesh>().color = newColor;
+            line2.GetComponent<TextMesh>().text = "B : " + n;
+        }
     }
 
     public void ChangeFriesCount()
     {
-        int n = Camera.main.GetComponent<Gameplay>().GetFriesCount();
-        Color newColor = Color.Lerp(red, originalScreenColor, ((float)n) / initialFries);
-        line3.GetComponent<TextMesh>().color = newColor;
-        line3.GetComponent<TextMesh>().text = "F : " + n;
+        if (!Camera.main.GetComponent<Gameplay>().IsGameOver())
+        {
+            int n = Camera.main.GetComponent<Gameplay>().GetFriesCount();
+            Color newColor = Color.Lerp(red, originalScreenColor, ((float)n) / initialFries);
+            line3.GetComponent<TextMesh>().color = newColor;
+            line3.GetComponent<TextMesh>().text = "F : " + n;
+        }
     }
 
     public void ChangeDrinkCount()
     {
-        int n = Camera.main.GetComponent<Gameplay>().GetDrinkCount();
-        Color newColor = Color.Lerp(red, originalScreenColor, ((float)n) / initialDrinks);
-        line4.GetComponent<TextMesh>().color = newColor;
-        line4.GetComponent<TextMesh>().text = "D : " + n;
+        if (!Camera.main.GetComponent<Gameplay>().IsGameOver())
+        {
+            int n = Camera.main.GetComponent<Gameplay>().GetDrinkCount();
+            Color newColor = Color.Lerp(red, originalScreenColor, ((float)n) / initialDrinks);
+            line4.GetComponent<TextMesh>().color = newColor;
+            line4.GetComponent<TextMesh>().text = "D : " + n;
+        }
     }
 
     public void RestartScreens()
     {
         ChangeMistakeText();
         ChangeTextColorToOriginal();
-        line1.GetComponent<TextMesh>().text = "Health: " + initialLife;
+        line1.GetComponent<TextMesh>().text = "H : " + initialLife;
         line2.GetComponent<TextMesh>().text = "B : " + initialBurgers;
         line3.GetComponent<TextMesh>().text = "F : " + initialFries;
         line4.GetComponent<TextMesh>().text = "D : " + initialDrinks;
