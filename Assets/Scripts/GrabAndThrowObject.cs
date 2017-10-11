@@ -278,7 +278,7 @@ public class GrabAndThrowObject : MonoBehaviour
 
     GameObject GetFryerObject(GameObject obj)
     {
-        if (obj.name == "Right Fryer Button" || obj.name == "Left Fryer Button" || obj.tag == "Fries")
+        if (obj.name == "Right Fryer Button" || obj.name == "Left Fryer Button" || obj.tag == "Fries" || obj.tag == "Basket")
         {
             return obj;
         }
@@ -324,7 +324,7 @@ public class GrabAndThrowObject : MonoBehaviour
 
     void MouseDownFryer()
     {
-        if (target.tag == "Fries")
+        if (target.tag == "Fries" || target.tag == "Basket")
         {
             target.GetComponent<Collider>().enabled = false;
             target.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
@@ -372,7 +372,7 @@ public class GrabAndThrowObject : MonoBehaviour
 
     void DragFryerObject()
     {
-        if (target.tag == "Fries")
+        if (target.tag == "Fries" || target.tag == "Basket")
         {
             ScreenPointToRayCalc(fryerWall);
         }
@@ -455,7 +455,7 @@ public class GrabAndThrowObject : MonoBehaviour
             target.GetComponent<Animator>().Play("ButtonClick");
             rightFryer.GetComponent<FryerBasket>().PressedButton();
         }
-        if (target.tag == "Fries")
+        if (target.tag == "Fries" || target.tag == "Basket")
         {
             target.GetComponent<Rigidbody>().freezeRotation = false;
             target.GetComponent<Rigidbody>().useGravity = true;
@@ -468,7 +468,7 @@ public class GrabAndThrowObject : MonoBehaviour
                 float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 5;
                 target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity);
             }
-            if (target.GetComponent<FryFries>() == null)
+            if (target.GetComponent<FryFries>() == null && target.tag == "Fries")
             {
                 target.AddComponent<FryFries>();
             }
@@ -647,6 +647,7 @@ public class GrabAndThrowObject : MonoBehaviour
         GameObject[] cars = GameObject.FindGameObjectsWithTag("Car");
         GameObject[] grillIngredients = GameObject.FindGameObjectsWithTag("GrillIngredientClone");
         GameObject[] fries = GameObject.FindGameObjectsWithTag("Fries");
+        GameObject[] baskets = GameObject.FindGameObjectsWithTag("Basket");
         GameObject[] cups = GameObject.FindGameObjectsWithTag("Soda");
         GameObject[] lids = GameObject.FindGameObjectsWithTag("Lid");
         DestroyArrayOfObjects(ingredients);
@@ -656,6 +657,7 @@ public class GrabAndThrowObject : MonoBehaviour
         DestroyArrayOfObjects(cars);
         DestroyArrayOfObjects(grillIngredients);
         DestroyArrayOfObjects(fries);
+        DestroyArrayOfObjects(baskets);
         DestroyArrayOfObjects(cups);
         DestroyArrayOfObjects(lids);
         Camera.main.GetComponent<FloatingTextManagement>().DeleteAllText();

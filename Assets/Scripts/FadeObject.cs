@@ -42,6 +42,9 @@ public class FadeObject : MonoBehaviour
             case "Fries_No_Basket(Clone)":
                 Camera.main.GetComponent<DropMoreProducts>().DropFries();
                 break;
+			case "Basket(Clone)":
+                Camera.main.GetComponent<DropMoreProducts>().DropBasket();
+				break;
             case "Empty_Cup(Clone)":
                 Camera.main.GetComponent<DropMoreProducts>().DropCup();
                 break;

@@ -16,7 +16,7 @@ public class RemoveObjects : MonoBehaviour
                 HasFallen();
             }
         }
-		else if (gameObject.tag == "Fries")
+        else if (gameObject.tag == "Fries" || gameObject.tag == "Basket")
 		{
             Vector3 friesRange = Camera.main.GetComponent<PositionManager>().FriesRange().position;
             if (Vector3.Distance(gameObject.transform.position, friesRange) > 1.5f)

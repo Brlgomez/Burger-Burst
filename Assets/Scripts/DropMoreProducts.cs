@@ -5,7 +5,7 @@ using UnityEngine;
 public class DropMoreProducts : MonoBehaviour
 {
     GameObject madeFries, burger, madeDrink;
-    GameObject meat, topBun, bottomBun, fries, cup, lid;
+    GameObject meat, topBun, bottomBun, fries, basket, cup, lid;
     GameObject foodTruck;
     GameObject counterWall, grillWall, sodaWall;
     GameObject drink;
@@ -23,6 +23,7 @@ public class DropMoreProducts : MonoBehaviour
         grillWall = GameObject.Find("Grill Wall");
         sodaWall = GameObject.Find("Soda Wall");
         fries = GameObject.Find("Fries_No_Basket");
+        basket = GameObject.Find("Basket");
         drink = GameObject.Find("Drink");
         cup = GameObject.Find("Empty_Cup");
         lid = GameObject.Find("Lid");
@@ -34,6 +35,7 @@ public class DropMoreProducts : MonoBehaviour
         DropTopBun();
         DropBottomBun();
         DropFries();
+        DropBasket();
         DropCup();
         DropLid();
     }
@@ -104,11 +106,25 @@ public class DropMoreProducts : MonoBehaviour
 
     public void DropFries()
     {
-        GameObject newProduct = Instantiate(fries);
-        AddNewProduct(newProduct);
-        newProduct.transform.position = Camera.main.GetComponent<PositionManager>().FriesPosition().position;
-        newProduct.tag = "Fries";
+        if (GameObject.FindGameObjectsWithTag("Fries").Length <= 2)
+        {
+            GameObject newProduct = Instantiate(fries);
+            AddNewProduct(newProduct);
+            newProduct.transform.position = Camera.main.GetComponent<PositionManager>().FriesPosition().position;
+            newProduct.tag = "Fries";
+        }
     }
+
+	public void DropBasket()
+	{
+        if (GameObject.FindGameObjectsWithTag("Basket").Length <= 2)
+        {
+            GameObject newProduct = Instantiate(basket);
+            AddNewProduct(newProduct);
+            newProduct.transform.position = Camera.main.GetComponent<PositionManager>().BasketPosition().position;
+            newProduct.tag = "Basket";
+        }
+	}
 
     public void DropCup()
     {

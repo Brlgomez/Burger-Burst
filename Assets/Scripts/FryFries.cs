@@ -13,10 +13,7 @@ public class FryFries : MonoBehaviour
     float r, g, b;
     float incR, incG, incB;
     float incR2, incG2, incB2;
-    bool onBasket;
     GameObject basket;
-    float basketY;
-    float maxBasketY = 0.75f;
 
     void Start()
     {
@@ -71,14 +68,6 @@ public class FryFries : MonoBehaviour
             }
             gameObject.GetComponent<Renderer>().material.color = new Color(r, g, b);
         }
-        if (onBasket)
-        {
-            if (basketY < maxBasketY)
-            {
-                basketY += Time.deltaTime;
-                basket.transform.localScale = new Vector3(basket.transform.localScale.x, basketY, basket.transform.localScale.z);
-            }
-        }
     }
 
     void OnTriggerEnter(Collider col)
@@ -86,15 +75,6 @@ public class FryFries : MonoBehaviour
         if (col.gameObject.name == "Hot Oil")
         {
             inFryer = true;
-        }
-
-        if (col.gameObject.name == "Basket" && !onBasket)
-        {
-            basket = Instantiate(col.gameObject);
-            basketY = basket.transform.localScale.y;
-            basket.transform.position = col.gameObject.transform.position;
-            FriesCompleted();
-            onBasket = true;
         }
     }
 
@@ -105,6 +85,24 @@ public class FryFries : MonoBehaviour
             inFryer = false;
         }
     }
+
+	void OnCollisionEnter(Collision collision)
+	{
+        if (collision.gameObject.tag == "Basket")
+		{
+            basket = collision.gameObject;
+            if (basket.transform.parent != null && gameObject.transform.parent != null)
+			{
+				gameObject.transform.parent = null;
+				basket.transform.parent = null;
+                basket.GetComponent<Rigidbody>().isKinematic = true;
+                basket.GetComponent<Rigidbody>().useGravity = false;
+				gameObject.GetComponent<Rigidbody>().isKinematic = true;
+				gameObject.GetComponent<Rigidbody>().useGravity = false;
+                FriesCompleted();
+			}
+		}
+	}
 
     void FriesCompleted()
     {
@@ -124,8 +122,8 @@ public class FryFries : MonoBehaviour
         Camera.main.GetComponent<Gameplay>().AddFries(worth);
         if (gameObject.GetComponent<FadeObject>() == null)
         {
-            gameObject.GetComponent<Rigidbody>().isKinematic = true;
-            gameObject.GetComponent<Rigidbody>().useGravity = false;
+            Camera.main.GetComponent<DropMoreProducts>().DropFries();
+            Camera.main.GetComponent<DropMoreProducts>().DropBasket();
             gameObject.AddComponent<FadeObject>();
             basket.AddComponent<FadeObject>();
         }

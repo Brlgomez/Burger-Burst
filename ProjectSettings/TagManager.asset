@@ -18,6 +18,7 @@ TagManager:
   - Fries
   - Soda
   - Lid
+  - Basket
   layers:
   - Default
   - TransparentFX

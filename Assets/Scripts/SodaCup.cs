@@ -43,7 +43,7 @@ public class SodaCup : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name == "Lid(Clone)")
+        if (collision.gameObject.tag == "Lid")
         {
 			lid = collision.gameObject;
 			if (lid.transform.parent != null && gameObject.transform.parent != null)
