@@ -136,7 +136,7 @@ ScreenTextManagment : MonoBehaviour
         RevertButtons();
         line1.transform.GetChild(0).tag = "Untagged";
         line2.transform.GetChild(0).tag = "Untagged";
-        line5.GetComponent<TextMesh>().text = "Front";
+        line5.GetComponent<TextMesh>().text = "Counter";
     }
 
     public void ChangeToFryerArea()
@@ -144,7 +144,7 @@ ScreenTextManagment : MonoBehaviour
         RevertButtons();
         line1.transform.GetChild(0).tag = "Untagged";
         line3.transform.GetChild(0).tag = "Untagged";
-        line5.GetComponent<TextMesh>().text = "Front";
+        line5.GetComponent<TextMesh>().text = "Counter";
     }
 
     public void ChangeToSodaMachineArea()
@@ -152,7 +152,7 @@ ScreenTextManagment : MonoBehaviour
         RevertButtons();
         line1.transform.GetChild(0).tag = "Untagged";
         line4.transform.GetChild(0).tag = "Untagged";
-        line5.GetComponent<TextMesh>().text = "Front";
+        line5.GetComponent<TextMesh>().text = "Counter";
     }
 
     public void ChangeToFrontArea()

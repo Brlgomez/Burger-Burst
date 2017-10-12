@@ -85,7 +85,7 @@ public class GrabAndThrowObject : MonoBehaviour
     {
         GameObject obj = null;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray.origin, ray.direction, out hit, 2.5f) && gameObject.GetComponent<CameraMovement>() == null)
+        if (Physics.Raycast(ray.origin, ray.direction, out hit, 2.5f))
         {
             obj = hit.collider.gameObject;
             if (obj.tag == "UI")
@@ -97,7 +97,7 @@ public class GrabAndThrowObject : MonoBehaviour
             {
                 TurnOffPhoneColliders();
                 TurnOffSodaButtonColliders();
-                if (currentArea == Area.counter && obj.tag == "Pause")
+                if (currentArea == Area.counter && obj.tag == "Pause" && gameObject.GetComponent<CameraMovement>() == null)
                 {
                     return obj;
                 }
@@ -188,11 +188,11 @@ public class GrabAndThrowObject : MonoBehaviour
         {
             GameplayPhoneInterface(obj);
         }
-        else if (gameObject.GetComponent<Gameplay>().IsGameOver())
+        else if (gameObject.GetComponent<Gameplay>().IsGameOver() && gameObject.GetComponent<CameraMovement>() == null)
         {
             GameOverPhoneInterface(obj);
         }
-        else
+        else if (paused && gameObject.GetComponent<CameraMovement>() == null)
         {
             PauseMenuInterface(obj);
         }
@@ -203,25 +203,57 @@ public class GrabAndThrowObject : MonoBehaviour
         switch (obj.name)
         {
             case "Second Button":
-                currentArea = Area.grill;
-                initialPosition = Camera.main.GetComponent<PositionManager>().GrillPosition();
-                gameObject.AddComponent<CameraMovement>().MoveToGrill();
-                break;
+                if (currentArea != Area.grill)
+                {
+                    currentArea = Area.grill;
+                    gameObject.GetComponent<ScreenTextManagment>().ChangeToGrillArea();
+                    initialPosition = Camera.main.GetComponent<PositionManager>().GrillPosition();
+                    if (gameObject.GetComponent<CameraMovement>() != null)
+                    {
+                        Destroy(gameObject.GetComponent<CameraMovement>());
+                    }
+                    gameObject.AddComponent<CameraMovement>().MoveToGrill();
+                }
+				break;
             case "Third Button":
-                currentArea = Area.fryer;
-                initialPosition = Camera.main.GetComponent<PositionManager>().FryerPosition();
-                gameObject.AddComponent<CameraMovement>().MoveToFryer();
+                if (currentArea != Area.fryer)
+                {
+                    currentArea = Area.fryer;
+                    gameObject.GetComponent<ScreenTextManagment>().ChangeToFryerArea();
+                    initialPosition = Camera.main.GetComponent<PositionManager>().FryerPosition();
+                    if (gameObject.GetComponent<CameraMovement>() != null)
+                    {
+                        Destroy(gameObject.GetComponent<CameraMovement>());
+                    }
+                    gameObject.AddComponent<CameraMovement>().MoveToFryer();
+                }
                 break;
             case "Fourth Button":
-                currentArea = Area.sodaMachine;
-                initialPosition = Camera.main.GetComponent<PositionManager>().SodaPosition();
-                gameObject.AddComponent<CameraMovement>().MoveToSodaMachine();
-                break;
+                if (currentArea != Area.sodaMachine)
+                {
+                    currentArea = Area.sodaMachine;
+                    gameObject.GetComponent<ScreenTextManagment>().ChangeToSodaMachineArea();
+                    initialPosition = Camera.main.GetComponent<PositionManager>().SodaPosition();
+                    if (gameObject.GetComponent<CameraMovement>() != null)
+                    {
+                        Destroy(gameObject.GetComponent<CameraMovement>());
+                    }
+                }
+				gameObject.AddComponent<CameraMovement>().MoveToSodaMachine();
+				break;
             case "Fifth Button":
-                currentArea = Area.counter;
-                initialPosition = Camera.main.GetComponent<PositionManager>().GameplayPosition();
-                gameObject.AddComponent<CameraMovement>().MoveToGameplay("Unpause");
-                break;
+                if (currentArea != Area.counter)
+                {
+                    currentArea = Area.counter;
+                    gameObject.GetComponent<ScreenTextManagment>().ChangeToFrontArea();
+                    initialPosition = Camera.main.GetComponent<PositionManager>().GameplayPosition();
+                    if (gameObject.GetComponent<CameraMovement>() != null)
+                    {
+                        Destroy(gameObject.GetComponent<CameraMovement>());
+                    }
+                    gameObject.AddComponent<CameraMovement>().MoveToGameplay("Unpause");
+                }
+				break;
         }
     }
 
@@ -245,6 +277,7 @@ public class GrabAndThrowObject : MonoBehaviour
             {
                 currentArea = Area.counter;
                 initialPosition = Camera.main.GetComponent<PositionManager>().GameplayPosition();
+                Camera.main.GetComponent<ScreenTextManagment>().ChangeToFrontArea();
                 gameObject.AddComponent<CameraMovement>().MoveToGameplay("Unpause");
             }
             else if (obj.name == "Third Button")

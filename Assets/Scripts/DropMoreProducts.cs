@@ -53,9 +53,7 @@ public class DropMoreProducts : MonoBehaviour
         if (Camera.main.GetComponent<Gameplay>().GetFriesCount() >= 1)
         {
             GameObject newProduct = Instantiate(madeFries);
-            AddNewProduct(newProduct);
-            newProduct.transform.position = Camera.main.GetComponent<PositionManager>().MadeFriesPosition().position;
-            newProduct.tag = "Ingredient";
+            AddNewProduct(newProduct, "Ingredient", Camera.main.GetComponent<PositionManager>().MadeFriesPosition().position);
         }
     }
 
@@ -64,9 +62,7 @@ public class DropMoreProducts : MonoBehaviour
         if (Camera.main.GetComponent<Gameplay>().GetBurgerCount() >= 1)
         {
             GameObject newProduct = Instantiate(burger);
-            AddNewProduct(newProduct);
-            newProduct.transform.position = Camera.main.GetComponent<PositionManager>().BurgerPosition().position;
-            newProduct.tag = "Ingredient";
+            AddNewProduct(newProduct, "Ingredient", Camera.main.GetComponent<PositionManager>().BurgerPosition().position);
         }
     }
 
@@ -75,34 +71,26 @@ public class DropMoreProducts : MonoBehaviour
         if (Camera.main.GetComponent<Gameplay>().GetDrinkCount() >= 1)
         {
             GameObject newProduct = Instantiate(madeDrink);
-            AddNewProduct(newProduct);
-            newProduct.transform.position = Camera.main.GetComponent<PositionManager>().DrinkPosition().position;
-            newProduct.tag = "Ingredient";
+            AddNewProduct(newProduct, "Ingredient", Camera.main.GetComponent<PositionManager>().DrinkPosition().position);
         }
     }
 
     public void DropMeat()
     {
         GameObject newProduct = Instantiate(meat);
-        AddNewProduct(newProduct);
-        newProduct.transform.position = Camera.main.GetComponent<PositionManager>().MeatSpawnPosition().position;
-        newProduct.tag = "GrillIngredientClone";
+        AddNewProduct(newProduct, "GrillIngredientClone", Camera.main.GetComponent<PositionManager>().MeatSpawnPosition().position);
     }
 
     public void DropTopBun()
     {
         GameObject newProduct = Instantiate(topBun);
-        AddNewProduct(newProduct);
-        newProduct.transform.position = Camera.main.GetComponent<PositionManager>().TopBunSpawnPosition().position;
-        newProduct.tag = "GrillIngredientClone";
+        AddNewProduct(newProduct, "GrillIngredientClone", Camera.main.GetComponent<PositionManager>().TopBunSpawnPosition().position);
     }
 
     public void DropBottomBun()
     {
         GameObject newProduct = Instantiate(bottomBun);
-        AddNewProduct(newProduct);
-        newProduct.transform.position = Camera.main.GetComponent<PositionManager>().BottomBunSpawnPosition().position;
-        newProduct.tag = "GrillIngredientClone";
+        AddNewProduct(newProduct, "GrillIngredientClone", Camera.main.GetComponent<PositionManager>().BottomBunSpawnPosition().position);
     }
 
     public void DropFries()
@@ -110,10 +98,8 @@ public class DropMoreProducts : MonoBehaviour
         if (GameObject.FindGameObjectsWithTag("Fries").Length <= 2)
         {
             GameObject newProduct = Instantiate(fries);
-            AddNewProduct(newProduct);
-            newProduct.transform.position = Camera.main.GetComponent<PositionManager>().FriesPosition().position;
+            AddNewProduct(newProduct, "Fries", Camera.main.GetComponent<PositionManager>().FriesPosition().position);
             newProduct.GetComponent<Rigidbody>().freezeRotation = true;
-            newProduct.tag = "Fries";
         }
     }
 
@@ -122,9 +108,7 @@ public class DropMoreProducts : MonoBehaviour
         if (GameObject.FindGameObjectsWithTag("Basket").Length <= 2)
         {
             GameObject newProduct = Instantiate(basket);
-            AddNewProduct(newProduct);
-            newProduct.transform.position = Camera.main.GetComponent<PositionManager>().BasketPosition().position;
-            newProduct.tag = "Basket";
+            AddNewProduct(newProduct, "Basket", Camera.main.GetComponent<PositionManager>().BasketPosition().position);
         }
     }
 
@@ -133,10 +117,8 @@ public class DropMoreProducts : MonoBehaviour
         if (GameObject.FindGameObjectsWithTag("Soda").Length <= 2)
         {
             GameObject newProduct = Instantiate(cup);
-            AddNewProduct(newProduct);
-            newProduct.transform.position = Camera.main.GetComponent<PositionManager>().CupPosition().position;
+            AddNewProduct(newProduct, "Soda", Camera.main.GetComponent<PositionManager>().CupPosition().position);
             newProduct.GetComponent<Rigidbody>().freezeRotation = true;
-            newProduct.tag = "Soda";
         }
     }
 
@@ -145,10 +127,8 @@ public class DropMoreProducts : MonoBehaviour
         if (GameObject.FindGameObjectsWithTag("Lid").Length <= 2)
         {
             GameObject newProduct = Instantiate(lid);
-            AddNewProduct(newProduct);
-            newProduct.transform.position = Camera.main.GetComponent<PositionManager>().LidPosition().position + (Random.insideUnitSphere * 0.15f);
+            AddNewProduct(newProduct, "Lid", Camera.main.GetComponent<PositionManager>().LidPosition().position + (Random.insideUnitSphere * 0.15f));
             newProduct.transform.rotation = new Quaternion(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
-            newProduct.tag = "Lid";
         }
     }
 
@@ -166,13 +146,15 @@ public class DropMoreProducts : MonoBehaviour
         Destroy(oldProduct);
     }
 
-    void AddNewProduct(GameObject newProduct)
+    void AddNewProduct(GameObject newProduct, string newTag, Vector3 newPosition)
     {
         newProduct.transform.parent = foodTruck.transform;
         newProduct.GetComponent<Rigidbody>().isKinematic = false;
         newProduct.GetComponent<Rigidbody>().useGravity = true;
         newProduct.GetComponent<Collider>().enabled = true;
         newProduct.AddComponent<RemoveObjects>();
+        newProduct.transform.position = newPosition;
+        newProduct.tag = newTag;
         Physics.IgnoreCollision(grillWall.GetComponent<Collider>(), newProduct.GetComponent<Collider>());
         Physics.IgnoreCollision(sodaWall.GetComponent<Collider>(), newProduct.GetComponent<Collider>());
         Physics.IgnoreCollision(counterWall.GetComponent<Collider>(), newProduct.GetComponent<Collider>());

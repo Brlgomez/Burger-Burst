@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PositionManager : MonoBehaviour
 {
-    
+
     GameObject menu, gameplay, pause, gameOver, grill, fryer, soda;
     GameObject deviceFront, deviceBack;
     GameObject madeFriesPos, burgerPos, drinkPos;
@@ -140,18 +140,18 @@ public class PositionManager : MonoBehaviour
         return counterRange.transform;
     }
 
-	public Transform GrillRange()
-	{
+    public Transform GrillRange()
+    {
         return grillRange.transform;
-	}
+    }
 
-	public Transform FriesRange()
-	{
+    public Transform FriesRange()
+    {
         return friesRange.transform;
-	}
+    }
 
-	public Transform DrinkRange()
-	{
-		return drinkRange.transform;
-	}
+    public Transform DrinkRange()
+    {
+        return drinkRange.transform;
+    }
 }
