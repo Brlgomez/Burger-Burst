@@ -4,17 +4,13 @@ using UnityEngine;
 
 public class IncreaseSize : MonoBehaviour 
 {
-    float maxSize;
-    float size;
+    float maxSize = 0.95f;
+    float speed = 2;
+	float size;
 
-	void Start () 
-    {
-        maxSize = 0.25f;
-	}
-	
 	void Update () 
     {
-        size += Time.deltaTime;
+        size += Time.deltaTime * speed;
         gameObject.transform.localScale = new Vector3(size, size, size);
         if (size > maxSize) 
         {

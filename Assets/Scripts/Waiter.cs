@@ -7,10 +7,6 @@ public class Waiter : MonoBehaviour
 {
     int neededBurgers, neededFries, neededDrinks;
     int amountOfBurgers, amountOfFries, amountOfDrinks;
-    float timeForBonus;
-    float maxTimeOfBonus;
-    float ratioOfTime;
-    float costOfMeal;
     bool orderComplete;
     List<GameObject> onPlatter = new List<GameObject>();
     GameObject head, thinkBubble;
@@ -23,14 +19,17 @@ public class Waiter : MonoBehaviour
     float damageTime;
     Vector3[] availableSpritePositions;
     bool playAttack = true;
+    float bubbleMinScale = 0.25f;
+    float startingZ;
+    float endingZ = -1;
 
     void Start()
     {
         originalSpeed = speed;
         availableSpritePositions = new Vector3[3];
-        availableSpritePositions[0] = new Vector3(0, -0.25f, 0.5f);
-        availableSpritePositions[1] = new Vector3(-0.5f, 1, 0.4f);
-        availableSpritePositions[2] = new Vector3(0.5f, 1, 0.3f);
+        availableSpritePositions[0] = new Vector3(0, 2.25f, 0.5f);
+        availableSpritePositions[1] = new Vector3(-0.5f, 4, 0.4f);
+        availableSpritePositions[2] = new Vector3(0.5f, 4, 0.3f);
         thinkBubble = transform.GetChild(0).gameObject;
         thinkBubble.AddComponent<IncreaseSize>();
         for (int i = 3; i < transform.childCount; i++)
@@ -44,14 +43,14 @@ public class Waiter : MonoBehaviour
         GetComponent<Animator>().Play("Walking");
         GetComponent<Animator>().SetBool("Walking", true);
         GetComponent<Animator>().SetFloat("Speed", speed / 2);
-        WakeUp();
+		startingZ = head.transform.position.z;
+		WakeUp();
         SetOrder();
     }
 
     void Update()
     {
-        thinkBubble.transform.position = new Vector3(head.transform.position.x, head.transform.position.y + 1.25f, head.transform.position.z);
-        if (!orderComplete && head.transform.position.z > -1)
+        if (!orderComplete && head.transform.position.z > endingZ)
         {
             Walk();
         }
@@ -72,7 +71,7 @@ public class Waiter : MonoBehaviour
                 Camera.main.GetComponent<WaiterManager>().RemoveWaiter(gameObject);
             }
         }
-        else if (!orderComplete && head.transform.position.z < -1)
+        else if (!orderComplete && head.transform.position.z < endingZ)
         {
            GetComponent<Animator>().SetFloat("Speed", 0);
             damageTime += Time.deltaTime;
@@ -103,11 +102,20 @@ public class Waiter : MonoBehaviour
                 }
             }
         }
-    }
+        thinkBubble.transform.localPosition = new Vector3(
+            thinkBubble.transform.localScale.x,
+            head.transform.localPosition.y + thinkBubble.transform.localScale.x + 0.5f, 
+            head.transform.localPosition.z
+        );
+	}
 
     void Walk()
     {
-        if (Mathf.Round(head.transform.position.z) < -1.25f)
+		if ((head.transform.position.z - endingZ) / (startingZ - endingZ) > bubbleMinScale)
+		{
+			thinkBubble.transform.localScale = Vector3.one * ((head.transform.position.z - endingZ) / (startingZ - endingZ));
+		}
+        if (Mathf.Round(head.transform.position.z) < endingZ + 0.25f)
         {
             GetComponent<Animator>().SetBool("Attacking", true);
             GetComponent<Animator>().SetBool("Walking", false);
@@ -128,7 +136,6 @@ public class Waiter : MonoBehaviour
         int maxAmountOfProduct = Mathf.CeilToInt(Camera.main.GetComponent<Gameplay>().GetCompletedOrdersCount() / 5) + 1;
         int amountOfProduct;
         orderComplete = false;
-        costOfMeal = 0;
         amountOfProduct = Random.Range(1, maxAmountOfProduct);
         if (amountOfProduct > 5)
         {
@@ -153,8 +160,6 @@ public class Waiter : MonoBehaviour
             }
         }
         SetUpSprites();
-        timeForBonus = 5 + (neededBurgers * 5) + (neededFries * 5) + (neededDrinks * 5);
-        maxTimeOfBonus = timeForBonus;
     }
 
     public void AddToPlatter(GameObject obj)
@@ -205,7 +210,6 @@ public class Waiter : MonoBehaviour
         obj.GetComponent<RemoveObjects>().DropProduct();
         Destroy(obj.GetComponent<Rigidbody>());
         Destroy(obj.GetComponent<RemoveObjects>());
-        costOfMeal += Camera.main.GetComponent<Gameplay>().IncreaseNumberOfSentProduct(obj);
         obj.tag = "OnPlatter";
         onPlatter.Add(obj);
         CheckOrder();
@@ -218,22 +222,6 @@ public class Waiter : MonoBehaviour
             Camera.main.GetComponent<Gameplay>().IncreaseCompletedOrders();
             orderComplete = true;
             Died();
-            //CheckTip();
-        }
-    }
-
-    void CheckTip()
-    {
-        ratioOfTime = timeForBonus / maxTimeOfBonus;
-        if (ratioOfTime > 0)
-        {
-            float tipAmount = ratioOfTime * costOfMeal * 0.5f;
-            tipAmount = Mathf.Round(tipAmount * 100f) / 100f;
-            Camera.main.GetComponent<Gameplay>().AddTip(head, tipAmount);
-        }
-        if (ratioOfTime > 0.5f)
-        {
-            Camera.main.GetComponent<Gameplay>().AddLife(1);
         }
     }
 

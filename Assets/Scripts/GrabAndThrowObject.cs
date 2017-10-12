@@ -483,7 +483,7 @@ public class GrabAndThrowObject : MonoBehaviour
             grillWall.GetComponent<Collider>().enabled = false;
             if (positions.Count > 1)
             {
-                float xVelocity = ((positions[positions.Count - 1].x - positions[0].x) * 5);
+                float xVelocity = (positions[positions.Count - 1].x - positions[0].x) * 5;
                 float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 5;
                 float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 5;
                 target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity);
@@ -515,7 +515,7 @@ public class GrabAndThrowObject : MonoBehaviour
             fryerWall.GetComponent<Collider>().enabled = false;
             if (positions.Count > 1)
             {
-                float xVelocity = ((positions[positions.Count - 1].x - positions[0].x) * 5);
+                float xVelocity = (positions[positions.Count - 1].x - positions[0].x) * 5;
                 float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 5;
                 float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 5;
                 target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity);
@@ -548,7 +548,7 @@ public class GrabAndThrowObject : MonoBehaviour
             sodaWall.GetComponent<Collider>().enabled = false;
             if (positions.Count > 1)
             {
-                float xVelocity = ((positions[positions.Count - 1].x - positions[0].x) * 5);
+                float xVelocity = (positions[positions.Count - 1].x - positions[0].x) * 5;
                 float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 5;
                 float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 5;
                 target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity);
