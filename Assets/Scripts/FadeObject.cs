@@ -9,6 +9,7 @@ public class FadeObject : MonoBehaviour
     float r, g, b;
 
     void Start () {
+        gameObject.layer = 2;
         Camera.main.GetComponent<FoodManager>().ChangeToTransparentMaterial(gameObject);
         r = GetComponent<Renderer>().material.color.r;
         g = GetComponent<Renderer>().material.color.g;

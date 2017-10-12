@@ -136,14 +136,17 @@ public class CookMeat : MonoBehaviour
         if (topBun.GetComponent<FadeObject>() == null)
         {
             topBun.AddComponent<FadeObject>();
+            topBun.tag = "Fallen";
         }
         if (bottomBun.GetComponent<FadeObject>() == null)
         {
             bottomBun.AddComponent<FadeObject>();
+            bottomBun.tag = "Fallen";
         }
         if (gameObject.GetComponent<FadeObject>() == null)
         {
             gameObject.AddComponent<FadeObject>();
+            gameObject.tag = "Fallen";
         }
         Destroy(GetComponent<CookMeat>());
     }

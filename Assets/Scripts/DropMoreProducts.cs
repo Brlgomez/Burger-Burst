@@ -7,7 +7,7 @@ public class DropMoreProducts : MonoBehaviour
     GameObject madeFries, burger, madeDrink;
     GameObject meat, topBun, bottomBun, fries, basket, cup, lid;
     GameObject foodTruck;
-    GameObject counterWall, grillWall, sodaWall;
+    GameObject counterWall, grillWall, sodaWall, fryerWall;
     GameObject drink;
 
     void Start()
@@ -22,6 +22,7 @@ public class DropMoreProducts : MonoBehaviour
         counterWall = GameObject.Find("Counter Wall");
         grillWall = GameObject.Find("Grill Wall");
         sodaWall = GameObject.Find("Soda Wall");
+        fryerWall = GameObject.Find("Fryer Wall");
         fries = GameObject.Find("Fries_No_Basket");
         basket = GameObject.Find("Basket");
         drink = GameObject.Find("Drink");
@@ -159,7 +160,7 @@ public class DropMoreProducts : MonoBehaviour
         newDrink.transform.localScale = oldProduct.transform.localScale;
 		newDrink.GetComponent<Rigidbody>().isKinematic = false;
 		newDrink.GetComponent<Rigidbody>().useGravity = true;
-        newDrink.tag = "Soda";
+        newDrink.tag = "Fallen";
         newDrink.AddComponent<FadeObject>();
         Destroy(oldProduct);
     }
@@ -174,5 +175,6 @@ public class DropMoreProducts : MonoBehaviour
 		Physics.IgnoreCollision(grillWall.GetComponent<Collider>(), newProduct.GetComponent<Collider>());
         Physics.IgnoreCollision(sodaWall.GetComponent<Collider>(), newProduct.GetComponent<Collider>());
         Physics.IgnoreCollision(counterWall.GetComponent<Collider>(), newProduct.GetComponent<Collider>());
+		Physics.IgnoreCollision(fryerWall.GetComponent<Collider>(), newProduct.GetComponent<Collider>());
 	}
 }

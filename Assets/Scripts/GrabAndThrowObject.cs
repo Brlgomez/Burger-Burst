@@ -299,7 +299,8 @@ public class GrabAndThrowObject : MonoBehaviour
         if (target.tag == "Ingredient")
         {
             target.GetComponent<Collider>().enabled = false;
-            target.GetComponent<Rigidbody>().isKinematic = false;
+			target.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+			target.GetComponent<Rigidbody>().isKinematic = false;
             target.GetComponent<Rigidbody>().useGravity = false;
             counterWall.GetComponent<Collider>().enabled = true;
         }
@@ -311,8 +312,8 @@ public class GrabAndThrowObject : MonoBehaviour
         {
             target.transform.rotation = new Quaternion(0, 0, 0, 0);
             target.GetComponent<Collider>().enabled = false;
-            target.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-            target.GetComponent<Rigidbody>().isKinematic = false;
+			target.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+			target.GetComponent<Rigidbody>().isKinematic = false;
             target.GetComponent<Rigidbody>().useGravity = false;
             grillWall.GetComponent<Collider>().enabled = true;
             if (target.GetComponent<CookMeat>())
@@ -326,8 +327,8 @@ public class GrabAndThrowObject : MonoBehaviour
     {
         if (target.tag == "Fries" || target.tag == "Basket")
         {
-            target.GetComponent<Collider>().enabled = false;
-            target.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+			target.GetComponent<Collider>().enabled = false;
+			target.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
             target.GetComponent<Rigidbody>().isKinematic = false;
             target.GetComponent<Rigidbody>().useGravity = false;
             fryerWall.GetComponent<Collider>().enabled = true;
@@ -338,8 +339,8 @@ public class GrabAndThrowObject : MonoBehaviour
     {
         if (target.tag == "Soda" || target.tag == "Lid")
         {
-            target.transform.rotation = new Quaternion(0, 0.1f, 0, 0);
-            target.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+            target.transform.rotation = new Quaternion(0, 0, 0, 0);
+            target.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
             target.GetComponent<Rigidbody>().isKinematic = false;
             target.GetComponent<Rigidbody>().useGravity = false;
             sodaWall.GetComponent<Collider>().enabled = true;
@@ -406,7 +407,7 @@ public class GrabAndThrowObject : MonoBehaviour
     {
         if (target.tag == "Ingredient")
         {
-            target.GetComponent<Rigidbody>().freezeRotation = false;
+            target.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
             target.GetComponent<Rigidbody>().useGravity = true;
             target.GetComponent<Collider>().enabled = true;
             counterWall.GetComponent<Collider>().enabled = false;
@@ -425,7 +426,7 @@ public class GrabAndThrowObject : MonoBehaviour
     {
         if (target.tag == "GrillIngredientClone")
         {
-            target.GetComponent<Rigidbody>().freezeRotation = false;
+            target.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
             target.GetComponent<Rigidbody>().useGravity = true;
             target.GetComponent<Collider>().enabled = true;
             grillWall.GetComponent<Collider>().enabled = false;
@@ -457,7 +458,7 @@ public class GrabAndThrowObject : MonoBehaviour
         }
         if (target.tag == "Fries" || target.tag == "Basket")
         {
-            target.GetComponent<Rigidbody>().freezeRotation = false;
+            target.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
             target.GetComponent<Rigidbody>().useGravity = true;
             target.GetComponent<Collider>().enabled = true;
             fryerWall.GetComponent<Collider>().enabled = false;

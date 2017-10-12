@@ -88,7 +88,7 @@ public class FryFries : MonoBehaviour
 
 	void OnCollisionEnter(Collision collision)
 	{
-        if (collision.gameObject.tag == "Basket")
+        if (collision.gameObject.tag == "Basket" && !inFryer)
 		{
             basket = collision.gameObject;
             if (basket.transform.parent != null && gameObject.transform.parent != null)
@@ -124,8 +124,8 @@ public class FryFries : MonoBehaviour
         {
             Camera.main.GetComponent<DropMoreProducts>().DropFries();
             Camera.main.GetComponent<DropMoreProducts>().DropBasket();
-            gameObject.AddComponent<FadeObject>();
-            basket.AddComponent<FadeObject>();
-        }
+			gameObject.AddComponent<FadeObject>();
+			basket.AddComponent<FadeObject>();
+		}
     }
 }
