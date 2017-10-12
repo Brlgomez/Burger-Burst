@@ -119,12 +119,12 @@ public class Gameplay : MonoBehaviour
             burgers += amount;
             Camera.main.GetComponent<DropMoreProducts>().DropBurger();
         }
-        else 
+        else
         {
             burgers += amount;
         }
-		Camera.main.GetComponent<ScreenTextManagment>().ChangeBurgerCount();
-	}
+        Camera.main.GetComponent<ScreenTextManagment>().ChangeBurgerCount();
+    }
 
     public void AddFries(int amount)
     {
@@ -133,26 +133,26 @@ public class Gameplay : MonoBehaviour
             fries += amount;
             Camera.main.GetComponent<DropMoreProducts>().DropMadeFries();
         }
-        else 
+        else
         {
-			fries += amount;
+            fries += amount;
         }
         Camera.main.GetComponent<ScreenTextManagment>().ChangeFriesCount();
     }
 
-	public void AddDrinks(int amount)
-	{
+    public void AddDrinks(int amount)
+    {
         if (drinks <= 0)
         {
             drinks += amount;
             Camera.main.GetComponent<DropMoreProducts>().DropDrink();
         }
-        else 
+        else
         {
-			drinks += amount;
-		}
-		Camera.main.GetComponent<ScreenTextManagment>().ChangeDrinkCount();
-	}
+            drinks += amount;
+        }
+        Camera.main.GetComponent<ScreenTextManagment>().ChangeDrinkCount();
+    }
 
     public float GetProfit()
     {

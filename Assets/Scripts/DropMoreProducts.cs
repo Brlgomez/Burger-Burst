@@ -57,7 +57,7 @@ public class DropMoreProducts : MonoBehaviour
             newProduct.transform.position = Camera.main.GetComponent<PositionManager>().MadeFriesPosition().position;
             newProduct.tag = "Ingredient";
         }
-	}
+    }
 
     public void DropBurger()
     {
@@ -68,7 +68,7 @@ public class DropMoreProducts : MonoBehaviour
             newProduct.transform.position = Camera.main.GetComponent<PositionManager>().BurgerPosition().position;
             newProduct.tag = "Ingredient";
         }
-	}
+    }
 
     public void DropDrink()
     {
@@ -79,7 +79,7 @@ public class DropMoreProducts : MonoBehaviour
             newProduct.transform.position = Camera.main.GetComponent<PositionManager>().DrinkPosition().position;
             newProduct.tag = "Ingredient";
         }
-	}
+    }
 
     public void DropMeat()
     {
@@ -112,12 +112,13 @@ public class DropMoreProducts : MonoBehaviour
             GameObject newProduct = Instantiate(fries);
             AddNewProduct(newProduct);
             newProduct.transform.position = Camera.main.GetComponent<PositionManager>().FriesPosition().position;
+            newProduct.GetComponent<Rigidbody>().freezeRotation = true;
             newProduct.tag = "Fries";
         }
     }
 
-	public void DropBasket()
-	{
+    public void DropBasket()
+    {
         if (GameObject.FindGameObjectsWithTag("Basket").Length <= 2)
         {
             GameObject newProduct = Instantiate(basket);
@@ -125,7 +126,7 @@ public class DropMoreProducts : MonoBehaviour
             newProduct.transform.position = Camera.main.GetComponent<PositionManager>().BasketPosition().position;
             newProduct.tag = "Basket";
         }
-	}
+    }
 
     public void DropCup()
     {
@@ -134,6 +135,7 @@ public class DropMoreProducts : MonoBehaviour
             GameObject newProduct = Instantiate(cup);
             AddNewProduct(newProduct);
             newProduct.transform.position = Camera.main.GetComponent<PositionManager>().CupPosition().position;
+            newProduct.GetComponent<Rigidbody>().freezeRotation = true;
             newProduct.tag = "Soda";
         }
     }
@@ -146,7 +148,6 @@ public class DropMoreProducts : MonoBehaviour
             AddNewProduct(newProduct);
             newProduct.transform.position = Camera.main.GetComponent<PositionManager>().LidPosition().position + (Random.insideUnitSphere * 0.15f);
             newProduct.transform.rotation = new Quaternion(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
-            newProduct.GetComponent<Rigidbody>().freezeRotation = false;
             newProduct.tag = "Lid";
         }
     }
@@ -158,23 +159,23 @@ public class DropMoreProducts : MonoBehaviour
         newDrink.transform.localPosition = oldProduct.transform.localPosition;
         newDrink.transform.localRotation = oldProduct.transform.localRotation;
         newDrink.transform.localScale = oldProduct.transform.localScale;
-		newDrink.GetComponent<Rigidbody>().isKinematic = false;
-		newDrink.GetComponent<Rigidbody>().useGravity = true;
+        newDrink.GetComponent<Rigidbody>().isKinematic = false;
+        newDrink.GetComponent<Rigidbody>().useGravity = true;
         newDrink.tag = "Fallen";
         newDrink.AddComponent<FadeObject>();
         Destroy(oldProduct);
     }
 
-	void AddNewProduct(GameObject newProduct)
-	{
-		newProduct.transform.parent = foodTruck.transform;
-		newProduct.GetComponent<Rigidbody>().isKinematic = false;
-		newProduct.GetComponent<Rigidbody>().useGravity = true;
-		newProduct.GetComponent<Collider>().enabled = true;
-		newProduct.GetComponent<Rigidbody>().freezeRotation = true;
-		Physics.IgnoreCollision(grillWall.GetComponent<Collider>(), newProduct.GetComponent<Collider>());
+    void AddNewProduct(GameObject newProduct)
+    {
+        newProduct.transform.parent = foodTruck.transform;
+        newProduct.GetComponent<Rigidbody>().isKinematic = false;
+        newProduct.GetComponent<Rigidbody>().useGravity = true;
+        newProduct.GetComponent<Collider>().enabled = true;
+        newProduct.AddComponent<RemoveObjects>();
+        Physics.IgnoreCollision(grillWall.GetComponent<Collider>(), newProduct.GetComponent<Collider>());
         Physics.IgnoreCollision(sodaWall.GetComponent<Collider>(), newProduct.GetComponent<Collider>());
         Physics.IgnoreCollision(counterWall.GetComponent<Collider>(), newProduct.GetComponent<Collider>());
-		Physics.IgnoreCollision(fryerWall.GetComponent<Collider>(), newProduct.GetComponent<Collider>());
-	}
+        Physics.IgnoreCollision(fryerWall.GetComponent<Collider>(), newProduct.GetComponent<Collider>());
+    }
 }

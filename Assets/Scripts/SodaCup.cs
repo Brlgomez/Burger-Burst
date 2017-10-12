@@ -20,8 +20,8 @@ public class SodaCup : MonoBehaviour
     {
         currentY = transform.GetChild(0).transform.localPosition.y;
         currentScale = transform.GetChild(0).transform.localScale.x;
-		initialMass = gameObject.GetComponent<Rigidbody>().mass;
-		incY = (top - currentY) * (1.0f / maxTimeUnderFountain);
+        initialMass = gameObject.GetComponent<Rigidbody>().mass;
+        incY = (top - currentY) * (1.0f / maxTimeUnderFountain);
         incS = (maxScale - currentScale) * (1.0f / maxTimeUnderFountain);
         incMass = (maxMass - initialMass) * (1.0f / maxMass);
     }
@@ -45,13 +45,13 @@ public class SodaCup : MonoBehaviour
     {
         if (collision.gameObject.tag == "Lid")
         {
-			lid = collision.gameObject;
-			if (lid.transform.parent != null && gameObject.transform.parent != null)
+            lid = collision.gameObject;
+            if (lid.transform.parent != null && gameObject.transform.parent != null)
             {
                 gameObject.transform.parent = null;
                 lid.transform.parent = null;
-				CupReady();
-				Destroy(lid);
+                CupReady();
+                Destroy(lid);
             }
         }
     }
@@ -79,7 +79,7 @@ public class SodaCup : MonoBehaviour
 
     void CupReady()
     {
-		int worth = Mathf.RoundToInt((maxTimeUnderFountain) - Mathf.Abs((timeUnderFountain) - (maxTimeUnderFountain)));
+        int worth = Mathf.RoundToInt((maxTimeUnderFountain) - Mathf.Abs((timeUnderFountain) - (maxTimeUnderFountain)));
         if (worth == 0)
         {
             Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Drinks", Color.gray);
@@ -92,8 +92,8 @@ public class SodaCup : MonoBehaviour
         {
             Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Drinks", Color.green);
         }
-		Camera.main.GetComponent<DropMoreProducts>().DropLid();
-		Camera.main.GetComponent<DropMoreProducts>().DropCup();
+        Camera.main.GetComponent<DropMoreProducts>().DropLid();
+        Camera.main.GetComponent<DropMoreProducts>().DropCup();
         Camera.main.GetComponent<Gameplay>().AddDrinks(worth);
         Camera.main.GetComponent<DropMoreProducts>().TrasformIntoDrink(gameObject);
         Destroy(gameObject.GetComponent<SodaCup>());

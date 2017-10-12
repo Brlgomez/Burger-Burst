@@ -42,7 +42,7 @@ public class CookMeat : MonoBehaviour
                 if (r > cookedColor.r)
                 {
                     r -= Time.deltaTime * incR;
-				}
+                }
                 if (g > cookedColor.g)
                 {
                     g -= Time.deltaTime * incG;

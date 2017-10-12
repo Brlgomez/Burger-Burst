@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SodaMachine : MonoBehaviour {
+public class SodaMachine : MonoBehaviour
+{
 
     int maxOnTime = 5;
     float currentTimeOn;
     bool turnOn = true;
     float sodaMaxScale = 2.22f;
     float sodaCurrentScale;
-	
-	void Update () {
+
+    void Update()
+    {
         currentTimeOn += Time.deltaTime;
         if (currentTimeOn > maxOnTime)
         {
@@ -31,16 +33,16 @@ public class SodaMachine : MonoBehaviour {
                 Destroy(gameObject.GetComponent<SodaMachine>());
             }
         }
-	}
+    }
 
-    public void ButtonPressed ()
+    public void ButtonPressed()
     {
         turnOn = false;
     }
 
-    public void Restart ()
+    public void Restart()
     {
-		transform.localScale = Vector3.zero;
-		Destroy(gameObject.GetComponent<SodaMachine>());
+        transform.localScale = Vector3.zero;
+        Destroy(gameObject.GetComponent<SodaMachine>());
     }
 }

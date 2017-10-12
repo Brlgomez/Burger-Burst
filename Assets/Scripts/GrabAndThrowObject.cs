@@ -55,13 +55,13 @@ public class GrabAndThrowObject : MonoBehaviour
     void MouseDown()
     {
         positions.Clear();
-		counterWall.GetComponent<Collider>().enabled = false;
-		grillWall.GetComponent<Collider>().enabled = false;
-		fryerWall.GetComponent<Collider>().enabled = false;
-		sodaWall.GetComponent<Collider>().enabled = false;
+        counterWall.GetComponent<Collider>().enabled = false;
+        grillWall.GetComponent<Collider>().enabled = false;
+        fryerWall.GetComponent<Collider>().enabled = false;
+        sodaWall.GetComponent<Collider>().enabled = false;
         RaycastHit hitInfo;
         target = ReturnClickedObject(out hitInfo);
-		if (target != null && !paused)
+        if (target != null && !paused)
         {
             switch (currentArea)
             {
@@ -97,7 +97,7 @@ public class GrabAndThrowObject : MonoBehaviour
             {
                 TurnOffPhoneColliders();
                 TurnOffSodaButtonColliders();
-				if (currentArea == Area.counter && obj.tag == "Pause")
+                if (currentArea == Area.counter && obj.tag == "Pause")
                 {
                     return obj;
                 }
@@ -147,8 +147,8 @@ public class GrabAndThrowObject : MonoBehaviour
     void MouseUp()
     {
         TurnOnPhoneColliders();
-		TurnOnSodaButtonColliders();
-		if (target != null)
+        TurnOnSodaButtonColliders();
+        if (target != null)
         {
             if (target.tag == "UI")
             {
@@ -278,9 +278,27 @@ public class GrabAndThrowObject : MonoBehaviour
 
     GameObject GetFryerObject(GameObject obj)
     {
-        if (obj.name == "Right Fryer Button" || obj.name == "Left Fryer Button" || obj.tag == "Fries" || obj.tag == "Basket")
+        if (obj.name == "Right Fryer Button" || obj.name == "Left Fryer Button" || obj.tag == "Basket")
         {
             return obj;
+        }
+        if (obj.tag == "Fries")
+        {
+            if (obj.GetComponent<FryFries>() != null)
+            {
+                if (!obj.GetComponent<FryFries>().InFryer())
+                {
+                    return obj;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                return obj;
+            }
         }
         return null;
     }
@@ -299,8 +317,8 @@ public class GrabAndThrowObject : MonoBehaviour
         if (target.tag == "Ingredient")
         {
             target.GetComponent<Collider>().enabled = false;
-			target.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
-			target.GetComponent<Rigidbody>().isKinematic = false;
+            target.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+            target.GetComponent<Rigidbody>().isKinematic = false;
             target.GetComponent<Rigidbody>().useGravity = false;
             counterWall.GetComponent<Collider>().enabled = true;
         }
@@ -312,8 +330,8 @@ public class GrabAndThrowObject : MonoBehaviour
         {
             target.transform.rotation = new Quaternion(0, 0, 0, 0);
             target.GetComponent<Collider>().enabled = false;
-			target.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
-			target.GetComponent<Rigidbody>().isKinematic = false;
+            target.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+            target.GetComponent<Rigidbody>().isKinematic = false;
             target.GetComponent<Rigidbody>().useGravity = false;
             grillWall.GetComponent<Collider>().enabled = true;
             if (target.GetComponent<CookMeat>())
@@ -327,8 +345,8 @@ public class GrabAndThrowObject : MonoBehaviour
     {
         if (target.tag == "Fries" || target.tag == "Basket")
         {
-			target.GetComponent<Collider>().enabled = false;
-			target.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+            target.GetComponent<Collider>().enabled = false;
+            target.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
             target.GetComponent<Rigidbody>().isKinematic = false;
             target.GetComponent<Rigidbody>().useGravity = false;
             fryerWall.GetComponent<Collider>().enabled = true;
@@ -348,10 +366,10 @@ public class GrabAndThrowObject : MonoBehaviour
             {
                 target.layer = 2;
             }
-            else 
+            else
             {
-				target.GetComponent<Collider>().enabled = false;
-			}
+                target.GetComponent<Collider>().enabled = false;
+            }
         }
     }
 
@@ -506,14 +524,14 @@ public class GrabAndThrowObject : MonoBehaviour
             {
                 target.AddComponent<SodaCup>();
             }
-			if (target.tag == "Soda")
-			{
-				target.layer = 0;
-			}
-            else 
+            if (target.tag == "Soda")
             {
-				target.GetComponent<Collider>().enabled = true;
-			}
+                target.layer = 0;
+            }
+            else
+            {
+                target.GetComponent<Collider>().enabled = true;
+            }
         }
     }
 
@@ -593,12 +611,12 @@ public class GrabAndThrowObject : MonoBehaviour
         sodaFountain3.transform.parent.GetComponent<Collider>().enabled = false;
     }
 
-	void TurnOnSodaButtonColliders()
-	{
-		sodaFountain1.transform.parent.GetComponent<Collider>().enabled = true;
-		sodaFountain2.transform.parent.GetComponent<Collider>().enabled = true;
-		sodaFountain3.transform.parent.GetComponent<Collider>().enabled = true;
-	}
+    void TurnOnSodaButtonColliders()
+    {
+        sodaFountain1.transform.parent.GetComponent<Collider>().enabled = true;
+        sodaFountain2.transform.parent.GetComponent<Collider>().enabled = true;
+        sodaFountain3.transform.parent.GetComponent<Collider>().enabled = true;
+    }
 
     void AddMorePeople()
     {
