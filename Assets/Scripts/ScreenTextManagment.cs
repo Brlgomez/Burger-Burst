@@ -11,7 +11,8 @@ ScreenTextManagment : MonoBehaviour
     int initialDrinks;
     GameObject line1, line2, line3, line4, line5;
     Color originalScreenColor;
-    Color red;
+    Color red = Color.red;
+    bool pressDown = false;
 
     void Start()
     {
@@ -20,7 +21,6 @@ ScreenTextManagment : MonoBehaviour
         initialFries = gameObject.GetComponent<Gameplay>().GetFriesCount();
         initialDrinks = gameObject.GetComponent<Gameplay>().GetDrinkCount();
         originalScreenColor = new Color(0, 0.5f, 1);
-        red = Color.red;
         line1 = GameObject.Find("Line1");
         line2 = GameObject.Find("Line2");
         line3 = GameObject.Find("Line3");
@@ -183,17 +183,25 @@ ScreenTextManagment : MonoBehaviour
 
 	public void PressTextDown(GameObject target)
 	{
-        float r = target.GetComponent<TextMesh>().color.r;
-        float g = target.GetComponent<TextMesh>().color.g;
-        float b = target.GetComponent<TextMesh>().color.b;
-        target.GetComponent<TextMesh>().color = new Color(r / 2, g / 2, b / 2);
+        if (!pressDown)
+        {
+            float r = target.GetComponent<TextMesh>().color.r;
+            float g = target.GetComponent<TextMesh>().color.g;
+            float b = target.GetComponent<TextMesh>().color.b;
+            target.GetComponent<TextMesh>().color = new Color(r / 2, g / 2, b / 2);
+            pressDown = true;
+        }
 	}
 
 	public void PressTextUp(GameObject target)
 	{
-		float r = target.GetComponent<TextMesh>().color.r;
-		float g = target.GetComponent<TextMesh>().color.g;
-		float b = target.GetComponent<TextMesh>().color.b;
-		target.GetComponent<TextMesh>().color = new Color(r * 2, g * 2, b * 2);
+        if (pressDown)
+        {
+            float r = target.GetComponent<TextMesh>().color.r;
+            float g = target.GetComponent<TextMesh>().color.g;
+            float b = target.GetComponent<TextMesh>().color.b;
+            target.GetComponent<TextMesh>().color = new Color(r * 2, g * 2, b * 2);
+            pressDown = false;
+        }
 	}
 }

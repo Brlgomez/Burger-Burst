@@ -214,7 +214,7 @@ public class GrabAndThrowObject : MonoBehaviour
                     }
                     gameObject.AddComponent<CameraMovement>().MoveToGrill();
                 }
-				break;
+                break;
             case "Third Button":
                 if (currentArea != Area.fryer)
                 {
@@ -239,8 +239,8 @@ public class GrabAndThrowObject : MonoBehaviour
                         Destroy(gameObject.GetComponent<CameraMovement>());
                     }
                 }
-				gameObject.AddComponent<CameraMovement>().MoveToSodaMachine();
-				break;
+                gameObject.AddComponent<CameraMovement>().MoveToSodaMachine();
+                break;
             case "Fifth Button":
                 if (currentArea != Area.counter)
                 {
@@ -253,7 +253,7 @@ public class GrabAndThrowObject : MonoBehaviour
                     }
                     gameObject.AddComponent<CameraMovement>().MoveToGameplay("Unpause");
                 }
-				break;
+                break;
         }
     }
 
