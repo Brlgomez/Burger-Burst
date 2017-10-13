@@ -17,22 +17,22 @@ public class RemoveObjects : MonoBehaviour
             }
         }
         else if ((gameObject.tag == "Fries" || gameObject.tag == "Basket") && col.gameObject.tag != "Fries" && col.gameObject.tag != "Basket")
-		{
+        {
             Vector3 friesRange = Camera.main.GetComponent<PositionManager>().FriesRange().position;
             if (Vector3.Distance(gameObject.transform.position, friesRange) > 1.75f)
-			{
-				HasFallen();
-			}
-		}
+            {
+                HasFallen();
+            }
+        }
         else if ((gameObject.tag == "Soda" || gameObject.tag == "Lid") && col.gameObject.tag != "Soda" && col.gameObject.tag != "Lid")
-		{
+        {
             Vector3 drinkRange = Camera.main.GetComponent<PositionManager>().DrinkRange().position;
             if (Vector3.Distance(gameObject.transform.position, drinkRange) > 1.25f)
-			{
-				HasFallen();
-			}
-		}
-		else if (col.gameObject.tag == "Building" && gameObject.tag != "Fallen" && gameObject.tag != "OnPlatter")
+            {
+                HasFallen();
+            }
+        }
+        else if (col.gameObject.tag == "Building" && gameObject.tag != "Fallen" && gameObject.tag != "OnPlatter")
         {
             DropProduct();
             HasFallen();
@@ -43,8 +43,8 @@ public class RemoveObjects : MonoBehaviour
             Vector3 closestPointOnWaiter = col.gameObject.GetComponent<Collider>().ClosestPoint(closestPointOnItem);
             if (Vector3.Distance(closestPointOnItem, closestPointOnWaiter) < 0.15f)
             {
-				transform.parent = col.gameObject.transform;
-				col.transform.root.gameObject.GetComponent<Waiter>().AddToPlatter(gameObject);
+                transform.parent = col.gameObject.transform;
+                col.transform.root.gameObject.GetComponent<Waiter>().AddToPlatter(gameObject);
             }
         }
     }
@@ -80,7 +80,7 @@ public class RemoveObjects : MonoBehaviour
                     break;
             }
         }
-	}
+    }
 
     void HasFallen()
     {
@@ -92,11 +92,11 @@ public class RemoveObjects : MonoBehaviour
                 gameObject.transform.GetChild(0).gameObject.AddComponent<FadeObject>();
             }
         }
-		gameObject.tag = "Fallen";
-		if (gameObject.GetComponent<FadeObject>() == null)
-		{
-			gameObject.AddComponent<FadeObject>();
-			Destroy(GetComponent<RemoveObjects>());
-		}
+        gameObject.tag = "Fallen";
+        if (gameObject.GetComponent<FadeObject>() == null)
+        {
+            gameObject.AddComponent<FadeObject>();
+            Destroy(GetComponent<RemoveObjects>());
+        }
     }
 }

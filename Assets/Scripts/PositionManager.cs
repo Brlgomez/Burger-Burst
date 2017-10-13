@@ -40,118 +40,49 @@ public class PositionManager : MonoBehaviour
         drinkRange = GameObject.Find("Drink Range");
     }
 
-    public Transform MenuPosition()
-    {
-        return menu.transform;
-    }
+    public Transform MenuPosition() { return menu.transform; }
 
-    public Transform GameplayPosition()
-    {
-        return gameplay.transform;
-    }
+    public Transform GameplayPosition() { return gameplay.transform; }
 
-    public Transform PausePosition()
-    {
-        return pause.transform;
-    }
+    public Transform PausePosition() { return pause.transform; }
 
-    public Transform GrillPosition()
-    {
-        return grill.transform;
-    }
+    public Transform GrillPosition() { return grill.transform; }
 
-    public Transform FryerPosition()
-    {
-        return fryer.transform;
-    }
+    public Transform FryerPosition() { return fryer.transform; }
 
-    public Transform SodaPosition()
-    {
-        return soda.transform;
-    }
+    public Transform SodaPosition() { return soda.transform; }
 
-    public Transform GameOverPosition()
-    {
-        return gameOver.transform;
-    }
+    public Transform GameOverPosition() { return gameOver.transform; }
 
-    public Transform MadeFriesPosition()
-    {
-        return madeFriesPos.transform;
-    }
+    public Transform MadeFriesPosition() { return madeFriesPos.transform; }
 
-    public Transform BurgerPosition()
-    {
-        return burgerPos.transform;
-    }
+    public Transform BurgerPosition() { return burgerPos.transform; }
 
-    public Transform DrinkPosition()
-    {
-        return drinkPos.transform;
-    }
+    public Transform DrinkPosition() { return drinkPos.transform; }
 
-    public Transform DeviceFrontPosition()
-    {
-        return deviceFront.transform;
-    }
+    public Transform DeviceFrontPosition() { return deviceFront.transform; }
 
-    public Transform DeviceBackPosition()
-    {
-        return deviceBack.transform;
-    }
+    public Transform DeviceBackPosition() { return deviceBack.transform; }
 
-    public Transform MeatSpawnPosition()
-    {
-        return meatPos.transform;
-    }
+    public Transform MeatSpawnPosition() { return meatPos.transform; }
 
-    public Transform TopBunSpawnPosition()
-    {
-        return topBunPos.transform;
-    }
+    public Transform TopBunSpawnPosition() { return topBunPos.transform; }
 
-    public Transform BottomBunSpawnPosition()
-    {
-        return bottomBunPos.transform;
-    }
+    public Transform BottomBunSpawnPosition() { return bottomBunPos.transform; }
 
-    public Transform FriesPosition()
-    {
-        return friesPos.transform;
-    }
+    public Transform FriesPosition() { return friesPos.transform; }
 
-    public Transform BasketPosition()
-    {
-        return basketPos.transform;
-    }
+    public Transform BasketPosition() { return basketPos.transform; }
 
-    public Transform CupPosition()
-    {
-        return cupPos.transform;
-    }
+    public Transform CupPosition() { return cupPos.transform; }
 
-    public Transform LidPosition()
-    {
-        return lidPos.transform;
-    }
+    public Transform LidPosition() { return lidPos.transform; }
 
-    public Transform CounterRange()
-    {
-        return counterRange.transform;
-    }
+    public Transform CounterRange() { return counterRange.transform; }
 
-    public Transform GrillRange()
-    {
-        return grillRange.transform;
-    }
+    public Transform GrillRange() { return grillRange.transform; }
 
-    public Transform FriesRange()
-    {
-        return friesRange.transform;
-    }
+    public Transform FriesRange() { return friesRange.transform; }
 
-    public Transform DrinkRange()
-    {
-        return drinkRange.transform;
-    }
+    public Transform DrinkRange() { return drinkRange.transform; }
 }

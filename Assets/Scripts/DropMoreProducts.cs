@@ -4,30 +4,28 @@ using UnityEngine;
 
 public class DropMoreProducts : MonoBehaviour
 {
-    GameObject madeFries, burger, madeDrink;
-    GameObject meat, topBun, bottomBun, fries, basket, cup, lid;
-    GameObject foodTruck;
     GameObject counterWall, grillWall, sodaWall, fryerWall;
-    GameObject drink;
+    GameObject fries, burger, drink;
+    GameObject meat, topBun, bottomBun, uncookedFries, friesBasket, cup, lid;
+    GameObject foodTruck;
 
     void Start()
     {
-        madeFries = GameObject.Find("Fries");
-        burger = GameObject.Find("Burger");
-        madeDrink = GameObject.Find("Drink");
-        foodTruck = GameObject.Find("Food Truck");
-        meat = GameObject.Find("Meat");
-        topBun = GameObject.Find("Top_Bun");
-        bottomBun = GameObject.Find("Bottom_Bun");
-        counterWall = GameObject.Find("Counter Wall");
-        grillWall = GameObject.Find("Grill Wall");
-        sodaWall = GameObject.Find("Soda Wall");
-        fryerWall = GameObject.Find("Fryer Wall");
-        fries = GameObject.Find("Fries_No_Basket");
-        basket = GameObject.Find("Basket");
-        drink = GameObject.Find("Drink");
-        cup = GameObject.Find("Empty_Cup");
-        lid = GameObject.Find("Lid");
+        counterWall = GetComponent<ObjectManager>().CounterWall();
+        grillWall = GetComponent<ObjectManager>().GrillWall();
+        sodaWall = GetComponent<ObjectManager>().SodaWall();
+        fryerWall = GetComponent<ObjectManager>().FryerWall();
+        fries = GetComponent<ObjectManager>().Fries();
+        burger = GetComponent<ObjectManager>().Burger();
+        drink = GetComponent<ObjectManager>().Drink();
+        meat = GetComponent<ObjectManager>().Meat();
+        topBun = GetComponent<ObjectManager>().TopBun();
+        bottomBun = GetComponent<ObjectManager>().BottomBun();
+        uncookedFries = GetComponent<ObjectManager>().UncookedFries();
+        friesBasket = GetComponent<ObjectManager>().FriesBasket();
+        cup = GetComponent<ObjectManager>().Cup();
+        lid = GetComponent<ObjectManager>().Lid();
+        foodTruck = GetComponent<ObjectManager>().FoodTruck();
     }
 
     public void DropItems()
@@ -52,7 +50,7 @@ public class DropMoreProducts : MonoBehaviour
     {
         if (Camera.main.GetComponent<Gameplay>().GetFriesCount() >= 1)
         {
-            GameObject newProduct = Instantiate(madeFries);
+            GameObject newProduct = Instantiate(fries);
             AddNewProduct(newProduct, "Ingredient", Camera.main.GetComponent<PositionManager>().MadeFriesPosition().position);
         }
     }
@@ -70,7 +68,7 @@ public class DropMoreProducts : MonoBehaviour
     {
         if (Camera.main.GetComponent<Gameplay>().GetDrinkCount() >= 1)
         {
-            GameObject newProduct = Instantiate(madeDrink);
+            GameObject newProduct = Instantiate(drink);
             AddNewProduct(newProduct, "Ingredient", Camera.main.GetComponent<PositionManager>().DrinkPosition().position);
         }
     }
@@ -97,7 +95,7 @@ public class DropMoreProducts : MonoBehaviour
     {
         if (GameObject.FindGameObjectsWithTag("Fries").Length <= 2)
         {
-            GameObject newProduct = Instantiate(fries);
+            GameObject newProduct = Instantiate(uncookedFries);
             AddNewProduct(newProduct, "Fries", Camera.main.GetComponent<PositionManager>().FriesPosition().position);
             newProduct.GetComponent<Rigidbody>().freezeRotation = true;
         }
@@ -107,7 +105,7 @@ public class DropMoreProducts : MonoBehaviour
     {
         if (GameObject.FindGameObjectsWithTag("Basket").Length <= 2)
         {
-            GameObject newProduct = Instantiate(basket);
+            GameObject newProduct = Instantiate(friesBasket);
             AddNewProduct(newProduct, "Basket", Camera.main.GetComponent<PositionManager>().BasketPosition().position);
         }
     }
@@ -127,8 +125,10 @@ public class DropMoreProducts : MonoBehaviour
         if (GameObject.FindGameObjectsWithTag("Lid").Length <= 2)
         {
             GameObject newProduct = Instantiate(lid);
-            AddNewProduct(newProduct, "Lid", Camera.main.GetComponent<PositionManager>().LidPosition().position + (Random.insideUnitSphere * 0.15f));
-            newProduct.transform.rotation = new Quaternion(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
+            Vector3 position = Camera.main.GetComponent<PositionManager>().LidPosition().position + (Random.insideUnitSphere * 0.15f);
+            Quaternion rotation = new Quaternion(Random.value, Random.value, Random.value, Random.value);
+            AddNewProduct(newProduct, "Lid", position);
+            newProduct.transform.rotation = rotation;
         }
     }
 

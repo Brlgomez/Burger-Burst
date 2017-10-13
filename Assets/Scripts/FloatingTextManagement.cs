@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class FloatingTextManagement : MonoBehaviour
 {
-
     GameObject aftermathText;
 
     void Start()
@@ -16,7 +15,11 @@ public class FloatingTextManagement : MonoBehaviour
     {
         GameObject newAftermathText = Instantiate(aftermathText);
         newAftermathText.GetComponent<Renderer>().material.color = col;
-        newAftermathText.transform.position = new Vector3(obj.transform.position.x, obj.transform.position.y + 0.1f, obj.transform.position.z);
+        newAftermathText.transform.position = new Vector3(
+            obj.transform.position.x,
+            obj.transform.position.y + 0.1f,
+            obj.transform.position.z
+        );
         newAftermathText.AddComponent<AftermathText>().GetComponent<AftermathText>().UpdateText(text);
         newAftermathText.tag = "FloatingText";
     }

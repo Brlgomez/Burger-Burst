@@ -18,8 +18,7 @@ public class Gameplay : MonoBehaviour
 
     public float IncreaseNumberOfSentProduct(GameObject obj)
     {
-        float cost = 0;
-        return cost;
+        return 0;
     }
 
     public bool IsGameOver()

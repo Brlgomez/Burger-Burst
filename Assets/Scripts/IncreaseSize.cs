@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IncreaseSize : MonoBehaviour 
+public class IncreaseSize : MonoBehaviour
 {
-    float maxSize = 0.95f;
-    float speed = 2;
-	float size;
+    static float maxSize = 0.95f;
+    static float speed = 2;
+    float size;
 
-	void Update () 
+    void Update()
     {
         size += Time.deltaTime * speed;
         gameObject.transform.localScale = new Vector3(size, size, size);
-        if (size > maxSize) 
+        if (size > maxSize)
         {
             gameObject.transform.localScale = new Vector3(maxSize, maxSize, maxSize);
             Destroy(GetComponent<IncreaseSize>());
         }
-	}
+    }
 }

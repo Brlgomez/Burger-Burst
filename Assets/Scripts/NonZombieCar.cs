@@ -2,21 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Car : MonoBehaviour
+public class NonZombieCar : MonoBehaviour
 {
     static float speed = 10;
     static int maxSpeed = 10;
     static int acceleration = 10;
     static int deceleration = 10;
-    float randomStoppingPos;
     bool slowDown;
     bool slowingDown;
-    bool droppedOff;
-
-    void Start()
-    {
-        randomStoppingPos = Random.Range(-10f, 20f);
-    }
 
     void Update()
     {
@@ -27,26 +20,16 @@ public class Car : MonoBehaviour
 
     void Logic()
     {
-        if (Mathf.Abs(randomStoppingPos - transform.position.x) < 1 && speed > 0)
-        {
-            slowingDown = true;
-
-        }
-        if (slowingDown)
+        if (slowDown && speed > 0)
         {
             speed -= Time.deltaTime * deceleration;
             if (speed < 0)
             {
                 speed = 0;
                 slowDown = false;
-                slowingDown = false;
-                if (!Camera.main.GetComponent<Gameplay>().IsGameOver())
-                {
-                    AddZombie();
-                }
             }
         }
-        else if (!slowDown && droppedOff)
+        else if (!slowDown && speed < maxSpeed)
         {
             speed += Time.deltaTime * acceleration;
             if (speed > maxSpeed)
@@ -54,12 +37,6 @@ public class Car : MonoBehaviour
                 speed = maxSpeed;
             }
         }
-    }
-
-    void AddZombie()
-    {
-        Camera.main.GetComponent<WaiterManager>().AddNewWaiter(new Vector3(transform.position.x, 0, transform.position.z + 4));
-        droppedOff = true;
     }
 
     void RotateTires()
@@ -76,6 +53,13 @@ public class Car : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
+        if (col.name == "SlowDown")
+        {
+            if (speed > 0)
+            {
+                slowDown = true;
+            }
+        }
         if (col.name == "End")
         {
             Destroy(gameObject);

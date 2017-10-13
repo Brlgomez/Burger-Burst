@@ -5,27 +5,24 @@ using UnityEngine;
 public class
 ScreenTextManagment : MonoBehaviour
 {
-    int initialLife;
-    int initialBurgers;
-    int initialFries;
-    int initialDrinks;
+    int initialLife, initialBurgers, initialFries, initialDrinks;
     GameObject line1, line2, line3, line4, line5;
     Color originalScreenColor;
     Color red = Color.red;
-    bool pressDown = false;
+    bool pressDown;
 
     void Start()
     {
-        initialLife = gameObject.GetComponent<Gameplay>().GetLife();
-        initialBurgers = gameObject.GetComponent<Gameplay>().GetBurgerCount();
-        initialFries = gameObject.GetComponent<Gameplay>().GetFriesCount();
-        initialDrinks = gameObject.GetComponent<Gameplay>().GetDrinkCount();
+        initialLife = GetComponent<Gameplay>().GetLife();
+        initialBurgers = GetComponent<Gameplay>().GetBurgerCount();
+        initialFries = GetComponent<Gameplay>().GetFriesCount();
+        initialDrinks = GetComponent<Gameplay>().GetDrinkCount();
         originalScreenColor = new Color(0, 0.5f, 1);
-        line1 = GameObject.Find("Line1");
-        line2 = GameObject.Find("Line2");
-        line3 = GameObject.Find("Line3");
-        line4 = GameObject.Find("Line4");
-        line5 = GameObject.Find("Line5");
+        line1 = GetComponent<ObjectManager>().Phone().transform.GetChild(0).gameObject;
+        line2 = GetComponent<ObjectManager>().Phone().transform.GetChild(1).gameObject;
+        line3 = GetComponent<ObjectManager>().Phone().transform.GetChild(2).gameObject;
+        line4 = GetComponent<ObjectManager>().Phone().transform.GetChild(3).gameObject;
+        line5 = GetComponent<ObjectManager>().Phone().transform.GetChild(4).gameObject;
         ChangeToMenuText();
     }
 
@@ -49,8 +46,8 @@ ScreenTextManagment : MonoBehaviour
         ChangeBurgerCount();
         ChangeFriesCount();
         ChangeDrinkCount();
-		ChangeMistakeText();
-	}
+        ChangeMistakeText();
+    }
 
     public void ChangeToPauseText()
     {
@@ -76,11 +73,11 @@ ScreenTextManagment : MonoBehaviour
         {
             line1.GetComponent<TextMesh>().text = "DEAD";
             line2.GetComponent<TextMesh>().text = "";
-			line3.GetComponent<TextMesh>().text = "Restart";
-			line4.GetComponent<TextMesh>().text = "Quit";
+            line3.GetComponent<TextMesh>().text = "Restart";
+            line4.GetComponent<TextMesh>().text = "Quit";
             line5.GetComponent<TextMesh>().text = "";
             line2.tag = "Untagged";
-			line5.tag = "Untagged";
+            line5.tag = "Untagged";
             line3.GetComponent<TextMesh>().color = red;
             line4.GetComponent<TextMesh>().color = red;
         }
@@ -163,14 +160,14 @@ ScreenTextManagment : MonoBehaviour
         line5.GetComponent<TextMesh>().text = "";
     }
 
-	public void RevertButtons()
-	{
-		line1.transform.GetChild(0).tag = "UI";
-		line2.transform.GetChild(0).tag = "UI";
-		line3.transform.GetChild(0).tag = "UI";
-		line4.transform.GetChild(0).tag = "UI";
-		line5.transform.GetChild(0).tag = "UI";
-	}
+    public void RevertButtons()
+    {
+        line1.transform.GetChild(0).tag = "UI";
+        line2.transform.GetChild(0).tag = "UI";
+        line3.transform.GetChild(0).tag = "UI";
+        line4.transform.GetChild(0).tag = "UI";
+        line5.transform.GetChild(0).tag = "UI";
+    }
 
     void ChangeTextColorToOriginal()
     {
@@ -181,8 +178,8 @@ ScreenTextManagment : MonoBehaviour
         line5.GetComponent<TextMesh>().color = originalScreenColor;
     }
 
-	public void PressTextDown(GameObject target)
-	{
+    public void PressTextDown(GameObject target)
+    {
         if (!pressDown)
         {
             float r = target.GetComponent<TextMesh>().color.r;
@@ -191,10 +188,10 @@ ScreenTextManagment : MonoBehaviour
             target.GetComponent<TextMesh>().color = new Color(r / 2, g / 2, b / 2);
             pressDown = true;
         }
-	}
+    }
 
-	public void PressTextUp(GameObject target)
-	{
+    public void PressTextUp(GameObject target)
+    {
         if (pressDown)
         {
             float r = target.GetComponent<TextMesh>().color.r;
@@ -203,5 +200,5 @@ ScreenTextManagment : MonoBehaviour
             target.GetComponent<TextMesh>().color = new Color(r * 2, g * 2, b * 2);
             pressDown = false;
         }
-	}
+    }
 }

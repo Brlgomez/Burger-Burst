@@ -4,25 +4,27 @@ using UnityEngine;
 
 public class FadeObject : MonoBehaviour
 {
+    static int maxTime = 1;
     float time;
-    int maxTime = 1;
     float r, g, b;
 
-    void Start () {
+    void Start()
+    {
         gameObject.layer = 2;
         Camera.main.GetComponent<FoodManager>().ChangeToTransparentMaterial(gameObject);
         r = GetComponent<Renderer>().material.color.r;
         g = GetComponent<Renderer>().material.color.g;
         b = GetComponent<Renderer>().material.color.b;
-		AddNewItem();
-	}
+        AddNewItem();
+    }
 
     void Update()
     {
         time += Time.deltaTime;
         float alpha = ((maxTime / maxTime) - (time / maxTime));
         GetComponent<Renderer>().material.color = new Color(r, g, b, alpha);
-        if (alpha < 0.01f) {
+        if (alpha < 0.01f)
+        {
             Destroy(gameObject);
         }
     }
@@ -43,9 +45,9 @@ public class FadeObject : MonoBehaviour
             case "Fries_No_Basket(Clone)":
                 Camera.main.GetComponent<DropMoreProducts>().DropFries();
                 break;
-			case "Basket(Clone)":
+            case "Basket(Clone)":
                 Camera.main.GetComponent<DropMoreProducts>().DropBasket();
-				break;
+                break;
             case "Empty_Cup(Clone)":
                 Camera.main.GetComponent<DropMoreProducts>().DropCup();
                 break;

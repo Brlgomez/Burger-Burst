@@ -12,26 +12,26 @@ public class GrabAndThrowObject : MonoBehaviour
     GameObject phone;
     Transform initialPosition;
     bool paused;
-    float timeForNewPerson = 12;
+	static int maxAmountOfPeople = 10;
+	static float timeForNewPerson = 12;
     float newPersonTime;
-    int maxAmountOfPeople = 10;
     enum Area { counter, pause, gameOver, quit, grill, fryer, sodaMachine };
     Area currentArea;
 
     void Start()
     {
         newPersonTime = timeForNewPerson;
-        counterWall = GameObject.Find("Counter Wall");
-        grillWall = GameObject.Find("Grill Wall");
-        rightFryer = GameObject.Find("Fryer Basket Right");
-        leftFryer = GameObject.Find("Fryer Basket Left");
-        fryerWall = GameObject.Find("Fryer Wall");
-        sodaWall = GameObject.Find("Soda Wall");
-        phone = GameObject.Find("Phone");
-        sodaFountain1 = GameObject.Find("SodaFromMachine1");
-        sodaFountain2 = GameObject.Find("SodaFromMachine2");
-        sodaFountain3 = GameObject.Find("SodaFromMachine3");
-        initialPosition = Camera.main.GetComponent<PositionManager>().GameplayPosition();
+        counterWall = GetComponent<ObjectManager>().CounterWall();
+        grillWall = GetComponent<ObjectManager>().GrillWall();
+        fryerWall = GetComponent<ObjectManager>().FryerWall();
+        sodaWall = GetComponent<ObjectManager>().SodaWall();
+        rightFryer = GetComponent<ObjectManager>().RightFryer();
+        leftFryer = GetComponent<ObjectManager>().LeftFryer();
+        sodaFountain1 = GetComponent<ObjectManager>().SodaMachine1();
+        sodaFountain2 = GetComponent<ObjectManager>().SodaMachine2();
+        sodaFountain3 = GetComponent<ObjectManager>().SodaMachine3();
+        phone = GetComponent<ObjectManager>().Phone();
+        initialPosition = GetComponent<PositionManager>().GameplayPosition();
         currentArea = Area.counter;
     }
 
@@ -655,18 +655,18 @@ public class GrabAndThrowObject : MonoBehaviour
     {
         if (!paused && !Camera.main.GetComponent<Gameplay>().IsGameOver())
         {
-            newPersonTime += Time.deltaTime;
+			newPersonTime += Time.deltaTime;
             if (newPersonTime > timeForNewPerson)
             {
                 if (Camera.main.GetComponent<WaiterManager>().GetCount() < maxAmountOfPeople)
                 {
                     Camera.main.GetComponent<CarManager>().CreateNewCarWithZombie();
-                    if (Random.value < 0.25f)
-                    {
-                        Camera.main.GetComponent<CarManager>().CreateNewCarWithNoZombie();
-                    }
-                    newPersonTime = 0;
-                }
+					if (Random.value < 0.25f)
+					{
+					    Camera.main.GetComponent<CarManager>().CreateNewCarWithNoZombie();
+					}
+					newPersonTime = 0;
+				}
             }
         }
     }
@@ -692,7 +692,8 @@ public class GrabAndThrowObject : MonoBehaviour
 
     public void DeleteObjects()
     {
-        GameObject[] ingredients = GameObject.FindGameObjectsWithTag("Ingredient");
+		Camera.main.GetComponent<FloatingTextManagement>().DeleteAllText();
+		GameObject[] ingredients = GameObject.FindGameObjectsWithTag("Ingredient");
         GameObject[] onPlatter = GameObject.FindGameObjectsWithTag("OnPlatter");
         GameObject[] fallen = GameObject.FindGameObjectsWithTag("Fallen");
         GameObject[] clones = GameObject.FindGameObjectsWithTag("Clone");
@@ -712,7 +713,6 @@ public class GrabAndThrowObject : MonoBehaviour
         DestroyArrayOfObjects(baskets);
         DestroyArrayOfObjects(cups);
         DestroyArrayOfObjects(lids);
-        Camera.main.GetComponent<FloatingTextManagement>().DeleteAllText();
         leftFryer.GetComponent<FryerBasket>().Restart();
         rightFryer.GetComponent<FryerBasket>().Restart();
         if (sodaFountain1.GetComponent<SodaMachine>() != null)

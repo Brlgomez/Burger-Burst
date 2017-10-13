@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class AftermathText : MonoBehaviour
 {
-    float time;
-    float maxTime = 1;
-    float timeToStartFading = 0.75f;
-    float horizontalSpeed = 2.5f;
-    float horizontalDistance = 0.25f;
-    float verticalSpeed = 0.1f;
+    static float maxTime = 1;
+    static float fadeTime = 0.75f;
+    static float horizontalSpeed = 2.5f;
+    static float horizontalDistance = 0.25f;
+    static float verticalSpeed = 0.1f;
     float alpha = 1;
-    Vector3 startPosition;
+    float time;
     float randomX;
+    Vector3 startPosition;
 
     void Start()
     {
@@ -26,10 +26,10 @@ public class AftermathText : MonoBehaviour
 
     void Update()
     {
-		time += Time.deltaTime;
-		if (time > timeToStartFading)
+        time += Time.deltaTime;
+        if (time > fadeTime)
         {
-            alpha = (((maxTime - timeToStartFading) / (maxTime - timeToStartFading)) - ((time - timeToStartFading) / (maxTime - timeToStartFading)));
+            alpha = (((maxTime - fadeTime) / (maxTime - fadeTime)) - ((time - fadeTime) / (maxTime - fadeTime)));
         }
         float newX = startPosition.x + (Mathf.Sin((time + randomX) * horizontalSpeed) * horizontalDistance);
         float newY = transform.position.y + Time.deltaTime * verticalSpeed * transform.up.y;

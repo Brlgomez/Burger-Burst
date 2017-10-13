@@ -39,8 +39,8 @@ public class MainMenu : MonoBehaviour
     {
         if (target != null && target.tag == "UI")
         {
-			Camera.main.GetComponent<ScreenTextManagment>().PressTextUp(target.transform.parent.gameObject);
-			if (target.name == "Second Button")
+            Camera.main.GetComponent<ScreenTextManagment>().PressTextUp(target.transform.parent.gameObject);
+            if (target.name == "Second Button")
             {
                 gameObject.AddComponent<CameraMovement>().MoveToGameplay("Start");
                 Destroy(GetComponent<MainMenu>());

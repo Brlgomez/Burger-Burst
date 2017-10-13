@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class GettingHurt : MonoBehaviour
 {
-
+    static float lengthOfAnimation = 0.25f;
+    static float shakeIntensity = 0.25f;
     GameObject screen;
-    float r, g, b, a;
-    float lengthOfAnimation = 0.25f;
-    float currentTime;
     Transform initialTransform;
-    float shakeIntensity = 0.25f;
+    float r, g, b, a;
+    float currentTime;
     bool canShake = true;
 
     void Start()
@@ -33,17 +32,17 @@ public class GettingHurt : MonoBehaviour
         shakeIntensity -= Time.deltaTime;
         if (currentTime < lengthOfAnimation / 2)
         {
-            a += Time.deltaTime * 4;
+            a += Time.deltaTime * (1 / lengthOfAnimation);
         }
         else if (!Camera.main.gameObject.GetComponent<Gameplay>().IsGameOver() && currentTime > lengthOfAnimation / 2)
         {
-            a -= Time.deltaTime * 4;
+            a -= Time.deltaTime * (1 / lengthOfAnimation);
         }
         screen.GetComponent<Renderer>().material.color = new Color(r, g, b, a);
-        if (canShake) 
+        if (canShake)
         {
-			Camera.main.transform.position = initialTransform.position + Random.insideUnitSphere * shakeIntensity;
-		}
+            Camera.main.transform.position = initialTransform.position + Random.insideUnitSphere * shakeIntensity;
+        }
         if (currentTime > lengthOfAnimation)
         {
             if (canShake)
