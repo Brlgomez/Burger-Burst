@@ -103,7 +103,7 @@ public class Waiter : MonoBehaviour
             }
         }
         thinkBubble.transform.localPosition = new Vector3(
-            thinkBubble.transform.localScale.x,
+            head.transform.localPosition.x + thinkBubble.transform.localScale.x,
             head.transform.localPosition.y + thinkBubble.transform.localScale.x + 0.5f, 
             head.transform.localPosition.z
         );
@@ -115,7 +115,7 @@ public class Waiter : MonoBehaviour
 		{
 			thinkBubble.transform.localScale = Vector3.one * ((head.transform.position.z - endingZ) / (startingZ - endingZ));
 		}
-        if (Mathf.Round(head.transform.position.z) < endingZ + 0.25f)
+        if (Mathf.Round(head.transform.position.z) < -1.25)
         {
             GetComponent<Animator>().SetBool("Attacking", true);
             GetComponent<Animator>().SetBool("Walking", false);

@@ -40,7 +40,7 @@ public class Car : MonoBehaviour
                 speed = 0;
                 slowDown = false;
                 slowingDown = false;
-                if (!Camera.main.GetComponent<Gameplay>().IsGameOver())
+                if (!Camera.main.GetComponent<Gameplay>().IsGameOver() && !droppedOff)
                 {
                     AddZombie();
                 }

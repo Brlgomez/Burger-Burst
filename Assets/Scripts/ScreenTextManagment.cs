@@ -169,6 +169,15 @@ ScreenTextManagment : MonoBehaviour
         line5.transform.GetChild(0).tag = "UI";
     }
 
+    public void MakeButtonsUnpressable()
+    {
+		line1.transform.GetChild(0).tag = "Untagged";
+		line2.transform.GetChild(0).tag = "Untagged";
+		line3.transform.GetChild(0).tag = "Untagged";
+		line4.transform.GetChild(0).tag = "Untagged";
+		line5.transform.GetChild(0).tag = "Untagged";
+    }
+
     void ChangeTextColorToOriginal()
     {
         line1.GetComponent<TextMesh>().color = originalScreenColor;

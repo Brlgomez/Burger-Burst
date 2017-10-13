@@ -467,7 +467,7 @@ public class GrabAndThrowObject : MonoBehaviour
                 float speed = Vector3.Distance(positions[positions.Count - 1], positions[0]);
                 float xVelocity = ((positions[positions.Count - 1].x - positions[0].x) * 7) + ((target.transform.position.x) * speed * 3);
                 float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 3;
-                float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 20;
+                float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 25;
                 target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity);
             }
         }
@@ -577,8 +577,9 @@ public class GrabAndThrowObject : MonoBehaviour
         Destroy(GetComponent<Gameplay>());
         gameObject.AddComponent<Gameplay>();
         gameObject.AddComponent<CameraMovement>().MoveToGameplay("Restart");
-        RestartValues();
-    }
+		RestartValues();
+        GetComponent<ScreenTextManagment>().MakeButtonsUnpressable();
+	}
 
     void Quit()
     {
@@ -590,7 +591,7 @@ public class GrabAndThrowObject : MonoBehaviour
         gameObject.AddComponent<CameraMovement>().MoveToMenu();
         gameObject.AddComponent<Gameplay>();
         Destroy(GetComponent<GrabAndThrowObject>());
-    }
+	}
 
     void PauseGame()
     {

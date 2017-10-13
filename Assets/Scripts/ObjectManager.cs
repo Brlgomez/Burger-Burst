@@ -13,7 +13,7 @@ public class ObjectManager : MonoBehaviour
     GameObject car;
     GameObject zombie;
 
-    void Start()
+    void Awake()
     {
         counterWall = GameObject.Find("Counter Wall");
         grillWall = GameObject.Find("Grill Wall");
