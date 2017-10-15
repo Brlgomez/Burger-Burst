@@ -37,11 +37,11 @@ public class RemoveObjects : MonoBehaviour
             DropProduct();
             HasFallen();
         }
-        else if (col.gameObject.tag == "Waiter" && gameObject.tag == "Ingredient")
+        else if (col.gameObject.tag == "Waiter" && gameObject.tag == "Ingredient" && !Camera.main.GetComponent<Gameplay>().IsGameOver())
         {
             Vector3 closestPointOnItem = gameObject.GetComponent<MeshCollider>().ClosestPoint(col.gameObject.transform.position);
             Vector3 closestPointOnWaiter = col.gameObject.GetComponent<Collider>().ClosestPoint(closestPointOnItem);
-            if (Vector3.Distance(closestPointOnItem, closestPointOnWaiter) < 0.15f)
+            if (Vector3.Distance(closestPointOnItem, closestPointOnWaiter) < 0.16f)
             {
                 transform.parent = col.gameObject.transform;
                 col.transform.root.gameObject.GetComponent<Waiter>().AddToPlatter(gameObject);

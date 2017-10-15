@@ -75,11 +75,12 @@ ScreenTextManagment : MonoBehaviour
             line2.GetComponent<TextMesh>().text = "";
             line3.GetComponent<TextMesh>().text = "Restart";
             line4.GetComponent<TextMesh>().text = "Quit";
-            line5.GetComponent<TextMesh>().text = "";
+            line5.GetComponent<TextMesh>().text = "S: " + GetComponent<Gameplay>().GetPoints();
             line2.tag = "Untagged";
             line5.tag = "Untagged";
             line3.GetComponent<TextMesh>().color = red;
             line4.GetComponent<TextMesh>().color = red;
+            line5.GetComponent<TextMesh>().color = red;
         }
         Color newColor = Color.Lerp(red, originalScreenColor, ((float)n) / initialLife);
         line1.GetComponent<TextMesh>().color = newColor;

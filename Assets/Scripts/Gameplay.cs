@@ -9,16 +9,23 @@ public class Gameplay : MonoBehaviour
     int fries = 25;
     int drinks = 25;
     int completedOrders;
+    int points;
     bool gameOver;
 
-    public void IncreaseNumberOfLostProduct(GameObject obj)
+    public void IncreasePoints(GameObject obj)
     {
-
+        if (!IsGameOver())
+        {
+            int addedPoints = (int)Vector3.Distance(obj.transform.position, transform.position) / 2;
+            points += addedPoints;
+            GetComponent<FloatingTextManagement>().AddFloatingText(obj, addedPoints.ToString(), Color.yellow, addedPoints);
+            GetComponent<LEDManager>().UpdateText(points);
+        }
     }
 
-    public float IncreaseNumberOfSentProduct(GameObject obj)
+    public int GetPoints ()
     {
-        return 0;
+        return points;
     }
 
     public bool IsGameOver()

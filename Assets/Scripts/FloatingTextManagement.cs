@@ -11,7 +11,7 @@ public class FloatingTextManagement : MonoBehaviour
         aftermathText = GameObject.Find("Aftermath Text");
     }
 
-    public void AddFloatingText(GameObject obj, string text, Color col)
+    public void AddFloatingText(GameObject obj, string text, Color col, float size)
     {
         GameObject newAftermathText = Instantiate(aftermathText);
         newAftermathText.GetComponent<Renderer>().material.color = col;
@@ -20,7 +20,8 @@ public class FloatingTextManagement : MonoBehaviour
             obj.transform.position.y + 0.1f,
             obj.transform.position.z
         );
-        newAftermathText.AddComponent<AftermathText>().GetComponent<AftermathText>().UpdateText(text);
+        newAftermathText.transform.localScale *= size;
+        newAftermathText.AddComponent<AftermathText>().GetComponent<AftermathText>().UpdateText(text, size/2);
         newAftermathText.tag = "FloatingText";
     }
 

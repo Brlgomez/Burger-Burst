@@ -82,15 +82,15 @@ public class SodaCup : MonoBehaviour
         int worth = Mathf.RoundToInt((maxTimeUnderFountain) - Mathf.Abs((timeUnderFountain) - (maxTimeUnderFountain)));
         if (worth == 0)
         {
-            Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Drinks", Color.gray);
+            Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Drinks", Color.gray, 1);
         }
         else if (worth == 1)
         {
-            Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Drink", Color.green);
+            Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Drink", Color.green, 1);
         }
         else if (worth > 1)
         {
-            Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Drinks", Color.green);
+            Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Drinks", Color.green, 1);
         }
         Camera.main.GetComponent<DropMoreProducts>().DropLid();
         Camera.main.GetComponent<DropMoreProducts>().DropCup();

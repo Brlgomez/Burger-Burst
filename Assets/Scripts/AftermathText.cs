@@ -12,6 +12,7 @@ public class AftermathText : MonoBehaviour
     float alpha = 1;
     float time;
     float randomX;
+    float multiplier = 1;
     Vector3 startPosition;
 
     void Start()
@@ -31,8 +32,8 @@ public class AftermathText : MonoBehaviour
         {
             alpha = (((maxTime - fadeTime) / (maxTime - fadeTime)) - ((time - fadeTime) / (maxTime - fadeTime)));
         }
-        float newX = startPosition.x + (Mathf.Sin((time + randomX) * horizontalSpeed) * horizontalDistance);
-        float newY = transform.position.y + Time.deltaTime * verticalSpeed * transform.up.y;
+        float newX = startPosition.x + (Mathf.Sin((time + randomX) * horizontalSpeed) * horizontalDistance) * multiplier;
+        float newY = transform.position.y + Time.deltaTime * verticalSpeed * transform.up.y * multiplier;
         gameObject.GetComponent<Renderer>().material.color = new Color(
             gameObject.GetComponent<Renderer>().material.color.r,
             gameObject.GetComponent<Renderer>().material.color.g,
@@ -46,8 +47,9 @@ public class AftermathText : MonoBehaviour
         }
     }
 
-    public void UpdateText(string text)
+    public void UpdateText(string text, float multi)
     {
         GetComponent<TextMesh>().text = text;
+        multiplier = multi;
     }
 }

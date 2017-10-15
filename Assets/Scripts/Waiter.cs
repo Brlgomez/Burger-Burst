@@ -207,6 +207,7 @@ public class Waiter : MonoBehaviour
 
     void AddToBody(GameObject obj)
     {
+        Camera.main.GetComponent<Gameplay>().IncreasePoints(obj);
         obj.GetComponent<RemoveObjects>().DropProduct();
         Destroy(obj.GetComponent<Rigidbody>());
         Destroy(obj.GetComponent<RemoveObjects>());

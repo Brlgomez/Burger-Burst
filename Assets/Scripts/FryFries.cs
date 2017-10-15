@@ -109,15 +109,15 @@ public class FryFries : MonoBehaviour
         int worth = Mathf.RoundToInt((maxTimeInFryer / 2) - Mathf.Abs(timeInFryer - (maxTimeInFryer / 2)));
         if (worth == 0)
         {
-            Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Fries", Color.gray);
+            Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Fries", Color.gray, 1);
         }
         else if (worth == 1)
         {
-            Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Fry", Color.green);
+            Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Fry", Color.green, 1);
         }
         else if (worth > 1)
         {
-            Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Fries", Color.green);
+            Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Fries", Color.green, 1);
         }
         Camera.main.GetComponent<Gameplay>().AddFries(worth);
         if (gameObject.GetComponent<FadeObject>() == null)

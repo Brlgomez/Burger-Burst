@@ -694,6 +694,7 @@ public class GrabAndThrowObject : MonoBehaviour
     public void DeleteObjects()
     {
 		Camera.main.GetComponent<FloatingTextManagement>().DeleteAllText();
+        Camera.main.GetComponent<LEDManager>().ResetText();
 		GameObject[] ingredients = GameObject.FindGameObjectsWithTag("Ingredient");
         GameObject[] onPlatter = GameObject.FindGameObjectsWithTag("OnPlatter");
         GameObject[] fallen = GameObject.FindGameObjectsWithTag("Fallen");
