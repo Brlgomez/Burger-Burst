@@ -22,6 +22,7 @@ public class Waiter : MonoBehaviour
     float bubbleMinScale = 0.25f;
     float startingZ;
     float endingZ = -1;
+    GameObject upperbody, follow;
 
     void Start()
     {
@@ -37,12 +38,19 @@ public class Waiter : MonoBehaviour
             if (transform.GetChild(i).name == "Head")
             {
                 head = transform.GetChild(i).gameObject;
-                break;
             }
+			if (transform.GetChild(i).name == "Upper_Body")
+			{
+                upperbody = transform.GetChild(i).gameObject;
+			}
+			if (transform.GetChild(i).name == "Follow")
+			{
+                follow = transform.GetChild(i).gameObject;
+			}
         }
         GetComponent<Animator>().Play("Walking");
         GetComponent<Animator>().SetBool("Walking", true);
-        GetComponent<Animator>().SetFloat("Speed", speed / 2);
+        GetComponent<Animator>().SetFloat("Speed", speed / 4);
 		startingZ = head.transform.position.z;
 		WakeUp();
         SetOrder();
@@ -126,7 +134,7 @@ public class Waiter : MonoBehaviour
 			GetComponent<Animator>().SetBool("Attacking", false);
 			GetComponent<Animator>().SetBool("Walking", true);
 			transform.position = Vector3.MoveTowards(transform.position, transform.position + transform.forward, Time.deltaTime * speed);
-			GetComponent<Animator>().SetFloat("Speed", speed / 2);
+			GetComponent<Animator>().SetFloat("Speed", speed / 4);
 			speed = originalSpeed;
         }
     }
