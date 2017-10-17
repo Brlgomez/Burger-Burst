@@ -625,7 +625,10 @@ public class GrabAndThrowObject : MonoBehaviour
         phone.GetComponent<Collider>().enabled = false;
         for (int i = 0; i < phone.transform.childCount; i++)
         {
-            phone.transform.GetChild(i).transform.GetChild(0).GetComponent<Collider>().enabled = false;
+            if (phone.transform.GetChild(i).transform.childCount > 1)
+            {
+                phone.transform.GetChild(i).transform.GetChild(0).GetComponent<Collider>().enabled = false;
+            }
         }
     }
 
@@ -634,7 +637,10 @@ public class GrabAndThrowObject : MonoBehaviour
         phone.GetComponent<Collider>().enabled = true;
         for (int i = 0; i < phone.transform.childCount; i++)
         {
-            phone.transform.GetChild(i).transform.GetChild(0).GetComponent<Collider>().enabled = true;
+            if (phone.transform.GetChild(i).transform.childCount > 1)
+            {
+                phone.transform.GetChild(i).transform.GetChild(0).GetComponent<Collider>().enabled = true;
+            }
         }
     }
 
