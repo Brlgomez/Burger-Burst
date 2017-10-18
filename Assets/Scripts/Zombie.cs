@@ -9,7 +9,7 @@ public class Zombie : MonoBehaviour
     int amountOfBurgers, amountOfFries, amountOfDrinks;
     bool orderComplete;
     List<GameObject> onPlatter = new List<GameObject>();
-    GameObject head, thinkBubble;
+    GameObject head, thinkBubble, hair;
 
     float speed = 1;
     float originalSpeed;
@@ -33,18 +33,20 @@ public class Zombie : MonoBehaviour
         availableSpritePositions[2] = new Vector3(0.5f, 4, 0.3f);
         thinkBubble = transform.GetChild(0).gameObject;
         thinkBubble.AddComponent<IncreaseSize>();
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            if (transform.GetChild(i).name == "Head")
-            {
-                head = transform.GetChild(i).gameObject;
-            }
-        }
-        GetComponent<Animator>().Play("Walking");
+		for (int i = 0; i < transform.childCount; i++)
+		{
+			if (transform.GetChild(i).name == "Head")
+			{
+				head = transform.GetChild(i).gameObject;
+			}
+		}
+
+		GetComponent<Animator>().Play("Walking");
         GetComponent<Animator>().SetBool("Walking", true);
         GetComponent<Animator>().SetFloat("Speed", speed * animationSpeed);
         startingZ = head.transform.position.z;
-        WakeUp();
+        SetBodyParts();
+		WakeUp();
         SetOrder();
     }
 
@@ -150,15 +152,12 @@ public class Zombie : MonoBehaviour
                 neededBurgers++;
                 continue;
             }
-            else if (rand > 0.33f && rand < 0.66f)
+            if (rand > 0.33f && rand < 0.66f)
             {
                 neededFries++;
                 continue;
             }
-            else
-            {
-                neededDrinks++;
-            }
+            neededDrinks++;
         }
         SetUpSprites();
     }
@@ -254,7 +253,7 @@ public class Zombie : MonoBehaviour
 
     void TurnOnForce(GameObject obj)
     {
-        if (obj.GetComponent<Rigidbody>() != null && obj.name != "Right_Thigh" && obj.name != "Left_Thigh")
+        if (obj.GetComponent<Rigidbody>() != null && obj.name != "Right_Leg" && obj.name != "Left_Leg")
         {
             obj.GetComponent<Rigidbody>().useGravity = true;
             obj.GetComponent<Rigidbody>().isKinematic = false;
@@ -290,13 +289,10 @@ public class Zombie : MonoBehaviour
             TurnOffForce(node.transform.gameObject);
             return;
         }
-        else
+        for (int i = 0; i < node.transform.childCount; i++)
         {
-            for (int i = 0; i < node.transform.childCount; i++)
-            {
-                TurnOffForce(node.transform.gameObject);
-                TurnOffAllForces(node.transform.GetChild(i).gameObject);
-            }
+            TurnOffForce(node.transform.gameObject);
+            TurnOffAllForces(node.transform.GetChild(i).gameObject);
         }
     }
 
@@ -313,8 +309,7 @@ public class Zombie : MonoBehaviour
         }
         if (obj.GetComponent<Rigidbody>() != null)
         {
-            //obj.GetComponent<Rigidbody>().mass *= 0.25f;
-            if (obj.name == "Right_Thigh" || obj.name == "Left_Thigh")
+            if (obj.name == "Right_Leg" || obj.name == "Left_Leg")
             {
                 obj.GetComponent<Rigidbody>().useGravity = true;
                 obj.GetComponent<Rigidbody>().isKinematic = false;
@@ -325,36 +320,7 @@ public class Zombie : MonoBehaviour
     public void DestroyScript()
     {
         GetComponent<Animator>().enabled = false;
-        for (int i = 1; i < transform.childCount; i++)
-        {
-            TurnUpAllForces(transform.GetChild(i).gameObject);
-        }
         Destroy(gameObject.GetComponent<Zombie>());
-    }
-
-    void TurnUpAllForces(GameObject node)
-    {
-        if (node.transform.childCount == 0)
-        {
-            TurnUpForce(node.transform.gameObject);
-            return;
-        }
-        else
-        {
-            for (int i = 0; i < node.transform.childCount; i++)
-            {
-                TurnUpForce(node.transform.gameObject);
-                TurnUpAllForces(node.transform.GetChild(i).gameObject);
-            }
-        }
-    }
-
-    void TurnUpForce(GameObject obj)
-    {
-        if (obj.GetComponent<ConstantForce>() != null)
-        {
-            obj.GetComponent<ConstantForce>().force *= 1.5f;
-        }
     }
 
     void MakeAllObjectsInvisible(GameObject node)
@@ -382,10 +348,17 @@ public class Zombie : MonoBehaviour
         }
     }
 
-    public void SetSpeed(float s)
+    public void SetZombie(float s, GameObject h)
     {
         speed = s;
         originalSpeed = s;
+        hair = Instantiate(h);
+    }
+
+    void SetBodyParts()
+    {
+        hair.transform.position = new Vector3(head.transform.position.x, head.transform.position.y + 0.5f, head.transform.position.z);
+		hair.transform.parent = head.transform;   
     }
 
     void SetUpSprites()
