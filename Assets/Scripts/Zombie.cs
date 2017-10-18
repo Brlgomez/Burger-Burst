@@ -358,7 +358,8 @@ public class Zombie : MonoBehaviour
     void SetBodyParts()
     {
         hair.transform.position = new Vector3(head.transform.position.x, head.transform.position.y + 0.5f, head.transform.position.z);
-		hair.transform.parent = head.transform;   
+		hair.transform.parent = head.transform;
+        hair.transform.localEulerAngles = new Vector3(0, 0, 0);
     }
 
     void SetUpSprites()

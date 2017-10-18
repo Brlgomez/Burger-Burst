@@ -24,8 +24,8 @@ public class ZombieManager : MonoBehaviour
         amountOfWaiters++;
         GameObject newWaiter = Instantiate(zombie);
         newWaiter.transform.position = position;
-        newWaiter.transform.LookAt(gameplayPosition);
-        newWaiter.transform.eulerAngles = new Vector3(0, newWaiter.transform.eulerAngles.y, newWaiter.transform.eulerAngles.z);
+		newWaiter.transform.LookAt(gameplayPosition);
+		newWaiter.transform.eulerAngles = new Vector3(0, newWaiter.transform.eulerAngles.y, newWaiter.transform.eulerAngles.z);
         newWaiter.AddComponent<Zombie>().SetZombie(1, hair[Random.Range(0, hair.Length)]);
         newWaiter.tag = "Clone";
     }

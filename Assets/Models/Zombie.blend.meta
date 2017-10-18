@@ -24,6 +24,7 @@ ModelImporter:
     100032: Hair
     100034: Hair2
     100036: Hair3
+    100038: Hair4
     400000: Head
     400002: Left_Foot
     400004: Left_Forearm
@@ -43,6 +44,7 @@ ModelImporter:
     400032: Hair
     400034: Hair2
     400036: Hair3
+    400038: Hair4
     2300000: Head
     2300002: Left_Foot
     2300004: Left_Forearm
@@ -61,6 +63,7 @@ ModelImporter:
     2300030: Hair
     2300032: Hair2
     2300034: Hair3
+    2300036: Hair4
     3300000: Head
     3300002: Left_Foot
     3300004: Left_Forearm
@@ -79,6 +82,7 @@ ModelImporter:
     3300030: Hair
     3300032: Hair2
     3300034: Hair3
+    3300036: Hair4
     4300000: Head
     4300002: Left_Foot
     4300004: Left_Forearm
@@ -97,6 +101,7 @@ ModelImporter:
     4300030: Hair
     4300032: Hair2
     4300034: Hair3
+    4300036: Hair4
     7400000: Default Take
     9500000: //RootNode
   materials:

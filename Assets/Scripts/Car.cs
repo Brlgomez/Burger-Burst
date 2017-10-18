@@ -15,7 +15,7 @@ public class Car : MonoBehaviour
 
     void Start()
     {
-        randomStoppingPos = Random.Range(-9f, 19f);
+        randomStoppingPos = Random.Range(-7.5f, 17.5f);
     }
 
     void Update()
