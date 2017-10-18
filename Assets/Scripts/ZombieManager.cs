@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaiterManager : MonoBehaviour
+public class ZombieManager : MonoBehaviour
 {
     GameObject zombie;
     Vector3 gameplayPosition;
@@ -25,7 +25,7 @@ public class WaiterManager : MonoBehaviour
         newWaiter.transform.position = position;
         newWaiter.transform.LookAt(gameplayPosition);
         newWaiter.transform.eulerAngles = new Vector3(0, newWaiter.transform.eulerAngles.y, newWaiter.transform.eulerAngles.z);
-        newWaiter.AddComponent<Waiter>().SetSpeed(1);
+        newWaiter.AddComponent<Zombie>().SetSpeed(1);
         newWaiter.tag = "Clone";
     }
 
@@ -45,11 +45,12 @@ public class WaiterManager : MonoBehaviour
         GameObject[] clones = GameObject.FindGameObjectsWithTag("Clone");
         foreach (GameObject obj in clones)
         {
-            if (obj.GetComponent<Waiter>() != null)
+            if (obj.GetComponent<Zombie>() != null)
             {
-                obj.GetComponent<Waiter>().DestroyScript();
+                obj.GetComponent<Zombie>().DestroyScript();
             }
         }
     }
 
 }
+

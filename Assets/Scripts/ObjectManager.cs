@@ -38,7 +38,7 @@ public class ObjectManager : MonoBehaviour
         cup = GameObject.Find("Empty_Cup");
         lid = GameObject.Find("Lid");
         car = GameObject.Find("Car");
-        zombie = GameObject.Find("Waiter");
+        zombie = GameObject.Find("Zombie");
     }
 
     public GameObject CounterWall() { return counterWall; }

@@ -44,7 +44,7 @@ public class RemoveObjects : MonoBehaviour
             if (Vector3.Distance(closestPointOnItem, closestPointOnWaiter) < 0.16f)
             {
                 transform.parent = col.gameObject.transform;
-                col.transform.root.gameObject.GetComponent<Waiter>().AddToPlatter(gameObject);
+                col.transform.root.gameObject.GetComponent<Zombie>().AddToPlatter(gameObject);
             }
         }
     }

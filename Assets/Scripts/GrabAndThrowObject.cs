@@ -665,7 +665,7 @@ public class GrabAndThrowObject : MonoBehaviour
 			newPersonTime += Time.deltaTime;
             if (newPersonTime > timeForNewPerson)
             {
-                if (Camera.main.GetComponent<WaiterManager>().GetCount() < maxAmountOfPeople)
+                if (Camera.main.GetComponent<ZombieManager>().GetCount() < maxAmountOfPeople)
                 {
                     Camera.main.GetComponent<CarManager>().CreateNewCarWithZombie();
 					if (Random.value < 0.25f)

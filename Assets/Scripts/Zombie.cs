@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Waiter : MonoBehaviour
+public class Zombie : MonoBehaviour
 {
     int neededBurgers, neededFries, neededDrinks;
     int amountOfBurgers, amountOfFries, amountOfDrinks;
@@ -22,7 +22,7 @@ public class Waiter : MonoBehaviour
     float bubbleMinScale = 0.25f;
     float startingZ;
     float endingZ = -1;
-    GameObject upperbody, follow;
+    float animationSpeed = 0.5f;
 
     void Start()
     {
@@ -33,26 +33,18 @@ public class Waiter : MonoBehaviour
         availableSpritePositions[2] = new Vector3(0.5f, 4, 0.3f);
         thinkBubble = transform.GetChild(0).gameObject;
         thinkBubble.AddComponent<IncreaseSize>();
-        for (int i = 3; i < transform.childCount; i++)
+        for (int i = 0; i < transform.childCount; i++)
         {
             if (transform.GetChild(i).name == "Head")
             {
                 head = transform.GetChild(i).gameObject;
             }
-			if (transform.GetChild(i).name == "Upper_Body")
-			{
-                upperbody = transform.GetChild(i).gameObject;
-			}
-			if (transform.GetChild(i).name == "Follow")
-			{
-                follow = transform.GetChild(i).gameObject;
-			}
         }
         GetComponent<Animator>().Play("Walking");
         GetComponent<Animator>().SetBool("Walking", true);
-        GetComponent<Animator>().SetFloat("Speed", speed / 4);
-		startingZ = head.transform.position.z;
-		WakeUp();
+        GetComponent<Animator>().SetFloat("Speed", speed * animationSpeed);
+        startingZ = head.transform.position.z;
+        WakeUp();
         SetOrder();
     }
 
@@ -70,25 +62,25 @@ public class Waiter : MonoBehaviour
             {
                 transform.GetChild(0).GetChild(i).GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha);
             }
-            for (int i = 3; i < transform.childCount; i++)
+            for (int i = 1; i < transform.childCount; i++)
             {
                 MakeAllObjectsInvisible(transform.GetChild(i).gameObject);
             }
             if (alpha < 0.01f)
             {
-                Camera.main.GetComponent<WaiterManager>().RemoveWaiter(gameObject);
+                Camera.main.GetComponent<ZombieManager>().RemoveWaiter(gameObject);
             }
         }
         else if (!orderComplete && head.transform.position.z < endingZ)
         {
-           GetComponent<Animator>().SetFloat("Speed", 0);
+            GetComponent<Animator>().SetFloat("Speed", 0);
             damageTime += Time.deltaTime;
             if (damageTime > timeForDamage && playAttack)
             {
-                if (Random.value > 0.5f) 
+                if (Random.value > 0.5f)
                 {
-					GetComponent<Animator>().Play("Attack");
-				}
+                    GetComponent<Animator>().Play("Attack");
+                }
                 else
                 {
                     GetComponent<Animator>().Play("Attack Left");
@@ -97,45 +89,46 @@ public class Waiter : MonoBehaviour
             }
             if (damageTime > (timeForDamage + 0.25f))
             {
-				Camera.main.GetComponent<Gameplay>().DeductNumberOfErrors();
-				if (Camera.main.gameObject.GetComponent<GettingHurt>() == null)
+                Camera.main.GetComponent<Gameplay>().DeductNumberOfErrors();
+                if (Camera.main.gameObject.GetComponent<GettingHurt>() == null)
                 {
                     Camera.main.gameObject.AddComponent<GettingHurt>();
                 }
                 damageTime = 0;
                 playAttack = true;
-                if (Camera.main.GetComponent<Gameplay>().IsGameOver()) 
+                if (Camera.main.GetComponent<Gameplay>().IsGameOver())
                 {
-                    Camera.main.GetComponent<WaiterManager>().DeleteAllScripts();
+                    Camera.main.GetComponent<ZombieManager>().DeleteAllScripts();
                 }
             }
         }
         thinkBubble.transform.localPosition = new Vector3(
             head.transform.localPosition.x + thinkBubble.transform.localScale.x,
-            head.transform.localPosition.y + thinkBubble.transform.localScale.x + 0.5f, 
+            head.transform.localPosition.y + thinkBubble.transform.localScale.x + 0.5f,
             head.transform.localPosition.z
         );
-	}
+    }
 
     void Walk()
     {
-		if ((head.transform.position.z - endingZ) / (startingZ - endingZ) > bubbleMinScale)
-		{
-			thinkBubble.transform.localScale = Vector3.one * ((head.transform.position.z - endingZ) / (startingZ - endingZ));
-		}
+        if ((head.transform.position.z - endingZ) / (startingZ - endingZ) > bubbleMinScale)
+        {
+            thinkBubble.transform.localScale = Vector3.one * ((head.transform.position.z - endingZ) / (startingZ - endingZ));
+        }
         if (Mathf.Round(head.transform.position.z) < -1.25)
         {
             GetComponent<Animator>().SetBool("Attacking", true);
             GetComponent<Animator>().SetBool("Walking", false);
             speed = 0;
             GetComponent<Animator>().SetFloat("Speed", speed);
-        } 
-        else {
-			GetComponent<Animator>().SetBool("Attacking", false);
-			GetComponent<Animator>().SetBool("Walking", true);
-			transform.position = Vector3.MoveTowards(transform.position, transform.position + transform.forward, Time.deltaTime * speed);
-			GetComponent<Animator>().SetFloat("Speed", speed / 4);
-			speed = originalSpeed;
+        }
+        else
+        {
+            GetComponent<Animator>().SetBool("Attacking", false);
+            GetComponent<Animator>().SetBool("Walking", true);
+            transform.position = Vector3.MoveTowards(transform.position, transform.position + transform.forward, Time.deltaTime * speed);
+            GetComponent<Animator>().SetFloat("Speed", speed * animationSpeed);
+            speed = originalSpeed;
         }
     }
 
@@ -174,40 +167,40 @@ public class Waiter : MonoBehaviour
     {
         if (!orderComplete)
         {
-            switch(obj.name) 
+            switch (obj.name)
             {
                 case "Burger(Clone)":
-					amountOfBurgers++;
-					if (amountOfBurgers > neededBurgers)
-					{
-						obj.transform.parent = null;
-					}
-					else
-					{
-						AddToBody(obj);
-					}
+                    amountOfBurgers++;
+                    if (amountOfBurgers > neededBurgers)
+                    {
+                        obj.transform.parent = null;
+                    }
+                    else
+                    {
+                        AddToBody(obj);
+                    }
                     break;
                 case "Drink(Clone)":
                     amountOfDrinks++;
-					if (amountOfDrinks > neededDrinks)
-					{
-						obj.transform.parent = null;
-					}
-					else
-					{
-						AddToBody(obj);
-					}
+                    if (amountOfDrinks > neededDrinks)
+                    {
+                        obj.transform.parent = null;
+                    }
+                    else
+                    {
+                        AddToBody(obj);
+                    }
                     break;
                 case "Fries(Clone)":
-					amountOfFries++;
-					if (amountOfFries > neededFries)
-					{
-						obj.transform.parent = null;
-					}
-					else
-					{
-						AddToBody(obj);
-					}
+                    amountOfFries++;
+                    if (amountOfFries > neededFries)
+                    {
+                        obj.transform.parent = null;
+                    }
+                    else
+                    {
+                        AddToBody(obj);
+                    }
                     break;
             }
         }
@@ -236,7 +229,7 @@ public class Waiter : MonoBehaviour
 
     void WakeUp()
     {
-        for (int i = 3; i < transform.childCount; i++)
+        for (int i = 1; i < transform.childCount; i++)
         {
             TurnOnAllForces(transform.GetChild(i).gameObject);
         }
@@ -261,7 +254,7 @@ public class Waiter : MonoBehaviour
 
     void TurnOnForce(GameObject obj)
     {
-        if (obj.GetComponent<Rigidbody>() != null)
+        if (obj.GetComponent<Rigidbody>() != null && obj.name != "Right_Thigh" && obj.name != "Left_Thigh")
         {
             obj.GetComponent<Rigidbody>().useGravity = true;
             obj.GetComponent<Rigidbody>().isKinematic = false;
@@ -279,7 +272,7 @@ public class Waiter : MonoBehaviour
     void Died()
     {
         GetComponent<Animator>().enabled = false;
-        for (int i = 3; i < transform.childCount; i++)
+        for (int i = 1; i < transform.childCount; i++)
         {
             TurnOffAllForces(transform.GetChild(i).gameObject);
         }
@@ -320,44 +313,49 @@ public class Waiter : MonoBehaviour
         }
         if (obj.GetComponent<Rigidbody>() != null)
         {
-            obj.GetComponent<Rigidbody>().mass *= 0.25f;
+            //obj.GetComponent<Rigidbody>().mass *= 0.25f;
+            if (obj.name == "Right_Thigh" || obj.name == "Left_Thigh")
+            {
+                obj.GetComponent<Rigidbody>().useGravity = true;
+                obj.GetComponent<Rigidbody>().isKinematic = false;
+            }
         }
     }
 
-	public void DestroyScript()
-	{
-		GetComponent<Animator>().enabled = false;
-		for (int i = 3; i < transform.childCount; i++)
-		{
-			TurnUpAllForces(transform.GetChild(i).gameObject);
-		}
-        Destroy(gameObject.GetComponent<Waiter>());
-	}
+    public void DestroyScript()
+    {
+        GetComponent<Animator>().enabled = false;
+        for (int i = 1; i < transform.childCount; i++)
+        {
+            TurnUpAllForces(transform.GetChild(i).gameObject);
+        }
+        Destroy(gameObject.GetComponent<Zombie>());
+    }
 
-	void TurnUpAllForces(GameObject node)
-	{
-		if (node.transform.childCount == 0)
-		{
-			TurnUpForce(node.transform.gameObject);
-			return;
-		}
-		else
-		{
-			for (int i = 0; i < node.transform.childCount; i++)
-			{
-				TurnUpForce(node.transform.gameObject);
-				TurnUpAllForces(node.transform.GetChild(i).gameObject);
-			}
-		}
-	}
+    void TurnUpAllForces(GameObject node)
+    {
+        if (node.transform.childCount == 0)
+        {
+            TurnUpForce(node.transform.gameObject);
+            return;
+        }
+        else
+        {
+            for (int i = 0; i < node.transform.childCount; i++)
+            {
+                TurnUpForce(node.transform.gameObject);
+                TurnUpAllForces(node.transform.GetChild(i).gameObject);
+            }
+        }
+    }
 
-	void TurnUpForce(GameObject obj)
-	{
-		if (obj.GetComponent<ConstantForce>() != null)
-		{
+    void TurnUpForce(GameObject obj)
+    {
+        if (obj.GetComponent<ConstantForce>() != null)
+        {
             obj.GetComponent<ConstantForce>().force *= 1.5f;
-		}
-	}
+        }
+    }
 
     void MakeAllObjectsInvisible(GameObject node)
     {
@@ -395,19 +393,19 @@ public class Waiter : MonoBehaviour
         int spritePosition = 0;
         if (neededBurgers > 0)
         {
-            GameObject sprite = Instantiate(Camera.main.GetComponent<WaiterManager>().burgers[neededBurgers - 1], thinkBubble.transform);
+            GameObject sprite = Instantiate(Camera.main.GetComponent<ZombieManager>().burgers[neededBurgers - 1], thinkBubble.transform);
             sprite.transform.localPosition = availableSpritePositions[spritePosition];
             spritePosition++;
         }
         if (neededFries > 0)
         {
-            GameObject sprite = Instantiate(Camera.main.GetComponent<WaiterManager>().fries[neededFries - 1], thinkBubble.transform);
+            GameObject sprite = Instantiate(Camera.main.GetComponent<ZombieManager>().fries[neededFries - 1], thinkBubble.transform);
             sprite.transform.localPosition = availableSpritePositions[spritePosition];
             spritePosition++;
         }
         if (neededDrinks > 0)
         {
-            GameObject sprite = Instantiate(Camera.main.GetComponent<WaiterManager>().drinks[neededDrinks - 1], thinkBubble.transform);
+            GameObject sprite = Instantiate(Camera.main.GetComponent<ZombieManager>().drinks[neededDrinks - 1], thinkBubble.transform);
             sprite.transform.localPosition = availableSpritePositions[spritePosition];
             spritePosition++;
         }

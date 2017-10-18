@@ -58,7 +58,7 @@ public class Car : MonoBehaviour
 
     void AddZombie()
     {
-        Camera.main.GetComponent<WaiterManager>().AddNewWaiter(new Vector3(transform.position.x, 0, transform.position.z + 4));
+        Camera.main.GetComponent<ZombieManager>().AddNewWaiter(new Vector3(transform.position.x, 0, transform.position.z + 4));
         droppedOff = true;
     }
 
