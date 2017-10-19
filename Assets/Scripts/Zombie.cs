@@ -9,7 +9,7 @@ public class Zombie : MonoBehaviour
     int amountOfBurgers, amountOfFries, amountOfDrinks;
     bool orderComplete;
     List<GameObject> onPlatter = new List<GameObject>();
-    GameObject head, thinkBubble, hair;
+    GameObject head, thinkBubble, hair, leftForearm, rightForearm;
 
     float speed = 1;
     float originalSpeed;
@@ -24,7 +24,7 @@ public class Zombie : MonoBehaviour
     float endingZ = -1;
     float animationSpeed = 0.5f;
 
-    void Start()
+    void Awake()
     {
         originalSpeed = speed;
         availableSpritePositions = new Vector3[3];
@@ -33,19 +33,11 @@ public class Zombie : MonoBehaviour
         availableSpritePositions[2] = new Vector3(0.5f, 4, 0.3f);
         thinkBubble = transform.GetChild(0).gameObject;
         thinkBubble.AddComponent<IncreaseSize>();
-		for (int i = 0; i < transform.childCount; i++)
-		{
-			if (transform.GetChild(i).name == "Head")
-			{
-				head = transform.GetChild(i).gameObject;
-			}
-		}
-
+        GetBodyParts(gameObject);
 		GetComponent<Animator>().Play("Walking");
         GetComponent<Animator>().SetBool("Walking", true);
         GetComponent<Animator>().SetFloat("Speed", speed * animationSpeed);
         startingZ = head.transform.position.z;
-        SetBodyParts();
 		WakeUp();
         SetOrder();
     }
@@ -330,13 +322,10 @@ public class Zombie : MonoBehaviour
             MakeObjectInvisible(node.transform.gameObject);
             return;
         }
-        else
+        for (int i = 0; i < node.transform.childCount; i++)
         {
-            for (int i = 0; i < node.transform.childCount; i++)
-            {
-                MakeObjectInvisible(node.transform.gameObject);
-                MakeAllObjectsInvisible(node.transform.GetChild(i).gameObject);
-            }
+            MakeObjectInvisible(node.transform.gameObject);
+            MakeAllObjectsInvisible(node.transform.GetChild(i).gameObject);
         }
     }
 
@@ -348,18 +337,43 @@ public class Zombie : MonoBehaviour
         }
     }
 
-    public void SetZombie(float s, GameObject h)
+	void GetBodyParts(GameObject part)
+	{
+		switch (part.name)
+		{
+			case "Head":
+				head = part.gameObject;
+				break;
+			case "Left_Forearm":
+				leftForearm = part.gameObject;
+				break;
+			case "Right_Forearm":
+				rightForearm = part.gameObject;
+				break;
+			case "Hair":
+				hair = part.gameObject;
+				break;
+		}
+		if (part.transform.childCount == 0)
+		{
+			return;
+		}
+		for (int i = 0; i < part.transform.childCount; i++)
+		{
+			GetBodyParts(part.transform.GetChild(i).gameObject);
+		}
+	}
+
+    public void SetZombie(float s, Mesh h, Mesh lF, Mesh rF)
     {
         speed = s;
         originalSpeed = s;
-        hair = Instantiate(h);
-    }
-
-    void SetBodyParts()
-    {
-        hair.transform.position = new Vector3(head.transform.position.x, head.transform.position.y + 0.5f, head.transform.position.z);
-		hair.transform.parent = head.transform;
-        hair.transform.localEulerAngles = new Vector3(0, 0, 0);
+        Mesh newHair = Instantiate(h);
+        Mesh newLeftForearm = Instantiate(lF);
+        Mesh newRightForearm = Instantiate(rF);
+        hair.GetComponent<MeshFilter>().mesh = newHair;
+        leftForearm.GetComponent<MeshFilter>().mesh = newLeftForearm;
+        rightForearm.GetComponent<MeshFilter>().mesh = newRightForearm;
     }
 
     void SetUpSprites()

@@ -11,7 +11,8 @@ public class ZombieManager : MonoBehaviour
     public GameObject[] burgers;
     public GameObject[] fries;
     public GameObject[] drinks;
-    public GameObject[] hair;
+    public Mesh[] hair;
+    public Mesh[] forearm;
 
     void Start()
     {
@@ -26,7 +27,12 @@ public class ZombieManager : MonoBehaviour
         newWaiter.transform.position = position;
 		newWaiter.transform.LookAt(gameplayPosition);
 		newWaiter.transform.eulerAngles = new Vector3(0, newWaiter.transform.eulerAngles.y, newWaiter.transform.eulerAngles.z);
-        newWaiter.AddComponent<Zombie>().SetZombie(1, hair[Random.Range(0, hair.Length)]);
+        newWaiter.AddComponent<Zombie>().SetZombie(
+            1, 
+            hair[Random.Range(0, hair.Length)], 
+            forearm[Random.Range(0, forearm.Length)], 
+            forearm[Random.Range(0, forearm.Length)]
+        );
         newWaiter.tag = "Clone";
     }
 
