@@ -41,6 +41,12 @@ ModelImporter:
     100066: Foot2
     100068: Foot3
     100070: Foot4
+    100072: Leg2
+    100074: Leg3
+    100076: Leg4
+    100078: Right_Upper_Arm2
+    100080: Left_Upper_Arm2
+    100082: Leg5
     400000: Head
     400002: Left_Foot
     400004: Left_Forearm
@@ -77,6 +83,12 @@ ModelImporter:
     400066: Foot2
     400068: Foot3
     400070: Foot4
+    400072: Leg2
+    400074: Leg3
+    400076: Leg4
+    400078: Right_Upper_Arm2
+    400080: Left_Upper_Arm2
+    400082: Leg5
     2300000: Head
     2300002: Left_Foot
     2300004: Left_Forearm
@@ -112,6 +124,12 @@ ModelImporter:
     2300064: Foot2
     2300066: Foot3
     2300068: Foot4
+    2300070: Leg2
+    2300072: Leg3
+    2300074: Leg4
+    2300076: Right_Upper_Arm2
+    2300078: Left_Upper_Arm2
+    2300080: Leg5
     3300000: Head
     3300002: Left_Foot
     3300004: Left_Forearm
@@ -147,6 +165,12 @@ ModelImporter:
     3300064: Foot2
     3300066: Foot3
     3300068: Foot4
+    3300070: Leg2
+    3300072: Leg3
+    3300074: Leg4
+    3300076: Right_Upper_Arm2
+    3300078: Left_Upper_Arm2
+    3300080: Leg5
     4300000: Head
     4300002: Left_Foot
     4300004: Left_Forearm
@@ -182,6 +206,12 @@ ModelImporter:
     4300064: Foot2
     4300066: Foot3
     4300068: Foot4
+    4300070: Leg2
+    4300072: Leg3
+    4300074: Leg4
+    4300076: Right_Upper_Arm2
+    4300078: Left_Upper_Arm2
+    4300080: Leg5
     7400000: Default Take
     9500000: //RootNode
   materials:

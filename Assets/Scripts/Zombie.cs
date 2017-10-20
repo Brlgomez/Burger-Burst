@@ -10,7 +10,8 @@ public class Zombie : MonoBehaviour
     bool orderComplete;
     List<GameObject> onPlatter = new List<GameObject>();
     GameObject head, thinkBubble, hair, leftForearm, rightForearm;
-    GameObject leftHand, rightHand, leftFoot, rightFoot;
+    GameObject leftHand, rightHand, leftFoot, rightFoot, leftLeg, rightLeg;
+    GameObject rightUpperArm, leftUpperArm;
 
     float speed = 1;
     float originalSpeed;
@@ -366,6 +367,18 @@ public class Zombie : MonoBehaviour
 			case "Right_Foot":
                 rightFoot = part.gameObject;
 				break;
+			case "Left_Leg":
+                leftLeg = part.gameObject;
+				break;
+			case "Right_Leg":
+                rightLeg = part.gameObject;
+				break;
+			case "Left_Upper_Arm":
+                leftUpperArm = part.gameObject;
+				break;
+			case "Right_Upper_Arm":
+                rightUpperArm = part.gameObject;
+				break;
 		}
 		if (part.transform.childCount == 0)
 		{
@@ -377,7 +390,7 @@ public class Zombie : MonoBehaviour
 		}
 	}
 
-    public void SetZombie(float s, Mesh h, Mesh lF, Mesh rF, Mesh rH, Mesh lH, Mesh lFoot, Mesh rFoot)
+    public void SetZombie(float s, Mesh h, Mesh lF, Mesh rF, Mesh rH, Mesh lH, Mesh lFoot, Mesh rFoot, Mesh lL, Mesh rL, Mesh rU, Mesh lU)
     {
         speed = s;
         originalSpeed = s;
@@ -388,6 +401,10 @@ public class Zombie : MonoBehaviour
 		Mesh newRightHand = Instantiate(rH);
         Mesh newLeftFoot = Instantiate(lFoot);
         Mesh newRightFoot = Instantiate(rFoot);
+        Mesh newLeftLeg = Instantiate(lL);
+		Mesh newRightLeg = Instantiate(rL);
+        Mesh newLeftUpperArm = Instantiate(lU);
+        Mesh newRightUpperArm = Instantiate(rU);
         hair.GetComponent<MeshFilter>().mesh = newHair;
         leftForearm.GetComponent<MeshFilter>().mesh = newLeftForearm;
         rightForearm.GetComponent<MeshFilter>().mesh = newRightForearm;
@@ -395,6 +412,10 @@ public class Zombie : MonoBehaviour
         rightHand.GetComponent<MeshFilter>().mesh = newRightHand;
         leftFoot.GetComponent<MeshFilter>().mesh = newLeftFoot;
         rightFoot.GetComponent<MeshFilter>().mesh = newRightFoot;
+        leftLeg.GetComponent<MeshFilter>().mesh = newLeftLeg;
+        rightLeg.GetComponent<MeshFilter>().mesh = newRightLeg;
+        leftUpperArm.GetComponent<MeshFilter>().mesh = newLeftUpperArm;
+        rightUpperArm.GetComponent<MeshFilter>().mesh = newRightUpperArm;
     }
 
     void SetUpSprites()
