@@ -35,6 +35,9 @@ ModelImporter:
     100054: Forearm3
     100056: Forearm4
     100058: Forearm5
+    100060: Hand2
+    100062: Hand3
+    100064: Hand4
     400000: Head
     400002: Left_Foot
     400004: Left_Forearm
@@ -65,6 +68,9 @@ ModelImporter:
     400054: Forearm3
     400056: Forearm4
     400058: Forearm5
+    400060: Hand2
+    400062: Hand3
+    400064: Hand4
     2300000: Head
     2300002: Left_Foot
     2300004: Left_Forearm
@@ -94,6 +100,9 @@ ModelImporter:
     2300052: Forearm3
     2300054: Forearm4
     2300056: Forearm5
+    2300058: Hand2
+    2300060: Hand3
+    2300062: Hand4
     3300000: Head
     3300002: Left_Foot
     3300004: Left_Forearm
@@ -123,6 +132,9 @@ ModelImporter:
     3300052: Forearm3
     3300054: Forearm4
     3300056: Forearm5
+    3300058: Hand2
+    3300060: Hand3
+    3300062: Hand4
     4300000: Head
     4300002: Left_Foot
     4300004: Left_Forearm
@@ -152,6 +164,9 @@ ModelImporter:
     4300052: Forearm3
     4300054: Forearm4
     4300056: Forearm5
+    4300058: Hand2
+    4300060: Hand3
+    4300062: Hand4
     7400000: Default Take
     9500000: //RootNode
   materials:

@@ -14700,6 +14700,11 @@ MonoBehaviour:
   - {fileID: 4300050, guid: 3da25bf0aabe543338ad9d02fa316ade, type: 3}
   - {fileID: 4300052, guid: 3da25bf0aabe543338ad9d02fa316ade, type: 3}
   - {fileID: 4300054, guid: 3da25bf0aabe543338ad9d02fa316ade, type: 3}
+  - {fileID: 4300056, guid: 3da25bf0aabe543338ad9d02fa316ade, type: 3}
+  hands:
+  - {fileID: 4300006, guid: 3da25bf0aabe543338ad9d02fa316ade, type: 3}
+  - {fileID: 4300058, guid: 3da25bf0aabe543338ad9d02fa316ade, type: 3}
+  - {fileID: 4300060, guid: 3da25bf0aabe543338ad9d02fa316ade, type: 3}
 --- !u!1 &1874950111
 GameObject:
   m_ObjectHideFlags: 0

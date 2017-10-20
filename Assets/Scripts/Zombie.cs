@@ -9,7 +9,7 @@ public class Zombie : MonoBehaviour
     int amountOfBurgers, amountOfFries, amountOfDrinks;
     bool orderComplete;
     List<GameObject> onPlatter = new List<GameObject>();
-    GameObject head, thinkBubble, hair, leftForearm, rightForearm;
+    GameObject head, thinkBubble, hair, leftForearm, rightForearm, leftHand, rightHand;
 
     float speed = 1;
     float originalSpeed;
@@ -353,6 +353,12 @@ public class Zombie : MonoBehaviour
 			case "Hair":
 				hair = part.gameObject;
 				break;
+			case "Left_Hand":
+                leftHand = part.gameObject;
+				break;
+			case "Right_Hand":
+                rightHand = part.gameObject;
+				break;
 		}
 		if (part.transform.childCount == 0)
 		{
@@ -364,16 +370,20 @@ public class Zombie : MonoBehaviour
 		}
 	}
 
-    public void SetZombie(float s, Mesh h, Mesh lF, Mesh rF)
+    public void SetZombie(float s, Mesh h, Mesh lF, Mesh rF, Mesh rH, Mesh lH)
     {
         speed = s;
         originalSpeed = s;
         Mesh newHair = Instantiate(h);
         Mesh newLeftForearm = Instantiate(lF);
         Mesh newRightForearm = Instantiate(rF);
+		Mesh newLeftHand = Instantiate(lH);
+		Mesh newRightHand = Instantiate(rH);
         hair.GetComponent<MeshFilter>().mesh = newHair;
         leftForearm.GetComponent<MeshFilter>().mesh = newLeftForearm;
         rightForearm.GetComponent<MeshFilter>().mesh = newRightForearm;
+        leftHand.GetComponent<MeshFilter>().mesh = newLeftHand;
+        rightHand.GetComponent<MeshFilter>().mesh = newRightHand;
     }
 
     void SetUpSprites()
