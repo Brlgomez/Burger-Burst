@@ -18,6 +18,8 @@ public class ZombieManager : MonoBehaviour
     public Mesh[] legs;
     public Mesh[] rightUpperArms;
     public Mesh[] leftUpperArms;
+	public Mesh[] thighs;
+    public Mesh[] heads;
 
     void Start()
     {
@@ -44,7 +46,10 @@ public class ZombieManager : MonoBehaviour
 			legs[Random.Range(0, legs.Length)],
 			legs[Random.Range(0, legs.Length)],
             rightUpperArms[Random.Range(0, rightUpperArms.Length)],
-            leftUpperArms[Random.Range(0, leftUpperArms.Length)]
+            leftUpperArms[Random.Range(0, leftUpperArms.Length)],
+            thighs[Random.Range(0, thighs.Length)],
+            thighs[Random.Range(0, thighs.Length)],
+            heads[Random.Range(0, heads.Length)]
         );
         newWaiter.tag = "Clone";
     }
