@@ -14716,9 +14716,11 @@ MonoBehaviour:
   rightUpperArms:
   - {fileID: 4300026, guid: 3da25bf0aabe543338ad9d02fa316ade, type: 3}
   - {fileID: 4300098, guid: 3da25bf0aabe543338ad9d02fa316ade, type: 3}
+  - {fileID: 4300104, guid: 3da25bf0aabe543338ad9d02fa316ade, type: 3}
   leftUpperArms:
   - {fileID: 4300012, guid: 3da25bf0aabe543338ad9d02fa316ade, type: 3}
   - {fileID: 4300096, guid: 3da25bf0aabe543338ad9d02fa316ade, type: 3}
+  - {fileID: 4300106, guid: 3da25bf0aabe543338ad9d02fa316ade, type: 3}
   thighs:
   - {fileID: 4300010, guid: 3da25bf0aabe543338ad9d02fa316ade, type: 3}
   - {fileID: 4300082, guid: 3da25bf0aabe543338ad9d02fa316ade, type: 3}
@@ -14730,6 +14732,10 @@ MonoBehaviour:
   - {fileID: 4300090, guid: 3da25bf0aabe543338ad9d02fa316ade, type: 3}
   - {fileID: 4300092, guid: 3da25bf0aabe543338ad9d02fa316ade, type: 3}
   - {fileID: 4300094, guid: 3da25bf0aabe543338ad9d02fa316ade, type: 3}
+  lowerBody:
+  - {fileID: 4300014, guid: 3da25bf0aabe543338ad9d02fa316ade, type: 3}
+  - {fileID: 4300102, guid: 3da25bf0aabe543338ad9d02fa316ade, type: 3}
+  - {fileID: 4300108, guid: 3da25bf0aabe543338ad9d02fa316ade, type: 3}
 --- !u!1 &1874950111
 GameObject:
   m_ObjectHideFlags: 0

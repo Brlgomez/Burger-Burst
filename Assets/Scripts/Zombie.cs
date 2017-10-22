@@ -11,7 +11,7 @@ public class Zombie : MonoBehaviour
     List<GameObject> onPlatter = new List<GameObject>();
     GameObject head, thinkBubble, hair, leftForearm, rightForearm;
     GameObject leftHand, rightHand, leftFoot, rightFoot, leftLeg, rightLeg;
-    GameObject rightUpperArm, leftUpperArm, leftThigh, rightThigh;
+    GameObject rightUpperArm, leftUpperArm, leftThigh, rightThigh, lowerBody;
 
     float speed = 1;
     float originalSpeed;
@@ -385,6 +385,9 @@ public class Zombie : MonoBehaviour
 			case "Right_Thigh":
 				rightThigh = part.gameObject;
 				break;
+			case "Lower_Body":
+                lowerBody = part.gameObject;
+				break;
 		}
 		if (part.transform.childCount == 0)
 		{
@@ -396,7 +399,7 @@ public class Zombie : MonoBehaviour
 		}
 	}
 
-    public void SetZombie(float s, Mesh h, Mesh lF, Mesh rF, Mesh rH, Mesh lH, Mesh lFoot, Mesh rFoot, Mesh lL, Mesh rL, Mesh rU, Mesh lU, Mesh lT, Mesh rT, Mesh headMesh)
+    public void SetZombie(float s, Mesh h, Mesh lF, Mesh rF, Mesh rH, Mesh lH, Mesh lFoot, Mesh rFoot, Mesh lL, Mesh rL, Mesh rU, Mesh lU, Mesh lT, Mesh rT, Mesh headMesh, Mesh lB)
     {
         speed = s;
         originalSpeed = s;
@@ -414,6 +417,7 @@ public class Zombie : MonoBehaviour
 		Mesh newLeftThigh = Instantiate(lT);
 		Mesh newRightThigh = Instantiate(rT);
         Mesh newHead = Instantiate(headMesh);
+        Mesh newLowerBody = Instantiate(lB);
         hair.GetComponent<MeshFilter>().mesh = newHair;
         leftForearm.GetComponent<MeshFilter>().mesh = newLeftForearm;
         rightForearm.GetComponent<MeshFilter>().mesh = newRightForearm;
@@ -428,6 +432,7 @@ public class Zombie : MonoBehaviour
         leftThigh.GetComponent<MeshFilter>().mesh = newLeftThigh;
         rightThigh.GetComponent<MeshFilter>().mesh = newRightThigh;
         head.GetComponent<MeshFilter>().mesh = newHead;
+        lowerBody.GetComponent<MeshFilter>().mesh = newLowerBody;
     }
 
     void SetUpSprites()
