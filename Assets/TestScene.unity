@@ -14744,6 +14744,7 @@ MonoBehaviour:
   outfit:
   - {fileID: 2100000, guid: 8610886be8d424fbdbd9dbf6d51b4bc9, type: 2}
   - {fileID: 2100000, guid: 1c50c3607264c461b821a74328b183fd, type: 2}
+  - {fileID: 2100000, guid: 4accd9e06414b4a3e97e5f6b3e57bf20, type: 2}
 --- !u!1 &1874950111
 GameObject:
   m_ObjectHideFlags: 0
