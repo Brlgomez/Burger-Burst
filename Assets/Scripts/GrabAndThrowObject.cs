@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class GrabAndThrowObject : MonoBehaviour
 {
-    GameObject target;
-    GameObject counterWall, grillWall, fryerWall, sodaWall;
+    GameObject target, counterWall, grillWall, fryerWall, sodaWall, phone;
     GameObject rightFryer, leftFryer, sodaFountain1, sodaFountain2, sodaFountain3;
     List<Vector3> positions = new List<Vector3>();
     Vector3 direction;
-    GameObject phone;
     Transform initialPosition;
     bool paused;
-	static int maxAmountOfPeople = 10;
-	static float timeForNewPerson = 12;
+    static int maxAmountOfPeople = 10;
+    static float timeForNewPerson = 12;
+    float timeForDrag;
+    static float limitForNewDragPosition = 0.01f;
     float newPersonTime;
     enum Area { counter, pause, gameOver, quit, grill, fryer, sodaMachine };
     Area currentArea;
@@ -577,9 +577,9 @@ public class GrabAndThrowObject : MonoBehaviour
         Destroy(GetComponent<Gameplay>());
         gameObject.AddComponent<Gameplay>();
         gameObject.AddComponent<CameraMovement>().MoveToGameplay("Restart");
-		RestartValues();
+        RestartValues();
         GetComponent<ScreenTextManagment>().MakeButtonsUnpressable();
-	}
+    }
 
     void Quit()
     {
@@ -591,7 +591,7 @@ public class GrabAndThrowObject : MonoBehaviour
         gameObject.AddComponent<CameraMovement>().MoveToMenu();
         gameObject.AddComponent<Gameplay>();
         Destroy(GetComponent<GrabAndThrowObject>());
-	}
+    }
 
     void PauseGame()
     {
@@ -662,18 +662,18 @@ public class GrabAndThrowObject : MonoBehaviour
     {
         if (!paused && !Camera.main.GetComponent<Gameplay>().IsGameOver())
         {
-			newPersonTime += Time.deltaTime;
+            newPersonTime += Time.deltaTime;
             if (newPersonTime > timeForNewPerson)
             {
                 if (Camera.main.GetComponent<ZombieManager>().GetCount() < maxAmountOfPeople)
                 {
                     Camera.main.GetComponent<CarManager>().CreateNewCarWithZombie();
-					if (Random.value < 0.25f)
-					{
-					    Camera.main.GetComponent<CarManager>().CreateNewCarWithNoZombie();
-					}
-					newPersonTime = 0;
-				}
+                    if (Random.value < 0.25f)
+                    {
+                        Camera.main.GetComponent<CarManager>().CreateNewCarWithNoZombie();
+                    }
+                    newPersonTime = 0;
+                }
             }
         }
     }
@@ -687,10 +687,15 @@ public class GrabAndThrowObject : MonoBehaviour
         {
             if (hit.transform.gameObject == wall)
             {
-                positions.Add(hit.point);
-                if (positions.Count > 9)
+                timeForDrag += Time.deltaTime;
+                if (timeForDrag > limitForNewDragPosition)
                 {
-                    positions.RemoveAt(0);
+                    positions.Add(hit.point);
+                    if (positions.Count > 5)
+                    {
+                        positions.RemoveAt(0);
+                    }
+                    timeForDrag = 0;
                 }
                 target.transform.position = hit.point;
             }
@@ -699,9 +704,9 @@ public class GrabAndThrowObject : MonoBehaviour
 
     public void DeleteObjects()
     {
-		Camera.main.GetComponent<FloatingTextManagement>().DeleteAllText();
+        Camera.main.GetComponent<FloatingTextManagement>().DeleteAllText();
         Camera.main.GetComponent<LEDManager>().ResetText();
-		GameObject[] ingredients = GameObject.FindGameObjectsWithTag("Ingredient");
+        GameObject[] ingredients = GameObject.FindGameObjectsWithTag("Ingredient");
         GameObject[] onPlatter = GameObject.FindGameObjectsWithTag("OnPlatter");
         GameObject[] fallen = GameObject.FindGameObjectsWithTag("Fallen");
         GameObject[] clones = GameObject.FindGameObjectsWithTag("Clone");

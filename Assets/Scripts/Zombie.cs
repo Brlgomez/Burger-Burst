@@ -15,15 +15,15 @@ public class Zombie : MonoBehaviour
 
     float speed = 1;
     float originalSpeed;
-    int maxDeathTime = 2;
+    int maxDeathTime = 3;
     float alpha = 1;
     int timeForDamage = 3;
     float damageTime;
     Vector3[] availableSpritePositions;
     bool playAttack = true;
-    float bubbleMinScale = 0.25f;
+    static float bubbleMinScale = 0.25f;
     float startingZ;
-    float endingZ = -1;
+    static int endingZ = -1;
     float animationSpeed = 0.5f;
 
     void Awake()
@@ -67,10 +67,14 @@ public class Zombie : MonoBehaviour
                 Camera.main.GetComponent<ZombieManager>().RemoveWaiter(gameObject);
             }
         }
-        else if (!orderComplete && head.transform.position.z < endingZ)
+        else if (!orderComplete && head.transform.position.z <= endingZ)
         {
             GetComponent<Animator>().SetFloat("Speed", 0);
             damageTime += Time.deltaTime;
+            rightThigh.GetComponent<Rigidbody>().isKinematic = false;
+            rightThigh.GetComponent<Rigidbody>().useGravity = true;
+            rightLeg.GetComponent<Rigidbody>().isKinematic = true;
+            rightLeg.GetComponent<Rigidbody>().useGravity = false;
             if (damageTime > timeForDamage && playAttack)
             {
                 if (Random.value > 0.5f)
@@ -111,7 +115,7 @@ public class Zombie : MonoBehaviour
         {
             thinkBubble.transform.localScale = Vector3.one * ((head.transform.position.z - endingZ) / (startingZ - endingZ));
         }
-        if (Mathf.Round(head.transform.position.z) < -1.25)
+        if (Mathf.Round(head.transform.position.z) < endingZ - 0.25f)
         {
             GetComponent<Animator>().SetBool("Attacking", true);
             GetComponent<Animator>().SetBool("Walking", false);
@@ -220,6 +224,8 @@ public class Zombie : MonoBehaviour
         }
     }
 
+    /* Waking up */
+
     void WakeUp()
     {
         for (int i = 1; i < transform.childCount; i++)
@@ -247,7 +253,7 @@ public class Zombie : MonoBehaviour
 
     void TurnOnForce(GameObject obj)
     {
-        if (obj.GetComponent<Rigidbody>() != null && obj.name != "Right_Leg" && obj.name != "Left_Leg")
+        if (obj.GetComponent<Rigidbody>() != null && obj != rightThigh /*&& obj != leftThigh*/)
         {
             obj.GetComponent<Rigidbody>().useGravity = true;
             obj.GetComponent<Rigidbody>().isKinematic = false;
@@ -261,6 +267,8 @@ public class Zombie : MonoBehaviour
             obj.GetComponent<Collider>().enabled = true;
         }
     }
+
+    /* Died */
 
     void Died()
     {
@@ -303,7 +311,7 @@ public class Zombie : MonoBehaviour
         }
         if (obj.GetComponent<Rigidbody>() != null)
         {
-            if (obj.name == "Right_Leg" || obj.name == "Left_Leg")
+            if (obj == rightThigh /*|| obj == leftThigh*/)
             {
                 obj.GetComponent<Rigidbody>().useGravity = true;
                 obj.GetComponent<Rigidbody>().isKinematic = false;
@@ -402,8 +410,8 @@ public class Zombie : MonoBehaviour
         }
     }
 
-    public void SetZombie(float s, Mesh h, Mesh lF, Mesh rF, Mesh rH, Mesh lH, Mesh lFoot, Mesh rFoot, 
-                          Mesh lL, Mesh rL, Mesh rU, Mesh lU, Mesh lT, Mesh rT, Mesh headMesh, Mesh lB, Mesh uB, Material outfit)
+    public void SetZombie(float s, Mesh h, Mesh lF, Mesh rF, Mesh rH, Mesh lH, Mesh lFoot, Mesh rFoot, Mesh lL,
+                          Mesh rL, Mesh rU, Mesh lU, Mesh lT, Mesh rT, Mesh headMesh, Mesh lB, Mesh uB, Material outfit)
     {
         speed = s;
         originalSpeed = s;
