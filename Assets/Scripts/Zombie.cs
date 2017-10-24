@@ -411,7 +411,7 @@ public class Zombie : MonoBehaviour
     }
 
     public void SetZombie(float s, Mesh h, Mesh lF, Mesh rF, Mesh rH, Mesh lH, Mesh lFoot, Mesh rFoot, Mesh lL,
-                          Mesh rL, Mesh rU, Mesh lU, Mesh lT, Mesh rT, Mesh headMesh, Mesh lB, Mesh uB, Material outfit)
+                          Mesh rL, Mesh rU, Mesh lU, Mesh lT, Mesh rT, Mesh headMesh, Mesh lB, Mesh uB, Texture outfit)
     {
         speed = s;
         originalSpeed = s;
@@ -434,10 +434,10 @@ public class Zombie : MonoBehaviour
         SetUpLimb(upperBody, uB, outfit);
     }
 
-    void SetUpLimb(GameObject limb, Mesh newMesh, Material outfit)
+    void SetUpLimb(GameObject limb, Mesh newMesh, Texture outfit)
     {
         limb.GetComponent<MeshFilter>().mesh = Instantiate(newMesh);
-        limb.GetComponent<Renderer>().material = outfit;
+        limb.GetComponent<Renderer>().material.mainTexture = outfit;
     }
 
     void SetUpSprites()

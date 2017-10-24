@@ -14576,8 +14576,8 @@ MonoBehaviour:
   zombieClear: {fileID: 2100000, guid: 6ce2e0087c1744aeab300f1e324f7576, type: 2}
   cars:
   - {fileID: 2100000, guid: f316031df84cd496f9d1eb1fb875f522, type: 2}
-  - {fileID: 2100000, guid: 3eb24cc5312454330918f5ba931a2a62, type: 2}
-  - {fileID: 2100000, guid: 4e9d2e030b4044becb22b49b3bbec3bb, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &1865169781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14589,6 +14589,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94113166b8b1b49c9bda95856f09c630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  paint:
+  - {fileID: 2800000, guid: b922e526fa88d4321a589562f411e432, type: 3}
+  - {fileID: 2800000, guid: ed157d17f5c004220a58295c7b4dbe47, type: 3}
+  - {fileID: 2800000, guid: 1c0d9a63b008a4be4b24709a714bcaf2, type: 3}
 --- !u!114 &1865169782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14742,9 +14746,10 @@ MonoBehaviour:
   upperBody:
   - {fileID: 4300028, guid: 3da25bf0aabe543338ad9d02fa316ade, type: 3}
   outfit:
-  - {fileID: 2100000, guid: 8610886be8d424fbdbd9dbf6d51b4bc9, type: 2}
-  - {fileID: 2100000, guid: 1c50c3607264c461b821a74328b183fd, type: 2}
-  - {fileID: 2100000, guid: 4accd9e06414b4a3e97e5f6b3e57bf20, type: 2}
+  - {fileID: 2800000, guid: ca54222f764ba41c89199a503757e6c6, type: 3}
+  - {fileID: 2800000, guid: 6b309c0852e0a4319b0900b38053b829, type: 3}
+  - {fileID: 2800000, guid: 92a0ac4fb1e334c249e0c0a5b29cd6f5, type: 3}
+  - {fileID: 2800000, guid: bc7b6140b82a14eaa8f3bd86918c219c, type: 3}
 --- !u!1 &1874950111
 GameObject:
   m_ObjectHideFlags: 0

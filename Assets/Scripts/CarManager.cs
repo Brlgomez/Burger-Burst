@@ -5,6 +5,7 @@ using UnityEngine;
 public class CarManager : MonoBehaviour
 {
     GameObject car;
+    public Texture[] paint;
 
     void Start()
     {
@@ -13,22 +14,20 @@ public class CarManager : MonoBehaviour
 
     public void CreateNewCarWithZombie()
     {
-        int materialIndex = Random.Range(0, Camera.main.GetComponent<Materials>().cars.Length);
         GameObject newCar = Instantiate(car);
         newCar.AddComponent<Car>();
         newCar.tag = "Car";
-        newCar.GetComponentInChildren<Renderer>().material = Camera.main.GetComponent<Materials>().cars[materialIndex];
+        newCar.GetComponentInChildren<Renderer>().material.mainTexture = paint[Random.Range(0, paint.Length)];
         newCar.transform.position = new Vector3(38, 0, 20);
         newCar.transform.Rotate(new Vector3(0, -90, 0));
     }
 
     public void CreateNewCarWithNoZombie()
     {
-        int materialIndex = Random.Range(0, Camera.main.GetComponent<Materials>().cars.Length);
         GameObject newCar = Instantiate(car);
         newCar.AddComponent<NonZombieCar>();
         newCar.tag = "Car";
-        newCar.GetComponentInChildren<Renderer>().material = Camera.main.GetComponent<Materials>().cars[materialIndex];
+        newCar.GetComponentInChildren<Renderer>().material.mainTexture = paint[Random.Range(0, paint.Length)];
         if (Random.value > 0.5f)
         {
             newCar.transform.position = new Vector3(20, 0, -40);

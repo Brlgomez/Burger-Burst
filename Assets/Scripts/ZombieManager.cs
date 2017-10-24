@@ -22,7 +22,7 @@ public class ZombieManager : MonoBehaviour
     public Mesh[] heads;
     public Mesh[] lowerBody;
     public Mesh[] upperBody;
-    public Material[] outfit;
+    public Texture[] outfit;
 
     void Start()
     {
