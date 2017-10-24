@@ -690,6 +690,8 @@ public class GrabAndThrowObject : MonoBehaviour
                 timeForDrag += Time.deltaTime;
                 if (timeForDrag > limitForNewDragPosition)
                 {
+                    //Debug.Log(Camera.main.WorldToScreenPoint(hit.point) + "Worldtoscreen");
+                    //Debug.Log(hit.point + "Hit.point");
                     positions.Add(hit.point);
                     if (positions.Count > 5)
                     {

@@ -15,6 +15,8 @@ public class CookMeat : MonoBehaviour
     float incR2, incG2, incB2;
     GameObject topBun, bottomBun;
     bool touchingTop, touchingBottom;
+    ParticleSystem particleSyst;
+    ParticleSystem.MainModule mainModule;
 
     void Start()
     {
@@ -30,6 +32,8 @@ public class CookMeat : MonoBehaviour
         incR2 = (cookedColor.r - burntColor.r) * (1.0f / (maxTimeOnGrill / 2.0f));
         incG2 = (cookedColor.g - burntColor.g) * (1.0f / (maxTimeOnGrill / 2.0f));
         incB2 = (cookedColor.b - burntColor.b) * (1.0f / (maxTimeOnGrill / 2.0f));
+        particleSyst = transform.GetChild(0).GetComponent<ParticleSystem>();
+        mainModule = particleSyst.main;
     }
 
     void Update()
@@ -37,6 +41,16 @@ public class CookMeat : MonoBehaviour
         if (onGrill && timeOnGrill < maxTimeOnGrill)
         {
             timeOnGrill += Time.deltaTime;
+            if (timeOnGrill > (maxTimeOnGrill * 0.25f) && !transform.GetChild(0).GetComponent<ParticleSystem>().isPlaying)
+            {
+                transform.GetChild(0).GetComponent<ParticleSystem>().Play();
+            }
+            if (transform.GetChild(0).GetComponent<ParticleSystem>().isPlaying)
+            {
+                float percentage = ((timeOnGrill - (maxTimeOnGrill * 0.25f)) / (maxTimeOnGrill - (maxTimeOnGrill * 0.25f)));
+                Color newColor = Color.Lerp(Color.white, Color.black, percentage);
+                mainModule.startColor = newColor;
+            }
             if (timeOnGrill < maxTimeOnGrill / 2)
             {
                 if (r > cookedColor.r)
@@ -75,6 +89,10 @@ public class CookMeat : MonoBehaviour
     {
         if (collision.gameObject.name == "Grill Top")
         {
+            if (timeOnGrill > (maxTimeOnGrill * 0.25f))
+            {
+                transform.GetChild(0).GetComponent<ParticleSystem>().Play();
+            }
             onGrill = true;
         }
         if (collision.gameObject.name == "Top_Bun(Clone)" && !touchingTop)
@@ -101,6 +119,7 @@ public class CookMeat : MonoBehaviour
 
     public void PickedUp()
     {
+        transform.GetChild(0).GetComponent<ParticleSystem>().Stop();
         onGrill = false;
         touchingTop = false;
         touchingBottom = false;
