@@ -41,6 +41,17 @@ public class SodaCup : MonoBehaviour
         }
     }
 
+    void OnTriggerExit(Collider other)
+    {
+        if (other.name == "SodaFromMachine1" || other.name == "SodaFromMachine2" || other.name == "SodaFromMachine3")
+        {
+			if (transform.GetChild(0).GetChild(0).GetComponent<ParticleSystem>().isPlaying)
+			{
+                transform.GetChild(0).GetChild(0).GetComponent<ParticleSystem>().Stop();
+			}
+        }
+    }
+
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Lid")
@@ -58,6 +69,10 @@ public class SodaCup : MonoBehaviour
 
     void FillCup()
     {
+        if (!transform.GetChild(0).GetChild(0).GetComponent<ParticleSystem>().isPlaying)
+        {
+            transform.GetChild(0).GetChild(0).GetComponent<ParticleSystem>().Play();
+        }
         if (currentY < top)
         {
             timeUnderFountain += Time.deltaTime;
