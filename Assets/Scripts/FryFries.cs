@@ -74,6 +74,7 @@ public class FryFries : MonoBehaviour
     {
         if (col.gameObject.name == "Hot Oil")
         {
+			transform.GetChild(0).GetComponent<ParticleSystem>().Play();
             inFryer = true;
         }
     }
@@ -82,6 +83,7 @@ public class FryFries : MonoBehaviour
     {
         if (col.gameObject.name == "Hot Oil")
         {
+			transform.GetChild(0).GetComponent<ParticleSystem>().Stop();
             inFryer = false;
         }
     }
