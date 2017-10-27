@@ -8,6 +8,9 @@ public class MainMenu : MonoBehaviour
     Vector3 point1, point2;
     int lastScrollX;
     bool roundScroller;
+    bool changeScrollerObjects;
+    int currentSlotNum;
+    GameObject currentSlot;
 
     void Start()
     {
@@ -68,10 +71,25 @@ public class MainMenu : MonoBehaviour
                 if (target.name == "Fifth Button")
                 {
                     Camera.main.GetComponent<ScreenTextManagment>().ChangeToMenuText();
+                    currentSlot = null;
                 }
                 else if (target.name == "Scroller")
                 {
+                    if (!changeScrollerObjects)
+                    {
+                        currentSlotNum = int.Parse(GetComponent<ScreenTextManagment>().GetMiddleObject().GetComponent<SpriteRenderer>().sprite.name);
+                        if (currentSlot != null)
+                        {
+                            GetComponent<ScreenTextManagment>().ChangeSlotSprite(currentSlot, currentSlotNum);
+                        }
+					}
                     roundScroller = true;
+                    changeScrollerObjects = false;
+                }
+                else if (target.name == "Left Slot" || target.name == "Middle Slot" || target.name == "Right Slot")
+                {
+                    currentSlot = target;
+                    GetComponent<ScreenTextManagment>().HighLightSlot(currentSlot.transform.parent.gameObject);
                 }
             }
             point1 = Vector3.zero;
@@ -83,8 +101,8 @@ public class MainMenu : MonoBehaviour
     {
         if (target.name == "Scroller")
         {
-			roundScroller = false;
-			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            roundScroller = false;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray.origin, ray.direction, out hit, 0.5f))
             {
@@ -100,25 +118,29 @@ public class MainMenu : MonoBehaviour
                     {
                         change = -0.5f;
                     }
+                    if (Mathf.Abs(change) > 0.01f && !changeScrollerObjects)
+                    {
+						changeScrollerObjects = true;
+					}
                     target.transform.parent.transform.GetChild(1).transform.localPosition = new Vector3(
                         target.transform.parent.transform.GetChild(1).transform.localPosition.x + change, 0, 0
                     );
-					point1 = hit.point;
-                    if(Mathf.RoundToInt(target.transform.parent.transform.GetChild(1).transform.localPosition.x) != lastScrollX)
+                    point1 = hit.point;
+                    if (Mathf.RoundToInt(target.transform.parent.transform.GetChild(1).transform.localPosition.x) != lastScrollX)
                     {
                         int newPos = Mathf.RoundToInt(target.transform.parent.transform.GetChild(1).transform.localPosition.x);
                         if (newPos > lastScrollX)
                         {
-                            GetComponent<ScreenTextManagment>().MoveScrollObjects(1);    
+                            GetComponent<ScreenTextManagment>().MoveScrollObjects(1);
                         }
-                        else 
+                        else
                         {
                             GetComponent<ScreenTextManagment>().MoveScrollObjects(-1);
                         }
                         lastScrollX = newPos;
                     }
-					GetComponent<ScreenTextManagment>().ScaleScrollerObjects();
-				}
+                    GetComponent<ScreenTextManagment>().ScaleScrollerObjects();
+                }
             }
         }
     }

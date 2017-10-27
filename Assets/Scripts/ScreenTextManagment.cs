@@ -12,6 +12,7 @@ ScreenTextManagment : MonoBehaviour
     Color red = Color.red;
     bool pressDown;
     string menu = "Main Menu";
+    public Sprite[] scrollSprites;
 
     void Start()
     {
@@ -40,27 +41,57 @@ ScreenTextManagment : MonoBehaviour
         line1.transform.GetChild(0).gameObject.layer = 2;
         line5.transform.GetChild(0).gameObject.layer = 2;
         scrollView.transform.GetChild(0).gameObject.layer = 2;
+        scrollView.transform.GetChild(2).GetChild(0).gameObject.layer = 2;
+        scrollView.transform.GetChild(2).GetChild(1).gameObject.layer = 2;
+        scrollView.transform.GetChild(2).GetChild(2).gameObject.layer = 2;
         scrollView.transform.GetChild(1).transform.localScale = new Vector3(1, 0, 1);
-        line1.GetComponent<TextMesh>().text = "GAME";
+        line1.GetComponent<TextMesh>().text = "Game";
         line2.GetComponent<TextMesh>().text = "Play";
         line3.GetComponent<TextMesh>().text = "Upgrades";
         line4.GetComponent<TextMesh>().text = "";
         line5.GetComponent<TextMesh>().text = "";
+		scrollView.transform.GetChild(2).GetChild(0).GetComponent<TextMesh>().text = "";
+		scrollView.transform.GetChild(2).GetChild(1).GetComponent<TextMesh>().text = "";
+		scrollView.transform.GetChild(2).GetChild(2).GetComponent<TextMesh>().text = "";
+		scrollView.transform.GetChild(2).GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().color = Color.clear;
+		scrollView.transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<SpriteRenderer>().color = Color.clear;
+		scrollView.transform.GetChild(2).GetChild(2).GetChild(0).GetComponent<SpriteRenderer>().color = Color.clear;
         menu = "Main Menu";
     }
 
     public void ChangeToUpgradeText()
     {
         MakeButtonsUnpressable();
+        line4.transform.GetChild(0).gameObject.layer = 0;
         line5.transform.GetChild(0).gameObject.layer = 0;
         scrollView.transform.GetChild(0).gameObject.layer = 0;
+        scrollView.transform.GetChild(2).GetChild(0).gameObject.layer = 0;
+        scrollView.transform.GetChild(2).GetChild(1).gameObject.layer = 0;
+        scrollView.transform.GetChild(2).GetChild(2).gameObject.layer = 0;
         scrollView.transform.GetChild(1).transform.localScale = new Vector3(1, 1, 1);
-        line1.GetComponent<TextMesh>().text = "UPGRADES";
+        line1.GetComponent<TextMesh>().text = "Upgrades";
         line2.GetComponent<TextMesh>().text = "";
         line3.GetComponent<TextMesh>().text = "";
-        line4.GetComponent<TextMesh>().text = "";
-        line5.GetComponent<TextMesh>().text = "Go Back";
+        line4.GetComponent<TextMesh>().text = "Info";
+        line5.GetComponent<TextMesh>().text = "Back";
+		scrollView.transform.GetChild(2).GetChild(0).GetComponent<TextMesh>().color = originalScreenColor;
+		scrollView.transform.GetChild(2).GetChild(1).GetComponent<TextMesh>().color = originalScreenColor;
+		scrollView.transform.GetChild(2).GetChild(2).GetComponent<TextMesh>().color = originalScreenColor;
+        scrollView.transform.GetChild(2).GetChild(0).GetComponent<TextMesh>().text = "[ ]";
+        scrollView.transform.GetChild(2).GetChild(1).GetComponent<TextMesh>().text = "[ ]";
+		scrollView.transform.GetChild(2).GetChild(2).GetComponent<TextMesh>().text = "[ ]";
+        scrollView.transform.GetChild(2).GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
+        scrollView.transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
+        scrollView.transform.GetChild(2).GetChild(2).GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
         menu = "Upgrade";
+    }
+
+    public void HighLightSlot(GameObject slot)
+    {
+        scrollView.transform.GetChild(2).GetChild(0).GetComponent<TextMesh>().color = originalScreenColor;
+        scrollView.transform.GetChild(2).GetChild(1).GetComponent<TextMesh>().color = originalScreenColor;
+        scrollView.transform.GetChild(2).GetChild(2).GetComponent<TextMesh>().color = originalScreenColor;
+        slot.GetComponent<TextMesh>().color = Color.grey;
     }
 
     public void ChangeToGamePlayText()
@@ -79,7 +110,7 @@ ScreenTextManagment : MonoBehaviour
         ChangeTextColorToOriginal();
         line1.transform.GetChild(0).gameObject.layer = 2;
         line5.transform.GetChild(0).gameObject.layer = 2;
-        line1.GetComponent<TextMesh>().text = "PAUSED";
+        line1.GetComponent<TextMesh>().text = "Paused";
         line2.GetComponent<TextMesh>().text = "Resume";
         line3.GetComponent<TextMesh>().text = "Restart";
         line4.GetComponent<TextMesh>().text = "Quit";
@@ -95,7 +126,7 @@ ScreenTextManagment : MonoBehaviour
         }
         else
         {
-            line1.GetComponent<TextMesh>().text = "DEAD";
+            line1.GetComponent<TextMesh>().text = "Dead";
             line2.GetComponent<TextMesh>().text = "";
             line3.GetComponent<TextMesh>().text = "Restart";
             line4.GetComponent<TextMesh>().text = "Quit";
@@ -245,7 +276,16 @@ ScreenTextManagment : MonoBehaviour
     {
         if (dir > 0)
         {
-            scrollList[0].transform.localPosition = new Vector3(
+            int scrollSprite = int.Parse(scrollList[scrollList.Count - 1].GetComponent<SpriteRenderer>().sprite.name);
+            if ((scrollSprite - 1) >= 0)
+            {
+                scrollList[0].GetComponent<SpriteRenderer>().sprite = scrollSprites[(scrollSprite - 1)];
+            }
+            else
+            {
+                scrollList[0].GetComponent<SpriteRenderer>().sprite = scrollSprites[(scrollSprites.Length - 1)];
+            }
+			scrollList[0].transform.localPosition = new Vector3(
                 scrollList[0].transform.localPosition.x,
                 scrollList[0].transform.localPosition.y,
                 scrollList[0].transform.localPosition.z - 5
@@ -255,6 +295,15 @@ ScreenTextManagment : MonoBehaviour
         }
         else
         {
+			int scrollSprite = int.Parse(scrollList[0].GetComponent<SpriteRenderer>().sprite.name);
+			if ((scrollSprite + 1) <= (scrollSprites.Length - 1))
+			{
+                scrollList[scrollList.Count - 1].GetComponent<SpriteRenderer>().sprite = scrollSprites[(scrollSprite + 1)];
+			}
+			else
+			{
+                scrollList[scrollList.Count - 1].GetComponent<SpriteRenderer>().sprite = scrollSprites[0];
+			}
             scrollList[scrollList.Count - 1].transform.localPosition = new Vector3(
                 scrollList[scrollList.Count - 1].transform.localPosition.x,
                 scrollList[scrollList.Count - 1].transform.localPosition.y,
@@ -269,7 +318,7 @@ ScreenTextManagment : MonoBehaviour
     {
         for (int i = 0; i < scrollList.Count; i++)
         {
-            float scale = ((0.025f - Mathf.Abs(scrollList[i].transform.position.z - scrollView.transform.position.z)) / 0.05f);
+            float scale = ((0.025f - Mathf.Abs(scrollList[i].transform.position.z - scrollView.transform.position.z)) / 0.05f) * 10;
             if (scale < 0)
             {
                 scale = 0;
@@ -280,13 +329,28 @@ ScreenTextManagment : MonoBehaviour
 
     public bool MoveScroller()
     {
-        Vector3 roundedPositon = new Vector3(Mathf.RoundToInt(scrollView.transform.GetChild(1).localPosition.x), 0, 0);
-        scrollView.transform.GetChild(1).localPosition = Vector3.Slerp(scrollView.transform.GetChild(1).localPosition, roundedPositon, Time.deltaTime * 5);
+        int roundedPositionX = Mathf.RoundToInt(scrollView.transform.GetChild(1).localPosition.x);
+        Vector3 roundedPosition = new Vector3(roundedPositionX, 0, 0);
+        scrollView.transform.GetChild(1).localPosition = Vector3.Slerp(
+            scrollView.transform.GetChild(1).localPosition,
+            roundedPosition,
+            Time.deltaTime * 5
+        );
         ScaleScrollerObjects();
-        if (Mathf.Abs(Mathf.RoundToInt(scrollView.transform.GetChild(1).localPosition.x) - scrollView.transform.GetChild(1).localPosition.x) < 0.001f)
+        if (Mathf.Abs(roundedPositionX - scrollView.transform.GetChild(1).localPosition.x) < 0.001f)
         {
             return false;
         }
         return true;
+    }
+
+    public GameObject GetMiddleObject()
+    {
+        return scrollList[2];
+    }
+
+    public void ChangeSlotSprite(GameObject slot, int n)
+    {
+        slot.GetComponent<SpriteRenderer>().sprite = scrollSprites[n];
     }
 }
