@@ -6,10 +6,11 @@ public class
 ScreenTextManagment : MonoBehaviour
 {
     int initialLife, initialBurgers, initialFries, initialDrinks;
-    GameObject line1, line2, line3, line4, line5;
+    GameObject line1, line2, line3, line4, line5, scrollView;
     Color originalScreenColor;
     Color red = Color.red;
     bool pressDown;
+    string menu = "Main Menu";
 
     void Start()
     {
@@ -23,6 +24,7 @@ ScreenTextManagment : MonoBehaviour
         line3 = GetComponent<ObjectManager>().Phone().transform.GetChild(2).gameObject;
         line4 = GetComponent<ObjectManager>().Phone().transform.GetChild(3).gameObject;
         line5 = GetComponent<ObjectManager>().Phone().transform.GetChild(4).gameObject;
+        scrollView = GetComponent<ObjectManager>().Phone().transform.GetChild(5).gameObject;
         ChangeToMenuText();
     }
 
@@ -30,19 +32,36 @@ ScreenTextManagment : MonoBehaviour
     {
         RevertButtons();
         ChangeTextColorToOriginal();
-        line1.transform.GetChild(0).tag = "Untagged";
-        line5.transform.GetChild(0).tag = "Untagged";
+        line1.transform.GetChild(0).gameObject.layer = 2;
+        line5.transform.GetChild(0).gameObject.layer = 2;
+        scrollView.transform.GetChild(0).gameObject.layer = 2;
+        scrollView.transform.GetChild(1).transform.localScale = new Vector3(1, 0, 1);
         line1.GetComponent<TextMesh>().text = "GAME";
         line2.GetComponent<TextMesh>().text = "Play";
-        line3.GetComponent<TextMesh>().text = "Scores";
-        line4.GetComponent<TextMesh>().text = "Settings";
+        line3.GetComponent<TextMesh>().text = "Upgrades";
+        line4.GetComponent<TextMesh>().text = "";
         line5.GetComponent<TextMesh>().text = "";
+        menu = "Main Menu";
+    }
+
+    public void ChangeToUpgradeText()
+    {
+        MakeButtonsUnpressable();
+		line5.transform.GetChild(0).gameObject.layer = 0;
+		scrollView.transform.GetChild(0).gameObject.layer = 0;
+        scrollView.transform.GetChild(1).transform.localScale = new Vector3(1, 1, 1);
+		line1.GetComponent<TextMesh>().text = "UPGRADES";
+		line2.GetComponent<TextMesh>().text = "";
+		line3.GetComponent<TextMesh>().text = "";
+		line4.GetComponent<TextMesh>().text = "";
+		line5.GetComponent<TextMesh>().text = "Go Back";
+        menu = "Upgrade";
     }
 
     public void ChangeToGamePlayText()
     {
         RevertButtons();
-        line1.transform.GetChild(0).tag = "Untagged";
+        line1.transform.GetChild(0).gameObject.layer = 2;
         ChangeBurgerCount();
         ChangeFriesCount();
         ChangeDrinkCount();
@@ -53,8 +72,8 @@ ScreenTextManagment : MonoBehaviour
     {
         RevertButtons();
         ChangeTextColorToOriginal();
-        line1.transform.GetChild(0).tag = "Untagged";
-        line5.transform.GetChild(0).tag = "Untagged";
+        line1.transform.GetChild(0).gameObject.layer = 2;
+        line5.transform.GetChild(0).gameObject.layer = 2;
         line1.GetComponent<TextMesh>().text = "PAUSED";
         line2.GetComponent<TextMesh>().text = "Resume";
         line3.GetComponent<TextMesh>().text = "Restart";
@@ -76,8 +95,8 @@ ScreenTextManagment : MonoBehaviour
             line3.GetComponent<TextMesh>().text = "Restart";
             line4.GetComponent<TextMesh>().text = "Quit";
             line5.GetComponent<TextMesh>().text = "S: " + GetComponent<Gameplay>().GetPoints();
-            line2.tag = "Untagged";
-            line5.tag = "Untagged";
+            line2.gameObject.layer = 2;
+            line5.gameObject.layer = 2;
             line3.GetComponent<TextMesh>().color = red;
             line4.GetComponent<TextMesh>().color = red;
             line5.GetComponent<TextMesh>().color = red;
@@ -132,51 +151,51 @@ ScreenTextManagment : MonoBehaviour
     public void ChangeToGrillArea()
     {
         RevertButtons();
-        line1.transform.GetChild(0).tag = "Untagged";
-        line2.transform.GetChild(0).tag = "Untagged";
+        line1.transform.GetChild(0).gameObject.layer = 2;
+        line2.transform.GetChild(0).gameObject.layer = 2;
         line5.GetComponent<TextMesh>().text = "Counter";
     }
 
     public void ChangeToFryerArea()
     {
         RevertButtons();
-        line1.transform.GetChild(0).tag = "Untagged";
-        line3.transform.GetChild(0).tag = "Untagged";
+        line1.transform.GetChild(0).gameObject.layer = 2;
+        line3.transform.GetChild(0).gameObject.layer = 2;
         line5.GetComponent<TextMesh>().text = "Counter";
     }
 
     public void ChangeToSodaMachineArea()
     {
         RevertButtons();
-        line1.transform.GetChild(0).tag = "Untagged";
-        line4.transform.GetChild(0).tag = "Untagged";
+        line1.transform.GetChild(0).gameObject.layer = 2;
+        line4.transform.GetChild(0).gameObject.layer = 2;
         line5.GetComponent<TextMesh>().text = "Counter";
     }
 
     public void ChangeToFrontArea()
     {
         RevertButtons();
-        line1.transform.GetChild(0).tag = "Untagged";
-        line5.transform.GetChild(0).tag = "Untagged";
+        line1.transform.GetChild(0).gameObject.layer = 2;
+        line5.transform.GetChild(0).gameObject.layer = 2;
         line5.GetComponent<TextMesh>().text = "";
     }
 
     public void RevertButtons()
     {
-        line1.transform.GetChild(0).tag = "UI";
-        line2.transform.GetChild(0).tag = "UI";
-        line3.transform.GetChild(0).tag = "UI";
-        line4.transform.GetChild(0).tag = "UI";
-        line5.transform.GetChild(0).tag = "UI";
+        line1.transform.GetChild(0).gameObject.layer = 0;
+        line2.transform.GetChild(0).gameObject.layer = 0;
+        line3.transform.GetChild(0).gameObject.layer = 0;
+        line4.transform.GetChild(0).gameObject.layer = 0;
+        line5.transform.GetChild(0).gameObject.layer = 0;
     }
 
     public void MakeButtonsUnpressable()
     {
-		line1.transform.GetChild(0).tag = "Untagged";
-		line2.transform.GetChild(0).tag = "Untagged";
-		line3.transform.GetChild(0).tag = "Untagged";
-		line4.transform.GetChild(0).tag = "Untagged";
-		line5.transform.GetChild(0).tag = "Untagged";
+        line1.transform.GetChild(0).gameObject.layer = 2;
+		line2.transform.GetChild(0).gameObject.layer = 2;
+		line3.transform.GetChild(0).gameObject.layer = 2;
+		line4.transform.GetChild(0).gameObject.layer = 2;
+		line5.transform.GetChild(0).gameObject.layer = 2;
     }
 
     void ChangeTextColorToOriginal()
@@ -190,7 +209,7 @@ ScreenTextManagment : MonoBehaviour
 
     public void PressTextDown(GameObject target)
     {
-        if (!pressDown)
+        if (!pressDown && target.GetComponent<TextMesh>() != null)
         {
             float r = target.GetComponent<TextMesh>().color.r;
             float g = target.GetComponent<TextMesh>().color.g;
@@ -202,7 +221,7 @@ ScreenTextManagment : MonoBehaviour
 
     public void PressTextUp(GameObject target)
     {
-        if (pressDown)
+        if (pressDown && target.GetComponent<TextMesh>() != null)
         {
             float r = target.GetComponent<TextMesh>().color.r;
             float g = target.GetComponent<TextMesh>().color.g;
@@ -210,5 +229,10 @@ ScreenTextManagment : MonoBehaviour
             target.GetComponent<TextMesh>().color = new Color(r * 2, g * 2, b * 2);
             pressDown = false;
         }
+    }
+
+    public string GetMenu()
+    {
+        return menu;
     }
 }
