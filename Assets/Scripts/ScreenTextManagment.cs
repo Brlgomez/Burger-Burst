@@ -7,6 +7,7 @@ ScreenTextManagment : MonoBehaviour
 {
     int initialLife, initialBurgers, initialFries, initialDrinks;
     GameObject line1, line2, line3, line4, line5, scrollView;
+    List<GameObject> scrollList = new List<GameObject>();
     Color originalScreenColor;
     Color red = Color.red;
     bool pressDown;
@@ -25,6 +26,10 @@ ScreenTextManagment : MonoBehaviour
         line4 = GetComponent<ObjectManager>().Phone().transform.GetChild(3).gameObject;
         line5 = GetComponent<ObjectManager>().Phone().transform.GetChild(4).gameObject;
         scrollView = GetComponent<ObjectManager>().Phone().transform.GetChild(5).gameObject;
+        for (int i = 0; i < GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(1).childCount; i++)
+        {
+            scrollList.Add(GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(1).GetChild(i).gameObject);
+        }
         ChangeToMenuText();
     }
 
@@ -47,14 +52,14 @@ ScreenTextManagment : MonoBehaviour
     public void ChangeToUpgradeText()
     {
         MakeButtonsUnpressable();
-		line5.transform.GetChild(0).gameObject.layer = 0;
-		scrollView.transform.GetChild(0).gameObject.layer = 0;
+        line5.transform.GetChild(0).gameObject.layer = 0;
+        scrollView.transform.GetChild(0).gameObject.layer = 0;
         scrollView.transform.GetChild(1).transform.localScale = new Vector3(1, 1, 1);
-		line1.GetComponent<TextMesh>().text = "UPGRADES";
-		line2.GetComponent<TextMesh>().text = "";
-		line3.GetComponent<TextMesh>().text = "";
-		line4.GetComponent<TextMesh>().text = "";
-		line5.GetComponent<TextMesh>().text = "Go Back";
+        line1.GetComponent<TextMesh>().text = "UPGRADES";
+        line2.GetComponent<TextMesh>().text = "";
+        line3.GetComponent<TextMesh>().text = "";
+        line4.GetComponent<TextMesh>().text = "";
+        line5.GetComponent<TextMesh>().text = "Go Back";
         menu = "Upgrade";
     }
 
@@ -192,10 +197,10 @@ ScreenTextManagment : MonoBehaviour
     public void MakeButtonsUnpressable()
     {
         line1.transform.GetChild(0).gameObject.layer = 2;
-		line2.transform.GetChild(0).gameObject.layer = 2;
-		line3.transform.GetChild(0).gameObject.layer = 2;
-		line4.transform.GetChild(0).gameObject.layer = 2;
-		line5.transform.GetChild(0).gameObject.layer = 2;
+        line2.transform.GetChild(0).gameObject.layer = 2;
+        line3.transform.GetChild(0).gameObject.layer = 2;
+        line4.transform.GetChild(0).gameObject.layer = 2;
+        line5.transform.GetChild(0).gameObject.layer = 2;
     }
 
     void ChangeTextColorToOriginal()
@@ -234,5 +239,54 @@ ScreenTextManagment : MonoBehaviour
     public string GetMenu()
     {
         return menu;
+    }
+
+    public void MoveScrollObjects(int dir)
+    {
+        if (dir > 0)
+        {
+            scrollList[0].transform.localPosition = new Vector3(
+                scrollList[0].transform.localPosition.x,
+                scrollList[0].transform.localPosition.y,
+                scrollList[0].transform.localPosition.z - 5
+            );
+            scrollList.Insert((scrollList.Count), scrollList[0]);
+            scrollList.RemoveAt(0);
+        }
+        else
+        {
+            scrollList[scrollList.Count - 1].transform.localPosition = new Vector3(
+                scrollList[scrollList.Count - 1].transform.localPosition.x,
+                scrollList[scrollList.Count - 1].transform.localPosition.y,
+                scrollList[scrollList.Count - 1].transform.localPosition.z + 5
+            );
+            scrollList.Insert(0, scrollList[scrollList.Count - 1]);
+            scrollList.RemoveAt(scrollList.Count - 1);
+        }
+    }
+
+    public void ScaleScrollerObjects()
+    {
+        for (int i = 0; i < scrollList.Count; i++)
+        {
+            float scale = ((0.025f - Mathf.Abs(scrollList[i].transform.position.z - scrollView.transform.position.z)) / 0.05f);
+            if (scale < 0)
+            {
+                scale = 0;
+            }
+            scrollList[i].transform.localScale = new Vector3(scale, scale, scale);
+        }
+    }
+
+    public bool MoveScroller()
+    {
+        Vector3 roundedPositon = new Vector3(Mathf.RoundToInt(scrollView.transform.GetChild(1).localPosition.x), 0, 0);
+        scrollView.transform.GetChild(1).localPosition = Vector3.Slerp(scrollView.transform.GetChild(1).localPosition, roundedPositon, Time.deltaTime * 5);
+        ScaleScrollerObjects();
+        if (Mathf.Abs(Mathf.RoundToInt(scrollView.transform.GetChild(1).localPosition.x) - scrollView.transform.GetChild(1).localPosition.x) < 0.001f)
+        {
+            return false;
+        }
+        return true;
     }
 }

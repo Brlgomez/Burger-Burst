@@ -6,6 +6,8 @@ public class MainMenu : MonoBehaviour
 {
     GameObject target;
     Vector3 point1, point2;
+    int lastScrollX;
+    bool roundScroller;
 
     void Start()
     {
@@ -26,6 +28,10 @@ public class MainMenu : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             MouseUp();
+        }
+        if (roundScroller)
+        {
+            roundScroller = GetComponent<ScreenTextManagment>().MoveScroller();
         }
     }
 
@@ -65,7 +71,7 @@ public class MainMenu : MonoBehaviour
                 }
                 else if (target.name == "Scroller")
                 {
-
+                    roundScroller = true;
                 }
             }
             point1 = Vector3.zero;
@@ -77,7 +83,8 @@ public class MainMenu : MonoBehaviour
     {
         if (target.name == "Scroller")
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			roundScroller = false;
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray.origin, ray.direction, out hit, 0.5f))
             {
@@ -85,11 +92,33 @@ public class MainMenu : MonoBehaviour
                 {
                     point2 = hit.point;
                     float change = (point1.z - point2.z) * -50;
+                    if (change > 1)
+                    {
+                        change = 0.5f;
+                    }
+                    if (change < -1)
+                    {
+                        change = -0.5f;
+                    }
                     target.transform.parent.transform.GetChild(1).transform.localPosition = new Vector3(
                         target.transform.parent.transform.GetChild(1).transform.localPosition.x + change, 0, 0
                     );
-                    point1 = hit.point;
-                }
+					point1 = hit.point;
+                    if(Mathf.RoundToInt(target.transform.parent.transform.GetChild(1).transform.localPosition.x) != lastScrollX)
+                    {
+                        int newPos = Mathf.RoundToInt(target.transform.parent.transform.GetChild(1).transform.localPosition.x);
+                        if (newPos > lastScrollX)
+                        {
+                            GetComponent<ScreenTextManagment>().MoveScrollObjects(1);    
+                        }
+                        else 
+                        {
+                            GetComponent<ScreenTextManagment>().MoveScrollObjects(-1);
+                        }
+                        lastScrollX = newPos;
+                    }
+					GetComponent<ScreenTextManagment>().ScaleScrollerObjects();
+				}
             }
         }
     }
