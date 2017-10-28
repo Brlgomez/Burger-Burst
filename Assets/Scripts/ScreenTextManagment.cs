@@ -6,7 +6,7 @@ public class
 ScreenTextManagment : MonoBehaviour
 {
     int initialLife, initialBurgers, initialFries, initialDrinks;
-    GameObject line1, line2, line3, line4, line5, scrollView;
+    GameObject line1, line2, line3, line4, line5, scrollView, slot1, slot2, slot3;
     List<GameObject> scrollList = new List<GameObject>();
     Color originalScreenColor;
     Color red = Color.red;
@@ -27,13 +27,16 @@ ScreenTextManagment : MonoBehaviour
         line4 = GetComponent<ObjectManager>().Phone().transform.GetChild(3).gameObject;
         line5 = GetComponent<ObjectManager>().Phone().transform.GetChild(4).gameObject;
         scrollView = GetComponent<ObjectManager>().Phone().transform.GetChild(5).gameObject;
+        slot1 = scrollView.transform.GetChild(2).GetChild(0).gameObject;
+        slot2 = scrollView.transform.GetChild(2).GetChild(1).gameObject;
+        slot3 = scrollView.transform.GetChild(2).GetChild(2).gameObject;
         for (int i = 0; i < GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(1).childCount; i++)
         {
             scrollList.Add(GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(1).GetChild(i).gameObject);
         }
         ChangeToMenuText();
-		GetComponent<ScreenTextManagment>().SetSlotSprites();
-	}
+        GetComponent<ScreenTextManagment>().SetSlotSprites();
+    }
 
     public void ChangeToMenuText()
     {
@@ -42,21 +45,21 @@ ScreenTextManagment : MonoBehaviour
         line1.transform.GetChild(0).gameObject.layer = 2;
         line5.transform.GetChild(0).gameObject.layer = 2;
         scrollView.transform.GetChild(0).gameObject.layer = 2;
-        scrollView.transform.GetChild(2).GetChild(0).gameObject.layer = 2;
-        scrollView.transform.GetChild(2).GetChild(1).gameObject.layer = 2;
-        scrollView.transform.GetChild(2).GetChild(2).gameObject.layer = 2;
+        slot1.gameObject.layer = 2;
+        slot2.gameObject.layer = 2;
+        slot3.gameObject.layer = 2;
         scrollView.transform.GetChild(1).transform.localScale = new Vector3(1, 0, 1);
         line1.GetComponent<TextMesh>().text = "Game";
         line2.GetComponent<TextMesh>().text = "Play";
         line3.GetComponent<TextMesh>().text = "Upgrades";
         line4.GetComponent<TextMesh>().text = "";
         line5.GetComponent<TextMesh>().text = "";
-		scrollView.transform.GetChild(2).GetChild(0).GetComponent<TextMesh>().text = "";
-		scrollView.transform.GetChild(2).GetChild(1).GetComponent<TextMesh>().text = "";
-		scrollView.transform.GetChild(2).GetChild(2).GetComponent<TextMesh>().text = "";
-		scrollView.transform.GetChild(2).GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().color = Color.clear;
-		scrollView.transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<SpriteRenderer>().color = Color.clear;
-		scrollView.transform.GetChild(2).GetChild(2).GetChild(0).GetComponent<SpriteRenderer>().color = Color.clear;
+        slot1.GetComponent<TextMesh>().text = "";
+        slot2.GetComponent<TextMesh>().text = "";
+        slot3.GetComponent<TextMesh>().text = "";
+        slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.clear;
+        slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.clear;
+        slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.clear;
         menu = "Main Menu";
     }
 
@@ -66,32 +69,32 @@ ScreenTextManagment : MonoBehaviour
         line4.transform.GetChild(0).gameObject.layer = 0;
         line5.transform.GetChild(0).gameObject.layer = 0;
         scrollView.transform.GetChild(0).gameObject.layer = 0;
-        scrollView.transform.GetChild(2).GetChild(0).gameObject.layer = 0;
-        scrollView.transform.GetChild(2).GetChild(1).gameObject.layer = 0;
-        scrollView.transform.GetChild(2).GetChild(2).gameObject.layer = 0;
+        slot1.gameObject.layer = 0;
+        slot2.gameObject.layer = 0;
+        slot3.gameObject.layer = 0;
         scrollView.transform.GetChild(1).transform.localScale = new Vector3(1, 1, 1);
         line1.GetComponent<TextMesh>().text = "Upgrades";
         line2.GetComponent<TextMesh>().text = "";
         line3.GetComponent<TextMesh>().text = "";
         line4.GetComponent<TextMesh>().text = "Info";
         line5.GetComponent<TextMesh>().text = "Back";
-		scrollView.transform.GetChild(2).GetChild(0).GetComponent<TextMesh>().color = originalScreenColor;
-		scrollView.transform.GetChild(2).GetChild(1).GetComponent<TextMesh>().color = originalScreenColor;
-		scrollView.transform.GetChild(2).GetChild(2).GetComponent<TextMesh>().color = originalScreenColor;
-        scrollView.transform.GetChild(2).GetChild(0).GetComponent<TextMesh>().text = "[ ]";
-        scrollView.transform.GetChild(2).GetChild(1).GetComponent<TextMesh>().text = "[ ]";
-		scrollView.transform.GetChild(2).GetChild(2).GetComponent<TextMesh>().text = "[ ]";
-        scrollView.transform.GetChild(2).GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
-        scrollView.transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
-        scrollView.transform.GetChild(2).GetChild(2).GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
+        slot1.GetComponent<TextMesh>().color = originalScreenColor;
+        slot2.GetComponent<TextMesh>().color = originalScreenColor;
+        slot3.GetComponent<TextMesh>().color = originalScreenColor;
+        slot1.GetComponent<TextMesh>().text = "[ ]";
+        slot2.GetComponent<TextMesh>().text = "[ ]";
+        slot3.GetComponent<TextMesh>().text = "[ ]";
+        slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
+        slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
+        slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
         menu = "Upgrade";
     }
 
     public void HighLightSlot(GameObject slot)
     {
-        scrollView.transform.GetChild(2).GetChild(0).GetComponent<TextMesh>().color = originalScreenColor;
-        scrollView.transform.GetChild(2).GetChild(1).GetComponent<TextMesh>().color = originalScreenColor;
-        scrollView.transform.GetChild(2).GetChild(2).GetComponent<TextMesh>().color = originalScreenColor;
+        slot1.GetComponent<TextMesh>().color = originalScreenColor;
+        slot2.GetComponent<TextMesh>().color = originalScreenColor;
+        slot3.GetComponent<TextMesh>().color = originalScreenColor;
         slot.GetComponent<TextMesh>().color = Color.grey;
     }
 
@@ -286,7 +289,7 @@ ScreenTextManagment : MonoBehaviour
             {
                 scrollList[0].GetComponent<SpriteRenderer>().sprite = scrollSprites[(scrollSprites.Length - 1)];
             }
-			scrollList[0].transform.localPosition = new Vector3(
+            scrollList[0].transform.localPosition = new Vector3(
                 scrollList[0].transform.localPosition.x,
                 scrollList[0].transform.localPosition.y,
                 scrollList[0].transform.localPosition.z - 5
@@ -296,15 +299,15 @@ ScreenTextManagment : MonoBehaviour
         }
         else
         {
-			int scrollSprite = int.Parse(scrollList[0].GetComponent<SpriteRenderer>().sprite.name);
-			if ((scrollSprite + 1) <= (scrollSprites.Length - 1))
-			{
+            int scrollSprite = int.Parse(scrollList[0].GetComponent<SpriteRenderer>().sprite.name);
+            if ((scrollSprite + 1) <= (scrollSprites.Length - 1))
+            {
                 scrollList[scrollList.Count - 1].GetComponent<SpriteRenderer>().sprite = scrollSprites[(scrollSprite + 1)];
-			}
-			else
-			{
+            }
+            else
+            {
                 scrollList[scrollList.Count - 1].GetComponent<SpriteRenderer>().sprite = scrollSprites[0];
-			}
+            }
             scrollList[scrollList.Count - 1].transform.localPosition = new Vector3(
                 scrollList[scrollList.Count - 1].transform.localPosition.x,
                 scrollList[scrollList.Count - 1].transform.localPosition.y,
@@ -354,14 +357,14 @@ ScreenTextManagment : MonoBehaviour
     {
         if (GetComponent<Gameplay>().SetUpgrades(pos, int.Parse(scrollSprites[n].name)))
         {
-			slot.GetComponent<SpriteRenderer>().sprite = scrollSprites[n];
-		}
+            slot.GetComponent<SpriteRenderer>().sprite = scrollSprites[n];
+        }
     }
 
     public void SetSlotSprites()
     {
-        scrollView.transform.GetChild(2).GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().sprite = scrollSprites[PlayerPrefs.GetInt("UPGRADE 1")];
-        scrollView.transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<SpriteRenderer>().sprite = scrollSprites[PlayerPrefs.GetInt("UPGRADE 2")];
-        scrollView.transform.GetChild(2).GetChild(2).GetChild(0).GetComponent<SpriteRenderer>().sprite = scrollSprites[PlayerPrefs.GetInt("UPGRADE 3")];
+        slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = scrollSprites[PlayerPrefs.GetInt("UPGRADE 1")];
+        slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = scrollSprites[PlayerPrefs.GetInt("UPGRADE 2")];
+        slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = scrollSprites[PlayerPrefs.GetInt("UPGRADE 3")];
     }
 }
