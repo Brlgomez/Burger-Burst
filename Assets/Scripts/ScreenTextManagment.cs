@@ -36,7 +36,8 @@ ScreenTextManagment : MonoBehaviour
         }
         ChangeToMenuText();
         GetComponent<ScreenTextManagment>().SetSlotSprites();
-    }
+		ScaleScrollerObjects();
+	}
 
     public void ChangeToMenuText()
     {
@@ -45,9 +46,10 @@ ScreenTextManagment : MonoBehaviour
         line1.transform.GetChild(0).gameObject.layer = 2;
         line5.transform.GetChild(0).gameObject.layer = 2;
         scrollView.transform.GetChild(0).gameObject.layer = 2;
-        slot1.gameObject.layer = 2;
-        slot2.gameObject.layer = 2;
-        slot3.gameObject.layer = 2;
+        scrollView.transform.GetChild(3).gameObject.layer = 2;
+        slot1.transform.GetChild(0).gameObject.layer = 2;
+        slot2.transform.GetChild(0).gameObject.layer = 2;
+        slot3.transform.GetChild(0).gameObject.layer = 2;
         scrollView.transform.GetChild(1).transform.localScale = new Vector3(1, 0, 1);
         line1.GetComponent<TextMesh>().text = "Game";
         line2.GetComponent<TextMesh>().text = "Play";
@@ -60,23 +62,24 @@ ScreenTextManagment : MonoBehaviour
         slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.clear;
         slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.clear;
         slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.clear;
+        line4.GetComponent<TextMesh>().characterSize = 0.0325f;
         menu = "Main Menu";
     }
 
     public void ChangeToUpgradeText()
     {
         MakeButtonsUnpressable();
-        line4.transform.GetChild(0).gameObject.layer = 0;
         line5.transform.GetChild(0).gameObject.layer = 0;
         scrollView.transform.GetChild(0).gameObject.layer = 0;
-        slot1.gameObject.layer = 0;
-        slot2.gameObject.layer = 0;
-        slot3.gameObject.layer = 0;
+        scrollView.transform.GetChild(3).gameObject.layer = 2;
+        slot1.transform.GetChild(0).gameObject.layer = 0;
+        slot2.transform.GetChild(0).gameObject.layer = 0;
+        slot3.transform.GetChild(0).gameObject.layer = 0;
         scrollView.transform.GetChild(1).transform.localScale = new Vector3(1, 1, 1);
         line1.GetComponent<TextMesh>().text = "Upgrades";
         line2.GetComponent<TextMesh>().text = "";
         line3.GetComponent<TextMesh>().text = "";
-        line4.GetComponent<TextMesh>().text = "Info";
+		ChangeInfo(GetMiddleObject().GetComponent<SpriteRenderer>().sprite.name);
         line5.GetComponent<TextMesh>().text = "Back";
         slot1.GetComponent<TextMesh>().color = originalScreenColor;
         slot2.GetComponent<TextMesh>().color = originalScreenColor;
@@ -95,7 +98,49 @@ ScreenTextManagment : MonoBehaviour
         slot1.GetComponent<TextMesh>().color = originalScreenColor;
         slot2.GetComponent<TextMesh>().color = originalScreenColor;
         slot3.GetComponent<TextMesh>().color = originalScreenColor;
-        slot.GetComponent<TextMesh>().color = Color.grey;
+        slot.GetComponent<TextMesh>().color = Color.green;
+    }
+
+    public void ChangeScrollerItemColor(bool b)
+    {
+        if (b)
+        {
+            GetMiddleObject().GetComponent<SpriteRenderer>().color = Color.black;
+        }
+        else
+        {
+            GetMiddleObject().GetComponent<SpriteRenderer>().color = Color.white; 
+        }
+    }
+
+    public void EnableScroller(bool b)
+    {
+        if (b)
+        {
+            scrollView.transform.GetChild(3).gameObject.layer = 0;
+        }
+        else 
+        {
+            scrollView.transform.GetChild(3).gameObject.layer = 2;
+        }
+    }
+
+    public void ChangeInfo(string name)
+    {
+        line4.GetComponent<TextMesh>().characterSize = 0.0325f;
+        if (name == "0")
+        {
+            line4.GetComponent<TextMesh>().text = "Nothing";
+        }
+        else if (name == "1")
+        {
+            line4.GetComponent<TextMesh>().characterSize = 0.019f;
+            line4.GetComponent<TextMesh>().text = "Make food quicker";
+        }
+        else 
+        {
+			line4.GetComponent<TextMesh>().text = name;
+		}
     }
 
     public void ChangeToGamePlayText()
@@ -257,6 +302,11 @@ ScreenTextManagment : MonoBehaviour
             target.GetComponent<TextMesh>().color = new Color(r / 2, g / 2, b / 2);
             pressDown = true;
         }
+        if(!pressDown && target == scrollView)
+        {
+            ChangeScrollerItemColor(true);
+            pressDown = true;
+        }
     }
 
     public void PressTextUp(GameObject target)
@@ -269,6 +319,11 @@ ScreenTextManagment : MonoBehaviour
             target.GetComponent<TextMesh>().color = new Color(r * 2, g * 2, b * 2);
             pressDown = false;
         }
+        if (pressDown && target == scrollView)
+		{
+			ChangeScrollerItemColor(false);
+            pressDown = false;
+		}
     }
 
     public string GetMenu()
@@ -316,13 +371,14 @@ ScreenTextManagment : MonoBehaviour
             scrollList.Insert(0, scrollList[scrollList.Count - 1]);
             scrollList.RemoveAt(scrollList.Count - 1);
         }
+        ChangeInfo(GetMiddleObject().GetComponent<SpriteRenderer>().sprite.name);
     }
 
     public void ScaleScrollerObjects()
     {
         for (int i = 0; i < scrollList.Count; i++)
         {
-            float scale = ((0.025f - Mathf.Abs(scrollList[i].transform.position.z - scrollView.transform.position.z)) / 0.05f) * 10;
+            float scale = ((0.025f - Mathf.Abs(scrollList[i].transform.position.z - scrollView.transform.position.z)) / 0.05f) * 7.5f;
             if (scale < 0)
             {
                 scale = 0;

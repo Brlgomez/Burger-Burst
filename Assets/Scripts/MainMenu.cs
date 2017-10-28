@@ -76,6 +76,7 @@ public class MainMenu : MonoBehaviour
                 }
                 else if (target.name == "Scroller")
                 {
+                    GetComponent<ScreenTextManagment>().EnableScroller(false);
                     if (!changeScrollerObjects)
                     {
                         currentSlotNum = int.Parse(GetComponent<ScreenTextManagment>().GetMiddleObject().GetComponent<SpriteRenderer>().sprite.name);
@@ -83,7 +84,7 @@ public class MainMenu : MonoBehaviour
                         {
                             GetComponent<ScreenTextManagment>().ChangeSlotSprite(currentSlot, currentSlotNum, slotPosition);
                         }
-					}
+                    }
                     roundScroller = true;
                     changeScrollerObjects = false;
                 }
@@ -114,12 +115,13 @@ public class MainMenu : MonoBehaviour
     {
         if (target.name == "Scroller")
         {
+            GetComponent<ScreenTextManagment>().EnableScroller(true);
             roundScroller = false;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray.origin, ray.direction, out hit, 0.5f))
             {
-                if (hit.collider.name == "Scroller")
+                if (hit.collider.name == "Off Screen Scroller")
                 {
                     point2 = hit.point;
                     float change = (point1.z - point2.z) * -50;
@@ -134,6 +136,7 @@ public class MainMenu : MonoBehaviour
                     if (Mathf.Abs(change) > 0.01f && !changeScrollerObjects)
                     {
 						changeScrollerObjects = true;
+                        GetComponent<ScreenTextManagment>().ChangeScrollerItemColor(false);
 					}
                     target.transform.parent.transform.GetChild(1).transform.localPosition = new Vector3(
                         target.transform.parent.transform.GetChild(1).transform.localPosition.x + change, 0, 0
