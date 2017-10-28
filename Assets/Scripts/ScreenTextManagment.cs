@@ -32,7 +32,8 @@ ScreenTextManagment : MonoBehaviour
             scrollList.Add(GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(1).GetChild(i).gameObject);
         }
         ChangeToMenuText();
-    }
+		GetComponent<ScreenTextManagment>().SetSlotSprites();
+	}
 
     public void ChangeToMenuText()
     {
@@ -349,8 +350,18 @@ ScreenTextManagment : MonoBehaviour
         return scrollList[2];
     }
 
-    public void ChangeSlotSprite(GameObject slot, int n)
+    public void ChangeSlotSprite(GameObject slot, int n, int pos)
     {
-        slot.GetComponent<SpriteRenderer>().sprite = scrollSprites[n];
+        if (GetComponent<Gameplay>().SetUpgrades(pos, int.Parse(scrollSprites[n].name)))
+        {
+			slot.GetComponent<SpriteRenderer>().sprite = scrollSprites[n];
+		}
+    }
+
+    public void SetSlotSprites()
+    {
+        scrollView.transform.GetChild(2).GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().sprite = scrollSprites[PlayerPrefs.GetInt("UPGRADE 1")];
+        scrollView.transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<SpriteRenderer>().sprite = scrollSprites[PlayerPrefs.GetInt("UPGRADE 2")];
+        scrollView.transform.GetChild(2).GetChild(2).GetChild(0).GetComponent<SpriteRenderer>().sprite = scrollSprites[PlayerPrefs.GetInt("UPGRADE 3")];
     }
 }

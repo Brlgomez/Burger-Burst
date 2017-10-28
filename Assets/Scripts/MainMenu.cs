@@ -11,6 +11,7 @@ public class MainMenu : MonoBehaviour
     bool changeScrollerObjects;
     int currentSlotNum;
     GameObject currentSlot;
+    int slotPosition;
 
     void Start()
     {
@@ -22,7 +23,7 @@ public class MainMenu : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            MouseDown();
+			MouseDown();
         }
         if (Input.GetMouseButton(0))
         {
@@ -80,7 +81,7 @@ public class MainMenu : MonoBehaviour
                         currentSlotNum = int.Parse(GetComponent<ScreenTextManagment>().GetMiddleObject().GetComponent<SpriteRenderer>().sprite.name);
                         if (currentSlot != null)
                         {
-                            GetComponent<ScreenTextManagment>().ChangeSlotSprite(currentSlot, currentSlotNum);
+                            GetComponent<ScreenTextManagment>().ChangeSlotSprite(currentSlot, currentSlotNum, slotPosition);
                         }
 					}
                     roundScroller = true;
@@ -88,6 +89,18 @@ public class MainMenu : MonoBehaviour
                 }
                 else if (target.name == "Left Slot" || target.name == "Middle Slot" || target.name == "Right Slot")
                 {
+                    switch (target.name)
+                    {
+                        case "Left Slot":
+                            slotPosition = 1;
+                            break;
+                        case "Middle Slot":
+                            slotPosition = 2;
+                            break;
+                        default:
+                            slotPosition = 3;
+                            break;
+                    }
                     currentSlot = target;
                     GetComponent<ScreenTextManagment>().HighLightSlot(currentSlot.transform.parent.gameObject);
                 }
