@@ -355,7 +355,7 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeSlotSprite(GameObject slot, int n, int pos)
     {
-        if (GetComponent<Gameplay>().SetUpgrades(pos, int.Parse(scrollSprites[n].name)))
+        if (GetComponent<PlayerPrefsManager>().SetUpgrades(pos, int.Parse(scrollSprites[n].name)))
         {
             slot.GetComponent<SpriteRenderer>().sprite = scrollSprites[n];
         }
