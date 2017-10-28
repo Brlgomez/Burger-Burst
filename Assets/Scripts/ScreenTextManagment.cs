@@ -36,7 +36,7 @@ ScreenTextManagment : MonoBehaviour
         }
         ChangeToMenuText();
         GetComponent<ScreenTextManagment>().SetSlotSprites();
-		ScaleScrollerObjects();
+        ScaleScrollerObjects();
 	}
 
     public void ChangeToMenuText()
@@ -79,7 +79,7 @@ ScreenTextManagment : MonoBehaviour
         line1.GetComponent<TextMesh>().text = "Upgrades";
         line2.GetComponent<TextMesh>().text = "";
         line3.GetComponent<TextMesh>().text = "";
-		ChangeInfo(GetMiddleObject().GetComponent<SpriteRenderer>().sprite.name);
+        ChangeInfo(GetMiddleObject().GetComponent<SpriteRenderer>().sprite.name);
         line5.GetComponent<TextMesh>().text = "Back";
         slot1.GetComponent<TextMesh>().color = originalScreenColor;
         slot2.GetComponent<TextMesh>().color = originalScreenColor;
@@ -90,57 +90,8 @@ ScreenTextManagment : MonoBehaviour
         slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
         slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
         slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
+        HighLightSlot(slot1);
         menu = "Upgrade";
-    }
-
-    public void HighLightSlot(GameObject slot)
-    {
-        slot1.GetComponent<TextMesh>().color = originalScreenColor;
-        slot2.GetComponent<TextMesh>().color = originalScreenColor;
-        slot3.GetComponent<TextMesh>().color = originalScreenColor;
-        slot.GetComponent<TextMesh>().color = Color.green;
-    }
-
-    public void ChangeScrollerItemColor(bool b)
-    {
-        if (b)
-        {
-            GetMiddleObject().GetComponent<SpriteRenderer>().color = Color.black;
-        }
-        else
-        {
-            GetMiddleObject().GetComponent<SpriteRenderer>().color = Color.white; 
-        }
-    }
-
-    public void EnableScroller(bool b)
-    {
-        if (b)
-        {
-            scrollView.transform.GetChild(3).gameObject.layer = 0;
-        }
-        else 
-        {
-            scrollView.transform.GetChild(3).gameObject.layer = 2;
-        }
-    }
-
-    public void ChangeInfo(string name)
-    {
-        line4.GetComponent<TextMesh>().characterSize = 0.0325f;
-        if (name == "0")
-        {
-            line4.GetComponent<TextMesh>().text = "Nothing";
-        }
-        else if (name == "1")
-        {
-            line4.GetComponent<TextMesh>().characterSize = 0.019f;
-            line4.GetComponent<TextMesh>().text = "Make food quicker";
-        }
-        else 
-        {
-			line4.GetComponent<TextMesh>().text = name;
-		}
     }
 
     public void ChangeToGamePlayText()
@@ -302,7 +253,7 @@ ScreenTextManagment : MonoBehaviour
             target.GetComponent<TextMesh>().color = new Color(r / 2, g / 2, b / 2);
             pressDown = true;
         }
-        if(!pressDown && target == scrollView)
+        if (!pressDown && target == scrollView)
         {
             ChangeScrollerItemColor(true);
             pressDown = true;
@@ -320,10 +271,10 @@ ScreenTextManagment : MonoBehaviour
             pressDown = false;
         }
         if (pressDown && target == scrollView)
-		{
-			ChangeScrollerItemColor(false);
+        {
+            ChangeScrollerItemColor(false);
             pressDown = false;
-		}
+        }
     }
 
     public string GetMenu()
@@ -422,5 +373,56 @@ ScreenTextManagment : MonoBehaviour
         slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = scrollSprites[PlayerPrefs.GetInt("UPGRADE 1")];
         slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = scrollSprites[PlayerPrefs.GetInt("UPGRADE 2")];
         slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = scrollSprites[PlayerPrefs.GetInt("UPGRADE 3")];
+    }
+
+
+    public void HighLightSlot(GameObject slot)
+    {
+        slot1.GetComponent<TextMesh>().color = originalScreenColor;
+        slot2.GetComponent<TextMesh>().color = originalScreenColor;
+        slot3.GetComponent<TextMesh>().color = originalScreenColor;
+        slot.GetComponent<TextMesh>().color = Color.green;
+    }
+
+    public void ChangeScrollerItemColor(bool b)
+    {
+        if (b)
+        {
+            GetMiddleObject().GetComponent<SpriteRenderer>().color = Color.black;
+        }
+        else
+        {
+            GetMiddleObject().GetComponent<SpriteRenderer>().color = Color.white;
+        }
+    }
+
+    public void EnableScroller(bool b)
+    {
+        if (b)
+        {
+            scrollView.transform.GetChild(3).gameObject.layer = 0;
+        }
+        else
+        {
+            scrollView.transform.GetChild(3).gameObject.layer = 2;
+        }
+    }
+
+    public void ChangeInfo(string name)
+    {
+        line4.GetComponent<TextMesh>().characterSize = 0.0325f;
+        if (name == "0")
+        {
+            line4.GetComponent<TextMesh>().text = "Nothing";
+        }
+        else if (name == "1")
+        {
+            line4.GetComponent<TextMesh>().characterSize = 0.019f;
+            line4.GetComponent<TextMesh>().text = "Make food quicker";
+        }
+        else
+        {
+            line4.GetComponent<TextMesh>().text = name;
+        }
     }
 }

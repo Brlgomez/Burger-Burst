@@ -11,7 +11,7 @@ public class MainMenu : MonoBehaviour
     bool changeScrollerObjects;
     int currentSlotNum;
     GameObject currentSlot;
-    int slotPosition;
+    int slotPosition = 1;
 
     void Start()
     {
@@ -23,7 +23,7 @@ public class MainMenu : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-			MouseDown();
+            MouseDown();
         }
         if (Input.GetMouseButton(0))
         {
@@ -57,54 +57,11 @@ public class MainMenu : MonoBehaviour
             Camera.main.GetComponent<ScreenTextManagment>().PressTextUp(target.transform.parent.gameObject);
             if (Camera.main.GetComponent<ScreenTextManagment>().GetMenu() == "Main Menu")
             {
-                if (target.name == "Second Button")
-                {
-                    gameObject.AddComponent<CameraMovement>().MoveToGameplay("Start");
-                    Destroy(GetComponent<MainMenu>());
-                }
-                else if (target.name == "Third Button")
-                {
-                    Camera.main.GetComponent<ScreenTextManagment>().ChangeToUpgradeText();
-                }
+                MouseUpMainMenu();
             }
             else if (Camera.main.GetComponent<ScreenTextManagment>().GetMenu() == "Upgrade")
             {
-                if (target.name == "Fifth Button")
-                {
-                    Camera.main.GetComponent<ScreenTextManagment>().ChangeToMenuText();
-                    currentSlot = null;
-                }
-                else if (target.name == "Scroller")
-                {
-                    GetComponent<ScreenTextManagment>().EnableScroller(false);
-                    if (!changeScrollerObjects)
-                    {
-                        currentSlotNum = int.Parse(GetComponent<ScreenTextManagment>().GetMiddleObject().GetComponent<SpriteRenderer>().sprite.name);
-                        if (currentSlot != null)
-                        {
-                            GetComponent<ScreenTextManagment>().ChangeSlotSprite(currentSlot, currentSlotNum, slotPosition);
-                        }
-                    }
-                    roundScroller = true;
-                    changeScrollerObjects = false;
-                }
-                else if (target.name == "Left Slot" || target.name == "Middle Slot" || target.name == "Right Slot")
-                {
-                    switch (target.name)
-                    {
-                        case "Left Slot":
-                            slotPosition = 1;
-                            break;
-                        case "Middle Slot":
-                            slotPosition = 2;
-                            break;
-                        default:
-                            slotPosition = 3;
-                            break;
-                    }
-                    currentSlot = target;
-                    GetComponent<ScreenTextManagment>().HighLightSlot(currentSlot.transform.parent.gameObject);
-                }
+                MouseUpUpgradeMenu();
             }
             point1 = Vector3.zero;
             point2 = Vector3.zero;
@@ -135,9 +92,9 @@ public class MainMenu : MonoBehaviour
                     }
                     if (Mathf.Abs(change) > 0.01f && !changeScrollerObjects)
                     {
-						changeScrollerObjects = true;
+                        changeScrollerObjects = true;
                         GetComponent<ScreenTextManagment>().ChangeScrollerItemColor(false);
-					}
+                    }
                     target.transform.parent.transform.GetChild(1).transform.localPosition = new Vector3(
                         target.transform.parent.transform.GetChild(1).transform.localPosition.x + change, 0, 0
                     );
@@ -158,6 +115,61 @@ public class MainMenu : MonoBehaviour
                     GetComponent<ScreenTextManagment>().ScaleScrollerObjects();
                 }
             }
+        }
+    }
+
+    void MouseUpMainMenu()
+    {
+        if (target.name == "Second Button")
+        {
+            gameObject.AddComponent<CameraMovement>().MoveToGameplay("Start");
+            Destroy(GetComponent<MainMenu>());
+        }
+        else if (target.name == "Third Button")
+        {
+            Camera.main.GetComponent<ScreenTextManagment>().ChangeToUpgradeText();
+			currentSlot = GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(2).GetChild(0).GetChild(0).gameObject;
+            slotPosition = 1;
+		}
+    }
+
+    void MouseUpUpgradeMenu()
+    {
+        if (target.name == "Fifth Button")
+        {
+            Camera.main.GetComponent<ScreenTextManagment>().ChangeToMenuText();
+            currentSlot = null;
+        }
+        else if (target.name == "Scroller")
+        {
+            GetComponent<ScreenTextManagment>().EnableScroller(false);
+            if (!changeScrollerObjects)
+            {
+                currentSlotNum = int.Parse(GetComponent<ScreenTextManagment>().GetMiddleObject().GetComponent<SpriteRenderer>().sprite.name);
+                if (currentSlot != null)
+                {
+                    GetComponent<ScreenTextManagment>().ChangeSlotSprite(currentSlot, currentSlotNum, slotPosition);
+                }
+            }
+            roundScroller = true;
+            changeScrollerObjects = false;
+        }
+        else if (target.name == "Left Slot" || target.name == "Middle Slot" || target.name == "Right Slot")
+        {
+            switch (target.name)
+            {
+                case "Left Slot":
+                    slotPosition = 1;
+                    break;
+                case "Middle Slot":
+                    slotPosition = 2;
+                    break;
+                default:
+                    slotPosition = 3;
+                    break;
+            }
+            currentSlot = target;
+            GetComponent<ScreenTextManagment>().HighLightSlot(currentSlot.transform.parent.gameObject);
         }
     }
 
