@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerPrefsManager : MonoBehaviour
 {
-
     public bool SetUpgrades(int position, int upgradeNumber)
     {
         for (int i = 1; i <= 3; i++)

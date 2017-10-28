@@ -6,10 +6,15 @@ ModelImporter:
   serializedVersion: 21
   fileIDToRecycleName:
     100000: //RootNode
+    100002: LED_Window
     400000: //RootNode
+    400002: LED_Window
     2300000: //RootNode
+    2300002: LED_Window
     3300000: //RootNode
+    3300002: LED_Window
     4300000: LED
+    4300002: LED_Window
     7400000: Default Take
     9500000: //RootNode
   materials:
