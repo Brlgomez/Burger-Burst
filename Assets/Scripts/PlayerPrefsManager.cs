@@ -22,14 +22,16 @@ public class PlayerPrefsManager : MonoBehaviour
         return PlayerPrefs.GetInt("UPGRADE " + n);
     }
 
-    public int[] GetAllUpgrades()
+    public bool ContainsUpgrade(int n)
     {
-        int[] upgrades = new int[3];
-        for (int i = 1; i <= 3; i++)
-        {
-            upgrades[i - 1] = PlayerPrefs.GetInt("UPGRADE " + i);
-        }
-        return upgrades;
+		for (int i = 1; i <= 3; i++)
+		{
+            if (PlayerPrefs.GetInt("UPGRADE " + i) == n)
+            {
+                return true;
+            }
+		}
+        return false;
     }
 
     public void DeleteAll()

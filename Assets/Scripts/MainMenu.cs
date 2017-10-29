@@ -9,7 +9,6 @@ public class MainMenu : MonoBehaviour
     int lastScrollX;
     bool roundScroller;
     bool changeScrollerObjects;
-    int currentSlotNum;
     GameObject currentSlot;
     int slotPosition = 1;
 
@@ -47,6 +46,7 @@ public class MainMenu : MonoBehaviour
         if (target != null && target.tag == "UI")
         {
             Camera.main.GetComponent<ScreenTextManagment>().PressTextDown(target.transform.parent.gameObject);
+            point1 = hitInfo.point;
         }
     }
 
@@ -63,9 +63,9 @@ public class MainMenu : MonoBehaviour
             {
                 MouseUpUpgradeMenu();
             }
-            point1 = Vector3.zero;
-            point2 = Vector3.zero;
         }
+        point1 = Vector3.zero;
+        point2 = Vector3.zero;
     }
 
     void MouseDrag()
@@ -128,28 +128,28 @@ public class MainMenu : MonoBehaviour
         else if (target.name == "Third Button")
         {
             Camera.main.GetComponent<ScreenTextManagment>().ChangeToUpgradeText();
-			currentSlot = GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(2).GetChild(0).GetChild(0).gameObject;
+            currentSlot = GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(2).GetChild(0).GetChild(0).gameObject;
             slotPosition = 1;
-		}
+            lastScrollX = -Mathf.RoundToInt(GetComponent<ScreenTextManagment>().GetMiddleObject().transform.localPosition.z);
+        }
     }
 
     void MouseUpUpgradeMenu()
     {
-        if (target.name == "Fifth Button")
+        if (target.name == "Fourth Button")
+        {
+            GetComponent<ScreenTextManagment>().ChangeSlotSprite(currentSlot, slotPosition);
+        }
+        else if (target.name == "Fifth Button")
         {
             Camera.main.GetComponent<ScreenTextManagment>().ChangeToMenuText();
-            currentSlot = null;
         }
         else if (target.name == "Scroller")
         {
             GetComponent<ScreenTextManagment>().EnableScroller(false);
             if (!changeScrollerObjects)
             {
-                currentSlotNum = int.Parse(GetComponent<ScreenTextManagment>().GetMiddleObject().GetComponent<SpriteRenderer>().sprite.name);
-                if (currentSlot != null)
-                {
-                    GetComponent<ScreenTextManagment>().ChangeSlotSprite(currentSlot, currentSlotNum, slotPosition);
-                }
+                GetComponent<ScreenTextManagment>().ChangeSlotSprite(currentSlot, slotPosition);
             }
             roundScroller = true;
             changeScrollerObjects = false;

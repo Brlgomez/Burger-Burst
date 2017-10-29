@@ -17,6 +17,7 @@ public class GrabAndThrowObject : MonoBehaviour
     float newPersonTime;
     enum Area { counter, pause, gameOver, quit, grill, fryer, sodaMachine };
     Area currentArea;
+    int throwingDistance = 15;
 
     void Start()
     {
@@ -33,6 +34,10 @@ public class GrabAndThrowObject : MonoBehaviour
         phone = GetComponent<ObjectManager>().Phone();
         initialPosition = GetComponent<PositionManager>().GameplayPosition();
         currentArea = Area.counter;
+        if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(1))
+        {
+            throwingDistance = 25;
+        }
     }
 
     void Update()
@@ -467,7 +472,7 @@ public class GrabAndThrowObject : MonoBehaviour
                 float speed = Vector3.Distance(positions[positions.Count - 1], positions[0]);
                 float xVelocity = ((positions[positions.Count - 1].x - positions[0].x) * 7) + ((target.transform.position.x) * speed * 3);
                 float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 3;
-                float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 25;
+                float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * throwingDistance;
                 target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity);
             }
         }
@@ -483,10 +488,7 @@ public class GrabAndThrowObject : MonoBehaviour
             grillWall.GetComponent<Collider>().enabled = false;
             if (positions.Count > 1)
             {
-                float xVelocity = (positions[positions.Count - 1].x - positions[0].x) * 5;
-                float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 5;
-                float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 5;
-                target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity);
+                target.GetComponent<Rigidbody>().velocity = GetVelocity();
             }
             if (target.GetComponent<CookMeat>() == null && target.name == "Meat(Clone)")
             {
@@ -515,10 +517,7 @@ public class GrabAndThrowObject : MonoBehaviour
             fryerWall.GetComponent<Collider>().enabled = false;
             if (positions.Count > 1)
             {
-                float xVelocity = (positions[positions.Count - 1].x - positions[0].x) * 5;
-                float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 5;
-                float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 5;
-                target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity);
+                target.GetComponent<Rigidbody>().velocity = GetVelocity();
             }
             if (target.GetComponent<FryFries>() == null && target.tag == "Fries")
             {
@@ -548,10 +547,7 @@ public class GrabAndThrowObject : MonoBehaviour
             sodaWall.GetComponent<Collider>().enabled = false;
             if (positions.Count > 1)
             {
-                float xVelocity = (positions[positions.Count - 1].x - positions[0].x) * 5;
-                float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 5;
-                float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 5;
-                target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity);
+                target.GetComponent<Rigidbody>().velocity = GetVelocity();
             }
             if (target.GetComponent<SodaCup>() == null && target.tag == "Soda")
             {
@@ -567,6 +563,15 @@ public class GrabAndThrowObject : MonoBehaviour
             }
         }
     }
+
+    Vector3 GetVelocity ()
+    {
+		float xVelocity = (positions[positions.Count - 1].x - positions[0].x) * 5;
+		float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 5;
+		float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 5;
+		return new Vector3(xVelocity, yVelocity, zVelocity);
+    }
+
 
     void Restart()
     {

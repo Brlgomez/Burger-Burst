@@ -30,10 +30,7 @@ ScreenTextManagment : MonoBehaviour
         slot1 = scrollView.transform.GetChild(2).GetChild(0).gameObject;
         slot2 = scrollView.transform.GetChild(2).GetChild(1).gameObject;
         slot3 = scrollView.transform.GetChild(2).GetChild(2).gameObject;
-        for (int i = 0; i < GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(1).childCount; i++)
-        {
-            scrollList.Add(GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(1).GetChild(i).gameObject);
-        }
+        RestartScrollList();
         ChangeToMenuText();
         GetComponent<ScreenTextManagment>().SetSlotSprites();
         ScaleScrollerObjects();
@@ -69,7 +66,8 @@ ScreenTextManagment : MonoBehaviour
     public void ChangeToUpgradeText()
     {
         MakeButtonsUnpressable();
-        line5.transform.GetChild(0).gameObject.layer = 0;
+        line4.transform.GetChild(0).gameObject.layer = 0;
+		line5.transform.GetChild(0).gameObject.layer = 0;
         scrollView.transform.GetChild(0).gameObject.layer = 0;
         scrollView.transform.GetChild(3).gameObject.layer = 2;
         slot1.transform.GetChild(0).gameObject.layer = 0;
@@ -360,11 +358,11 @@ ScreenTextManagment : MonoBehaviour
         return scrollList[2];
     }
 
-    public void ChangeSlotSprite(GameObject slot, int n, int pos)
+    public void ChangeSlotSprite(GameObject slot, int slotPosition)
     {
-        if (GetComponent<PlayerPrefsManager>().SetUpgrades(pos, int.Parse(scrollSprites[n].name)))
+        if (GetComponent<PlayerPrefsManager>().SetUpgrades(slotPosition, int.Parse(GetMiddleObject().GetComponent<SpriteRenderer>().sprite.name)))
         {
-            slot.GetComponent<SpriteRenderer>().sprite = scrollSprites[n];
+            slot.GetComponent<SpriteRenderer>().sprite = GetMiddleObject().GetComponent<SpriteRenderer>().sprite;
         }
     }
 
@@ -410,19 +408,40 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeInfo(string name)
     {
+        int upgradeNum = int.Parse(name);
         line4.GetComponent<TextMesh>().characterSize = 0.0325f;
-        if (name == "0")
+        if (upgradeNum == PowerUpsManager.nothing)
         {
-            line4.GetComponent<TextMesh>().text = "Nothing";
+            line4.GetComponent<TextMesh>().characterSize = 0.03f;
+            line4.GetComponent<TextMesh>().text = "No upgrade";
         }
-        else if (name == "1")
+        else if (upgradeNum == PowerUpsManager.throwFurther)
         {
-            line4.GetComponent<TextMesh>().characterSize = 0.019f;
-            line4.GetComponent<TextMesh>().text = "Make food quicker";
+            line4.GetComponent<TextMesh>().characterSize = 0.023f;
+            line4.GetComponent<TextMesh>().text = "Throw further";
         }
         else
         {
             line4.GetComponent<TextMesh>().text = name;
+        }
+    }
+
+    void RestartScrollList()
+    {
+        scrollList.Clear();
+		for (int i = 0; i < GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(1).childCount; i++)
+		{
+			scrollList.Add(GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(1).GetChild(i).gameObject);
+            if (i == 0 || i == 1 || i == 2)
+            {
+                GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(1).GetChild(i).GetComponent<SpriteRenderer>().sprite = 
+                    scrollSprites[2 - i];
+            }
+            else 
+            {
+				GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(1).GetChild(i).GetComponent<SpriteRenderer>().sprite =
+                    scrollSprites[scrollSprites.Length + 2 - i];
+            }
         }
     }
 }

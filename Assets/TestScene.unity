@@ -32205,15 +32205,15 @@ GameObject:
   - component: {fileID: 1865169780}
   - component: {fileID: 1865169782}
   - component: {fileID: 1865169783}
+  - component: {fileID: 1865169777}
   - component: {fileID: 1865169786}
   - component: {fileID: 1865169788}
   - component: {fileID: 1865169781}
   - component: {fileID: 1865169778}
-  - component: {fileID: 1865169777}
   - component: {fileID: 1865169779}
+  - component: {fileID: 1865169776}
   - component: {fileID: 1865169787}
   - component: {fileID: 1865169785}
-  - component: {fileID: 1865169776}
   - component: {fileID: 1865169784}
   m_Layer: 0
   m_Name: Main Camera
