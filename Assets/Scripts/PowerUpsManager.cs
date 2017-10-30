@@ -8,5 +8,6 @@ public class PowerUpsManager : MonoBehaviour
     public static int throwFurther = 0;
     public static int quickerCooking = 1;
     public static int makeMoreFood = 2;
+    public static int defenseIncrease = 3;
 	public static int moreHealth = 4;
 }

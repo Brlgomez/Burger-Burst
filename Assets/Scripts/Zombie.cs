@@ -253,7 +253,7 @@ public class Zombie : MonoBehaviour
 
     void TurnOnForce(GameObject obj)
     {
-        if (obj.GetComponent<Rigidbody>() != null && obj != rightThigh /*&& obj != leftThigh*/)
+        if (obj.GetComponent<Rigidbody>() != null && obj != rightThigh && obj != leftThigh)
         {
             obj.GetComponent<Rigidbody>().useGravity = true;
             obj.GetComponent<Rigidbody>().isKinematic = false;
@@ -311,7 +311,7 @@ public class Zombie : MonoBehaviour
         }
         if (obj.GetComponent<Rigidbody>() != null)
         {
-            if (obj == rightThigh /*|| obj == leftThigh*/)
+            if (obj == rightThigh || obj == leftThigh)
             {
                 obj.GetComponent<Rigidbody>().useGravity = true;
                 obj.GetComponent<Rigidbody>().isKinematic = false;

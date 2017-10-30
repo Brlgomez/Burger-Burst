@@ -455,6 +455,11 @@ ScreenTextManagment : MonoBehaviour
 			line4.GetComponent<TextMesh>().characterSize = 0.022f;
 			line4.GetComponent<TextMesh>().text = "Make more food";
 		}
+        else if (upgradeNum == PowerUpsManager.defenseIncrease)
+		{
+			line4.GetComponent<TextMesh>().characterSize = 0.020f;
+			line4.GetComponent<TextMesh>().text = "Defense increase";
+		}
         else if (upgradeNum == PowerUpsManager.moreHealth)
 		{
 			line4.GetComponent<TextMesh>().characterSize = 0.026f;
