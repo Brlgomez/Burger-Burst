@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class PowerUpsManager : MonoBehaviour 
 {
-    public static int nothing = 0;
-    public static int throwFurther = 1; 
+    public static int nothing = 9;
+    public static int throwFurther = 0; 
 }

@@ -13,6 +13,7 @@ ScreenTextManagment : MonoBehaviour
     bool pressDown;
     string menu = "Main Menu";
     public Sprite[] scrollSprites;
+    int middleSpriteIndex;
 
     void Start()
     {
@@ -85,9 +86,18 @@ ScreenTextManagment : MonoBehaviour
         slot1.GetComponent<TextMesh>().text = "[ ]";
         slot2.GetComponent<TextMesh>().text = "[ ]";
         slot3.GetComponent<TextMesh>().text = "[ ]";
-        slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
-        slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
-        slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
+        if (int.Parse(slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite.name) != PowerUpsManager.nothing)
+        {
+            slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().color = originalScreenColor;
+        }
+        if (int.Parse(slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite.name) != PowerUpsManager.nothing)
+        {
+            slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().color = originalScreenColor;
+        }
+        if (int.Parse(slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite.name) != PowerUpsManager.nothing)
+        {
+            slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().color = originalScreenColor;
+        }
         HighLightSlot(slot1);
         menu = "Upgrade";
     }
@@ -245,10 +255,10 @@ ScreenTextManagment : MonoBehaviour
     {
         if (!pressDown && target.GetComponent<TextMesh>() != null)
         {
-            float r = target.GetComponent<TextMesh>().color.r;
-            float g = target.GetComponent<TextMesh>().color.g;
-            float b = target.GetComponent<TextMesh>().color.b;
-            target.GetComponent<TextMesh>().color = new Color(r / 2, g / 2, b / 2);
+            float r = target.GetComponent<TextMesh>().color.r / 2;
+            float g = target.GetComponent<TextMesh>().color.g / 2;
+            float b = target.GetComponent<TextMesh>().color.b / 2;
+            target.GetComponent<TextMesh>().color = new Color(r, g, b);
             pressDown = true;
         }
         if (!pressDown && target == scrollView)
@@ -262,10 +272,10 @@ ScreenTextManagment : MonoBehaviour
     {
         if (pressDown && target.GetComponent<TextMesh>() != null)
         {
-            float r = target.GetComponent<TextMesh>().color.r;
-            float g = target.GetComponent<TextMesh>().color.g;
-            float b = target.GetComponent<TextMesh>().color.b;
-            target.GetComponent<TextMesh>().color = new Color(r * 2, g * 2, b * 2);
+            float r = target.GetComponent<TextMesh>().color.r * 2;
+            float g = target.GetComponent<TextMesh>().color.g * 2;
+            float b = target.GetComponent<TextMesh>().color.b * 2;
+            target.GetComponent<TextMesh>().color = new Color(r, g, b);
             pressDown = false;
         }
         if (pressDown && target == scrollView)
@@ -327,7 +337,7 @@ ScreenTextManagment : MonoBehaviour
     {
         for (int i = 0; i < scrollList.Count; i++)
         {
-            float scale = ((0.025f - Mathf.Abs(scrollList[i].transform.position.z - scrollView.transform.position.z)) / 0.05f) * 7.5f;
+            float scale = ((0.025f - Mathf.Abs(scrollList[i].transform.position.z - scrollView.transform.position.z)) / 0.05f) * 5;
             if (scale < 0)
             {
                 scale = 0;
@@ -363,6 +373,14 @@ ScreenTextManagment : MonoBehaviour
         if (GetComponent<PlayerPrefsManager>().SetUpgrades(slotPosition, int.Parse(GetMiddleObject().GetComponent<SpriteRenderer>().sprite.name)))
         {
             slot.GetComponent<SpriteRenderer>().sprite = GetMiddleObject().GetComponent<SpriteRenderer>().sprite;
+			if (int.Parse(slot.GetComponent<SpriteRenderer>().sprite.name) != PowerUpsManager.nothing)
+			{
+				slot.GetComponent<SpriteRenderer>().color = originalScreenColor;
+			}
+            else
+            {
+                slot.GetComponent<SpriteRenderer>().color = Color.clear;
+            }
         }
     }
 
@@ -382,16 +400,19 @@ ScreenTextManagment : MonoBehaviour
         slot.GetComponent<TextMesh>().color = Color.green;
     }
 
-    public void ChangeScrollerItemColor(bool b)
+    public void ChangeScrollerItemColor(bool pressDown)
     {
-        if (b)
+        if (pressDown)
         {
-            GetMiddleObject().GetComponent<SpriteRenderer>().color = Color.black;
+			float r = originalScreenColor.r / 2;
+			float g = originalScreenColor.g / 2;
+			float b = originalScreenColor.b / 2;
+			GetMiddleObject().GetComponent<SpriteRenderer>().color = new Color(r, g, b);
         }
         else
         {
-            GetMiddleObject().GetComponent<SpriteRenderer>().color = Color.white;
-        }
+			GetMiddleObject().GetComponent<SpriteRenderer>().color = originalScreenColor;
+		}
     }
 
     public void EnableScroller(bool b)
@@ -412,8 +433,7 @@ ScreenTextManagment : MonoBehaviour
         line4.GetComponent<TextMesh>().characterSize = 0.0325f;
         if (upgradeNum == PowerUpsManager.nothing)
         {
-            line4.GetComponent<TextMesh>().characterSize = 0.03f;
-            line4.GetComponent<TextMesh>().text = "No upgrade";
+            line4.GetComponent<TextMesh>().text = "Remove";
         }
         else if (upgradeNum == PowerUpsManager.throwFurther)
         {
@@ -432,6 +452,7 @@ ScreenTextManagment : MonoBehaviour
 		for (int i = 0; i < GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(1).childCount; i++)
 		{
 			scrollList.Add(GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(1).GetChild(i).gameObject);
+            GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(1).GetChild(i).GetComponent<SpriteRenderer>().color = originalScreenColor;
             if (i == 0 || i == 1 || i == 2)
             {
                 GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(1).GetChild(i).GetComponent<SpriteRenderer>().sprite = 

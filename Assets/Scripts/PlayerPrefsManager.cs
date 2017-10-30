@@ -8,7 +8,7 @@ public class PlayerPrefsManager : MonoBehaviour
     {
         for (int i = 1; i <= 3; i++)
         {
-            if (PlayerPrefs.GetInt("UPGRADE " + i) == upgradeNumber && upgradeNumber != 0)
+            if (PlayerPrefs.GetInt("UPGRADE " + i) == upgradeNumber && upgradeNumber != PowerUpsManager.nothing)
             {
                 return false;
             }
