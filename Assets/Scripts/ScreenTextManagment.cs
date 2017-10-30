@@ -34,7 +34,7 @@ ScreenTextManagment : MonoBehaviour
         ChangeToMenuText();
         GetComponent<ScreenTextManagment>().SetSlotSprites();
         ScaleScrollerObjects();
-	}
+    }
 
     public void ChangeToMenuText()
     {
@@ -67,7 +67,7 @@ ScreenTextManagment : MonoBehaviour
     {
         MakeButtonsUnpressable();
         line4.transform.GetChild(0).gameObject.layer = 0;
-		line5.transform.GetChild(0).gameObject.layer = 0;
+        line5.transform.GetChild(0).gameObject.layer = 0;
         scrollView.transform.GetChild(0).gameObject.layer = 0;
         scrollView.transform.GetChild(3).gameObject.layer = 2;
         slot1.transform.GetChild(0).gameObject.layer = 0;
@@ -77,7 +77,7 @@ ScreenTextManagment : MonoBehaviour
         line1.GetComponent<TextMesh>().text = "Upgrades";
         line2.GetComponent<TextMesh>().text = "";
         line3.GetComponent<TextMesh>().text = "";
-        ChangeInfo(GetMiddleObject().GetComponent<SpriteRenderer>().sprite.name);
+        ChangeInfo(GetMiddleObjectNumber());
         line5.GetComponent<TextMesh>().text = "Back";
         slot1.GetComponent<TextMesh>().color = originalScreenColor;
         slot2.GetComponent<TextMesh>().color = originalScreenColor;
@@ -85,15 +85,15 @@ ScreenTextManagment : MonoBehaviour
         slot1.GetComponent<TextMesh>().text = "[ ]";
         slot2.GetComponent<TextMesh>().text = "[ ]";
         slot3.GetComponent<TextMesh>().text = "[ ]";
-        if (int.Parse(slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite.name) != PowerUpsManager.nothing)
+        if (GetSlotNumber(slot1) != PowerUpsManager.nothing)
         {
             slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
         }
-        if (int.Parse(slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite.name) != PowerUpsManager.nothing)
+        if (GetSlotNumber(slot2) != PowerUpsManager.nothing)
         {
             slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
         }
-        if (int.Parse(slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite.name) != PowerUpsManager.nothing)
+        if (GetSlotNumber(slot3) != PowerUpsManager.nothing)
         {
             slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
         }
@@ -329,7 +329,7 @@ ScreenTextManagment : MonoBehaviour
             scrollList.Insert(0, scrollList[scrollList.Count - 1]);
             scrollList.RemoveAt(scrollList.Count - 1);
         }
-        ChangeInfo(GetMiddleObject().GetComponent<SpriteRenderer>().sprite.name);
+        ChangeInfo(GetMiddleObjectNumber());
     }
 
     public void ScaleScrollerObjects()
@@ -367,15 +367,25 @@ ScreenTextManagment : MonoBehaviour
         return scrollList[2];
     }
 
+	int GetMiddleObjectNumber()
+	{
+        return int.Parse(scrollList[2].GetComponent<SpriteRenderer>().sprite.name);
+	}
+
+    int GetSlotNumber(GameObject slot)
+    {
+        return int.Parse(slot.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite.name);
+    }
+
     public void ChangeSlotSprite(GameObject slot, int slotPosition)
     {
-        if (GetComponent<PlayerPrefsManager>().SetUpgrades(slotPosition, int.Parse(GetMiddleObject().GetComponent<SpriteRenderer>().sprite.name)))
+        if (GetComponent<PlayerPrefsManager>().SetUpgrades(slotPosition, GetMiddleObjectNumber()))
         {
             slot.GetComponent<SpriteRenderer>().sprite = GetMiddleObject().GetComponent<SpriteRenderer>().sprite;
-			if (int.Parse(slot.GetComponent<SpriteRenderer>().sprite.name) != PowerUpsManager.nothing)
-			{
+            if (GetMiddleObjectNumber() != PowerUpsManager.nothing)
+            {
                 slot.GetComponent<SpriteRenderer>().color = Color.white;
-			}
+            }
             else
             {
                 slot.GetComponent<SpriteRenderer>().color = Color.clear;
@@ -389,7 +399,6 @@ ScreenTextManagment : MonoBehaviour
         slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = scrollSprites[PlayerPrefs.GetInt("UPGRADE 2")];
         slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = scrollSprites[PlayerPrefs.GetInt("UPGRADE 3")];
     }
-
 
     public void HighLightSlot(GameObject slot)
     {
@@ -408,7 +417,7 @@ ScreenTextManagment : MonoBehaviour
         else
         {
             GetMiddleObject().GetComponent<SpriteRenderer>().color = Color.white;
-		}
+        }
     }
 
     public void EnableScroller(bool b)
@@ -423,9 +432,9 @@ ScreenTextManagment : MonoBehaviour
         }
     }
 
-    public void ChangeInfo(string name)
+    public void ChangeInfo(int name)
     {
-        int upgradeNum = int.Parse(name);
+        int upgradeNum = name;
         line4.GetComponent<TextMesh>().characterSize = 0.0325f;
         if (upgradeNum == PowerUpsManager.nothing)
         {
@@ -437,31 +446,37 @@ ScreenTextManagment : MonoBehaviour
             line4.GetComponent<TextMesh>().text = "Throw further";
         }
         else if (upgradeNum == PowerUpsManager.quickerCooking)
+        {
+            line4.GetComponent<TextMesh>().characterSize = 0.024f;
+            line4.GetComponent<TextMesh>().text = "Faster cooking";
+        }
+        else if (upgradeNum == PowerUpsManager.makeMoreFood)
 		{
-			line4.GetComponent<TextMesh>().characterSize = 0.024f;
-			line4.GetComponent<TextMesh>().text = "Faster cooking";
+			line4.GetComponent<TextMesh>().characterSize = 0.022f;
+			line4.GetComponent<TextMesh>().text = "Make more food";
 		}
         else
         {
-            line4.GetComponent<TextMesh>().text = name;
+            line4.GetComponent<TextMesh>().text = name.ToString();
         }
     }
 
     void RestartScrollList()
     {
         scrollList.Clear();
-		for (int i = 0; i < GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(1).childCount; i++)
-		{
-			scrollList.Add(GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(1).GetChild(i).gameObject);
-            GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(1).GetChild(i).GetComponent<SpriteRenderer>().color = Color.white;
+        for (int i = 0; i < GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(1).childCount; i++)
+        {
+            scrollList.Add(GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(1).GetChild(i).gameObject);
+            GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(1).GetChild(i).GetComponent<SpriteRenderer>().color = 
+                Color.white;
             if (i == 0 || i == 1 || i == 2)
             {
-                GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(1).GetChild(i).GetComponent<SpriteRenderer>().sprite = 
+                GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(1).GetChild(i).GetComponent<SpriteRenderer>().sprite =
                     scrollSprites[2 - i];
             }
-            else 
+            else
             {
-				GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(1).GetChild(i).GetComponent<SpriteRenderer>().sprite =
+                GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(1).GetChild(i).GetComponent<SpriteRenderer>().sprite =
                     scrollSprites[scrollSprites.Length + 2 - i];
             }
         }

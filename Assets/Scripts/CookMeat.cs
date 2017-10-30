@@ -25,6 +25,10 @@ public class CookMeat : MonoBehaviour
         {
             maxTimeOnGrill *= 0.75f;
         }
+        if (Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.makeMoreFood))
+		{
+            maxAmountOfBurgers = 12;
+		}
         initialColor = gameObject.GetComponent<Renderer>().material.color;
         cookedColor = new Color(0.480f, 0.613f, 0.266f);
         burntColor = new Color(cookedColor.r * 0.25f, cookedColor.g * 0.25f, cookedColor.b * 0.25f);

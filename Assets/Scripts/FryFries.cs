@@ -22,6 +22,10 @@ public class FryFries : MonoBehaviour
         {
             maxTimeInFryer *= 0.75f;
         }
+		if (Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.makeMoreFood))
+		{
+            maxAmountOfFries = 12;
+		}
         initialColor = gameObject.GetComponent<Renderer>().material.color;
         friedColor = new Color(0.977f, 0.875f, 0.727f);
         burntColor = new Color(0.5f, 0.375f, 0);
