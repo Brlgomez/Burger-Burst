@@ -17,7 +17,7 @@ ScreenTextManagment : MonoBehaviour
 
     void Start()
     {
-        initialLife = GetComponent<Gameplay>().GetLife();
+        initialLife = GetComponent<Gameplay>().GetMaxLife();
         initialBurgers = GetComponent<Gameplay>().GetBurgerCount();
         initialFries = GetComponent<Gameplay>().GetFriesCount();
         initialDrinks = GetComponent<Gameplay>().GetDrinkCount();
@@ -126,7 +126,7 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeMistakeText()
     {
-        int n = Camera.main.GetComponent<Gameplay>().GetLife();
+        int n = Mathf.RoundToInt(Camera.main.GetComponent<Gameplay>().GetLife());
         if (n >= 1)
         {
             line1.GetComponent<TextMesh>().text = "H : " + n.ToString();
@@ -454,6 +454,11 @@ ScreenTextManagment : MonoBehaviour
 		{
 			line4.GetComponent<TextMesh>().characterSize = 0.022f;
 			line4.GetComponent<TextMesh>().text = "Make more food";
+		}
+        else if (upgradeNum == PowerUpsManager.moreHealth)
+		{
+			line4.GetComponent<TextMesh>().characterSize = 0.026f;
+			line4.GetComponent<TextMesh>().text = "Double health";
 		}
         else
         {

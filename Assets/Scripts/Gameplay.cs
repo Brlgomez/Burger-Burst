@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Gameplay : MonoBehaviour
 {
-    int life = 10;
+    int maxLife = 100;
+    float life = 100;
     int burgers = 25;
     int fries = 25;
     int drinks = 25;
@@ -23,7 +24,7 @@ public class Gameplay : MonoBehaviour
         }
     }
 
-    public int GetPoints ()
+    public int GetPoints()
     {
         return points;
     }
@@ -39,9 +40,14 @@ public class Gameplay : MonoBehaviour
         Camera.main.GetComponent<ScreenTextManagment>().ChangeMistakeText();
     }
 
-    public int GetLife()
+    public float GetLife()
     {
         return life;
+    }
+
+    public int GetMaxLife()
+    {
+        return maxLife;
     }
 
     public int GetBurgerCount()
@@ -129,9 +135,9 @@ public class Gameplay : MonoBehaviour
         return completedOrders;
     }
 
-    public void DeductNumberOfErrors()
+    public void ReduceHealth()
     {
-        life--;
+        life -= 10;
         Camera.main.GetComponent<ScreenTextManagment>().ChangeMistakeText();
         if (life < 1)
         {
@@ -142,5 +148,12 @@ public class Gameplay : MonoBehaviour
             }
             gameObject.AddComponent<CameraMovement>().MoveToGameOver();
         }
+    }
+
+    public void ChangeMaxHealth()
+    {   
+        maxLife = 200;
+        life = 200;
+        Camera.main.GetComponent<ScreenTextManagment>().ChangeMistakeText();
     }
 }

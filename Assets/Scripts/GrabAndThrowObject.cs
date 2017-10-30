@@ -34,10 +34,14 @@ public class GrabAndThrowObject : MonoBehaviour
         phone = GetComponent<ObjectManager>().Phone();
         initialPosition = GetComponent<PositionManager>().GameplayPosition();
         currentArea = Area.counter;
-        if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(1))
+        if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.throwFurther))
         {
             throwingDistance = 25;
         }
+        if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.moreHealth))
+		{
+			GetComponent<Gameplay>().ChangeMaxHealth();
+		}
     }
 
     void Update()

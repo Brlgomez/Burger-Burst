@@ -89,7 +89,7 @@ public class Zombie : MonoBehaviour
             }
             if (damageTime > (timeForDamage + 0.25f))
             {
-                Camera.main.GetComponent<Gameplay>().DeductNumberOfErrors();
+                Camera.main.GetComponent<Gameplay>().ReduceHealth();
                 if (Camera.main.gameObject.GetComponent<GettingHurt>() == null)
                 {
                     Camera.main.gameObject.AddComponent<GettingHurt>();
