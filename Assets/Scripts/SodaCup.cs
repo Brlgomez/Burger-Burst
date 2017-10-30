@@ -14,10 +14,15 @@ public class SodaCup : MonoBehaviour
     float maxMass = 5;
     float initialMass;
     float incMass;
+    int maxAmountOfDrinks = 5;
     GameObject lid;
 
     void Start()
     {
+        if (Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.quickerCooking))
+        {
+            maxTimeUnderFountain *= 0.75f;
+        }
         currentY = transform.GetChild(0).transform.localPosition.y;
         currentScale = transform.GetChild(0).transform.localScale.x;
         initialMass = gameObject.GetComponent<Rigidbody>().mass;
@@ -45,10 +50,10 @@ public class SodaCup : MonoBehaviour
     {
         if (other.name == "SodaFromMachine1" || other.name == "SodaFromMachine2" || other.name == "SodaFromMachine3")
         {
-			if (transform.GetChild(0).GetChild(0).GetComponent<ParticleSystem>().isPlaying)
-			{
+            if (transform.GetChild(0).GetChild(0).GetComponent<ParticleSystem>().isPlaying)
+            {
                 transform.GetChild(0).GetChild(0).GetComponent<ParticleSystem>().Stop();
-			}
+            }
         }
     }
 
@@ -94,7 +99,8 @@ public class SodaCup : MonoBehaviour
 
     void CupReady()
     {
-        int worth = Mathf.RoundToInt((maxTimeUnderFountain) - Mathf.Abs((timeUnderFountain) - (maxTimeUnderFountain)));
+        float percentage = (((maxTimeUnderFountain) - (Mathf.Abs(timeUnderFountain - (maxTimeUnderFountain)))) / (maxTimeUnderFountain));
+        int worth = Mathf.RoundToInt(maxAmountOfDrinks * percentage);
         if (worth == 0)
         {
             Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Drinks", Color.gray, 1);

@@ -8,7 +8,7 @@ ScreenTextManagment : MonoBehaviour
     int initialLife, initialBurgers, initialFries, initialDrinks;
     GameObject line1, line2, line3, line4, line5, scrollView, slot1, slot2, slot3;
     List<GameObject> scrollList = new List<GameObject>();
-    Color originalScreenColor;
+    Color originalScreenColor = new Color(0, 0.5f, 1);
     Color red = Color.red;
     bool pressDown;
     string menu = "Main Menu";
@@ -21,7 +21,6 @@ ScreenTextManagment : MonoBehaviour
         initialBurgers = GetComponent<Gameplay>().GetBurgerCount();
         initialFries = GetComponent<Gameplay>().GetFriesCount();
         initialDrinks = GetComponent<Gameplay>().GetDrinkCount();
-        originalScreenColor = new Color(0, 0.5f, 1);
         line1 = GetComponent<ObjectManager>().Phone().transform.GetChild(0).gameObject;
         line2 = GetComponent<ObjectManager>().Phone().transform.GetChild(1).gameObject;
         line3 = GetComponent<ObjectManager>().Phone().transform.GetChild(2).gameObject;
@@ -88,15 +87,15 @@ ScreenTextManagment : MonoBehaviour
         slot3.GetComponent<TextMesh>().text = "[ ]";
         if (int.Parse(slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite.name) != PowerUpsManager.nothing)
         {
-            slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().color = originalScreenColor;
+            slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
         }
         if (int.Parse(slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite.name) != PowerUpsManager.nothing)
         {
-            slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().color = originalScreenColor;
+            slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
         }
         if (int.Parse(slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite.name) != PowerUpsManager.nothing)
         {
-            slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().color = originalScreenColor;
+            slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
         }
         HighLightSlot(slot1);
         menu = "Upgrade";
@@ -375,7 +374,7 @@ ScreenTextManagment : MonoBehaviour
             slot.GetComponent<SpriteRenderer>().sprite = GetMiddleObject().GetComponent<SpriteRenderer>().sprite;
 			if (int.Parse(slot.GetComponent<SpriteRenderer>().sprite.name) != PowerUpsManager.nothing)
 			{
-				slot.GetComponent<SpriteRenderer>().color = originalScreenColor;
+                slot.GetComponent<SpriteRenderer>().color = Color.white;
 			}
             else
             {
@@ -404,14 +403,11 @@ ScreenTextManagment : MonoBehaviour
     {
         if (pressDown)
         {
-			float r = originalScreenColor.r / 2;
-			float g = originalScreenColor.g / 2;
-			float b = originalScreenColor.b / 2;
-			GetMiddleObject().GetComponent<SpriteRenderer>().color = new Color(r, g, b);
+            GetMiddleObject().GetComponent<SpriteRenderer>().color = Color.grey;
         }
         else
         {
-			GetMiddleObject().GetComponent<SpriteRenderer>().color = originalScreenColor;
+            GetMiddleObject().GetComponent<SpriteRenderer>().color = Color.white;
 		}
     }
 
@@ -437,9 +433,14 @@ ScreenTextManagment : MonoBehaviour
         }
         else if (upgradeNum == PowerUpsManager.throwFurther)
         {
-            line4.GetComponent<TextMesh>().characterSize = 0.023f;
+            line4.GetComponent<TextMesh>().characterSize = 0.024f;
             line4.GetComponent<TextMesh>().text = "Throw further";
         }
+        else if (upgradeNum == PowerUpsManager.quickerCooking)
+		{
+			line4.GetComponent<TextMesh>().characterSize = 0.024f;
+			line4.GetComponent<TextMesh>().text = "Faster cooking";
+		}
         else
         {
             line4.GetComponent<TextMesh>().text = name;
@@ -452,7 +453,7 @@ ScreenTextManagment : MonoBehaviour
 		for (int i = 0; i < GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(1).childCount; i++)
 		{
 			scrollList.Add(GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(1).GetChild(i).gameObject);
-            GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(1).GetChild(i).GetComponent<SpriteRenderer>().color = originalScreenColor;
+            GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(1).GetChild(i).GetComponent<SpriteRenderer>().color = Color.white;
             if (i == 0 || i == 1 || i == 2)
             {
                 GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(1).GetChild(i).GetComponent<SpriteRenderer>().sprite = 

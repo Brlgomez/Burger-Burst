@@ -6,7 +6,8 @@ public class FryFries : MonoBehaviour
 {
     bool inFryer;
     float timeInFryer;
-    int maxTimeInFryer = 20;
+    float maxTimeInFryer = 20;
+    int maxAmountOfFries = 10;
     Color initialColor;
     Color friedColor;
     Color burntColor;
@@ -17,6 +18,10 @@ public class FryFries : MonoBehaviour
 
     void Start()
     {
+        if (Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.quickerCooking))
+        {
+            maxTimeInFryer *= 0.75f;
+        }
         initialColor = gameObject.GetComponent<Renderer>().material.color;
         friedColor = new Color(0.977f, 0.875f, 0.727f);
         burntColor = new Color(0.5f, 0.375f, 0);
@@ -74,7 +79,7 @@ public class FryFries : MonoBehaviour
     {
         if (col.gameObject.name == "Hot Oil")
         {
-			transform.GetChild(0).GetComponent<ParticleSystem>().Play();
+            transform.GetChild(0).GetComponent<ParticleSystem>().Play();
             inFryer = true;
         }
     }
@@ -83,7 +88,7 @@ public class FryFries : MonoBehaviour
     {
         if (col.gameObject.name == "Hot Oil")
         {
-			transform.GetChild(0).GetComponent<ParticleSystem>().Stop();
+            transform.GetChild(0).GetComponent<ParticleSystem>().Stop();
             inFryer = false;
         }
     }
@@ -108,7 +113,8 @@ public class FryFries : MonoBehaviour
 
     void FriesCompleted()
     {
-        int worth = Mathf.RoundToInt((maxTimeInFryer / 2) - Mathf.Abs(timeInFryer - (maxTimeInFryer / 2)));
+        float percentage = (((maxTimeInFryer / 2) - (Mathf.Abs(timeInFryer - (maxTimeInFryer / 2)))) / (maxTimeInFryer / 2));
+        int worth = Mathf.RoundToInt(maxAmountOfFries * percentage);
         if (worth == 0)
         {
             Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Fries", Color.gray, 1);

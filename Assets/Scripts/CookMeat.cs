@@ -6,7 +6,8 @@ public class CookMeat : MonoBehaviour
 {
     bool onGrill;
     float timeOnGrill;
-    int maxTimeOnGrill = 20;
+    float maxTimeOnGrill = 20;
+    int maxAmountOfBurgers = 10;
     Color initialColor;
     Color cookedColor;
     Color burntColor;
@@ -20,6 +21,10 @@ public class CookMeat : MonoBehaviour
 
     void Start()
     {
+        if (Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.quickerCooking))
+        {
+            maxTimeOnGrill *= 0.75f;
+        }
         initialColor = gameObject.GetComponent<Renderer>().material.color;
         cookedColor = new Color(0.480f, 0.613f, 0.266f);
         burntColor = new Color(cookedColor.r * 0.25f, cookedColor.g * 0.25f, cookedColor.b * 0.25f);
@@ -138,7 +143,8 @@ public class CookMeat : MonoBehaviour
 
     void BurgerCompleted()
     {
-        int worth = Mathf.RoundToInt((maxTimeOnGrill / 2) - Mathf.Abs(timeOnGrill - (maxTimeOnGrill / 2)));
+        float percantage = (((maxTimeOnGrill / 2) - (Mathf.Abs(timeOnGrill - (maxTimeOnGrill / 2)))) / (maxTimeOnGrill / 2));
+        int worth = Mathf.RoundToInt(maxAmountOfBurgers * percantage);
         if (worth == 0)
         {
             Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Burgers", Color.gray, 1);
