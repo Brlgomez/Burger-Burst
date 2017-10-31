@@ -42,6 +42,10 @@ public class GrabAndThrowObject : MonoBehaviour
 		{
 			GetComponent<Gameplay>().ChangeMaxHealth();
 		}
+        if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.defenseIncrease))
+		{
+            GetComponent<Gameplay>().IncreaseDefense();
+		}
     }
 
     void Update()
@@ -332,15 +336,9 @@ public class GrabAndThrowObject : MonoBehaviour
                 {
                     return obj;
                 }
-                else
-                {
-                    return null;
-                }
+                return null;
             }
-            else
-            {
-                return obj;
-            }
+            return obj;
         }
         return null;
     }

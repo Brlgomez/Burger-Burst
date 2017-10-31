@@ -5,7 +5,7 @@ using UnityEngine;
 public class
 ScreenTextManagment : MonoBehaviour
 {
-    int initialLife, initialBurgers, initialFries, initialDrinks;
+    int initialBurgers, initialFries, initialDrinks;
     GameObject line1, line2, line3, line4, line5, scrollView, slot1, slot2, slot3;
     List<GameObject> scrollList = new List<GameObject>();
     Color originalScreenColor = new Color(0, 0.5f, 1);
@@ -17,7 +17,6 @@ ScreenTextManagment : MonoBehaviour
 
     void Start()
     {
-        initialLife = GetComponent<Gameplay>().GetMaxLife();
         initialBurgers = GetComponent<Gameplay>().GetBurgerCount();
         initialFries = GetComponent<Gameplay>().GetFriesCount();
         initialDrinks = GetComponent<Gameplay>().GetDrinkCount();
@@ -109,7 +108,7 @@ ScreenTextManagment : MonoBehaviour
         ChangeFriesCount();
         ChangeDrinkCount();
         ChangeMistakeText();
-    }
+	}
 
     public void ChangeToPauseText()
     {
@@ -144,7 +143,7 @@ ScreenTextManagment : MonoBehaviour
             line4.GetComponent<TextMesh>().color = red;
             line5.GetComponent<TextMesh>().color = red;
         }
-        Color newColor = Color.Lerp(red, originalScreenColor, ((float)n) / initialLife);
+        Color newColor = Color.Lerp(red, originalScreenColor, ((float)n) / GetComponent<Gameplay>().GetMaxLife());
         line1.GetComponent<TextMesh>().color = newColor;
     }
 
@@ -185,7 +184,7 @@ ScreenTextManagment : MonoBehaviour
     {
         ChangeMistakeText();
         ChangeTextColorToOriginal();
-        line1.GetComponent<TextMesh>().text = "H : " + initialLife;
+        line1.GetComponent<TextMesh>().text = "H : " + GetComponent<Gameplay>().GetMaxLife();
         line2.GetComponent<TextMesh>().text = "B : " + initialBurgers;
         line3.GetComponent<TextMesh>().text = "F : " + initialFries;
         line4.GetComponent<TextMesh>().text = "D : " + initialDrinks;
@@ -385,10 +384,14 @@ ScreenTextManagment : MonoBehaviour
             if (GetMiddleObjectNumber() != PowerUpsManager.nothing)
             {
                 slot.GetComponent<SpriteRenderer>().color = Color.white;
+                GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(slotPosition - 1).GetComponent<SpriteRenderer>().sprite = 
+                    GetMiddleObject().GetComponent<SpriteRenderer>().sprite;
             }
             else
             {
                 slot.GetComponent<SpriteRenderer>().color = Color.clear;
+				GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(slotPosition - 1).GetComponent<SpriteRenderer>().sprite =
+					null;
             }
         }
     }
@@ -397,7 +400,22 @@ ScreenTextManagment : MonoBehaviour
     {
         slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = scrollSprites[PlayerPrefs.GetInt("UPGRADE 1")];
         slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = scrollSprites[PlayerPrefs.GetInt("UPGRADE 2")];
-        slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = scrollSprites[PlayerPrefs.GetInt("UPGRADE 3")];
+		slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = scrollSprites[PlayerPrefs.GetInt("UPGRADE 3")];
+		if (PlayerPrefs.GetInt("UPGRADE 1") != PowerUpsManager.nothing)
+		{
+			GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(0).GetComponent<SpriteRenderer>().sprite =
+						scrollSprites[PlayerPrefs.GetInt("UPGRADE 1")];
+		}
+		if (PlayerPrefs.GetInt("UPGRADE 2") != PowerUpsManager.nothing)
+		{
+			GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(1).GetComponent<SpriteRenderer>().sprite =
+						scrollSprites[PlayerPrefs.GetInt("UPGRADE 2")];
+		}
+		if (PlayerPrefs.GetInt("UPGRADE 3") != PowerUpsManager.nothing)
+		{
+			GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(2).GetComponent<SpriteRenderer>().sprite =
+						scrollSprites[PlayerPrefs.GetInt("UPGRADE 3")];
+		}
     }
 
     public void HighLightSlot(GameObject slot)

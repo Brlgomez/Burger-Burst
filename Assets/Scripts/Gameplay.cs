@@ -13,6 +13,7 @@ public class Gameplay : MonoBehaviour
     int points;
     bool gameOver;
     float regularZombieDamage = 10;
+    float defense = 1;
 
     public void IncreasePoints(GameObject obj)
     {
@@ -138,15 +139,8 @@ public class Gameplay : MonoBehaviour
 
     public void ReduceHealth()
     {
-        if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.defenseIncrease))
-		{
-            life -= regularZombieDamage * 0.75f;
-		}
-        else 
-        {
-			life -= regularZombieDamage;
-		}
-        Camera.main.GetComponent<ScreenTextManagment>().ChangeMistakeText();
+		life -= Mathf.RoundToInt(regularZombieDamage * defense);
+		Camera.main.GetComponent<ScreenTextManagment>().ChangeMistakeText();
         if (life < 1)
         {
             gameOver = true;
@@ -163,5 +157,10 @@ public class Gameplay : MonoBehaviour
         maxLife = 200;
         life = 200;
         Camera.main.GetComponent<ScreenTextManagment>().ChangeMistakeText();
+    }
+
+    public void IncreaseDefense()
+    {
+        defense = 0.75f;
     }
 }

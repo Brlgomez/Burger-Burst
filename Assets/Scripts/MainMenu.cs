@@ -45,7 +45,7 @@ public class MainMenu : MonoBehaviour
         target = ReturnClickedObject(out hitInfo);
         if (target != null && target.tag == "UI")
         {
-            Camera.main.GetComponent<ScreenTextManagment>().PressTextDown(target.transform.parent.gameObject);
+            GetComponent<ScreenTextManagment>().PressTextDown(target.transform.parent.gameObject);
             point1 = hitInfo.point;
         }
     }
@@ -54,12 +54,12 @@ public class MainMenu : MonoBehaviour
     {
         if (target != null && target.tag == "UI")
         {
-            Camera.main.GetComponent<ScreenTextManagment>().PressTextUp(target.transform.parent.gameObject);
-            if (Camera.main.GetComponent<ScreenTextManagment>().GetMenu() == "Main Menu")
+            GetComponent<ScreenTextManagment>().PressTextUp(target.transform.parent.gameObject);
+            if (GetComponent<ScreenTextManagment>().GetMenu() == "Main Menu")
             {
                 MouseUpMainMenu();
             }
-            else if (Camera.main.GetComponent<ScreenTextManagment>().GetMenu() == "Upgrade")
+            else if (GetComponent<ScreenTextManagment>().GetMenu() == "Upgrade")
             {
                 MouseUpUpgradeMenu();
             }
@@ -127,7 +127,7 @@ public class MainMenu : MonoBehaviour
         }
         else if (target.name == "Third Button")
         {
-            Camera.main.GetComponent<ScreenTextManagment>().ChangeToUpgradeText();
+            GetComponent<ScreenTextManagment>().ChangeToUpgradeText();
             currentSlot = GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(2).GetChild(0).GetChild(0).gameObject;
             slotPosition = 1;
             lastScrollX = -Mathf.RoundToInt(GetComponent<ScreenTextManagment>().GetMiddleObject().transform.localPosition.z);
@@ -142,7 +142,7 @@ public class MainMenu : MonoBehaviour
         }
         else if (target.name == "Fifth Button")
         {
-            Camera.main.GetComponent<ScreenTextManagment>().ChangeToMenuText();
+            GetComponent<ScreenTextManagment>().ChangeToMenuText();
         }
         else if (target.name == "Scroller")
         {
