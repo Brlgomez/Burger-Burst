@@ -483,6 +483,11 @@ ScreenTextManagment : MonoBehaviour
 			line4.GetComponent<TextMesh>().characterSize = 0.026f;
 			line4.GetComponent<TextMesh>().text = "Double health";
 		}
+        else if (upgradeNum == PowerUpsManager.largerFood)
+		{
+			line4.GetComponent<TextMesh>().characterSize = 0.029f;
+			line4.GetComponent<TextMesh>().text = "Larger food";
+		}
         else
         {
             line4.GetComponent<TextMesh>().text = name.ToString();
