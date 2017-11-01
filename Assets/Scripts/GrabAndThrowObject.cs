@@ -18,6 +18,8 @@ public class GrabAndThrowObject : MonoBehaviour
     enum Area { counter, pause, gameOver, quit, grill, fryer, sodaMachine };
     Area currentArea;
     int throwingDistance = 15;
+    static float regenMaxTime = 10;
+    float regenTimer;
 
     void Start()
     {
@@ -63,6 +65,7 @@ public class GrabAndThrowObject : MonoBehaviour
             MouseUp();
         }
         AddMorePeople();
+        RegenerationPowerUps();
     }
 
     void MouseDown()
@@ -620,6 +623,7 @@ public class GrabAndThrowObject : MonoBehaviour
     void RestartValues()
     {
         newPersonTime = timeForNewPerson;
+        regenTimer = 0;
     }
 
     public Transform GetInitialPosition()
@@ -756,6 +760,19 @@ public class GrabAndThrowObject : MonoBehaviour
         foreach (GameObject obj in objects)
         {
             Destroy(obj);
+        }
+    }
+
+    void RegenerationPowerUps()
+    {
+        regenTimer += Time.deltaTime;
+        if (regenTimer > regenMaxTime)
+        {
+            if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.regenHealth))
+            {
+                GetComponent<Gameplay>().AddLife(1);
+            }
+            regenTimer = 0;
         }
     }
 }

@@ -11,4 +11,5 @@ public class PowerUpsManager : MonoBehaviour
     public static int defenseIncrease = 3;
 	public static int moreHealth = 4;
 	public static int largerFood = 5;
+    public static int regenHealth = 6;
 }

@@ -38,8 +38,11 @@ public class Gameplay : MonoBehaviour
 
     public void AddLife(int n)
     {
-        life += n;
-        Camera.main.GetComponent<ScreenTextManagment>().ChangeMistakeText();
+        if (life < maxLife)
+        {
+            life += n;
+            Camera.main.GetComponent<ScreenTextManagment>().ChangeMistakeText();
+        }
     }
 
     public float GetLife()
