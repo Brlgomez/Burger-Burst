@@ -18,7 +18,7 @@ public class GrabAndThrowObject : MonoBehaviour
     enum Area { counter, pause, gameOver, quit, grill, fryer, sodaMachine };
     Area currentArea;
     int throwingDistance = 15;
-    static float regenMaxTime = 10;
+    static float regenMaxTime = 15;
     float regenTimer;
 
     void Start()
@@ -41,13 +41,13 @@ public class GrabAndThrowObject : MonoBehaviour
             throwingDistance = 25;
         }
         if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.moreHealth))
-		{
-			GetComponent<Gameplay>().ChangeMaxHealth();
-		}
+        {
+            GetComponent<Gameplay>().ChangeMaxHealth();
+        }
         if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.defenseIncrease))
-		{
+        {
             GetComponent<Gameplay>().IncreaseDefense();
-		}
+        }
     }
 
     void Update()
@@ -569,12 +569,12 @@ public class GrabAndThrowObject : MonoBehaviour
         }
     }
 
-    Vector3 GetVelocity ()
+    Vector3 GetVelocity()
     {
-		float xVelocity = (positions[positions.Count - 1].x - positions[0].x) * 5;
-		float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 5;
-		float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 5;
-		return new Vector3(xVelocity, yVelocity, zVelocity);
+        float xVelocity = (positions[positions.Count - 1].x - positions[0].x) * 5;
+        float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 5;
+        float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * 5;
+        return new Vector3(xVelocity, yVelocity, zVelocity);
     }
 
 
@@ -771,6 +771,18 @@ public class GrabAndThrowObject : MonoBehaviour
             if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.regenHealth))
             {
                 GetComponent<Gameplay>().AddLife(1);
+            }
+            if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.regenBurgers))
+            {
+                GetComponent<Gameplay>().AddBurgers(1);
+            }
+            if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.regenFries))
+            {
+                GetComponent<Gameplay>().AddFries(1);
+            }
+            if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.regenDrinks))
+            {
+                GetComponent<Gameplay>().AddDrinks(1);
             }
             regenTimer = 0;
         }
