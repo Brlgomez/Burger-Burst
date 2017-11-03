@@ -41,7 +41,7 @@ public class Gameplay : MonoBehaviour
         if (life < maxLife)
         {
             life += n;
-            Camera.main.GetComponent<ScreenTextManagment>().ChangeMistakeText();
+            Camera.main.GetComponent<ScreenTextManagment>().ChangeHealthCount();
         }
     }
 
@@ -143,7 +143,7 @@ public class Gameplay : MonoBehaviour
     public void ReduceHealth()
     {
         life -= Mathf.RoundToInt(regularZombieDamage * defense);
-        Camera.main.GetComponent<ScreenTextManagment>().ChangeMistakeText();
+        Camera.main.GetComponent<ScreenTextManagment>().ChangeHealthCount();
         if (life < 1)
         {
             gameOver = true;
@@ -159,7 +159,7 @@ public class Gameplay : MonoBehaviour
     {
         maxLife = 200;
         life = 200;
-        Camera.main.GetComponent<ScreenTextManagment>().ChangeMistakeText();
+        Camera.main.GetComponent<ScreenTextManagment>().ChangeHealthTextColor();
     }
 
     public void IncreaseDefense()
