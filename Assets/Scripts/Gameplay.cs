@@ -41,9 +41,31 @@ public class Gameplay : MonoBehaviour
         if (life < maxLife)
         {
             life += n;
-            Camera.main.GetComponent<ScreenTextManagment>().ChangeHealthCount();
+            Camera.main.GetComponent<ScreenTextManagment>().ChangeHealthCount(n);
         }
     }
+
+	public void ReduceHealth()
+	{
+		life -= Mathf.RoundToInt(regularZombieDamage * defense);
+		Camera.main.GetComponent<ScreenTextManagment>().ChangeHealthCount(-1);
+		if (life < 1)
+		{
+			gameOver = true;
+			if (gameObject.GetComponent<CameraMovement>() != null)
+			{
+				Destroy(gameObject.GetComponent<CameraMovement>());
+			}
+			gameObject.AddComponent<CameraMovement>().MoveToGameOver();
+		}
+	}
+
+	public void ChangeMaxHealth()
+	{
+		maxLife = 200;
+		life = 200;
+		Camera.main.GetComponent<ScreenTextManagment>().ChangeHealthTextColor();
+	}
 
     public float GetLife()
     {
@@ -73,19 +95,19 @@ public class Gameplay : MonoBehaviour
     public void ReduceBurgers()
     {
         burgers--;
-        Camera.main.GetComponent<ScreenTextManagment>().ChangeBurgerCount();
+        Camera.main.GetComponent<ScreenTextManagment>().ChangeBurgerCount(-1);
     }
 
     public void ReduceFries()
     {
         fries--;
-        Camera.main.GetComponent<ScreenTextManagment>().ChangeFriesCount();
+        Camera.main.GetComponent<ScreenTextManagment>().ChangeFriesCount(-1);
     }
 
     public void ReduceDrinks()
     {
         drinks--;
-        Camera.main.GetComponent<ScreenTextManagment>().ChangeDrinkCount();
+        Camera.main.GetComponent<ScreenTextManagment>().ChangeDrinkCount(-1);
     }
 
     public void AddBurgers(int amount)
@@ -99,7 +121,7 @@ public class Gameplay : MonoBehaviour
         {
             burgers += amount;
         }
-        Camera.main.GetComponent<ScreenTextManagment>().ChangeBurgerCount();
+        Camera.main.GetComponent<ScreenTextManagment>().ChangeBurgerCount(amount);
     }
 
     public void AddFries(int amount)
@@ -113,7 +135,7 @@ public class Gameplay : MonoBehaviour
         {
             fries += amount;
         }
-        Camera.main.GetComponent<ScreenTextManagment>().ChangeFriesCount();
+        Camera.main.GetComponent<ScreenTextManagment>().ChangeFriesCount(amount);
     }
 
     public void AddDrinks(int amount)
@@ -127,7 +149,7 @@ public class Gameplay : MonoBehaviour
         {
             drinks += amount;
         }
-        Camera.main.GetComponent<ScreenTextManagment>().ChangeDrinkCount();
+        Camera.main.GetComponent<ScreenTextManagment>().ChangeDrinkCount(amount);
     }
 
     public void IncreaseCompletedOrders()
@@ -138,28 +160,6 @@ public class Gameplay : MonoBehaviour
     public int GetCompletedOrdersCount()
     {
         return completedOrders;
-    }
-
-    public void ReduceHealth()
-    {
-        life -= Mathf.RoundToInt(regularZombieDamage * defense);
-        Camera.main.GetComponent<ScreenTextManagment>().ChangeHealthCount();
-        if (life < 1)
-        {
-            gameOver = true;
-            if (gameObject.GetComponent<CameraMovement>() != null)
-            {
-                Destroy(gameObject.GetComponent<CameraMovement>());
-            }
-            gameObject.AddComponent<CameraMovement>().MoveToGameOver();
-        }
-    }
-
-    public void ChangeMaxHealth()
-    {
-        maxLife = 200;
-        life = 200;
-        Camera.main.GetComponent<ScreenTextManagment>().ChangeHealthTextColor();
     }
 
     public void IncreaseDefense()

@@ -123,7 +123,7 @@ ScreenTextManagment : MonoBehaviour
         line5.GetComponent<TextMesh>().text = "";
     }
 
-    public void ChangeHealthCount()
+    public void ChangeHealthCount(int num)
     {
         int n = Mathf.RoundToInt(Camera.main.GetComponent<Gameplay>().GetLife());
         if (n >= 1)
@@ -132,7 +132,7 @@ ScreenTextManagment : MonoBehaviour
 			line1.GetComponent<TextMesh>().text = "H : " + n.ToString();
 			if (line1.GetComponent<ShakeText>() == null)
 			{
-				line1.AddComponent<ShakeText>();
+                line1.AddComponent<ShakeText>().ChangeColor(num);
 			}
         }
         else
@@ -159,14 +159,14 @@ ScreenTextManagment : MonoBehaviour
 		line1.GetComponent<TextMesh>().color = newColor;
 	}
 
-    public void ChangeBurgerCount()
+    public void ChangeBurgerCount(int num)
     {
         if (!Camera.main.GetComponent<Gameplay>().IsGameOver())
         {
             ChangeBurgerTextColor();
             if (line2.GetComponent<ShakeText>() == null)
             {
-                line2.AddComponent<ShakeText>();
+                line2.AddComponent<ShakeText>().ChangeColor(num);
             }
         }
     }
@@ -179,14 +179,14 @@ ScreenTextManagment : MonoBehaviour
 		line2.GetComponent<TextMesh>().text = "B : " + n;
     }
 
-    public void ChangeFriesCount()
+    public void ChangeFriesCount(int num)
     {
         if (!Camera.main.GetComponent<Gameplay>().IsGameOver())
         {
 			ChangeFriesTextColor();
 			if (line3.GetComponent<ShakeText>() == null)
 			{
-				line3.AddComponent<ShakeText>();
+                line3.AddComponent<ShakeText>().ChangeColor(num);
 			}
         }
     }
@@ -199,14 +199,14 @@ ScreenTextManagment : MonoBehaviour
 		line3.GetComponent<TextMesh>().text = "F : " + n;
 	}
 
-    public void ChangeDrinkCount()
+    public void ChangeDrinkCount(int num)
     {
         if (!Camera.main.GetComponent<Gameplay>().IsGameOver())
         {
             ChangeDrinkTextColor();
 			if (line4.GetComponent<ShakeText>() == null)
 			{
-				line4.AddComponent<ShakeText>();
+                line4.AddComponent<ShakeText>().ChangeColor(num);
 			}
         }
     }

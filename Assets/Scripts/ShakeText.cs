@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class ShakeText : MonoBehaviour
 {
-    static float lengthOfAnimation = 0.2f;
+    static float lengthOfAnimation = 0.25f;
     static float shakeIntensity = 0.2f;
     GameObject screen;
     Vector3 initialPos;
     float time;
     bool reverse;
+    Color initialColor;
 
-    void Start()
+    void Awake()
     {
         initialPos = transform.localPosition;
+        initialColor = GetComponent<TextMesh>().color;
     }
 
     void Update()
@@ -35,7 +37,21 @@ public class ShakeText : MonoBehaviour
         if (reverse && time < 0)
         {
             transform.localPosition = initialPos;
+            GetComponent<TextMesh>().color = initialColor;
             Destroy(GetComponent<ShakeText>());
+        }
+    }
+
+    public void ChangeColor(int num)
+    {
+        if (num > 0)
+        {
+            GetComponent<TextMesh>().color = Color.green;
+
+        }
+        else
+        {
+            GetComponent<TextMesh>().color = Color.red;
         }
     }
 }
