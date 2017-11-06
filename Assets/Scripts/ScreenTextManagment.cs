@@ -62,6 +62,7 @@ ScreenTextManagment : MonoBehaviour
         line2.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
         line3.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
         line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
+        line5.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
         menu = "Main Menu";
     }
 
@@ -110,7 +111,8 @@ ScreenTextManagment : MonoBehaviour
         line2.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
         line3.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
         line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
-        ChangeBurgerTextColor();
+		line5.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
+		ChangeBurgerTextColor();
         ChangeFriesTextColor();
         ChangeDrinkTextColor();
         ChangeHealthTextColor();
@@ -240,7 +242,8 @@ ScreenTextManagment : MonoBehaviour
         RevertButtons();
         line1.transform.GetChild(0).gameObject.layer = 2;
         line2.transform.GetChild(0).gameObject.layer = 2;
-        line5.GetComponent<TextMesh>().text = "Counter";
+        line5.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
+		//line5.GetComponent<TextMesh>().text = "Counter";
     }
 
     public void ChangeToFryerArea()
@@ -248,7 +251,8 @@ ScreenTextManagment : MonoBehaviour
         RevertButtons();
         line1.transform.GetChild(0).gameObject.layer = 2;
         line3.transform.GetChild(0).gameObject.layer = 2;
-        line5.GetComponent<TextMesh>().text = "Counter";
+		line5.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
+		//line5.GetComponent<TextMesh>().text = "Counter";
     }
 
     public void ChangeToSodaMachineArea()
@@ -256,7 +260,8 @@ ScreenTextManagment : MonoBehaviour
         RevertButtons();
         line1.transform.GetChild(0).gameObject.layer = 2;
         line4.transform.GetChild(0).gameObject.layer = 2;
-        line5.GetComponent<TextMesh>().text = "Counter";
+		line5.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
+		//line5.GetComponent<TextMesh>().text = "Counter";
     }
 
     public void ChangeToFrontArea()
@@ -303,6 +308,13 @@ ScreenTextManagment : MonoBehaviour
             float b = target.GetComponent<TextMesh>().color.b / 2;
             target.GetComponent<TextMesh>().color = new Color(r, g, b);
             pressDown = true;
+            if (target.transform.childCount > 1)
+            {
+                if (target.transform.GetChild(1).GetComponent<SpriteRenderer>().color != Color.clear)
+                {
+                    target.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.grey;
+                }
+            }
         }
         if (!pressDown && target == scrollView)
         {
@@ -320,6 +332,13 @@ ScreenTextManagment : MonoBehaviour
             float b = target.GetComponent<TextMesh>().color.b * 2;
             target.GetComponent<TextMesh>().color = new Color(r, g, b);
             pressDown = false;
+			if (target.transform.childCount > 1)
+			{
+				if (target.transform.GetChild(1).GetComponent<SpriteRenderer>().color != Color.clear)
+				{
+                    target.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
+				}
+			}
         }
         if (pressDown && target == scrollView)
         {
