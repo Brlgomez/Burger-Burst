@@ -59,6 +59,9 @@ ScreenTextManagment : MonoBehaviour
         slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.clear;
         slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.clear;
         line4.GetComponent<TextMesh>().characterSize = 0.0325f;
+        line2.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
+        line3.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
+        line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
         menu = "Main Menu";
     }
 
@@ -104,9 +107,12 @@ ScreenTextManagment : MonoBehaviour
     {
         RevertButtons();
         line1.transform.GetChild(0).gameObject.layer = 2;
+        line2.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
+        line3.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
+        line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
         ChangeBurgerTextColor();
-		ChangeFriesTextColor();
-		ChangeDrinkTextColor();
+        ChangeFriesTextColor();
+        ChangeDrinkTextColor();
         ChangeHealthTextColor();
     }
 
@@ -128,12 +134,12 @@ ScreenTextManagment : MonoBehaviour
         int n = Mathf.RoundToInt(Camera.main.GetComponent<Gameplay>().GetLife());
         if (n >= 1)
         {
-			ChangeHealthTextColor();
-			line1.GetComponent<TextMesh>().text = "H : " + n.ToString();
-			if (line1.GetComponent<ShakeText>() == null)
-			{
+            ChangeHealthTextColor();
+            line1.GetComponent<TextMesh>().text = "H : " + n.ToString();
+            if (line1.GetComponent<ShakeText>() == null)
+            {
                 line1.AddComponent<ShakeText>().ChangeColor(num);
-			}
+            }
         }
         else
         {
@@ -153,11 +159,11 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeHealthTextColor()
     {
-		int n = Mathf.RoundToInt(Camera.main.GetComponent<Gameplay>().GetLife());
-		Color newColor = Color.Lerp(red, originalScreenColor, ((float)n) / GetComponent<Gameplay>().GetMaxLife());
-		line1.GetComponent<TextMesh>().text = "H : " + n.ToString();
-		line1.GetComponent<TextMesh>().color = newColor;
-	}
+        int n = Mathf.RoundToInt(Camera.main.GetComponent<Gameplay>().GetLife());
+        Color newColor = Color.Lerp(red, originalScreenColor, ((float)n) / GetComponent<Gameplay>().GetMaxLife());
+        line1.GetComponent<TextMesh>().text = "H : " + n.ToString();
+        line1.GetComponent<TextMesh>().color = newColor;
+    }
 
     public void ChangeBurgerCount(int num)
     {
@@ -173,60 +179,60 @@ ScreenTextManagment : MonoBehaviour
 
     void ChangeBurgerTextColor()
     {
-		int n = Camera.main.GetComponent<Gameplay>().GetBurgerCount();
-		Color newColor = Color.Lerp(red, originalScreenColor, ((float)n) / initialBurgers);
-		line2.GetComponent<TextMesh>().color = newColor;
-		line2.GetComponent<TextMesh>().text = "B : " + n;
+        int n = Camera.main.GetComponent<Gameplay>().GetBurgerCount();
+        Color newColor = Color.Lerp(red, originalScreenColor, ((float)n) / initialBurgers);
+        line2.GetComponent<TextMesh>().color = newColor;
+        line2.GetComponent<TextMesh>().text = "     " + n;
     }
 
     public void ChangeFriesCount(int num)
     {
         if (!Camera.main.GetComponent<Gameplay>().IsGameOver())
         {
-			ChangeFriesTextColor();
-			if (line3.GetComponent<ShakeText>() == null)
-			{
+            ChangeFriesTextColor();
+            if (line3.GetComponent<ShakeText>() == null)
+            {
                 line3.AddComponent<ShakeText>().ChangeColor(num);
-			}
+            }
         }
     }
 
-	void ChangeFriesTextColor()
-	{
-		int n = Camera.main.GetComponent<Gameplay>().GetFriesCount();
-		Color newColor = Color.Lerp(red, originalScreenColor, ((float)n) / initialFries);
-		line3.GetComponent<TextMesh>().color = newColor;
-		line3.GetComponent<TextMesh>().text = "F : " + n;
-	}
+    void ChangeFriesTextColor()
+    {
+        int n = Camera.main.GetComponent<Gameplay>().GetFriesCount();
+        Color newColor = Color.Lerp(red, originalScreenColor, ((float)n) / initialFries);
+        line3.GetComponent<TextMesh>().color = newColor;
+        line3.GetComponent<TextMesh>().text = "     " + n;
+    }
 
     public void ChangeDrinkCount(int num)
     {
         if (!Camera.main.GetComponent<Gameplay>().IsGameOver())
         {
             ChangeDrinkTextColor();
-			if (line4.GetComponent<ShakeText>() == null)
-			{
+            if (line4.GetComponent<ShakeText>() == null)
+            {
                 line4.AddComponent<ShakeText>().ChangeColor(num);
-			}
+            }
         }
     }
 
-	void ChangeDrinkTextColor()
-	{
-		int n = Camera.main.GetComponent<Gameplay>().GetDrinkCount();
-		Color newColor = Color.Lerp(red, originalScreenColor, ((float)n) / initialDrinks);
-		line4.GetComponent<TextMesh>().color = newColor;
-		line4.GetComponent<TextMesh>().text = "D : " + n;
-	}
+    void ChangeDrinkTextColor()
+    {
+        int n = Camera.main.GetComponent<Gameplay>().GetDrinkCount();
+        Color newColor = Color.Lerp(red, originalScreenColor, ((float)n) / initialDrinks);
+        line4.GetComponent<TextMesh>().color = newColor;
+        line4.GetComponent<TextMesh>().text = "     " + n;
+    }
 
     public void RestartScreens()
     {
         ChangeHealthTextColor();
         ChangeTextColorToOriginal();
-        line1.GetComponent<TextMesh>().text = "H : " + GetComponent<Gameplay>().GetMaxLife();
-        line2.GetComponent<TextMesh>().text = "B : " + initialBurgers;
-        line3.GetComponent<TextMesh>().text = "F : " + initialFries;
-        line4.GetComponent<TextMesh>().text = "D : " + initialDrinks;
+        line1.GetComponent<TextMesh>().text = "     " + GetComponent<Gameplay>().GetMaxLife();
+        line2.GetComponent<TextMesh>().text = "     " + initialBurgers;
+        line3.GetComponent<TextMesh>().text = "     " + initialFries;
+        line4.GetComponent<TextMesh>().text = "     " + initialDrinks;
     }
 
     public void ChangeToGrillArea()

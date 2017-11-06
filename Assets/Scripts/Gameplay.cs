@@ -45,27 +45,27 @@ public class Gameplay : MonoBehaviour
         }
     }
 
-	public void ReduceHealth()
-	{
-		life -= Mathf.RoundToInt(regularZombieDamage * defense);
-		Camera.main.GetComponent<ScreenTextManagment>().ChangeHealthCount(-1);
-		if (life < 1)
-		{
-			gameOver = true;
-			if (gameObject.GetComponent<CameraMovement>() != null)
-			{
-				Destroy(gameObject.GetComponent<CameraMovement>());
-			}
-			gameObject.AddComponent<CameraMovement>().MoveToGameOver();
-		}
-	}
+    public void ReduceHealth()
+    {
+        life -= Mathf.RoundToInt(regularZombieDamage * defense);
+        Camera.main.GetComponent<ScreenTextManagment>().ChangeHealthCount(-1);
+        if (life < 1)
+        {
+            gameOver = true;
+            if (gameObject.GetComponent<CameraMovement>() != null)
+            {
+                Destroy(gameObject.GetComponent<CameraMovement>());
+            }
+            gameObject.AddComponent<CameraMovement>().MoveToGameOver();
+        }
+    }
 
-	public void ChangeMaxHealth()
-	{
-		maxLife = 200;
-		life = 200;
-		Camera.main.GetComponent<ScreenTextManagment>().ChangeHealthTextColor();
-	}
+    public void ChangeMaxHealth()
+    {
+        maxLife = 200;
+        life = 200;
+        Camera.main.GetComponent<ScreenTextManagment>().ChangeHealthTextColor();
+    }
 
     public float GetLife()
     {
