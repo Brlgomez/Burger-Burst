@@ -61,6 +61,9 @@ ScreenTextManagment : MonoBehaviour
         slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.clear;
         line4.GetComponent<TextMesh>().characterSize = 0.0325f;
         line1.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
+        line1.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.clear;
+        line1.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
+        line1.transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.clear;
         line2.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
         line3.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
         line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
@@ -111,15 +114,40 @@ ScreenTextManagment : MonoBehaviour
         RevertButtons();
         line1.transform.GetChild(0).gameObject.layer = 2;
         line1.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
-		line2.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
+        line1.transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.white;
+        line2.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
         line3.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
         line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
         line5.transform.GetChild(1).GetComponent<SpriteRenderer>().color = notPressable;
-		ChangeBurgerTextColor();
+        ChangeBurgerTextColor();
         ChangeFriesTextColor();
         ChangeDrinkTextColor();
         ChangeHealthTextColor();
         menu = "Gameplay";
+    }
+
+    public void ChangeToGameOverText()
+    {
+        line1.GetComponent<TextMesh>().text = "Dead";
+        line2.GetComponent<TextMesh>().text = "";
+        line3.GetComponent<TextMesh>().text = "Restart";
+        line4.GetComponent<TextMesh>().text = "Quit";
+        line5.GetComponent<TextMesh>().text = "S: " + GetComponent<Gameplay>().GetPoints();
+        line2.gameObject.layer = 2;
+        line5.gameObject.layer = 2;
+        line1.GetComponent<TextMesh>().color = red;
+        line3.GetComponent<TextMesh>().color = red;
+        line4.GetComponent<TextMesh>().color = red;
+        line5.GetComponent<TextMesh>().color = red;
+        line1.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
+        line1.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.clear;
+        line1.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
+        line1.transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.clear;
+        line2.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
+        line3.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
+        line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
+        line5.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
+        menu = "Game Over";
     }
 
     public void ChangeToPauseText()
@@ -133,11 +161,14 @@ ScreenTextManagment : MonoBehaviour
         line3.GetComponent<TextMesh>().text = "Restart";
         line4.GetComponent<TextMesh>().text = "Quit";
         line5.GetComponent<TextMesh>().text = "";
-		line1.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
-		line2.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
-		line3.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
-		line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
-		line5.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
+        line1.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
+        line1.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.clear;
+        line1.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
+        line1.transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.clear;
+        line2.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
+        line3.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
+        line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
+        line5.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
         menu = "Pause";
     }
 
@@ -147,7 +178,6 @@ ScreenTextManagment : MonoBehaviour
         if (n >= 1)
         {
             ChangeHealthTextColor();
-            line1.GetComponent<TextMesh>().text = "     " + n.ToString();
             if (line1.GetComponent<ShakeText>() == null)
             {
                 line1.AddComponent<ShakeText>().ChangeColor(num);
@@ -155,31 +185,39 @@ ScreenTextManagment : MonoBehaviour
         }
         else
         {
-            line1.GetComponent<TextMesh>().text = "Dead";
-            line2.GetComponent<TextMesh>().text = "";
-            line3.GetComponent<TextMesh>().text = "Restart";
-            line4.GetComponent<TextMesh>().text = "Quit";
-            line5.GetComponent<TextMesh>().text = "S: " + GetComponent<Gameplay>().GetPoints();
-            line2.gameObject.layer = 2;
-            line5.gameObject.layer = 2;
-            line1.GetComponent<TextMesh>().color = red;
-            line3.GetComponent<TextMesh>().color = red;
-            line4.GetComponent<TextMesh>().color = red;
-            line5.GetComponent<TextMesh>().color = red;
-			line1.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
-			line2.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
-			line3.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
-			line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
-			line5.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
+            ChangeToGameOverText();
         }
     }
 
     public void ChangeHealthTextColor()
     {
         int n = Mathf.RoundToInt(Camera.main.GetComponent<Gameplay>().GetLife());
-        Color newColor = Color.Lerp(red, originalScreenColor, ((float)n) / GetComponent<Gameplay>().GetMaxLife());
-        line1.GetComponent<TextMesh>().text = "     " + n.ToString();
-        line1.GetComponent<TextMesh>().color = newColor;
+        line1.GetComponent<TextMesh>().text = "";
+        if (GetComponent<Gameplay>().GetMaxLife() <= 100)
+        {
+            Color newColor = Color.Lerp(red, originalScreenColor, ((float)n) / GetComponent<Gameplay>().GetMaxLife());
+            line1.transform.GetChild(2).GetComponent<SpriteRenderer>().color = newColor;
+            line1.transform.GetChild(2).transform.localScale = new Vector3((((float)n) / GetComponent<Gameplay>().GetMaxLife()) * 255, 115, 1);
+            line1.transform.GetChild(3).transform.localScale = new Vector3(0, 115, 1);
+        }
+        else
+        {
+            if (n <= 100)
+            {
+                Color newColor = Color.Lerp(red, originalScreenColor, (((float)n) / (GetComponent<Gameplay>().GetMaxLife() / 2)));
+                line1.transform.GetChild(2).GetComponent<SpriteRenderer>().color = newColor;
+                line1.transform.GetChild(2).transform.localScale = new Vector3((((float)n) / (GetComponent<Gameplay>().GetMaxLife() / 2)) * 255, 115, 1);
+                line1.transform.GetChild(3).transform.localScale = new Vector3(0, 115, 1);
+            }
+            else
+            {
+                Color newColor = Color.Lerp(Color.cyan, Color.green, ((float)n - (GetComponent<Gameplay>().GetMaxLife() / 2)) / (GetComponent<Gameplay>().GetMaxLife() / 2));
+                line1.transform.GetChild(2).transform.localScale = new Vector3(255, 115, 1);
+                line1.transform.GetChild(2).GetComponent<SpriteRenderer>().color = originalScreenColor;
+                line1.transform.GetChild(3).transform.localScale = new Vector3((((float)n - (GetComponent<Gameplay>().GetMaxLife() / 2)) / (GetComponent<Gameplay>().GetMaxLife() / 2)) * 255, 115, 1);
+                line1.transform.GetChild(3).GetComponent<SpriteRenderer>().color = newColor;
+            }
+        }
     }
 
     public void ChangeBurgerCount(int num)
@@ -258,8 +296,8 @@ ScreenTextManagment : MonoBehaviour
         line1.transform.GetChild(0).gameObject.layer = 2;
         line2.transform.GetChild(0).gameObject.layer = 2;
         line2.transform.GetChild(1).GetComponent<SpriteRenderer>().color = notPressable;
-		line3.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
-		line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
+        line3.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
+        line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
         line5.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
     }
 
@@ -268,10 +306,10 @@ ScreenTextManagment : MonoBehaviour
         RevertButtons();
         line1.transform.GetChild(0).gameObject.layer = 2;
         line3.transform.GetChild(0).gameObject.layer = 2;
-		line3.transform.GetChild(1).GetComponent<SpriteRenderer>().color = notPressable;
+        line3.transform.GetChild(1).GetComponent<SpriteRenderer>().color = notPressable;
         line2.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
         line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
-		line5.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
+        line5.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
     }
 
     public void ChangeToSodaMachineArea()
@@ -279,10 +317,10 @@ ScreenTextManagment : MonoBehaviour
         RevertButtons();
         line1.transform.GetChild(0).gameObject.layer = 2;
         line4.transform.GetChild(0).gameObject.layer = 2;
-		line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = notPressable;
-		line2.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
-		line3.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
-		line5.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
+        line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = notPressable;
+        line2.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
+        line3.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
+        line5.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
     }
 
     public void ChangeToFrontArea()
@@ -350,10 +388,10 @@ ScreenTextManagment : MonoBehaviour
             float b = target.GetComponent<TextMesh>().color.b * 2;
             target.GetComponent<TextMesh>().color = new Color(r, g, b);
             pressDown = false;
-			if (target.transform.childCount > 1 && menu == "Gameplay")
+            if (target.transform.childCount > 1 && menu == "Gameplay")
             {
                 target.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
-			}
+            }
         }
         if (pressDown && target == scrollView)
         {

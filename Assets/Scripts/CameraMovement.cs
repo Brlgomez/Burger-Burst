@@ -106,7 +106,7 @@ public class CameraMovement : MonoBehaviour
         {
             GetComponent<GrabAndThrowObject>().DeleteObjects();
             GetComponent<GrabAndThrowObject>().UnPauseGame();
-            GetComponent<ScreenTextManagment>().ChangeToGamePlayText();
+            GetComponent<ScreenTextManagment>().ChangeToGameOverText();
         }
         else if (towards == grill)
         {
