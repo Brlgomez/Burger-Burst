@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Gameplay : MonoBehaviour
 {
+    int maxLifeWithBonus = 200;
+
     int maxLife = 100;
     float life = 100;
     int burgers = 25;
@@ -14,6 +16,7 @@ public class Gameplay : MonoBehaviour
     bool gameOver;
     float regularZombieDamage = 10;
     float defense = 1;
+    bool moreLife;
 
     public void IncreasePoints(GameObject obj)
     {
@@ -62,8 +65,9 @@ public class Gameplay : MonoBehaviour
 
     public void ChangeMaxHealth()
     {
-        maxLife = 200;
-        life = 200;
+        maxLife = maxLifeWithBonus;
+        life = maxLifeWithBonus;
+        moreLife = true;
         Camera.main.GetComponent<ScreenTextManagment>().ChangeHealthTextColor();
     }
 
@@ -75,6 +79,11 @@ public class Gameplay : MonoBehaviour
     public int GetMaxLife()
     {
         return maxLife;
+    }
+
+    public bool HaveMoreLife()
+    {
+        return moreLife;   
     }
 
     public int GetBurgerCount()

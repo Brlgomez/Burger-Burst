@@ -15,7 +15,14 @@ public class ShakeText : MonoBehaviour
     void Awake()
     {
         initialPos = transform.localPosition;
-        initialColor = GetComponent<TextMesh>().color;
+        if (GetComponent<TextMesh>() != null)
+        {
+            initialColor = GetComponent<TextMesh>().color;
+        }
+        else 
+        {
+            initialColor = GetComponent<SpriteRenderer>().color;
+		}
     }
 
     void Update()
@@ -37,7 +44,14 @@ public class ShakeText : MonoBehaviour
         if (reverse && time < 0)
         {
             transform.localPosition = initialPos;
-            GetComponent<TextMesh>().color = initialColor;
+            if (GetComponent<TextMesh>() != null)
+            {
+                GetComponent<TextMesh>().color = initialColor;
+            }
+            else 
+            {
+                GetComponent<SpriteRenderer>().color = initialColor;
+            }
             Destroy(GetComponent<ShakeText>());
         }
     }
@@ -53,5 +67,18 @@ public class ShakeText : MonoBehaviour
         {
             GetComponent<TextMesh>().color = Color.red;
         }
+    }
+
+    public void ChangeSpriteColor(int num)
+    {
+		if (num > 0)
+		{
+            GetComponent<SpriteRenderer>().color = Color.green;
+
+		}
+		else
+		{
+            GetComponent<SpriteRenderer>().color = Color.red;
+		}
     }
 }
