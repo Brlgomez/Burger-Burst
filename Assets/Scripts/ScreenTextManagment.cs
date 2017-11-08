@@ -9,7 +9,6 @@ ScreenTextManagment : MonoBehaviour
     GameObject line1, line2, line3, line4, line5, scrollView, slot1, slot2, slot3;
     List<GameObject> scrollList = new List<GameObject>();
     Color originalScreenColor = new Color(0, 0.5f, 1);
-    Color red = Color.red;
     Color notPressable = new Color(1, 1, 1, 0.25f);
     bool pressDown;
     string menu = "Main Menu";
@@ -47,7 +46,6 @@ ScreenTextManagment : MonoBehaviour
         slot1.transform.GetChild(0).gameObject.layer = 2;
         slot2.transform.GetChild(0).gameObject.layer = 2;
         slot3.transform.GetChild(0).gameObject.layer = 2;
-        scrollView.transform.GetChild(1).transform.localScale = new Vector3(1, 0, 1);
         line1.GetComponent<TextMesh>().text = "Game";
         line2.GetComponent<TextMesh>().text = "Play";
         line3.GetComponent<TextMesh>().text = "Upgrades";
@@ -60,6 +58,8 @@ ScreenTextManagment : MonoBehaviour
         slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.clear;
         slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.clear;
         line4.GetComponent<TextMesh>().characterSize = 0.0325f;
+        scrollView.transform.GetChild(1).transform.localScale = new Vector3(1, 0, 1);
+
         TurnOffGameplayImages();
         menu = "Main Menu";
     }
@@ -121,17 +121,18 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToGameOverText()
     {
+        RevertButtons();
+        line2.gameObject.layer = 2;
+        line5.gameObject.layer = 2;
         line1.GetComponent<TextMesh>().text = "Dead";
         line2.GetComponent<TextMesh>().text = "";
         line3.GetComponent<TextMesh>().text = "Restart";
         line4.GetComponent<TextMesh>().text = "Quit";
         line5.GetComponent<TextMesh>().text = "S: " + GetComponent<Gameplay>().GetPoints();
-        line2.gameObject.layer = 2;
-        line5.gameObject.layer = 2;
-        line1.GetComponent<TextMesh>().color = red;
-        line3.GetComponent<TextMesh>().color = red;
-        line4.GetComponent<TextMesh>().color = red;
-        line5.GetComponent<TextMesh>().color = red;
+        line1.GetComponent<TextMesh>().color = Color.red;
+        line3.GetComponent<TextMesh>().color = Color.red;
+        line4.GetComponent<TextMesh>().color = Color.red;
+        line5.GetComponent<TextMesh>().color = Color.red;
         TurnOffGameplayImages();
         menu = "Game Over";
     }
@@ -175,7 +176,7 @@ ScreenTextManagment : MonoBehaviour
         line1.GetComponent<TextMesh>().text = "";
         if (!GetComponent<Gameplay>().HaveMoreLife())
         {
-            Color newColor = Color.Lerp(red, originalScreenColor, ((float)n) / GetComponent<Gameplay>().GetMaxLife());
+            Color newColor = Color.Lerp(Color.red, originalScreenColor, ((float)n) / GetComponent<Gameplay>().GetMaxLife());
             line1.transform.GetChild(2).GetComponent<SpriteRenderer>().color = newColor;
             line1.transform.GetChild(2).transform.localScale = new Vector3((((float)n) / GetComponent<Gameplay>().GetMaxLife()) * 255, 115, 1);
             line1.transform.GetChild(3).transform.localScale = new Vector3(0, 115, 1);
@@ -184,7 +185,7 @@ ScreenTextManagment : MonoBehaviour
         {
             if (n <= 100)
             {
-                Color newColor = Color.Lerp(red, originalScreenColor, (((float)n) / (GetComponent<Gameplay>().GetMaxLife() / 2)));
+                Color newColor = Color.Lerp(Color.red, originalScreenColor, (((float)n) / (GetComponent<Gameplay>().GetMaxLife() / 2)));
                 line1.transform.GetChild(2).GetComponent<SpriteRenderer>().color = newColor;
                 line1.transform.GetChild(2).transform.localScale = new Vector3((((float)n) / (GetComponent<Gameplay>().GetMaxLife() / 2)) * 255, 115, 1);
                 line1.transform.GetChild(3).transform.localScale = new Vector3(0, 115, 1);
@@ -227,7 +228,7 @@ ScreenTextManagment : MonoBehaviour
     void ChangeBurgerTextColor()
     {
         int n = Camera.main.GetComponent<Gameplay>().GetBurgerCount();
-        Color newColor = Color.Lerp(red, originalScreenColor, ((float)n) / initialBurgers);
+        Color newColor = Color.Lerp(Color.red, originalScreenColor, ((float)n) / initialBurgers);
         line2.GetComponent<TextMesh>().color = newColor;
         line2.GetComponent<TextMesh>().text = "     " + n;
     }
@@ -247,7 +248,7 @@ ScreenTextManagment : MonoBehaviour
     void ChangeFriesTextColor()
     {
         int n = Camera.main.GetComponent<Gameplay>().GetFriesCount();
-        Color newColor = Color.Lerp(red, originalScreenColor, ((float)n) / initialFries);
+        Color newColor = Color.Lerp(Color.red, originalScreenColor, ((float)n) / initialFries);
         line3.GetComponent<TextMesh>().color = newColor;
         line3.GetComponent<TextMesh>().text = "     " + n;
     }
@@ -267,7 +268,7 @@ ScreenTextManagment : MonoBehaviour
     void ChangeDrinkTextColor()
     {
         int n = Camera.main.GetComponent<Gameplay>().GetDrinkCount();
-        Color newColor = Color.Lerp(red, originalScreenColor, ((float)n) / initialDrinks);
+        Color newColor = Color.Lerp(Color.red, originalScreenColor, ((float)n) / initialDrinks);
         line4.GetComponent<TextMesh>().color = newColor;
         line4.GetComponent<TextMesh>().text = "     " + n;
     }

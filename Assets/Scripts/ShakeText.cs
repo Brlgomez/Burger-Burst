@@ -19,10 +19,10 @@ public class ShakeText : MonoBehaviour
         {
             initialColor = GetComponent<TextMesh>().color;
         }
-        else 
+        else
         {
             initialColor = GetComponent<SpriteRenderer>().color;
-		}
+        }
     }
 
     void Update()
@@ -48,7 +48,7 @@ public class ShakeText : MonoBehaviour
             {
                 GetComponent<TextMesh>().color = initialColor;
             }
-            else 
+            else
             {
                 GetComponent<SpriteRenderer>().color = initialColor;
             }
@@ -71,14 +71,14 @@ public class ShakeText : MonoBehaviour
 
     public void ChangeSpriteColor(int num)
     {
-		if (num > 0)
-		{
+        if (num > 0)
+        {
             GetComponent<SpriteRenderer>().color = Color.green;
 
-		}
-		else
-		{
+        }
+        else
+        {
             GetComponent<SpriteRenderer>().color = Color.red;
-		}
+        }
     }
 }
