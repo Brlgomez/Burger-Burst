@@ -7,6 +7,5 @@ public class Materials : MonoBehaviour
     public Material burgerClear;
     public Material friesClear;
     public Material drinkClear;
-    public Material zombieClear;
     public Material[] cars;
 }

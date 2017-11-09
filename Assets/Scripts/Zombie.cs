@@ -12,11 +12,13 @@ public class Zombie : MonoBehaviour
     GameObject head, thinkBubble, hair, leftForearm, rightForearm, upperBody;
     GameObject leftHand, rightHand, leftFoot, rightFoot, leftLeg, rightLeg;
     GameObject rightUpperArm, leftUpperArm, leftThigh, rightThigh, lowerBody;
-
+    ParticleSystem deathParticles;
+    bool particlesPlaying ;
     float speed = 1;
     float originalSpeed;
-    int maxDeathTime = 3;
+    int maxDeathTime = 5;
     float alpha = 1;
+    float ragDollTime = 1;
     int timeForDamage = 3;
     float damageTime;
     Vector3[] availableSpritePositions;
@@ -40,6 +42,7 @@ public class Zombie : MonoBehaviour
         GetComponent<Animator>().SetBool("Walking", true);
         GetComponent<Animator>().SetFloat("Speed", speed * animationSpeed);
         startingZ = head.transform.position.z;
+        deathParticles = upperBody.transform.GetChild(2).GetComponent<ParticleSystem>();
         WakeUp();
         SetOrder();
     }
@@ -52,17 +55,27 @@ public class Zombie : MonoBehaviour
         }
         else if (orderComplete)
         {
-            alpha -= Time.deltaTime / maxDeathTime;
-            transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha / maxDeathTime);
-            for (int i = 0; i < transform.GetChild(0).childCount; i++)
+            ragDollTime -= Time.deltaTime / maxDeathTime;
+            if (alpha > 0)
             {
-                transform.GetChild(0).GetChild(i).GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha);
+				alpha -= Time.deltaTime * 4;
+				transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha);
+                for (int i = 0; i < transform.GetChild(0).childCount; i++)
+                {
+                    transform.GetChild(0).GetChild(i).GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha);
+                }
             }
-            for (int i = 1; i < transform.childCount; i++)
+            if (ragDollTime < 0.5f && !particlesPlaying)
             {
-                MakeAllObjectsInvisible(transform.GetChild(i).gameObject);
-            }
-            if (alpha < 0.01f)
+				deathParticles.transform.parent = transform.parent;
+				deathParticles.Play();
+				for (int i = 1; i < transform.childCount; i++)
+				{
+				   MakeAllObjectsInvisible(transform.GetChild(i).gameObject);
+				}
+				particlesPlaying = true;
+			}
+            if (ragDollTime < 0)
             {
                 Camera.main.GetComponent<ZombieManager>().RemoveWaiter(gameObject);
             }
@@ -301,10 +314,6 @@ public class Zombie : MonoBehaviour
     void TurnOffForce(GameObject obj)
     {
         obj.gameObject.layer = 11;
-        if (obj.GetComponent<Renderer>() != null)
-        {
-            obj.GetComponent<Renderer>().material = Camera.main.GetComponent<Materials>().zombieClear;
-        }
         if (obj.GetComponent<ConstantForce>() != null)
         {
             obj.GetComponent<ConstantForce>().enabled = false;
@@ -343,7 +352,7 @@ public class Zombie : MonoBehaviour
     {
         if (obj.GetComponent<Renderer>() != null)
         {
-            obj.GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha);
+            obj.GetComponent<MeshFilter>().mesh = null;
         }
     }
 
