@@ -3849,7 +3849,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 42826098}
   m_LocalRotation: {x: 0.0000018318508, y: -0.0000035952676, z: 6.4262822e-12, w: -1}
-  m_LocalPosition: {x: -0.000000079584574, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: -0.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 277181782}
@@ -3902,7 +3902,7 @@ ParticleSystemRenderer:
   m_Pivot: {x: 0, y: 0, z: 0}
   m_UseCustomVertexStreams: 0
   m_VertexStreams: 00010304
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
@@ -3966,14 +3966,14 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 998400015
+  randomSeed: -1122553980
   InitialModule:
     serializedVersion: 3
     enabled: 1
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2.5
+      scalar: 2
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -4055,8 +4055,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 0.5019608, g: 0.1254902, b: 1, a: 1}
-      maxColor: {r: 0.2509804, g: 0, b: 1, a: 1}
+      minColor: {r: 0.5019608, g: 0.5019608, b: 1, a: 1}
+      maxColor: {r: 0.5019608, g: 0.3764706, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -4118,7 +4118,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2.5
+      scalar: 3
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -4620,18 +4620,18 @@ ParticleSystem:
         - serializedVersion: 2
           time: 0
           value: 0
-          inSlope: 0
-          outSlope: 1
-          tangentMode: 0
+          inSlope: 19.640722
+          outSlope: 19.640722
+          tangentMode: 34
         - serializedVersion: 2
-          time: 1
+          time: 0.050914627
           value: 1
-          inSlope: 1
-          outSlope: 0
-          tangentMode: 0
+          inSlope: 19.640722
+          outSlope: 19.640722
+          tangentMode: 34
         m_PreInfinity: 2
         m_PostInfinity: 2
-        m_RotationOrder: 4
+        m_RotationOrder: 0
       minCurve:
         serializedVersion: 2
         m_Curve:

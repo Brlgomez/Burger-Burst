@@ -13,15 +13,16 @@ public class Zombie : MonoBehaviour
     GameObject leftHand, rightHand, leftFoot, rightFoot, leftLeg, rightLeg;
     GameObject rightUpperArm, leftUpperArm, leftThigh, rightThigh, lowerBody;
     ParticleSystem deathParticles;
-    bool particlesPlaying ;
+	Vector3[] availableSpritePositions;
+	
+    bool particlesPlaying;
     float speed = 1;
     float originalSpeed;
-    int maxDeathTime = 5;
+    static int maxDeathTime = 5;
     float alpha = 1;
     float ragDollTime = 1;
     int timeForDamage = 3;
     float damageTime;
-    Vector3[] availableSpritePositions;
     bool playAttack = true;
     static float bubbleMinScale = 0.25f;
     float startingZ;
@@ -55,65 +56,11 @@ public class Zombie : MonoBehaviour
         }
         else if (orderComplete)
         {
-            ragDollTime -= Time.deltaTime / maxDeathTime;
-            if (alpha > 0)
-            {
-				alpha -= Time.deltaTime * 4;
-				transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha);
-                for (int i = 0; i < transform.GetChild(0).childCount; i++)
-                {
-                    transform.GetChild(0).GetChild(i).GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha);
-                }
-            }
-            if (ragDollTime < 0.5f && !particlesPlaying)
-            {
-				deathParticles.transform.parent = transform.parent;
-				deathParticles.Play();
-				for (int i = 1; i < transform.childCount; i++)
-				{
-				   MakeAllObjectsInvisible(transform.GetChild(i).gameObject);
-				}
-				particlesPlaying = true;
-			}
-            if (ragDollTime < 0)
-            {
-                Camera.main.GetComponent<ZombieManager>().RemoveWaiter(gameObject);
-            }
+            OrderCompleted();
         }
         else if (!orderComplete && head.transform.position.z <= endingZ)
         {
-            GetComponent<Animator>().SetFloat("Speed", 0);
-            damageTime += Time.deltaTime;
-            rightThigh.GetComponent<Rigidbody>().isKinematic = false;
-            rightThigh.GetComponent<Rigidbody>().useGravity = true;
-            rightLeg.GetComponent<Rigidbody>().isKinematic = true;
-            rightLeg.GetComponent<Rigidbody>().useGravity = false;
-            if (damageTime > timeForDamage && playAttack)
-            {
-                if (Random.value > 0.5f)
-                {
-                    GetComponent<Animator>().Play("Attack");
-                }
-                else
-                {
-                    GetComponent<Animator>().Play("Attack Left");
-                }
-                playAttack = false;
-            }
-            if (damageTime > (timeForDamage + 0.25f))
-            {
-                Camera.main.GetComponent<Gameplay>().ReduceHealth();
-                if (Camera.main.gameObject.GetComponent<GettingHurt>() == null)
-                {
-                    Camera.main.gameObject.AddComponent<GettingHurt>();
-                }
-                damageTime = 0;
-                playAttack = true;
-                if (Camera.main.GetComponent<Gameplay>().IsGameOver())
-                {
-                    Camera.main.GetComponent<ZombieManager>().DeleteAllScripts();
-                }
-            }
+            NearFoodTruck();
         }
         thinkBubble.transform.localPosition = new Vector3(
             head.transform.localPosition.x + thinkBubble.transform.localScale.x,
@@ -144,6 +91,64 @@ public class Zombie : MonoBehaviour
             speed = originalSpeed;
         }
     }
+
+    void OrderCompleted()
+    {
+        ragDollTime -= Time.deltaTime / maxDeathTime;
+        if (alpha > 0)
+        {
+            alpha -= Time.deltaTime * 4;
+            transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha);
+            for (int i = 0; i < transform.GetChild(0).childCount; i++)
+            {
+                transform.GetChild(0).GetChild(i).GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha);
+            }
+        }
+        if (ragDollTime < 0.5f && !particlesPlaying)
+        {
+            deathParticles.Play();
+            MakeZombieDisappear();
+            particlesPlaying = true;
+        }
+        if (ragDollTime < 0)
+        {
+            Camera.main.GetComponent<ZombieManager>().RemoveWaiter(gameObject);
+        }
+    }
+
+    void NearFoodTruck()
+    {
+        GetComponent<Animator>().SetFloat("Speed", 0);
+        damageTime += Time.deltaTime;
+        rightThigh.GetComponent<Rigidbody>().isKinematic = false;
+        rightThigh.GetComponent<Rigidbody>().useGravity = true;
+        rightLeg.GetComponent<Rigidbody>().isKinematic = true;
+        rightLeg.GetComponent<Rigidbody>().useGravity = false;
+        if (damageTime > timeForDamage && playAttack)
+        {
+            if (Random.value > 0.5f)
+            {
+                GetComponent<Animator>().Play("Attack");
+            }
+            else
+            {
+                GetComponent<Animator>().Play("Attack Left");
+            }
+            playAttack = false;
+        }
+        if (damageTime > (timeForDamage + 0.25f))
+        {
+            Camera.main.GetComponent<Gameplay>().ReduceHealth();
+            if (Camera.main.gameObject.GetComponent<GettingHurt>() == null)
+            {
+                Camera.main.gameObject.AddComponent<GettingHurt>();
+            }
+            damageTime = 0;
+            playAttack = true;
+        }
+    }
+
+    /* Food functions */
 
     void SetOrder()
     {
@@ -281,7 +286,7 @@ public class Zombie : MonoBehaviour
         }
     }
 
-    /* Died */
+    /* Died. Called After completing order */
 
     void Died()
     {
@@ -328,10 +333,14 @@ public class Zombie : MonoBehaviour
         }
     }
 
-    public void DestroyScript()
+    /* Disappearing. Called once dead for a certain amount of time */
+
+    void MakeZombieDisappear()
     {
-        GetComponent<Animator>().enabled = false;
-        Destroy(gameObject.GetComponent<Zombie>());
+        for (int i = 1; i < transform.childCount; i++)
+        {
+            MakeAllObjectsInvisible(transform.GetChild(i).gameObject);
+        }
     }
 
     void MakeAllObjectsInvisible(GameObject node)
@@ -350,11 +359,13 @@ public class Zombie : MonoBehaviour
 
     void MakeObjectInvisible(GameObject obj)
     {
-        if (obj.GetComponent<Renderer>() != null)
+        if (obj.GetComponent<Renderer>() != null && obj.GetComponent<MeshFilter>() != null)
         {
             obj.GetComponent<MeshFilter>().mesh = null;
         }
     }
+
+    /* Setting up functions */
 
     void GetBodyParts(GameObject part)
     {
@@ -470,5 +481,11 @@ public class Zombie : MonoBehaviour
             sprite.transform.localPosition = availableSpritePositions[spritePosition];
             spritePosition++;
         }
+    }
+
+    public void DestroyScript()
+    {
+        GetComponent<Animator>().enabled = false;
+        Destroy(gameObject.GetComponent<Zombie>());
     }
 }

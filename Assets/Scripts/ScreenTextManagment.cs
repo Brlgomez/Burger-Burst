@@ -35,6 +35,8 @@ ScreenTextManagment : MonoBehaviour
         ScaleScrollerObjects();
     }
 
+    /* Main Menu */
+
     public void ChangeToMenuText()
     {
         MakeAllButtonsPressable();
@@ -124,9 +126,9 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToGameOverText()
     {
-        MakeAllButtonsPressable();
-        DisableButton(line2);
-        DisableButton(line5);
+        MakeButtonsUnpressable();
+        EnableButton(line3);
+        EnableButton(line4);
         line1.GetComponent<TextMesh>().text = "Dead";
         line2.GetComponent<TextMesh>().text = "";
         line3.GetComponent<TextMesh>().text = "Restart";
@@ -190,15 +192,27 @@ ScreenTextManagment : MonoBehaviour
             {
                 Color newColor = Color.Lerp(Color.red, originalScreenColor, (((float)n) / (GetComponent<Gameplay>().GetMaxLife() / 2)));
                 line1.transform.GetChild(3).GetComponent<SpriteRenderer>().color = newColor;
-                line1.transform.GetChild(3).transform.localScale = new Vector3((((float)n) / (GetComponent<Gameplay>().GetMaxLife() / 2)) * 255, 90, 1);
+                line1.transform.GetChild(3).transform.localScale = new Vector3(
+                    (((float)n) / (GetComponent<Gameplay>().GetMaxLife() / 2)) * 255,
+                    90,
+                    1
+                );
                 line1.transform.GetChild(4).transform.localScale = new Vector3(0, 90, 1);
             }
             else
             {
-                Color newColor = Color.Lerp(Color.green, Color.cyan, ((float)n - (GetComponent<Gameplay>().GetMaxLife() / 2)) / (GetComponent<Gameplay>().GetMaxLife() / 2));
+                Color newColor = Color.Lerp(
+                    Color.green,
+                    Color.cyan,
+                    ((float)n - (GetComponent<Gameplay>().GetMaxLife() / 2)) / (GetComponent<Gameplay>().GetMaxLife() / 2)
+                );
                 line1.transform.GetChild(3).transform.localScale = new Vector3(255, 90, 1);
                 line1.transform.GetChild(3).GetComponent<SpriteRenderer>().color = originalScreenColor;
-                line1.transform.GetChild(4).transform.localScale = new Vector3((((float)n - (GetComponent<Gameplay>().GetMaxLife() / 2)) / (GetComponent<Gameplay>().GetMaxLife() / 2)) * 255, 90, 1);
+                line1.transform.GetChild(4).transform.localScale = new Vector3(
+                    (((float)n - (GetComponent<Gameplay>().GetMaxLife() / 2)) / (GetComponent<Gameplay>().GetMaxLife() / 2)) * 255,
+                    90,
+                    1
+                );
                 line1.transform.GetChild(4).GetComponent<SpriteRenderer>().color = newColor;
             }
         }

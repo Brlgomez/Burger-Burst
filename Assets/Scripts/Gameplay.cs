@@ -60,6 +60,7 @@ public class Gameplay : MonoBehaviour
                 Destroy(gameObject.GetComponent<CameraMovement>());
             }
             gameObject.AddComponent<CameraMovement>().MoveToGameOver();
+            GetComponent<ZombieManager>().DeleteAllScripts();
         }
     }
 
