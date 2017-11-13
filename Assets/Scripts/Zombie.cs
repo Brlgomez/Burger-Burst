@@ -24,7 +24,7 @@ public class Zombie : MonoBehaviour
     int timeForDamage = 3;
     float damageTime;
     bool playAttack = true;
-    static float bubbleMinScale = 0.25f;
+    static float bubbleMinScale = 0.2f;
     float startingZ;
     static int endingZ = -1;
     float animationSpeed = 0.5f;
@@ -120,10 +120,16 @@ public class Zombie : MonoBehaviour
     {
         GetComponent<Animator>().SetFloat("Speed", 0);
         damageTime += Time.deltaTime;
-        rightThigh.GetComponent<Rigidbody>().isKinematic = false;
-        rightThigh.GetComponent<Rigidbody>().useGravity = true;
-        rightLeg.GetComponent<Rigidbody>().isKinematic = true;
-        rightLeg.GetComponent<Rigidbody>().useGravity = false;
+        if (rightThigh.GetComponent<Rigidbody>().isKinematic)
+        {
+            rightThigh.GetComponent<Rigidbody>().isKinematic = false;
+            rightThigh.GetComponent<Rigidbody>().useGravity = true;
+            leftThigh.GetComponent<Rigidbody>().isKinematic = false;
+            leftThigh.GetComponent<Rigidbody>().useGravity = true;
+            upperBody.GetComponent<ConstantForce>().force = new Vector3(0, 150, 0);
+            rightFoot.GetComponent<ConstantForce>().force = new Vector3(0, -100, 0);
+            leftFoot.GetComponent<ConstantForce>().force = new Vector3(0, -100, 0);
+        }
         if (damageTime > timeForDamage && playAttack)
         {
             if (Random.value > 0.5f)
@@ -325,6 +331,8 @@ public class Zombie : MonoBehaviour
         }
         if (obj.GetComponent<Rigidbody>() != null)
         {
+            obj.GetComponent<Rigidbody>().drag = 0;
+            obj.GetComponent<Rigidbody>().angularDrag = 0;
             if (obj == rightThigh || obj == leftThigh)
             {
                 obj.GetComponent<Rigidbody>().useGravity = true;

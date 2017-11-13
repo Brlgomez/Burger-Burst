@@ -389,7 +389,10 @@ ScreenTextManagment : MonoBehaviour
             float g = target.GetComponent<TextMesh>().color.g / 2;
             float b = target.GetComponent<TextMesh>().color.b / 2;
             target.GetComponent<TextMesh>().color = new Color(r, g, b);
-            target.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.grey;
+            if (target.transform.childCount > 2)
+            {
+                target.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.grey;
+            }
             pressDown = true;
             if (target.transform.childCount > 1 && menu == "Gameplay")
             {
@@ -411,7 +414,10 @@ ScreenTextManagment : MonoBehaviour
             float g = target.GetComponent<TextMesh>().color.g * 2;
             float b = target.GetComponent<TextMesh>().color.b * 2;
             target.GetComponent<TextMesh>().color = new Color(r, g, b);
-            target.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.white;
+            if (target.transform.childCount > 2)
+            {
+                target.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.white;
+            }
             pressDown = false;
             if (target.transform.childCount > 1 && menu == "Gameplay")
             {
