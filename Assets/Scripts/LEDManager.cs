@@ -2,22 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LEDManager : MonoBehaviour 
+public class LEDManager : MonoBehaviour
 {
-    GameObject led;
+    GameObject pointsLed;
+    GameObject coinsLed;
 
-	void Start () 
+    void Start()
     {
-		led = GetComponent<ObjectManager>().LED().transform.GetChild(0).gameObject;
-	}
-
-    public void UpdateText(float number)
-    {
-        led.GetComponent<TextMesh>().text = "S: " + number;
+        pointsLed = GetComponent<ObjectManager>().LED().transform.GetChild(0).gameObject;
+        pointsLed.GetComponent<Renderer>().material.color = Color.cyan;
+        coinsLed = GetComponent<ObjectManager>().CoinsLED().transform.GetChild(0).gameObject;
+        coinsLed.GetComponent<Renderer>().material.color = Color.yellow;
+        UpdateCoinsText();
     }
 
-    public void ResetText()
+    public void UpdatePointsText(float number)
     {
-        led.GetComponent<TextMesh>().text = "S: 0";
+        pointsLed.GetComponent<TextMesh>().text = "S: " + number.ToString("n0");
+    }
+
+    public void ResetPointsText()
+    {
+        pointsLed.GetComponent<TextMesh>().text = "S: 0";
+    }
+
+    public void UpdateCoinsText()
+    {
+        coinsLed.GetComponent<TextMesh>().text = "C: " + PlayerPrefs.GetInt("Coins", 0).ToString("n0");
     }
 }

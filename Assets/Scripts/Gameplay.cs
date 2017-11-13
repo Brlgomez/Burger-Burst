@@ -24,8 +24,8 @@ public class Gameplay : MonoBehaviour
         {
             int addedPoints = (int)Vector3.Distance(obj.transform.position, transform.position) / 2;
             points += addedPoints;
-            GetComponent<FloatingTextManagement>().AddFloatingText(obj, addedPoints.ToString(), Color.yellow, addedPoints);
-            GetComponent<LEDManager>().UpdateText(points);
+            GetComponent<FloatingTextManagement>().AddFloatingText(obj, addedPoints.ToString(), Color.cyan, addedPoints);
+            GetComponent<LEDManager>().UpdatePointsText(points);
         }
     }
 
@@ -176,4 +176,16 @@ public class Gameplay : MonoBehaviour
     {
         defense = 0.75f;
     }
+
+    public void IncreaseCoinCount(int amount)
+    {
+        PlayerPrefs.SetInt("Coins", (PlayerPrefs.GetInt("Coins", 0) + amount));
+        GetComponent<LEDManager>().UpdateCoinsText();
+    }
+
+	public void DecreaseCoinCount(int amount)
+	{
+		PlayerPrefs.SetInt("Coins", (PlayerPrefs.GetInt("Coins", 0) - amount));
+		GetComponent<LEDManager>().UpdateCoinsText();
+	}
 }

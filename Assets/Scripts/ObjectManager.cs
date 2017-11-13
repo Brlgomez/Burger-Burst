@@ -6,13 +6,12 @@ public class ObjectManager : MonoBehaviour
 {
     GameObject counterWall, grillWall, fryerWall, sodaWall;
     GameObject rightFryer, leftFryer, sodaFountain1, sodaFountain2, sodaFountain3;
-    GameObject phone, led;
+    GameObject phone, led, powerUpsLed, coinsLed;
     GameObject fries, burger, drink;
     GameObject meat, topBun, bottomBun, uncookedFries, friesBasket, cup, lid;
     GameObject foodTruck;
     GameObject car;
     GameObject zombie;
-    GameObject powerUpsLed; 
 
     void Awake()
     {
@@ -26,8 +25,10 @@ public class ObjectManager : MonoBehaviour
         sodaFountain2 = GameObject.Find("SodaFromMachine2");
         sodaFountain3 = GameObject.Find("SodaFromMachine3");
         phone = GameObject.Find("Phone");
-        led = GameObject.Find("LED");
-        fries = GameObject.Find("Fries");
+        led = GameObject.Find("Points LED");
+		powerUpsLed = GameObject.Find("Power Ups LED");
+        coinsLed = GameObject.Find("Coins LED");
+		fries = GameObject.Find("Fries");
         burger = GameObject.Find("Burger");
         drink = GameObject.Find("Drink");
         foodTruck = GameObject.Find("Food Truck");
@@ -40,7 +41,6 @@ public class ObjectManager : MonoBehaviour
         lid = GameObject.Find("Lid");
         car = GameObject.Find("Car");
         zombie = GameObject.Find("Zombie");
-        powerUpsLed = GameObject.Find("Power Ups LED");
     }
 
     public GameObject CounterWall() { return counterWall; }
@@ -64,6 +64,8 @@ public class ObjectManager : MonoBehaviour
     public GameObject Phone() { return phone; }
 
 	public GameObject LED() { return led; }
+
+    public GameObject CoinsLED() { return coinsLed; }
 
     public GameObject Fries() { return fries; }
 

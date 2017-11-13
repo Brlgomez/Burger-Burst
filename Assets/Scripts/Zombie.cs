@@ -13,8 +13,9 @@ public class Zombie : MonoBehaviour
     GameObject leftHand, rightHand, leftFoot, rightFoot, leftLeg, rightLeg;
     GameObject rightUpperArm, leftUpperArm, leftThigh, rightThigh, lowerBody;
     ParticleSystem deathParticles;
-	Vector3[] availableSpritePositions;
-	
+    ParticleSystem sparkleParticles;
+    Vector3[] availableSpritePositions;
+
     bool particlesPlaying;
     float speed = 1;
     float originalSpeed;
@@ -28,6 +29,7 @@ public class Zombie : MonoBehaviour
     float startingZ;
     static int endingZ = -1;
     float animationSpeed = 0.5f;
+    bool coinZombie = false;
 
     void Awake()
     {
@@ -44,6 +46,7 @@ public class Zombie : MonoBehaviour
         GetComponent<Animator>().SetFloat("Speed", speed * animationSpeed);
         startingZ = head.transform.position.z;
         deathParticles = upperBody.transform.GetChild(2).GetComponent<ParticleSystem>();
+        sparkleParticles = upperBody.transform.GetChild(3).GetComponent<ParticleSystem>();
         WakeUp();
         SetOrder();
     }
@@ -106,6 +109,7 @@ public class Zombie : MonoBehaviour
         }
         if (ragDollTime < 0.5f && !particlesPlaying)
         {
+            sparkleParticles.Stop();
             deathParticles.Play();
             MakeZombieDisappear();
             particlesPlaying = true;
@@ -242,6 +246,10 @@ public class Zombie : MonoBehaviour
     {
         if (amountOfBurgers >= neededBurgers && amountOfFries >= neededFries && amountOfDrinks >= neededDrinks)
         {
+            if (coinZombie)
+            {
+                Camera.main.GetComponent<Gameplay>().IncreaseCoinCount(1);
+            }
             Camera.main.GetComponent<Gameplay>().IncreaseCompletedOrders();
             orderComplete = true;
             Died();
@@ -460,6 +468,11 @@ public class Zombie : MonoBehaviour
         SetUpLimb(head, headMesh, outfit);
         SetUpLimb(lowerBody, lB, outfit);
         SetUpLimb(upperBody, uB, outfit);
+        if (outfit.name == "Zombie8")
+        {
+            coinZombie = true;
+            sparkleParticles.Play();
+        }
     }
 
     void SetUpLimb(GameObject limb, Mesh newMesh, Texture outfit)
