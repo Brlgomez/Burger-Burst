@@ -24,7 +24,7 @@ public class Gameplay : MonoBehaviour
         {
             int addedPoints = (int)Vector3.Distance(obj.transform.position, transform.position) / 2;
             points += addedPoints;
-            GetComponent<FloatingTextManagement>().AddFloatingText(obj, addedPoints.ToString(), Color.cyan, addedPoints);
+            GetComponent<FloatingTextManagement>().AddFloatingText(obj, addedPoints.ToString(), Color.cyan, addedPoints + 1);
             GetComponent<LEDManager>().UpdatePointsText(points);
         }
     }
@@ -84,7 +84,7 @@ public class Gameplay : MonoBehaviour
 
     public bool HaveMoreLife()
     {
-        return moreLife;   
+        return moreLife;
     }
 
     public int GetBurgerCount()
@@ -183,9 +183,9 @@ public class Gameplay : MonoBehaviour
         GetComponent<LEDManager>().UpdateCoinsText();
     }
 
-	public void DecreaseCoinCount(int amount)
-	{
-		PlayerPrefs.SetInt("Coins", (PlayerPrefs.GetInt("Coins", 0) - amount));
-		GetComponent<LEDManager>().UpdateCoinsText();
-	}
+    public void DecreaseCoinCount(int amount)
+    {
+        PlayerPrefs.SetInt("Coins", (PlayerPrefs.GetInt("Coins", 0) - amount));
+        GetComponent<LEDManager>().UpdateCoinsText();
+    }
 }

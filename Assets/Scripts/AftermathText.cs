@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class AftermathText : MonoBehaviour
 {
-    static float maxTime = 1;
-    static float fadeTime = 0.75f;
+    static float maxTime = 1.25f;
+    static float fadeTime = 1;
     static float horizontalSpeed = 2.5f;
     static float horizontalDistance = 0.25f;
     static float verticalSpeed = 0.1f;
