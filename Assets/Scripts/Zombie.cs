@@ -116,6 +116,28 @@ public class Zombie : MonoBehaviour
             deathParticles.Play();
             MakeZombieDisappear();
             particlesPlaying = true;
+			if (thisZombieType == zombieType.coin)
+			{
+				float size = (Vector3.Distance(head.transform.position, Camera.main.transform.position) / 2) + 2;
+				int coinsAmount = neededFries + neededDrinks + neededBurgers;
+				string floatingText;
+				if (coinsAmount > 1)
+				{
+					floatingText = coinsAmount + " Coins";
+				}
+				else
+				{
+					floatingText = coinsAmount + " Coin";
+				}
+				Camera.main.GetComponent<Gameplay>().IncreaseCoinCount(coinsAmount);
+				Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(thinkBubble, floatingText, Color.yellow, size);
+			}
+			else if (thisZombieType == zombieType.healing)
+			{
+				float size = (Vector3.Distance(head.transform.position, Camera.main.transform.position) / 2) + 2;
+				Camera.main.GetComponent<Gameplay>().AddLife(15);
+                Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(thinkBubble, "+HP", Color.green, size);
+			}
         }
         if (ragDollTime < 0)
         {
@@ -249,22 +271,6 @@ public class Zombie : MonoBehaviour
     {
         if (amountOfBurgers >= neededBurgers && amountOfFries >= neededFries && amountOfDrinks >= neededDrinks)
         {
-            if (thisZombieType == zombieType.coin)
-            {
-                float size = (Vector3.Distance(head.transform.position, Camera.main.transform.position) / 2) + 2;
-                int coinsAmount = neededFries + neededDrinks + neededBurgers;
-                string floatingText;
-                if (coinsAmount > 1)
-                {
-                    floatingText = coinsAmount + "Coins";
-                }
-                else
-                {
-                    floatingText = coinsAmount + "Coin";
-                }
-                Camera.main.GetComponent<Gameplay>().IncreaseCoinCount(coinsAmount);
-                Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(thinkBubble, floatingText, Color.yellow, size);
-            }
             Camera.main.GetComponent<Gameplay>().IncreaseCompletedOrders();
             orderComplete = true;
             Died();
@@ -487,6 +493,10 @@ public class Zombie : MonoBehaviour
         {
             thisZombieType = zombieType.coin;
             sparkleParticles.Play();
+        }
+        else if (outfit.name == "Zombie9")
+        {
+            thisZombieType = zombieType.healing;
         }
     }
 

@@ -44,6 +44,10 @@ public class Gameplay : MonoBehaviour
         if (life < maxLife)
         {
             life += n;
+            if (life > maxLife)
+            {
+                life = maxLife;
+            }
             Camera.main.GetComponent<ScreenTextManagment>().ChangeHealthCount(n);
         }
     }
