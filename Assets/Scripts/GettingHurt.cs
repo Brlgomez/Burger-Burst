@@ -5,7 +5,7 @@ using UnityEngine;
 public class GettingHurt : MonoBehaviour
 {
     static float lengthOfAnimation = 0.25f;
-    static float shakeIntensity = 0.25f;
+    float shakeIntensity = 0.25f;
     GameObject screen;
     Transform initialTransform;
     float r, g, b, a;
@@ -14,13 +14,13 @@ public class GettingHurt : MonoBehaviour
 
     void Start()
     {
-        initialTransform = Camera.main.GetComponent<GrabAndThrowObject>().GetInitialPosition();
-        screen = Camera.main.transform.GetChild(0).gameObject;
+        initialTransform = GetComponent<GrabAndThrowObject>().GetInitialPosition();
+        screen = transform.GetChild(0).gameObject;
         r = screen.GetComponent<Renderer>().material.color.r;
         g = screen.GetComponent<Renderer>().material.color.g;
         b = screen.GetComponent<Renderer>().material.color.b;
         a = 0;
-        if (Camera.main.GetComponent<CameraMovement>() != null)
+        if (GetComponent<CameraMovement>() != null)
         {
             canShake = false;
         }
@@ -28,26 +28,27 @@ public class GettingHurt : MonoBehaviour
 
     void Update()
     {
-        currentTime += Time.deltaTime;
-        shakeIntensity -= Time.deltaTime;
+        float deltaTime = Time.deltaTime;
+        currentTime += deltaTime;
+        shakeIntensity -= deltaTime;
         if (currentTime < lengthOfAnimation / 2)
         {
-            a += Time.deltaTime * (1 / lengthOfAnimation);
+            a += deltaTime * (1 / lengthOfAnimation);
         }
         else if (!Camera.main.gameObject.GetComponent<Gameplay>().IsGameOver() && currentTime > lengthOfAnimation / 2)
         {
-            a -= Time.deltaTime * (1 / lengthOfAnimation);
+            a -= deltaTime * (1 / lengthOfAnimation);
         }
         screen.GetComponent<Renderer>().material.color = new Color(r, g, b, a);
         if (canShake)
         {
-            Camera.main.transform.position = initialTransform.position + Random.insideUnitSphere * shakeIntensity;
+            transform.position = initialTransform.position + Random.insideUnitSphere * shakeIntensity;
         }
         if (currentTime > lengthOfAnimation)
         {
             if (canShake)
             {
-                Camera.main.transform.position = initialTransform.position;
+                transform.position = initialTransform.position;
             }
             Destroy(GetComponent<GettingHurt>());
         }
@@ -56,7 +57,7 @@ public class GettingHurt : MonoBehaviour
     void OnDestroy()
     {
         a = 0;
-        if (!Camera.main.gameObject.GetComponent<Gameplay>().IsGameOver())
+        if (!GetComponent<Gameplay>().IsGameOver())
         {
             screen.GetComponent<Renderer>().material.color = new Color(r, g, b, a);
         }

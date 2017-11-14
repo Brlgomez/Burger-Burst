@@ -66,6 +66,13 @@ public class GrabAndThrowObject : MonoBehaviour
         }
         AddMorePeople();
         RegenerationPowerUps();
+		if (Input.GetKeyDown("space"))
+        {
+			if (Camera.main.gameObject.GetComponent<GettingHurt>() == null)
+			{
+				Camera.main.gameObject.AddComponent<GettingHurt>();
+			} 
+        }
     }
 
     void MouseDown()

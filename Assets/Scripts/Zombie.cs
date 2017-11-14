@@ -14,6 +14,7 @@ public class Zombie : MonoBehaviour
     GameObject rightUpperArm, leftUpperArm, leftThigh, rightThigh, lowerBody;
     ParticleSystem deathParticles;
     ParticleSystem sparkleParticles;
+    ParticleSystem heartParticles;
     Vector3[] availableSpritePositions;
 
     bool particlesPlaying;
@@ -50,7 +51,8 @@ public class Zombie : MonoBehaviour
         startingZ = head.transform.position.z;
         deathParticles = upperBody.transform.GetChild(2).GetComponent<ParticleSystem>();
         sparkleParticles = upperBody.transform.GetChild(3).GetComponent<ParticleSystem>();
-        WakeUp();
+		heartParticles = upperBody.transform.GetChild(4).GetComponent<ParticleSystem>();
+		WakeUp();
         SetOrder();
     }
 
@@ -113,7 +115,8 @@ public class Zombie : MonoBehaviour
         if (ragDollTime < 0.5f && !particlesPlaying)
         {
             sparkleParticles.Stop();
-            deathParticles.Play();
+			heartParticles.Stop();
+			deathParticles.Play();
             MakeZombieDisappear();
             particlesPlaying = true;
 			if (thisZombieType == zombieType.coin)
@@ -497,7 +500,8 @@ public class Zombie : MonoBehaviour
         else if (outfit.name == "Zombie9")
         {
             thisZombieType = zombieType.healing;
-        }
+            heartParticles.Play();
+		}
     }
 
     void SetUpLimb(GameObject limb, Mesh newMesh, Texture outfit)
