@@ -23,8 +23,12 @@ public class Gameplay : MonoBehaviour
         if (!IsGameOver())
         {
             int addedPoints = (int)Vector3.Distance(obj.transform.position, transform.position) / 2;
-            points += addedPoints;
-            GetComponent<FloatingTextManagement>().AddFloatingText(obj, addedPoints.ToString(), Color.cyan, addedPoints + 1);
+            if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.doublePoints))
+			{
+                addedPoints *= 2;
+			}
+			points += addedPoints;
+			GetComponent<FloatingTextManagement>().AddFloatingText(obj, addedPoints.ToString(), Color.cyan, addedPoints + 1);
             GetComponent<LEDManager>().UpdatePointsText(points);
         }
     }

@@ -123,15 +123,7 @@ public class Zombie : MonoBehaviour
 			{
 				float size = (Vector3.Distance(head.transform.position, Camera.main.transform.position) / 2) + 2;
 				int coinsAmount = neededFries + neededDrinks + neededBurgers;
-				string floatingText;
-				if (coinsAmount > 1)
-				{
-					floatingText = coinsAmount + " Coins";
-				}
-				else
-				{
-					floatingText = coinsAmount + " Coin";
-				}
+				string floatingText = "+¤ "+ coinsAmount;
 				Camera.main.GetComponent<Gameplay>().IncreaseCoinCount(coinsAmount);
 				Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(thinkBubble, floatingText, Color.yellow, size);
 			}

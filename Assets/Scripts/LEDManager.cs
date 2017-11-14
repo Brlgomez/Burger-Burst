@@ -13,21 +13,22 @@ public class LEDManager : MonoBehaviour
         pointsLed.GetComponent<Renderer>().material.color = Color.cyan;
         coinsLed = GetComponent<ObjectManager>().CoinsLED().transform.GetChild(0).gameObject;
         coinsLed.GetComponent<Renderer>().material.color = Color.yellow;
+        ResetPointsText();
         UpdateCoinsText();
     }
 
     public void UpdatePointsText(float number)
     {
-        pointsLed.GetComponent<TextMesh>().text = "S: " + number.ToString("n0");
+        pointsLed.GetComponent<TextMesh>().text = "P " + number.ToString("n0");
     }
 
     public void ResetPointsText()
     {
-        pointsLed.GetComponent<TextMesh>().text = "S: 0";
+        pointsLed.GetComponent<TextMesh>().text = "P 0";
     }
 
     public void UpdateCoinsText()
     {
-        coinsLed.GetComponent<TextMesh>().text = "C: " + PlayerPrefs.GetInt("Coins", 0).ToString("n0");
+        coinsLed.GetComponent<TextMesh>().text = "¤ " + PlayerPrefs.GetInt("Coins", 0).ToString("n0");
     }
 }

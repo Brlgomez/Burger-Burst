@@ -656,6 +656,11 @@ ScreenTextManagment : MonoBehaviour
             line4.GetComponent<TextMesh>().characterSize = 0.017f;
             line4.GetComponent<TextMesh>().text = "Drink regeneration";
         }
+        else if (upgradeNum == PowerUpsManager.doublePoints)
+		{
+			line4.GetComponent<TextMesh>().characterSize = 0.026f;
+			line4.GetComponent<TextMesh>().text = "Double Points";
+		}
         else
         {
             line4.GetComponent<TextMesh>().text = name.ToString();
