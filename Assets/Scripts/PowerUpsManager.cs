@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PowerUpsManager : MonoBehaviour
 {
-    public static int nothing = 11;
     public static int throwFurther = 0;
     public static int quickerCooking = 1;
     public static int makeMoreFood = 2;
@@ -16,4 +15,6 @@ public class PowerUpsManager : MonoBehaviour
     public static int regenFries = 8;
     public static int regenDrinks = 9;
     public static int doublePoints = 10;
+    public static int doubleCoins = 11;
+	public static int nothing = 12;
 }

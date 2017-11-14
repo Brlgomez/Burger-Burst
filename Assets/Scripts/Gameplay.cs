@@ -43,16 +43,18 @@ public class Gameplay : MonoBehaviour
         return gameOver;
     }
 
-    public void AddLife(int n)
+    public void AddLife(int n, GameObject obj)
     {
         if (life < maxLife)
         {
-            life += n;
+			float size = Vector3.Distance(obj.transform.position, transform.position) / 2;
+			life += n;
             if (life > maxLife)
             {
                 life = maxLife;
             }
-            Camera.main.GetComponent<ScreenTextManagment>().ChangeHealthCount(n);
+            Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(obj, "+HP", Color.green, size);
+			Camera.main.GetComponent<ScreenTextManagment>().ChangeHealthCount(n);
         }
     }
 
@@ -185,15 +187,22 @@ public class Gameplay : MonoBehaviour
         defense = 0.75f;
     }
 
-    public void IncreaseCoinCount(int amount)
+    public void IncreaseCoinCount(int number, GameObject obj)
     {
+        float size = Vector3.Distance(obj.transform.position, transform.position) / 2;
+		int amount = number;
+        if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.doubleCoins))
+		{
+            amount *= 2;
+		}
         PlayerPrefs.SetInt("Coins", (PlayerPrefs.GetInt("Coins", 0) + amount));
-        GetComponent<LEDManager>().UpdateCoinsText();
-    }
+        Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(obj, "+¤ " + amount, Color.yellow, size);
+		GetComponent<LEDManager>().UpdateCoinsText();
+	}
 
-    public void DecreaseCoinCount(int amount)
+    public void DecreaseCoinCount(int number)
     {
-        PlayerPrefs.SetInt("Coins", (PlayerPrefs.GetInt("Coins", 0) - amount));
+        PlayerPrefs.SetInt("Coins", (PlayerPrefs.GetInt("Coins", 0) - number));
         GetComponent<LEDManager>().UpdateCoinsText();
     }
 }

@@ -777,7 +777,7 @@ public class GrabAndThrowObject : MonoBehaviour
         {
             if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.regenHealth))
             {
-                GetComponent<Gameplay>().AddLife(1);
+                GetComponent<Gameplay>().AddLife(2, gameObject);
             }
             if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.regenBurgers))
             {
