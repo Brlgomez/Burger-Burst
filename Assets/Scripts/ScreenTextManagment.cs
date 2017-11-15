@@ -653,18 +653,23 @@ ScreenTextManagment : MonoBehaviour
         }
         else if (upgradeNum == PowerUpsManager.regenDrinks)
         {
-            line4.GetComponent<TextMesh>().characterSize = 0.017f;
+            line4.GetComponent<TextMesh>().characterSize = 0.019f;
             line4.GetComponent<TextMesh>().text = "Drink regeneration";
         }
         else if (upgradeNum == PowerUpsManager.doublePoints)
 		{
 			line4.GetComponent<TextMesh>().characterSize = 0.026f;
-			line4.GetComponent<TextMesh>().text = "Double Points";
+			line4.GetComponent<TextMesh>().text = "Double points";
 		}
         else if (upgradeNum == PowerUpsManager.doubleCoins)
 		{
-			line4.GetComponent<TextMesh>().characterSize = 0.027f;
-			line4.GetComponent<TextMesh>().text = "Double Coins";
+			line4.GetComponent<TextMesh>().characterSize = 0.028f;
+			line4.GetComponent<TextMesh>().text = "Double coins";
+		}
+        else if (upgradeNum == PowerUpsManager.throwMultiple)
+		{
+			line4.GetComponent<TextMesh>().characterSize = 0.019f;
+			line4.GetComponent<TextMesh>().text = "Divide thrown food";
 		}
         else
         {

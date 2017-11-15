@@ -7,6 +7,7 @@ public class CopyPowerUp : MonoBehaviour
     public void CopyObject(GameObject obj)
     {
         obj.transform.localScale *= 0.5f;
+        obj.GetComponent<Rigidbody>().mass /= 3;
         GameObject leftCopy = Instantiate(obj);
         GameObject rightCopy = Instantiate(obj);
         GameObject blastParticles = Instantiate(GetComponent<ObjectManager>().BlastParticles());

@@ -53,9 +53,12 @@ public class RemoveObjects : MonoBehaviour
     {
         if (gameObject.tag == "Ingredient" && col.gameObject.name == "Counter Range")
         {
-            if (!gameObject.name.EndsWith("Copy"))
+            if (Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.throwMultiple))
 			{
-				//Camera.main.GetComponent<CopyPowerUp>().CopyObject(gameObject);
+                if (!gameObject.name.EndsWith("Copy"))
+                {
+                    Camera.main.GetComponent<CopyPowerUp>().CopyObject(gameObject);
+                }
 			}
             DropProduct();
         }
