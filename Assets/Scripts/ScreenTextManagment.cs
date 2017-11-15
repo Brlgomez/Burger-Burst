@@ -671,6 +671,11 @@ ScreenTextManagment : MonoBehaviour
 			line4.GetComponent<TextMesh>().characterSize = 0.019f;
 			line4.GetComponent<TextMesh>().text = "Divide thrown food";
 		}
+        else if (upgradeNum == PowerUpsManager.magnet)
+		{
+            line4.GetComponent<TextMesh>().characterSize = 0.021f;
+			line4.GetComponent<TextMesh>().text = "Food magnetic\nto zombies";
+		}
         else
         {
             line4.GetComponent<TextMesh>().text = name.ToString();

@@ -252,6 +252,10 @@ public class Zombie : MonoBehaviour
         obj.GetComponent<RemoveObjects>().DropProduct();
         Destroy(obj.GetComponent<Rigidbody>());
         Destroy(obj.GetComponent<RemoveObjects>());
+        if (obj.GetComponent<MagnetPowerUp>() != null)
+        {
+            Destroy(obj.GetComponent<MagnetPowerUp>());
+        }
         obj.tag = "OnPlatter";
         onPlatter.Add(obj);
         CheckOrder();
@@ -344,6 +348,7 @@ public class Zombie : MonoBehaviour
     void TurnOffForce(GameObject obj)
     {
         obj.gameObject.layer = 11;
+        obj.tag = "Dead Waiter";
         if (obj.GetComponent<ConstantForce>() != null)
         {
             obj.GetComponent<ConstantForce>().enabled = false;

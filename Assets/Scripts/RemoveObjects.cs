@@ -53,6 +53,13 @@ public class RemoveObjects : MonoBehaviour
     {
         if (gameObject.tag == "Ingredient" && col.gameObject.name == "Counter Range")
         {
+            if (Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.magnet))
+            {
+                if (GetComponent<MagnetPowerUp>() == null)
+                {
+                    gameObject.AddComponent<MagnetPowerUp>();
+                }
+            }
             if (Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.throwMultiple))
 			{
                 if (!gameObject.name.EndsWith("Copy"))
@@ -104,6 +111,10 @@ public class RemoveObjects : MonoBehaviour
         {
             gameObject.AddComponent<FadeObject>();
             Destroy(GetComponent<RemoveObjects>());
+            if (GetComponent<MagnetPowerUp>() != null)
+            {
+                Destroy(GetComponent<MagnetPowerUp>());
+            }
         }
     }
 }

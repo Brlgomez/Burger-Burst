@@ -24,7 +24,7 @@ public class MainMenu : MonoBehaviour
         {
             MouseDown();
         }
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && target != null)
         {
             MouseDrag();
         }
@@ -96,7 +96,9 @@ public class MainMenu : MonoBehaviour
                         GetComponent<ScreenTextManagment>().ChangeScrollerItemColor(false);
                     }
                     target.transform.parent.transform.GetChild(1).transform.localPosition = new Vector3(
-                        target.transform.parent.transform.GetChild(1).transform.localPosition.x + change, 0, 0
+                        target.transform.parent.transform.GetChild(1).transform.localPosition.x + change, 
+                        target.transform.parent.transform.GetChild(1).transform.localPosition.y, 
+                        0
                     );
                     point1 = hit.point;
                     if (Mathf.RoundToInt(target.transform.parent.transform.GetChild(1).transform.localPosition.x) != lastScrollX)

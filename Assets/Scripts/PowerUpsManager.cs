@@ -17,5 +17,6 @@ public class PowerUpsManager : MonoBehaviour
     public static int doublePoints = 10;
     public static int doubleCoins = 11;
 	public static int throwMultiple = 12;
-	public static int nothing = 13;
+	public static int magnet = 13;
+	public static int nothing = 14;
 }
