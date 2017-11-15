@@ -66,13 +66,7 @@ public class GrabAndThrowObject : MonoBehaviour
         }
         AddMorePeople();
         RegenerationPowerUps();
-		if (Input.GetKeyDown("space"))
-        {
-			if (Camera.main.gameObject.GetComponent<GettingHurt>() == null)
-			{
-				Camera.main.gameObject.AddComponent<GettingHurt>();
-			} 
-        }
+        GetComponent<WindManager>().WindUpdate();
     }
 
     void MouseDown()
@@ -487,7 +481,8 @@ public class GrabAndThrowObject : MonoBehaviour
                 float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * throwingDistance;
                 target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity);
             }
-        }
+            Camera.main.GetComponent<WindManager>().ApplyWindToObject(target);
+		}
     }
 
     void MouseUpGrill()
@@ -760,6 +755,7 @@ public class GrabAndThrowObject : MonoBehaviour
         {
             sodaFountain3.GetComponent<SodaMachine>().Restart();
         }
+        GetComponent<WindManager>().ResetValues();
     }
 
     void DestroyArrayOfObjects(GameObject[] objects)
