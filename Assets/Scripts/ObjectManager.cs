@@ -12,6 +12,7 @@ public class ObjectManager : MonoBehaviour
     GameObject foodTruck;
     GameObject car;
     GameObject zombie;
+    GameObject blastParticles;
 
     void Awake()
     {
@@ -41,6 +42,7 @@ public class ObjectManager : MonoBehaviour
         lid = GameObject.Find("Lid");
         car = GameObject.Find("Car");
         zombie = GameObject.Find("Zombie");
+        blastParticles = GameObject.Find("Blast Particles");
     }
 
     public GameObject CounterWall() { return counterWall; }
@@ -94,4 +96,6 @@ public class ObjectManager : MonoBehaviour
 	public GameObject Zombie() { return zombie; }
 
     public GameObject PowerUpsLed() { return powerUpsLed; }
+
+    public GameObject BlastParticles() { return blastParticles; }
 }

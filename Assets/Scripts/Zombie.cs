@@ -51,8 +51,8 @@ public class Zombie : MonoBehaviour
         startingZ = head.transform.position.z;
         deathParticles = upperBody.transform.GetChild(2).GetComponent<ParticleSystem>();
         sparkleParticles = upperBody.transform.GetChild(3).GetComponent<ParticleSystem>();
-		heartParticles = upperBody.transform.GetChild(4).GetComponent<ParticleSystem>();
-		WakeUp();
+        heartParticles = upperBody.transform.GetChild(4).GetComponent<ParticleSystem>();
+        WakeUp();
         SetOrder();
     }
 
@@ -115,19 +115,19 @@ public class Zombie : MonoBehaviour
         if (ragDollTime < 0.5f && !particlesPlaying)
         {
             sparkleParticles.Stop();
-			heartParticles.Stop();
-			deathParticles.Play();
+            heartParticles.Stop();
+            deathParticles.Play();
             MakeZombieDisappear();
             particlesPlaying = true;
-			if (thisZombieType == zombieType.coin)
-			{
-				int coinsAmount = neededFries + neededDrinks + neededBurgers;
+            if (thisZombieType == zombieType.coin)
+            {
+                int coinsAmount = neededFries + neededDrinks + neededBurgers;
                 Camera.main.GetComponent<Gameplay>().IncreaseCoinCount(coinsAmount, thinkBubble);
-			}
-			else if (thisZombieType == zombieType.healing)
-			{
+            }
+            else if (thisZombieType == zombieType.healing)
+            {
                 Camera.main.GetComponent<Gameplay>().AddLife(15, thinkBubble);
-			}
+            }
         }
         if (ragDollTime < 0)
         {
@@ -207,41 +207,41 @@ public class Zombie : MonoBehaviour
     {
         if (!orderComplete)
         {
-            switch (obj.name)
+            if (obj.name == "Burger(Clone)" || obj.name == "Burger(Clone)Copy")
             {
-                case "Burger(Clone)":
-                    amountOfBurgers++;
-                    if (amountOfBurgers > neededBurgers)
-                    {
-                        obj.transform.parent = null;
-                    }
-                    else
-                    {
-                        AddToBody(obj);
-                    }
-                    break;
-                case "Drink(Clone)":
-                    amountOfDrinks++;
-                    if (amountOfDrinks > neededDrinks)
-                    {
-                        obj.transform.parent = null;
-                    }
-                    else
-                    {
-                        AddToBody(obj);
-                    }
-                    break;
-                case "Fries(Clone)":
-                    amountOfFries++;
-                    if (amountOfFries > neededFries)
-                    {
-                        obj.transform.parent = null;
-                    }
-                    else
-                    {
-                        AddToBody(obj);
-                    }
-                    break;
+                amountOfBurgers++;
+                if (amountOfBurgers > neededBurgers)
+                {
+                    obj.transform.parent = null;
+                }
+                else
+                {
+                    AddToBody(obj);
+                }
+            }
+            else if (obj.name == "Drink(Clone)" || obj.name == "Drink(Clone)Copy")
+            {
+                amountOfDrinks++;
+                if (amountOfDrinks > neededDrinks)
+                {
+                    obj.transform.parent = null;
+                }
+                else
+                {
+                    AddToBody(obj);
+                }
+            }
+            else if (obj.name == "Fries(Clone)" || obj.name == "Fries(Clone)Copy")
+            {
+                amountOfFries++;
+                if (amountOfFries > neededFries)
+                {
+                    obj.transform.parent = null;
+                }
+                else
+                {
+                    AddToBody(obj);
+                }
             }
         }
     }
@@ -488,7 +488,7 @@ public class Zombie : MonoBehaviour
         {
             thisZombieType = zombieType.healing;
             heartParticles.Play();
-		}
+        }
     }
 
     void SetUpLimb(GameObject limb, Mesh newMesh, Texture outfit)
@@ -500,28 +500,28 @@ public class Zombie : MonoBehaviour
     void SetUpSprites()
     {
         int spritePosition = 0;
-        if ((neededBurgers > 0 && neededFries == 0 && neededDrinks == 0) || 
-            (neededFries > 0 && neededBurgers == 0 && neededDrinks == 0) || 
+        if ((neededBurgers > 0 && neededFries == 0 && neededDrinks == 0) ||
+            (neededFries > 0 && neededBurgers == 0 && neededDrinks == 0) ||
             (neededDrinks > 0 && neededFries == 0 && neededBurgers == 0))
         {
-			if (neededBurgers > 0)
-			{
-				GameObject sprite = Instantiate(Camera.main.GetComponent<ZombieManager>().burgers[neededBurgers - 1], thinkBubble.transform);
-				sprite.transform.localPosition = availableSpritePositions[spritePosition];
-				spritePosition++;
-			}
-			if (neededFries > 0)
-			{
-				GameObject sprite = Instantiate(Camera.main.GetComponent<ZombieManager>().fries[neededFries - 1], thinkBubble.transform);
-				sprite.transform.localPosition = availableSpritePositions[spritePosition];
-				spritePosition++;
-			}
-			if (neededDrinks > 0)
-			{
-				GameObject sprite = Instantiate(Camera.main.GetComponent<ZombieManager>().drinks[neededDrinks - 1], thinkBubble.transform);
-				sprite.transform.localPosition = availableSpritePositions[spritePosition];
-				spritePosition++;
-			}
+            if (neededBurgers > 0)
+            {
+                GameObject sprite = Instantiate(Camera.main.GetComponent<ZombieManager>().burgers[neededBurgers - 1], thinkBubble.transform);
+                sprite.transform.localPosition = availableSpritePositions[spritePosition];
+                spritePosition++;
+            }
+            if (neededFries > 0)
+            {
+                GameObject sprite = Instantiate(Camera.main.GetComponent<ZombieManager>().fries[neededFries - 1], thinkBubble.transform);
+                sprite.transform.localPosition = availableSpritePositions[spritePosition];
+                spritePosition++;
+            }
+            if (neededDrinks > 0)
+            {
+                GameObject sprite = Instantiate(Camera.main.GetComponent<ZombieManager>().drinks[neededDrinks - 1], thinkBubble.transform);
+                sprite.transform.localPosition = availableSpritePositions[spritePosition];
+                spritePosition++;
+            }
         }
         else
         {
