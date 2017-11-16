@@ -668,13 +668,18 @@ ScreenTextManagment : MonoBehaviour
 		}
         else if (upgradeNum == PowerUpsManager.throwMultiple)
 		{
-			line4.GetComponent<TextMesh>().characterSize = 0.019f;
-			line4.GetComponent<TextMesh>().text = "Divide thrown food";
+			line4.GetComponent<TextMesh>().characterSize = 0.015f;
+			line4.GetComponent<TextMesh>().text = "Thrown food is divided\nand scattered";
 		}
         else if (upgradeNum == PowerUpsManager.magnet)
 		{
-            line4.GetComponent<TextMesh>().characterSize = 0.021f;
+            line4.GetComponent<TextMesh>().characterSize = 0.022f;
 			line4.GetComponent<TextMesh>().text = "Food magnetic\nto zombies";
+		}
+        else if (upgradeNum == PowerUpsManager.noWind)
+		{
+			line4.GetComponent<TextMesh>().characterSize = 0.022f;
+			line4.GetComponent<TextMesh>().text = "Food unaffected\nby wind";
 		}
         else
         {

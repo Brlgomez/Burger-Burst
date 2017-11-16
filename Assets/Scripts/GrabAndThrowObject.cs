@@ -481,8 +481,11 @@ public class GrabAndThrowObject : MonoBehaviour
                 float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * throwingDistance;
                 target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity);
             }
-            Camera.main.GetComponent<WindManager>().ApplyWindToObject(target);
-		}
+            if (!GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.noWind))
+            {
+                Camera.main.GetComponent<WindManager>().ApplyWindToObject(target);
+            }
+        }
     }
 
     void MouseUpGrill()

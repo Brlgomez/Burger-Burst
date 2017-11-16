@@ -27217,8 +27217,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.75, y: 0.75, z: 0.25}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.9, y: 0.75, z: 0.25}
+  m_Center: {x: -0.1, y: 0, z: 0}
 --- !u!212 &713626893
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -42103,8 +42103,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.75, y: 0.75, z: 0.25}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.9, y: 0.75, z: 0.25}
+  m_Center: {x: 0.1, y: 0, z: 0}
 --- !u!212 &1383022385
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -49487,7 +49487,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.75, y: 0.75, z: 0.25}
+  m_Size: {x: 0.9, y: 0.75, z: 0.25}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!212 &1772822031
 SpriteRenderer:
@@ -50285,6 +50285,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 4449a8abab05a4be29d073ab58b29dc9, type: 3}
   - {fileID: 21300000, guid: 8a648b64f0a334924a70cb960ad67f2b, type: 3}
   - {fileID: 21300000, guid: c61b9e9996b444bf488b863e174fe475, type: 3}
+  - {fileID: 21300000, guid: b9d2058bc7d914cdd939e2618195b7ad, type: 3}
 --- !u!114 &1865169778
 MonoBehaviour:
   m_ObjectHideFlags: 0
