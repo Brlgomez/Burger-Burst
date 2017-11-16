@@ -19,11 +19,11 @@ public class CopyPowerUp : MonoBehaviour
         leftCopy.transform.rotation = Random.rotation;
         rightCopy.transform.rotation = Random.rotation;
 		leftCopy.GetComponent<Rigidbody>().velocity = new Vector3(
-            obj.GetComponent<Rigidbody>().velocity.x - 1,
+            obj.GetComponent<Rigidbody>().velocity.x - 1.5f,
             obj.GetComponent<Rigidbody>().velocity.y,
             obj.GetComponent<Rigidbody>().velocity.z);
         rightCopy.GetComponent<Rigidbody>().velocity = new Vector3(
-            obj.GetComponent<Rigidbody>().velocity.x + 1,
+            obj.GetComponent<Rigidbody>().velocity.x + 1.5f,
             obj.GetComponent<Rigidbody>().velocity.y,
             obj.GetComponent<Rigidbody>().velocity.z);
         Physics.IgnoreCollision(leftCopy.GetComponent<Collider>(), obj.GetComponent<Collider>());

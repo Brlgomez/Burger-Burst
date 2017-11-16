@@ -5,7 +5,7 @@ using UnityEngine;
 public class MagnetPowerUp : MonoBehaviour
 {
     static float magnetDistance = 7.5f;
-    static float searchTimeMax = 0.125f;
+    static float searchTimeMax = 0.1f;
     float searchTimer;
     float magnetPower;
     GameObject target = null;
@@ -37,7 +37,7 @@ public class MagnetPowerUp : MonoBehaviour
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, magnetDistance);
         foreach (Collider hit in hitColliders)
         {
-            if (hit.tag == "Waiter")
+            if (hit.tag == "Waiter" && (hit.name == "Upper_Body" || hit.name == "Lower_Body" || hit.name == "Head"))
             {
                 if (Vector3.Distance(transform.position, hit.transform.position) < closestObject)
                 {

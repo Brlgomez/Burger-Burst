@@ -7,10 +7,11 @@ public class WindManager : MonoBehaviour
     float windPower;
     float timer;
     float timeForNextWindChange = 30;
-    ParticleSystem windDust;
+    ParticleSystem windParticles;
 
     void Start()
     {
+        windParticles = GetComponent<ObjectManager>().WindParticles().GetComponent<ParticleSystem>();
         ResetValues();
     }
 
@@ -26,9 +27,18 @@ public class WindManager : MonoBehaviour
 
     void PickNextWindChangeTime()
     {
-        timeForNextWindChange = Random.Range(30, 60);
+        timeForNextWindChange = Random.Range(15, 60);
         windPower = Random.Range(-2.5f, 2.5f);
-        Debug.Log(windPower);
+        if (Mathf.Abs(windPower) > 0.25f)
+        {
+            windParticles.Play();
+			var main = windParticles.main;
+			main.startSpeed = windPower * 4;
+		}
+        else
+        {
+            windParticles.Stop();
+        }
     }
 
     void BlowWindToThrownObjects()
@@ -50,7 +60,8 @@ public class WindManager : MonoBehaviour
 
     public void ResetValues()
     {
-		timeForNextWindChange = 30;
+        windParticles.Stop();
+        timeForNextWindChange = Random.Range(15, 60);
 		windPower = 0;
     }
 }
