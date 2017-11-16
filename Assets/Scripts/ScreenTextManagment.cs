@@ -54,9 +54,9 @@ ScreenTextManagment : MonoBehaviour
         line3.GetComponent<TextMesh>().text = "Upgrades";
         line4.GetComponent<TextMesh>().text = "";
         line5.GetComponent<TextMesh>().text = "";
-        slot1.GetComponent<TextMesh>().text = "";
-        slot2.GetComponent<TextMesh>().text = "";
-        slot3.GetComponent<TextMesh>().text = "";
+        slot1.GetComponent<SpriteRenderer>().color = Color.clear;
+        slot2.GetComponent<SpriteRenderer>().color = Color.clear;
+        slot3.GetComponent<SpriteRenderer>().color = Color.clear;
         slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.clear;
         slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.clear;
         slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.clear;
@@ -85,12 +85,9 @@ ScreenTextManagment : MonoBehaviour
         line3.GetComponent<TextMesh>().text = "";
         ChangeInfo(GetMiddleObjectNumber());
         line5.GetComponent<TextMesh>().text = "Back";
-        slot1.GetComponent<TextMesh>().color = originalScreenColor;
-        slot2.GetComponent<TextMesh>().color = originalScreenColor;
-        slot3.GetComponent<TextMesh>().color = originalScreenColor;
-        slot1.GetComponent<TextMesh>().text = "[  ]";
-        slot2.GetComponent<TextMesh>().text = "[  ]";
-        slot3.GetComponent<TextMesh>().text = "[  ]";
+        slot1.GetComponent<SpriteRenderer>().color = originalScreenColor;
+        slot2.GetComponent<SpriteRenderer>().color = originalScreenColor;
+        slot3.GetComponent<SpriteRenderer>().color = originalScreenColor;
         if (GetSlotNumber(slot1) != PowerUpsManager.nothing)
         {
             slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
@@ -568,10 +565,10 @@ ScreenTextManagment : MonoBehaviour
 
     public void HighLightSlot(GameObject slot)
     {
-        slot1.GetComponent<TextMesh>().color = originalScreenColor;
-        slot2.GetComponent<TextMesh>().color = originalScreenColor;
-        slot3.GetComponent<TextMesh>().color = originalScreenColor;
-        slot.GetComponent<TextMesh>().color = Color.green;
+		slot1.GetComponent<SpriteRenderer>().color = originalScreenColor;
+		slot2.GetComponent<SpriteRenderer>().color = originalScreenColor;
+		slot3.GetComponent<SpriteRenderer>().color = originalScreenColor;
+        slot.GetComponent<SpriteRenderer>().color = Color.green;
     }
 
     public void ChangeScrollerItemColor(bool pressDown)
