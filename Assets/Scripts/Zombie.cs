@@ -15,6 +15,7 @@ public class Zombie : MonoBehaviour
     ParticleSystem deathParticles;
     ParticleSystem sparkleParticles;
     ParticleSystem heartParticles;
+    ParticleSystem skullParticles;
     Vector3[] availableSpritePositions;
 
     bool particlesPlaying;
@@ -31,7 +32,7 @@ public class Zombie : MonoBehaviour
     static int endingZ = -1;
     float animationSpeed = 0.5f;
 
-    enum zombieType { regular, coin, healing };
+    enum zombieType { regular, coin, healing, instantKill };
     zombieType thisZombieType = zombieType.regular;
 
     void Awake()
@@ -52,6 +53,7 @@ public class Zombie : MonoBehaviour
         deathParticles = upperBody.transform.GetChild(2).GetComponent<ParticleSystem>();
         sparkleParticles = upperBody.transform.GetChild(3).GetComponent<ParticleSystem>();
         heartParticles = upperBody.transform.GetChild(4).GetComponent<ParticleSystem>();
+        skullParticles = upperBody.transform.GetChild(5).GetComponent<ParticleSystem>();
         WakeUp();
         SetOrder();
     }
@@ -116,6 +118,7 @@ public class Zombie : MonoBehaviour
         {
             sparkleParticles.Stop();
             heartParticles.Stop();
+            skullParticles.Stop();
             deathParticles.Play();
             MakeZombieDisappear();
             particlesPlaying = true;
@@ -163,7 +166,14 @@ public class Zombie : MonoBehaviour
         }
         if (damageTime > (timeForDamage + 0.25f))
         {
-            Camera.main.GetComponent<Gameplay>().ReduceHealth();
+            if (thisZombieType == zombieType.instantKill)
+            {
+                Camera.main.GetComponent<Gameplay>().ReduceHealth(1000);
+            }
+            else
+            {
+                Camera.main.GetComponent<Gameplay>().ReduceHealth(10);
+            }
             if (Camera.main.gameObject.GetComponent<GettingHurt>() == null)
             {
                 Camera.main.gameObject.AddComponent<GettingHurt>();
@@ -248,6 +258,10 @@ public class Zombie : MonoBehaviour
 
     void AddToBody(GameObject obj)
     {
+		GameObject landParticles = Instantiate(Camera.main.GetComponent<ObjectManager>().LandOnZombieParticles());
+		landParticles.transform.position = obj.transform.position;
+		landParticles.GetComponent<ParticleSystem>().Play();
+		landParticles.AddComponent<DestroySpawnedParticle>();
         Camera.main.GetComponent<Gameplay>().IncreasePoints(obj);
         obj.GetComponent<RemoveObjects>().DropProduct();
         Destroy(obj.GetComponent<Rigidbody>());
@@ -494,6 +508,11 @@ public class Zombie : MonoBehaviour
             thisZombieType = zombieType.healing;
             heartParticles.Play();
         }
+		else if (outfit.name == "Zombie10")
+		{
+            thisZombieType = zombieType.instantKill;
+            skullParticles.Play();
+		}
     }
 
     void SetUpLimb(GameObject limb, Mesh newMesh, Texture outfit)

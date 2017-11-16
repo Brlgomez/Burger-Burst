@@ -75,7 +75,7 @@ public class RemoveObjects : MonoBehaviour
     {
         if (!hasDropped)
         {
-            switch (gameObject.name)
+			switch (gameObject.name)
             {
                 case "Burger(Clone)":
                     Camera.main.GetComponent<Gameplay>().ReduceBurgers();

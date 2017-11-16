@@ -14,7 +14,6 @@ public class Gameplay : MonoBehaviour
     int completedOrders;
     int points;
     bool gameOver;
-    float regularZombieDamage = 10;
     float defense = 1;
     bool moreLife;
 
@@ -58,9 +57,9 @@ public class Gameplay : MonoBehaviour
         }
     }
 
-    public void ReduceHealth()
+    public void ReduceHealth(int damage)
     {
-        life -= Mathf.RoundToInt(regularZombieDamage * defense);
+        life -= Mathf.RoundToInt(damage * defense);
         Camera.main.GetComponent<ScreenTextManagment>().ChangeHealthCount(-1);
         if (life < 1)
         {
