@@ -678,6 +678,11 @@ ScreenTextManagment : MonoBehaviour
 			line4.GetComponent<TextMesh>().characterSize = 0.022f;
 			line4.GetComponent<TextMesh>().text = "Food unaffected\nby wind";
 		}
+        else if (upgradeNum == PowerUpsManager.noInstantKill)
+		{
+			line4.GetComponent<TextMesh>().characterSize = 0.019f;
+			line4.GetComponent<TextMesh>().text = "Zombies no longer\ninsta-kill you";
+		}
         else
         {
             line4.GetComponent<TextMesh>().text = name.ToString();

@@ -166,7 +166,8 @@ public class Zombie : MonoBehaviour
         }
         if (damageTime > (timeForDamage + 0.25f))
         {
-            if (thisZombieType == zombieType.instantKill)
+            if (thisZombieType == zombieType.instantKill && 
+                !Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.noInstantKill))
             {
                 Camera.main.GetComponent<Gameplay>().ReduceHealth(1000);
             }
