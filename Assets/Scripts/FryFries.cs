@@ -27,7 +27,7 @@ public class FryFries : MonoBehaviour
             maxAmountOfFries = 12;
 		}
         initialColor = gameObject.GetComponent<Renderer>().material.color;
-        friedColor = new Color(0.977f, 0.875f, 0.727f);
+        friedColor = new Color(0.984f, 0.816f, 0.688f);
         burntColor = new Color(0.5f, 0.375f, 0);
         r = initialColor.r;
         g = initialColor.g;
