@@ -166,18 +166,14 @@ public class Zombie : MonoBehaviour
         }
         if (damageTime > (timeForDamage + 0.25f))
         {
-            if (thisZombieType == zombieType.instantKill && 
+            if (thisZombieType == zombieType.instantKill &&
                 !Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.noInstantKill))
             {
-                Camera.main.GetComponent<Gameplay>().ReduceHealth(1000);
+                Camera.main.GetComponent<Gameplay>().ReduceHealth(1000, upperBody);
             }
             else
             {
-                Camera.main.GetComponent<Gameplay>().ReduceHealth(10);
-            }
-            if (Camera.main.gameObject.GetComponent<GettingHurt>() == null)
-            {
-                Camera.main.gameObject.AddComponent<GettingHurt>();
+                Camera.main.GetComponent<Gameplay>().ReduceHealth(10, upperBody);
             }
             damageTime = 0;
             playAttack = true;
@@ -259,10 +255,10 @@ public class Zombie : MonoBehaviour
 
     void AddToBody(GameObject obj)
     {
-		GameObject landParticles = Instantiate(Camera.main.GetComponent<ObjectManager>().LandOnZombieParticles());
-		landParticles.transform.position = obj.transform.position;
-		landParticles.GetComponent<ParticleSystem>().Play();
-		landParticles.AddComponent<DestroySpawnedParticle>();
+        GameObject landParticles = Instantiate(Camera.main.GetComponent<ObjectManager>().LandOnZombieParticles());
+        landParticles.transform.position = obj.transform.position;
+        landParticles.GetComponent<ParticleSystem>().Play();
+        landParticles.AddComponent<DestroySpawnedParticle>();
         Camera.main.GetComponent<Gameplay>().IncreasePoints(obj);
         obj.GetComponent<RemoveObjects>().DropProduct();
         Destroy(obj.GetComponent<Rigidbody>());
@@ -509,11 +505,11 @@ public class Zombie : MonoBehaviour
             thisZombieType = zombieType.healing;
             heartParticles.Play();
         }
-		else if (outfit.name == "Zombie10")
-		{
+        else if (outfit.name == "Zombie10")
+        {
             thisZombieType = zombieType.instantKill;
             skullParticles.Play();
-		}
+        }
     }
 
     void SetUpLimb(GameObject limb, Mesh newMesh, Texture outfit)

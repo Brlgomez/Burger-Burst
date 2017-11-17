@@ -5,7 +5,6 @@ using UnityEngine;
 public class Gameplay : MonoBehaviour
 {
     int maxLifeWithBonus = 200;
-
     int maxLife = 100;
     float life = 100;
     int burgers = 25;
@@ -23,11 +22,11 @@ public class Gameplay : MonoBehaviour
         {
             int addedPoints = (int)Vector3.Distance(obj.transform.position, transform.position) / 2;
             if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.doublePoints))
-			{
+            {
                 addedPoints *= 2;
-			}
-			points += addedPoints;
-			GetComponent<FloatingTextManagement>().AddFloatingText(obj, addedPoints.ToString(), Color.cyan, addedPoints + 1);
+            }
+            points += addedPoints;
+            GetComponent<FloatingTextManagement>().AddFloatingText(obj, addedPoints.ToString(), Color.cyan, addedPoints + 1);
             GetComponent<LEDManager>().UpdatePointsText(points);
         }
     }
@@ -46,27 +45,50 @@ public class Gameplay : MonoBehaviour
     {
         if (life < maxLife)
         {
-			float size = Vector3.Distance(obj.transform.position, transform.position) / 2;
-			life += n;
+            float size = Vector3.Distance(obj.transform.position, transform.position) / 2;
+            life += n;
             if (life > maxLife)
             {
                 life = maxLife;
             }
-            Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(obj, "+HP", Color.green, size);
-			Camera.main.GetComponent<ScreenTextManagment>().ChangeHealthCount(n);
+            GetComponent<FloatingTextManagement>().AddFloatingText(obj, "+HP", Color.green, size);
+            GetComponent<ScreenTextManagment>().ChangeHealthCount(n);
         }
     }
 
-    public void ReduceHealth(int damage)
+    public void ReduceHealth(int damage, GameObject zombie)
+    {
+        if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.luck))
+        {
+            if (Random.value < 0.125f)
+            {
+                ReduceHealthLogic(damage);
+            }
+            else
+            {
+                GetComponent<FloatingTextManagement>().AddFloatingText(zombie, "MISS", Color.yellow, 4);
+            }
+        }
+        else
+        {
+            ReduceHealthLogic(damage);
+        }
+    }
+
+    void ReduceHealthLogic(int damage)
     {
         life -= Mathf.RoundToInt(damage * defense);
-        Camera.main.GetComponent<ScreenTextManagment>().ChangeHealthCount(-1);
+        GetComponent<ScreenTextManagment>().ChangeHealthCount(-1);
+        if (gameObject.GetComponent<GettingHurt>() == null)
+        {
+            gameObject.AddComponent<GettingHurt>();
+        }
         if (life < 1)
         {
             gameOver = true;
-            if (gameObject.GetComponent<CameraMovement>() != null)
+            if (GetComponent<CameraMovement>() != null)
             {
-                Destroy(gameObject.GetComponent<CameraMovement>());
+                Destroy(GetComponent<CameraMovement>());
             }
             gameObject.AddComponent<CameraMovement>().MoveToGameOver();
             GetComponent<ZombieManager>().DeleteAllScripts();
@@ -78,7 +100,7 @@ public class Gameplay : MonoBehaviour
         maxLife = maxLifeWithBonus;
         life = maxLifeWithBonus;
         moreLife = true;
-        Camera.main.GetComponent<ScreenTextManagment>().ChangeHealthTextColor();
+        GetComponent<ScreenTextManagment>().ChangeHealthTextColor();
     }
 
     public float GetLife()
@@ -114,19 +136,19 @@ public class Gameplay : MonoBehaviour
     public void ReduceBurgers()
     {
         burgers--;
-        Camera.main.GetComponent<ScreenTextManagment>().ChangeBurgerCount(-1);
+        GetComponent<ScreenTextManagment>().ChangeBurgerCount(-1);
     }
 
     public void ReduceFries()
     {
         fries--;
-        Camera.main.GetComponent<ScreenTextManagment>().ChangeFriesCount(-1);
+        GetComponent<ScreenTextManagment>().ChangeFriesCount(-1);
     }
 
     public void ReduceDrinks()
     {
         drinks--;
-        Camera.main.GetComponent<ScreenTextManagment>().ChangeDrinkCount(-1);
+        GetComponent<ScreenTextManagment>().ChangeDrinkCount(-1);
     }
 
     public void AddBurgers(int amount)
@@ -134,13 +156,13 @@ public class Gameplay : MonoBehaviour
         if (burgers <= 0)
         {
             burgers += amount;
-            Camera.main.GetComponent<DropMoreProducts>().DropBurger();
+            GetComponent<DropMoreProducts>().DropBurger();
         }
         else
         {
             burgers += amount;
         }
-        Camera.main.GetComponent<ScreenTextManagment>().ChangeBurgerCount(amount);
+        GetComponent<ScreenTextManagment>().ChangeBurgerCount(amount);
     }
 
     public void AddFries(int amount)
@@ -148,13 +170,13 @@ public class Gameplay : MonoBehaviour
         if (fries <= 0)
         {
             fries += amount;
-            Camera.main.GetComponent<DropMoreProducts>().DropMadeFries();
+            GetComponent<DropMoreProducts>().DropMadeFries();
         }
         else
         {
             fries += amount;
         }
-        Camera.main.GetComponent<ScreenTextManagment>().ChangeFriesCount(amount);
+        GetComponent<ScreenTextManagment>().ChangeFriesCount(amount);
     }
 
     public void AddDrinks(int amount)
@@ -162,13 +184,13 @@ public class Gameplay : MonoBehaviour
         if (drinks <= 0)
         {
             drinks += amount;
-            Camera.main.GetComponent<DropMoreProducts>().DropDrink();
+            GetComponent<DropMoreProducts>().DropDrink();
         }
         else
         {
             drinks += amount;
         }
-        Camera.main.GetComponent<ScreenTextManagment>().ChangeDrinkCount(amount);
+        GetComponent<ScreenTextManagment>().ChangeDrinkCount(amount);
     }
 
     public void IncreaseCompletedOrders()
@@ -189,15 +211,15 @@ public class Gameplay : MonoBehaviour
     public void IncreaseCoinCount(int number, GameObject obj)
     {
         float size = Vector3.Distance(obj.transform.position, transform.position) / 2;
-		int amount = number;
+        int amount = number;
         if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.doubleCoins))
-		{
+        {
             amount *= 2;
-		}
+        }
         PlayerPrefs.SetInt("Coins", (PlayerPrefs.GetInt("Coins", 0) + amount));
-        Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(obj, "+¤ " + amount, Color.yellow, size);
-		GetComponent<LEDManager>().UpdateCoinsText();
-	}
+        GetComponent<FloatingTextManagement>().AddFloatingText(obj, "+¤ " + amount, Color.yellow, size);
+        GetComponent<LEDManager>().UpdateCoinsText();
+    }
 
     public void DecreaseCoinCount(int number)
     {
