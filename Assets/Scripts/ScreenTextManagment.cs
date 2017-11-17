@@ -680,8 +680,13 @@ ScreenTextManagment : MonoBehaviour
 		}
         else if (upgradeNum == PowerUpsManager.noInstantKill)
 		{
+			line4.GetComponent<TextMesh>().characterSize = 0.021f;
+			line4.GetComponent<TextMesh>().text = "Muffle instant\ndeath attacks";
+		}
+        else if (upgradeNum == PowerUpsManager.luck)
+		{
 			line4.GetComponent<TextMesh>().characterSize = 0.019f;
-			line4.GetComponent<TextMesh>().text = "Zombies no longer\ninsta-kill you";
+			line4.GetComponent<TextMesh>().text = "Chance of dodging\nattacks";
 		}
         else
         {

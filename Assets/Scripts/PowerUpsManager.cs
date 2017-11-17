@@ -20,5 +20,6 @@ public class PowerUpsManager : MonoBehaviour
 	public static int magnet = 13;
 	public static int noWind = 14;
     public static int noInstantKill = 15;
-    public static int nothing = 16;
+    public static int luck = 16;
+    public static int nothing = 17;
 }
