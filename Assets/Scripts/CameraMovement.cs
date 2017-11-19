@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
+    static int updateInterval = 10;
+
     static int maxSpeed = 15;
     static int accelerating = 15;
     Transform menu, gameplay, pause, towards, gameOver, grill, fryer, soda;
@@ -26,9 +28,12 @@ public class CameraMovement : MonoBehaviour
             {
                 MoveDevice();
             }
-            if (Vector3.Distance(transform.position, towards.transform.position) < 0.001f)
+            if (Time.frameCount % updateInterval == 0)
             {
-                Finished();
+                if (Vector3.Distance(transform.position, towards.transform.position) < 0.001f)
+                {
+                    Finished();
+                }
             }
         }
     }
@@ -77,14 +82,14 @@ public class CameraMovement : MonoBehaviour
                 case "Restart":
                     GetComponent<ScreenTextManagment>().ChangeToGamePlayText();
                     GetComponent<GrabAndThrowObject>().UnPauseGame();
-                    Camera.main.GetComponent<DropMoreProducts>().DropItems();
-                    Camera.main.GetComponent<DropMoreProducts>().DropMadeProducts();
+                    GetComponent<DropMoreProducts>().DropItems();
+                    GetComponent<DropMoreProducts>().DropMadeProducts();
                     break;
                 case "Start":
                     GetComponent<ScreenTextManagment>().ChangeToGamePlayText();
                     gameObject.AddComponent<GrabAndThrowObject>();
-                    Camera.main.GetComponent<DropMoreProducts>().DropItems();
-                    Camera.main.GetComponent<DropMoreProducts>().DropMadeProducts();
+                    GetComponent<DropMoreProducts>().DropItems();
+                    GetComponent<DropMoreProducts>().DropMadeProducts();
                     break;
                 case "Unpause":
                     GetComponent<ScreenTextManagment>().ChangeToGamePlayText();
@@ -146,10 +151,10 @@ public class CameraMovement : MonoBehaviour
         {
             case "Restart":
                 GetComponent<GrabAndThrowObject>().UnPauseGame();
-                Camera.main.GetComponent<DropMoreProducts>().DropItems();
+                GetComponent<DropMoreProducts>().DropItems();
                 break;
             case "Start":
-                Camera.main.GetComponent<DropMoreProducts>().DropItems();
+                GetComponent<DropMoreProducts>().DropItems();
                 break;
         }
     }
@@ -176,7 +181,7 @@ public class CameraMovement : MonoBehaviour
 
     public void MoveToGrill()
     {
-        grill = Camera.main.GetComponent<PositionManager>().GrillPosition();
+        grill = GetComponent<PositionManager>().GrillPosition();
         towards = grill;
         moveToPosition = true;
     }

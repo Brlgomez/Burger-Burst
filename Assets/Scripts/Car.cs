@@ -12,15 +12,20 @@ public class Car : MonoBehaviour
     bool slowDown;
     bool slowingDown;
     bool droppedOff;
+    Renderer myRenderer;
 
     void Start()
     {
         randomStoppingPos = Random.Range(-7.5f, 17.5f);
+        myRenderer = GetComponent<Renderer>();
     }
 
     void Update()
     {
-        RotateTires();
+        if (myRenderer.isVisible)
+        {
+            RotateTires();
+        }
         Logic();
         transform.Translate(-Vector3.forward * Time.deltaTime * speed);
     }
@@ -30,7 +35,6 @@ public class Car : MonoBehaviour
         if (Mathf.Abs(randomStoppingPos - transform.position.x) < 1 && speed > 0)
         {
             slowingDown = true;
-
         }
         if (slowingDown)
         {

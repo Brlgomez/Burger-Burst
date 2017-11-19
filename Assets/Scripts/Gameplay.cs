@@ -60,7 +60,7 @@ public class Gameplay : MonoBehaviour
     {
         if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.luck))
         {
-            if (Random.value < 0.125f)
+            if (Random.value > 0.125f)
             {
                 ReduceHealthLogic(damage);
             }

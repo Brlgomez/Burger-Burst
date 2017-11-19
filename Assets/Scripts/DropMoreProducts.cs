@@ -68,7 +68,6 @@ public class DropMoreProducts : MonoBehaviour
 			if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.largerFood))
 			{
                 newProduct.transform.localScale = Vector3.one * 1.25f;
-
 			}
         }
     }
@@ -82,7 +81,6 @@ public class DropMoreProducts : MonoBehaviour
 			if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.largerFood))
 			{
                 newProduct.transform.localScale = Vector3.one * 1.25f;
-
 			}
         }
     }
@@ -91,19 +89,21 @@ public class DropMoreProducts : MonoBehaviour
     {
         GameObject newProduct = Instantiate(meat);
         AddNewProduct(newProduct, "GrillIngredientClone", Camera.main.GetComponent<PositionManager>().MeatSpawnPosition().position);
+        Destroy(newProduct.GetComponent<RemoveObjects>());
+        newProduct.AddComponent<Meat>();
     }
 
     public void DropTopBun()
     {
         GameObject newProduct = Instantiate(topBun);
         AddNewProduct(newProduct, "GrillIngredientClone", Camera.main.GetComponent<PositionManager>().TopBunSpawnPosition().position);
-    }
+	}
 
     public void DropBottomBun()
     {
         GameObject newProduct = Instantiate(bottomBun);
         AddNewProduct(newProduct, "GrillIngredientClone", Camera.main.GetComponent<PositionManager>().BottomBunSpawnPosition().position);
-    }
+	}
 
     public void DropFries()
     {

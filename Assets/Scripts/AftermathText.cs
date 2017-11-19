@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class AftermathText : MonoBehaviour
 {
-    static float maxTime = 1.25f;
+	static int updateInterval = 2;
+
+	static float maxTime = 1.25f;
     static float fadeTime = 1;
     static float horizontalSpeed = 2.5f;
     static float horizontalDistance = 0.25f;
@@ -14,6 +16,7 @@ public class AftermathText : MonoBehaviour
     float randomX;
     float multiplier = 1;
     Vector3 startPosition;
+    Material textColor;
 
     void Start()
     {
@@ -23,23 +26,27 @@ public class AftermathText : MonoBehaviour
         transform.LookAt(Camera.main.transform.position - v);
         transform.Rotate(0, 180, 0);
         randomX = Random.Range(-2.5f, 2.5f);
+        textColor = gameObject.GetComponent<Renderer>().material;
     }
 
     void Update()
     {
         time += Time.deltaTime;
+        if (Time.frameCount % updateInterval == 0)
+        {
+            ChangeAlpha();
+        }
+    }
+
+    void ChangeAlpha()
+    {
         if (time > fadeTime)
         {
             alpha = (((maxTime - fadeTime) / (maxTime - fadeTime)) - ((time - fadeTime) / (maxTime - fadeTime)));
         }
         float newX = startPosition.x + (Mathf.Sin((time + randomX) * horizontalSpeed) * horizontalDistance) * multiplier;
         float newY = transform.position.y + Time.deltaTime * verticalSpeed * transform.up.y * multiplier;
-        gameObject.GetComponent<Renderer>().material.color = new Color(
-            gameObject.GetComponent<Renderer>().material.color.r,
-            gameObject.GetComponent<Renderer>().material.color.g,
-            gameObject.GetComponent<Renderer>().material.color.b,
-            alpha
-        );
+        textColor.color = new Color(textColor.color.r, textColor.color.g, textColor.color.b, alpha);
         transform.position = new Vector3(newX, newY, transform.position.z);
         if (alpha < 0.01f)
         {

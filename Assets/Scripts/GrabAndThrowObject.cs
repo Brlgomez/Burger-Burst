@@ -378,9 +378,9 @@ public class GrabAndThrowObject : MonoBehaviour
             target.GetComponent<Rigidbody>().isKinematic = false;
             target.GetComponent<Rigidbody>().useGravity = false;
             grillWall.GetComponent<Collider>().enabled = true;
-            if (target.GetComponent<CookMeat>())
+            if (target.GetComponent<Meat>())
             {
-                target.GetComponent<CookMeat>().PickedUp();
+                target.GetComponent<Meat>().PickedUp();
             }
         }
     }
@@ -500,9 +500,9 @@ public class GrabAndThrowObject : MonoBehaviour
             {
                 target.GetComponent<Rigidbody>().velocity = GetVelocity();
             }
-            if (target.GetComponent<CookMeat>() == null && target.name == "Meat(Clone)")
+            if (target.GetComponent<Meat>() == null && target.name == "Meat(Clone)")
             {
-                target.AddComponent<CookMeat>();
+                target.AddComponent<Meat>();
             }
         }
     }
