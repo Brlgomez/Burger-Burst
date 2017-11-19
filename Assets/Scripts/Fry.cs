@@ -77,6 +77,10 @@ public class Fry : MonoBehaviour
                 FriesCompleted();
             }
         }
+        else
+        {
+            CheckRange();
+        }
     }
 
     void FriesCompleted()
@@ -104,5 +108,19 @@ public class Fry : MonoBehaviour
             basket.AddComponent<FadeObject>();
         }
         Destroy(gameObject.GetComponent<FryFries>());
+    }
+
+    void CheckRange()
+    {
+        if (gameObject.GetComponent<FadeObject>() == null)
+        {
+            Vector3 friesRange = Camera.main.GetComponent<PositionManager>().FriesRange().position;
+            if (Vector3.Distance(gameObject.transform.position, friesRange) > 1.75f)
+            {
+                gameObject.tag = "Fallen";
+                gameObject.AddComponent<FadeObject>();
+                Destroy(GetComponent<Fry>());
+            }
+        }
     }
 }

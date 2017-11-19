@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DestroySpawnedParticle : MonoBehaviour 
+public class DestroySpawnedParticle : MonoBehaviour
 {
-	void Update () 
+    void Start()
     {
-        if (GetComponent<ParticleSystem>().isStopped)
-        {
-            Destroy(gameObject);
-        }	
-	}
+        Destroy(gameObject, GetComponent<ParticleSystem>().main.duration);
+    }
 }

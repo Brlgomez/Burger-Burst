@@ -52,6 +52,7 @@ public class DropMoreProducts : MonoBehaviour
         {
             GameObject newProduct = Instantiate(fries);
             AddNewProduct(newProduct, "Ingredient", Camera.main.GetComponent<PositionManager>().MadeFriesPosition().position);
+            newProduct.AddComponent<RemoveObjects>();
             if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.largerFood))
             {
                 newProduct.transform.localScale = Vector3.one * 1.25f;
@@ -65,10 +66,11 @@ public class DropMoreProducts : MonoBehaviour
         {
             GameObject newProduct = Instantiate(burger);
             AddNewProduct(newProduct, "Ingredient", Camera.main.GetComponent<PositionManager>().BurgerPosition().position);
-			if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.largerFood))
-			{
+            newProduct.AddComponent<RemoveObjects>();
+            if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.largerFood))
+            {
                 newProduct.transform.localScale = Vector3.one * 1.25f;
-			}
+            }
         }
     }
 
@@ -78,10 +80,11 @@ public class DropMoreProducts : MonoBehaviour
         {
             GameObject newProduct = Instantiate(drink);
             AddNewProduct(newProduct, "Ingredient", Camera.main.GetComponent<PositionManager>().DrinkPosition().position);
-			if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.largerFood))
-			{
+            newProduct.AddComponent<RemoveObjects>();
+            if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.largerFood))
+            {
                 newProduct.transform.localScale = Vector3.one * 1.25f;
-			}
+            }
         }
     }
 
@@ -89,7 +92,6 @@ public class DropMoreProducts : MonoBehaviour
     {
         GameObject newProduct = Instantiate(meat);
         AddNewProduct(newProduct, "GrillIngredientClone", Camera.main.GetComponent<PositionManager>().MeatSpawnPosition().position);
-        Destroy(newProduct.GetComponent<RemoveObjects>());
         newProduct.AddComponent<Meat>();
     }
 
@@ -97,13 +99,15 @@ public class DropMoreProducts : MonoBehaviour
     {
         GameObject newProduct = Instantiate(topBun);
         AddNewProduct(newProduct, "GrillIngredientClone", Camera.main.GetComponent<PositionManager>().TopBunSpawnPosition().position);
-	}
+        newProduct.AddComponent<RemoveObjects>();
+    }
 
     public void DropBottomBun()
     {
         GameObject newProduct = Instantiate(bottomBun);
         AddNewProduct(newProduct, "GrillIngredientClone", Camera.main.GetComponent<PositionManager>().BottomBunSpawnPosition().position);
-	}
+        newProduct.AddComponent<RemoveObjects>();
+    }
 
     public void DropFries()
     {
@@ -112,7 +116,6 @@ public class DropMoreProducts : MonoBehaviour
             GameObject newProduct = Instantiate(uncookedFries);
             AddNewProduct(newProduct, "Fries", Camera.main.GetComponent<PositionManager>().FriesPosition().position);
             newProduct.GetComponent<Rigidbody>().freezeRotation = true;
-			Destroy(newProduct.GetComponent<RemoveObjects>());
             newProduct.AddComponent<Fry>();
         }
     }
@@ -123,6 +126,7 @@ public class DropMoreProducts : MonoBehaviour
         {
             GameObject newProduct = Instantiate(friesBasket);
             AddNewProduct(newProduct, "Basket", Camera.main.GetComponent<PositionManager>().BasketPosition().position);
+            newProduct.AddComponent<RemoveObjects>();
         }
     }
 
@@ -133,7 +137,6 @@ public class DropMoreProducts : MonoBehaviour
             GameObject newProduct = Instantiate(cup);
             AddNewProduct(newProduct, "Soda", Camera.main.GetComponent<PositionManager>().CupPosition().position);
             newProduct.GetComponent<Rigidbody>().freezeRotation = true;
-			Destroy(newProduct.GetComponent<RemoveObjects>());
             newProduct.AddComponent<SodaCup>();
         }
     }
@@ -147,6 +150,7 @@ public class DropMoreProducts : MonoBehaviour
             Quaternion rotation = new Quaternion(Random.value, Random.value, Random.value, Random.value);
             AddNewProduct(newProduct, "Lid", position);
             newProduct.transform.rotation = rotation;
+            newProduct.AddComponent<RemoveObjects>();
         }
     }
 
@@ -170,7 +174,6 @@ public class DropMoreProducts : MonoBehaviour
         newProduct.GetComponent<Rigidbody>().isKinematic = false;
         newProduct.GetComponent<Rigidbody>().useGravity = true;
         newProduct.GetComponent<Collider>().enabled = true;
-        newProduct.AddComponent<RemoveObjects>();
         newProduct.transform.position = newPosition;
         newProduct.tag = newTag;
         Physics.IgnoreCollision(grillWall.GetComponent<Collider>(), newProduct.GetComponent<Collider>());

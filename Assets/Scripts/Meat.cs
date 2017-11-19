@@ -77,12 +77,7 @@ public class Meat : MonoBehaviour
         {
             BurgerCompleted();
         }
-        Vector3 grillRange = Camera.main.GetComponent<PositionManager>().GrillRange().position;
-        if (Vector3.Distance(gameObject.transform.position, grillRange) > 1.25f)
-        {
-            RemoveObject(gameObject);
-            Destroy(GetComponent<Meat>());
-        }
+        CheckRange();
     }
 
     bool CheckDistance(GameObject obj)
@@ -123,6 +118,16 @@ public class Meat : MonoBehaviour
         if (obj.GetComponent<FadeObject>() == null)
         {
             obj.AddComponent<FadeObject>();
+        }
+    }
+
+    void CheckRange()
+    {
+        Vector3 grillRange = Camera.main.GetComponent<PositionManager>().GrillRange().position;
+        if (Vector3.Distance(gameObject.transform.position, grillRange) > 1.25f)
+        {
+            RemoveObject(gameObject);
+            Destroy(GetComponent<Meat>());
         }
     }
 }

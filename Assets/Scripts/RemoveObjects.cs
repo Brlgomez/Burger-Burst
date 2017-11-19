@@ -16,7 +16,7 @@ public class RemoveObjects : MonoBehaviour
                 HasFallen();
             }
         }
-        else if ((gameObject.tag == "Fries" || gameObject.tag == "Basket") && col.gameObject.tag != "Fries" && col.gameObject.tag != "Basket")
+        else if (gameObject.tag == "Basket" && col.gameObject.tag != "Fries" && col.gameObject.tag != "Basket")
         {
             Vector3 friesRange = Camera.main.GetComponent<PositionManager>().FriesRange().position;
             if (Vector3.Distance(gameObject.transform.position, friesRange) > 1.75f)
@@ -24,7 +24,7 @@ public class RemoveObjects : MonoBehaviour
                 HasFallen();
             }
         }
-        else if ((gameObject.tag == "Soda" || gameObject.tag == "Lid") && col.gameObject.tag != "Soda" && col.gameObject.tag != "Lid")
+        else if (gameObject.tag == "Lid" && col.gameObject.tag != "Soda" && col.gameObject.tag != "Lid")
         {
             Vector3 drinkRange = Camera.main.GetComponent<PositionManager>().DrinkRange().position;
             if (Vector3.Distance(gameObject.transform.position, drinkRange) > 1.25f)
@@ -98,14 +98,6 @@ public class RemoveObjects : MonoBehaviour
 
     void HasFallen()
     {
-        if (gameObject.tag == "Soda")
-        {
-            Destroy(gameObject.GetComponent<SodaCup>());
-            if (gameObject.transform.GetChild(0).gameObject.GetComponent<FadeObject>() == null)
-            {
-                gameObject.transform.GetChild(0).gameObject.AddComponent<FadeObject>();
-            }
-        }
         gameObject.tag = "Fallen";
         if (gameObject.GetComponent<FadeObject>() == null)
         {

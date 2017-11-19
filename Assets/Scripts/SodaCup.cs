@@ -78,15 +78,9 @@ public class SodaCup : MonoBehaviour
                 Destroy(lid);
             }
         }
-        Vector3 drinkRange = Camera.main.GetComponent<PositionManager>().DrinkRange().position;
-        if (Vector3.Distance(gameObject.transform.position, drinkRange) > 1.25f)
+        else if (collision.gameObject.tag != "Lid" && collision.gameObject.tag != "Soda" && collision.gameObject.tag != "Fallen")
         {
-            if (GetComponent<FadeObject>() == null)
-            {
-                Camera.main.GetComponent<DropMoreProducts>().DropCup();
-                gameObject.AddComponent<FadeObject>();
-                Destroy(GetComponent<SodaCup>());
-            }
+            CheckRange();
         }
     }
 
@@ -140,5 +134,24 @@ public class SodaCup : MonoBehaviour
         Camera.main.GetComponent<Gameplay>().AddDrinks(worth);
         Camera.main.GetComponent<DropMoreProducts>().TrasformIntoDrink(gameObject);
         Destroy(gameObject.GetComponent<SodaCup>());
+    }
+
+    void CheckRange()
+    {
+        if (GetComponent<FadeObject>() == null)
+        {
+            Vector3 drinkRange = Camera.main.GetComponent<PositionManager>().DrinkRange().position;
+            if (Vector3.Distance(gameObject.transform.position, drinkRange) > 1.25f)
+            {
+                if (gameObject.transform.GetChild(0).gameObject.GetComponent<FadeObject>() == null)
+                {
+                    gameObject.transform.GetChild(0).gameObject.AddComponent<FadeObject>();
+                }
+                gameObject.AddComponent<FadeObject>();
+                gameObject.tag = "Fallen";
+                Destroy(GetComponent<SodaCup>());
+
+            }
+        }
     }
 }
