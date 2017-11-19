@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class SodaMachine : MonoBehaviour
 {
+	static int updateInterval = 2;
 
-    int maxOnTime = 5;
+	int maxOnTime = 5;
     float currentTimeOn;
     bool turnOn = true;
     float sodaMaxScale = 2.22f;
@@ -14,24 +15,28 @@ public class SodaMachine : MonoBehaviour
     void Update()
     {
         currentTimeOn += Time.deltaTime;
-        if (currentTimeOn > maxOnTime)
+        if (Time.frameCount % updateInterval == 0)
         {
-            turnOn = false;
-        }
-        if (turnOn && sodaCurrentScale < sodaMaxScale)
-        {
-            sodaCurrentScale += Time.deltaTime * 50;
-            transform.localScale = Vector3.one * sodaCurrentScale;
-        }
-        if (!turnOn && sodaCurrentScale > 0)
-        {
-            sodaCurrentScale -= Time.deltaTime * 50;
-            transform.localScale = Vector3.one * sodaCurrentScale;
-            if (sodaCurrentScale < 0)
+            if (turnOn && sodaCurrentScale < sodaMaxScale)
             {
-                transform.localScale = Vector3.zero;
-                Destroy(gameObject.GetComponent<SodaMachine>());
+                sodaCurrentScale += Time.deltaTime * updateInterval * 50;
+                transform.localScale = Vector3.one * sodaCurrentScale;
+                if (transform.localScale.x > sodaMaxScale)
+                {
+                    transform.localScale = Vector3.one * sodaMaxScale;
+                }
             }
+            if (!turnOn || currentTimeOn > maxOnTime)
+			{
+				turnOn = false;
+				sodaCurrentScale -= Time.deltaTime * updateInterval * 50;
+				transform.localScale = Vector3.one * sodaCurrentScale;
+				if (sodaCurrentScale < 0)
+				{
+					transform.localScale = Vector3.zero;
+					Destroy(gameObject.GetComponent<SodaMachine>());
+				}
+			}
         }
     }
 

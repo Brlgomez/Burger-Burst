@@ -112,6 +112,8 @@ public class DropMoreProducts : MonoBehaviour
             GameObject newProduct = Instantiate(uncookedFries);
             AddNewProduct(newProduct, "Fries", Camera.main.GetComponent<PositionManager>().FriesPosition().position);
             newProduct.GetComponent<Rigidbody>().freezeRotation = true;
+			Destroy(newProduct.GetComponent<RemoveObjects>());
+            newProduct.AddComponent<Fry>();
         }
     }
 
@@ -131,6 +133,8 @@ public class DropMoreProducts : MonoBehaviour
             GameObject newProduct = Instantiate(cup);
             AddNewProduct(newProduct, "Soda", Camera.main.GetComponent<PositionManager>().CupPosition().position);
             newProduct.GetComponent<Rigidbody>().freezeRotation = true;
+			Destroy(newProduct.GetComponent<RemoveObjects>());
+            newProduct.AddComponent<SodaCup>();
         }
     }
 

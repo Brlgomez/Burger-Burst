@@ -334,12 +334,8 @@ public class GrabAndThrowObject : MonoBehaviour
         }
         if (obj.tag == "Fries")
         {
-            if (obj.GetComponent<FryFries>() != null)
+            if (obj.GetComponent<FryFries>())
             {
-                if (!obj.GetComponent<FryFries>().InFryer())
-                {
-                    return obj;
-                }
                 return null;
             }
             return obj;
@@ -500,10 +496,6 @@ public class GrabAndThrowObject : MonoBehaviour
             {
                 target.GetComponent<Rigidbody>().velocity = GetVelocity();
             }
-            if (target.GetComponent<Meat>() == null && target.name == "Meat(Clone)")
-            {
-                target.AddComponent<Meat>();
-            }
         }
     }
 
@@ -528,10 +520,6 @@ public class GrabAndThrowObject : MonoBehaviour
             if (positions.Count > 1)
             {
                 target.GetComponent<Rigidbody>().velocity = GetVelocity();
-            }
-            if (target.GetComponent<FryFries>() == null && target.tag == "Fries")
-            {
-                target.AddComponent<FryFries>();
             }
         }
     }

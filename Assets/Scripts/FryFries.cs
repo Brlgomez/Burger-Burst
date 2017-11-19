@@ -4,146 +4,77 @@ using UnityEngine;
 
 public class FryFries : MonoBehaviour
 {
-    bool inFryer;
+    static int updateInterval = 4;
+
     float timeInFryer;
-    float maxTimeInFryer = 20;
-    int maxAmountOfFries = 10;
+    float maxTimeInFryer;
     Color initialColor;
     Color friedColor;
     Color burntColor;
-    float r, g, b;
-    float incR, incG, incB;
-    float incR2, incG2, incB2;
+    ParticleSystem particleSyst;
     GameObject basket;
+    Renderer myRenderer;
+    Material fryMaterial;
 
     void Start()
     {
-        if (Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.quickerCooking))
-        {
-            maxTimeInFryer *= 0.75f;
-        }
-		if (Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.makeMoreFood))
-		{
-            maxAmountOfFries = 12;
-		}
         initialColor = gameObject.GetComponent<Renderer>().material.color;
         friedColor = new Color(0.984f, 0.816f, 0.688f);
         burntColor = new Color(0.5f, 0.375f, 0);
-        r = initialColor.r;
-        g = initialColor.g;
-        b = initialColor.b;
-        incR = (initialColor.r - friedColor.r) * (1.0f / (maxTimeInFryer / 2.0f));
-        incG = (initialColor.g - friedColor.g) * (1.0f / (maxTimeInFryer / 2.0f));
-        incB = (initialColor.b - friedColor.b) * (1.0f / (maxTimeInFryer / 2.0f));
-        incR2 = (friedColor.r - burntColor.r) * (1.0f / (maxTimeInFryer / 2.0f));
-        incG2 = (friedColor.g - burntColor.g) * (1.0f / (maxTimeInFryer / 2.0f));
-        incB2 = (friedColor.b - burntColor.b) * (1.0f / (maxTimeInFryer / 2.0f));
+        particleSyst = transform.GetChild(0).GetComponent<ParticleSystem>();
+        maxTimeInFryer = GetComponent<Fry>().GetMaxTimeInFryer();
+        fryMaterial = GetComponent<Renderer>().material;
+        myRenderer = GetComponent<Renderer>();
     }
 
     void Update()
     {
-        if (inFryer && timeInFryer < maxTimeInFryer)
+        timeInFryer += Time.deltaTime;
+        if (timeInFryer < maxTimeInFryer)
         {
-            timeInFryer += Time.deltaTime;
+            if (Time.frameCount % updateInterval == 0)
+            {
+                ChangeFryColor();
+                if (!myRenderer.isVisible && !particleSyst.isPaused)
+                {
+                    particleSyst.Pause();
+                }
+                else
+                {
+                    particleSyst.Play();
+                }
+            }
+        }
+        else
+        {
+            particleSyst.Play();
+            particleSyst.Stop();
+            fryMaterial.color = burntColor;
+            GetComponent<Fry>().SetTimeInFryer(timeInFryer);
+            Destroy(GetComponent<FryFries>());
+        }
+    }
+
+    void ChangeFryColor()
+    {
+        if (myRenderer.isVisible)
+        {
+            float percentage = (timeInFryer / (maxTimeInFryer / 2));
+            Color newColor;
             if (timeInFryer < maxTimeInFryer / 2)
             {
-                if (r > friedColor.r)
-                {
-                    r -= Time.deltaTime * incR;
-                }
-                if (g > friedColor.g)
-                {
-                    g -= Time.deltaTime * incG;
-                }
-                if (b > friedColor.b)
-                {
-                    b -= Time.deltaTime * incB;
-                }
+                newColor = Color.Lerp(initialColor, friedColor, percentage);
             }
             else
             {
-                if (r > burntColor.r)
-                {
-                    r -= Time.deltaTime * incR2;
-                }
-                if (g > burntColor.g)
-                {
-                    g -= Time.deltaTime * incG2;
-                }
-                if (b > burntColor.b)
-                {
-                    b -= Time.deltaTime * incB2;
-                }
+                newColor = Color.Lerp(friedColor, burntColor, percentage - 1);
             }
-            gameObject.GetComponent<Renderer>().material.color = new Color(r, g, b);
+            fryMaterial.color = newColor;
         }
     }
 
-    void OnTriggerEnter(Collider col)
+    public float GetTimeInFryer()
     {
-        if (col.gameObject.name == "Hot Oil")
-        {
-            transform.GetChild(0).GetComponent<ParticleSystem>().Play();
-            inFryer = true;
-        }
-    }
-
-    void OnTriggerExit(Collider col)
-    {
-        if (col.gameObject.name == "Hot Oil")
-        {
-            transform.GetChild(0).GetComponent<ParticleSystem>().Stop();
-            inFryer = false;
-        }
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Basket" && !inFryer)
-        {
-            basket = collision.gameObject;
-            if (basket.transform.parent != null && gameObject.transform.parent != null)
-            {
-                gameObject.transform.parent = null;
-                basket.transform.parent = null;
-                basket.GetComponent<Rigidbody>().isKinematic = true;
-                basket.GetComponent<Rigidbody>().useGravity = false;
-                gameObject.GetComponent<Rigidbody>().isKinematic = true;
-                gameObject.GetComponent<Rigidbody>().useGravity = false;
-                FriesCompleted();
-            }
-        }
-    }
-
-    void FriesCompleted()
-    {
-        float percentage = (((maxTimeInFryer / 2) - (Mathf.Abs(timeInFryer - (maxTimeInFryer / 2)))) / (maxTimeInFryer / 2));
-        int worth = Mathf.RoundToInt(maxAmountOfFries * percentage);
-        if (worth == 0)
-        {
-            Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Fries", Color.gray, 1);
-        }
-        else if (worth == 1)
-        {
-            Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Fry", Color.green, 1);
-        }
-        else if (worth > 1)
-        {
-            Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Fries", Color.green, 1);
-        }
-        Camera.main.GetComponent<Gameplay>().AddFries(worth);
-        if (gameObject.GetComponent<FadeObject>() == null)
-        {
-            Camera.main.GetComponent<DropMoreProducts>().DropFries();
-            Camera.main.GetComponent<DropMoreProducts>().DropBasket();
-            gameObject.AddComponent<FadeObject>();
-            basket.AddComponent<FadeObject>();
-        }
-        Destroy(gameObject.GetComponent<FryFries>());
-    }
-
-    public bool InFryer()
-    {
-        return inFryer;
+        return timeInFryer;
     }
 }

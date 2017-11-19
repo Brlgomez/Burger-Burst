@@ -26,18 +26,18 @@ public class CookMeat : MonoBehaviour
         myRenderer = GetComponent<Renderer>();
         meatMaterial = GetComponent<Renderer>().material;
         maxTimeOnGrill = GetComponent<Meat>().GetMaxTimeOnGrill();
+        timeOnGrill = GetComponent<Meat>().GetTimeOnGrill();
     }
 
     void Update()
     {
-        timeOnGrill = GetComponent<Meat>().GetTimeOnGrill();
-        GetComponent<Meat>().AddTimeOnGrill(Time.deltaTime);
+        timeOnGrill += Time.deltaTime;
         if (timeOnGrill < maxTimeOnGrill)
         {
             if (Time.frameCount % updateInterval == 0)
             {
                 ChangeMeatColor();
-                if (myRenderer.isVisible && GetComponent<Meat>().GetTimeOnGrill() > (maxTimeOnGrill * 0.25f) && !particleSyst.isPlaying)
+                if (myRenderer.isVisible && timeOnGrill > (maxTimeOnGrill * 0.25f) && !particleSyst.isPlaying)
                 {
                     particleSyst.Play();
                 }
@@ -53,6 +53,7 @@ public class CookMeat : MonoBehaviour
             particleSyst.Play();
             particleSyst.Stop();
             meatMaterial.color = burntColor;
+            GetComponent<Meat>().SetTimeOnGrill(timeOnGrill);
             Destroy(GetComponent<CookMeat>());
         }
     }
@@ -63,7 +64,7 @@ public class CookMeat : MonoBehaviour
         {
             float percentage = (timeOnGrill / (maxTimeOnGrill / 2));
             Color newColor;
-            if (GetComponent<Meat>().GetTimeOnGrill() < maxTimeOnGrill / 2)
+            if (timeOnGrill < maxTimeOnGrill / 2)
             {
                 newColor = Color.Lerp(initialColor, cookedColor, percentage);
             }
@@ -83,5 +84,10 @@ public class CookMeat : MonoBehaviour
             Color newColor = Color.Lerp(Color.white, Color.black, percentage);
             mainModule.startColor = newColor;
         }
+    }
+
+    public float GetTimeOnGrill()
+    {
+        return timeOnGrill;
     }
 }

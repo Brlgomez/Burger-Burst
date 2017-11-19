@@ -16,6 +16,7 @@ public class SodaCup : MonoBehaviour
     float incMass;
     int maxAmountOfDrinks = 5;
     GameObject lid;
+    Renderer myRenderer;
 
     void Start()
     {
@@ -23,29 +24,26 @@ public class SodaCup : MonoBehaviour
         {
             maxTimeUnderFountain *= 0.75f;
         }
-		if (Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.makeMoreFood))
-		{
+        if (Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.makeMoreFood))
+        {
             maxAmountOfDrinks = 6;
-		}
+        }
         currentY = transform.GetChild(0).transform.localPosition.y;
         currentScale = transform.GetChild(0).transform.localScale.x;
         initialMass = gameObject.GetComponent<Rigidbody>().mass;
         incY = (top - currentY) * (1.0f / maxTimeUnderFountain);
         incS = (maxScale - currentScale) * (1.0f / maxTimeUnderFountain);
         incMass = (maxMass - initialMass) * (1.0f / maxMass);
+        myRenderer = GetComponent<Renderer>();
     }
 
-    void OnTriggerStay(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         if (other.name == "SodaFromMachine1" || other.name == "SodaFromMachine2" || other.name == "SodaFromMachine3")
         {
-            if (other.transform.localScale.x > 1)
+            if (GetComponent<FillCup>() == null && other.transform.localScale.x > 0)
             {
-                float angle = transform.rotation.eulerAngles.x;
-                if ((angle >= -10 && angle <= 10) || (angle >= 350 && angle <= 360))
-                {
-                    FillCup();
-                }
+                gameObject.AddComponent<FillCup>();
             }
         }
     }
@@ -54,8 +52,14 @@ public class SodaCup : MonoBehaviour
     {
         if (other.name == "SodaFromMachine1" || other.name == "SodaFromMachine2" || other.name == "SodaFromMachine3")
         {
-            if (transform.GetChild(0).GetChild(0).GetComponent<ParticleSystem>().isPlaying)
+            if (GetComponent<FillCup>())
             {
+                Destroy(GetComponent<FillCup>());
+            }
+            if (transform.GetChild(0).GetChild(0).GetComponent<ParticleSystem>().isPlaying ||
+                transform.GetChild(0).GetChild(0).GetComponent<ParticleSystem>().isPaused)
+            {
+                transform.GetChild(0).GetChild(0).GetComponent<ParticleSystem>().Play();
                 transform.GetChild(0).GetChild(0).GetComponent<ParticleSystem>().Stop();
             }
         }
@@ -74,20 +78,34 @@ public class SodaCup : MonoBehaviour
                 Destroy(lid);
             }
         }
+        Vector3 drinkRange = Camera.main.GetComponent<PositionManager>().DrinkRange().position;
+        if (Vector3.Distance(gameObject.transform.position, drinkRange) > 1.25f)
+        {
+            if (GetComponent<FadeObject>() == null)
+            {
+                Camera.main.GetComponent<DropMoreProducts>().DropCup();
+                gameObject.AddComponent<FadeObject>();
+                Destroy(GetComponent<SodaCup>());
+            }
+        }
     }
 
-    void FillCup()
+    public void FillCup(int updateInterval)
     {
-        if (!transform.GetChild(0).GetChild(0).GetComponent<ParticleSystem>().isPlaying)
+        if (!transform.GetChild(0).GetChild(0).GetComponent<ParticleSystem>().isPlaying && myRenderer.isVisible)
         {
             transform.GetChild(0).GetChild(0).GetComponent<ParticleSystem>().Play();
         }
+        if (transform.GetChild(0).GetChild(0).GetComponent<ParticleSystem>().isPlaying && !myRenderer.isVisible)
+        {
+            transform.GetChild(0).GetChild(0).GetComponent<ParticleSystem>().Pause();
+        }
         if (currentY < top)
         {
-            timeUnderFountain += Time.deltaTime;
-            currentY += Time.deltaTime * incY;
-            currentScale += Time.deltaTime * incS;
-            gameObject.GetComponent<Rigidbody>().mass += Time.deltaTime * incMass;
+            timeUnderFountain += Time.deltaTime * updateInterval;
+            currentY += Time.deltaTime * incY * updateInterval;
+            currentScale += Time.deltaTime * incS * updateInterval;
+            gameObject.GetComponent<Rigidbody>().mass += Time.deltaTime * incMass * updateInterval;
             transform.GetChild(0).transform.localPosition = new Vector3(
                 transform.GetChild(0).transform.localPosition.x,
                 currentY,

@@ -22,9 +22,9 @@ public class Meat : MonoBehaviour
         }
     }
 
-    public void AddTimeOnGrill(float time)
+    public void SetTimeOnGrill(float time)
     {
-        timeOnGrill += time;
+        timeOnGrill = time;
     }
 
     public float GetTimeOnGrill()
@@ -46,6 +46,7 @@ public class Meat : MonoBehaviour
         transform.GetChild(0).GetComponent<ParticleSystem>().Stop();
         if (GetComponent<CookMeat>())
         {
+            timeOnGrill = GetComponent<CookMeat>().GetTimeOnGrill();
             Destroy(GetComponent<CookMeat>());
         }
     }

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class FryerLift : MonoBehaviour
 {
-
     float currentY;
     bool down;
 

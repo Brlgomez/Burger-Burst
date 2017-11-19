@@ -8,7 +8,15 @@ public class RemoveObjects : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
-        if ((gameObject.tag == "Fries" || gameObject.tag == "Basket") && col.gameObject.tag != "Fries" && col.gameObject.tag != "Basket")
+        if (gameObject.tag == "GrillIngredientClone")
+        {
+            Vector3 grillRange = Camera.main.GetComponent<PositionManager>().GrillRange().position;
+            if (Vector3.Distance(gameObject.transform.position, grillRange) > 1.25f)
+            {
+                HasFallen();
+            }
+        }
+        else if ((gameObject.tag == "Fries" || gameObject.tag == "Basket") && col.gameObject.tag != "Fries" && col.gameObject.tag != "Basket")
         {
             Vector3 friesRange = Camera.main.GetComponent<PositionManager>().FriesRange().position;
             if (Vector3.Distance(gameObject.transform.position, friesRange) > 1.75f)
@@ -53,12 +61,12 @@ public class RemoveObjects : MonoBehaviour
                 }
             }
             if (Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.throwMultiple))
-			{
+            {
                 if (!gameObject.name.EndsWith("Copy"))
                 {
                     Camera.main.GetComponent<CopyPowerUp>().CopyObject(gameObject);
                 }
-			}
+            }
             DropProduct();
         }
     }
@@ -67,7 +75,7 @@ public class RemoveObjects : MonoBehaviour
     {
         if (!hasDropped)
         {
-			switch (gameObject.name)
+            switch (gameObject.name)
             {
                 case "Burger(Clone)":
                     Camera.main.GetComponent<Gameplay>().ReduceBurgers();
