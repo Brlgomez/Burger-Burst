@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Gameplay : MonoBehaviour
 {
+    static float regenMaxTime = 15;
+    float regenTimer;
+
     int maxLifeWithBonus = 200;
     int maxLife = 100;
     float life = 100;
@@ -225,5 +228,38 @@ public class Gameplay : MonoBehaviour
     {
         PlayerPrefs.SetInt("Coins", (PlayerPrefs.GetInt("Coins", 0) - number));
         GetComponent<LEDManager>().UpdateCoinsText();
+    }
+
+    public void RegenerationUpdate(int updateInterval)
+    {
+        regenTimer += Time.deltaTime * updateInterval;
+        if (regenTimer > regenMaxTime)
+        {
+            if (!GetComponent<Gameplay>().IsGameOver())
+            {
+                if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.regenHealth))
+                {
+                    GetComponent<Gameplay>().AddLife(2, gameObject);
+                }
+                if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.regenBurgers))
+                {
+                    GetComponent<Gameplay>().AddBurgers(1);
+                }
+                if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.regenFries))
+                {
+                    GetComponent<Gameplay>().AddFries(1);
+                }
+                if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.regenDrinks))
+                {
+                    GetComponent<Gameplay>().AddDrinks(1);
+                }
+            }
+            regenTimer = 0;
+        }
+    }
+
+    public void ResetValues()
+    {
+        regenTimer = 0;
     }
 }

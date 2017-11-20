@@ -15,7 +15,7 @@ public class IncreaseSize : MonoBehaviour
         if (size > maxSize)
         {
             gameObject.transform.localScale = new Vector3(maxSize, maxSize, maxSize);
-            Destroy(GetComponent<IncreaseSize>());
+            Destroy(GetComponent<IncreaseSize>()); 
         }
     }
 }

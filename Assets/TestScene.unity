@@ -58043,7 +58043,7 @@ TextMesh:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2065319406}
   m_Text: 
-  m_OffsetZ: 0
+  m_OffsetZ: -1
   m_CharacterSize: 0.25
   m_LineSpacing: 1
   m_Anchor: 1

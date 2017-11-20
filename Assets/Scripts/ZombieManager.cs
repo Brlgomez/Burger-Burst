@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class ZombieManager : MonoBehaviour
 {
+    static int maxAmountOfZombies = 10;
+    float timeForNewZombie = 12;
+    float time;
+
     GameObject zombie;
     Vector3 gameplayPosition;
     int amountOfWaiters;
@@ -28,6 +32,24 @@ public class ZombieManager : MonoBehaviour
     {
         gameplayPosition = GetComponent<PositionManager>().GameplayPosition().position;
         zombie = GetComponent<ObjectManager>().Zombie();
+        time = timeForNewZombie;
+    }
+
+    public void ZombieUpdate(int updateInterval)
+    {
+        time += Time.deltaTime * updateInterval;
+        if (time > timeForNewZombie)
+        {
+            if (GetCount() < maxAmountOfZombies && !GetComponent<Gameplay>().IsGameOver())
+            {
+                GetComponent<CarManager>().CreateNewCarWithZombie();
+                if (Random.value < 0.25f)
+                {
+                    GetComponent<CarManager>().CreateNewCarWithNoZombie();
+                }
+            }
+            time = 0;
+        }
     }
 
     public void AddNewWaiter(Vector3 position)
@@ -81,6 +103,11 @@ public class ZombieManager : MonoBehaviour
                 obj.GetComponent<Zombie>().DestroyScript();
             }
         }
+    }
+
+    public void ResetValues()
+    {
+        time = timeForNewZombie;
     }
 }
 

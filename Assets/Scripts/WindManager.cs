@@ -15,9 +15,9 @@ public class WindManager : MonoBehaviour
         ResetValues();
     }
 
-    public void WindUpdate()
+    public void WindUpdate(int updateInterval)
     {
-        timer += Time.deltaTime;
+        timer += Time.deltaTime * updateInterval;
         if (timer > timeForNextWindChange)
         {
             PickNextWindChangeTime();

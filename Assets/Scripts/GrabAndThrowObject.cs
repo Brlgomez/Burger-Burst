@@ -4,26 +4,22 @@ using UnityEngine;
 
 public class GrabAndThrowObject : MonoBehaviour
 {
+    static int updateInterval = 30;
+
     GameObject target, counterWall, grillWall, fryerWall, sodaWall, phone;
     GameObject rightFryer, leftFryer, sodaFountain1, sodaFountain2, sodaFountain3;
     List<Vector3> positions = new List<Vector3>();
     Vector3 direction;
     Transform initialPosition;
     bool paused;
-    static int maxAmountOfPeople = 10;
-    static float timeForNewPerson = 12;
     float timeForDrag;
     static float limitForNewDragPosition = 0.01f;
-    float newPersonTime;
     enum Area { counter, pause, gameOver, quit, grill, fryer, sodaMachine };
     Area currentArea;
     int throwingDistance = 15;
-    static float regenMaxTime = 15;
-    float regenTimer;
 
     void Start()
     {
-        newPersonTime = timeForNewPerson;
         counterWall = GetComponent<ObjectManager>().CounterWall();
         grillWall = GetComponent<ObjectManager>().GrillWall();
         fryerWall = GetComponent<ObjectManager>().FryerWall();
@@ -64,9 +60,12 @@ public class GrabAndThrowObject : MonoBehaviour
         {
             MouseUp();
         }
-        AddMorePeople();
-        RegenerationPowerUps();
-        GetComponent<WindManager>().WindUpdate();
+        if (Time.frameCount % updateInterval == 0)
+        {
+            GetComponent<Gameplay>().RegenerationUpdate(updateInterval);
+            GetComponent<ZombieManager>().ZombieUpdate(updateInterval);
+            GetComponent<WindManager>().WindUpdate(updateInterval);
+        }
     }
 
     void MouseDown()
@@ -114,10 +113,6 @@ public class GrabAndThrowObject : MonoBehaviour
             {
                 TurnOffPhoneColliders();
                 TurnOffSodaButtonColliders();
-                if (currentArea == Area.counter && obj.tag == "Pause" && gameObject.GetComponent<CameraMovement>() == null)
-                {
-                    return obj;
-                }
                 if (currentArea == Area.counter)
                 {
                     return GetCounterObject(obj);
@@ -310,6 +305,10 @@ public class GrabAndThrowObject : MonoBehaviour
 
     GameObject GetCounterObject(GameObject obj)
     {
+        if (obj.tag == "Pause" && gameObject.GetComponent<CameraMovement>() == null)
+        {
+            return obj;
+        }
         if (obj.tag == "Ingredient")
         {
             return obj;
@@ -576,11 +575,10 @@ public class GrabAndThrowObject : MonoBehaviour
         currentArea = Area.counter;
         initialPosition = GetComponent<PositionManager>().GameplayPosition();
         transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 0, 0, 0);
-        DeleteObjects();
+        ResetEverything();
         Destroy(GetComponent<Gameplay>());
         gameObject.AddComponent<Gameplay>();
         gameObject.AddComponent<CameraMovement>().MoveToGameplay("Restart");
-        RestartValues();
         GetComponent<ScreenTextManagment>().MakeButtonsUnpressable();
     }
 
@@ -588,7 +586,7 @@ public class GrabAndThrowObject : MonoBehaviour
     {
         currentArea = Area.quit;
         transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 0, 0, 0);
-        DeleteObjects();
+        ResetEverything();
         Destroy(GetComponent<Gameplay>());
         UnPauseGame();
         gameObject.AddComponent<CameraMovement>().MoveToMenu();
@@ -611,12 +609,6 @@ public class GrabAndThrowObject : MonoBehaviour
     public bool GetPausedState()
     {
         return paused;
-    }
-
-    void RestartValues()
-    {
-        newPersonTime = timeForNewPerson;
-        regenTimer = 0;
     }
 
     public Transform GetInitialPosition()
@@ -666,7 +658,7 @@ public class GrabAndThrowObject : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(ray.origin, ray.direction, out hit, 2f))
+        if (Physics.Raycast(ray.origin, ray.direction, out hit, 2.5f))
         {
             if (hit.transform.gameObject == wall)
             {
@@ -685,55 +677,15 @@ public class GrabAndThrowObject : MonoBehaviour
         }
     }
 
-    void AddMorePeople()
-    {
-        if (!paused && !GetComponent<Gameplay>().IsGameOver())
-        {
-            newPersonTime += Time.deltaTime;
-            if (newPersonTime > timeForNewPerson)
-            {
-                if (GetComponent<ZombieManager>().GetCount() < maxAmountOfPeople)
-                {
-                    GetComponent<CarManager>().CreateNewCarWithZombie();
-                    if (Random.value < 0.25f)
-                    {
-                        GetComponent<CarManager>().CreateNewCarWithNoZombie();
-                    }
-                }
-                newPersonTime = 0;
-            }
-        }
-    }
-
-    void RegenerationPowerUps()
-    {
-        regenTimer += Time.deltaTime;
-        if (regenTimer > regenMaxTime)
-        {
-            if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.regenHealth))
-            {
-                GetComponent<Gameplay>().AddLife(2, gameObject);
-            }
-            if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.regenBurgers))
-            {
-                GetComponent<Gameplay>().AddBurgers(1);
-            }
-            if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.regenFries))
-            {
-                GetComponent<Gameplay>().AddFries(1);
-            }
-            if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.regenDrinks))
-            {
-                GetComponent<Gameplay>().AddDrinks(1);
-            }
-            regenTimer = 0;
-        }
-    }
-
-    public void DeleteObjects()
+    public void ResetEverything()
     {
         GetComponent<FloatingTextManagement>().DeleteAllText();
         GetComponent<LEDManager>().ResetPointsText();
+        GetComponent<WindManager>().ResetValues();
+        GetComponent<ZombieManager>().ResetValues();
+        GetComponent<Gameplay>().ResetValues();
+        leftFryer.GetComponent<FryerBasket>().Restart();
+        rightFryer.GetComponent<FryerBasket>().Restart();
         GameObject[] ingredients = GameObject.FindGameObjectsWithTag("Ingredient");
         GameObject[] onPlatter = GameObject.FindGameObjectsWithTag("OnPlatter");
         GameObject[] fallen = GameObject.FindGameObjectsWithTag("Fallen");
@@ -754,8 +706,6 @@ public class GrabAndThrowObject : MonoBehaviour
         DestroyArrayOfObjects(baskets);
         DestroyArrayOfObjects(cups);
         DestroyArrayOfObjects(lids);
-        leftFryer.GetComponent<FryerBasket>().Restart();
-        rightFryer.GetComponent<FryerBasket>().Restart();
         if (sodaFountain1.GetComponent<SodaMachine>() != null)
         {
             sodaFountain1.GetComponent<SodaMachine>().Restart();
@@ -768,7 +718,6 @@ public class GrabAndThrowObject : MonoBehaviour
         {
             sodaFountain3.GetComponent<SodaMachine>().Restart();
         }
-        GetComponent<WindManager>().ResetValues();
     }
 
     void DestroyArrayOfObjects(GameObject[] objects)
