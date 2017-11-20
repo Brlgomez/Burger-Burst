@@ -32,9 +32,9 @@ public class WindManager : MonoBehaviour
         if (Mathf.Abs(windPower) > 0.25f)
         {
             windParticles.Play();
-			var main = windParticles.main;
-			main.startSpeed = windPower * 4;
-		}
+            var main = windParticles.main;
+            main.startSpeed = windPower * 4;
+        }
         else
         {
             windParticles.Stop();
@@ -61,7 +61,7 @@ public class WindManager : MonoBehaviour
     public void ResetValues()
     {
         windParticles.Stop();
-        timeForNextWindChange = Random.Range(15, 60);
-		windPower = 0;
+        timeForNextWindChange = 120;
+        windPower = 0;
     }
 }

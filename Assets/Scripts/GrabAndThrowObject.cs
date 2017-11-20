@@ -107,10 +107,10 @@ public class GrabAndThrowObject : MonoBehaviour
             obj = hit.collider.gameObject;
             if (obj.tag == "UI")
             {
-                Camera.main.GetComponent<ScreenTextManagment>().PressTextDown(obj.transform.parent.gameObject);
+                GetComponent<ScreenTextManagment>().PressTextDown(obj.transform.parent.gameObject);
                 return obj;
             }
-            if (!paused && !Camera.main.GetComponent<Gameplay>().IsGameOver() && obj.GetComponent<FadeObject>() == null)
+            if (!paused && !GetComponent<Gameplay>().IsGameOver() && obj.GetComponent<FadeObject>() == null)
             {
                 TurnOffPhoneColliders();
                 TurnOffSodaButtonColliders();
@@ -141,7 +141,7 @@ public class GrabAndThrowObject : MonoBehaviour
 
     void MouseDrag()
     {
-        if (target != null && !paused && !Camera.main.GetComponent<Gameplay>().IsGameOver())
+        if (target != null && !paused && !GetComponent<Gameplay>().IsGameOver())
         {
             switch (currentArea)
             {
@@ -170,7 +170,7 @@ public class GrabAndThrowObject : MonoBehaviour
             if (target.tag == "UI")
             {
                 PhoneInterface(target);
-                Camera.main.GetComponent<ScreenTextManagment>().PressTextUp(target.transform.parent.gameObject);
+                GetComponent<ScreenTextManagment>().PressTextUp(target.transform.parent.gameObject);
             }
             if (!paused && !gameObject.GetComponent<Gameplay>().IsGameOver())
             {
@@ -224,7 +224,7 @@ public class GrabAndThrowObject : MonoBehaviour
                 {
                     currentArea = Area.grill;
                     gameObject.GetComponent<ScreenTextManagment>().ChangeToGrillArea();
-                    initialPosition = Camera.main.GetComponent<PositionManager>().GrillPosition();
+                    initialPosition = GetComponent<PositionManager>().GrillPosition();
                     if (gameObject.GetComponent<CameraMovement>() != null)
                     {
                         Destroy(gameObject.GetComponent<CameraMovement>());
@@ -237,7 +237,7 @@ public class GrabAndThrowObject : MonoBehaviour
                 {
                     currentArea = Area.fryer;
                     gameObject.GetComponent<ScreenTextManagment>().ChangeToFryerArea();
-                    initialPosition = Camera.main.GetComponent<PositionManager>().FryerPosition();
+                    initialPosition = GetComponent<PositionManager>().FryerPosition();
                     if (gameObject.GetComponent<CameraMovement>() != null)
                     {
                         Destroy(gameObject.GetComponent<CameraMovement>());
@@ -250,7 +250,7 @@ public class GrabAndThrowObject : MonoBehaviour
                 {
                     currentArea = Area.sodaMachine;
                     gameObject.GetComponent<ScreenTextManagment>().ChangeToSodaMachineArea();
-                    initialPosition = Camera.main.GetComponent<PositionManager>().SodaPosition();
+                    initialPosition = GetComponent<PositionManager>().SodaPosition();
                     if (gameObject.GetComponent<CameraMovement>() != null)
                     {
                         Destroy(gameObject.GetComponent<CameraMovement>());
@@ -263,7 +263,7 @@ public class GrabAndThrowObject : MonoBehaviour
                 {
                     currentArea = Area.counter;
                     gameObject.GetComponent<ScreenTextManagment>().ChangeToFrontArea();
-                    initialPosition = Camera.main.GetComponent<PositionManager>().GameplayPosition();
+                    initialPosition = GetComponent<PositionManager>().GameplayPosition();
                     if (gameObject.GetComponent<CameraMovement>() != null)
                     {
                         Destroy(gameObject.GetComponent<CameraMovement>());
@@ -293,8 +293,8 @@ public class GrabAndThrowObject : MonoBehaviour
             if (obj.name == "Second Button" && !gameObject.GetComponent<Gameplay>().IsGameOver())
             {
                 currentArea = Area.counter;
-                initialPosition = Camera.main.GetComponent<PositionManager>().GameplayPosition();
-                Camera.main.GetComponent<ScreenTextManagment>().ChangeToFrontArea();
+                initialPosition = GetComponent<PositionManager>().GameplayPosition();
+                GetComponent<ScreenTextManagment>().ChangeToFrontArea();
                 gameObject.AddComponent<CameraMovement>().MoveToGameplay("Unpause");
             }
             else if (obj.name == "Third Button")
@@ -450,7 +450,7 @@ public class GrabAndThrowObject : MonoBehaviour
         if (target.name == "Pause Button")
         {
             currentArea = Area.pause;
-            initialPosition = Camera.main.GetComponent<PositionManager>().PausePosition();
+            initialPosition = GetComponent<PositionManager>().PausePosition();
             if (GetComponent<GettingHurt>() != null)
             {
                 Destroy(GetComponent<GettingHurt>());
@@ -479,7 +479,7 @@ public class GrabAndThrowObject : MonoBehaviour
             }
             if (!GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.noWind))
             {
-                Camera.main.GetComponent<WindManager>().ApplyWindToObject(target);
+                GetComponent<WindManager>().ApplyWindToObject(target);
             }
         }
     }
@@ -574,7 +574,7 @@ public class GrabAndThrowObject : MonoBehaviour
     void Restart()
     {
         currentArea = Area.counter;
-        initialPosition = Camera.main.GetComponent<PositionManager>().GameplayPosition();
+        initialPosition = GetComponent<PositionManager>().GameplayPosition();
         transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 0, 0, 0);
         DeleteObjects();
         Destroy(GetComponent<Gameplay>());
@@ -664,17 +664,17 @@ public class GrabAndThrowObject : MonoBehaviour
 
     void AddMorePeople()
     {
-        if (!paused && !Camera.main.GetComponent<Gameplay>().IsGameOver())
+        if (!paused && !GetComponent<Gameplay>().IsGameOver())
         {
             newPersonTime += Time.deltaTime;
             if (newPersonTime > timeForNewPerson)
             {
-                if (Camera.main.GetComponent<ZombieManager>().GetCount() < maxAmountOfPeople)
+                if (GetComponent<ZombieManager>().GetCount() < maxAmountOfPeople)
                 {
-                    Camera.main.GetComponent<CarManager>().CreateNewCarWithZombie();
+                    GetComponent<CarManager>().CreateNewCarWithZombie();
                     if (Random.value < 0.25f)
                     {
-                        Camera.main.GetComponent<CarManager>().CreateNewCarWithNoZombie();
+                        GetComponent<CarManager>().CreateNewCarWithNoZombie();
                     }
                     newPersonTime = 0;
                 }
@@ -710,8 +710,8 @@ public class GrabAndThrowObject : MonoBehaviour
 
     public void DeleteObjects()
     {
-        Camera.main.GetComponent<FloatingTextManagement>().DeleteAllText();
-        Camera.main.GetComponent<LEDManager>().ResetPointsText();
+        GetComponent<FloatingTextManagement>().DeleteAllText();
+        GetComponent<LEDManager>().ResetPointsText();
         GameObject[] ingredients = GameObject.FindGameObjectsWithTag("Ingredient");
         GameObject[] onPlatter = GameObject.FindGameObjectsWithTag("OnPlatter");
         GameObject[] fallen = GameObject.FindGameObjectsWithTag("Fallen");

@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public class Zombie : MonoBehaviour
 {
+    static int updateInterval = 2;
+
     int neededBurgers, neededFries, neededDrinks;
     int amountOfBurgers, amountOfFries, amountOfDrinks;
     bool orderComplete;
@@ -13,9 +15,7 @@ public class Zombie : MonoBehaviour
     GameObject leftHand, rightHand, leftFoot, rightFoot, leftLeg, rightLeg;
     GameObject rightUpperArm, leftUpperArm, leftThigh, rightThigh, lowerBody;
     ParticleSystem deathParticles;
-    ParticleSystem sparkleParticles;
-    ParticleSystem heartParticles;
-    ParticleSystem skullParticles;
+    ParticleSystem powerParticles;
     Vector3[] availableSpritePositions;
 
     bool particlesPlaying;
@@ -27,13 +27,15 @@ public class Zombie : MonoBehaviour
     int timeForDamage = 3;
     float damageTime;
     bool playAttack = true;
-    static float bubbleMinScale = 0.2f;
+    static float bubbleMinScale = 0.1f;
     float startingZ;
     static int endingZ = -1;
     float animationSpeed = 0.5f;
 
     enum zombieType { regular, coin, healing, instantKill };
     zombieType thisZombieType = zombieType.regular;
+
+    Renderer myRenderer;
 
     void Awake()
     {
@@ -51,37 +53,52 @@ public class Zombie : MonoBehaviour
         GetComponent<Animator>().SetFloat("Speed", speed * animationSpeed);
         startingZ = head.transform.position.z;
         deathParticles = upperBody.transform.GetChild(2).GetComponent<ParticleSystem>();
-        sparkleParticles = upperBody.transform.GetChild(3).GetComponent<ParticleSystem>();
-        heartParticles = upperBody.transform.GetChild(4).GetComponent<ParticleSystem>();
-        skullParticles = upperBody.transform.GetChild(5).GetComponent<ParticleSystem>();
         WakeUp();
         SetOrder();
+        myRenderer = head.GetComponent<Renderer>();
     }
 
     void Update()
     {
-        if (!orderComplete && head.transform.position.z > endingZ)
+        if (Time.frameCount % updateInterval == 0)
         {
-            Walk();
+            if (!orderComplete && head.transform.position.z > endingZ)
+            {
+                Walk();
+            }
+            else if (orderComplete)
+            {
+                OrderCompleted();
+            }
+            else if (!orderComplete && head.transform.position.z <= endingZ)
+            {
+                NearFoodTruck();
+            }
+            if (myRenderer.isVisible)
+            {
+                thinkBubble.transform.localPosition = new Vector3(
+                    head.transform.localPosition.x + thinkBubble.transform.localScale.x,
+                    head.transform.localPosition.y + thinkBubble.transform.localScale.x + 0.5f,
+                    head.transform.localPosition.z
+                );
+                if (powerParticles != null && powerParticles.isPaused)
+                {
+                    powerParticles.Play();
+                }
+            }
+            else
+            {
+                if (powerParticles != null && powerParticles.isPlaying)
+                {
+                    powerParticles.Pause();
+                }
+            }
         }
-        else if (orderComplete)
-        {
-            OrderCompleted();
-        }
-        else if (!orderComplete && head.transform.position.z <= endingZ)
-        {
-            NearFoodTruck();
-        }
-        thinkBubble.transform.localPosition = new Vector3(
-            head.transform.localPosition.x + thinkBubble.transform.localScale.x,
-            head.transform.localPosition.y + thinkBubble.transform.localScale.x + 0.5f,
-            head.transform.localPosition.z
-        );
     }
 
     void Walk()
     {
-        if ((head.transform.position.z - endingZ) / (startingZ - endingZ) > bubbleMinScale)
+        if ((head.transform.position.z - endingZ) / (startingZ - endingZ) > bubbleMinScale && myRenderer.isVisible)
         {
             thinkBubble.transform.localScale = Vector3.one * ((head.transform.position.z - endingZ) / (startingZ - endingZ));
         }
@@ -96,7 +113,7 @@ public class Zombie : MonoBehaviour
         {
             GetComponent<Animator>().SetBool("Attacking", false);
             GetComponent<Animator>().SetBool("Walking", true);
-            transform.position = Vector3.MoveTowards(transform.position, transform.position + transform.forward, Time.deltaTime * speed);
+            transform.position = Vector3.MoveTowards(transform.position, transform.position + transform.forward, Time.deltaTime * speed * updateInterval);
             GetComponent<Animator>().SetFloat("Speed", speed * animationSpeed);
             speed = originalSpeed;
         }
@@ -104,21 +121,15 @@ public class Zombie : MonoBehaviour
 
     void OrderCompleted()
     {
-        ragDollTime -= Time.deltaTime / maxDeathTime;
-        if (alpha > 0)
-        {
-            alpha -= Time.deltaTime * 4;
-            transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha);
-            for (int i = 0; i < transform.GetChild(0).childCount; i++)
-            {
-                transform.GetChild(0).GetChild(i).GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha);
-            }
-        }
+        ChangeOrderAlpha();
+        ragDollTime -= ((Time.deltaTime * updateInterval) / maxDeathTime);
         if (ragDollTime < 0.5f && !particlesPlaying)
         {
-            sparkleParticles.Stop();
-            heartParticles.Stop();
-            skullParticles.Stop();
+            if (powerParticles != null)
+            {
+                powerParticles.Play();
+                powerParticles.Stop();
+            }
             deathParticles.Play();
             MakeZombieDisappear();
             particlesPlaying = true;
@@ -138,10 +149,23 @@ public class Zombie : MonoBehaviour
         }
     }
 
+    void ChangeOrderAlpha()
+    {
+        if (alpha > 0)
+        {
+            alpha -= Time.deltaTime * 4 * updateInterval;
+            transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha);
+            for (int i = 0; i < transform.GetChild(0).childCount; i++)
+            {
+                transform.GetChild(0).GetChild(i).GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha);
+            }
+        }
+    }
+
     void NearFoodTruck()
     {
         GetComponent<Animator>().SetFloat("Speed", 0);
-        damageTime += Time.deltaTime;
+        damageTime += Time.deltaTime * updateInterval;
         if (rightThigh.GetComponent<Rigidbody>().isKinematic)
         {
             rightThigh.GetComponent<Rigidbody>().isKinematic = false;
@@ -498,17 +522,20 @@ public class Zombie : MonoBehaviour
         if (outfit.name == "Zombie8")
         {
             thisZombieType = zombieType.coin;
-            sparkleParticles.Play();
+            powerParticles = upperBody.transform.GetChild(3).GetComponent<ParticleSystem>();
+            powerParticles.Play();
         }
         else if (outfit.name == "Zombie9")
         {
             thisZombieType = zombieType.healing;
-            heartParticles.Play();
+            powerParticles = upperBody.transform.GetChild(4).GetComponent<ParticleSystem>();
+            powerParticles.Play();
         }
         else if (outfit.name == "Zombie10")
         {
             thisZombieType = zombieType.instantKill;
-            skullParticles.Play();
+            powerParticles = upperBody.transform.GetChild(5).GetComponent<ParticleSystem>();
+            powerParticles.Play();
         }
     }
 

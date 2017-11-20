@@ -51,7 +51,7 @@ public class Gameplay : MonoBehaviour
             {
                 life = maxLife;
             }
-            GetComponent<FloatingTextManagement>().AddFloatingText(obj, "+HP", Color.green, size);
+            GetComponent<FloatingTextManagement>().AddFloatingText(obj, "+HP", Color.green, size + 1);
             GetComponent<ScreenTextManagment>().ChangeHealthCount(n);
         }
     }
@@ -217,7 +217,7 @@ public class Gameplay : MonoBehaviour
             amount *= 2;
         }
         PlayerPrefs.SetInt("Coins", (PlayerPrefs.GetInt("Coins", 0) + amount));
-        GetComponent<FloatingTextManagement>().AddFloatingText(obj, "+¤ " + amount, Color.yellow, size);
+        GetComponent<FloatingTextManagement>().AddFloatingText(obj, "+¤ " + amount, Color.yellow, size + 1);
         GetComponent<LEDManager>().UpdateCoinsText();
     }
 

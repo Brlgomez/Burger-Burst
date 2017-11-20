@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class FadeObject : MonoBehaviour
 {
+    static int updateInterval = 4;
     static int maxTime = 1;
     float time;
     float r, g, b;
+    Renderer myRenderer;
 
     void Start()
     {
@@ -15,17 +17,24 @@ public class FadeObject : MonoBehaviour
         r = GetComponent<Renderer>().material.color.r;
         g = GetComponent<Renderer>().material.color.g;
         b = GetComponent<Renderer>().material.color.b;
+        myRenderer = GetComponent<Renderer>();
         AddNewItem();
     }
 
     void Update()
     {
-        time += Time.deltaTime;
-        float alpha = ((maxTime / maxTime) - (time / maxTime));
-        GetComponent<Renderer>().material.color = new Color(r, g, b, alpha);
-        if (alpha < 0.01f)
+        if (Time.frameCount % updateInterval == 0)
         {
-            Destroy(gameObject);
+            time += Time.deltaTime * updateInterval;
+            float alpha = ((maxTime / maxTime) - (time / maxTime));
+            if (myRenderer.isVisible)
+            {
+                GetComponent<Renderer>().material.color = new Color(r, g, b, alpha);
+            }
+            if (alpha < 0.01f)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 
