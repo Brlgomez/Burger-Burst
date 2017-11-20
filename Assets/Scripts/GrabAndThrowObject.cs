@@ -662,6 +662,29 @@ public class GrabAndThrowObject : MonoBehaviour
         sodaFountain3.transform.parent.GetComponent<Collider>().enabled = true;
     }
 
+    void ScreenPointToRayCalc(GameObject wall)
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray.origin, ray.direction, out hit, 2f))
+        {
+            if (hit.transform.gameObject == wall)
+            {
+                timeForDrag += Time.deltaTime;
+                if (timeForDrag > limitForNewDragPosition)
+                {
+                    positions.Add(hit.point);
+                    if (positions.Count > 5)
+                    {
+                        positions.RemoveAt(0);
+                    }
+                    timeForDrag = 0;
+                }
+                target.transform.position = hit.point;
+            }
+        }
+    }
+
     void AddMorePeople()
     {
         if (!paused && !GetComponent<Gameplay>().IsGameOver())
@@ -676,35 +699,34 @@ public class GrabAndThrowObject : MonoBehaviour
                     {
                         GetComponent<CarManager>().CreateNewCarWithNoZombie();
                     }
-                    newPersonTime = 0;
                 }
+                newPersonTime = 0;
             }
         }
     }
 
-    void ScreenPointToRayCalc(GameObject wall)
+    void RegenerationPowerUps()
     {
-        wall.GetComponent<Collider>().enabled = true;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(ray.origin, ray.direction, out hit, 2.5f))
+        regenTimer += Time.deltaTime;
+        if (regenTimer > regenMaxTime)
         {
-            if (hit.transform.gameObject == wall)
+            if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.regenHealth))
             {
-                timeForDrag += Time.deltaTime;
-                if (timeForDrag > limitForNewDragPosition)
-                {
-                    //Debug.Log(Camera.main.WorldToScreenPoint(hit.point) + "Worldtoscreen");
-                    //Debug.Log(hit.point + "Hit.point");
-                    positions.Add(hit.point);
-                    if (positions.Count > 5)
-                    {
-                        positions.RemoveAt(0);
-                    }
-                    timeForDrag = 0;
-                }
-                target.transform.position = hit.point;
+                GetComponent<Gameplay>().AddLife(2, gameObject);
             }
+            if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.regenBurgers))
+            {
+                GetComponent<Gameplay>().AddBurgers(1);
+            }
+            if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.regenFries))
+            {
+                GetComponent<Gameplay>().AddFries(1);
+            }
+            if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.regenDrinks))
+            {
+                GetComponent<Gameplay>().AddDrinks(1);
+            }
+            regenTimer = 0;
         }
     }
 
@@ -754,31 +776,6 @@ public class GrabAndThrowObject : MonoBehaviour
         foreach (GameObject obj in objects)
         {
             Destroy(obj);
-        }
-    }
-
-    void RegenerationPowerUps()
-    {
-        regenTimer += Time.deltaTime;
-        if (regenTimer > regenMaxTime)
-        {
-            if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.regenHealth))
-            {
-                GetComponent<Gameplay>().AddLife(2, gameObject);
-            }
-            if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.regenBurgers))
-            {
-                GetComponent<Gameplay>().AddBurgers(1);
-            }
-            if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.regenFries))
-            {
-                GetComponent<Gameplay>().AddFries(1);
-            }
-            if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.regenDrinks))
-            {
-                GetComponent<Gameplay>().AddDrinks(1);
-            }
-            regenTimer = 0;
         }
     }
 }

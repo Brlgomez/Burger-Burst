@@ -27,7 +27,7 @@ public class Zombie : MonoBehaviour
     int timeForDamage = 3;
     float damageTime;
     bool playAttack = true;
-    static float bubbleMinScale = 0.1f;
+    static float bubbleMinScale = 0.15f;
     float startingZ;
     static int endingZ = -1;
     float animationSpeed = 0.5f;
@@ -45,9 +45,9 @@ public class Zombie : MonoBehaviour
         availableSpritePositions[1] = new Vector3(0, 2, 0.5f);
         availableSpritePositions[2] = new Vector3(-0.75f, 3.5f, 0.4f);
         availableSpritePositions[3] = new Vector3(0.75f, 3.5f, 0.3f);
-        thinkBubble = transform.GetChild(0).gameObject;
-        thinkBubble.AddComponent<IncreaseSize>();
         GetBodyParts(gameObject);
+        thinkBubble = head.transform.GetChild(1).gameObject;
+        thinkBubble.AddComponent<IncreaseSize>();
         GetComponent<Animator>().Play("Walking");
         GetComponent<Animator>().SetBool("Walking", true);
         GetComponent<Animator>().SetFloat("Speed", speed * animationSpeed);
@@ -76,11 +76,7 @@ public class Zombie : MonoBehaviour
             }
             if (myRenderer.isVisible)
             {
-                thinkBubble.transform.localPosition = new Vector3(
-                    head.transform.localPosition.x + thinkBubble.transform.localScale.x,
-                    head.transform.localPosition.y + thinkBubble.transform.localScale.x + 0.5f,
-                    head.transform.localPosition.z
-                );
+                OrderBubbleScale();
                 if (powerParticles != null && powerParticles.isPaused)
                 {
                     powerParticles.Play();
@@ -98,10 +94,6 @@ public class Zombie : MonoBehaviour
 
     void Walk()
     {
-        if ((head.transform.position.z - endingZ) / (startingZ - endingZ) > bubbleMinScale && myRenderer.isVisible)
-        {
-            thinkBubble.transform.localScale = Vector3.one * ((head.transform.position.z - endingZ) / (startingZ - endingZ));
-        }
         if (Mathf.Round(head.transform.position.z) < endingZ - 0.25f)
         {
             GetComponent<Animator>().SetBool("Attacking", true);
@@ -146,19 +138,6 @@ public class Zombie : MonoBehaviour
         if (ragDollTime < 0)
         {
             Camera.main.GetComponent<ZombieManager>().RemoveWaiter(gameObject);
-        }
-    }
-
-    void ChangeOrderAlpha()
-    {
-        if (alpha > 0)
-        {
-            alpha -= Time.deltaTime * 4 * updateInterval;
-            transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha);
-            for (int i = 0; i < transform.GetChild(0).childCount; i++)
-            {
-                transform.GetChild(0).GetChild(i).GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha);
-            }
         }
     }
 
@@ -310,7 +289,7 @@ public class Zombie : MonoBehaviour
 
     void WakeUp()
     {
-        for (int i = 1; i < transform.childCount; i++)
+        for (int i = 0; i < transform.childCount; i++)
         {
             TurnOnAllForces(transform.GetChild(i).gameObject);
         }
@@ -354,8 +333,9 @@ public class Zombie : MonoBehaviour
 
     void Died()
     {
+        thinkBubble.transform.parent = transform;
         GetComponent<Animator>().enabled = false;
-        for (int i = 1; i < transform.childCount; i++)
+        for (int i = 0; i < transform.childCount; i++)
         {
             TurnOffAllForces(transform.GetChild(i).gameObject);
         }
@@ -404,7 +384,7 @@ public class Zombie : MonoBehaviour
 
     void MakeZombieDisappear()
     {
-        for (int i = 1; i < transform.childCount; i++)
+        for (int i = 0; i < transform.childCount; i++)
         {
             MakeAllObjectsInvisible(transform.GetChild(i).gameObject);
         }
@@ -519,23 +499,23 @@ public class Zombie : MonoBehaviour
         SetUpLimb(head, headMesh, outfit);
         SetUpLimb(lowerBody, lB, outfit);
         SetUpLimb(upperBody, uB, outfit);
-        if (outfit.name == "Zombie8")
+        switch (outfit.name)
         {
-            thisZombieType = zombieType.coin;
-            powerParticles = upperBody.transform.GetChild(3).GetComponent<ParticleSystem>();
-            powerParticles.Play();
-        }
-        else if (outfit.name == "Zombie9")
-        {
-            thisZombieType = zombieType.healing;
-            powerParticles = upperBody.transform.GetChild(4).GetComponent<ParticleSystem>();
-            powerParticles.Play();
-        }
-        else if (outfit.name == "Zombie10")
-        {
-            thisZombieType = zombieType.instantKill;
-            powerParticles = upperBody.transform.GetChild(5).GetComponent<ParticleSystem>();
-            powerParticles.Play();
+            case "Zombie8":
+                thisZombieType = zombieType.coin;
+                powerParticles = upperBody.transform.GetChild(3).GetComponent<ParticleSystem>();
+                powerParticles.Play();
+                break;
+            case "Zombie9":
+                thisZombieType = zombieType.healing;
+                powerParticles = upperBody.transform.GetChild(4).GetComponent<ParticleSystem>();
+                powerParticles.Play();
+                break;
+            case "Zombie10":
+                thisZombieType = zombieType.instantKill;
+                powerParticles = upperBody.transform.GetChild(5).GetComponent<ParticleSystem>();
+                powerParticles.Play();
+                break;
         }
     }
 
@@ -591,6 +571,34 @@ public class Zombie : MonoBehaviour
                 GameObject sprite = Instantiate(Camera.main.GetComponent<ZombieManager>().drinks[neededDrinks - 1], thinkBubble.transform);
                 sprite.transform.localPosition = availableSpritePositions[spritePosition];
                 spritePosition++;
+            }
+        }
+    }
+
+    void ChangeOrderAlpha()
+    {
+        if (alpha > 0)
+        {
+            alpha -= Time.deltaTime * 4 * updateInterval;
+            thinkBubble.GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha);
+            for (int i = 0; i < thinkBubble.transform.childCount; i++)
+            {
+                thinkBubble.transform.GetChild(i).GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha);
+            }
+        }
+    }
+
+    void OrderBubbleScale()
+    {
+        if (thinkBubble.transform.localScale.x > bubbleMinScale)
+        {
+            if ((head.transform.position.z - endingZ) / (startingZ - endingZ) > bubbleMinScale)
+            {
+                thinkBubble.transform.localScale = Vector3.one * ((head.transform.position.z - endingZ) / (startingZ - endingZ));
+            }
+            else
+            {
+                thinkBubble.transform.localScale = Vector3.one * bubbleMinScale * 0.99f;
             }
         }
     }
