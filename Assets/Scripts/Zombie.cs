@@ -31,7 +31,7 @@ public class Zombie : MonoBehaviour
     static int endingZ = -1;
     float animationSpeed = 0.5f;
 
-    enum zombieType { regular, coin, healing, instantKill };
+    enum zombieType { regular, coin, healing, instantKill, poison };
     zombieType thisZombieType = zombieType.regular;
 
     Renderer myRenderer;
@@ -176,6 +176,17 @@ public class Zombie : MonoBehaviour
             else
             {
                 Camera.main.GetComponent<Gameplay>().ReduceHealth(10, upperBody);
+            }
+            if (thisZombieType == zombieType.poison)
+            {
+                if (Camera.main.transform.gameObject.GetComponent<Poisoned>())
+                {
+                    Camera.main.transform.gameObject.GetComponent<Poisoned>().ResetTime();
+                }
+                else
+                {
+                    Camera.main.transform.gameObject.AddComponent<Poisoned>();
+                }
             }
             damageTime = 0;
             playAttack = true;
@@ -513,6 +524,11 @@ public class Zombie : MonoBehaviour
             case "Zombie10":
                 thisZombieType = zombieType.instantKill;
                 powerParticles = upperBody.transform.GetChild(5).GetComponent<ParticleSystem>();
+                powerParticles.Play();
+                break;
+            case "Zombie11":
+                thisZombieType = zombieType.poison;
+                powerParticles = upperBody.transform.GetChild(6).GetComponent<ParticleSystem>();
                 powerParticles.Play();
                 break;
         }

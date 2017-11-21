@@ -4,22 +4,25 @@ using UnityEngine;
 
 public class Poisoned : MonoBehaviour
 {
-    static int updateInterval = 5;
-
+    static int updateInterval = 10;
     static int intervalAmount = 4;
-    static float intervalLength = 1;
+    static float intervalLength = 2.5f;
     static int initialEffectiveness = 8;
+    static float maxAplha = 0.25f;
     float maxLengthOfTime;
     float nextInterval;
     float time;
-    float currentEffectiveness;
+    int currentEffectiveness;
     float poisonAlpha;
+    Material screen;
 
     void Start()
     {
         nextInterval = intervalLength;
         currentEffectiveness = initialEffectiveness;
         maxLengthOfTime = intervalAmount * intervalLength;
+        poisonAlpha = maxAplha;
+        screen = transform.GetChild(4).GetComponent<Renderer>().material;
     }
 
     void Update()
@@ -27,13 +30,12 @@ public class Poisoned : MonoBehaviour
         if (Time.frameCount % updateInterval == 0)
         {
             time += Time.deltaTime * updateInterval;
-            poisonAlpha = (maxLengthOfTime - (time / maxLengthOfTime));
-            //TODO: decrease purple effect
+            poisonAlpha = (1 - (time / maxLengthOfTime)) * maxAplha;
+            screen.color = new Color(0.5f, 0, 1, poisonAlpha);
             if (time > nextInterval)
             {
-                //TODO: hurt player
-                Debug.Log(currentEffectiveness);
-                currentEffectiveness -= (initialEffectiveness * (1.0f / intervalAmount));
+                currentEffectiveness -= Mathf.RoundToInt(initialEffectiveness * (1.0f / intervalAmount));
+                Camera.main.GetComponent<Gameplay>().ReduceHealth(currentEffectiveness, transform.GetChild(4).gameObject);
                 nextInterval += intervalLength;
             }
             if (time > maxLengthOfTime)
@@ -47,7 +49,7 @@ public class Poisoned : MonoBehaviour
     {
         time = 0;
         nextInterval = intervalLength;
-        poisonAlpha = 0;
+        poisonAlpha = maxAplha;
         currentEffectiveness = initialEffectiveness;
     }
 }
