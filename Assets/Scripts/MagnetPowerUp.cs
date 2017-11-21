@@ -21,11 +21,11 @@ public class MagnetPowerUp : MonoBehaviour
         if (searchTimer > searchTimeMax)
         {
             target = SearchNearestTarget();
-			if (target != null)
-			{
-				Vector3 direction = (target.transform.position - transform.position).normalized * magnetPower;
-				GetComponent<Rigidbody>().velocity += direction;
-			}
+            if (target != null)
+            {
+                Vector3 direction = (target.transform.position - transform.position).normalized * magnetPower;
+                GetComponent<Rigidbody>().velocity += direction;
+            }
             searchTimer = 0;
         }
     }

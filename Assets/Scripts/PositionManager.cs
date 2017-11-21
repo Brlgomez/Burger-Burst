@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PositionManager : MonoBehaviour
 {
-
     GameObject menu, gameplay, pause, gameOver, grill, fryer, soda;
     GameObject deviceFront, deviceBack;
     GameObject madeFriesPos, burgerPos, drinkPos;

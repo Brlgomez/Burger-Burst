@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class Zombie : MonoBehaviour
 {
-    static int updateInterval = 2;
+    static int updateInterval = 3;
 
     int neededBurgers, neededFries, neededDrinks;
     int amountOfBurgers, amountOfFries, amountOfDrinks;
@@ -14,8 +14,7 @@ public class Zombie : MonoBehaviour
     GameObject head, thinkBubble, hair, leftForearm, rightForearm, upperBody;
     GameObject leftHand, rightHand, leftFoot, rightFoot, leftLeg, rightLeg;
     GameObject rightUpperArm, leftUpperArm, leftThigh, rightThigh, lowerBody;
-    ParticleSystem deathParticles;
-    ParticleSystem powerParticles;
+    ParticleSystem deathParticles, powerParticles;
     Vector3[] availableSpritePositions;
 
     bool particlesPlaying;

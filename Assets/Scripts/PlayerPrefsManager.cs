@@ -24,13 +24,13 @@ public class PlayerPrefsManager : MonoBehaviour
 
     public bool ContainsUpgrade(int n)
     {
-		for (int i = 1; i <= 3; i++)
-		{
+        for (int i = 1; i <= 3; i++)
+        {
             if (PlayerPrefs.GetInt("UPGRADE " + i) == n)
             {
                 return true;
             }
-		}
+        }
         return false;
     }
 

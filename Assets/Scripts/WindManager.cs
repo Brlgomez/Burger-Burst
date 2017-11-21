@@ -6,7 +6,7 @@ public class WindManager : MonoBehaviour
 {
     float windPower;
     float timer;
-    float timeForNextWindChange = 30;
+    float timeForNextWindChange = 120;
     ParticleSystem windParticles;
 
     void Start()
@@ -33,7 +33,12 @@ public class WindManager : MonoBehaviour
         {
             windParticles.Play();
             var main = windParticles.main;
-            main.startSpeed = windPower * 4;
+            main.startSpeed = windPower * 10;
+            GetComponent<ObjectManager>().WindParticles().transform.position = new Vector3(
+                -windPower * 10, 
+                GetComponent<ObjectManager>().WindParticles().transform.position.y, 
+                GetComponent<ObjectManager>().WindParticles().transform.position.z
+            );
         }
         else
         {

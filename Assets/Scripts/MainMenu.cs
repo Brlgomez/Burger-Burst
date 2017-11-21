@@ -96,8 +96,8 @@ public class MainMenu : MonoBehaviour
                         GetComponent<ScreenTextManagment>().ChangeScrollerItemColor(false);
                     }
                     target.transform.parent.transform.GetChild(1).transform.localPosition = new Vector3(
-                        target.transform.parent.transform.GetChild(1).transform.localPosition.x + change, 
-                        target.transform.parent.transform.GetChild(1).transform.localPosition.y, 
+                        target.transform.parent.transform.GetChild(1).transform.localPosition.x + change,
+                        target.transform.parent.transform.GetChild(1).transform.localPosition.y,
                         0
                     );
                     point1 = hit.point;

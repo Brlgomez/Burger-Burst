@@ -16,9 +16,9 @@ public class PowerUpsManager : MonoBehaviour
     public static int regenDrinks = 9;
     public static int doublePoints = 10;
     public static int doubleCoins = 11;
-	public static int throwMultiple = 12;
-	public static int magnet = 13;
-	public static int noWind = 14;
+    public static int throwMultiple = 12;
+    public static int magnet = 13;
+    public static int noWind = 14;
     public static int noInstantKill = 15;
     public static int luck = 16;
     public static int nothing = 17;

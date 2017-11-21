@@ -565,9 +565,9 @@ ScreenTextManagment : MonoBehaviour
 
     public void HighLightSlot(GameObject slot)
     {
-		slot1.GetComponent<SpriteRenderer>().color = originalScreenColor;
-		slot2.GetComponent<SpriteRenderer>().color = originalScreenColor;
-		slot3.GetComponent<SpriteRenderer>().color = originalScreenColor;
+        slot1.GetComponent<SpriteRenderer>().color = originalScreenColor;
+        slot2.GetComponent<SpriteRenderer>().color = originalScreenColor;
+        slot3.GetComponent<SpriteRenderer>().color = originalScreenColor;
         slot.GetComponent<SpriteRenderer>().color = Color.green;
     }
 
@@ -654,40 +654,40 @@ ScreenTextManagment : MonoBehaviour
             line4.GetComponent<TextMesh>().text = "Drink regeneration";
         }
         else if (upgradeNum == PowerUpsManager.doublePoints)
-		{
-			line4.GetComponent<TextMesh>().characterSize = 0.026f;
-			line4.GetComponent<TextMesh>().text = "Double points";
-		}
+        {
+            line4.GetComponent<TextMesh>().characterSize = 0.026f;
+            line4.GetComponent<TextMesh>().text = "Double points";
+        }
         else if (upgradeNum == PowerUpsManager.doubleCoins)
-		{
-			line4.GetComponent<TextMesh>().characterSize = 0.028f;
-			line4.GetComponent<TextMesh>().text = "Double coins";
-		}
+        {
+            line4.GetComponent<TextMesh>().characterSize = 0.028f;
+            line4.GetComponent<TextMesh>().text = "Double coins";
+        }
         else if (upgradeNum == PowerUpsManager.throwMultiple)
-		{
-			line4.GetComponent<TextMesh>().characterSize = 0.015f;
-			line4.GetComponent<TextMesh>().text = "Thrown food is divided\nand scattered";
-		}
+        {
+            line4.GetComponent<TextMesh>().characterSize = 0.015f;
+            line4.GetComponent<TextMesh>().text = "Thrown food is divided\nand scattered";
+        }
         else if (upgradeNum == PowerUpsManager.magnet)
-		{
+        {
             line4.GetComponent<TextMesh>().characterSize = 0.022f;
-			line4.GetComponent<TextMesh>().text = "Food magnetic\nto zombies";
-		}
+            line4.GetComponent<TextMesh>().text = "Food magnetic\nto zombies";
+        }
         else if (upgradeNum == PowerUpsManager.noWind)
-		{
-			line4.GetComponent<TextMesh>().characterSize = 0.022f;
-			line4.GetComponent<TextMesh>().text = "Food unaffected\nby wind";
-		}
+        {
+            line4.GetComponent<TextMesh>().characterSize = 0.022f;
+            line4.GetComponent<TextMesh>().text = "Food unaffected\nby wind";
+        }
         else if (upgradeNum == PowerUpsManager.noInstantKill)
-		{
-			line4.GetComponent<TextMesh>().characterSize = 0.021f;
-			line4.GetComponent<TextMesh>().text = "Muffle instant\ndeath attacks";
-		}
+        {
+            line4.GetComponent<TextMesh>().characterSize = 0.021f;
+            line4.GetComponent<TextMesh>().text = "Muffle instant\ndeath attacks";
+        }
         else if (upgradeNum == PowerUpsManager.luck)
-		{
-			line4.GetComponent<TextMesh>().characterSize = 0.019f;
-			line4.GetComponent<TextMesh>().text = "Chance of dodging\nattacks";
-		}
+        {
+            line4.GetComponent<TextMesh>().characterSize = 0.019f;
+            line4.GetComponent<TextMesh>().text = "Chance of dodging\nattacks";
+        }
         else
         {
             line4.GetComponent<TextMesh>().text = name.ToString();

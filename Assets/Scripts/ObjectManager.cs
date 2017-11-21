@@ -29,9 +29,9 @@ public class ObjectManager : MonoBehaviour
         sodaFountain3 = GameObject.Find("SodaFromMachine3");
         phone = GameObject.Find("Phone");
         led = GameObject.Find("Points LED");
-		powerUpsLed = GameObject.Find("Power Ups LED");
+        powerUpsLed = GameObject.Find("Power Ups LED");
         coinsLed = GameObject.Find("Coins LED");
-		fries = GameObject.Find("Fries");
+        fries = GameObject.Find("Fries");
         burger = GameObject.Find("Burger");
         drink = GameObject.Find("Drink");
         foodTruck = GameObject.Find("Food Truck");
@@ -69,7 +69,7 @@ public class ObjectManager : MonoBehaviour
 
     public GameObject Phone() { return phone; }
 
-	public GameObject LED() { return led; }
+    public GameObject LED() { return led; }
 
     public GameObject CoinsLED() { return coinsLed; }
 
@@ -97,7 +97,7 @@ public class ObjectManager : MonoBehaviour
 
     public GameObject Car() { return car; }
 
-	public GameObject Zombie() { return zombie; }
+    public GameObject Zombie() { return zombie; }
 
     public GameObject PowerUpsLed() { return powerUpsLed; }
 

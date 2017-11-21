@@ -41,7 +41,7 @@ public class RemoveObjects : MonoBehaviour
         {
             Vector3 closestPointOnItem = gameObject.GetComponent<MeshCollider>().ClosestPoint(col.gameObject.transform.position);
             Vector3 closestPointOnWaiter = col.gameObject.GetComponent<Collider>().ClosestPoint(closestPointOnItem);
-            if (Vector3.Distance(closestPointOnItem, closestPointOnWaiter) < 0.16f)
+            if (Vector3.Distance(closestPointOnItem, closestPointOnWaiter) < 0.175f)
             {
                 transform.parent = col.gameObject.transform;
                 col.transform.root.gameObject.GetComponent<Zombie>().AddToPlatter(gameObject);

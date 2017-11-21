@@ -10,10 +10,19 @@ public class NonZombieCar : MonoBehaviour
     static int deceleration = 10;
     bool slowDown;
     bool slowingDown;
+    Renderer myRenderer;
+
+    void Start()
+    {
+        myRenderer = GetComponent<Renderer>();
+    }
 
     void Update()
     {
-        RotateTires();
+        if (myRenderer.isVisible)
+        {
+            RotateTires();
+        }
         Logic();
         transform.Translate(-Vector3.forward * Time.deltaTime * speed);
     }
