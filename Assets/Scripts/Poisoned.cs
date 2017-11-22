@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Poisoned : MonoBehaviour
 {
-    static int updateInterval = 10;
+    static int updateInterval = 15;
     static int intervalAmount = 4;
     static float intervalLength = 2.5f;
     static int initialEffectiveness = 8;
@@ -15,6 +15,8 @@ public class Poisoned : MonoBehaviour
     int currentEffectiveness;
     float poisonAlpha;
     Material screen;
+    ParticleSystem poisonBubbles;
+    ParticleSystem.MainModule main;
 
     void Start()
     {
@@ -23,6 +25,10 @@ public class Poisoned : MonoBehaviour
         maxLengthOfTime = intervalAmount * intervalLength;
         poisonAlpha = maxAplha;
         screen = transform.GetChild(4).GetComponent<Renderer>().material;
+        poisonBubbles = transform.GetChild(5).GetComponent<ParticleSystem>();
+        poisonBubbles.Play();
+        main = poisonBubbles.main;
+        main.maxParticles = intervalAmount;
     }
 
     void Update()
@@ -37,9 +43,11 @@ public class Poisoned : MonoBehaviour
                 currentEffectiveness -= Mathf.RoundToInt(initialEffectiveness * (1.0f / intervalAmount));
                 Camera.main.GetComponent<Gameplay>().ReduceHealth(currentEffectiveness, transform.GetChild(4).gameObject);
                 nextInterval += intervalLength;
+                main.maxParticles--;
             }
             if (time > maxLengthOfTime)
             {
+                poisonBubbles.Stop();
                 Destroy(GetComponent<Poisoned>());
             }
         }
@@ -51,5 +59,6 @@ public class Poisoned : MonoBehaviour
         nextInterval = intervalLength;
         poisonAlpha = maxAplha;
         currentEffectiveness = initialEffectiveness;
+        main.maxParticles = intervalAmount;
     }
 }

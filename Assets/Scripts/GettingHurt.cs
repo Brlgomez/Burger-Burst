@@ -8,7 +8,7 @@ public class GettingHurt : MonoBehaviour
     float shakeIntensity = 0.25f;
     GameObject screen;
     Transform initialTransform;
-    float r, g, b, a;
+    float alpha;
     float currentTime;
     bool canShake = true;
 
@@ -16,10 +16,7 @@ public class GettingHurt : MonoBehaviour
     {
         initialTransform = GetComponent<GrabAndThrowObject>().GetInitialPosition();
         screen = transform.GetChild(0).gameObject;
-        r = screen.GetComponent<Renderer>().material.color.r;
-        g = screen.GetComponent<Renderer>().material.color.g;
-        b = screen.GetComponent<Renderer>().material.color.b;
-        a = 0;
+        alpha = 0;
         if (GetComponent<CameraMovement>() != null)
         {
             canShake = false;
@@ -33,13 +30,13 @@ public class GettingHurt : MonoBehaviour
         shakeIntensity -= deltaTime;
         if (currentTime < lengthOfAnimation / 2)
         {
-            a += deltaTime * (1 / lengthOfAnimation);
+            alpha += deltaTime * (1 / lengthOfAnimation);
         }
         else if (!Camera.main.gameObject.GetComponent<Gameplay>().IsGameOver() && currentTime > lengthOfAnimation / 2)
         {
-            a -= deltaTime * (1 / lengthOfAnimation);
+            alpha -= deltaTime * (1 / lengthOfAnimation);
         }
-        screen.GetComponent<Renderer>().material.color = new Color(r, g, b, a);
+        screen.GetComponent<Renderer>().material.color = new Color(1, 0, 0, alpha);
         if (canShake)
         {
             transform.position = initialTransform.position + Random.insideUnitSphere * shakeIntensity;
@@ -56,10 +53,10 @@ public class GettingHurt : MonoBehaviour
 
     void OnDestroy()
     {
-        a = 0;
+        alpha = 0;
         if (!GetComponent<Gameplay>().IsGameOver())
         {
-            screen.GetComponent<Renderer>().material.color = new Color(r, g, b, a);
+            screen.GetComponent<Renderer>().material.color = new Color(1, 0, 0, alpha);
         }
     }
 }

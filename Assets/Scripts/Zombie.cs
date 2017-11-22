@@ -177,7 +177,8 @@ public class Zombie : MonoBehaviour
             {
                 Camera.main.GetComponent<Gameplay>().ReduceHealth(10, upperBody);
             }
-            if (thisZombieType == zombieType.poison)
+            if (thisZombieType == zombieType.poison && 
+                !Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.noPoison))
             {
                 if (Camera.main.transform.gameObject.GetComponent<Poisoned>())
                 {

@@ -688,6 +688,11 @@ ScreenTextManagment : MonoBehaviour
             line4.GetComponent<TextMesh>().characterSize = 0.019f;
             line4.GetComponent<TextMesh>().text = "Chance of dodging\nattacks";
         }
+        else if (upgradeNum == PowerUpsManager.noPoison)
+		{
+			line4.GetComponent<TextMesh>().characterSize = 0.019f;
+			line4.GetComponent<TextMesh>().text = "Immuned to posion\nzombies";
+		}
         else
         {
             line4.GetComponent<TextMesh>().text = name.ToString();
