@@ -177,16 +177,21 @@ public class Zombie : MonoBehaviour
             {
                 Camera.main.GetComponent<Gameplay>().ReduceHealth(10, upperBody);
             }
-            if (thisZombieType == zombieType.poison && 
-                !Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.noPoison))
+            if (thisZombieType == zombieType.poison)
             {
-                if (Camera.main.transform.gameObject.GetComponent<Poisoned>())
+                thisZombieType = zombieType.regular;
+                powerParticles.Play();
+                powerParticles.Stop();
+                if (!Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.noPoison))
                 {
-                    Camera.main.transform.gameObject.GetComponent<Poisoned>().ResetTime();
-                }
-                else
-                {
-                    Camera.main.transform.gameObject.AddComponent<Poisoned>();
+                    if (Camera.main.transform.gameObject.GetComponent<Poisoned>())
+                    {
+                        Camera.main.transform.gameObject.GetComponent<Poisoned>().ResetTime();
+                    }
+                    else
+                    {
+                        Camera.main.transform.gameObject.AddComponent<Poisoned>();
+                    }
                 }
             }
             damageTime = 0;

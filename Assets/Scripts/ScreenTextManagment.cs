@@ -693,6 +693,11 @@ ScreenTextManagment : MonoBehaviour
 			line4.GetComponent<TextMesh>().characterSize = 0.019f;
 			line4.GetComponent<TextMesh>().text = "Immuned to posion\nzombies";
 		}
+        else if (upgradeNum == PowerUpsManager.noIce)
+		{
+			line4.GetComponent<TextMesh>().characterSize = 0.019f;
+			line4.GetComponent<TextMesh>().text = "Immuned to ice\nzombies";
+		}
         else
         {
             line4.GetComponent<TextMesh>().text = name.ToString();
