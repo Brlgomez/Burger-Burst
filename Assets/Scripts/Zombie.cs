@@ -31,7 +31,7 @@ public class Zombie : MonoBehaviour
     static int endingZ = -1;
     float animationSpeed = 0.5f;
 
-    enum zombieType { regular, coin, healing, instantKill, poison };
+    enum zombieType { regular, coin, healing, instantKill, poison, speed };
     zombieType thisZombieType = zombieType.regular;
 
     Renderer myRenderer;
@@ -537,6 +537,11 @@ public class Zombie : MonoBehaviour
                 powerParticles = upperBody.transform.GetChild(6).GetComponent<ParticleSystem>();
                 powerParticles.Play();
                 break;
+			case "Zombie12":
+                thisZombieType = zombieType.speed;
+				speed = 5;
+                originalSpeed = speed;
+				break;
         }
     }
 
