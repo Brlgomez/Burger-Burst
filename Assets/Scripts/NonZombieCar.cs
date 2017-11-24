@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class NonZombieCar : MonoBehaviour
 {
+    int updateInterval = 1;
+
     static float speed = 10;
     static int maxSpeed = 10;
     static int acceleration = 10;
@@ -19,19 +21,27 @@ public class NonZombieCar : MonoBehaviour
 
     void Update()
     {
-        if (myRenderer.isVisible)
+        if (Time.frameCount % updateInterval == 0)
         {
-            RotateTires();
+            if (myRenderer.isVisible)
+            {
+                updateInterval = 1;
+                RotateTires();
+            }
+            else
+            {
+                updateInterval = 30;
+            }
+            Logic();
+            transform.Translate(-Vector3.forward * Time.deltaTime * speed * updateInterval);
         }
-        Logic();
-        transform.Translate(-Vector3.forward * Time.deltaTime * speed);
     }
 
     void Logic()
     {
         if (slowDown && speed > 0)
         {
-            speed -= Time.deltaTime * deceleration;
+            speed -= Time.deltaTime * deceleration * updateInterval;
             if (speed < 0)
             {
                 speed = 0;
@@ -40,7 +50,7 @@ public class NonZombieCar : MonoBehaviour
         }
         else if (!slowDown && speed < maxSpeed)
         {
-            speed += Time.deltaTime * acceleration;
+            speed += Time.deltaTime * acceleration * updateInterval;
             if (speed > maxSpeed)
             {
                 speed = maxSpeed;
@@ -52,11 +62,11 @@ public class NonZombieCar : MonoBehaviour
     {
         transform.GetChild(0).RotateAround(
             transform.GetChild(0).transform.position,
-            -transform.right, Time.deltaTime * speed * 100
+            -transform.right, Time.deltaTime * speed * 100 * updateInterval
         );
         transform.GetChild(1).RotateAround(
             transform.GetChild(1).transform.position,
-            -transform.right, Time.deltaTime * speed * 100
+            -transform.right, Time.deltaTime * speed * 100 * updateInterval
         );
     }
 

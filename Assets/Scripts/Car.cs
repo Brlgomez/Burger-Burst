@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Car : MonoBehaviour
 {
+    int updateInterval = 1;
+
     static float speed = 10;
     static int maxSpeed = 10;
     static int acceleration = 10;
@@ -22,12 +24,20 @@ public class Car : MonoBehaviour
 
     void Update()
     {
-        if (myRenderer.isVisible)
+        if (Time.frameCount % updateInterval == 0)
         {
-            RotateTires();
+            if (myRenderer.isVisible)
+            {
+                updateInterval = 1;
+                RotateTires();
+            }
+            else
+            {
+                updateInterval = 20;
+            }
+            Logic();
+            transform.Translate(-Vector3.forward * Time.deltaTime * speed * updateInterval);
         }
-        Logic();
-        transform.Translate(-Vector3.forward * Time.deltaTime * speed);
     }
 
     void Logic()
@@ -38,7 +48,7 @@ public class Car : MonoBehaviour
         }
         if (slowingDown)
         {
-            speed -= Time.deltaTime * deceleration;
+            speed -= Time.deltaTime * deceleration * updateInterval;
             if (speed < 0)
             {
                 speed = 0;
@@ -52,7 +62,7 @@ public class Car : MonoBehaviour
         }
         else if (!slowDown && droppedOff)
         {
-            speed += Time.deltaTime * acceleration;
+            speed += Time.deltaTime * acceleration * updateInterval;
             if (speed > maxSpeed)
             {
                 speed = maxSpeed;
@@ -70,11 +80,11 @@ public class Car : MonoBehaviour
     {
         transform.GetChild(0).RotateAround(
             transform.GetChild(0).transform.position,
-            -transform.right, Time.deltaTime * speed * 100
+            -transform.right, Time.deltaTime * speed * 100 * updateInterval
         );
         transform.GetChild(1).RotateAround(
             transform.GetChild(1).transform.position,
-            -transform.right, Time.deltaTime * speed * 100
+            -transform.right, Time.deltaTime * speed * 100 * updateInterval
         );
     }
 

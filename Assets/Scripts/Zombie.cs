@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class Zombie : MonoBehaviour
 {
-    static int updateInterval = 3;
+    int updateInterval = 3;
 
     int neededBurgers, neededFries, neededDrinks;
     int amountOfBurgers, amountOfFries, amountOfDrinks;
@@ -31,7 +31,7 @@ public class Zombie : MonoBehaviour
     static int endingZ = -1;
     float animationSpeed = 0.5f;
 
-    enum zombieType { regular, coin, healing, instantKill, poison, speed };
+    enum zombieType { regular, coin, healing, instantKill, poison, speed, ice };
     zombieType thisZombieType = zombieType.regular;
 
     Renderer myRenderer;
@@ -75,6 +75,7 @@ public class Zombie : MonoBehaviour
             }
             if (myRenderer.isVisible)
             {
+                updateInterval = 3;
                 OrderBubbleScale();
                 if (powerParticles != null && powerParticles.isPaused)
                 {
@@ -83,6 +84,7 @@ public class Zombie : MonoBehaviour
             }
             else
             {
+                updateInterval = 6;
                 if (powerParticles != null && powerParticles.isPlaying)
                 {
                     powerParticles.Pause();
@@ -168,8 +170,17 @@ public class Zombie : MonoBehaviour
         }
         if (damageTime > (timeForDamage + 0.25f))
         {
-            if (thisZombieType == zombieType.instantKill &&
-                !Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.noInstantKill))
+            ZombieDamageTypes();
+            damageTime = 0;
+            playAttack = true;
+        }
+    }
+
+    void ZombieDamageTypes()
+    {
+        if (thisZombieType == zombieType.instantKill)
+        {
+            if (!Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.noInstantKill))
             {
                 Camera.main.GetComponent<Gameplay>().ReduceHealth(1000, upperBody);
             }
@@ -177,25 +188,38 @@ public class Zombie : MonoBehaviour
             {
                 Camera.main.GetComponent<Gameplay>().ReduceHealth(10, upperBody);
             }
-            if (thisZombieType == zombieType.poison)
+        }
+        else if (thisZombieType == zombieType.poison)
+        {
+            thisZombieType = zombieType.regular;
+            powerParticles.Play();
+            powerParticles.Stop();
+            if (!Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.noPoison))
             {
-                thisZombieType = zombieType.regular;
-                powerParticles.Play();
-                powerParticles.Stop();
-                if (!Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.noPoison))
+                if (Camera.main.transform.gameObject.GetComponent<Poisoned>())
                 {
-                    if (Camera.main.transform.gameObject.GetComponent<Poisoned>())
-                    {
-                        Camera.main.transform.gameObject.GetComponent<Poisoned>().ResetTime();
-                    }
-                    else
-                    {
-                        Camera.main.transform.gameObject.AddComponent<Poisoned>();
-                    }
+                    Camera.main.transform.gameObject.GetComponent<Poisoned>().ResetTime();
+                }
+                else
+                {
+                    Camera.main.transform.gameObject.AddComponent<Poisoned>();
                 }
             }
-            damageTime = 0;
-            playAttack = true;
+            else
+            {
+                Camera.main.GetComponent<Gameplay>().ReduceHealth(10, upperBody);
+            }
+        }
+        else if (thisZombieType == zombieType.ice)
+        {
+            thisZombieType = zombieType.regular;
+            powerParticles.Play();
+            powerParticles.Stop();
+            Camera.main.GetComponent<Gameplay>().ReduceHealth(10, upperBody);
+        }
+        else
+        {
+            Camera.main.GetComponent<Gameplay>().ReduceHealth(10, upperBody);
         }
     }
 
@@ -537,11 +561,16 @@ public class Zombie : MonoBehaviour
                 powerParticles = upperBody.transform.GetChild(6).GetComponent<ParticleSystem>();
                 powerParticles.Play();
                 break;
-			case "Zombie12":
+            case "Zombie12":
                 thisZombieType = zombieType.speed;
-				speed = 5;
+                speed = 3;
                 originalSpeed = speed;
-				break;
+                break;
+            case "Zombie13":
+                thisZombieType = zombieType.ice;
+                powerParticles = upperBody.transform.GetChild(7).GetComponent<ParticleSystem>();
+                powerParticles.Play();
+                break;
         }
     }
 
