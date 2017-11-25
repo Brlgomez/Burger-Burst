@@ -12,9 +12,9 @@ public class ZombieManager : MonoBehaviour
     Vector3 gameplayPosition;
     int amountOfWaiters;
     public GameObject thinkBubble;
-    public GameObject[] burgers;
-    public GameObject[] fries;
-    public GameObject[] drinks;
+    public Sprite[] burgers;
+    public Sprite[] fries;
+    public Sprite[] drinks;
     public Mesh[] hair;
     public Mesh[] forearm;
     public Mesh[] hands;
@@ -28,7 +28,7 @@ public class ZombieManager : MonoBehaviour
     public Mesh[] upperBody;
     public Texture[] outfit;
 
-    void Start()
+	void Start()
     {
         gameplayPosition = GetComponent<PositionManager>().GameplayPosition().position;
         zombie = GetComponent<ObjectManager>().Zombie();

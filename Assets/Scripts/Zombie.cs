@@ -15,7 +15,6 @@ public class Zombie : MonoBehaviour
     GameObject leftHand, rightHand, leftFoot, rightFoot, leftLeg, rightLeg;
     GameObject rightUpperArm, leftUpperArm, leftThigh, rightThigh, lowerBody;
     ParticleSystem deathParticles, powerParticles;
-    Vector3[] availableSpritePositions;
     Material originalMaterial;
 
     bool particlesPlaying;
@@ -43,11 +42,6 @@ public class Zombie : MonoBehaviour
     void Awake()
     {
         originalSpeed = speed;
-        availableSpritePositions = new Vector3[4];
-        availableSpritePositions[0] = new Vector3(0, 2.75f, 0.5f);
-        availableSpritePositions[1] = new Vector3(0, 2, 0.5f);
-        availableSpritePositions[2] = new Vector3(-0.75f, 3.5f, 0.4f);
-        availableSpritePositions[3] = new Vector3(0.75f, 3.5f, 0.3f);
         GetBodyParts(gameObject);
         thinkBubble = head.transform.GetChild(1).gameObject;
         thinkBubble.AddComponent<IncreaseSize>();
@@ -58,7 +52,7 @@ public class Zombie : MonoBehaviour
         deathParticles = upperBody.transform.GetChild(2).GetComponent<ParticleSystem>();
         WakeUp();
         SetOrder();
-        myRenderer = head.GetComponent<Renderer>();
+	    myRenderer = head.GetComponent<Renderer>();
     }
 
     void Update()
@@ -664,20 +658,20 @@ public class Zombie : MonoBehaviour
         {
             if (neededBurgers > 0)
             {
-                GameObject sprite = Instantiate(Camera.main.GetComponent<ZombieManager>().burgers[neededBurgers - 1], thinkBubble.transform);
-                sprite.transform.localPosition = availableSpritePositions[spritePosition];
+                Sprite sprite = Camera.main.GetComponent<ZombieManager>().burgers[neededBurgers - 1];
+                thinkBubble.transform.GetChild(spritePosition).GetComponent<SpriteRenderer>().sprite = sprite;
                 spritePosition++;
             }
             if (neededFries > 0)
             {
-                GameObject sprite = Instantiate(Camera.main.GetComponent<ZombieManager>().fries[neededFries - 1], thinkBubble.transform);
-                sprite.transform.localPosition = availableSpritePositions[spritePosition];
+                Sprite sprite = Camera.main.GetComponent<ZombieManager>().fries[neededFries - 1];
+                thinkBubble.transform.GetChild(spritePosition).GetComponent<SpriteRenderer>().sprite = sprite;
                 spritePosition++;
             }
             if (neededDrinks > 0)
             {
-                GameObject sprite = Instantiate(Camera.main.GetComponent<ZombieManager>().drinks[neededDrinks - 1], thinkBubble.transform);
-                sprite.transform.localPosition = availableSpritePositions[spritePosition];
+                Sprite sprite = Camera.main.GetComponent<ZombieManager>().drinks[neededDrinks - 1];
+                thinkBubble.transform.GetChild(spritePosition).GetComponent<SpriteRenderer>().sprite = sprite;
                 spritePosition++;
             }
         }
@@ -686,20 +680,20 @@ public class Zombie : MonoBehaviour
             spritePosition++;
             if (neededBurgers > 0)
             {
-                GameObject sprite = Instantiate(Camera.main.GetComponent<ZombieManager>().burgers[neededBurgers - 1], thinkBubble.transform);
-                sprite.transform.localPosition = availableSpritePositions[spritePosition];
+                Sprite sprite = Camera.main.GetComponent<ZombieManager>().burgers[neededBurgers - 1];
+                thinkBubble.transform.GetChild(spritePosition).GetComponent<SpriteRenderer>().sprite = sprite;
                 spritePosition++;
             }
             if (neededFries > 0)
             {
-                GameObject sprite = Instantiate(Camera.main.GetComponent<ZombieManager>().fries[neededFries - 1], thinkBubble.transform);
-                sprite.transform.localPosition = availableSpritePositions[spritePosition];
+                Sprite sprite = Camera.main.GetComponent<ZombieManager>().fries[neededFries - 1];
+                thinkBubble.transform.GetChild(spritePosition).GetComponent<SpriteRenderer>().sprite = sprite;
                 spritePosition++;
             }
             if (neededDrinks > 0)
             {
-                GameObject sprite = Instantiate(Camera.main.GetComponent<ZombieManager>().drinks[neededDrinks - 1], thinkBubble.transform);
-                sprite.transform.localPosition = availableSpritePositions[spritePosition];
+                Sprite sprite = Camera.main.GetComponent<ZombieManager>().drinks[neededDrinks - 1];
+                thinkBubble.transform.GetChild(spritePosition).GetComponent<SpriteRenderer>().sprite = sprite;
                 spritePosition++;
             }
         }
