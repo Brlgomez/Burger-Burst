@@ -4,18 +4,26 @@ using UnityEngine;
 
 public class IncreaseSize : MonoBehaviour
 {
-    static float maxSize = 0.95f;
+    float maxSize = 0.95f;
     static float speed = 2;
     float size;
 
     void Update()
     {
         size += Time.deltaTime * speed;
-        gameObject.transform.localScale = new Vector3(size, size, size);
+        SetGlobalScale(new Vector3(size, size, size));
         if (size > maxSize)
         {
-            gameObject.transform.localScale = new Vector3(maxSize, maxSize, maxSize);
+            SetGlobalScale(new Vector3(maxSize, maxSize, maxSize));
             Destroy(GetComponent<IncreaseSize>());
         }
     }
+
+	public void SetGlobalScale(Vector3 globalScale)
+	{
+		transform.localScale = Vector3.one;
+		transform.localScale = new Vector3(globalScale.x / transform.lossyScale.x, 
+                                           globalScale.y / transform.lossyScale.y, 
+                                           globalScale.z / transform.lossyScale.z);
+	}
 }

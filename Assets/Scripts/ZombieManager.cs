@@ -10,7 +10,7 @@ public class ZombieManager : MonoBehaviour
 
     GameObject zombie;
     Vector3 gameplayPosition;
-    int amountOfWaiters;
+    int amountOfZombies;
     public GameObject thinkBubble;
     public Sprite[] burgers;
     public Sprite[] fries;
@@ -54,12 +54,26 @@ public class ZombieManager : MonoBehaviour
 
     public void AddNewWaiter(Vector3 position)
     {
-        amountOfWaiters++;
-        GameObject newWaiter = Instantiate(zombie);
-        newWaiter.transform.position = position;
-        newWaiter.transform.LookAt(gameplayPosition);
-        newWaiter.transform.eulerAngles = new Vector3(0, newWaiter.transform.eulerAngles.y, newWaiter.transform.eulerAngles.z);
-        newWaiter.AddComponent<Zombie>().SetZombie(
+        amountOfZombies++;
+        /*
+        if (Random.value < 0.25f)
+        {
+            zombie.transform.localScale = Vector3.one * 1.5f;
+        }
+		else if (Random.value < 0.5f)
+		{
+            zombie.transform.localScale = Vector3.one * 0.5f;
+		}
+        else
+        {
+            zombie.transform.localScale = Vector3.one;
+        }
+        */
+        GameObject newZombie = Instantiate(zombie);
+        newZombie.transform.position = position;
+        newZombie.transform.LookAt(gameplayPosition);
+        newZombie.transform.eulerAngles = new Vector3(0, newZombie.transform.eulerAngles.y, newZombie.transform.eulerAngles.z);
+        newZombie.AddComponent<Zombie>().SetZombie(
             1,
             hair[Random.Range(0, hair.Length)],
             forearm[Random.Range(0, forearm.Length)],
@@ -79,18 +93,18 @@ public class ZombieManager : MonoBehaviour
             upperBody[Random.Range(0, upperBody.Length)],
             outfit[Random.Range(0, outfit.Length)]
         );
-        newWaiter.tag = "Clone";
+        newZombie.tag = "Clone";
     }
 
     public void RemoveWaiter(GameObject waiter)
     {
-        amountOfWaiters--;
+        amountOfZombies--;
         Destroy(waiter);
     }
 
     public int GetCount()
     {
-        return amountOfWaiters;
+        return amountOfZombies;
     }
 
     public void DeleteAllScripts()

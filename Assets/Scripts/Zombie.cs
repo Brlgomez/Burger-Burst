@@ -16,6 +16,7 @@ public class Zombie : MonoBehaviour
     GameObject rightUpperArm, leftUpperArm, leftThigh, rightThigh, lowerBody;
     ParticleSystem deathParticles, powerParticles;
     Material originalMaterial;
+    Vector3 initialBubbleSize;
 
     bool particlesPlaying;
     float speed = 1;
@@ -41,10 +42,9 @@ public class Zombie : MonoBehaviour
 
     void Awake()
     {
-        originalSpeed = speed;
+		originalSpeed = speed;
         GetBodyParts(gameObject);
         thinkBubble = head.transform.GetChild(1).gameObject;
-        thinkBubble.AddComponent<IncreaseSize>();
         GetComponent<Animator>().Play("Walking");
         GetComponent<Animator>().SetBool("Walking", true);
         GetComponent<Animator>().SetFloat("Speed", speed * animationSpeed);
@@ -52,7 +52,8 @@ public class Zombie : MonoBehaviour
         deathParticles = upperBody.transform.GetChild(2).GetComponent<ParticleSystem>();
         WakeUp();
         SetOrder();
-        myRenderer = head.GetComponent<Renderer>();
+        thinkBubble.AddComponent<IncreaseSize>();
+		myRenderer = head.GetComponent<Renderer>();
     }
 
     void Update()
@@ -342,10 +343,10 @@ public class Zombie : MonoBehaviour
         }
         obj.tag = "OnPlatter";
         onPlatter.Add(obj);
-        CheckOrder();
+        CheckOrder(obj);
     }
 
-    void CheckOrder()
+    void CheckOrder(GameObject obj)
     {
         if (amountOfBurgers >= neededBurgers && amountOfFries >= neededFries && amountOfDrinks >= neededDrinks)
         {
@@ -721,14 +722,22 @@ public class Zombie : MonoBehaviour
         {
             if ((head.transform.position.z - endingZ) / (startingZ - endingZ) > bubbleMinScale)
             {
-                thinkBubble.transform.localScale = Vector3.one * ((head.transform.position.z - endingZ) / (startingZ - endingZ));
+                SetGlobalScale(thinkBubble, Vector3.one * ((head.transform.position.z - endingZ) / (startingZ - endingZ)));
             }
             else
             {
-                thinkBubble.transform.localScale = Vector3.one * bubbleMinScale * 0.99f;
+                SetGlobalScale(thinkBubble, Vector3.one * bubbleMinScale * 0.99f);
             }
         }
     }
+
+	public void SetGlobalScale(GameObject obj, Vector3 globalScale)
+	{
+		obj.transform.localScale = Vector3.one;
+		obj.transform.localScale = new Vector3(globalScale.x / obj.transform.lossyScale.x,
+										       globalScale.y / obj.transform.lossyScale.y,
+										       globalScale.z / obj.transform.lossyScale.z);
+	}
 
     public void FreezeZombie()
     {
