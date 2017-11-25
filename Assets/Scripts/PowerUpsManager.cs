@@ -23,5 +23,6 @@ public class PowerUpsManager : MonoBehaviour
     public static int luck = 16;
     public static int noPoison = 17;
 	public static int noIce = 18;
-    public static int nothing = 19;
+    public static int freeze = 19;
+    public static int nothing = 20;
 }

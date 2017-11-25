@@ -67,17 +67,6 @@ public class GrabAndThrowObject : MonoBehaviour
             GetComponent<ZombieManager>().ZombieUpdate(updateInterval);
             GetComponent<WindManager>().WindUpdate(updateInterval);
         }
-        if (Input.GetKeyDown("space"))
-        {
-            if (GetComponent<Frozen>() == null)
-            {
-                gameObject.AddComponent<Frozen>();
-            }
-            else
-            {
-                GetComponent<Frozen>().RestartTime();
-            }
-        }
     }
 
     void MouseDown()

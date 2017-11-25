@@ -16,6 +16,7 @@ public class Zombie : MonoBehaviour
     GameObject rightUpperArm, leftUpperArm, leftThigh, rightThigh, lowerBody;
     ParticleSystem deathParticles, powerParticles;
     Vector3[] availableSpritePositions;
+    Material originalMaterial;
 
     bool particlesPlaying;
     float speed = 1;
@@ -30,6 +31,9 @@ public class Zombie : MonoBehaviour
     float startingZ;
     static int endingZ = -1;
     float animationSpeed = 0.5f;
+    static int maxFrozenTime = 3;
+    float frozenTime;
+    bool frozen;
 
     enum zombieType { regular, coin, healing, instantKill, poison, speed, ice };
     zombieType thisZombieType = zombieType.regular;
@@ -61,7 +65,7 @@ public class Zombie : MonoBehaviour
     {
         if (Time.frameCount % updateInterval == 0)
         {
-            if (!orderComplete && head.transform.position.z > endingZ)
+            if (!orderComplete && head.transform.position.z > endingZ && !frozen)
             {
                 Walk();
             }
@@ -88,6 +92,14 @@ public class Zombie : MonoBehaviour
                 if (powerParticles != null && powerParticles.isPlaying)
                 {
                     powerParticles.Pause();
+                }
+            }
+            if (frozen)
+            {
+                frozenTime += Time.deltaTime * updateInterval;
+                if (frozenTime > maxFrozenTime)
+                {
+                    UnFreezeZombie();
                 }
             }
         }
@@ -145,7 +157,10 @@ public class Zombie : MonoBehaviour
     void NearFoodTruck()
     {
         GetComponent<Animator>().SetFloat("Speed", 0);
-        damageTime += Time.deltaTime * updateInterval;
+        if (!frozen)
+        {
+            damageTime += Time.deltaTime * updateInterval;
+        }
         if (rightThigh.GetComponent<Rigidbody>().isKinematic)
         {
             rightThigh.GetComponent<Rigidbody>().isKinematic = false;
@@ -269,6 +284,10 @@ public class Zombie : MonoBehaviour
 
     public void AddToPlatter(GameObject obj)
     {
+        if (Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.freeze))
+        {
+            FreezeZombie();
+        }
         if (!orderComplete)
         {
             if (obj.name == "Burger(Clone)" || obj.name == "Burger(Clone)Copy")
@@ -356,18 +375,19 @@ public class Zombie : MonoBehaviour
             TurnOnForce(node.transform.gameObject);
             return;
         }
-        else
+        for (int i = 0; i < node.transform.childCount; i++)
         {
-            for (int i = 0; i < node.transform.childCount; i++)
-            {
-                TurnOnForce(node.transform.gameObject);
-                TurnOnAllForces(node.transform.GetChild(i).gameObject);
-            }
+            TurnOnForce(node.transform.gameObject);
+            TurnOnAllForces(node.transform.GetChild(i).gameObject);
         }
     }
 
     void TurnOnForce(GameObject obj)
     {
+        if (obj.GetComponent<MeshRenderer>() != null && originalMaterial != null && obj.tag != "OnPlatter")
+        {
+            obj.GetComponent<Renderer>().material = originalMaterial;
+        }
         if (obj.GetComponent<Rigidbody>() != null && obj != rightThigh && obj != leftThigh)
         {
             obj.GetComponent<Rigidbody>().useGravity = true;
@@ -463,6 +483,47 @@ public class Zombie : MonoBehaviour
         if (obj.GetComponent<Renderer>() != null && obj.GetComponent<MeshFilter>() != null)
         {
             obj.GetComponent<MeshFilter>().mesh = null;
+        }
+    }
+
+    /* Freezing Rigidbodies */
+
+    void Freeze()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            FreezeRigidBodies(transform.GetChild(i).gameObject);
+        }
+    }
+
+    void FreezeRigidBodies(GameObject node)
+    {
+        if (node.transform.childCount == 0)
+        {
+            FreezeRigidBody(node.transform.gameObject);
+            return;
+        }
+        for (int i = 0; i < node.transform.childCount; i++)
+        {
+            FreezeRigidBody(node.transform.gameObject);
+            FreezeRigidBodies(node.transform.GetChild(i).gameObject);
+        }
+    }
+
+    void FreezeRigidBody(GameObject obj)
+    {
+        if (obj.GetComponent<MeshRenderer>() != null && obj.tag != "OnPlatter")
+        {
+            obj.GetComponent<Renderer>().material = Camera.main.GetComponent<Materials>().ice;
+        }
+        if (obj.GetComponent<ConstantForce>() != null)
+        {
+            obj.GetComponent<ConstantForce>().enabled = false;
+        }
+        if (obj.GetComponent<Rigidbody>() != null)
+        {
+            obj.GetComponent<Rigidbody>().useGravity = false;
+            obj.GetComponent<Rigidbody>().isKinematic = true;
         }
     }
 
@@ -669,6 +730,30 @@ public class Zombie : MonoBehaviour
             {
                 thinkBubble.transform.localScale = Vector3.one * bubbleMinScale * 0.99f;
             }
+        }
+    }
+
+    public void FreezeZombie()
+    {
+        originalMaterial = head.GetComponent<Renderer>().material;
+        frozen = true;
+        speed = 0;
+        updateInterval = 15;
+        frozenTime = 0;
+        GetComponent<Animator>().SetFloat("Speed", 0);
+        Freeze();
+    }
+
+    public void UnFreezeZombie()
+    {
+        if (!orderComplete)
+        {
+            frozen = false;
+            speed = originalSpeed;
+            updateInterval = 3;
+            frozenTime = 0;
+            GetComponent<Animator>().SetFloat("Speed", speed * animationSpeed);
+            WakeUp();
         }
     }
 
