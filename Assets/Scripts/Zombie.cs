@@ -34,8 +34,8 @@ public class Zombie : MonoBehaviour
     float frozenTime;
     bool frozen;
 
-    enum zombieType { regular, coin, healing, instantKill, poison, speed, ice };
-    zombieType thisZombieType = zombieType.regular;
+    enum ZombieType { regular, coin, healing, instantKill, poison, speed, ice };
+    ZombieType thisZombieType = ZombieType.regular;
 
     Renderer myRenderer;
 
@@ -52,7 +52,7 @@ public class Zombie : MonoBehaviour
         deathParticles = upperBody.transform.GetChild(2).GetComponent<ParticleSystem>();
         WakeUp();
         SetOrder();
-	    myRenderer = head.GetComponent<Renderer>();
+        myRenderer = head.GetComponent<Renderer>();
     }
 
     void Update()
@@ -112,7 +112,8 @@ public class Zombie : MonoBehaviour
         {
             GetComponent<Animator>().SetBool("Attacking", false);
             GetComponent<Animator>().SetBool("Walking", true);
-            transform.position = Vector3.MoveTowards(transform.position, transform.position + transform.forward, Time.deltaTime * speed * updateInterval);
+            transform.position = Vector3.MoveTowards(
+                transform.position, transform.position + transform.forward, Time.deltaTime * speed * updateInterval);
             GetComponent<Animator>().SetFloat("Speed", speed * animationSpeed);
             speed = originalSpeed;
         }
@@ -132,12 +133,12 @@ public class Zombie : MonoBehaviour
             deathParticles.Play();
             MakeZombieDisappear();
             particlesPlaying = true;
-            if (thisZombieType == zombieType.coin)
+            if (thisZombieType == ZombieType.coin)
             {
                 int coinsAmount = neededFries + neededDrinks + neededBurgers;
                 Camera.main.GetComponent<Gameplay>().IncreaseCoinCount(coinsAmount, thinkBubble);
             }
-            else if (thisZombieType == zombieType.healing)
+            else if (thisZombieType == ZombieType.healing)
             {
                 Camera.main.GetComponent<Gameplay>().AddLife(15, thinkBubble);
             }
@@ -187,62 +188,64 @@ public class Zombie : MonoBehaviour
 
     void ZombieDamageTypes()
     {
-        if (thisZombieType == zombieType.instantKill)
+        switch (thisZombieType)
         {
-            if (!Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.noInstantKill))
-            {
-                Camera.main.GetComponent<Gameplay>().ReduceHealth(1000, upperBody);
-            }
-            else
-            {
-                Camera.main.GetComponent<Gameplay>().ReduceHealth(10, upperBody);
-            }
-        }
-        else if (thisZombieType == zombieType.poison)
-        {
-            thisZombieType = zombieType.regular;
-            powerParticles.Play();
-            powerParticles.Stop();
-            if (!Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.noPoison))
-            {
-                if (Camera.main.transform.GetComponent<Poisoned>())
+            case ZombieType.instantKill:
+                if (!Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.noInstantKill))
                 {
-                    Camera.main.transform.GetComponent<Poisoned>().ResetTime();
+                    Camera.main.GetComponent<Gameplay>().ReduceHealth(1000, upperBody);
                 }
                 else
                 {
-                    Camera.main.transform.gameObject.AddComponent<Poisoned>();
+                    Camera.main.GetComponent<Gameplay>().ReduceHealth(10, upperBody);
                 }
-            }
-            else
-            {
-                Camera.main.GetComponent<Gameplay>().ReduceHealth(10, upperBody);
-            }
-        }
-        else if (thisZombieType == zombieType.ice)
-        {
-            thisZombieType = zombieType.regular;
-            powerParticles.Play();
-            powerParticles.Stop();
-            if (!Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.noIce))
-            {
-                if (Camera.main.GetComponent<Frozen>())
+
+                break;
+            case ZombieType.poison:
+                thisZombieType = ZombieType.regular;
+                powerParticles.Play();
+                powerParticles.Stop();
+                if (!Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.noPoison))
                 {
-                    Camera.main.GetComponent<Frozen>().RestartTime();
+                    if (Camera.main.transform.GetComponent<Poisoned>())
+                    {
+                        Camera.main.transform.GetComponent<Poisoned>().ResetTime();
+                    }
+                    else
+                    {
+                        Camera.main.transform.gameObject.AddComponent<Poisoned>();
+                    }
                 }
                 else
                 {
-                    Camera.main.gameObject.AddComponent<Frozen>();
+                    Camera.main.GetComponent<Gameplay>().ReduceHealth(10, upperBody);
                 }
-            }
-            else
-            {
+
+                break;
+            case ZombieType.ice:
+                thisZombieType = ZombieType.regular;
+                powerParticles.Play();
+                powerParticles.Stop();
+                if (!Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.noIce))
+                {
+                    if (Camera.main.GetComponent<Frozen>())
+                    {
+                        Camera.main.GetComponent<Frozen>().RestartTime();
+                    }
+                    else
+                    {
+                        Camera.main.gameObject.AddComponent<Frozen>();
+                    }
+                }
+                else
+                {
+                    Camera.main.GetComponent<Gameplay>().ReduceHealth(10, upperBody);
+                }
+
+                break;
+            default:
                 Camera.main.GetComponent<Gameplay>().ReduceHealth(10, upperBody);
-            }
-        }
-        else
-        {
-            Camera.main.GetComponent<Gameplay>().ReduceHealth(10, upperBody);
+                break;
         }
     }
 
@@ -611,32 +614,32 @@ public class Zombie : MonoBehaviour
         switch (outfit.name)
         {
             case "Zombie8":
-                thisZombieType = zombieType.coin;
+                thisZombieType = ZombieType.coin;
                 powerParticles = upperBody.transform.GetChild(3).GetComponent<ParticleSystem>();
                 powerParticles.Play();
                 break;
             case "Zombie9":
-                thisZombieType = zombieType.healing;
+                thisZombieType = ZombieType.healing;
                 powerParticles = upperBody.transform.GetChild(4).GetComponent<ParticleSystem>();
                 powerParticles.Play();
                 break;
             case "Zombie10":
-                thisZombieType = zombieType.instantKill;
+                thisZombieType = ZombieType.instantKill;
                 powerParticles = upperBody.transform.GetChild(5).GetComponent<ParticleSystem>();
                 powerParticles.Play();
                 break;
             case "Zombie11":
-                thisZombieType = zombieType.poison;
+                thisZombieType = ZombieType.poison;
                 powerParticles = upperBody.transform.GetChild(6).GetComponent<ParticleSystem>();
                 powerParticles.Play();
                 break;
             case "Zombie12":
-                thisZombieType = zombieType.speed;
+                thisZombieType = ZombieType.speed;
                 speed = 3;
                 originalSpeed = speed;
                 break;
             case "Zombie13":
-                thisZombieType = zombieType.ice;
+                thisZombieType = ZombieType.ice;
                 powerParticles = upperBody.transform.GetChild(7).GetComponent<ParticleSystem>();
                 powerParticles.Play();
                 break;

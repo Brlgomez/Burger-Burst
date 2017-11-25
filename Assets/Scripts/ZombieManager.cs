@@ -28,7 +28,7 @@ public class ZombieManager : MonoBehaviour
     public Mesh[] upperBody;
     public Texture[] outfit;
 
-	void Start()
+    void Start()
     {
         gameplayPosition = GetComponent<PositionManager>().GameplayPosition().position;
         zombie = GetComponent<ObjectManager>().Zombie();
@@ -110,4 +110,3 @@ public class ZombieManager : MonoBehaviour
         time = timeForNewZombie;
     }
 }
-
