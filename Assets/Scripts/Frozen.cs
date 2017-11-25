@@ -6,9 +6,9 @@ public class Frozen : MonoBehaviour
 {
     int updateInterval = 10;
 
-    static int maxFrozenTime = 3;
+    static int maxFrozenTime = 5;
     static float unFreezeTime = 0.25f;
-    static float maxAplha = 0.25f;
+    static float maxAplha = 0.5f;
     float time;
     float iceAlpha;
     Material screen;
@@ -19,6 +19,7 @@ public class Frozen : MonoBehaviour
         frozenColor = new Color(1, 1, 1, maxAplha);
         screen = transform.GetChild(6).GetComponent<Renderer>().material;
         screen.color = frozenColor;
+        GetComponent<GrabAndThrowObject>().SetFrozen(true);
     }
 
     void Update()
@@ -50,6 +51,7 @@ public class Frozen : MonoBehaviour
     public void DestroyFrozen()
     {
         screen.color = Color.clear;
-        Destroy(GetComponent<Frozen>());
+		GetComponent<GrabAndThrowObject>().SetFrozen(false);
+		Destroy(GetComponent<Frozen>());
     }
 }

@@ -17,6 +17,7 @@ public class GrabAndThrowObject : MonoBehaviour
     enum Area { counter, pause, gameOver, quit, grill, fryer, sodaMachine };
     Area currentArea;
     int throwingDistance = 15;
+    bool frozen = false;
 
     void Start()
     {
@@ -52,7 +53,7 @@ public class GrabAndThrowObject : MonoBehaviour
         {
             MouseDown();
         }
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && !frozen)
         {
             MouseDrag();
         }
@@ -117,12 +118,12 @@ public class GrabAndThrowObject : MonoBehaviour
             obj = hit.collider.gameObject;
             if (obj.tag == "UI")
             {
-                if(GetComponent<Frozen>() != null && currentArea != Area.pause)
+                if (GetComponent<Frozen>() != null && currentArea != Area.pause)
                 {
-					return null;
+                    return null;
                 }
-				GetComponent<ScreenTextManagment>().PressTextDown(obj.transform.parent.gameObject);
-				return obj;
+                GetComponent<ScreenTextManagment>().PressTextDown(obj.transform.parent.gameObject);
+                return obj;
             }
             if (!paused && !GetComponent<Gameplay>().IsGameOver() && obj.GetComponent<FadeObject>() == null)
             {
@@ -325,7 +326,7 @@ public class GrabAndThrowObject : MonoBehaviour
         {
             return obj;
         }
-		if (obj.tag == "Ingredient" && GetComponent<Frozen>() == null)
+        if (obj.tag == "Ingredient" && GetComponent<Frozen>() == null)
         {
             return obj;
         }
@@ -738,9 +739,9 @@ public class GrabAndThrowObject : MonoBehaviour
             sodaFountain3.GetComponent<SodaMachine>().Restart();
         }
         if (GetComponent<Poisoned>() != null)
-		{
+        {
             GetComponent<Poisoned>().DestroyPoison();
-		}
+        }
         if (GetComponent<Frozen>() != null)
         {
             GetComponent<Frozen>().DestroyFrozen();
@@ -753,5 +754,10 @@ public class GrabAndThrowObject : MonoBehaviour
         {
             Destroy(obj);
         }
+    }
+
+    public void SetFrozen(bool b)
+    {
+        frozen = b;
     }
 }

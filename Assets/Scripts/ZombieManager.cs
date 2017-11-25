@@ -77,7 +77,7 @@ public class ZombieManager : MonoBehaviour
             heads[Random.Range(0, heads.Length)],
             lowerBody[Random.Range(0, lowerBody.Length)],
             upperBody[Random.Range(0, upperBody.Length)],
-            outfit[Random.Range(0, outfit.Length)]
+            outfit[/*Random.Range(0, outfit.Length)*/ 12]
         );
         newWaiter.tag = "Clone";
     }

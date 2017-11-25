@@ -215,16 +215,22 @@ public class Zombie : MonoBehaviour
             thisZombieType = zombieType.regular;
             powerParticles.Play();
             powerParticles.Stop();
-            if (Camera.main.GetComponent<Frozen>() == null)
+            if (!Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.noIce))
             {
-                Camera.main.gameObject.AddComponent<Frozen>();
+                if (Camera.main.GetComponent<Frozen>())
+                {
+                    Camera.main.GetComponent<Frozen>().RestartTime();
+                }
+                else
+                {
+                    Camera.main.gameObject.AddComponent<Frozen>();
+                }
             }
             else
             {
-                Camera.main.GetComponent<Frozen>().RestartTime();
+                Camera.main.GetComponent<Gameplay>().ReduceHealth(10, upperBody);
             }
-			Camera.main.GetComponent<Gameplay>().ReduceHealth(10, upperBody);
-		}
+        }
         else
         {
             Camera.main.GetComponent<Gameplay>().ReduceHealth(10, upperBody);
