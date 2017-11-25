@@ -47,8 +47,7 @@ public class Poisoned : MonoBehaviour
             }
             if (time > maxLengthOfTime)
             {
-                poisonBubbles.Stop();
-                Destroy(GetComponent<Poisoned>());
+                DestroyPoison();
             }
         }
     }
@@ -60,5 +59,12 @@ public class Poisoned : MonoBehaviour
         poisonAlpha = maxAplha;
         currentEffectiveness = initialEffectiveness;
         main.maxParticles = intervalAmount;
+    }
+
+    public void DestroyPoison()
+    {
+        screen.color = Color.clear;
+        poisonBubbles.Stop();
+        Destroy(GetComponent<Poisoned>());
     }
 }

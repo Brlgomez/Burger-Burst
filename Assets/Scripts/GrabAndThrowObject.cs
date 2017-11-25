@@ -66,6 +66,17 @@ public class GrabAndThrowObject : MonoBehaviour
             GetComponent<ZombieManager>().ZombieUpdate(updateInterval);
             GetComponent<WindManager>().WindUpdate(updateInterval);
         }
+        if (Input.GetKeyDown("space"))
+        {
+            if (GetComponent<Frozen>() == null)
+            {
+                gameObject.AddComponent<Frozen>();
+            }
+            else
+            {
+                GetComponent<Frozen>().RestartTime();
+            }
+        }
     }
 
     void MouseDown()
@@ -106,8 +117,12 @@ public class GrabAndThrowObject : MonoBehaviour
             obj = hit.collider.gameObject;
             if (obj.tag == "UI")
             {
-                GetComponent<ScreenTextManagment>().PressTextDown(obj.transform.parent.gameObject);
-                return obj;
+                if(GetComponent<Frozen>() != null && currentArea != Area.pause)
+                {
+					return null;
+                }
+				GetComponent<ScreenTextManagment>().PressTextDown(obj.transform.parent.gameObject);
+				return obj;
             }
             if (!paused && !GetComponent<Gameplay>().IsGameOver() && obj.GetComponent<FadeObject>() == null)
             {
@@ -129,6 +144,7 @@ public class GrabAndThrowObject : MonoBehaviour
                 {
                     return GetSodaMachineObject(obj);
                 }
+
             }
         }
         return null;
@@ -309,7 +325,7 @@ public class GrabAndThrowObject : MonoBehaviour
         {
             return obj;
         }
-        if (obj.tag == "Ingredient")
+		if (obj.tag == "Ingredient" && GetComponent<Frozen>() == null)
         {
             return obj;
         }
@@ -318,7 +334,7 @@ public class GrabAndThrowObject : MonoBehaviour
 
     GameObject GetGrillObject(GameObject obj)
     {
-        if (obj.tag == "GrillIngredientClone")
+        if (obj.tag == "GrillIngredientClone" && GetComponent<Frozen>() == null)
         {
             return obj;
         }
@@ -327,24 +343,27 @@ public class GrabAndThrowObject : MonoBehaviour
 
     GameObject GetFryerObject(GameObject obj)
     {
-        if (obj.name == "Right Fryer Button" || obj.name == "Left Fryer Button" || obj.tag == "Basket")
+        if (GetComponent<Frozen>() == null)
         {
-            return obj;
-        }
-        if (obj.tag == "Fries")
-        {
-            if (obj.GetComponent<FryFries>())
+            if (obj.name == "Right Fryer Button" || obj.name == "Left Fryer Button" || obj.tag == "Basket")
             {
-                return null;
+                return obj;
             }
-            return obj;
+            if (obj.tag == "Fries")
+            {
+                if (obj.GetComponent<FryFries>())
+                {
+                    return null;
+                }
+                return obj;
+            }
         }
         return null;
     }
 
     GameObject GetSodaMachineObject(GameObject obj)
     {
-        if (obj.tag == "Soda" || obj.tag == "Lid" || obj.name == "Soda Button")
+        if ((obj.tag == "Soda" || obj.tag == "Lid" || obj.name == "Soda Button") && GetComponent<Frozen>() == null)
         {
             return obj;
         }
@@ -717,6 +736,14 @@ public class GrabAndThrowObject : MonoBehaviour
         if (sodaFountain3.GetComponent<SodaMachine>() != null)
         {
             sodaFountain3.GetComponent<SodaMachine>().Restart();
+        }
+        if (GetComponent<Poisoned>() != null)
+		{
+            GetComponent<Poisoned>().DestroyPoison();
+		}
+        if (GetComponent<Frozen>() != null)
+        {
+            GetComponent<Frozen>().DestroyFrozen();
         }
     }
 
