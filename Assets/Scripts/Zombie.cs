@@ -750,11 +750,11 @@ public class Zombie : MonoBehaviour
         {
             if ((head.transform.position.z - endingZ) / (startingZ - endingZ) > bubbleMinScale)
             {
-                SetGlobalScale(thinkBubble, Vector3.one * ((head.transform.position.z - endingZ) / (startingZ - endingZ)));
+                SetGlobalScale(thinkBubble, Vector3.one * ((head.transform.position.z - endingZ) / (startingZ - endingZ)) * 16);
             }
             else
             {
-                SetGlobalScale(thinkBubble, Vector3.one * bubbleMinScale * 0.99f);
+                SetGlobalScale(thinkBubble, Vector3.one * bubbleMinScale * 15.99f);
             }
         }
     }

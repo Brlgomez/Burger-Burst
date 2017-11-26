@@ -74,7 +74,8 @@ ScreenTextManagment : MonoBehaviour
         EnableButton(line3);
         EnableButton(line4);
         EnableButton(line5);
-        scrollView.transform.GetChild(0).gameObject.layer = 0;
+        line3.transform.GetChild(0).gameObject.layer = 2;
+		scrollView.transform.GetChild(0).gameObject.layer = 0;
         scrollView.transform.GetChild(3).gameObject.layer = 2;
         slot1.transform.GetChild(0).gameObject.layer = 0;
         slot2.transform.GetChild(0).gameObject.layer = 0;
@@ -480,7 +481,7 @@ ScreenTextManagment : MonoBehaviour
     {
         for (int i = 0; i < scrollList.Count; i++)
         {
-            float scale = ((0.025f - Mathf.Abs(scrollList[i].transform.position.z - scrollView.transform.position.z)) / 0.05f) * 3.5f;
+            float scale = ((0.025f - Mathf.Abs(scrollList[i].transform.position.z - scrollView.transform.position.z)) / 0.05f) * 14;
             if (scale < 0)
             {
                 scale = 0;

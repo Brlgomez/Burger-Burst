@@ -29,6 +29,6 @@ public class LEDManager : MonoBehaviour
 
     public void UpdateCoinsText()
     {
-        coinsLed.GetComponent<TextMesh>().text = "¤ " + PlayerPrefs.GetInt("Coins", 0).ToString("n0");
+        coinsLed.GetComponent<TextMesh>().text = "    " + PlayerPrefs.GetInt("Coins", 0).ToString("n0");
     }
 }

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class IncreaseSize : MonoBehaviour
 {
-    float maxSize = 0.95f;
-    static float speed = 2;
+    float maxSize = 15.95f;
+    static float speed = 32;
     float size;
 
     void Update()
