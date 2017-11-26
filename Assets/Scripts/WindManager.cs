@@ -6,7 +6,7 @@ public class WindManager : MonoBehaviour
 {
     float windPower;
     float timer;
-    float timeForNextWindChange = 120;
+    float timeForNextWindChange;
     ParticleSystem windParticles;
 
     void Start()
@@ -59,7 +59,7 @@ public class WindManager : MonoBehaviour
     {
         if (obj.GetComponent<Rigidbody>().velocity != Vector3.zero)
         {
-            obj.GetComponent<Rigidbody>().velocity += new Vector3(windPower, 0, 0);
+            obj.GetComponent<Rigidbody>().velocity += new Vector3(windPower/2, 0, 0);
         }
     }
 
@@ -68,5 +68,10 @@ public class WindManager : MonoBehaviour
         windParticles.Stop();
         timeForNextWindChange = 120;
         windPower = 0;
+    }
+
+    public float GetWindPower()
+    {
+        return windPower;
     }
 }
