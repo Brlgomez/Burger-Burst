@@ -33,7 +33,7 @@ public class Car : MonoBehaviour
             }
             else
             {
-                updateInterval = 20;
+                updateInterval = 10;
             }
             Logic();
             transform.Translate(-Vector3.forward * Time.deltaTime * speed * updateInterval);
@@ -42,7 +42,7 @@ public class Car : MonoBehaviour
 
     void Logic()
     {
-        if (Mathf.Abs(randomStoppingPos - transform.position.x) < 1 && speed > 0)
+        if (Mathf.Abs(randomStoppingPos - transform.position.x) < 2 && speed > 0)
         {
             slowingDown = true;
         }

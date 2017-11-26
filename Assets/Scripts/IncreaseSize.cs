@@ -19,11 +19,11 @@ public class IncreaseSize : MonoBehaviour
         }
     }
 
-	public void SetGlobalScale(Vector3 globalScale)
-	{
-		transform.localScale = Vector3.one;
-		transform.localScale = new Vector3(globalScale.x / transform.lossyScale.x, 
-                                           globalScale.y / transform.lossyScale.y, 
+    public void SetGlobalScale(Vector3 globalScale)
+    {
+        transform.localScale = Vector3.one;
+        transform.localScale = new Vector3(globalScale.x / transform.lossyScale.x,
+                                           globalScale.y / transform.lossyScale.y,
                                            globalScale.z / transform.lossyScale.z);
-	}
+    }
 }

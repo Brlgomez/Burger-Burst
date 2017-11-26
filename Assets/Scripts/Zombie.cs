@@ -34,6 +34,7 @@ public class Zombie : MonoBehaviour
     static int maxFrozenTime = 3;
     float frozenTime;
     bool frozen;
+    int damageAmount = 10;
 
     enum ZombieType { regular, coin, healing, instantKill, poison, speed, ice };
     ZombieType thisZombieType = ZombieType.regular;
@@ -42,7 +43,7 @@ public class Zombie : MonoBehaviour
 
     void Awake()
     {
-		originalSpeed = speed;
+        originalSpeed = speed;
         GetBodyParts(gameObject);
         thinkBubble = head.transform.GetChild(1).gameObject;
         GetComponent<Animator>().Play("Walking");
@@ -53,7 +54,20 @@ public class Zombie : MonoBehaviour
         WakeUp();
         SetOrder();
         thinkBubble.AddComponent<IncreaseSize>();
-		myRenderer = head.GetComponent<Renderer>();
+        myRenderer = head.GetComponent<Renderer>();
+        if (transform.localScale.x > 1.1f)
+        {
+            damageAmount *= 2;
+            thinkBubble.transform.position = new Vector3(
+                thinkBubble.transform.position.x - 0.25f,
+                thinkBubble.transform.position.y - 0.5f, 
+                thinkBubble.transform.position.z
+            );
+        }
+        else if (transform.localScale.x < 0.9f)
+        {
+            damageAmount /= 2;
+        }
     }
 
     void Update()
@@ -198,7 +212,7 @@ public class Zombie : MonoBehaviour
                 }
                 else
                 {
-                    Camera.main.GetComponent<Gameplay>().ReduceHealth(10, upperBody);
+                    Camera.main.GetComponent<Gameplay>().ReduceHealth(damageAmount, upperBody);
                 }
 
                 break;
@@ -208,6 +222,7 @@ public class Zombie : MonoBehaviour
                 powerParticles.Stop();
                 if (!Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.noPoison))
                 {
+                    Camera.main.GetComponent<Gameplay>().ReduceHealth(damageAmount, upperBody);
                     if (Camera.main.transform.GetComponent<Poisoned>())
                     {
                         Camera.main.transform.GetComponent<Poisoned>().ResetTime();
@@ -219,9 +234,8 @@ public class Zombie : MonoBehaviour
                 }
                 else
                 {
-                    Camera.main.GetComponent<Gameplay>().ReduceHealth(10, upperBody);
+                    Camera.main.GetComponent<Gameplay>().ReduceHealth(damageAmount, upperBody);
                 }
-
                 break;
             case ZombieType.ice:
                 thisZombieType = ZombieType.regular;
@@ -229,6 +243,7 @@ public class Zombie : MonoBehaviour
                 powerParticles.Stop();
                 if (!Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.noIce))
                 {
+                    Camera.main.GetComponent<Gameplay>().ReduceHealth(damageAmount, upperBody);
                     if (Camera.main.GetComponent<Frozen>())
                     {
                         Camera.main.GetComponent<Frozen>().RestartTime();
@@ -240,12 +255,12 @@ public class Zombie : MonoBehaviour
                 }
                 else
                 {
-                    Camera.main.GetComponent<Gameplay>().ReduceHealth(10, upperBody);
+                    Camera.main.GetComponent<Gameplay>().ReduceHealth(damageAmount, upperBody);
                 }
 
                 break;
             default:
-                Camera.main.GetComponent<Gameplay>().ReduceHealth(10, upperBody);
+                Camera.main.GetComponent<Gameplay>().ReduceHealth(damageAmount, upperBody);
                 break;
         }
     }
@@ -256,11 +271,20 @@ public class Zombie : MonoBehaviour
     {
         int maxAmountOfProduct = Mathf.CeilToInt(Camera.main.GetComponent<Gameplay>().GetCompletedOrdersCount() / 5) + 1;
         int amountOfProduct;
+        int absoluteMax = 5;
         orderComplete = false;
         amountOfProduct = Random.Range(1, maxAmountOfProduct);
-        if (amountOfProduct > 5)
+        if (transform.localScale.x > 1.1f)
         {
-            amountOfProduct = 5;
+            absoluteMax = 7;
+        }
+        else if (transform.localScale.x < 0.9f)
+        {
+            absoluteMax = 3;
+        }
+        if (amountOfProduct > absoluteMax)
+        {
+            amountOfProduct = absoluteMax;
         }
         for (int i = 0; i < amountOfProduct; i++)
         {
@@ -731,13 +755,13 @@ public class Zombie : MonoBehaviour
         }
     }
 
-	public void SetGlobalScale(GameObject obj, Vector3 globalScale)
-	{
-		obj.transform.localScale = Vector3.one;
-		obj.transform.localScale = new Vector3(globalScale.x / obj.transform.lossyScale.x,
-										       globalScale.y / obj.transform.lossyScale.y,
-										       globalScale.z / obj.transform.lossyScale.z);
-	}
+    public void SetGlobalScale(GameObject obj, Vector3 globalScale)
+    {
+        obj.transform.localScale = Vector3.one;
+        obj.transform.localScale = new Vector3(globalScale.x / obj.transform.lossyScale.x,
+                                               globalScale.y / obj.transform.lossyScale.y,
+                                               globalScale.z / obj.transform.lossyScale.z);
+    }
 
     public void FreezeZombie()
     {

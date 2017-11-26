@@ -55,20 +55,18 @@ public class ZombieManager : MonoBehaviour
     public void AddNewWaiter(Vector3 position)
     {
         amountOfZombies++;
-        /*
-        if (Random.value < 0.25f)
+        if (Random.value < 0.05f)
         {
-            zombie.transform.localScale = Vector3.one * 1.5f;
+            zombie.transform.localScale = Vector3.one * 1.25f;
         }
-		else if (Random.value < 0.5f)
+		else if (Random.value < 0.1f)
 		{
-            zombie.transform.localScale = Vector3.one * 0.5f;
+            zombie.transform.localScale = Vector3.one * 0.75f;
 		}
         else
         {
             zombie.transform.localScale = Vector3.one;
         }
-        */
         GameObject newZombie = Instantiate(zombie);
         newZombie.transform.position = position;
         newZombie.transform.LookAt(gameplayPosition);

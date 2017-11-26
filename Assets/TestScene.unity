@@ -63667,18 +63667,24 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e5831ab36e5c948e18ea6393ff9c37bf, type: 3}
   - {fileID: 21300000, guid: 12116c4056a9d41f7a4633bc6d4f9623, type: 3}
   - {fileID: 21300000, guid: e85706379c4a94cf7ad8c22f846bc62a, type: 3}
+  - {fileID: 21300000, guid: 4db9e53bd889e4cc5834325abf58dd1a, type: 3}
+  - {fileID: 21300000, guid: f042b52c9bb554c3ea8ff3572f50df98, type: 3}
   fries:
   - {fileID: 21300000, guid: 375ba69526440435bb9248201fc98ec1, type: 3}
   - {fileID: 21300000, guid: 0c4e377c9d73f405aaceee876fcd1d1e, type: 3}
   - {fileID: 21300000, guid: 941ff11d3a5d8490ba1885bc39a1a967, type: 3}
   - {fileID: 21300000, guid: 8d644a7dadc824979a208329b68df922, type: 3}
   - {fileID: 21300000, guid: b4644baa80c5146b3ac41b4c142b895b, type: 3}
+  - {fileID: 21300000, guid: ac754a7ef176c41078ff246320580252, type: 3}
+  - {fileID: 21300000, guid: 4604e58caf14047c586af50ebf764ada, type: 3}
   drinks:
   - {fileID: 21300000, guid: 60208b3dea4384a0ebf34c252b2806c8, type: 3}
   - {fileID: 21300000, guid: 705f878be50e04360a9f08a2a9daaa2d, type: 3}
   - {fileID: 21300000, guid: d5b77870de19d4244a798e10cd130183, type: 3}
   - {fileID: 21300000, guid: 239d3b495daec46299443b16de3684b3, type: 3}
   - {fileID: 21300000, guid: c8c91e6157a4b47538632770c1b0b3df, type: 3}
+  - {fileID: 21300000, guid: 625e2f55f890247a88d4d3b1cfd17c87, type: 3}
+  - {fileID: 21300000, guid: 71dc2271804fc498dad9e9d79cd95f54, type: 3}
   hair:
   - {fileID: 4300030, guid: 3da25bf0aabe543338ad9d02fa316ade, type: 3}
   - {fileID: 4300032, guid: 3da25bf0aabe543338ad9d02fa316ade, type: 3}
