@@ -213,15 +213,12 @@ public class Gameplay : MonoBehaviour
 
     public void IncreaseCoinCount(int number, GameObject obj)
     {
-        float size = Vector3.Distance(obj.transform.position, transform.position) / 2;
         int amount = number;
         if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.doubleCoins))
         {
             amount *= 2;
         }
-        PlayerPrefs.SetInt("Coins", (PlayerPrefs.GetInt("Coins", 0) + amount));
-        GetComponent<FloatingTextManagement>().AddFloatingText(obj, "+¤ " + amount, Color.yellow, size + 1);
-        GetComponent<LEDManager>().UpdateCoinsText();
+        gameObject.AddComponent<CoinSpawn>().StartCoinLaunch(amount, obj.transform.position);
     }
 
     public void DecreaseCoinCount(int number)
