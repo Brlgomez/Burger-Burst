@@ -6,10 +6,19 @@ ModelImporter:
   serializedVersion: 21
   fileIDToRecycleName:
     100000: //RootNode
+    100002: City_Floor
+    100004: Grass
     400000: //RootNode
+    400002: City_Floor
+    400004: Grass
     2300000: //RootNode
+    2300002: City_Floor
+    2300004: Grass
     3300000: //RootNode
+    3300002: City_Floor
+    3300004: Grass
     4300000: City_Floor
+    4300002: Grass
     7400000: Default Take
     9500000: //RootNode
   materials:
