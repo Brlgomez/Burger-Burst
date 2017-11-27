@@ -16,6 +16,7 @@ public class GrabAndThrowObject : MonoBehaviour
     static float limitForNewDragPosition = 0.01f;
     enum Area { counter, pause, gameOver, quit, grill, fryer, sodaMachine };
     Area currentArea;
+    Area previousArea;
     int throwingDistance = 15;
     bool frozen = false;
 
@@ -118,6 +119,10 @@ public class GrabAndThrowObject : MonoBehaviour
             {
                 TurnOffPhoneColliders();
                 TurnOffSodaButtonColliders();
+                if (obj.tag == "Pause" && gameObject.GetComponent<CameraMovement>() == null)
+                {
+                    return obj;
+                }
                 if (currentArea == Area.counter)
                 {
                     return GetCounterObject(obj);
@@ -175,10 +180,7 @@ public class GrabAndThrowObject : MonoBehaviour
             }
             if (!paused && !gameObject.GetComponent<Gameplay>().IsGameOver())
             {
-                if (currentArea == Area.counter)
-                {
-                    MouseUpPauseButton();
-                }
+                MouseUpPauseButton();
                 if (currentArea == Area.counter)
                 {
                     MouseUpCounter();
@@ -293,10 +295,30 @@ public class GrabAndThrowObject : MonoBehaviour
         {
             if (obj.name == "Second Button" && !gameObject.GetComponent<Gameplay>().IsGameOver())
             {
-                currentArea = Area.counter;
-                initialPosition = GetComponent<PositionManager>().GameplayPosition();
-                GetComponent<ScreenTextManagment>().ChangeToFrontArea();
-                gameObject.AddComponent<CameraMovement>().MoveToGameplay("Unpause");
+                currentArea = previousArea;
+                switch (currentArea)
+                {
+                    case Area.counter:
+                        initialPosition = GetComponent<PositionManager>().GameplayPosition();
+                        GetComponent<ScreenTextManagment>().ChangeToFrontArea();
+                        gameObject.AddComponent<CameraMovement>().MoveToGameplay("Unpause");
+                        break;
+                    case Area.grill:
+                        initialPosition = GetComponent<PositionManager>().GrillPosition();
+                        GetComponent<ScreenTextManagment>().ChangeToUnpauseText("Grill");
+                        gameObject.AddComponent<CameraMovement>().MoveToUnpause("Grill");
+                        break;
+                    case Area.fryer:
+                        initialPosition = GetComponent<PositionManager>().FryerPosition();
+                        GetComponent<ScreenTextManagment>().ChangeToUnpauseText("Fryer");
+                        gameObject.AddComponent<CameraMovement>().MoveToUnpause("Fryer");
+                        break;
+                    case Area.sodaMachine:
+                        initialPosition = GetComponent<PositionManager>().SodaPosition();
+                        GetComponent<ScreenTextManagment>().ChangeToUnpauseText("Soda Machine");
+                        gameObject.AddComponent<CameraMovement>().MoveToUnpause("Soda Machine");
+                        break;
+                }
             }
             else if (obj.name == "Third Button")
             {
@@ -311,10 +333,6 @@ public class GrabAndThrowObject : MonoBehaviour
 
     GameObject GetCounterObject(GameObject obj)
     {
-        if (obj.tag == "Pause" && gameObject.GetComponent<CameraMovement>() == null)
-        {
-            return obj;
-        }
         if (obj.tag == "Ingredient" && GetComponent<Frozen>() == null)
         {
             return obj;
@@ -455,15 +473,15 @@ public class GrabAndThrowObject : MonoBehaviour
 
     void MouseUpPauseButton()
     {
-        if (target.name == "Pause Button")
+        if (target.name == "Pause Image")
         {
+            previousArea = currentArea;
             currentArea = Area.pause;
             initialPosition = GetComponent<PositionManager>().PausePosition();
             if (GetComponent<GettingHurt>() != null)
             {
                 Destroy(GetComponent<GettingHurt>());
             }
-            target.GetComponent<Animator>().Play("ButtonClick");
             gameObject.AddComponent<CameraMovement>().MoveToPause();
             PauseGame();
         }

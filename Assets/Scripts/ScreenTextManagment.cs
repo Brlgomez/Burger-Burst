@@ -115,7 +115,9 @@ ScreenTextManagment : MonoBehaviour
         line3.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
         line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
         line5.transform.GetChild(1).GetComponent<SpriteRenderer>().color = notPressable;
-        ChangeBurgerTextColor();
+        line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
+		line5.transform.GetChild(3).gameObject.layer = 0;
+		ChangeBurgerTextColor();
         ChangeFriesTextColor();
         ChangeDrinkTextColor();
         ChangeHealthTextColor();
@@ -136,7 +138,9 @@ ScreenTextManagment : MonoBehaviour
         line3.GetComponent<TextMesh>().color = Color.red;
         line4.GetComponent<TextMesh>().color = Color.red;
         line5.GetComponent<TextMesh>().color = Color.red;
-        TurnOffGameplayImages();
+        line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
+		line5.transform.GetChild(3).gameObject.layer = 2;
+		TurnOffGameplayImages();
         menu = "Game Over";
     }
 
@@ -151,9 +155,32 @@ ScreenTextManagment : MonoBehaviour
         line3.GetComponent<TextMesh>().text = "Restart";
         line4.GetComponent<TextMesh>().text = "Quit";
         line5.GetComponent<TextMesh>().text = "";
-        TurnOffGameplayImages();
+		line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
+		line5.transform.GetChild(3).gameObject.layer = 2;
+		TurnOffGameplayImages();
         menu = "Pause";
     }
+
+    public void ChangeToUnpauseText(string area)
+    {
+        ChangeToGamePlayText();
+        if (area == "Front")
+        {
+            ChangeToFrontArea();
+        }
+        else if (area == "Grill")
+        {
+            ChangeToGrillArea();
+        }
+		else if (area == "Fryer")
+		{
+            ChangeToFryerArea();
+		}
+		else if (area == "Soda Machine")
+		{
+            ChangeToSodaMachineArea();
+		}
+	}
 
     public void ChangeHealthCount(int num)
     {

@@ -13,6 +13,7 @@ public class CameraMovement : MonoBehaviour
     float speed;
     bool moveToPosition;
     bool moveDevice;
+    bool unpause;
     string gamePlayCommand;
 
     void Update()
@@ -74,6 +75,11 @@ public class CameraMovement : MonoBehaviour
         {
             transform.GetChild(1).localPosition = deviceTowards.localPosition;
             transform.GetChild(1).localRotation = deviceTowards.localRotation;
+        }
+        if (unpause)
+        {
+            GetComponent<ScreenTextManagment>().ChangeToGamePlayText();
+            GetComponent<GrabAndThrowObject>().UnPauseGame();
         }
         if (towards == gameplay)
         {
@@ -165,6 +171,35 @@ public class CameraMovement : MonoBehaviour
         deviceFront = GetComponent<PositionManager>().DeviceFrontPosition();
         towards = pause;
         deviceTowards = deviceFront;
+        moveToPosition = true;
+        moveDevice = true;
+    }
+
+    public void MoveToUnpause(string area)
+    {
+        unpause = true;
+        if (area == "Front")
+        {
+            gameplay = GetComponent<PositionManager>().GameplayPosition();
+            towards = gameplay;
+        }
+        else if (area == "Grill")
+        {
+            grill = GetComponent<PositionManager>().GrillPosition();
+            towards = grill;
+        }
+        else if (area == "Fryer")
+        {
+            fryer = GetComponent<PositionManager>().FryerPosition();
+            towards = fryer;
+        }
+        else if (area == "Soda Machine")
+        {
+            soda = GetComponent<PositionManager>().SodaPosition();
+            towards = soda;
+        }
+        deviceBack = GetComponent<PositionManager>().DeviceBackPosition();
+        deviceTowards = deviceBack;
         moveToPosition = true;
         moveDevice = true;
     }
