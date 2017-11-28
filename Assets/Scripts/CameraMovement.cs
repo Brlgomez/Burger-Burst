@@ -8,7 +8,7 @@ public class CameraMovement : MonoBehaviour
 
     static int maxSpeed = 15;
     static int accelerating = 15;
-    Transform menu, gameplay, pause, towards, gameOver, grill, fryer, soda;
+    Transform menu, gameplay, pause, towards, gameOver, grill, fryer, soda, powerUp;
     Transform deviceFront, deviceBack, deviceTowards;
     float speed;
     bool moveToPosition;
@@ -107,7 +107,10 @@ public class CameraMovement : MonoBehaviour
         else if (towards == menu)
         {
             GetComponent<ScreenTextManagment>().ChangeToMenuText();
-            gameObject.AddComponent<MainMenu>();
+            if (GetComponent<MainMenu>() == null)
+            {
+                gameObject.AddComponent<MainMenu>();
+            }
         }
         else if (towards == pause)
         {
@@ -131,18 +134,30 @@ public class CameraMovement : MonoBehaviour
         {
             GetComponent<ScreenTextManagment>().ChangeToSodaMachineArea();
         }
+        else if (towards == powerUp)
+        {
+			GetComponent<ScreenTextManagment>().ChangeToUpgradeText();
+		}
         Destroy(GetComponent<CameraMovement>());
     }
 
-    public void MoveToMenu()
+    public void MoveToMenu(bool moveDev)
     {
         menu = GetComponent<PositionManager>().MenuPosition();
         deviceFront = GetComponent<PositionManager>().DeviceFrontPosition();
         towards = menu;
         deviceTowards = deviceFront;
         moveToPosition = true;
-        moveDevice = true;
+        moveDevice = moveDev;
     }
+
+	public void MoveToPowerUp()
+	{
+        powerUp = GetComponent<PositionManager>().PowerUpsPosition();
+        towards = powerUp;
+		deviceTowards = deviceFront;
+		moveToPosition = true;
+	}
 
     public void MoveToGameplay(string c)
     {

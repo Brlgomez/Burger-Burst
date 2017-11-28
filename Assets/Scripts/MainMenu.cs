@@ -124,12 +124,14 @@ public class MainMenu : MonoBehaviour
     {
         if (target.name == "First Button")
         {
+            GetComponent<ScreenTextManagment>().CannotPressAnything();
             gameObject.AddComponent<CameraMovement>().MoveToGameplay("Start");
             Destroy(GetComponent<MainMenu>());
         }
         else if (target.name == "Second Button")
         {
-            GetComponent<ScreenTextManagment>().ChangeToUpgradeText();
+            GetComponent<ScreenTextManagment>().CannotPressAnything();
+            gameObject.AddComponent<CameraMovement>().MoveToPowerUp();
             currentSlot = GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(2).GetChild(0).GetChild(0).gameObject;
             slotPosition = 1;
             lastScrollX = -Mathf.RoundToInt(GetComponent<ScreenTextManagment>().GetMiddleObject().transform.localPosition.z);
@@ -142,13 +144,14 @@ public class MainMenu : MonoBehaviour
         {
             GetComponent<ScreenTextManagment>().ChangeSlotSprite(currentSlot, slotPosition);
         }
-		else if (target.name == "Fourth Button")
-		{
-			GetComponent<ScreenTextManagment>().ChangeSlotSprite(currentSlot, slotPosition);
-		}
+        else if (target.name == "Fourth Button")
+        {
+            GetComponent<ScreenTextManagment>().ChangeSlotSprite(currentSlot, slotPosition);
+        }
         else if (target.name == "Fifth Button")
         {
-            GetComponent<ScreenTextManagment>().ChangeToMenuText();
+            GetComponent<ScreenTextManagment>().CannotPressAnything();
+            gameObject.AddComponent<CameraMovement>().MoveToMenu(false);
         }
         else if (target.name == "Scroller")
         {

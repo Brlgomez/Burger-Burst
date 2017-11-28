@@ -279,11 +279,11 @@ public class GrabAndThrowObject : MonoBehaviour
 
     void GameOverPhoneInterface(GameObject obj)
     {
-        if (obj.name == "Third Button")
+        if (obj.name == "First Button")
         {
             Restart();
         }
-        else if (obj.name == "Fourth Button")
+        else if (obj.name == "Second Button")
         {
             Quit();
         }
@@ -293,38 +293,34 @@ public class GrabAndThrowObject : MonoBehaviour
     {
         if (paused)
         {
-            if (obj.name == "Second Button" && !gameObject.GetComponent<Gameplay>().IsGameOver())
+            if (obj.name == "First Button" && !gameObject.GetComponent<Gameplay>().IsGameOver())
             {
                 currentArea = previousArea;
                 switch (currentArea)
                 {
                     case Area.counter:
                         initialPosition = GetComponent<PositionManager>().GameplayPosition();
-                        GetComponent<ScreenTextManagment>().ChangeToFrontArea();
                         gameObject.AddComponent<CameraMovement>().MoveToGameplay("Unpause");
                         break;
                     case Area.grill:
                         initialPosition = GetComponent<PositionManager>().GrillPosition();
-                        GetComponent<ScreenTextManagment>().ChangeToUnpauseText("Grill");
                         gameObject.AddComponent<CameraMovement>().MoveToUnpause("Grill");
                         break;
                     case Area.fryer:
                         initialPosition = GetComponent<PositionManager>().FryerPosition();
-                        GetComponent<ScreenTextManagment>().ChangeToUnpauseText("Fryer");
                         gameObject.AddComponent<CameraMovement>().MoveToUnpause("Fryer");
                         break;
                     case Area.sodaMachine:
                         initialPosition = GetComponent<PositionManager>().SodaPosition();
-                        GetComponent<ScreenTextManagment>().ChangeToUnpauseText("Soda Machine");
                         gameObject.AddComponent<CameraMovement>().MoveToUnpause("Soda Machine");
                         break;
                 }
             }
-            else if (obj.name == "Third Button")
+            else if (obj.name == "Second Button")
             {
                 Restart();
             }
-            else if (obj.name == "Fourth Button")
+            else if (obj.name == "Third Button")
             {
                 Quit();
             }
@@ -596,9 +592,9 @@ public class GrabAndThrowObject : MonoBehaviour
         return new Vector3(xVelocity, yVelocity, zVelocity);
     }
 
-
     void Restart()
     {
+        GetComponent<ScreenTextManagment>().CannotPressAnything();
         currentArea = Area.counter;
         initialPosition = GetComponent<PositionManager>().GameplayPosition();
         transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 0, 0, 0);
@@ -606,17 +602,17 @@ public class GrabAndThrowObject : MonoBehaviour
         Destroy(GetComponent<Gameplay>());
         gameObject.AddComponent<Gameplay>();
         gameObject.AddComponent<CameraMovement>().MoveToGameplay("Restart");
-        GetComponent<ScreenTextManagment>().MakeButtonsUnpressable();
     }
 
     void Quit()
     {
+        GetComponent<ScreenTextManagment>().CannotPressAnything();
         currentArea = Area.quit;
         transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 0, 0, 0);
         ResetEverything();
         Destroy(GetComponent<Gameplay>());
         UnPauseGame();
-        gameObject.AddComponent<CameraMovement>().MoveToMenu();
+        gameObject.AddComponent<CameraMovement>().MoveToMenu(true);
         gameObject.AddComponent<Gameplay>();
         Destroy(GetComponent<GrabAndThrowObject>());
     }
