@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PowerUpsManager : MonoBehaviour
 {
-    public static int throwFurther = 0;
+	public static int nothing = -1;
+	public static int throwFurther = 0;
     public static int quickerCooking = 1;
     public static int makeMoreFood = 2;
     public static int defenseIncrease = 3;
@@ -24,5 +25,4 @@ public class PowerUpsManager : MonoBehaviour
     public static int noPoison = 17;
 	public static int noIce = 18;
     public static int freeze = 19;
-    public static int nothing = 20;
 }

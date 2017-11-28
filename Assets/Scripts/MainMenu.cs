@@ -55,11 +55,11 @@ public class MainMenu : MonoBehaviour
         if (target != null && target.tag == "UI")
         {
             GetComponent<ScreenTextManagment>().PressTextUp(target.transform.parent.gameObject);
-            if (GetComponent<ScreenTextManagment>().GetMenu() == "Main Menu")
+            if (GetComponent<ScreenTextManagment>().GetMenu() == Menus.Menu.MainMenu)
             {
                 MouseUpMainMenu();
             }
-            else if (GetComponent<ScreenTextManagment>().GetMenu() == "Upgrade")
+            else if (GetComponent<ScreenTextManagment>().GetMenu() == Menus.Menu.PowerUps)
             {
                 MouseUpUpgradeMenu();
             }
@@ -122,12 +122,12 @@ public class MainMenu : MonoBehaviour
 
     void MouseUpMainMenu()
     {
-        if (target.name == "Second Button")
+        if (target.name == "First Button")
         {
             gameObject.AddComponent<CameraMovement>().MoveToGameplay("Start");
             Destroy(GetComponent<MainMenu>());
         }
-        else if (target.name == "Third Button")
+        else if (target.name == "Second Button")
         {
             GetComponent<ScreenTextManagment>().ChangeToUpgradeText();
             currentSlot = GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(2).GetChild(0).GetChild(0).gameObject;
@@ -138,10 +138,14 @@ public class MainMenu : MonoBehaviour
 
     void MouseUpUpgradeMenu()
     {
-        if (target.name == "Fourth Button")
+        if (target.name == "Third Button")
         {
             GetComponent<ScreenTextManagment>().ChangeSlotSprite(currentSlot, slotPosition);
         }
+		else if (target.name == "Fourth Button")
+		{
+			GetComponent<ScreenTextManagment>().ChangeSlotSprite(currentSlot, slotPosition);
+		}
         else if (target.name == "Fifth Button")
         {
             GetComponent<ScreenTextManagment>().ChangeToMenuText();
