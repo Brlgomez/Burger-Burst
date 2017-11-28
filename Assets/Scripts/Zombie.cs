@@ -357,7 +357,9 @@ public class Zombie : MonoBehaviour
 
     void AddToBody(GameObject obj)
     {
-        GameObject landParticles = Instantiate(Camera.main.GetComponent<ObjectManager>().LandOnZombieParticles());
+        Vector3 velocity = obj.GetComponent<Rigidbody>().velocity * obj.GetComponent<Rigidbody>().mass;
+		obj.transform.parent.GetComponent<Rigidbody>().velocity = velocity;
+		GameObject landParticles = Instantiate(Camera.main.GetComponent<ObjectManager>().LandOnZombieParticles());
         landParticles.transform.position = obj.transform.position;
         landParticles.GetComponent<ParticleSystem>().Play();
         landParticles.AddComponent<DestroySpawnedParticle>();
@@ -371,14 +373,15 @@ public class Zombie : MonoBehaviour
         }
         obj.tag = "OnPlatter";
         onPlatter.Add(obj);
-        CheckOrder(obj);
+        CheckOrder(obj, velocity);
     }
 
-    void CheckOrder(GameObject obj)
+    void CheckOrder(GameObject obj, Vector3 vel)
     {
         if (amountOfBurgers >= neededBurgers && amountOfFries >= neededFries && amountOfDrinks >= neededDrinks)
         {
-            Camera.main.GetComponent<Gameplay>().IncreaseCompletedOrders();
+            upperBody.GetComponent<Rigidbody>().velocity += Vector3.up * 50;
+			Camera.main.GetComponent<Gameplay>().IncreaseCompletedOrders();
             orderComplete = true;
             Died();
         }
