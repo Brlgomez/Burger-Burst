@@ -402,11 +402,11 @@ ScreenTextManagment : MonoBehaviour
             int scrollSprite = int.Parse(scrollList[scrollList.Count - 1].GetComponent<SpriteRenderer>().sprite.name);
             if ((scrollSprite - 1) >= 0)
             {
-                scrollList[0].GetComponent<SpriteRenderer>().sprite = scrollSprites[(scrollSprite - 1)];
+                SetUpScrollObject(scrollList[0], (scrollSprite - 1));
             }
             else
             {
-                scrollList[0].GetComponent<SpriteRenderer>().sprite = scrollSprites[(scrollSprites.Length - 1)];
+                SetUpScrollObject(scrollList[0], (scrollSprites.Length - 1));
             }
             scrollList[0].transform.localPosition = new Vector3(
                 scrollList[0].transform.localPosition.x,
@@ -421,11 +421,11 @@ ScreenTextManagment : MonoBehaviour
             int scrollSprite = int.Parse(scrollList[0].GetComponent<SpriteRenderer>().sprite.name);
             if ((scrollSprite + 1) <= (scrollSprites.Length - 1))
             {
-                scrollList[scrollList.Count - 1].GetComponent<SpriteRenderer>().sprite = scrollSprites[(scrollSprite + 1)];
+                SetUpScrollObject(scrollList[scrollList.Count - 1], (scrollSprite + 1));
             }
             else
             {
-                scrollList[scrollList.Count - 1].GetComponent<SpriteRenderer>().sprite = scrollSprites[0];
+                SetUpScrollObject(scrollList[scrollList.Count - 1], 0);
             }
             scrollList[scrollList.Count - 1].transform.localPosition = new Vector3(
                 scrollList[scrollList.Count - 1].transform.localPosition.x,
@@ -584,10 +584,7 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeInfo(int name)
     {
-        line3.GetComponent<TextMesh>().characterSize = 0.01625f;
         line3.GetComponent<TextMesh>().text = GetComponent<PowerUpsManager>().powerUpList[name].description;
-        GetMiddleObject().transform.GetChild(0).GetComponent<TextMesh>().text =
-            GetComponent<PowerUpsManager>().powerUpList[name].price.ToString();
     }
 
     void RestartScrollList()
@@ -600,14 +597,28 @@ ScreenTextManagment : MonoBehaviour
                 Color.white;
             if (i == 0 || i == 1 || i == 2)
             {
-                GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(1).GetChild(i).GetComponent<SpriteRenderer>().sprite =
-                    scrollSprites[2 - i];
+                SetUpScrollObject(scrollList[i], 2 - i);
             }
             else
             {
-                GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(1).GetChild(i).GetComponent<SpriteRenderer>().sprite =
-                    scrollSprites[scrollSprites.Length + 2 - i];
+                SetUpScrollObject(scrollList[i], scrollSprites.Length + 2 - i);
             }
+        }
+    }
+
+    void SetUpScrollObject(GameObject scrollObj, int powerUpNum)
+    {
+        scrollObj.GetComponent<SpriteRenderer>().sprite = scrollSprites[powerUpNum];
+        if (GetComponent<PowerUpsManager>().powerUpList[powerUpNum].unlocked)
+        {
+            scrollObj.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
+            scrollObj.transform.GetChild(0).GetComponent<TextMesh>().text = "";
+        }
+        else
+        {
+            scrollObj.transform.GetChild(1).GetComponent<SpriteRenderer>().color = new Color(0.5f, 0.5f, 0.5f, 0.5f);
+            scrollObj.transform.GetChild(0).GetComponent<TextMesh>().text =
+                GetComponent<PowerUpsManager>().powerUpList[powerUpNum].price.ToString();
         }
     }
 
@@ -644,6 +655,7 @@ ScreenTextManagment : MonoBehaviour
         slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
         slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
         slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
+        line3.GetComponent<TextMesh>().characterSize = 0.01625f;
         HighLightSlot(slot1);
     }
 

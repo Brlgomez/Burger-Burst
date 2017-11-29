@@ -26,13 +26,13 @@ public class PowerUpsManager : MonoBehaviour
     public powerUpStruct doubleCoins, throwMultiple, magnet, noWind, noInstantKill, luck, noPoison, noIce;
     public powerUpStruct freeze;
 
-    void Start()
+    void Awake()
     {
         nothing = new powerUpStruct(-1, 0, "");
-        throwFurther = new powerUpStruct(0, 50, "Throw further");
-        quickerCooking = new powerUpStruct(1, 50, "Faster cooking");
-        makeMoreFood = new powerUpStruct(2, 50, "Make more food");
-        defenseIncrease = new powerUpStruct(3, 50, "Defense increase");
+        throwFurther = new powerUpStruct(0, 60, "Throw further");
+        quickerCooking = new powerUpStruct(1, 70, "Faster cooking");
+        makeMoreFood = new powerUpStruct(2, 80, "Make more food");
+        defenseIncrease = new powerUpStruct(3, 90, "Defense increase");
         moreHealth = new powerUpStruct(4, 50, "Double health");
         largerFood = new powerUpStruct(5, 50, "Larger food");
         regenHealth = new powerUpStruct(6, 50, "Health regeneration");
