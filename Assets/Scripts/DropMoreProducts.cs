@@ -53,7 +53,7 @@ public class DropMoreProducts : MonoBehaviour
             GameObject newProduct = Instantiate(fries);
             AddNewProduct(newProduct, "Ingredient", Camera.main.GetComponent<PositionManager>().MadeFriesPosition().position);
             newProduct.AddComponent<RemoveObjects>();
-            if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.largerFood))
+            if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(GetComponent<PowerUpsManager>().largerFood.powerUpNumber))
             {
                 newProduct.transform.localScale = Vector3.one * 1.25f;
             }
@@ -67,7 +67,7 @@ public class DropMoreProducts : MonoBehaviour
             GameObject newProduct = Instantiate(burger);
             AddNewProduct(newProduct, "Ingredient", Camera.main.GetComponent<PositionManager>().BurgerPosition().position);
             newProduct.AddComponent<RemoveObjects>();
-            if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.largerFood))
+            if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(GetComponent<PowerUpsManager>().largerFood.powerUpNumber))
             {
                 newProduct.transform.localScale = Vector3.one * 1.25f;
             }
@@ -81,7 +81,7 @@ public class DropMoreProducts : MonoBehaviour
             GameObject newProduct = Instantiate(drink);
             AddNewProduct(newProduct, "Ingredient", Camera.main.GetComponent<PositionManager>().DrinkPosition().position);
             newProduct.AddComponent<RemoveObjects>();
-            if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.largerFood))
+            if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(GetComponent<PowerUpsManager>().largerFood.powerUpNumber))
             {
                 newProduct.transform.localScale = Vector3.one * 1.25f;
             }

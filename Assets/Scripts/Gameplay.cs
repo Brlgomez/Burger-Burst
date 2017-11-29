@@ -24,7 +24,7 @@ public class Gameplay : MonoBehaviour
         if (!IsGameOver())
         {
             int addedPoints = (int)Vector3.Distance(obj.transform.position, transform.position) / 2;
-            if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.doublePoints))
+            if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(GetComponent<PowerUpsManager>().doublePoints.powerUpNumber))
             {
                 addedPoints *= 2;
             }
@@ -61,7 +61,7 @@ public class Gameplay : MonoBehaviour
 
     public void ReduceHealth(int damage, GameObject zombie)
     {
-        if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.luck))
+        if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(GetComponent<PowerUpsManager>().luck.powerUpNumber))
         {
             if (Random.value > 0.125f)
             {
@@ -89,6 +89,7 @@ public class Gameplay : MonoBehaviour
         if (life < 1)
         {
             gameOver = true;
+            GetComponent<ScreenTextManagment>().CannotPressAnything();
             if (GetComponent<CameraMovement>() != null)
             {
                 Destroy(GetComponent<CameraMovement>());
@@ -214,7 +215,7 @@ public class Gameplay : MonoBehaviour
     public void IncreaseCoinCount(int number, GameObject obj)
     {
         int amount = number;
-        if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.doubleCoins))
+        if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(GetComponent<PowerUpsManager>().doubleCoins.powerUpNumber))
         {
             amount *= 2;
         }
@@ -234,19 +235,19 @@ public class Gameplay : MonoBehaviour
         {
             if (!GetComponent<Gameplay>().IsGameOver())
             {
-                if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.regenHealth))
+                if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(GetComponent<PowerUpsManager>().regenHealth.powerUpNumber))
                 {
                     GetComponent<Gameplay>().AddLife(2, gameObject);
                 }
-                if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.regenBurgers))
+                if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(GetComponent<PowerUpsManager>().regenBurgers.powerUpNumber))
                 {
                     GetComponent<Gameplay>().AddBurgers(1);
                 }
-                if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.regenFries))
+                if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(GetComponent<PowerUpsManager>().regenFries.powerUpNumber))
                 {
                     GetComponent<Gameplay>().AddFries(1);
                 }
-                if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.regenDrinks))
+                if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(GetComponent<PowerUpsManager>().regenDrinks.powerUpNumber))
                 {
                     GetComponent<Gameplay>().AddDrinks(1);
                 }

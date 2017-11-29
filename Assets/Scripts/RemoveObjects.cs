@@ -53,14 +53,14 @@ public class RemoveObjects : MonoBehaviour
     {
         if (gameObject.tag == "Ingredient" && col.gameObject.name == "Counter Range")
         {
-            if (Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.magnet))
+            if (Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(Camera.main.GetComponent<PowerUpsManager>().magnet.powerUpNumber))
             {
                 if (GetComponent<MagnetPowerUp>() == null)
                 {
                     gameObject.AddComponent<MagnetPowerUp>();
                 }
             }
-            if (Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.throwMultiple))
+            if (Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(Camera.main.GetComponent<PowerUpsManager>().throwMultiple.powerUpNumber))
             {
                 if (!gameObject.name.EndsWith("Copy"))
                 {

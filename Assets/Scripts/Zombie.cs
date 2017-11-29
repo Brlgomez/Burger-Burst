@@ -60,7 +60,7 @@ public class Zombie : MonoBehaviour
             damageAmount *= 2;
             thinkBubble.transform.position = new Vector3(
                 thinkBubble.transform.position.x - 0.25f,
-                thinkBubble.transform.position.y - 0.5f, 
+                thinkBubble.transform.position.y - 0.5f,
                 thinkBubble.transform.position.z
             );
         }
@@ -157,7 +157,7 @@ public class Zombie : MonoBehaviour
                 Camera.main.GetComponent<Gameplay>().IncreaseCoinCount(1, thinkBubble);
                 Camera.main.GetComponent<Gameplay>().AddLife(15, thinkBubble);
             }
-            else 
+            else
             {
                 Camera.main.GetComponent<Gameplay>().IncreaseCoinCount(1, thinkBubble);
             }
@@ -210,7 +210,7 @@ public class Zombie : MonoBehaviour
         switch (thisZombieType)
         {
             case ZombieType.instantKill:
-                if (!Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.noInstantKill))
+                if (!Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(Camera.main.GetComponent<PowerUpsManager>().noInstantKill.powerUpNumber))
                 {
                     Camera.main.GetComponent<Gameplay>().ReduceHealth(1000, upperBody);
                 }
@@ -224,7 +224,7 @@ public class Zombie : MonoBehaviour
                 thisZombieType = ZombieType.regular;
                 powerParticles.Play();
                 powerParticles.Stop();
-                if (!Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.noPoison))
+                if (!Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(Camera.main.GetComponent<PowerUpsManager>().noPoison.powerUpNumber))
                 {
                     Camera.main.GetComponent<Gameplay>().ReduceHealth(damageAmount, upperBody);
                     if (Camera.main.transform.GetComponent<Poisoned>())
@@ -245,7 +245,7 @@ public class Zombie : MonoBehaviour
                 thisZombieType = ZombieType.regular;
                 powerParticles.Play();
                 powerParticles.Stop();
-                if (!Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.noIce))
+                if (!Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(Camera.main.GetComponent<PowerUpsManager>().noIce.powerUpNumber))
                 {
                     Camera.main.GetComponent<Gameplay>().ReduceHealth(damageAmount, upperBody);
                     if (Camera.main.GetComponent<Frozen>())
@@ -310,7 +310,7 @@ public class Zombie : MonoBehaviour
 
     public void AddToPlatter(GameObject obj)
     {
-        if (Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.freeze))
+        if (Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(Camera.main.GetComponent<PowerUpsManager>().freeze.powerUpNumber))
         {
             FreezeZombie();
         }
@@ -358,8 +358,8 @@ public class Zombie : MonoBehaviour
     void AddToBody(GameObject obj)
     {
         Vector3 velocity = obj.GetComponent<Rigidbody>().velocity * obj.GetComponent<Rigidbody>().mass;
-		obj.transform.parent.GetComponent<Rigidbody>().velocity = velocity;
-		GameObject landParticles = Instantiate(Camera.main.GetComponent<ObjectManager>().LandOnZombieParticles());
+        obj.transform.parent.GetComponent<Rigidbody>().velocity = velocity;
+        GameObject landParticles = Instantiate(Camera.main.GetComponent<ObjectManager>().LandOnZombieParticles());
         landParticles.transform.position = obj.transform.position;
         landParticles.GetComponent<ParticleSystem>().Play();
         landParticles.AddComponent<DestroySpawnedParticle>();
@@ -373,15 +373,15 @@ public class Zombie : MonoBehaviour
         }
         obj.tag = "OnPlatter";
         onPlatter.Add(obj);
-        CheckOrder(obj, velocity);
+        CheckOrder();
     }
 
-    void CheckOrder(GameObject obj, Vector3 vel)
+    void CheckOrder()
     {
         if (amountOfBurgers >= neededBurgers && amountOfFries >= neededFries && amountOfDrinks >= neededDrinks)
         {
             upperBody.GetComponent<Rigidbody>().velocity += Vector3.up * 50;
-			Camera.main.GetComponent<Gameplay>().IncreaseCompletedOrders();
+            Camera.main.GetComponent<Gameplay>().IncreaseCompletedOrders();
             orderComplete = true;
             Died();
         }

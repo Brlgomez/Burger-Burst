@@ -13,6 +13,7 @@ ScreenTextManagment : MonoBehaviour
     bool pressDown;
     Menus.Menu currentArea;
     public Sprite[] scrollSprites;
+    public Sprite coinSprite, drinkSprite;
     int middleSpriteIndex;
 
     void Start()
@@ -54,9 +55,11 @@ ScreenTextManagment : MonoBehaviour
         EnableButton(line1, "");
         EnableButton(line2, "");
         EnableButton(line3, "");
-        EnableButton(line4, "");
+        EnableButton(line4, "    " + PlayerPrefs.GetInt("Coins", 0).ToString());
         EnableButton(line5, "Back");
-        TurnOnScrollList();
+		line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
+        line4.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = coinSprite;
+		TurnOnScrollList();
         currentArea = Menus.Menu.PowerUps;
     }
 
@@ -71,7 +74,8 @@ ScreenTextManagment : MonoBehaviour
         line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
         line5.transform.GetChild(1).GetComponent<SpriteRenderer>().color = notPressable;
         line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
-        line5.transform.GetChild(3).gameObject.layer = 0;
+        line4.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = drinkSprite;
+		line5.transform.GetChild(3).gameObject.layer = 0;
 		currentArea = Menus.Menu.Gameplay;
     }
 
@@ -493,7 +497,7 @@ ScreenTextManagment : MonoBehaviour
         if (GetComponent<PlayerPrefsManager>().ContainsUpgradeBesidesSlot(GetMiddleObjectNumber(), slotPosition))
         {
             int slotNum = GetComponent<PlayerPrefsManager>().WhichSlotContainsUpgrade(GetMiddleObjectNumber());
-            PlayerPrefs.SetInt("UPGRADE " + slotNum, PowerUpsManager.nothing);
+            PlayerPrefs.SetInt("UPGRADE " + slotNum, GetComponent<PowerUpsManager>().nothing.powerUpNumber);
             GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(slotNum - 1).GetComponent<SpriteRenderer>().sprite = null;
             if (slotNum == 1)
             {
@@ -510,7 +514,7 @@ ScreenTextManagment : MonoBehaviour
         }
         if (GetComponent<PlayerPrefsManager>().SlotContainsUpgrade(slotPosition, GetMiddleObjectNumber()))
         {
-            PlayerPrefs.SetInt("UPGRADE " + slotPosition, PowerUpsManager.nothing);
+            PlayerPrefs.SetInt("UPGRADE " + slotPosition, GetComponent<PowerUpsManager>().nothing.powerUpNumber);
             slot.GetComponent<SpriteRenderer>().sprite = null;
             slot.GetComponent<SpriteRenderer>().color = Color.clear;
             GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(slotPosition - 1).GetComponent<SpriteRenderer>().sprite = null;
@@ -583,106 +587,106 @@ ScreenTextManagment : MonoBehaviour
     {
         int upgradeNum = name;
         line3.GetComponent<TextMesh>().characterSize = 0.0325f;
-        if (upgradeNum == PowerUpsManager.nothing)
+        if (upgradeNum == GetComponent<PowerUpsManager>().nothing.powerUpNumber)
         {
             line3.GetComponent<TextMesh>().text = "Remove";
         }
-        else if (upgradeNum == PowerUpsManager.throwFurther)
+        else if (upgradeNum == GetComponent<PowerUpsManager>().throwFurther.powerUpNumber)
         {
             line3.GetComponent<TextMesh>().characterSize = 0.024f;
             line3.GetComponent<TextMesh>().text = "Throw further";
         }
-        else if (upgradeNum == PowerUpsManager.quickerCooking)
+        else if (upgradeNum == GetComponent<PowerUpsManager>().quickerCooking.powerUpNumber)
         {
             line3.GetComponent<TextMesh>().characterSize = 0.024f;
             line3.GetComponent<TextMesh>().text = "Faster cooking";
         }
-        else if (upgradeNum == PowerUpsManager.makeMoreFood)
+        else if (upgradeNum == GetComponent<PowerUpsManager>().makeMoreFood.powerUpNumber)
         {
             line3.GetComponent<TextMesh>().characterSize = 0.022f;
             line3.GetComponent<TextMesh>().text = "Make more food";
         }
-        else if (upgradeNum == PowerUpsManager.defenseIncrease)
+        else if (upgradeNum == GetComponent<PowerUpsManager>().defenseIncrease.powerUpNumber)
         {
             line3.GetComponent<TextMesh>().characterSize = 0.020f;
             line3.GetComponent<TextMesh>().text = "Defense increase";
         }
-        else if (upgradeNum == PowerUpsManager.moreHealth)
+        else if (upgradeNum == GetComponent<PowerUpsManager>().moreHealth.powerUpNumber)
         {
             line3.GetComponent<TextMesh>().characterSize = 0.026f;
             line3.GetComponent<TextMesh>().text = "Double health";
         }
-        else if (upgradeNum == PowerUpsManager.largerFood)
+        else if (upgradeNum == GetComponent<PowerUpsManager>().largerFood.powerUpNumber)
         {
             line3.GetComponent<TextMesh>().characterSize = 0.029f;
             line3.GetComponent<TextMesh>().text = "Larger food";
         }
-        else if (upgradeNum == PowerUpsManager.regenHealth)
+        else if (upgradeNum == GetComponent<PowerUpsManager>().regenHealth.powerUpNumber)
         {
             line3.GetComponent<TextMesh>().characterSize = 0.018f;
             line3.GetComponent<TextMesh>().text = "Health regeneration";
         }
-        else if (upgradeNum == PowerUpsManager.regenBurgers)
+        else if (upgradeNum == GetComponent<PowerUpsManager>().regenBurgers.powerUpNumber)
         {
             line3.GetComponent<TextMesh>().characterSize = 0.017f;
             line3.GetComponent<TextMesh>().text = "Burger regeneration";
         }
-        else if (upgradeNum == PowerUpsManager.regenFries)
+        else if (upgradeNum == GetComponent<PowerUpsManager>().regenFries.powerUpNumber)
         {
             line3.GetComponent<TextMesh>().characterSize = 0.019f;
             line3.GetComponent<TextMesh>().text = "Fries regeneration";
         }
-        else if (upgradeNum == PowerUpsManager.regenDrinks)
+        else if (upgradeNum == GetComponent<PowerUpsManager>().regenDrinks.powerUpNumber)
         {
             line3.GetComponent<TextMesh>().characterSize = 0.019f;
             line3.GetComponent<TextMesh>().text = "Drink regeneration";
         }
-        else if (upgradeNum == PowerUpsManager.doublePoints)
+        else if (upgradeNum == GetComponent<PowerUpsManager>().doublePoints.powerUpNumber)
         {
             line3.GetComponent<TextMesh>().characterSize = 0.026f;
             line3.GetComponent<TextMesh>().text = "Double points";
         }
-        else if (upgradeNum == PowerUpsManager.doubleCoins)
+        else if (upgradeNum == GetComponent<PowerUpsManager>().doubleCoins.powerUpNumber)
         {
             line3.GetComponent<TextMesh>().characterSize = 0.028f;
             line3.GetComponent<TextMesh>().text = "Double coins";
         }
-        else if (upgradeNum == PowerUpsManager.throwMultiple)
+        else if (upgradeNum == GetComponent<PowerUpsManager>().throwMultiple.powerUpNumber)
         {
             line3.GetComponent<TextMesh>().characterSize = 0.015f;
             line3.GetComponent<TextMesh>().text = "Thrown food is divided\nand scattered";
         }
-        else if (upgradeNum == PowerUpsManager.magnet)
+        else if (upgradeNum == GetComponent<PowerUpsManager>().magnet.powerUpNumber)
         {
             line3.GetComponent<TextMesh>().characterSize = 0.022f;
             line3.GetComponent<TextMesh>().text = "Food magnetic\nto zombies";
         }
-        else if (upgradeNum == PowerUpsManager.noWind)
+        else if (upgradeNum == GetComponent<PowerUpsManager>().noWind.powerUpNumber)
         {
             line3.GetComponent<TextMesh>().characterSize = 0.022f;
             line3.GetComponent<TextMesh>().text = "Food unaffected\nby wind";
         }
-        else if (upgradeNum == PowerUpsManager.noInstantKill)
+        else if (upgradeNum == GetComponent<PowerUpsManager>().noInstantKill.powerUpNumber)
         {
             line3.GetComponent<TextMesh>().characterSize = 0.021f;
             line3.GetComponent<TextMesh>().text = "Muffle instant\ndeath attacks";
         }
-        else if (upgradeNum == PowerUpsManager.luck)
+        else if (upgradeNum == GetComponent<PowerUpsManager>().luck.powerUpNumber)
         {
             line3.GetComponent<TextMesh>().characterSize = 0.019f;
             line3.GetComponent<TextMesh>().text = "Chance of dodging\nattacks";
         }
-        else if (upgradeNum == PowerUpsManager.noPoison)
+        else if (upgradeNum == GetComponent<PowerUpsManager>().noPoison.powerUpNumber)
         {
             line3.GetComponent<TextMesh>().characterSize = 0.019f;
             line3.GetComponent<TextMesh>().text = "Immuned to posion\nzombies";
         }
-        else if (upgradeNum == PowerUpsManager.noIce)
+        else if (upgradeNum == GetComponent<PowerUpsManager>().noIce.powerUpNumber)
         {
             line3.GetComponent<TextMesh>().characterSize = 0.019f;
             line3.GetComponent<TextMesh>().text = "Immuned to ice\nzombies";
         }
-        else if (upgradeNum == PowerUpsManager.freeze)
+        else if (upgradeNum == GetComponent<PowerUpsManager>().freeze.powerUpNumber)
         {
             line3.GetComponent<TextMesh>().characterSize = 0.019f;
             line3.GetComponent<TextMesh>().text = "Food freezes\nzombies";

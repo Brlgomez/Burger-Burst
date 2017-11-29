@@ -8,7 +8,7 @@ public class PlayerPrefsManager : MonoBehaviour
     {
         for (int i = 1; i <= 3; i++)
         {
-            if (PlayerPrefs.GetInt("UPGRADE " + i) == upgradeNumber && upgradeNumber != PowerUpsManager.nothing)
+            if (PlayerPrefs.GetInt("UPGRADE " + i) == upgradeNumber && upgradeNumber != GetComponent<PowerUpsManager>().nothing.powerUpNumber)
             {
                 return false;
             }
@@ -30,7 +30,7 @@ public class PlayerPrefsManager : MonoBehaviour
     {
         for (int i = 1; i <= 3; i++)
         {
-            if (PlayerPrefs.GetInt("UPGRADE " + i) == upgradeNumber && upgradeNumber != PowerUpsManager.nothing)
+            if (PlayerPrefs.GetInt("UPGRADE " + i) == upgradeNumber && upgradeNumber != GetComponent<PowerUpsManager>().nothing.powerUpNumber)
             {
                 return i;
             }

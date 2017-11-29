@@ -34,15 +34,15 @@ public class GrabAndThrowObject : MonoBehaviour
         phone = GetComponent<ObjectManager>().Phone();
         initialPosition = GetComponent<PositionManager>().GameplayPosition();
         currentArea = Area.counter;
-        if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.throwFurther))
+        if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(GetComponent<PowerUpsManager>().throwFurther.powerUpNumber))
         {
             throwingDistance = 25;
         }
-        if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.moreHealth))
+        if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(GetComponent<PowerUpsManager>().moreHealth.powerUpNumber))
         {
             GetComponent<Gameplay>().ChangeMaxHealth();
         }
-        if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.defenseIncrease))
+        if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(GetComponent<PowerUpsManager>().defenseIncrease.powerUpNumber))
         {
             GetComponent<Gameplay>().IncreaseDefense();
         }
@@ -499,7 +499,7 @@ public class GrabAndThrowObject : MonoBehaviour
                 float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * throwingDistance;
                 target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity);
             }
-            if (!GetComponent<PlayerPrefsManager>().ContainsUpgrade(PowerUpsManager.noWind))
+            if (!GetComponent<PlayerPrefsManager>().ContainsUpgrade(GetComponent<PowerUpsManager>().noWind.powerUpNumber))
             {
                 GetComponent<WindManager>().ApplyWindToObject(target);
             }
