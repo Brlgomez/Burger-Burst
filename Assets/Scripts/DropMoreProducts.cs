@@ -57,6 +57,7 @@ public class DropMoreProducts : MonoBehaviour
             {
                 newProduct.transform.localScale = Vector3.one * 1.25f;
             }
+            newProduct.GetComponent<Rigidbody>().velocity = new Vector3(0, -5, 0);
         }
     }
 
@@ -71,7 +72,8 @@ public class DropMoreProducts : MonoBehaviour
             {
                 newProduct.transform.localScale = Vector3.one * 1.25f;
             }
-        }
+			newProduct.GetComponent<Rigidbody>().velocity = new Vector3(0, -5, 0);
+		}
     }
 
     public void DropDrink()
@@ -85,7 +87,8 @@ public class DropMoreProducts : MonoBehaviour
             {
                 newProduct.transform.localScale = Vector3.one * 1.25f;
             }
-        }
+			newProduct.GetComponent<Rigidbody>().velocity = new Vector3(0, -5, 0);
+		}
     }
 
     public void DropMeat()

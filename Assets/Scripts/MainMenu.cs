@@ -63,6 +63,10 @@ public class MainMenu : MonoBehaviour
             {
                 MouseUpUpgradeMenu();
             }
+            else if (GetComponent<ScreenTextManagment>().GetMenu() == Menus.Menu.Customize)
+			{
+                MouseUpCustomizeMenu();	
+			}
             else if (GetComponent<ScreenTextManagment>().GetMenu() == Menus.Menu.Confirmation)
 			{
                 MouseUpConfirmationMenu();
@@ -140,6 +144,11 @@ public class MainMenu : MonoBehaviour
             slotPosition = 1;
             lastScrollX = -Mathf.RoundToInt(GetComponent<ScreenTextManagment>().GetMiddleObject().transform.localPosition.z);
         }
+		else if (target.name == "Third Button")
+		{
+			GetComponent<ScreenTextManagment>().CannotPressAnything();
+            gameObject.AddComponent<CameraMovement>().MoveToCustomize();
+		}
     }
 
     void MouseUpUpgradeMenu()
@@ -202,6 +211,15 @@ public class MainMenu : MonoBehaviour
             GetComponent<ScreenTextManagment>().ChangeToUpgradeText();
         }
     }
+
+	void MouseUpCustomizeMenu()
+	{
+		if (target.name == "Fifth Button")
+		{
+			GetComponent<ScreenTextManagment>().CannotPressAnything();
+			gameObject.AddComponent<CameraMovement>().MoveToMenu(false);
+		}
+	}
 
     GameObject ReturnClickedObject(out RaycastHit hit)
     {

@@ -39,18 +39,34 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToMenuText()
     {
-        MakeButtonsUnpressable();
-        ChangeTextColorToOriginal();
         EnableButton(line1, "Play");
         EnableButton(line2, "Power Ups");
+        EnableButton(line3, "Customize");
+        EnableButton(line4, "Store");
+        EnableButton(line5, "Settings");
         TurnOffScrollList();
         TurnOffGameplayImages();
         currentArea = Menus.Menu.MainMenu;
     }
 
+    public void ChangeToGamePlayText()
+    {
+        MakeAllButtonsPressable();
+        DisableButton(line1, "");
+        line1.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
+        line1.transform.GetChild(5).GetComponent<SpriteRenderer>().color = Color.black;
+        line2.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
+        line3.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
+        line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
+        line5.transform.GetChild(1).GetComponent<SpriteRenderer>().color = notPressable;
+        line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
+        line4.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = drinkSprite;
+        line5.transform.GetChild(3).gameObject.layer = 0;
+        currentArea = Menus.Menu.Gameplay;
+    }
+
     public void ChangeToUpgradeText()
     {
-        MakeButtonsUnpressable();
         EnableButton(line1, "");
         EnableButton(line2, "");
         EnableButton(line3, "");
@@ -64,19 +80,31 @@ ScreenTextManagment : MonoBehaviour
         currentArea = Menus.Menu.PowerUps;
     }
 
+	public void ChangeCustomizeScreen()
+	{
+		EnableButton(line1, "Theme");
+		EnableButton(line2, "Graphics");
+        DisableButton(line3, "");
+		DisableButton(line4, "");
+		EnableButton(line5, "Back");
+        currentArea = Menus.Menu.Customize;
+	}
+
     public void ChangeToConfirmationScreen()
     {
         TurnOffScrollList();
         line1.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
         line1.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = GetMiddleObject().GetComponent<SpriteRenderer>().sprite;
         DisableButton(line1, "");
-        DisableButton(line2, "Get power\nup?");
+        line2.GetComponent<TextMesh>().characterSize = 0.024375f;
+        DisableButton(line2, "Get power up?");
         if (int.Parse(GetMiddleObject().transform.GetChild(0).GetComponent<TextMesh>().text) <= PlayerPrefs.GetInt("Coins", 0))
         {
             EnableButton(line3, "Yes");
         }
         else
         {
+            line3.GetComponent<TextMesh>().characterSize = 0.024375f;
             DisableButton(line3,
                 "Coins needed:\n" +
                 (int.Parse(GetMiddleObject().transform.GetChild(0).GetComponent<TextMesh>().text) - PlayerPrefs.GetInt("Coins", 0)));
@@ -94,22 +122,6 @@ ScreenTextManagment : MonoBehaviour
         GetComponent<PowerUpsManager>().powerUpList[int.Parse(GetMiddleObject().GetComponent<SpriteRenderer>().sprite.name)].unlocked = true;
         GetMiddleObject().transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
         GetMiddleObject().transform.GetChild(0).GetComponent<TextMesh>().text = "";
-    }
-
-    public void ChangeToGamePlayText()
-    {
-        MakeAllButtonsPressable();
-        DisableButton(line1, "");
-        line1.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
-        line1.transform.GetChild(5).GetComponent<SpriteRenderer>().color = Color.black;
-        line2.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
-        line3.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
-        line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
-        line5.transform.GetChild(1).GetComponent<SpriteRenderer>().color = notPressable;
-        line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
-        line4.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = drinkSprite;
-        line5.transform.GetChild(3).gameObject.layer = 0;
-        currentArea = Menus.Menu.Gameplay;
     }
 
     public void ChangeToGameOverText()
@@ -130,7 +142,6 @@ ScreenTextManagment : MonoBehaviour
     public void ChangeToPauseText()
     {
         MakeButtonsUnpressable();
-        ChangeTextColorToOriginal();
         EnableButton(line1, "Resume");
         EnableButton(line2, "Restart");
         EnableButton(line3, "Quit");
@@ -370,6 +381,7 @@ ScreenTextManagment : MonoBehaviour
         button.transform.GetChild(0).gameObject.layer = 0;
         button.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.white;
         button.GetComponent<TextMesh>().text = text;
+        button.GetComponent<TextMesh>().color = originalScreenColor;
     }
 
     void ChangeTextColorToOriginal()
@@ -695,6 +707,7 @@ ScreenTextManagment : MonoBehaviour
         slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
         slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
         slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
+        line2.GetComponent<TextMesh>().characterSize = 0.0325f;
         line3.GetComponent<TextMesh>().characterSize = 0.01625f;
         HighLightSlot(slot1);
     }
