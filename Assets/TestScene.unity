@@ -67298,6 +67298,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 42bb497aef3bb430097dfe2d20cbd9fc, type: 3}
   coinSprite: {fileID: 21300000, guid: 1ac7bb089b4b643dca414c60dc0111d0, type: 3}
   drinkSprite: {fileID: 21300000, guid: 60208b3dea4384a0ebf34c252b2806c8, type: 3}
+  heartSprite: {fileID: 21300000, guid: 6ca8048af4a284d3980e8d4c28db0ab1, type: 3}
 --- !u!114 &1865169778
 MonoBehaviour:
   m_ObjectHideFlags: 0

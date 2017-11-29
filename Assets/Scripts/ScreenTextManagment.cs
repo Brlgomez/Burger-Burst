@@ -13,7 +13,7 @@ ScreenTextManagment : MonoBehaviour
     bool pressDown;
     Menus.Menu currentArea;
     public Sprite[] scrollSprites;
-    public Sprite coinSprite, drinkSprite;
+    public Sprite coinSprite, drinkSprite, heartSprite;
 
     void Start()
     {
@@ -56,16 +56,50 @@ ScreenTextManagment : MonoBehaviour
         EnableButton(line3, "");
         EnableButton(line4, "    " + PlayerPrefs.GetInt("Coins", 0).ToString());
         EnableButton(line5, "Back");
+        line1.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
+        line1.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = heartSprite;
         line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
         line4.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = coinSprite;
         TurnOnScrollList();
         currentArea = Menus.Menu.PowerUps;
     }
 
+    public void ChangeToConfirmationScreen()
+    {
+        TurnOffScrollList();
+        line1.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
+        line1.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = GetMiddleObject().GetComponent<SpriteRenderer>().sprite;
+        DisableButton(line1, "");
+        DisableButton(line2, "Get power\nup?");
+        if (int.Parse(GetMiddleObject().transform.GetChild(0).GetComponent<TextMesh>().text) <= PlayerPrefs.GetInt("Coins", 0))
+        {
+            EnableButton(line3, "Yes");
+        }
+        else
+        {
+            DisableButton(line3,
+                "Coins needed:\n" +
+                (int.Parse(GetMiddleObject().transform.GetChild(0).GetComponent<TextMesh>().text) - PlayerPrefs.GetInt("Coins", 0)));
+        }
+        EnableButton(line4, "Get coins");
+        EnableButton(line5, "Back");
+        line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
+        currentArea = Menus.Menu.Confirmation;
+    }
+
+    public void BuyUpgrade()
+    {
+        GetComponent<Gameplay>().DecreaseCoinCount(int.Parse(GetMiddleObject().transform.GetChild(0).GetComponent<TextMesh>().text));
+        PlayerPrefs.SetInt("Power Up " + int.Parse(GetMiddleObject().GetComponent<SpriteRenderer>().sprite.name), 1);
+        GetComponent<PowerUpsManager>().powerUpList[int.Parse(GetMiddleObject().GetComponent<SpriteRenderer>().sprite.name)].unlocked = true;
+        GetMiddleObject().transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
+        GetMiddleObject().transform.GetChild(0).GetComponent<TextMesh>().text = "";
+    }
+
     public void ChangeToGamePlayText()
     {
         MakeAllButtonsPressable();
-        DisableButton(line1);
+        DisableButton(line1, "");
         line1.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
         line1.transform.GetChild(5).GetComponent<SpriteRenderer>().color = Color.black;
         line2.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
@@ -252,8 +286,8 @@ ScreenTextManagment : MonoBehaviour
     public void ChangeToGrillArea()
     {
         MakeAllButtonsPressable();
-        DisableButton(line1);
-        DisableButton(line2);
+        DisableButton(line1, "");
+        DisableButton(line2, "");
         ChangeBurgerTextColor();
         ChangeFriesTextColor();
         ChangeDrinkTextColor();
@@ -267,8 +301,8 @@ ScreenTextManagment : MonoBehaviour
     public void ChangeToFryerArea()
     {
         MakeAllButtonsPressable();
-        DisableButton(line1);
-        DisableButton(line3);
+        DisableButton(line1, "");
+        DisableButton(line3, "");
         ChangeBurgerTextColor();
         ChangeFriesTextColor();
         ChangeDrinkTextColor();
@@ -282,8 +316,8 @@ ScreenTextManagment : MonoBehaviour
     public void ChangeToSodaMachineArea()
     {
         MakeAllButtonsPressable();
-        DisableButton(line1);
-        DisableButton(line4);
+        DisableButton(line1, "");
+        DisableButton(line4, "");
         ChangeBurgerTextColor();
         ChangeFriesTextColor();
         ChangeDrinkTextColor();
@@ -297,8 +331,8 @@ ScreenTextManagment : MonoBehaviour
     public void ChangeToFrontArea()
     {
         MakeAllButtonsPressable();
-        DisableButton(line1);
-        DisableButton(line5);
+        DisableButton(line1, "");
+        DisableButton(line5, "");
         ChangeBurgerTextColor();
         ChangeFriesTextColor();
         ChangeDrinkTextColor();
@@ -317,19 +351,18 @@ ScreenTextManagment : MonoBehaviour
 
     public void MakeButtonsUnpressable()
     {
-        DisableButton(line1);
-        DisableButton(line2);
-        DisableButton(line3);
-        DisableButton(line4);
-        DisableButton(line5);
+        DisableButton(line1, "");
+        DisableButton(line2, "");
+        DisableButton(line3, "");
+        DisableButton(line4, "");
+        DisableButton(line5, "");
     }
 
-
-    void DisableButton(GameObject button)
+    void DisableButton(GameObject button, string text)
     {
         button.transform.GetChild(0).gameObject.layer = 2;
         button.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.clear;
-        button.GetComponent<TextMesh>().text = "";
+        button.GetComponent<TextMesh>().text = text;
     }
 
     void EnableButton(GameObject button, string text)
@@ -493,38 +526,45 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeSlotSprite(GameObject slot, int slotPosition)
     {
-        if (GetComponent<PlayerPrefsManager>().ContainsUpgradeBesidesSlot(GetMiddleObjectNumber(), slotPosition))
+        if (!GetComponent<PowerUpsManager>().powerUpList[int.Parse(GetMiddleObject().GetComponent<SpriteRenderer>().sprite.name)].unlocked)
         {
-            int slotNum = GetComponent<PlayerPrefsManager>().WhichSlotContainsUpgrade(GetMiddleObjectNumber());
-            PlayerPrefs.SetInt("UPGRADE " + slotNum, GetComponent<PowerUpsManager>().nothing.powerUpNumber);
-            GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(slotNum - 1).GetComponent<SpriteRenderer>().sprite = null;
-            if (slotNum == 1)
-            {
-                slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = null;
-            }
-            else if (slotNum == 2)
-            {
-                slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = null;
-            }
-            else if (slotNum == 3)
-            {
-                slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = null;
-            }
-        }
-        if (GetComponent<PlayerPrefsManager>().SlotContainsUpgrade(slotPosition, GetMiddleObjectNumber()))
-        {
-            PlayerPrefs.SetInt("UPGRADE " + slotPosition, GetComponent<PowerUpsManager>().nothing.powerUpNumber);
-            slot.GetComponent<SpriteRenderer>().sprite = null;
-            slot.GetComponent<SpriteRenderer>().color = Color.clear;
-            GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(slotPosition - 1).GetComponent<SpriteRenderer>().sprite = null;
+            ChangeToConfirmationScreen();
         }
         else
         {
-            PlayerPrefs.SetInt("UPGRADE " + slotPosition, GetMiddleObjectNumber());
-            slot.GetComponent<SpriteRenderer>().sprite = GetMiddleObject().GetComponent<SpriteRenderer>().sprite;
-            slot.GetComponent<SpriteRenderer>().color = Color.white;
-            GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(slotPosition - 1).GetComponent<SpriteRenderer>().sprite =
-                GetMiddleObject().GetComponent<SpriteRenderer>().sprite;
+            if (GetComponent<PlayerPrefsManager>().ContainsUpgradeBesidesSlot(GetMiddleObjectNumber(), slotPosition))
+            {
+                int slotNum = GetComponent<PlayerPrefsManager>().WhichSlotContainsUpgrade(GetMiddleObjectNumber());
+                PlayerPrefs.SetInt("UPGRADE " + slotNum, GetComponent<PowerUpsManager>().nothing.powerUpNumber);
+                GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(slotNum - 1).GetComponent<SpriteRenderer>().sprite = null;
+                switch (slotNum)
+                {
+                    case 1:
+                        slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = null;
+                        break;
+                    case 2:
+                        slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = null;
+                        break;
+                    case 3:
+                        slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = null;
+                        break;
+                }
+            }
+            if (GetComponent<PlayerPrefsManager>().SlotContainsUpgrade(slotPosition, GetMiddleObjectNumber()))
+            {
+                PlayerPrefs.SetInt("UPGRADE " + slotPosition, GetComponent<PowerUpsManager>().nothing.powerUpNumber);
+                slot.GetComponent<SpriteRenderer>().sprite = null;
+                slot.GetComponent<SpriteRenderer>().color = Color.clear;
+                GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(slotPosition - 1).GetComponent<SpriteRenderer>().sprite = null;
+            }
+            else
+            {
+                PlayerPrefs.SetInt("UPGRADE " + slotPosition, GetMiddleObjectNumber());
+                slot.GetComponent<SpriteRenderer>().sprite = GetMiddleObject().GetComponent<SpriteRenderer>().sprite;
+                slot.GetComponent<SpriteRenderer>().color = Color.white;
+                GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(slotPosition - 1).GetComponent<SpriteRenderer>().sprite =
+                    GetMiddleObject().GetComponent<SpriteRenderer>().sprite;
+            }
         }
     }
 

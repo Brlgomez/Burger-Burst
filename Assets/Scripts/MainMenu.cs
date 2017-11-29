@@ -63,6 +63,10 @@ public class MainMenu : MonoBehaviour
             {
                 MouseUpUpgradeMenu();
             }
+            else if (GetComponent<ScreenTextManagment>().GetMenu() == Menus.Menu.Confirmation)
+			{
+                MouseUpConfirmationMenu();
+			}
         }
         point1 = Vector3.zero;
         point2 = Vector3.zero;
@@ -179,6 +183,23 @@ public class MainMenu : MonoBehaviour
             }
             currentSlot = target;
             GetComponent<ScreenTextManagment>().HighLightSlot(currentSlot.transform.parent.gameObject);
+        }
+    }
+
+    void MouseUpConfirmationMenu()
+    {
+        if (target.name == "Third Button")
+        {
+            GetComponent<ScreenTextManagment>().BuyUpgrade();
+            GetComponent<ScreenTextManagment>().ChangeToUpgradeText();
+        }
+        else if (target.name == "Fourth Button")
+        {
+            //TODO: BUY COINS
+        }
+        else if (target.name == "Fifth Button")
+        {
+            GetComponent<ScreenTextManagment>().ChangeToUpgradeText();
         }
     }
 
