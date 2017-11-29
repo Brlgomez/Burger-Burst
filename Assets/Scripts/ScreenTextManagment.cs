@@ -14,7 +14,6 @@ ScreenTextManagment : MonoBehaviour
     Menus.Menu currentArea;
     public Sprite[] scrollSprites;
     public Sprite coinSprite, drinkSprite;
-    int middleSpriteIndex;
 
     void Start()
     {
@@ -57,9 +56,9 @@ ScreenTextManagment : MonoBehaviour
         EnableButton(line3, "");
         EnableButton(line4, "    " + PlayerPrefs.GetInt("Coins", 0).ToString());
         EnableButton(line5, "Back");
-		line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
+        line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
         line4.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = coinSprite;
-		TurnOnScrollList();
+        TurnOnScrollList();
         currentArea = Menus.Menu.PowerUps;
     }
 
@@ -75,8 +74,8 @@ ScreenTextManagment : MonoBehaviour
         line5.transform.GetChild(1).GetComponent<SpriteRenderer>().color = notPressable;
         line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
         line4.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = drinkSprite;
-		line5.transform.GetChild(3).gameObject.layer = 0;
-		currentArea = Menus.Menu.Gameplay;
+        line5.transform.GetChild(3).gameObject.layer = 0;
+        currentArea = Menus.Menu.Gameplay;
     }
 
     public void ChangeToGameOverText()
@@ -87,8 +86,8 @@ ScreenTextManagment : MonoBehaviour
         line3.GetComponent<TextMesh>().text = "S: " + GetComponent<Gameplay>().GetPoints();
         line1.GetComponent<TextMesh>().color = Color.red;
         line2.GetComponent<TextMesh>().color = Color.red;
-		line3.GetComponent<TextMesh>().color = Color.red;
-		line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
+        line3.GetComponent<TextMesh>().color = Color.red;
+        line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
         line5.transform.GetChild(3).gameObject.layer = 2;
         TurnOffGameplayImages();
         currentArea = Menus.Menu.GameOver;
@@ -255,28 +254,28 @@ ScreenTextManagment : MonoBehaviour
         MakeAllButtonsPressable();
         DisableButton(line1);
         DisableButton(line2);
-		ChangeBurgerTextColor();
-		ChangeFriesTextColor();
-		ChangeDrinkTextColor();
-		ChangeHealthTextColor();
+        ChangeBurgerTextColor();
+        ChangeFriesTextColor();
+        ChangeDrinkTextColor();
+        ChangeHealthTextColor();
         line2.transform.GetChild(1).GetComponent<SpriteRenderer>().color = notPressable;
         line3.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
         line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
         line5.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
-	}
+    }
 
     public void ChangeToFryerArea()
     {
         MakeAllButtonsPressable();
         DisableButton(line1);
         DisableButton(line3);
-		ChangeBurgerTextColor();
-		ChangeFriesTextColor();
-		ChangeDrinkTextColor();
-		ChangeHealthTextColor();
+        ChangeBurgerTextColor();
+        ChangeFriesTextColor();
+        ChangeDrinkTextColor();
+        ChangeHealthTextColor();
         line2.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
-		line3.transform.GetChild(1).GetComponent<SpriteRenderer>().color = notPressable;
-		line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
+        line3.transform.GetChild(1).GetComponent<SpriteRenderer>().color = notPressable;
+        line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
         line5.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
     }
 
@@ -285,14 +284,14 @@ ScreenTextManagment : MonoBehaviour
         MakeAllButtonsPressable();
         DisableButton(line1);
         DisableButton(line4);
-		ChangeBurgerTextColor();
-		ChangeFriesTextColor();
-		ChangeDrinkTextColor();
-		ChangeHealthTextColor();
+        ChangeBurgerTextColor();
+        ChangeFriesTextColor();
+        ChangeDrinkTextColor();
+        ChangeHealthTextColor();
         line2.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
         line3.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
-		line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = notPressable;
-		line5.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
+        line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = notPressable;
+        line5.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
     }
 
     public void ChangeToFrontArea()
@@ -300,10 +299,10 @@ ScreenTextManagment : MonoBehaviour
         MakeAllButtonsPressable();
         DisableButton(line1);
         DisableButton(line5);
-		ChangeBurgerTextColor();
-		ChangeFriesTextColor();
-		ChangeDrinkTextColor();
-		ChangeHealthTextColor();
+        ChangeBurgerTextColor();
+        ChangeFriesTextColor();
+        ChangeDrinkTextColor();
+        ChangeHealthTextColor();
         line5.GetComponent<TextMesh>().text = "";
     }
 
@@ -531,7 +530,7 @@ ScreenTextManagment : MonoBehaviour
 
     public void SetSlotSprites()
     {
-		if (PlayerPrefs.GetInt("UPGRADE 1", -1) > -1)
+        if (PlayerPrefs.GetInt("UPGRADE 1", -1) > -1)
         {
             slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = scrollSprites[PlayerPrefs.GetInt("UPGRADE 1")];
             GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(0).GetComponent<SpriteRenderer>().sprite =
@@ -585,116 +584,10 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeInfo(int name)
     {
-        int upgradeNum = name;
-        line3.GetComponent<TextMesh>().characterSize = 0.0325f;
-        if (upgradeNum == GetComponent<PowerUpsManager>().nothing.powerUpNumber)
-        {
-            line3.GetComponent<TextMesh>().text = "Remove";
-        }
-        else if (upgradeNum == GetComponent<PowerUpsManager>().throwFurther.powerUpNumber)
-        {
-            line3.GetComponent<TextMesh>().characterSize = 0.024f;
-            line3.GetComponent<TextMesh>().text = "Throw further";
-        }
-        else if (upgradeNum == GetComponent<PowerUpsManager>().quickerCooking.powerUpNumber)
-        {
-            line3.GetComponent<TextMesh>().characterSize = 0.024f;
-            line3.GetComponent<TextMesh>().text = "Faster cooking";
-        }
-        else if (upgradeNum == GetComponent<PowerUpsManager>().makeMoreFood.powerUpNumber)
-        {
-            line3.GetComponent<TextMesh>().characterSize = 0.022f;
-            line3.GetComponent<TextMesh>().text = "Make more food";
-        }
-        else if (upgradeNum == GetComponent<PowerUpsManager>().defenseIncrease.powerUpNumber)
-        {
-            line3.GetComponent<TextMesh>().characterSize = 0.020f;
-            line3.GetComponent<TextMesh>().text = "Defense increase";
-        }
-        else if (upgradeNum == GetComponent<PowerUpsManager>().moreHealth.powerUpNumber)
-        {
-            line3.GetComponent<TextMesh>().characterSize = 0.026f;
-            line3.GetComponent<TextMesh>().text = "Double health";
-        }
-        else if (upgradeNum == GetComponent<PowerUpsManager>().largerFood.powerUpNumber)
-        {
-            line3.GetComponent<TextMesh>().characterSize = 0.029f;
-            line3.GetComponent<TextMesh>().text = "Larger food";
-        }
-        else if (upgradeNum == GetComponent<PowerUpsManager>().regenHealth.powerUpNumber)
-        {
-            line3.GetComponent<TextMesh>().characterSize = 0.018f;
-            line3.GetComponent<TextMesh>().text = "Health regeneration";
-        }
-        else if (upgradeNum == GetComponent<PowerUpsManager>().regenBurgers.powerUpNumber)
-        {
-            line3.GetComponent<TextMesh>().characterSize = 0.017f;
-            line3.GetComponent<TextMesh>().text = "Burger regeneration";
-        }
-        else if (upgradeNum == GetComponent<PowerUpsManager>().regenFries.powerUpNumber)
-        {
-            line3.GetComponent<TextMesh>().characterSize = 0.019f;
-            line3.GetComponent<TextMesh>().text = "Fries regeneration";
-        }
-        else if (upgradeNum == GetComponent<PowerUpsManager>().regenDrinks.powerUpNumber)
-        {
-            line3.GetComponent<TextMesh>().characterSize = 0.019f;
-            line3.GetComponent<TextMesh>().text = "Drink regeneration";
-        }
-        else if (upgradeNum == GetComponent<PowerUpsManager>().doublePoints.powerUpNumber)
-        {
-            line3.GetComponent<TextMesh>().characterSize = 0.026f;
-            line3.GetComponent<TextMesh>().text = "Double points";
-        }
-        else if (upgradeNum == GetComponent<PowerUpsManager>().doubleCoins.powerUpNumber)
-        {
-            line3.GetComponent<TextMesh>().characterSize = 0.028f;
-            line3.GetComponent<TextMesh>().text = "Double coins";
-        }
-        else if (upgradeNum == GetComponent<PowerUpsManager>().throwMultiple.powerUpNumber)
-        {
-            line3.GetComponent<TextMesh>().characterSize = 0.015f;
-            line3.GetComponent<TextMesh>().text = "Thrown food is divided\nand scattered";
-        }
-        else if (upgradeNum == GetComponent<PowerUpsManager>().magnet.powerUpNumber)
-        {
-            line3.GetComponent<TextMesh>().characterSize = 0.022f;
-            line3.GetComponent<TextMesh>().text = "Food magnetic\nto zombies";
-        }
-        else if (upgradeNum == GetComponent<PowerUpsManager>().noWind.powerUpNumber)
-        {
-            line3.GetComponent<TextMesh>().characterSize = 0.022f;
-            line3.GetComponent<TextMesh>().text = "Food unaffected\nby wind";
-        }
-        else if (upgradeNum == GetComponent<PowerUpsManager>().noInstantKill.powerUpNumber)
-        {
-            line3.GetComponent<TextMesh>().characterSize = 0.021f;
-            line3.GetComponent<TextMesh>().text = "Muffle instant\ndeath attacks";
-        }
-        else if (upgradeNum == GetComponent<PowerUpsManager>().luck.powerUpNumber)
-        {
-            line3.GetComponent<TextMesh>().characterSize = 0.019f;
-            line3.GetComponent<TextMesh>().text = "Chance of dodging\nattacks";
-        }
-        else if (upgradeNum == GetComponent<PowerUpsManager>().noPoison.powerUpNumber)
-        {
-            line3.GetComponent<TextMesh>().characterSize = 0.019f;
-            line3.GetComponent<TextMesh>().text = "Immuned to posion\nzombies";
-        }
-        else if (upgradeNum == GetComponent<PowerUpsManager>().noIce.powerUpNumber)
-        {
-            line3.GetComponent<TextMesh>().characterSize = 0.019f;
-            line3.GetComponent<TextMesh>().text = "Immuned to ice\nzombies";
-        }
-        else if (upgradeNum == GetComponent<PowerUpsManager>().freeze.powerUpNumber)
-        {
-            line3.GetComponent<TextMesh>().characterSize = 0.019f;
-            line3.GetComponent<TextMesh>().text = "Food freezes\nzombies";
-        }
-        else
-        {
-            line3.GetComponent<TextMesh>().text = name.ToString();
-        }
+        line3.GetComponent<TextMesh>().characterSize = 0.01625f;
+        line3.GetComponent<TextMesh>().text = GetComponent<PowerUpsManager>().powerUpList[name].description;
+        GetMiddleObject().transform.GetChild(0).GetComponent<TextMesh>().text =
+            GetComponent<PowerUpsManager>().powerUpList[name].price.ToString();
     }
 
     void RestartScrollList()
@@ -751,19 +644,19 @@ ScreenTextManagment : MonoBehaviour
         slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
         slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
         slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
-		HighLightSlot(slot1);
+        HighLightSlot(slot1);
     }
 
     public void CannotPressAnything()
     {
-		scrollView.transform.GetChild(0).gameObject.layer = 2;
-		slot1.transform.GetChild(0).gameObject.layer = 2;
-		slot2.transform.GetChild(0).gameObject.layer = 2;
-		slot3.transform.GetChild(0).gameObject.layer = 2;
-		line1.transform.GetChild(0).gameObject.layer = 2;
-		line2.transform.GetChild(0).gameObject.layer = 2;
-		line3.transform.GetChild(0).gameObject.layer = 2;
-		line4.transform.GetChild(0).gameObject.layer = 2;
-		line5.transform.GetChild(0).gameObject.layer = 2;
-	}
+        scrollView.transform.GetChild(0).gameObject.layer = 2;
+        slot1.transform.GetChild(0).gameObject.layer = 2;
+        slot2.transform.GetChild(0).gameObject.layer = 2;
+        slot3.transform.GetChild(0).gameObject.layer = 2;
+        line1.transform.GetChild(0).gameObject.layer = 2;
+        line2.transform.GetChild(0).gameObject.layer = 2;
+        line3.transform.GetChild(0).gameObject.layer = 2;
+        line4.transform.GetChild(0).gameObject.layer = 2;
+        line5.transform.GetChild(0).gameObject.layer = 2;
+    }
 }
