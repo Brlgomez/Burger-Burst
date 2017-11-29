@@ -8,7 +8,7 @@ public class CameraMovement : MonoBehaviour
 
     static int maxSpeed = 15;
     static int accelerating = 15;
-    Transform menu, gameplay, pause, towards, gameOver, grill, fryer, soda, powerUp, customize;
+    Transform menu, gameplay, pause, towards, gameOver, grill, fryer, soda, powerUp, customize, setting;
     Transform deviceFront, deviceBack, deviceTowards;
     float speed;
     bool moveToPosition;
@@ -118,7 +118,11 @@ public class CameraMovement : MonoBehaviour
         }
         else if (towards == customize)
 		{
-            GetComponent<ScreenTextManagment>().ChangeCustomizeScreen();
+            GetComponent<ScreenTextManagment>().ChangeToCustomizeScreen();
+		}
+        else if (towards == setting)
+		{
+            GetComponent<ScreenTextManagment>().ChangeToSettingScreen();
 		}
         else if (towards == gameOver)
         {
@@ -166,6 +170,13 @@ public class CameraMovement : MonoBehaviour
 	{
         customize = GetComponent<PositionManager>().CustomizePosition();
 		towards = customize;
+		moveToPosition = true;
+	}
+
+	public void MoveToSetting()
+	{
+        setting = GetComponent<PositionManager>().SettingPosition();
+		towards = setting;
 		moveToPosition = true;
 	}
 

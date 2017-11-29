@@ -67,6 +67,10 @@ public class MainMenu : MonoBehaviour
 			{
                 MouseUpCustomizeMenu();	
 			}
+			else if (GetComponent<ScreenTextManagment>().GetMenu() == Menus.Menu.Setting)
+			{
+                MouseUpSettingMenu();
+			}
             else if (GetComponent<ScreenTextManagment>().GetMenu() == Menus.Menu.Confirmation)
 			{
                 MouseUpConfirmationMenu();
@@ -149,6 +153,11 @@ public class MainMenu : MonoBehaviour
 			GetComponent<ScreenTextManagment>().CannotPressAnything();
             gameObject.AddComponent<CameraMovement>().MoveToCustomize();
 		}
+		else if (target.name == "Fifth Button")
+		{
+			GetComponent<ScreenTextManagment>().CannotPressAnything();
+            gameObject.AddComponent<CameraMovement>().MoveToSetting();
+		}
     }
 
     void MouseUpUpgradeMenu()
@@ -213,6 +222,15 @@ public class MainMenu : MonoBehaviour
     }
 
 	void MouseUpCustomizeMenu()
+	{
+		if (target.name == "Fifth Button")
+		{
+			GetComponent<ScreenTextManagment>().CannotPressAnything();
+			gameObject.AddComponent<CameraMovement>().MoveToMenu(false);
+		}
+	}
+
+	void MouseUpSettingMenu()
 	{
 		if (target.name == "Fifth Button")
 		{

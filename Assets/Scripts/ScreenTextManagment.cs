@@ -80,7 +80,7 @@ ScreenTextManagment : MonoBehaviour
         currentArea = Menus.Menu.PowerUps;
     }
 
-	public void ChangeCustomizeScreen()
+	public void ChangeToCustomizeScreen()
 	{
 		EnableButton(line1, "Theme");
 		EnableButton(line2, "Graphics");
@@ -88,6 +88,16 @@ ScreenTextManagment : MonoBehaviour
 		DisableButton(line4, "");
 		EnableButton(line5, "Back");
         currentArea = Menus.Menu.Customize;
+	}
+
+	public void ChangeToSettingScreen()
+	{
+		EnableButton(line1, "Vibration");
+		EnableButton(line2, "Music");
+		EnableButton(line3, "Sound");
+        EnableButton(line4, "Game Center");
+		EnableButton(line5, "Back");
+        currentArea = Menus.Menu.Setting;
 	}
 
     public void ChangeToConfirmationScreen()

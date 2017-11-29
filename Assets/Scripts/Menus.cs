@@ -4,5 +4,6 @@ using UnityEngine;
 
 public class Menus : MonoBehaviour {
 
-	public enum Menu { MainMenu, PowerUps, Gameplay, GameOver, Pause, Confirmation, Customize };
+	public enum Menu { MainMenu, PowerUps, Gameplay, GameOver, Pause, 
+        Confirmation, Customize, Setting, Store };
 }
