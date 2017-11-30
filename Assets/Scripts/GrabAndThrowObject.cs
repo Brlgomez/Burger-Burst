@@ -36,7 +36,7 @@ public class GrabAndThrowObject : MonoBehaviour
         currentArea = Area.counter;
         if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(GetComponent<PowerUpsManager>().throwFurther.powerUpNumber))
         {
-            throwingDistance = 30;
+            throwingDistance = 25;
         }
         if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(GetComponent<PowerUpsManager>().moreHealth.powerUpNumber))
         {
@@ -496,7 +496,12 @@ public class GrabAndThrowObject : MonoBehaviour
                 float xVelocity = ((positions[positions.Count - 1].x - positions[0].x) * 7) + ((target.transform.position.x) * (throwingDistance / 5));
                 float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 3;
                 float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * throwingDistance;
-                target.GetComponent<Rigidbody>().velocity = new Vector3(xVelocity, yVelocity, zVelocity) * ((Screen.height / Screen.dpi) * 0.5f);
+                Vector3 newVelocity = new Vector3(xVelocity, yVelocity, zVelocity) * ((Screen.height / Screen.dpi) * 0.5f);
+                if (newVelocity.magnitude > (throwingDistance * 0.66f))
+                {
+                    newVelocity *= ((throwingDistance * 0.66f) / newVelocity.magnitude);
+                }
+                target.GetComponent<Rigidbody>().velocity = newVelocity;
             }
             if (!GetComponent<PlayerPrefsManager>().ContainsUpgrade(GetComponent<PowerUpsManager>().noWind.powerUpNumber))
             {
