@@ -77,7 +77,7 @@ public class Fry : MonoBehaviour
                 FriesCompleted();
             }
         }
-        else
+        else if (collision.gameObject.tag != gameObject.tag)
         {
             CheckRange();
         }

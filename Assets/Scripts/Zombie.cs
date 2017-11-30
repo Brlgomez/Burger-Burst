@@ -445,7 +445,6 @@ public class Zombie : MonoBehaviour
         for (int i = 0; i < onPlatter.Count; i++)
         {
             onPlatter[i].gameObject.layer = 11;
-            Camera.main.GetComponent<FoodManager>().ChangeToTransparentMaterial(onPlatter[i].gameObject);
         }
     }
 
