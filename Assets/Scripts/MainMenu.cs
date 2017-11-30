@@ -64,17 +64,21 @@ public class MainMenu : MonoBehaviour
                 MouseUpUpgradeMenu();
             }
             else if (GetComponent<ScreenTextManagment>().GetMenu() == Menus.Menu.Customize)
-			{
-                MouseUpCustomizeMenu();	
-			}
-			else if (GetComponent<ScreenTextManagment>().GetMenu() == Menus.Menu.Setting)
-			{
+            {
+                MouseUpCustomizeMenu();
+            }
+            else if (GetComponent<ScreenTextManagment>().GetMenu() == Menus.Menu.Store)
+            {
+                MouseUpStoreMenu();
+            }
+            else if (GetComponent<ScreenTextManagment>().GetMenu() == Menus.Menu.Setting)
+            {
                 MouseUpSettingMenu();
-			}
+            }
             else if (GetComponent<ScreenTextManagment>().GetMenu() == Menus.Menu.Confirmation)
-			{
+            {
                 MouseUpConfirmationMenu();
-			}
+            }
         }
         point1 = Vector3.zero;
         point2 = Vector3.zero;
@@ -148,16 +152,21 @@ public class MainMenu : MonoBehaviour
             slotPosition = 1;
             lastScrollX = -Mathf.RoundToInt(GetComponent<ScreenTextManagment>().GetMiddleObject().transform.localPosition.z);
         }
-		else if (target.name == "Third Button")
-		{
-			GetComponent<ScreenTextManagment>().CannotPressAnything();
+        else if (target.name == "Third Button")
+        {
+            GetComponent<ScreenTextManagment>().CannotPressAnything();
             gameObject.AddComponent<CameraMovement>().MoveToCustomize();
-		}
-		else if (target.name == "Fifth Button")
-		{
-			GetComponent<ScreenTextManagment>().CannotPressAnything();
+        }
+        else if (target.name == "Fourth Button")
+        {
+            GetComponent<ScreenTextManagment>().CannotPressAnything();
+            gameObject.AddComponent<CameraMovement>().MoveToStore();
+        }
+        else if (target.name == "Fifth Button")
+        {
+            GetComponent<ScreenTextManagment>().CannotPressAnything();
             gameObject.AddComponent<CameraMovement>().MoveToSetting();
-		}
+        }
     }
 
     void MouseUpUpgradeMenu()
@@ -221,23 +230,32 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-	void MouseUpCustomizeMenu()
-	{
-		if (target.name == "Fifth Button")
-		{
-			GetComponent<ScreenTextManagment>().CannotPressAnything();
-			gameObject.AddComponent<CameraMovement>().MoveToMenu(false);
-		}
-	}
+    void MouseUpCustomizeMenu()
+    {
+        if (target.name == "Fifth Button")
+        {
+            GetComponent<ScreenTextManagment>().CannotPressAnything();
+            gameObject.AddComponent<CameraMovement>().MoveToMenu(false);
+        }
+    }
 
-	void MouseUpSettingMenu()
-	{
-		if (target.name == "Fifth Button")
-		{
-			GetComponent<ScreenTextManagment>().CannotPressAnything();
-			gameObject.AddComponent<CameraMovement>().MoveToMenu(false);
-		}
-	}
+    void MouseUpStoreMenu()
+    {
+        if (target.name == "Fifth Button")
+        {
+            GetComponent<ScreenTextManagment>().CannotPressAnything();
+            gameObject.AddComponent<CameraMovement>().MoveToMenu(false);
+        }
+    }
+
+    void MouseUpSettingMenu()
+    {
+        if (target.name == "Fifth Button")
+        {
+            GetComponent<ScreenTextManagment>().CannotPressAnything();
+            gameObject.AddComponent<CameraMovement>().MoveToMenu(false);
+        }
+    }
 
     GameObject ReturnClickedObject(out RaycastHit hit)
     {

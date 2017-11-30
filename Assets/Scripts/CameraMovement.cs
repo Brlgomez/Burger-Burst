@@ -8,7 +8,8 @@ public class CameraMovement : MonoBehaviour
 
     static int maxSpeed = 15;
     static int accelerating = 15;
-    Transform menu, gameplay, pause, towards, gameOver, grill, fryer, soda, powerUp, customize, setting;
+    Transform menu, gameplay, pause, towards, gameOver, grill, fryer, soda;
+    Transform powerUp, customize, setting, store;
     Transform deviceFront, deviceBack, deviceTowards;
     float speed;
     bool moveToPosition;
@@ -117,13 +118,17 @@ public class CameraMovement : MonoBehaviour
             GetComponent<ScreenTextManagment>().ChangeToPauseText();
         }
         else if (towards == customize)
-		{
+        {
             GetComponent<ScreenTextManagment>().ChangeToCustomizeScreen();
-		}
+        }
         else if (towards == setting)
-		{
+        {
             GetComponent<ScreenTextManagment>().ChangeToSettingScreen();
-		}
+        }
+        else if (towards == store)
+        {
+            GetComponent<ScreenTextManagment>().ChangeToStoreScreen();
+        }
         else if (towards == gameOver)
         {
             GetComponent<GrabAndThrowObject>().ResetEverything();
@@ -144,8 +149,8 @@ public class CameraMovement : MonoBehaviour
         }
         else if (towards == powerUp)
         {
-			GetComponent<ScreenTextManagment>().ChangeToUpgradeText();
-		}
+            GetComponent<ScreenTextManagment>().ChangeToUpgradeText();
+        }
         Destroy(GetComponent<CameraMovement>());
     }
 
@@ -159,26 +164,33 @@ public class CameraMovement : MonoBehaviour
         moveDevice = moveDev;
     }
 
-	public void MoveToPowerUp()
-	{
+    public void MoveToPowerUp()
+    {
         powerUp = GetComponent<PositionManager>().PowerUpsPosition();
         towards = powerUp;
-		moveToPosition = true;
-	}
+        moveToPosition = true;
+    }
 
-	public void MoveToCustomize()
-	{
+    public void MoveToCustomize()
+    {
         customize = GetComponent<PositionManager>().CustomizePosition();
-		towards = customize;
-		moveToPosition = true;
-	}
+        towards = customize;
+        moveToPosition = true;
+    }
 
-	public void MoveToSetting()
-	{
+    public void MoveToStore()
+    {
+        store = GetComponent<PositionManager>().StorePosition();
+        towards = store;
+        moveToPosition = true;
+    }
+
+    public void MoveToSetting()
+    {
         setting = GetComponent<PositionManager>().SettingPosition();
-		towards = setting;
-		moveToPosition = true;
-	}
+        towards = setting;
+        moveToPosition = true;
+    }
 
     public void MoveToGameplay(string c)
     {
