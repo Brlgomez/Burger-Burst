@@ -22,6 +22,10 @@ public class CoinSpawn : MonoBehaviour
         {
             Invoke("LaunchCoin", timeBetweenCoins);
         }
+        else
+        {
+            Destroy(GetComponent<CoinSpawn>());
+        }
     }
 
     public void StartCoinLaunch(int n, Vector3 pos)

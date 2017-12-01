@@ -217,17 +217,19 @@ public class MainMenu : MonoBehaviour
     {
         if (target.name == "Third Button")
         {
-            GetComponent<ScreenTextManagment>().BuyUpgrade();
+			GetComponent<ScreenTextManagment>().BuyUpgrade();
             GetComponent<ScreenTextManagment>().ChangeToUpgradeText();
-        }
+			GetComponent<ScreenTextManagment>().HighLightSlot(currentSlot.transform.parent.gameObject);
+		}
         else if (target.name == "Fourth Button")
         {
             //TODO: BUY COINS
         }
         else if (target.name == "Fifth Button")
         {
-            GetComponent<ScreenTextManagment>().ChangeToUpgradeText();
-        }
+			GetComponent<ScreenTextManagment>().ChangeToUpgradeText();
+			GetComponent<ScreenTextManagment>().HighLightSlot(currentSlot.transform.parent.gameObject);
+		}
     }
 
     void MouseUpCustomizeMenu()

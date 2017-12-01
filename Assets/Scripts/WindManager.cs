@@ -8,6 +8,8 @@ public class WindManager : MonoBehaviour
     float timer;
     float timeForNextWindChange;
     ParticleSystem windParticles;
+    public GameObject windObject;
+    bool windy;
 
     void Start()
     {
@@ -20,54 +22,59 @@ public class WindManager : MonoBehaviour
         timer += Time.deltaTime * updateInterval;
         if (timer > timeForNextWindChange)
         {
-            PickNextWindChangeTime();
+            timeForNextWindChange = Random.Range(15, 60);
+            if (Random.value > 0.75f)
+            {
+                StartWind();
+            }
+            else
+            {
+                StopWind();
+            }
             timer = 0;
         }
     }
 
-    void PickNextWindChangeTime()
+    void StartWind()
     {
-        timeForNextWindChange = Random.Range(15, 60);
-        windPower = Random.Range(-2.5f, 2.5f);
-        if (Mathf.Abs(windPower) > 0.25f)
+        windPower = Random.Range(-5f, 5f);
+        windParticles.Play();
+        var main = windParticles.main;
+        main.startSpeed = windPower * 5f;
+        main.maxParticles = Mathf.RoundToInt(Mathf.Abs(windPower * 2));
+        GetComponent<ObjectManager>().WindParticles().transform.position = new Vector3(
+            -windPower * 5f,
+            GetComponent<ObjectManager>().WindParticles().transform.position.y,
+            GetComponent<ObjectManager>().WindParticles().transform.position.z
+        );
+        if (!GetComponent<PlayerPrefsManager>().ContainsUpgrade(GetComponent<PowerUpsManager>().noWind.powerUpNumber))
         {
-            windParticles.Play();
-            var main = windParticles.main;
-            main.startSpeed = windPower * 10;
-            GetComponent<ObjectManager>().WindParticles().transform.position = new Vector3(
-                -windPower * 10, 
-                GetComponent<ObjectManager>().WindParticles().transform.position.y, 
-                GetComponent<ObjectManager>().WindParticles().transform.position.z
-            );
-        }
-        else
-        {
-            windParticles.Stop();
-        }
-    }
-
-    void BlowWindToThrownObjects()
-    {
-        GameObject[] allFood = GameObject.FindGameObjectsWithTag("Ingredient");
-        foreach (GameObject food in allFood)
-        {
-            ApplyWindToObject(food);
+            if (windObject.GetComponent<Wind>())
+            {
+                windObject.GetComponent<Wind>().windStrength = windPower;
+            }
+            else
+            {
+                windObject.AddComponent<Wind>().windStrength = windPower;
+            }
         }
     }
 
-    public void ApplyWindToObject(GameObject obj)
+    void StopWind()
     {
-        if (obj.GetComponent<Rigidbody>().velocity != Vector3.zero)
+        windParticles.Stop();
+        if (windObject.GetComponent<Wind>())
         {
-            obj.GetComponent<Rigidbody>().velocity += new Vector3(windPower/2, 0, 0);
+            Destroy(windObject.GetComponent<Wind>());
         }
     }
 
     public void ResetValues()
     {
-        windParticles.Stop();
-        timeForNextWindChange = 120;
+        windy = false;
+        timeForNextWindChange = 0;
         windPower = 0;
+        StopWind();
     }
 
     public float GetWindPower()
