@@ -97,7 +97,7 @@ public class MainMenu : MonoBehaviour
                 if (hit.collider.name == "Off Screen Scroller")
                 {
                     point2 = hit.point;
-                    float change = (point1.z - point2.z) * -50;
+                    float change = (point1.z - point2.z) * 50;
                     if (change > 1)
                     {
                         change = 0.5f;
