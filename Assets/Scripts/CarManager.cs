@@ -30,12 +30,12 @@ public class CarManager : MonoBehaviour
         newCar.GetComponentInChildren<Renderer>().material.mainTexture = paint[Random.Range(0, paint.Length)];
         if (Random.value > 0.5f)
         {
-            newCar.transform.position = new Vector3(20, 0, -40);
+            newCar.transform.position = new Vector3(18.5f, 0, -40);
             newCar.transform.Rotate(new Vector3(0, 0, 0));
         }
         else
         {
-            newCar.transform.position = new Vector3(-20, 0, 40);
+            newCar.transform.position = new Vector3(-18.5f, 0, 40);
             newCar.transform.Rotate(new Vector3(0, 180, 0));
         }
     }

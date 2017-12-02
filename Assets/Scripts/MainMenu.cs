@@ -106,7 +106,7 @@ public class MainMenu : MonoBehaviour
                     {
                         change = -0.5f;
                     }
-                    if (Mathf.Abs(change) > 0.01f && !changeScrollerObjects)
+                    if (Mathf.Abs(change) > 0.02f && !changeScrollerObjects)
                     {
                         changeScrollerObjects = true;
                         GetComponent<ScreenTextManagment>().ChangeScrollerItemColor(false);
@@ -177,7 +177,7 @@ public class MainMenu : MonoBehaviour
         }
         else if (target.name == "Fourth Button")
         {
-            GetComponent<ScreenTextManagment>().ChangeSlotSprite(currentSlot, slotPosition);
+            //GetComponent<ScreenTextManagment>().ChangeSlotSprite(currentSlot, slotPosition);
         }
         else if (target.name == "Fifth Button")
         {
@@ -217,19 +217,19 @@ public class MainMenu : MonoBehaviour
     {
         if (target.name == "Third Button")
         {
-			GetComponent<ScreenTextManagment>().BuyUpgrade();
+            GetComponent<ScreenTextManagment>().BuyUpgrade();
             GetComponent<ScreenTextManagment>().ChangeToUpgradeText();
-			GetComponent<ScreenTextManagment>().HighLightSlot(currentSlot.transform.parent.gameObject);
-		}
+            GetComponent<ScreenTextManagment>().HighLightSlot(currentSlot.transform.parent.gameObject);
+        }
         else if (target.name == "Fourth Button")
         {
             //TODO: BUY COINS
         }
         else if (target.name == "Fifth Button")
         {
-			GetComponent<ScreenTextManagment>().ChangeToUpgradeText();
-			GetComponent<ScreenTextManagment>().HighLightSlot(currentSlot.transform.parent.gameObject);
-		}
+            GetComponent<ScreenTextManagment>().ChangeToUpgradeText();
+            GetComponent<ScreenTextManagment>().HighLightSlot(currentSlot.transform.parent.gameObject);
+        }
     }
 
     void MouseUpCustomizeMenu()

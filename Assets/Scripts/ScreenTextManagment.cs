@@ -70,7 +70,7 @@ ScreenTextManagment : MonoBehaviour
         EnableButton(line1, "");
         EnableButton(line2, "");
         EnableButton(line3, "");
-        EnableButton(line4, "    " + PlayerPrefs.GetInt("Coins", 0).ToString());
+        DisableButton(line4, "      " + PlayerPrefs.GetInt("Coins", 0).ToString());
         EnableButton(line5, "Back");
         line1.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
         line1.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = heartSprite;
@@ -116,7 +116,6 @@ ScreenTextManagment : MonoBehaviour
         line1.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
         line1.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = GetMiddleObject().GetComponent<SpriteRenderer>().sprite;
         DisableButton(line1, "");
-        line2.GetComponent<TextMesh>().characterSize = 0.024375f;
         DisableButton(line2, "Get power up?");
         if (int.Parse(GetMiddleObject().transform.GetChild(0).GetComponent<TextMesh>().text) <= PlayerPrefs.GetInt("Coins", 0))
         {
@@ -124,7 +123,7 @@ ScreenTextManagment : MonoBehaviour
         }
         else
         {
-            line3.GetComponent<TextMesh>().characterSize = 0.024375f;
+            line3.GetComponent<TextMesh>().characterSize = 0.025f;
             DisableButton(line3,
                 "Coins needed:\n" +
                 (int.Parse(GetMiddleObject().transform.GetChild(0).GetComponent<TextMesh>().text) - PlayerPrefs.GetInt("Coins", 0)));
@@ -261,7 +260,7 @@ ScreenTextManagment : MonoBehaviour
         int n = Camera.main.GetComponent<Gameplay>().GetBurgerCount();
         Color newColor = Color.Lerp(Color.red, originalScreenColor, ((float)n) / initialBurgers);
         line2.GetComponent<TextMesh>().color = newColor;
-        line2.GetComponent<TextMesh>().text = "     " + n;
+        line2.GetComponent<TextMesh>().text = "      " + n;
     }
 
     public void ChangeFriesCount(int num)
@@ -281,7 +280,7 @@ ScreenTextManagment : MonoBehaviour
         int n = Camera.main.GetComponent<Gameplay>().GetFriesCount();
         Color newColor = Color.Lerp(Color.red, originalScreenColor, ((float)n) / initialFries);
         line3.GetComponent<TextMesh>().color = newColor;
-        line3.GetComponent<TextMesh>().text = "     " + n;
+        line3.GetComponent<TextMesh>().text = "      " + n;
     }
 
     public void ChangeDrinkCount(int num)
@@ -301,17 +300,16 @@ ScreenTextManagment : MonoBehaviour
         int n = Camera.main.GetComponent<Gameplay>().GetDrinkCount();
         Color newColor = Color.Lerp(Color.red, originalScreenColor, ((float)n) / initialDrinks);
         line4.GetComponent<TextMesh>().color = newColor;
-        line4.GetComponent<TextMesh>().text = "     " + n;
+        line4.GetComponent<TextMesh>().text = "      " + n;
     }
 
     public void RestartScreens()
     {
         ChangeHealthTextColor();
         ChangeTextColorToOriginal();
-        line1.GetComponent<TextMesh>().text = "     " + GetComponent<Gameplay>().GetMaxLife();
-        line2.GetComponent<TextMesh>().text = "     " + initialBurgers;
-        line3.GetComponent<TextMesh>().text = "     " + initialFries;
-        line4.GetComponent<TextMesh>().text = "     " + initialDrinks;
+        line2.GetComponent<TextMesh>().text = "      " + initialBurgers;
+        line3.GetComponent<TextMesh>().text = "      " + initialFries;
+        line4.GetComponent<TextMesh>().text = "      " + initialDrinks;
     }
 
     public void ChangeToGrillArea()
@@ -708,7 +706,7 @@ ScreenTextManagment : MonoBehaviour
         slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.clear;
         slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.clear;
         slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.clear;
-        line3.GetComponent<TextMesh>().characterSize = 0.0325f;
+        line3.GetComponent<TextMesh>().characterSize = 0.025f;
     }
 
     void TurnOnScrollList()
@@ -727,7 +725,6 @@ ScreenTextManagment : MonoBehaviour
         slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
         slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
         slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
-        line2.GetComponent<TextMesh>().characterSize = 0.0325f;
         line3.GetComponent<TextMesh>().characterSize = 0.01625f;
         HighLightSlot(slot1);
     }
