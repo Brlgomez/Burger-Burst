@@ -493,16 +493,18 @@ public class GrabAndThrowObject : MonoBehaviour
             counterWall.GetComponent<Collider>().enabled = false;
             if (positions.Count > 1)
             {
+                Vector3 diff = positions[positions.Count - 1] - positions[0];
                 float speed = Vector3.Distance(positions[positions.Count - 1], positions[0]);
-                float xVelocity = ((positions[positions.Count - 1].x - positions[0].x) * 7) + ((target.transform.position.x * speed) * (throwingDistance / 5));
-                float yVelocity = (positions[positions.Count - 1].y - positions[0].y) * 3;
-                float zVelocity = (positions[positions.Count - 1].z - positions[0].z) * throwingDistance;
+                float xVelocity = (diff.x * 7) + ((target.transform.position.x * speed) * (throwingDistance / 5));
+                float yVelocity = diff.y * 3;
+                float zVelocity = diff.z * throwingDistance;
                 Vector3 newVelocity = new Vector3(xVelocity, yVelocity, zVelocity) * ((Screen.height / Screen.dpi) * 0.5f);
                 if (newVelocity.magnitude > (throwingDistance * 0.66f))
                 {
                     newVelocity *= ((throwingDistance * 0.66f) / newVelocity.magnitude);
                 }
                 target.GetComponent<Rigidbody>().velocity = newVelocity;
+                target.GetComponent<Rigidbody>().angularVelocity = new Vector3(zVelocity, xVelocity, 0);
             }
         }
     }
