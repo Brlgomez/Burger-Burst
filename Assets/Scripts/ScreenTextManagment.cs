@@ -61,6 +61,7 @@ ScreenTextManagment : MonoBehaviour
         line5.transform.GetChild(1).GetComponent<SpriteRenderer>().color = notPressable;
         line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
         line4.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = drinkSprite;
+		line1.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = heartSprite;
         line5.transform.GetChild(3).gameObject.layer = 0;
         currentArea = Menus.Menu.Gameplay;
     }
@@ -73,8 +74,7 @@ ScreenTextManagment : MonoBehaviour
         DisableButton(line4, "      " + PlayerPrefs.GetInt("Coins", 0).ToString());
         EnableButton(line5, "Back");
         line1.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
-        line1.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = heartSprite;
-        line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
+		line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
         line4.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = coinSprite;
         TurnOnScrollList();
         currentArea = Menus.Menu.PowerUps;

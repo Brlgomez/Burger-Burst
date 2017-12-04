@@ -9,7 +9,6 @@ public class WindManager : MonoBehaviour
     float timeForNextWindChange;
     ParticleSystem windParticles;
     public GameObject windObject;
-    bool windy;
 
     void Start()
     {
@@ -71,7 +70,6 @@ public class WindManager : MonoBehaviour
 
     public void ResetValues()
     {
-        windy = false;
         timeForNextWindChange = 120;
         windPower = 0;
         StopWind();

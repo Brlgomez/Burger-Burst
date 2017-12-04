@@ -5,7 +5,7 @@ using UnityEngine;
 public class MainMenu : MonoBehaviour
 {
     GameObject target;
-    Vector3 point1, point2;
+    Vector3 point1, point2, originalPoint;
     int lastScrollX;
     bool roundScroller;
     bool changeScrollerObjects;
@@ -47,6 +47,7 @@ public class MainMenu : MonoBehaviour
         {
             GetComponent<ScreenTextManagment>().PressTextDown(target.transform.parent.gameObject);
             point1 = hitInfo.point;
+            originalPoint = hitInfo.point;
         }
     }
 
@@ -106,7 +107,7 @@ public class MainMenu : MonoBehaviour
                     {
                         change = -0.5f;
                     }
-                    if (Mathf.Abs(change) > 0.02f && !changeScrollerObjects)
+                    if (Mathf.Abs(originalPoint.z - point2.z) > 0.002f && !changeScrollerObjects)
                     {
                         changeScrollerObjects = true;
                         GetComponent<ScreenTextManagment>().ChangeScrollerItemColor(false);
@@ -174,10 +175,6 @@ public class MainMenu : MonoBehaviour
         if (target.name == "Third Button")
         {
             GetComponent<ScreenTextManagment>().ChangeSlotSprite(currentSlot, slotPosition);
-        }
-        else if (target.name == "Fourth Button")
-        {
-            //GetComponent<ScreenTextManagment>().ChangeSlotSprite(currentSlot, slotPosition);
         }
         else if (target.name == "Fifth Button")
         {
