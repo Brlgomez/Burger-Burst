@@ -495,9 +495,9 @@ public class GrabAndThrowObject : MonoBehaviour
             {
                 Vector3 diff = positions[positions.Count - 1] - positions[0];
                 float speed = Vector3.Distance(positions[positions.Count - 1], positions[0]);
-                float xVelocity = (diff.x * 7) + ((target.transform.position.x * speed) * (throwingDistance / 5));
-                float yVelocity = diff.y * 3;
-                float zVelocity = diff.z * throwingDistance;
+                float xVelocity = (diff.x * 5) + ((target.transform.position.x * speed * 2));
+                float yVelocity = diff.y * 2;
+                float zVelocity = diff.z * 8;
                 Vector3 newVelocity = new Vector3(xVelocity, yVelocity, zVelocity) * ((Screen.height / Screen.dpi) * 0.5f);
                 if (newVelocity.magnitude > (throwingDistance * 0.66f))
                 {

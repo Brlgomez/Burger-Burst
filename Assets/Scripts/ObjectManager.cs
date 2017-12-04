@@ -10,7 +10,7 @@ public class ObjectManager : MonoBehaviour
     GameObject fries, burger, drink;
     GameObject meat, topBun, bottomBun, uncookedFries, friesBasket, cup, lid;
     GameObject foodTruck;
-    GameObject car;
+    GameObject car, suv;
     GameObject zombie;
     GameObject blastParticles;
     GameObject windParticles;
@@ -44,6 +44,7 @@ public class ObjectManager : MonoBehaviour
         cup = GameObject.Find("Empty_Cup");
         lid = GameObject.Find("Lid");
         car = GameObject.Find("Car");
+        suv = GameObject.Find("Car2");
         zombie = GameObject.Find("Zombie");
         blastParticles = GameObject.Find("Blast Particles");
         windParticles = GameObject.Find("Wind Particles");
@@ -98,6 +99,8 @@ public class ObjectManager : MonoBehaviour
     public GameObject Lid() { return lid; }
 
     public GameObject Car() { return car; }
+
+    public GameObject Suv() { return suv; }
 
     public GameObject Zombie() { return zombie; }
 

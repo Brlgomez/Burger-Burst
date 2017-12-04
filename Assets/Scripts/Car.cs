@@ -14,6 +14,7 @@ public class Car : MonoBehaviour
     bool slowDown;
     bool slowingDown;
     bool droppedOff;
+    bool multiZombies;
     Renderer myRenderer;
 
     void Start()
@@ -72,7 +73,15 @@ public class Car : MonoBehaviour
 
     void AddZombie()
     {
-        Camera.main.GetComponent<ZombieManager>().AddNewWaiter(new Vector3(transform.position.x, 0, transform.position.z + 4));
+        if (multiZombies)
+        {
+            Camera.main.GetComponent<ZombieManager>().AddNewZombie(new Vector3(transform.position.x - 1, 0, transform.position.z + 4.25f));
+            Camera.main.GetComponent<ZombieManager>().AddNewZombie(new Vector3(transform.position.x + 1, 0, transform.position.z + 3.75f));
+        }
+        else 
+        {
+            Camera.main.GetComponent<ZombieManager>().AddNewZombie(new Vector3(transform.position.x, 0, transform.position.z + 4));
+		}
         droppedOff = true;
     }
 
@@ -94,5 +103,10 @@ public class Car : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void AddMultiZombies()
+    {
+        multiZombies = true;
     }
 }

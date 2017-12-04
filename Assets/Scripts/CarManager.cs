@@ -4,18 +4,28 @@ using UnityEngine;
 
 public class CarManager : MonoBehaviour
 {
-    GameObject car;
+    GameObject car, suv;
     public Texture[] paint;
 
     void Start()
     {
         car = GetComponent<ObjectManager>().Car();
+        suv = GetComponent<ObjectManager>().Suv();
     }
 
     public void CreateNewCarWithZombie()
     {
-        GameObject newCar = Instantiate(car);
-        newCar.AddComponent<Car>();
+        GameObject newCar;
+        if (Random.value > 0.1f)
+        {
+            newCar = Instantiate(car);
+			newCar.AddComponent<Car>();
+		}
+        else
+        {
+            newCar = Instantiate(suv);
+            newCar.AddComponent<Car>().AddMultiZombies();
+        }
         newCar.tag = "Car";
         newCar.GetComponentInChildren<Renderer>().material.mainTexture = paint[Random.Range(0, paint.Length)];
         newCar.transform.position = new Vector3(38, 0, 20);
@@ -24,7 +34,15 @@ public class CarManager : MonoBehaviour
 
     public void CreateNewCarWithNoZombie()
     {
-        GameObject newCar = Instantiate(car);
+        GameObject newCar;
+        if (Random.value > 0.5f)
+        {
+            newCar = Instantiate(car);
+        }
+        else
+        {
+            newCar = Instantiate(suv);
+        }
         newCar.AddComponent<NonZombieCar>();
         newCar.tag = "Car";
         newCar.GetComponentInChildren<Renderer>().material.mainTexture = paint[Random.Range(0, paint.Length)];
