@@ -13,7 +13,9 @@ ScreenTextManagment : MonoBehaviour
     bool pressDown;
     Menus.Menu currentArea;
     public Sprite[] scrollSprites;
-    public Sprite coinSprite, drinkSprite, heartSprite;
+    public Sprite playSprite, powerUpSprite, customizSprite, storeSprite, settingsSprite, backSprite, coinSprite;
+    public Sprite burgerSprite, friesSprite, drinkSprite, heartSprite;
+    public Sprite graphicsSprite, themeSprite;
 
     void Start()
     {
@@ -39,11 +41,11 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToMenuText()
     {
-        EnableButton(line1, "Play");
-        EnableButton(line2, "Power Ups");
-        EnableButton(line3, "Customize");
-        EnableButton(line4, "Store");
-        EnableButton(line5, "Settings");
+        EnableButton(line1, "Play", playSprite);
+        EnableButton(line2, "Power Ups", powerUpSprite);
+        EnableButton(line3, "Customize", customizSprite);
+        EnableButton(line4, "Store", storeSprite);
+        EnableButton(line5, "Settings", settingsSprite);
         TurnOffScrollList();
         TurnOffGameplayImages();
         currentArea = Menus.Menu.MainMenu;
@@ -51,86 +53,76 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToGamePlayText()
     {
-        MakeAllButtonsPressable();
-        DisableButton(line1, "");
-        line1.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
+        DisableButton(line1, "", heartSprite);
+        EnableButton(line2, "", burgerSprite);
+        EnableButton(line3, "", friesSprite);
+        EnableButton(line4, "", drinkSprite);
+        EnableButton(line5, "", null);
         line1.transform.GetChild(5).GetComponent<SpriteRenderer>().color = Color.black;
-        line2.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
-        line3.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
-        line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
-        line5.transform.GetChild(1).GetComponent<SpriteRenderer>().color = notPressable;
         line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
-        line4.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = drinkSprite;
-		line1.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = heartSprite;
         line5.transform.GetChild(3).gameObject.layer = 0;
         currentArea = Menus.Menu.Gameplay;
     }
 
     public void ChangeToUpgradeText()
     {
-        EnableButton(line1, "");
-        EnableButton(line2, "");
-        EnableButton(line3, "");
-        DisableButton(line4, "      " + PlayerPrefs.GetInt("Coins", 0).ToString());
-        EnableButton(line5, "Back");
-        line1.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
-		line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
-        line4.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = coinSprite;
+        EnableButton(line1, "", null);
+        EnableButton(line2, "", null);
+        EnableButton(line3, "", null);
+        DisableButton(line4, PlayerPrefs.GetInt("Coins", 0).ToString(), coinSprite);
+        EnableButton(line5, "Back", backSprite);
         TurnOnScrollList();
         currentArea = Menus.Menu.PowerUps;
     }
 
     public void ChangeToCustomizeScreen()
     {
-        EnableButton(line1, "Theme");
-        EnableButton(line2, "Graphics");
-        DisableButton(line3, "");
-        DisableButton(line4, "");
-        EnableButton(line5, "Back");
+        EnableButton(line1, "Theme", themeSprite);
+        EnableButton(line2, "Graphics", graphicsSprite);
+        DisableButton(line3, "", null);
+        DisableButton(line4, "", null);
+        EnableButton(line5, "Back", backSprite);
         currentArea = Menus.Menu.Customize;
     }
 
     public void ChangeToStoreScreen()
     {
-        EnableButton(line1, "100 coins");
-        EnableButton(line2, "250 coins");
-        EnableButton(line3, "1000 coins");
-        EnableButton(line4, "2500 coins");
-        EnableButton(line5, "Back");
+        EnableButton(line1, "100 coins", coinSprite);
+        EnableButton(line2, "250 coins", coinSprite);
+        EnableButton(line3, "1000 coins", coinSprite);
+        EnableButton(line4, "2500 coins", coinSprite);
+        EnableButton(line5, "Back", backSprite);
         currentArea = Menus.Menu.Store;
     }
 
     public void ChangeToSettingScreen()
     {
-        EnableButton(line1, "Vibration");
-        EnableButton(line2, "Music");
-        EnableButton(line3, "Sound");
-        EnableButton(line4, "Game Center");
-        EnableButton(line5, "Back");
+        EnableButton(line1, "Vibration", null);
+        EnableButton(line2, "Music", null);
+        EnableButton(line3, "Sound", null);
+        EnableButton(line4, "Game Center", null);
+        EnableButton(line5, "Back", backSprite);
         currentArea = Menus.Menu.Setting;
     }
 
     public void ChangeToConfirmationScreen()
     {
         TurnOffScrollList();
-        line1.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
-        line1.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = GetMiddleObject().GetComponent<SpriteRenderer>().sprite;
-        DisableButton(line1, "");
-        DisableButton(line2, "Get power up?");
+        DisableButton(line1, "", GetMiddleObject().GetComponent<SpriteRenderer>().sprite);
+        DisableButton(line2, "Get power up?", null);
         if (int.Parse(GetMiddleObject().transform.GetChild(0).GetComponent<TextMesh>().text) <= PlayerPrefs.GetInt("Coins", 0))
         {
-            EnableButton(line3, "Yes");
+            EnableButton(line3, "Yes", null);
         }
         else
         {
             line3.GetComponent<TextMesh>().characterSize = 0.025f;
             DisableButton(line3,
                 "Coins needed:\n" +
-                (int.Parse(GetMiddleObject().transform.GetChild(0).GetComponent<TextMesh>().text) - PlayerPrefs.GetInt("Coins", 0)));
+                (int.Parse(GetMiddleObject().transform.GetChild(0).GetComponent<TextMesh>().text) - PlayerPrefs.GetInt("Coins", 0)), null);
         }
-        EnableButton(line4, "Get coins");
-        EnableButton(line5, "Back");
-        line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
+        EnableButton(line4, "Get coins", coinSprite);
+        EnableButton(line5, "Back", backSprite);
         currentArea = Menus.Menu.Confirmation;
     }
 
@@ -145,9 +137,11 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToGameOverText()
     {
-        MakeButtonsUnpressable();
-        EnableButton(line1, "Restart");
-        EnableButton(line2, "Quit");
+        EnableButton(line1, "Restart", null);
+        EnableButton(line2, "Quit", null);
+        DisableButton(line3, "", null);
+        DisableButton(line4, "", null);
+        DisableButton(line5, "", null);
         line3.GetComponent<TextMesh>().text = "S: " + GetComponent<Gameplay>().GetPoints();
         line1.GetComponent<TextMesh>().color = Color.red;
         line2.GetComponent<TextMesh>().color = Color.red;
@@ -160,10 +154,11 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToPauseText()
     {
-        MakeButtonsUnpressable();
-        EnableButton(line1, "Resume");
-        EnableButton(line2, "Restart");
-        EnableButton(line3, "Quit");
+        EnableButton(line1, "Resume", playSprite);
+        EnableButton(line2, "Restart", null);
+        EnableButton(line3, "Quit", null);
+        DisableButton(line4, "", null);
+        DisableButton(line5, "", null);
         line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
         line5.transform.GetChild(3).gameObject.layer = 2;
         TurnOffGameplayImages();
@@ -233,14 +228,11 @@ ScreenTextManagment : MonoBehaviour
 
     void TurnOffGameplayImages()
     {
-        line1.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
         line1.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
         line1.transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.clear;
         line1.transform.GetChild(5).GetComponent<SpriteRenderer>().color = Color.clear;
-        line2.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
-        line3.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
-        line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
-        line5.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
+        line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
+        line5.transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.clear;
     }
 
     public void ChangeBurgerCount(int num)
@@ -314,9 +306,11 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToGrillArea()
     {
-        MakeAllButtonsPressable();
-        DisableButton(line1, "");
-        DisableButton(line2, "");
+        DisableButton(line1, "", heartSprite);
+        DisableButton(line2, "", burgerSprite);
+        EnableButton(line3, "", friesSprite);
+        EnableButton(line4, "", drinkSprite);
+        EnableButton(line5, "", null);
         ChangeBurgerTextColor();
         ChangeFriesTextColor();
         ChangeDrinkTextColor();
@@ -324,14 +318,16 @@ ScreenTextManagment : MonoBehaviour
         line2.transform.GetChild(1).GetComponent<SpriteRenderer>().color = notPressable;
         line3.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
         line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
-        line5.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
+        line5.transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.white;
     }
 
     public void ChangeToFryerArea()
     {
-        MakeAllButtonsPressable();
-        DisableButton(line1, "");
-        DisableButton(line3, "");
+        DisableButton(line1, "", heartSprite);
+        EnableButton(line2, "", burgerSprite);
+        DisableButton(line3, "", friesSprite);
+        EnableButton(line4, "", drinkSprite);
+        EnableButton(line5, "", null);
         ChangeBurgerTextColor();
         ChangeFriesTextColor();
         ChangeDrinkTextColor();
@@ -339,14 +335,16 @@ ScreenTextManagment : MonoBehaviour
         line2.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
         line3.transform.GetChild(1).GetComponent<SpriteRenderer>().color = notPressable;
         line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
-        line5.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
+        line5.transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.white;
     }
 
     public void ChangeToSodaMachineArea()
     {
-        MakeAllButtonsPressable();
-        DisableButton(line1, "");
-        DisableButton(line4, "");
+        DisableButton(line1, "", heartSprite);
+        EnableButton(line2, "", burgerSprite);
+        EnableButton(line3, "", friesSprite);
+        DisableButton(line4, "", drinkSprite);
+        EnableButton(line5, "", null);
         ChangeBurgerTextColor();
         ChangeFriesTextColor();
         ChangeDrinkTextColor();
@@ -354,51 +352,53 @@ ScreenTextManagment : MonoBehaviour
         line2.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
         line3.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
         line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = notPressable;
-        line5.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
+        line5.transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.white;
     }
 
     public void ChangeToFrontArea()
     {
-        MakeAllButtonsPressable();
-        DisableButton(line1, "");
-        DisableButton(line5, "");
+        DisableButton(line1, "", heartSprite);
+        EnableButton(line2, "", burgerSprite);
+        EnableButton(line3, "", friesSprite);
+        EnableButton(line4, "", drinkSprite);
+        DisableButton(line5, "", null);
         ChangeBurgerTextColor();
         ChangeFriesTextColor();
         ChangeDrinkTextColor();
         ChangeHealthTextColor();
-        line5.GetComponent<TextMesh>().text = "";
+        line5.transform.GetChild(4).GetComponent<SpriteRenderer>().color = notPressable;
     }
 
-    public void MakeAllButtonsPressable()
-    {
-        EnableButton(line1, "");
-        EnableButton(line2, "");
-        EnableButton(line3, "");
-        EnableButton(line4, "");
-        EnableButton(line5, "");
-    }
-
-    public void MakeButtonsUnpressable()
-    {
-        DisableButton(line1, "");
-        DisableButton(line2, "");
-        DisableButton(line3, "");
-        DisableButton(line4, "");
-        DisableButton(line5, "");
-    }
-
-    void DisableButton(GameObject button, string text)
+    void DisableButton(GameObject button, string text, Sprite icon)
     {
         button.transform.GetChild(0).gameObject.layer = 2;
         button.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.clear;
-        button.GetComponent<TextMesh>().text = text;
+        if (icon != null)
+        {
+            button.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = icon;
+            button.GetComponent<TextMesh>().text = "     " + text;
+        }
+        else
+        {
+            button.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = null;
+            button.GetComponent<TextMesh>().text = text;
+        }
     }
 
-    void EnableButton(GameObject button, string text)
+    void EnableButton(GameObject button, string text, Sprite icon)
     {
         button.transform.GetChild(0).gameObject.layer = 0;
         button.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.white;
-        button.GetComponent<TextMesh>().text = text;
+        if (icon != null)
+        {
+            button.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = icon;
+            button.GetComponent<TextMesh>().text = "     " + text;
+        }
+        else
+        {
+            button.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = null;
+            button.GetComponent<TextMesh>().text = text;
+        }
         button.GetComponent<TextMesh>().color = originalScreenColor;
     }
 
