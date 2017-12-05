@@ -15,7 +15,7 @@ ScreenTextManagment : MonoBehaviour
     public Sprite[] scrollSprites;
     public Sprite playSprite, powerUpSprite, customizSprite, storeSprite, settingsSprite, backSprite, coinSprite;
     public Sprite burgerSprite, friesSprite, drinkSprite, heartSprite;
-    public Sprite graphicsSprite, themeSprite;
+    public Sprite graphicsSprite, themeSprite, vibrationSprite, musicSprite, soundSprite, trophySprite, restartSprite, quitSprite;
 
     void Start()
     {
@@ -97,10 +97,10 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToSettingScreen()
     {
-        EnableButton(line1, "Vibration", null);
-        EnableButton(line2, "Music", null);
-        EnableButton(line3, "Sound", null);
-        EnableButton(line4, "Game Center", null);
+        EnableButton(line1, "Vibration", vibrationSprite);
+        EnableButton(line2, "Music", musicSprite);
+        EnableButton(line3, "Sound", soundSprite);
+        EnableButton(line4, "Game Center", trophySprite);
         EnableButton(line5, "Back", backSprite);
         currentArea = Menus.Menu.Setting;
     }
@@ -137,8 +137,8 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToGameOverText()
     {
-        EnableButton(line1, "Restart", null);
-        EnableButton(line2, "Quit", null);
+        EnableButton(line1, "Restart", restartSprite);
+        EnableButton(line2, "Quit", quitSprite);
         DisableButton(line3, "", null);
         DisableButton(line4, "", null);
         DisableButton(line5, "", null);
@@ -155,8 +155,8 @@ ScreenTextManagment : MonoBehaviour
     public void ChangeToPauseText()
     {
         EnableButton(line1, "Resume", playSprite);
-        EnableButton(line2, "Restart", null);
-        EnableButton(line3, "Quit", null);
+        EnableButton(line2, "Restart", restartSprite);
+        EnableButton(line3, "Quit", quitSprite);
         DisableButton(line4, "", null);
         DisableButton(line5, "", null);
         line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
@@ -366,6 +366,9 @@ ScreenTextManagment : MonoBehaviour
         ChangeFriesTextColor();
         ChangeDrinkTextColor();
         ChangeHealthTextColor();
+		line2.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
+		line3.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
+        line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
         line5.transform.GetChild(4).GetComponent<SpriteRenderer>().color = notPressable;
     }
 

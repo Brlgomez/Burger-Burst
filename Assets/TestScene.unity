@@ -68921,6 +68921,12 @@ MonoBehaviour:
   heartSprite: {fileID: 21300000, guid: 6ca8048af4a284d3980e8d4c28db0ab1, type: 3}
   graphicsSprite: {fileID: 21300000, guid: ace2e05b5497147d894532d949f537de, type: 3}
   themeSprite: {fileID: 21300000, guid: 6290e518d2408473dac2e42dbfaeb920, type: 3}
+  vibrationSprite: {fileID: 21300000, guid: 11da024874f5b487caffc17fa5a33d69, type: 3}
+  musicSprite: {fileID: 21300000, guid: 139a4fb92c67a4bc0bb75196c83b7cac, type: 3}
+  soundSprite: {fileID: 21300000, guid: ce0aaf88690334cc0bd7d8527d964014, type: 3}
+  trophySprite: {fileID: 21300000, guid: 7874c89ab8e0141eca26a459bf8d2cc9, type: 3}
+  restartSprite: {fileID: 21300000, guid: c64789a2e6c8c4c6698feed5e474f8e3, type: 3}
+  quitSprite: {fileID: 21300000, guid: 3695c530bc8f846e6a45f0d20b5f640b, type: 3}
 --- !u!114 &1865169778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69458,7 +69464,7 @@ Transform:
   m_GameObject: {fileID: 1884190602}
   m_LocalRotation: {x: -0, y: -0, z: -0.000000119209275, w: 1}
   m_LocalPosition: {x: 3.5, y: 0, z: -0.11}
-  m_LocalScale: {x: 16, y: 16, z: 16}
+  m_LocalScale: {x: 8, y: 8, z: 8}
   m_Children: []
   m_Father: {fileID: 1874950112}
   m_RootOrder: 3
