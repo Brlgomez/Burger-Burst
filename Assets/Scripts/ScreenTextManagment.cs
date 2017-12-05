@@ -8,14 +8,15 @@ ScreenTextManagment : MonoBehaviour
     int initialBurgers, initialFries, initialDrinks;
     GameObject line1, line2, line3, line4, line5, scrollView, slot1, slot2, slot3;
     List<GameObject> scrollList = new List<GameObject>();
-    Color originalScreenColor = new Color(0, 0.5f, 1);
+    Color textColor = new Color(0, 0.5f, 1);
     Color notPressable = new Color(1, 1, 1, 0.25f);
     bool pressDown;
     Menus.Menu currentArea;
     public Sprite[] scrollSprites;
     public Sprite playSprite, powerUpSprite, customizSprite, storeSprite, settingsSprite, backSprite, coinSprite;
     public Sprite burgerSprite, friesSprite, drinkSprite, heartSprite;
-    public Sprite graphicsSprite, themeSprite, vibrationSprite, musicSprite, soundSprite, trophySprite, restartSprite, quitSprite;
+    public Sprite graphicsSprite, themeSprite, vibrationSprite, musicSprite, soundSprite, trophySprite;
+    public Sprite restartSprite, quitSprite, yesSprite, pointSprite;
 
     void Start()
     {
@@ -36,8 +37,6 @@ ScreenTextManagment : MonoBehaviour
         SetSlotSprites();
         ScaleScrollerObjects();
     }
-
-    /* Main Menu */
 
     public void ChangeToMenuText()
     {
@@ -109,13 +108,14 @@ ScreenTextManagment : MonoBehaviour
     {
         TurnOffScrollList();
         DisableButton(line1, "", GetMiddleObject().GetComponent<SpriteRenderer>().sprite);
-        DisableButton(line2, "Get power up?", null);
         if (int.Parse(GetMiddleObject().transform.GetChild(0).GetComponent<TextMesh>().text) <= PlayerPrefs.GetInt("Coins", 0))
         {
-            EnableButton(line3, "Yes", null);
+            DisableButton(line2, "Get power up?", null);
+            EnableButton(line3, "Yes", yesSprite);
         }
         else
         {
+            DisableButton(line2, "", null);
             line3.GetComponent<TextMesh>().characterSize = 0.025f;
             DisableButton(line3,
                 "Coins needed:\n" +
@@ -139,10 +139,9 @@ ScreenTextManagment : MonoBehaviour
     {
         EnableButton(line1, "Restart", restartSprite);
         EnableButton(line2, "Quit", quitSprite);
-        DisableButton(line3, "", null);
-        DisableButton(line4, "", null);
+        DisableButton(line3, GetComponent<Gameplay>().GetPoints().ToString(), pointSprite);
+        DisableButton(line4, PlayerPrefs.GetInt("Coins", 0).ToString(), coinSprite);
         DisableButton(line5, "", null);
-        line3.GetComponent<TextMesh>().text = "S: " + GetComponent<Gameplay>().GetPoints();
         line1.GetComponent<TextMesh>().color = Color.red;
         line2.GetComponent<TextMesh>().color = Color.red;
         line3.GetComponent<TextMesh>().color = Color.red;
@@ -163,145 +162,6 @@ ScreenTextManagment : MonoBehaviour
         line5.transform.GetChild(3).gameObject.layer = 2;
         TurnOffGameplayImages();
         currentArea = Menus.Menu.Pause;
-    }
-
-    public void ChangeHealthCount(int num)
-    {
-        int n = Mathf.RoundToInt(Camera.main.GetComponent<Gameplay>().GetLife());
-        if (n >= 1)
-        {
-            ChangeHealthTextColor();
-            if (line1.GetComponent<ShakeText>() == null)
-            {
-                line1.AddComponent<ShakeText>().ChangeColor(num);
-                line1.transform.GetChild(5).gameObject.AddComponent<ShakeText>().ChangeSpriteColor(num);
-            }
-        }
-        else
-        {
-            ChangeToGameOverText();
-        }
-    }
-
-    public void ChangeHealthTextColor()
-    {
-        int n = Mathf.RoundToInt(Camera.main.GetComponent<Gameplay>().GetLife());
-        line1.GetComponent<TextMesh>().text = "";
-        if (!GetComponent<Gameplay>().HaveMoreLife())
-        {
-            Color newColor = Color.Lerp(Color.red, originalScreenColor, ((float)n) / GetComponent<Gameplay>().GetMaxLife());
-            line1.transform.GetChild(3).GetComponent<SpriteRenderer>().color = newColor;
-            line1.transform.GetChild(3).transform.localScale = new Vector3((((float)n) / GetComponent<Gameplay>().GetMaxLife()) * 255, 90, 1);
-            line1.transform.GetChild(4).transform.localScale = new Vector3(0, 90, 1);
-        }
-        else
-        {
-            if (n <= 100)
-            {
-                Color newColor = Color.Lerp(Color.red, originalScreenColor, (((float)n) / (GetComponent<Gameplay>().GetMaxLife() / 2)));
-                line1.transform.GetChild(3).GetComponent<SpriteRenderer>().color = newColor;
-                line1.transform.GetChild(3).transform.localScale = new Vector3(
-                    (((float)n) / (GetComponent<Gameplay>().GetMaxLife() / 2)) * 255,
-                    90,
-                    1
-                );
-                line1.transform.GetChild(4).transform.localScale = new Vector3(0, 90, 1);
-            }
-            else
-            {
-                Color newColor = Color.Lerp(
-                    Color.green,
-                    Color.cyan,
-                    ((float)n - (GetComponent<Gameplay>().GetMaxLife() / 2)) / (GetComponent<Gameplay>().GetMaxLife() / 2)
-                );
-                line1.transform.GetChild(3).transform.localScale = new Vector3(255, 90, 1);
-                line1.transform.GetChild(3).GetComponent<SpriteRenderer>().color = originalScreenColor;
-                line1.transform.GetChild(4).transform.localScale = new Vector3(
-                    (((float)n - (GetComponent<Gameplay>().GetMaxLife() / 2)) / (GetComponent<Gameplay>().GetMaxLife() / 2)) * 255,
-                    90,
-                    1
-                );
-                line1.transform.GetChild(4).GetComponent<SpriteRenderer>().color = newColor;
-            }
-        }
-    }
-
-    void TurnOffGameplayImages()
-    {
-        line1.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
-        line1.transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.clear;
-        line1.transform.GetChild(5).GetComponent<SpriteRenderer>().color = Color.clear;
-        line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
-        line5.transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.clear;
-    }
-
-    public void ChangeBurgerCount(int num)
-    {
-        if (!Camera.main.GetComponent<Gameplay>().IsGameOver())
-        {
-            ChangeBurgerTextColor();
-            if (line2.GetComponent<ShakeText>() == null)
-            {
-                line2.AddComponent<ShakeText>().ChangeColor(num);
-            }
-        }
-    }
-
-    void ChangeBurgerTextColor()
-    {
-        int n = Camera.main.GetComponent<Gameplay>().GetBurgerCount();
-        Color newColor = Color.Lerp(Color.red, originalScreenColor, ((float)n) / initialBurgers);
-        line2.GetComponent<TextMesh>().color = newColor;
-        line2.GetComponent<TextMesh>().text = "      " + n;
-    }
-
-    public void ChangeFriesCount(int num)
-    {
-        if (!Camera.main.GetComponent<Gameplay>().IsGameOver())
-        {
-            ChangeFriesTextColor();
-            if (line3.GetComponent<ShakeText>() == null)
-            {
-                line3.AddComponent<ShakeText>().ChangeColor(num);
-            }
-        }
-    }
-
-    void ChangeFriesTextColor()
-    {
-        int n = Camera.main.GetComponent<Gameplay>().GetFriesCount();
-        Color newColor = Color.Lerp(Color.red, originalScreenColor, ((float)n) / initialFries);
-        line3.GetComponent<TextMesh>().color = newColor;
-        line3.GetComponent<TextMesh>().text = "      " + n;
-    }
-
-    public void ChangeDrinkCount(int num)
-    {
-        if (!Camera.main.GetComponent<Gameplay>().IsGameOver())
-        {
-            ChangeDrinkTextColor();
-            if (line4.GetComponent<ShakeText>() == null)
-            {
-                line4.AddComponent<ShakeText>().ChangeColor(num);
-            }
-        }
-    }
-
-    void ChangeDrinkTextColor()
-    {
-        int n = Camera.main.GetComponent<Gameplay>().GetDrinkCount();
-        Color newColor = Color.Lerp(Color.red, originalScreenColor, ((float)n) / initialDrinks);
-        line4.GetComponent<TextMesh>().color = newColor;
-        line4.GetComponent<TextMesh>().text = "      " + n;
-    }
-
-    public void RestartScreens()
-    {
-        ChangeHealthTextColor();
-        ChangeTextColorToOriginal();
-        line2.GetComponent<TextMesh>().text = "      " + initialBurgers;
-        line3.GetComponent<TextMesh>().text = "      " + initialFries;
-        line4.GetComponent<TextMesh>().text = "      " + initialDrinks;
     }
 
     public void ChangeToGrillArea()
@@ -366,16 +226,156 @@ ScreenTextManagment : MonoBehaviour
         ChangeFriesTextColor();
         ChangeDrinkTextColor();
         ChangeHealthTextColor();
-		line2.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
-		line3.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
+        line2.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
+        line3.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
         line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
         line5.transform.GetChild(4).GetComponent<SpriteRenderer>().color = notPressable;
+    }
+
+    void TurnOffGameplayImages()
+    {
+        line1.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
+        line1.transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.clear;
+        line1.transform.GetChild(5).GetComponent<SpriteRenderer>().color = Color.clear;
+        line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
+        line5.transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.clear;
+    }
+
+    public void ChangeHealthCount(int num)
+    {
+        int n = Mathf.RoundToInt(Camera.main.GetComponent<Gameplay>().GetLife());
+        if (n >= 1)
+        {
+            ChangeHealthTextColor();
+            if (line1.GetComponent<ShakeText>() == null)
+            {
+                line1.AddComponent<ShakeText>().ChangeColor(num);
+                line1.transform.GetChild(5).gameObject.AddComponent<ShakeText>().ChangeSpriteColor(num);
+            }
+        }
+        else
+        {
+            ChangeToGameOverText();
+        }
+    }
+
+    public void ChangeHealthTextColor()
+    {
+        int n = Mathf.RoundToInt(Camera.main.GetComponent<Gameplay>().GetLife());
+        line1.GetComponent<TextMesh>().text = "";
+        if (!GetComponent<Gameplay>().HaveMoreLife())
+        {
+            Color newColor = Color.Lerp(Color.red, textColor, ((float)n) / GetComponent<Gameplay>().GetMaxLife());
+            line1.transform.GetChild(3).GetComponent<SpriteRenderer>().color = newColor;
+            line1.transform.GetChild(3).transform.localScale = new Vector3((((float)n) / GetComponent<Gameplay>().GetMaxLife()) * 255, 90, 1);
+            line1.transform.GetChild(4).transform.localScale = new Vector3(0, 90, 1);
+        }
+        else
+        {
+            if (n <= 100)
+            {
+                Color newColor = Color.Lerp(Color.red, textColor, (((float)n) / (GetComponent<Gameplay>().GetMaxLife() / 2)));
+                line1.transform.GetChild(3).GetComponent<SpriteRenderer>().color = newColor;
+                line1.transform.GetChild(3).transform.localScale = new Vector3(
+                    (((float)n) / (GetComponent<Gameplay>().GetMaxLife() / 2)) * 255,
+                    90,
+                    1
+                );
+                line1.transform.GetChild(4).transform.localScale = new Vector3(0, 90, 1);
+            }
+            else
+            {
+                Color newColor = Color.Lerp(
+                    Color.green,
+                    Color.cyan,
+                    ((float)n - (GetComponent<Gameplay>().GetMaxLife() / 2)) / (GetComponent<Gameplay>().GetMaxLife() / 2)
+                );
+                line1.transform.GetChild(3).transform.localScale = new Vector3(255, 90, 1);
+                line1.transform.GetChild(3).GetComponent<SpriteRenderer>().color = textColor;
+                line1.transform.GetChild(4).transform.localScale = new Vector3(
+                    (((float)n - (GetComponent<Gameplay>().GetMaxLife() / 2)) / (GetComponent<Gameplay>().GetMaxLife() / 2)) * 255,
+                    90,
+                    1
+                );
+                line1.transform.GetChild(4).GetComponent<SpriteRenderer>().color = newColor;
+            }
+        }
+    }
+
+    public void ChangeBurgerCount(int num)
+    {
+        if (!Camera.main.GetComponent<Gameplay>().IsGameOver())
+        {
+            ChangeBurgerTextColor();
+            if (line2.GetComponent<ShakeText>() == null)
+            {
+                line2.AddComponent<ShakeText>().ChangeColor(num);
+            }
+        }
+    }
+
+    void ChangeBurgerTextColor()
+    {
+        int n = Camera.main.GetComponent<Gameplay>().GetBurgerCount();
+        Color newColor = Color.Lerp(Color.red, textColor, ((float)n) / initialBurgers);
+        line2.GetComponent<TextMesh>().color = newColor;
+        line2.GetComponent<TextMesh>().text = "      " + n;
+    }
+
+    public void ChangeFriesCount(int num)
+    {
+        if (!Camera.main.GetComponent<Gameplay>().IsGameOver())
+        {
+            ChangeFriesTextColor();
+            if (line3.GetComponent<ShakeText>() == null)
+            {
+                line3.AddComponent<ShakeText>().ChangeColor(num);
+            }
+        }
+    }
+
+    void ChangeFriesTextColor()
+    {
+        int n = Camera.main.GetComponent<Gameplay>().GetFriesCount();
+        Color newColor = Color.Lerp(Color.red, textColor, ((float)n) / initialFries);
+        line3.GetComponent<TextMesh>().color = newColor;
+        line3.GetComponent<TextMesh>().text = "      " + n;
+    }
+
+    public void ChangeDrinkCount(int num)
+    {
+        if (!Camera.main.GetComponent<Gameplay>().IsGameOver())
+        {
+            ChangeDrinkTextColor();
+            if (line4.GetComponent<ShakeText>() == null)
+            {
+                line4.AddComponent<ShakeText>().ChangeColor(num);
+            }
+        }
+    }
+
+    void ChangeDrinkTextColor()
+    {
+        int n = Camera.main.GetComponent<Gameplay>().GetDrinkCount();
+        Color newColor = Color.Lerp(Color.red, textColor, ((float)n) / initialDrinks);
+        line4.GetComponent<TextMesh>().color = newColor;
+        line4.GetComponent<TextMesh>().text = "      " + n;
+    }
+
+    public void RestartScreens()
+    {
+        ChangeHealthTextColor();
+        ChangeTextColorToOriginal();
+        line2.GetComponent<TextMesh>().text = "      " + initialBurgers;
+        line3.GetComponent<TextMesh>().text = "      " + initialFries;
+        line4.GetComponent<TextMesh>().text = "      " + initialDrinks;
     }
 
     void DisableButton(GameObject button, string text, Sprite icon)
     {
         button.transform.GetChild(0).gameObject.layer = 2;
         button.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.clear;
+        button.GetComponent<TextMesh>().color = textColor;
         if (icon != null)
         {
             button.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = icon;
@@ -392,6 +392,7 @@ ScreenTextManagment : MonoBehaviour
     {
         button.transform.GetChild(0).gameObject.layer = 0;
         button.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.white;
+        button.GetComponent<TextMesh>().color = textColor;
         if (icon != null)
         {
             button.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = icon;
@@ -402,16 +403,16 @@ ScreenTextManagment : MonoBehaviour
             button.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = null;
             button.GetComponent<TextMesh>().text = text;
         }
-        button.GetComponent<TextMesh>().color = originalScreenColor;
+        button.GetComponent<TextMesh>().color = textColor;
     }
 
     void ChangeTextColorToOriginal()
     {
-        line1.GetComponent<TextMesh>().color = originalScreenColor;
-        line2.GetComponent<TextMesh>().color = originalScreenColor;
-        line3.GetComponent<TextMesh>().color = originalScreenColor;
-        line4.GetComponent<TextMesh>().color = originalScreenColor;
-        line5.GetComponent<TextMesh>().color = originalScreenColor;
+        line1.GetComponent<TextMesh>().color = textColor;
+        line2.GetComponent<TextMesh>().color = textColor;
+        line3.GetComponent<TextMesh>().color = textColor;
+        line4.GetComponent<TextMesh>().color = textColor;
+        line5.GetComponent<TextMesh>().color = textColor;
     }
 
     public void PressTextDown(GameObject target)
@@ -625,9 +626,9 @@ ScreenTextManagment : MonoBehaviour
 
     public void HighLightSlot(GameObject slot)
     {
-        slot1.GetComponent<SpriteRenderer>().color = originalScreenColor;
-        slot2.GetComponent<SpriteRenderer>().color = originalScreenColor;
-        slot3.GetComponent<SpriteRenderer>().color = originalScreenColor;
+        slot1.GetComponent<SpriteRenderer>().color = textColor;
+        slot2.GetComponent<SpriteRenderer>().color = textColor;
+        slot3.GetComponent<SpriteRenderer>().color = textColor;
         slot.GetComponent<SpriteRenderer>().color = Color.green;
     }
 
@@ -722,9 +723,9 @@ ScreenTextManagment : MonoBehaviour
         slot2.transform.GetChild(0).gameObject.layer = 0;
         slot3.transform.GetChild(0).gameObject.layer = 0;
         ChangeInfo(GetMiddleObjectNumber());
-        slot1.GetComponent<SpriteRenderer>().color = originalScreenColor;
-        slot2.GetComponent<SpriteRenderer>().color = originalScreenColor;
-        slot3.GetComponent<SpriteRenderer>().color = originalScreenColor;
+        slot1.GetComponent<SpriteRenderer>().color = textColor;
+        slot2.GetComponent<SpriteRenderer>().color = textColor;
+        slot3.GetComponent<SpriteRenderer>().color = textColor;
         slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
         slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
         slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
