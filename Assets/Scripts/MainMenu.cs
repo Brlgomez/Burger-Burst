@@ -144,7 +144,8 @@ public class MainMenu : MonoBehaviour
                 Destroy(GetComponent<MainMenu>());
                 break;
             case "Second Button":
-                GetComponent<ScreenTextManagment>().CannotPressAnything();
+                GetComponent<PowerUpSlider>().SetUpMenu(Menus.Menu.PowerUps);
+				GetComponent<ScreenTextManagment>().CannotPressAnything();
                 gameObject.AddComponent<CameraMovement>().MoveToPowerUp();
                 currentSlot = GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(2).GetChild(0).GetChild(0).gameObject;
                 slotPosition = 1;

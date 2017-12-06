@@ -100,7 +100,7 @@ ScreenTextManagment : MonoBehaviour
     {
         GameObject middleObj = GetComponent<PowerUpSlider>().GetMiddleObject();
         TurnOffScrollList();
-        DisableButton(line1, "", middleObj.GetComponent<SpriteRenderer>().sprite);
+        DisableButton(line1, middleObj.transform.GetChild(0).GetComponent<TextMesh>().text, middleObj.GetComponent<SpriteRenderer>().sprite);
         if (int.Parse(middleObj.transform.GetChild(0).GetComponent<TextMesh>().text) <= PlayerPrefs.GetInt("Coins", 0))
         {
             DisableButton(line2, "Get power up?", null);
@@ -455,9 +455,10 @@ ScreenTextManagment : MonoBehaviour
         return currentArea;
     }
 
-    public void ChangeSliderInfo(int name)
+    public void ChangeSliderInfo()
     {
-        line3.GetComponent<TextMesh>().text = GetComponent<PowerUpsManager>().powerUpList[name].description;
+        int n = GetComponent<PowerUpSlider>().GetMiddleObjectNumber();
+        line3.GetComponent<TextMesh>().text = GetComponent<PowerUpSlider>().GetSliderDescription(n);
     }
 
     void TurnOffScrollList()
@@ -469,7 +470,7 @@ ScreenTextManagment : MonoBehaviour
     void TurnOnScrollList()
     {
         GetComponent<PowerUpSlider>().TurnOnScrollView();
-        ChangeSliderInfo(GetComponent<PowerUpSlider>().GetMiddleObjectNumber());
+        ChangeSliderInfo();
         line2.transform.GetChild(0).gameObject.layer = 2;
         line3.GetComponent<TextMesh>().characterSize = 0.01625f;
     }
