@@ -16,6 +16,7 @@ public class PowerUpSlider : MonoBehaviour
         slot1 = scrollView.transform.GetChild(2).GetChild(0).gameObject;
         slot2 = scrollView.transform.GetChild(2).GetChild(1).gameObject;
         slot3 = scrollView.transform.GetChild(2).GetChild(2).gameObject;
+        SetPowerUpLED();
     }
 
     public void SetUpMenu(Menus.Menu menu)
@@ -26,13 +27,14 @@ public class PowerUpSlider : MonoBehaviour
             if (menu == Menus.Menu.PowerUps)
             {
                 sliderObjectCount = GetComponent<PowerUpsManager>().powerUpList.Count;
+                SetSlotSprites();
             }
             else if (menu == Menus.Menu.Graphics)
             {
                 sliderObjectCount = GetComponent<GraphicsManager>().graphicList.Count;
+                SetGraphicsSprite();
             }
             RestartScrollList();
-            SetSlotSprites();
             ScaleScrollerObjects();
         }
         lastMenu = menu;
@@ -167,21 +169,51 @@ public class PowerUpSlider : MonoBehaviour
         if (PlayerPrefs.GetInt("UPGRADE 1", -1) > -1)
         {
             slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = GetSliderSprite(PlayerPrefs.GetInt("UPGRADE 1"));
-            GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(0).GetComponent<SpriteRenderer>().sprite =
-                GetSliderSprite(PlayerPrefs.GetInt("UPGRADE 1"));
+        }
+        else
+        {
+            slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = null;
         }
         if (PlayerPrefs.GetInt("UPGRADE 2", -1) > -1)
         {
             slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = GetSliderSprite(PlayerPrefs.GetInt("UPGRADE 2"));
-            GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(1).GetComponent<SpriteRenderer>().sprite =
-                GetSliderSprite(PlayerPrefs.GetInt("UPGRADE 2"));
+        }
+        else
+        {
+            slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = null;
         }
         if (PlayerPrefs.GetInt("UPGRADE 3", -1) > -1)
         {
             slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = GetSliderSprite(PlayerPrefs.GetInt("UPGRADE 3"));
-            GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(2).GetComponent<SpriteRenderer>().sprite =
-                GetSliderSprite(PlayerPrefs.GetInt("UPGRADE 1"));
         }
+        else
+        {
+            slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = null;
+        }
+    }
+
+    public void SetPowerUpLED()
+    {
+        if (PlayerPrefs.GetInt("UPGRADE 1", -1) > -1)
+        {
+            GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(0).GetComponent<SpriteRenderer>().sprite =
+                GetComponent<PowerUpsManager>().powerUpList[PlayerPrefs.GetInt("UPGRADE 1")].sprite;
+        }
+        if (PlayerPrefs.GetInt("UPGRADE 2", -1) > -1)
+        {
+            GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(1).GetComponent<SpriteRenderer>().sprite =
+                GetComponent<PowerUpsManager>().powerUpList[PlayerPrefs.GetInt("UPGRADE 2")].sprite;
+        }
+        if (PlayerPrefs.GetInt("UPGRADE 3", -1) > -1)
+        {
+            GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(2).GetComponent<SpriteRenderer>().sprite =
+                GetComponent<PowerUpsManager>().powerUpList[PlayerPrefs.GetInt("UPGRADE 3")].sprite;
+        }
+    }
+
+    public void SetGraphicsSprite()
+    {
+        slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = GetSliderSprite(PlayerPrefs.GetInt("GRAPHICS"));
     }
 
     public void ChangeSlotSprite(GameObject slot, int slotPosition)
@@ -225,6 +257,21 @@ public class PowerUpSlider : MonoBehaviour
                 GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(slotPosition - 1).GetComponent<SpriteRenderer>().sprite =
                     GetMiddleObject().GetComponent<SpriteRenderer>().sprite;
             }
+        }
+    }
+
+    public void ChangeSlotSpriteGraphics()
+    {
+        if (!GetSliderUnlock(int.Parse(GetMiddleObject().GetComponent<SpriteRenderer>().sprite.name)))
+        {
+            //TODO: Change Graphics the revert when go back
+            GetComponent<ScreenTextManagment>().ChangeToConfirmationGraphicsScreen();
+        }
+        else
+        {
+            //TODO: Change Graphics
+            PlayerPrefs.SetInt("GRAPHICS", GetMiddleObjectNumber());
+            slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = GetMiddleObject().GetComponent<SpriteRenderer>().sprite;
         }
     }
 
@@ -329,6 +376,22 @@ public class PowerUpSlider : MonoBehaviour
         slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
         slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
         HighLightSlot(slot1);
+    }
+
+    public void TurnOnGraphicsScrollView()
+    {
+        scrollView.transform.GetChild(0).gameObject.layer = 0;
+        scrollView.transform.GetChild(3).gameObject.layer = 2;
+        scrollView.transform.GetChild(1).transform.localScale = new Vector3(1, 1, 1);
+        slot1.transform.GetChild(0).gameObject.layer = 2;
+        slot2.transform.GetChild(0).gameObject.layer = 0;
+        slot3.transform.GetChild(0).gameObject.layer = 2;
+        slot1.GetComponent<SpriteRenderer>().color = Color.clear;
+        slot2.GetComponent<SpriteRenderer>().color = Color.green;
+        slot3.GetComponent<SpriteRenderer>().color = Color.clear;
+        slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.clear;
+        slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
+        slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.clear;
     }
 
     public void TurnOffScrollView()

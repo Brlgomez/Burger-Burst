@@ -73,7 +73,19 @@ ScreenTextManagment : MonoBehaviour
         DisableButton(line3, "", null);
         DisableButton(line4, "", null);
         EnableButton(line5, "Back", backSprite);
+        TurnOffScrollList();
         currentArea = Menus.Menu.Customize;
+    }
+
+    public void ChangeToGraphicsScreen()
+    {
+        DisableButton(line1, "", null);
+        EnableButton(line2, "", null);
+        EnableButton(line3, "", null);
+        DisableButton(line4, PlayerPrefs.GetInt("Coins", 0).ToString(), coinSprite);
+        EnableButton(line5, "Back", backSprite);
+        TurnOnGraphicsScrollList();
+        currentArea = Menus.Menu.Graphics;
     }
 
     public void ChangeToStoreScreen()
@@ -116,6 +128,38 @@ ScreenTextManagment : MonoBehaviour
         EnableButton(line4, "Get coins", coinSprite);
         EnableButton(line5, "Back", backSprite);
         currentArea = Menus.Menu.Confirmation;
+    }
+
+    public void ChangeToConfirmationGraphicsScreen()
+    {
+        GameObject middleObj = GetComponent<PowerUpSlider>().GetMiddleObject();
+        TurnOffScrollList();
+        DisableButton(line1, middleObj.transform.GetChild(0).GetComponent<TextMesh>().text, middleObj.GetComponent<SpriteRenderer>().sprite);
+        if (int.Parse(middleObj.transform.GetChild(0).GetComponent<TextMesh>().text) <= PlayerPrefs.GetInt("Coins", 0))
+        {
+            DisableButton(line2, "Get graphics?", null);
+            EnableButton(line3, "Yes", yesSprite);
+        }
+        else
+        {
+            DisableButton(line2, "", null);
+            line3.GetComponent<TextMesh>().characterSize = 0.025f;
+            DisableButton(line3, "Coins needed:\n" +
+                          (int.Parse(middleObj.transform.GetChild(0).GetComponent<TextMesh>().text) - PlayerPrefs.GetInt("Coins", 0)), null);
+        }
+        EnableButton(line4, "Get coins", coinSprite);
+        EnableButton(line5, "Back", backSprite);
+        currentArea = Menus.Menu.ConfirmationGraphics;
+    }
+
+    public void BuyGraphics()
+    {
+        GameObject middleObj = GetComponent<PowerUpSlider>().GetMiddleObject();
+        GetComponent<Gameplay>().DecreaseCoinCount(int.Parse(middleObj.transform.GetChild(0).GetComponent<TextMesh>().text));
+        PlayerPrefs.SetInt("Graphic " + int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name), 1);
+        GetComponent<GraphicsManager>().graphicList[int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name)].unlocked = true;
+        middleObj.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
+        middleObj.transform.GetChild(0).GetComponent<TextMesh>().text = "";
     }
 
     public void BuyUpgrade()
@@ -470,6 +514,14 @@ ScreenTextManagment : MonoBehaviour
     void TurnOnScrollList()
     {
         GetComponent<PowerUpSlider>().TurnOnScrollView();
+        ChangeSliderInfo();
+        line2.transform.GetChild(0).gameObject.layer = 2;
+        line3.GetComponent<TextMesh>().characterSize = 0.01625f;
+    }
+
+    void TurnOnGraphicsScrollList()
+    {
+        GetComponent<PowerUpSlider>().TurnOnGraphicsScrollView();
         ChangeSliderInfo();
         line2.transform.GetChild(0).gameObject.layer = 2;
         line3.GetComponent<TextMesh>().characterSize = 0.01625f;

@@ -5,7 +5,7 @@ using UnityEngine;
 public class PositionManager : MonoBehaviour
 {
     GameObject menu, gameplay, pause, gameOver, grill, fryer, soda, powerUp; 
-    GameObject customize, setting, store;
+    GameObject customize, setting, store, graphics;
     GameObject deviceFront, deviceBack;
     GameObject madeFriesPos, burgerPos, drinkPos;
     GameObject meatPos, topBunPos, bottomBunPos;
@@ -20,6 +20,7 @@ public class PositionManager : MonoBehaviour
         customize = GameObject.Find("Customize Camera Position");
         setting = GameObject.Find("Setting Camera Position");
         store = GameObject.Find("Store Camera Position");
+        graphics = GameObject.Find("Graphics Camera Position");
         gameplay = GameObject.Find("Gameplay Camera Position");
         pause = GameObject.Find("Pause Camera Position");
         grill = GameObject.Find("Grill Position");
@@ -55,6 +56,8 @@ public class PositionManager : MonoBehaviour
     public Transform SettingPosition() { return setting.transform; }
 
     public Transform StorePosition() { return store.transform; }
+
+    public Transform GraphicsPosition() { return graphics.transform; }
 
 	public Transform PausePosition() { return pause.transform; }
 
