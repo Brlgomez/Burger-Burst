@@ -17,6 +17,7 @@ public class PowerUpSlider : MonoBehaviour
         slot2 = scrollView.transform.GetChild(2).GetChild(1).gameObject;
         slot3 = scrollView.transform.GetChild(2).GetChild(2).gameObject;
         SetPowerUpLED();
+        SetGraphic(PlayerPrefs.GetInt("GRAPHICS"));
     }
 
     public void SetUpMenu(Menus.Menu menu)
@@ -192,7 +193,7 @@ public class PowerUpSlider : MonoBehaviour
         }
     }
 
-    public void SetPowerUpLED()
+    void SetPowerUpLED()
     {
         if (PlayerPrefs.GetInt("UPGRADE 1", -1) > -1)
         {
@@ -209,6 +210,22 @@ public class PowerUpSlider : MonoBehaviour
             GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(2).GetComponent<SpriteRenderer>().sprite =
                 GetComponent<PowerUpsManager>().powerUpList[PlayerPrefs.GetInt("UPGRADE 3")].sprite;
         }
+    }
+
+    public void SetGraphic(int graphicNum)
+    {
+        if (graphicNum == 0)
+        {
+            GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = false;
+		}
+        else if (graphicNum == 1)
+        {
+            GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = true;
+        }
+        else
+        {
+			GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = false;
+		}
     }
 
     public void SetGraphicsSprite()
@@ -264,14 +281,14 @@ public class PowerUpSlider : MonoBehaviour
     {
         if (!GetSliderUnlock(int.Parse(GetMiddleObject().GetComponent<SpriteRenderer>().sprite.name)))
         {
-            //TODO: Change Graphics the revert when go back
+            SetGraphic(int.Parse(GetMiddleObject().GetComponent<SpriteRenderer>().sprite.name));
             GetComponent<ScreenTextManagment>().ChangeToConfirmationGraphicsScreen();
         }
         else
         {
-            //TODO: Change Graphics
             PlayerPrefs.SetInt("GRAPHICS", GetMiddleObjectNumber());
             slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = GetMiddleObject().GetComponent<SpriteRenderer>().sprite;
+            SetGraphic(PlayerPrefs.GetInt("GRAPHICS"));
         }
     }
 
