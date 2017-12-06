@@ -34,7 +34,7 @@ public class MainMenu : MonoBehaviour
         }
         if (roundScroller)
         {
-            roundScroller = GetComponent<ScreenTextManagment>().MoveScroller();
+            roundScroller = GetComponent<PowerUpSlider>().MoveScroller();
         }
     }
 
@@ -56,29 +56,26 @@ public class MainMenu : MonoBehaviour
         if (target != null && target.tag == "UI")
         {
             GetComponent<ScreenTextManagment>().PressTextUp(target.transform.parent.gameObject);
-            if (GetComponent<ScreenTextManagment>().GetMenu() == Menus.Menu.MainMenu)
+            switch (GetComponent<ScreenTextManagment>().GetMenu())
             {
-                MouseUpMainMenu();
-            }
-            else if (GetComponent<ScreenTextManagment>().GetMenu() == Menus.Menu.PowerUps)
-            {
-                MouseUpUpgradeMenu();
-            }
-            else if (GetComponent<ScreenTextManagment>().GetMenu() == Menus.Menu.Customize)
-            {
-                MouseUpCustomizeMenu();
-            }
-            else if (GetComponent<ScreenTextManagment>().GetMenu() == Menus.Menu.Store)
-            {
-                MouseUpStoreMenu();
-            }
-            else if (GetComponent<ScreenTextManagment>().GetMenu() == Menus.Menu.Setting)
-            {
-                MouseUpSettingMenu();
-            }
-            else if (GetComponent<ScreenTextManagment>().GetMenu() == Menus.Menu.Confirmation)
-            {
-                MouseUpConfirmationMenu();
+                case Menus.Menu.MainMenu:
+                    MouseUpMainMenu();
+                    break;
+                case Menus.Menu.PowerUps:
+                    MouseUpUpgradeMenu();
+                    break;
+                case Menus.Menu.Customize:
+                    MouseUpCustomizeMenu();
+                    break;
+                case Menus.Menu.Store:
+                    MouseUpStoreMenu();
+                    break;
+                case Menus.Menu.Setting:
+                    MouseUpSettingMenu();
+                    break;
+                case Menus.Menu.Confirmation:
+                    MouseUpConfirmationMenu();
+                    break;
             }
         }
         point1 = Vector3.zero;
@@ -89,7 +86,7 @@ public class MainMenu : MonoBehaviour
     {
         if (target.name == "Scroller")
         {
-            GetComponent<ScreenTextManagment>().EnableScroller(true);
+            GetComponent<PowerUpSlider>().EnableScroller(true);
             roundScroller = false;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -110,7 +107,7 @@ public class MainMenu : MonoBehaviour
                     if (Mathf.Abs(originalPoint.z - point2.z) > 0.002f && !changeScrollerObjects)
                     {
                         changeScrollerObjects = true;
-                        GetComponent<ScreenTextManagment>().ChangeScrollerItemColor(false);
+                        GetComponent<PowerUpSlider>().ChangeScrollerItemColor(false);
                     }
                     target.transform.parent.transform.GetChild(1).transform.localPosition = new Vector3(
                         target.transform.parent.transform.GetChild(1).transform.localPosition.x + change,
@@ -123,15 +120,15 @@ public class MainMenu : MonoBehaviour
                         int newPos = Mathf.RoundToInt(target.transform.parent.transform.GetChild(1).transform.localPosition.x);
                         if (newPos > lastScrollX)
                         {
-                            GetComponent<ScreenTextManagment>().MoveScrollObjects(1);
+                            GetComponent<PowerUpSlider>().MoveScrollObjects(1);
                         }
                         else
                         {
-                            GetComponent<ScreenTextManagment>().MoveScrollObjects(-1);
+                            GetComponent<PowerUpSlider>().MoveScrollObjects(-1);
                         }
                         lastScrollX = newPos;
                     }
-                    GetComponent<ScreenTextManagment>().ScaleScrollerObjects();
+                    GetComponent<PowerUpSlider>().ScaleScrollerObjects();
                 }
             }
         }
@@ -139,34 +136,32 @@ public class MainMenu : MonoBehaviour
 
     void MouseUpMainMenu()
     {
-        if (target.name == "First Button")
+        switch (target.name)
         {
-            GetComponent<ScreenTextManagment>().CannotPressAnything();
-            gameObject.AddComponent<CameraMovement>().MoveToGameplay("Start");
-            Destroy(GetComponent<MainMenu>());
-        }
-        else if (target.name == "Second Button")
-        {
-            GetComponent<ScreenTextManagment>().CannotPressAnything();
-            gameObject.AddComponent<CameraMovement>().MoveToPowerUp();
-            currentSlot = GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(2).GetChild(0).GetChild(0).gameObject;
-            slotPosition = 1;
-            lastScrollX = -Mathf.RoundToInt(GetComponent<ScreenTextManagment>().GetMiddleObject().transform.localPosition.z);
-        }
-        else if (target.name == "Third Button")
-        {
-            GetComponent<ScreenTextManagment>().CannotPressAnything();
-            gameObject.AddComponent<CameraMovement>().MoveToCustomize();
-        }
-        else if (target.name == "Fourth Button")
-        {
-            GetComponent<ScreenTextManagment>().CannotPressAnything();
-            gameObject.AddComponent<CameraMovement>().MoveToStore();
-        }
-        else if (target.name == "Fifth Button")
-        {
-            GetComponent<ScreenTextManagment>().CannotPressAnything();
-            gameObject.AddComponent<CameraMovement>().MoveToSetting();
+            case "First Button":
+                GetComponent<ScreenTextManagment>().CannotPressAnything();
+                gameObject.AddComponent<CameraMovement>().MoveToGameplay("Start");
+                Destroy(GetComponent<MainMenu>());
+                break;
+            case "Second Button":
+                GetComponent<ScreenTextManagment>().CannotPressAnything();
+                gameObject.AddComponent<CameraMovement>().MoveToPowerUp();
+                currentSlot = GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(2).GetChild(0).GetChild(0).gameObject;
+                slotPosition = 1;
+                lastScrollX = -Mathf.RoundToInt(GetComponent<PowerUpSlider>().GetMiddleObject().transform.localPosition.z);
+                break;
+            case "Third Button":
+                GetComponent<ScreenTextManagment>().CannotPressAnything();
+                gameObject.AddComponent<CameraMovement>().MoveToCustomize();
+                break;
+            case "Fourth Button":
+                GetComponent<ScreenTextManagment>().CannotPressAnything();
+                gameObject.AddComponent<CameraMovement>().MoveToStore();
+                break;
+            case "Fifth Button":
+                GetComponent<ScreenTextManagment>().CannotPressAnything();
+                gameObject.AddComponent<CameraMovement>().MoveToSetting();
+                break;
         }
     }
 
@@ -174,19 +169,20 @@ public class MainMenu : MonoBehaviour
     {
         if (target.name == "Third Button")
         {
-            GetComponent<ScreenTextManagment>().ChangeSlotSprite(currentSlot, slotPosition);
+            GetComponent<PowerUpSlider>().ChangeSlotSprite(currentSlot, slotPosition);
         }
         else if (target.name == "Fifth Button")
         {
-            GetComponent<ScreenTextManagment>().CannotPressAnything();
+			roundScroller = false;
+			GetComponent<ScreenTextManagment>().CannotPressAnything();
             gameObject.AddComponent<CameraMovement>().MoveToMenu(false);
         }
         else if (target.name == "Scroller")
         {
-            GetComponent<ScreenTextManagment>().EnableScroller(false);
+            GetComponent<PowerUpSlider>().EnableScroller(false);
             if (!changeScrollerObjects)
             {
-                GetComponent<ScreenTextManagment>().ChangeSlotSprite(currentSlot, slotPosition);
+                GetComponent<PowerUpSlider>().ChangeSlotSprite(currentSlot, slotPosition);
             }
             roundScroller = true;
             changeScrollerObjects = false;
@@ -206,26 +202,25 @@ public class MainMenu : MonoBehaviour
                     break;
             }
             currentSlot = target;
-            GetComponent<ScreenTextManagment>().HighLightSlot(currentSlot.transform.parent.gameObject);
+            GetComponent<PowerUpSlider>().HighLightSlot(currentSlot.transform.parent.gameObject);
         }
     }
 
     void MouseUpConfirmationMenu()
     {
-        if (target.name == "Third Button")
+        switch (target.name)
         {
-            GetComponent<ScreenTextManagment>().BuyUpgrade();
-            GetComponent<ScreenTextManagment>().ChangeToUpgradeText();
-            GetComponent<ScreenTextManagment>().HighLightSlot(currentSlot.transform.parent.gameObject);
-        }
-        else if (target.name == "Fourth Button")
-        {
-            //TODO: BUY COINS
-        }
-        else if (target.name == "Fifth Button")
-        {
-            GetComponent<ScreenTextManagment>().ChangeToUpgradeText();
-            GetComponent<ScreenTextManagment>().HighLightSlot(currentSlot.transform.parent.gameObject);
+            case "Third Button":
+                GetComponent<ScreenTextManagment>().BuyUpgrade();
+                GetComponent<ScreenTextManagment>().ChangeToUpgradeText();
+                GetComponent<PowerUpSlider>().HighLightSlot(currentSlot.transform.parent.gameObject);
+                break;
+            case "Fourth Button":
+                break;
+            case "Fifth Button":
+                GetComponent<ScreenTextManagment>().ChangeToUpgradeText();
+                GetComponent<PowerUpSlider>().HighLightSlot(currentSlot.transform.parent.gameObject);
+                break;
         }
     }
 
