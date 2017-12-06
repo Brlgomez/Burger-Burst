@@ -34,5 +34,22 @@ public class GraphicsManager : MonoBehaviour
         graphicList.Add(classicColor = new Graphic(2, 10, "Classic color", graphicSprites[2]));
         graphicList.Add(blackAndWhite = new Graphic(3, 20, "Black & white", graphicSprites[3]));
         graphicList.Add(noir = new Graphic(4, 30, "Noir", graphicSprites[4]));
+        SetGraphic(PlayerPrefs.GetInt("GRAPHICS"));
+    }
+
+    public void SetGraphic(int graphicNum)
+    {
+        if (graphicNum == 0)
+        {
+            GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = false;
+        }
+        else if (graphicNum == 1)
+        {
+            GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = true;
+        }
+        else
+        {
+            GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = false;
+        }
     }
 }

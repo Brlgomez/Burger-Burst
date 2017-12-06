@@ -53,4 +53,23 @@ public class PowerUpsManager : MonoBehaviour
         powerUpList.Add(noIce = new PowerUp(18, 50, "Immuned to ice\nzombies", powerUpSprites[18]));
         powerUpList.Add(freeze = new PowerUp(19, 5000, "Food freezes zombies", powerUpSprites[19]));
     }
+
+    public void SetPowerUpLED()
+    {
+        if (PlayerPrefs.GetInt("UPGRADE 1", -1) > -1)
+        {
+            GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(0).GetComponent<SpriteRenderer>().sprite =
+                GetComponent<PowerUpsManager>().powerUpList[PlayerPrefs.GetInt("UPGRADE 1")].sprite;
+        }
+        if (PlayerPrefs.GetInt("UPGRADE 2", -1) > -1)
+        {
+            GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(1).GetComponent<SpriteRenderer>().sprite =
+                GetComponent<PowerUpsManager>().powerUpList[PlayerPrefs.GetInt("UPGRADE 2")].sprite;
+        }
+        if (PlayerPrefs.GetInt("UPGRADE 3", -1) > -1)
+        {
+            GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(2).GetComponent<SpriteRenderer>().sprite =
+                GetComponent<PowerUpsManager>().powerUpList[PlayerPrefs.GetInt("UPGRADE 3")].sprite;
+        }
+    }
 }

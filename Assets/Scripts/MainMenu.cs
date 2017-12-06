@@ -309,8 +309,8 @@ public class MainMenu : MonoBehaviour
             case "Fourth Button":
                 break;
             case "Fifth Button":
-				GetComponent<PowerUpSlider>().SetGraphic(PlayerPrefs.GetInt("GRAPHICS"));
-				GetComponent<ScreenTextManagment>().ChangeToGraphicsScreen();
+                GetComponent<PowerUpSlider>().GetComponent<GraphicsManager>().SetGraphic(PlayerPrefs.GetInt("GRAPHICS"));
+                GetComponent<ScreenTextManagment>().ChangeToGraphicsScreen();
                 break;
         }
     }

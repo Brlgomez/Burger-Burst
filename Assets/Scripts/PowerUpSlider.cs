@@ -16,8 +16,7 @@ public class PowerUpSlider : MonoBehaviour
         slot1 = scrollView.transform.GetChild(2).GetChild(0).gameObject;
         slot2 = scrollView.transform.GetChild(2).GetChild(1).gameObject;
         slot3 = scrollView.transform.GetChild(2).GetChild(2).gameObject;
-        SetPowerUpLED();
-        SetGraphic(PlayerPrefs.GetInt("GRAPHICS"));
+        GetComponent<PowerUpsManager>().SetPowerUpLED();
     }
 
     public void SetUpMenu(Menus.Menu menu)
@@ -193,41 +192,6 @@ public class PowerUpSlider : MonoBehaviour
         }
     }
 
-    void SetPowerUpLED()
-    {
-        if (PlayerPrefs.GetInt("UPGRADE 1", -1) > -1)
-        {
-            GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(0).GetComponent<SpriteRenderer>().sprite =
-                GetComponent<PowerUpsManager>().powerUpList[PlayerPrefs.GetInt("UPGRADE 1")].sprite;
-        }
-        if (PlayerPrefs.GetInt("UPGRADE 2", -1) > -1)
-        {
-            GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(1).GetComponent<SpriteRenderer>().sprite =
-                GetComponent<PowerUpsManager>().powerUpList[PlayerPrefs.GetInt("UPGRADE 2")].sprite;
-        }
-        if (PlayerPrefs.GetInt("UPGRADE 3", -1) > -1)
-        {
-            GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(2).GetComponent<SpriteRenderer>().sprite =
-                GetComponent<PowerUpsManager>().powerUpList[PlayerPrefs.GetInt("UPGRADE 3")].sprite;
-        }
-    }
-
-    public void SetGraphic(int graphicNum)
-    {
-        if (graphicNum == 0)
-        {
-            GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = false;
-		}
-        else if (graphicNum == 1)
-        {
-            GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = true;
-        }
-        else
-        {
-			GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = false;
-		}
-    }
-
     public void SetGraphicsSprite()
     {
         slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = GetSliderSprite(PlayerPrefs.GetInt("GRAPHICS"));
@@ -281,14 +245,14 @@ public class PowerUpSlider : MonoBehaviour
     {
         if (!GetSliderUnlock(int.Parse(GetMiddleObject().GetComponent<SpriteRenderer>().sprite.name)))
         {
-            SetGraphic(int.Parse(GetMiddleObject().GetComponent<SpriteRenderer>().sprite.name));
+            GetComponent<GraphicsManager>().SetGraphic(int.Parse(GetMiddleObject().GetComponent<SpriteRenderer>().sprite.name));
             GetComponent<ScreenTextManagment>().ChangeToConfirmationGraphicsScreen();
         }
         else
         {
             PlayerPrefs.SetInt("GRAPHICS", GetMiddleObjectNumber());
             slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = GetMiddleObject().GetComponent<SpriteRenderer>().sprite;
-            SetGraphic(PlayerPrefs.GetInt("GRAPHICS"));
+            GetComponent<GraphicsManager>().SetGraphic(PlayerPrefs.GetInt("GRAPHICS"));
         }
     }
 
