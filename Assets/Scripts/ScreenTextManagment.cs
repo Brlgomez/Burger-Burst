@@ -14,7 +14,7 @@ ScreenTextManagment : MonoBehaviour
     public Sprite playSprite, powerUpSprite, customizSprite, storeSprite, settingsSprite, backSprite, coinSprite;
     public Sprite burgerSprite, friesSprite, drinkSprite, heartSprite;
     public Sprite graphicsSprite, themeSprite, vibrationSprite, musicSprite, soundSprite, trophySprite;
-    public Sprite restartSprite, quitSprite, yesSprite, pointSprite;
+    public Sprite restartSprite, quitSprite, yesSprite, pointSprite, floorSprite, wallSprite, detailSprite;
 
     void Start()
     {
@@ -79,9 +79,9 @@ ScreenTextManagment : MonoBehaviour
 
 	public void ChangeToThemeScreen()
 	{
-		EnableButton(line1, "Flooring", null);
-		EnableButton(line2, "Walls", null);
-		EnableButton(line3, "Detail", null);
+        EnableButton(line1, "Flooring", floorSprite);
+        EnableButton(line2, "Walls", wallSprite);
+        EnableButton(line3, "Detail", detailSprite);
 		DisableButton(line4, "", null);
 		EnableButton(line5, "Back", backSprite);
 		TurnOffScrollList();
