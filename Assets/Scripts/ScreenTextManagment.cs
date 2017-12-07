@@ -88,6 +88,17 @@ ScreenTextManagment : MonoBehaviour
         TurnOnScrollList(currentArea);
     }
 
+	public void ChangeToThemeScreen()
+	{
+		DisableButton(line1, "", null);
+		EnableButton(line2, "", null);
+		EnableButton(line3, "", null);
+		DisableButton(line4, PlayerPrefs.GetInt("Coins", 0).ToString(), coinSprite);
+		EnableButton(line5, "Back", backSprite);
+        currentArea = Menus.Menu.Theme;
+		TurnOnScrollList(currentArea);
+	}
+
     public void ChangeToStoreScreen()
     {
         EnableButton(line1, "100 coins", coinSprite);
@@ -108,14 +119,14 @@ ScreenTextManagment : MonoBehaviour
         currentArea = Menus.Menu.Setting;
     }
 
-    public void ChangeToConfirmationScreen()
+    public void ChangeToConfirmationScreen(Menus.Menu menu, string question)
     {
         GameObject middleObj = GetComponent<MenuSlider>().GetMiddleObject();
         TurnOffScrollList();
         DisableButton(line1, middleObj.transform.GetChild(0).GetComponent<TextMesh>().text, middleObj.GetComponent<SpriteRenderer>().sprite);
         if (int.Parse(middleObj.transform.GetChild(0).GetComponent<TextMesh>().text) <= PlayerPrefs.GetInt("Coins", 0))
         {
-            DisableButton(line2, "Get power up?", null);
+            DisableButton(line2, question, null);
             EnableButton(line3, "Yes", yesSprite);
         }
         else
@@ -127,49 +138,38 @@ ScreenTextManagment : MonoBehaviour
         }
         EnableButton(line4, "Get coins", coinSprite);
         EnableButton(line5, "Back", backSprite);
-        currentArea = Menus.Menu.Confirmation;
-    }
-
-    public void ChangeToConfirmationGraphicsScreen()
-    {
-        GameObject middleObj = GetComponent<MenuSlider>().GetMiddleObject();
-        TurnOffScrollList();
-        DisableButton(line1, middleObj.transform.GetChild(0).GetComponent<TextMesh>().text, middleObj.GetComponent<SpriteRenderer>().sprite);
-        if (int.Parse(middleObj.transform.GetChild(0).GetComponent<TextMesh>().text) <= PlayerPrefs.GetInt("Coins", 0))
-        {
-            DisableButton(line2, "Get graphics?", null);
-            EnableButton(line3, "Yes", yesSprite);
-        }
-        else
-        {
-            DisableButton(line2, "", null);
-            line3.GetComponent<TextMesh>().characterSize = 0.025f;
-            DisableButton(line3, "Coins needed:\n" +
-                          (int.Parse(middleObj.transform.GetChild(0).GetComponent<TextMesh>().text) - PlayerPrefs.GetInt("Coins", 0)), null);
-        }
-        EnableButton(line4, "Get coins", coinSprite);
-        EnableButton(line5, "Back", backSprite);
-        currentArea = Menus.Menu.ConfirmationGraphics;
+        currentArea = menu;
     }
 
     public void BuyGraphics()
     {
         GameObject middleObj = GetComponent<MenuSlider>().GetMiddleObject();
-        GetComponent<Gameplay>().DecreaseCoinCount(int.Parse(middleObj.transform.GetChild(0).GetComponent<TextMesh>().text));
         PlayerPrefs.SetInt("Graphic " + int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name), 1);
         GetComponent<GraphicsManager>().graphicList[int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name)].unlocked = true;
-        middleObj.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
-        middleObj.transform.GetChild(0).GetComponent<TextMesh>().text = "";
-    }
+		BoughtItem(middleObj);
+	}
 
     public void BuyUpgrade()
     {
         GameObject middleObj = GetComponent<MenuSlider>().GetMiddleObject();
-        GetComponent<Gameplay>().DecreaseCoinCount(int.Parse(middleObj.transform.GetChild(0).GetComponent<TextMesh>().text));
         PlayerPrefs.SetInt("Power Up " + int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name), 1);
         GetComponent<PowerUpsManager>().powerUpList[int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name)].unlocked = true;
-        middleObj.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
-        middleObj.transform.GetChild(0).GetComponent<TextMesh>().text = "";
+		BoughtItem(middleObj);
+	}
+
+	public void BuyTheme()
+	{
+		GameObject middleObj = GetComponent<MenuSlider>().GetMiddleObject();
+		PlayerPrefs.SetInt("Theme " + int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name), 1);
+        GetComponent<ThemeManager>().themeList[int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name)].unlocked = true;
+        BoughtItem(middleObj);
+	}
+
+    void BoughtItem(GameObject middleObj)
+    {
+		GetComponent<Gameplay>().DecreaseCoinCount(int.Parse(middleObj.transform.GetChild(0).GetComponent<TextMesh>().text));
+		middleObj.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
+		middleObj.transform.GetChild(0).GetComponent<TextMesh>().text = "";
     }
 
     public void ChangeToGameOverText()

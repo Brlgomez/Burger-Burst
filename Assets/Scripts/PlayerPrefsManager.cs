@@ -8,7 +8,7 @@ public class PlayerPrefsManager : MonoBehaviour
     {
         for (int i = 1; i <= 3; i++)
         {
-            if (PlayerPrefs.GetInt("UPGRADE " + i) == upgradeNumber && upgradeNumber != GetComponent<PowerUpsManager>().nothing.powerUpNumber)
+            if (PlayerPrefs.GetInt("UPGRADE " + i, -1) == upgradeNumber && upgradeNumber != -1)
             {
                 return false;
             }
@@ -19,7 +19,7 @@ public class PlayerPrefsManager : MonoBehaviour
 
     public bool SlotContainsUpgrade(int pos, int upgradeNumber)
     {
-        if (PlayerPrefs.GetInt("UPGRADE " + pos) == upgradeNumber)
+        if (PlayerPrefs.GetInt("UPGRADE " + pos, -1) == upgradeNumber)
         {
             return true;
         }
@@ -30,7 +30,7 @@ public class PlayerPrefsManager : MonoBehaviour
     {
         for (int i = 1; i <= 3; i++)
         {
-            if (PlayerPrefs.GetInt("UPGRADE " + i) == upgradeNumber && upgradeNumber != GetComponent<PowerUpsManager>().nothing.powerUpNumber)
+            if (PlayerPrefs.GetInt("UPGRADE " + i, -1) == upgradeNumber && upgradeNumber != -1)
             {
                 return i;
             }
@@ -40,7 +40,7 @@ public class PlayerPrefsManager : MonoBehaviour
 
     public int GetUpgrades(int n)
     {
-        return PlayerPrefs.GetInt("UPGRADE " + n);
+        return PlayerPrefs.GetInt("UPGRADE " + n, -1);
     }
 
     public bool ContainsUpgradeBesidesSlot(int n, int slot)

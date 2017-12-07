@@ -9,7 +9,7 @@ public class CameraMovement : MonoBehaviour
     static int maxSpeed = 15;
     static int accelerating = 15;
     Transform menu, gameplay, pause, towards, gameOver, grill, fryer, soda;
-    Transform powerUp, customize, setting, store, graphics;
+    Transform powerUp, customize, setting, store, graphics, theme;
     Transform deviceFront, deviceBack, deviceTowards;
     float speed;
     bool moveToPosition;
@@ -152,9 +152,13 @@ public class CameraMovement : MonoBehaviour
             GetComponent<ScreenTextManagment>().ChangeToUpgradeText();
         }
         else if (towards == graphics)
-		{
+        {
             GetComponent<ScreenTextManagment>().ChangeToGraphicsScreen();
-		}
+        }
+        else if (towards == theme)
+        {
+            GetComponent<ScreenTextManagment>().ChangeToThemeScreen();
+        }
         Destroy(GetComponent<CameraMovement>());
     }
 
@@ -182,12 +186,19 @@ public class CameraMovement : MonoBehaviour
         moveToPosition = true;
     }
 
-	public void MoveToGraphics()
-	{
+    public void MoveToGraphics()
+    {
         graphics = GetComponent<PositionManager>().GraphicsPosition();
         towards = graphics;
-		moveToPosition = true;
-	}
+        moveToPosition = true;
+    }
+
+    public void MoveToTheme()
+    {
+        theme = GetComponent<PositionManager>().ThemePosition();
+        towards = theme;
+        moveToPosition = true;
+    }
 
     public void MoveToStore()
     {

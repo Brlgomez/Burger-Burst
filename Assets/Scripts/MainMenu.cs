@@ -79,9 +79,15 @@ public class MainMenu : MonoBehaviour
                 case Menus.Menu.Graphics:
                     MouseUpGraphicsMenu();
                     break;
+                case Menus.Menu.Theme:
+					MouseUpThemeMenu();
+					break;
                 case Menus.Menu.ConfirmationGraphics:
                     MouseUpConfirmationGraphicsMenu();
                     break;
+                case Menus.Menu.ConfirmationTheme:
+                    MouseUpConfirmationThemeMenu();
+					break;
             }
         }
         point1 = Vector3.zero;
@@ -223,7 +229,14 @@ public class MainMenu : MonoBehaviour
 
     void MouseUpCustomizeMenu()
     {
-        if (target.name == "Second Button")
+		if (target.name == "First Button")
+		{
+            GetComponent<MenuSlider>().SetUpMenu(Menus.Menu.Theme);
+			GetComponent<ScreenTextManagment>().CannotPressAnything();
+			gameObject.AddComponent<CameraMovement>().MoveToTheme();
+			lastScrollX = -Mathf.RoundToInt(GetComponent<MenuSlider>().GetMiddleObject().transform.localPosition.z);
+		}
+        else  if (target.name == "Second Button")
         {
             GetComponent<MenuSlider>().SetUpMenu(Menus.Menu.Graphics);
             GetComponent<ScreenTextManagment>().CannotPressAnything();
@@ -298,6 +311,30 @@ public class MainMenu : MonoBehaviour
         }
     }
 
+	void MouseUpThemeMenu()
+	{
+		switch (target.name)
+		{
+			case "Third Button":
+                GetComponent<MenuSlider>().ChangeSlotSpriteTheme();
+				break;
+			case "Fifth Button":
+				roundScroller = false;
+				GetComponent<ScreenTextManagment>().CannotPressAnything();
+				gameObject.AddComponent<CameraMovement>().MoveToCustomize();
+				break;
+			case "Scroller":
+				GetComponent<MenuSlider>().EnableScroller(false);
+				if (!changeScrollerObjects)
+				{
+					GetComponent<MenuSlider>().ChangeSlotSpriteTheme();
+				}
+				roundScroller = true;
+				changeScrollerObjects = false;
+				break;
+		}
+	}
+
     void MouseUpConfirmationGraphicsMenu()
     {
         switch (target.name)
@@ -314,6 +351,22 @@ public class MainMenu : MonoBehaviour
                 break;
         }
     }
+
+	void MouseUpConfirmationThemeMenu()
+	{
+		switch (target.name)
+		{
+			case "Third Button":
+                GetComponent<ScreenTextManagment>().BuyTheme();
+                GetComponent<ScreenTextManagment>().ChangeToThemeScreen();
+				break;
+			case "Fourth Button":
+				break;
+			case "Fifth Button":
+                GetComponent<ScreenTextManagment>().ChangeToThemeScreen();
+				break;
+		}
+	}
 
     GameObject ReturnClickedObject(out RaycastHit hit)
     {

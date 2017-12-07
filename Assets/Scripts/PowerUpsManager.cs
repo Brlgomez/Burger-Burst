@@ -6,7 +6,7 @@ public class PowerUpsManager : MonoBehaviour
 {
     public List<Sprite> powerUpSprites;
     public List<PowerUp> powerUpList = new List<PowerUp>();
-    public PowerUp nothing, throwFurther, quickerCooking, makeMoreFood, defenseIncrease, moreHealth;
+    public PowerUp throwFurther, quickerCooking, makeMoreFood, defenseIncrease, moreHealth;
     public PowerUp largerFood, regenHealth, regenBurgers, regenFries, regenDrinks, doublePoints;
     public PowerUp doubleCoins, throwMultiple, magnet, noWind, noInstantKill, luck, noPoison, noIce;
     public PowerUp freeze;
@@ -31,7 +31,6 @@ public class PowerUpsManager : MonoBehaviour
 
     void Awake()
     {
-        nothing = new PowerUp(-1, 0, "", null);
         powerUpList.Add(throwFurther = new PowerUp(0, 1, "Throw further", powerUpSprites[0]));
         powerUpList.Add(quickerCooking = new PowerUp(1, 5, "Faster cooking", powerUpSprites[1]));
         powerUpList.Add(makeMoreFood = new PowerUp(2, 5, "Make more food", powerUpSprites[2]));

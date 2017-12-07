@@ -34,6 +34,11 @@ public class MenuSlider : MonoBehaviour
                 sliderObjectCount = GetComponent<GraphicsManager>().graphicList.Count;
                 SetGraphicsSprite();
             }
+            else if (menu == Menus.Menu.Theme)
+            {
+                sliderObjectCount = GetComponent<ThemeManager>().themeList.Count;
+                SetThemeSprite();
+            }
             RestartScrollList();
             ScaleScrollerObjects();
         }
@@ -166,7 +171,7 @@ public class MenuSlider : MonoBehaviour
 
     public void SetSlotSprites()
     {
-        if (PlayerPrefs.GetInt("UPGRADE 1", -1) > -1)
+        if (PlayerPrefs.GetInt("UPGRADE 1", -1) >= 0)
         {
             slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = GetSliderSprite(PlayerPrefs.GetInt("UPGRADE 1"));
         }
@@ -174,21 +179,21 @@ public class MenuSlider : MonoBehaviour
         {
             slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = null;
         }
-        if (PlayerPrefs.GetInt("UPGRADE 2", -1) > -1)
+        if (PlayerPrefs.GetInt("UPGRADE 2", -1) >= 0)
         {
             slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = GetSliderSprite(PlayerPrefs.GetInt("UPGRADE 2"));
         }
         else
         {
-            slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = null;
+            slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = null;
         }
-        if (PlayerPrefs.GetInt("UPGRADE 3", -1) > -1)
+        if (PlayerPrefs.GetInt("UPGRADE 3", -1) >= 0)
         {
             slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = GetSliderSprite(PlayerPrefs.GetInt("UPGRADE 3"));
         }
         else
         {
-            slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = null;
+            slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = null;
         }
     }
 
@@ -197,11 +202,16 @@ public class MenuSlider : MonoBehaviour
         slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = GetSliderSprite(PlayerPrefs.GetInt("GRAPHICS"));
     }
 
+    public void SetThemeSprite()
+    {
+        slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = GetSliderSprite(PlayerPrefs.GetInt("THEME"));
+    }
+
     public void ChangeSlotSprite(GameObject slot, int slotPosition)
     {
         if (!GetSliderUnlock(GetMiddleObjectNumber()))
         {
-            GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen();
+            GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.Confirmation, "Get power up?");
         }
         else
         {
@@ -246,13 +256,26 @@ public class MenuSlider : MonoBehaviour
         if (!GetSliderUnlock(GetMiddleObjectNumber()))
         {
             GetComponent<GraphicsManager>().SetGraphic(GetMiddleObjectNumber());
-            GetComponent<ScreenTextManagment>().ChangeToConfirmationGraphicsScreen();
+            GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationGraphics, "Get graphics?");
         }
         else
         {
             PlayerPrefs.SetInt("GRAPHICS", GetMiddleObjectNumber());
             slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = GetMiddleObject().GetComponent<SpriteRenderer>().sprite;
             GetComponent<GraphicsManager>().SetGraphic(PlayerPrefs.GetInt("GRAPHICS"));
+        }
+    }
+
+    public void ChangeSlotSpriteTheme()
+    {
+        if (!GetSliderUnlock(GetMiddleObjectNumber()))
+        {
+            GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationTheme, "Get theme?");
+        }
+        else
+        {
+            PlayerPrefs.SetInt("THEME", GetMiddleObjectNumber());
+            slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = GetMiddleObject().GetComponent<SpriteRenderer>().sprite;
         }
     }
 
@@ -265,6 +288,10 @@ public class MenuSlider : MonoBehaviour
         else if (currentMenu == Menus.Menu.Graphics)
         {
             return GetComponent<GraphicsManager>().graphicList[index].sprite;
+        }
+        else if (currentMenu == Menus.Menu.Theme)
+        {
+            return GetComponent<ThemeManager>().themeList[index].sprite;
         }
         return null;
     }
@@ -279,6 +306,10 @@ public class MenuSlider : MonoBehaviour
         {
             return GetComponent<GraphicsManager>().graphicList[index].unlocked;
         }
+        else if (currentMenu == Menus.Menu.Theme)
+        {
+            return GetComponent<ThemeManager>().themeList[index].unlocked;
+        }
         return false;
     }
 
@@ -292,6 +323,10 @@ public class MenuSlider : MonoBehaviour
         {
             return GetComponent<GraphicsManager>().graphicList[index].price;
         }
+        else if (currentMenu == Menus.Menu.Theme)
+        {
+            return GetComponent<ThemeManager>().themeList[index].price;
+        }
         return 1000000000;
     }
 
@@ -304,6 +339,10 @@ public class MenuSlider : MonoBehaviour
         else if (currentMenu == Menus.Menu.Graphics)
         {
             return GetComponent<GraphicsManager>().graphicList[index].description;
+        }
+        else if (currentMenu == Menus.Menu.Theme)
+        {
+            return GetComponent<ThemeManager>().themeList[index].description;
         }
         return "";
     }
@@ -360,7 +399,7 @@ public class MenuSlider : MonoBehaviour
             slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
             HighLightSlot(slot1);
         }
-        else if (menu == Menus.Menu.Graphics)
+        else if (menu == Menus.Menu.Graphics || menu == Menus.Menu.Theme)
         {
             slot1.transform.GetChild(0).gameObject.layer = 2;
             slot2.transform.GetChild(0).gameObject.layer = 0;
