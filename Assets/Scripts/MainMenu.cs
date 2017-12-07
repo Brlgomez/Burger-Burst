@@ -34,7 +34,7 @@ public class MainMenu : MonoBehaviour
         }
         if (roundScroller)
         {
-            roundScroller = GetComponent<PowerUpSlider>().MoveScroller();
+            roundScroller = GetComponent<MenuSlider>().MoveScroller();
         }
     }
 
@@ -92,7 +92,7 @@ public class MainMenu : MonoBehaviour
     {
         if (target.name == "Scroller")
         {
-            GetComponent<PowerUpSlider>().EnableScroller(true);
+            GetComponent<MenuSlider>().EnableScroller(true);
             roundScroller = false;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -121,7 +121,7 @@ public class MainMenu : MonoBehaviour
                     if (Mathf.Abs(originalPoint.z - point2.z) > 0.002f && !changeScrollerObjects)
                     {
                         changeScrollerObjects = true;
-                        GetComponent<PowerUpSlider>().ChangeScrollerItemColor(false);
+                        GetComponent<MenuSlider>().ChangeScrollerItemColor(false);
                     }
                     target.transform.parent.transform.GetChild(1).transform.localPosition = new Vector3(
                         target.transform.parent.transform.GetChild(1).transform.localPosition.x + change,
@@ -134,15 +134,15 @@ public class MainMenu : MonoBehaviour
                         int newPos = Mathf.RoundToInt(target.transform.parent.transform.GetChild(1).transform.localPosition.x);
                         if (newPos > lastScrollX)
                         {
-                            GetComponent<PowerUpSlider>().MoveScrollObjects(1);
+                            GetComponent<MenuSlider>().MoveScrollObjects(1);
                         }
                         else
                         {
-                            GetComponent<PowerUpSlider>().MoveScrollObjects(-1);
+                            GetComponent<MenuSlider>().MoveScrollObjects(-1);
                         }
                         lastScrollX = newPos;
                     }
-                    GetComponent<PowerUpSlider>().ScaleScrollerObjects();
+                    GetComponent<MenuSlider>().ScaleScrollerObjects();
                 }
             }
         }
@@ -158,12 +158,12 @@ public class MainMenu : MonoBehaviour
                 Destroy(GetComponent<MainMenu>());
                 break;
             case "Second Button":
-                GetComponent<PowerUpSlider>().SetUpMenu(Menus.Menu.PowerUps);
+                GetComponent<MenuSlider>().SetUpMenu(Menus.Menu.PowerUps);
                 GetComponent<ScreenTextManagment>().CannotPressAnything();
                 gameObject.AddComponent<CameraMovement>().MoveToPowerUp();
                 currentSlot = GetComponent<ObjectManager>().Phone().transform.GetChild(5).GetChild(2).GetChild(0).GetChild(0).gameObject;
                 slotPosition = 1;
-                lastScrollX = -Mathf.RoundToInt(GetComponent<PowerUpSlider>().GetMiddleObject().transform.localPosition.z);
+                lastScrollX = -Mathf.RoundToInt(GetComponent<MenuSlider>().GetMiddleObject().transform.localPosition.z);
                 break;
             case "Third Button":
                 GetComponent<ScreenTextManagment>().CannotPressAnything();
@@ -184,7 +184,7 @@ public class MainMenu : MonoBehaviour
     {
         if (target.name == "Third Button")
         {
-            GetComponent<PowerUpSlider>().ChangeSlotSprite(currentSlot, slotPosition);
+            GetComponent<MenuSlider>().ChangeSlotSprite(currentSlot, slotPosition);
         }
         else if (target.name == "Fifth Button")
         {
@@ -194,10 +194,10 @@ public class MainMenu : MonoBehaviour
         }
         else if (target.name == "Scroller")
         {
-            GetComponent<PowerUpSlider>().EnableScroller(false);
+            GetComponent<MenuSlider>().EnableScroller(false);
             if (!changeScrollerObjects)
             {
-                GetComponent<PowerUpSlider>().ChangeSlotSprite(currentSlot, slotPosition);
+                GetComponent<MenuSlider>().ChangeSlotSprite(currentSlot, slotPosition);
             }
             roundScroller = true;
             changeScrollerObjects = false;
@@ -217,7 +217,7 @@ public class MainMenu : MonoBehaviour
                     break;
             }
             currentSlot = target;
-            GetComponent<PowerUpSlider>().HighLightSlot(currentSlot.transform.parent.gameObject);
+            GetComponent<MenuSlider>().HighLightSlot(currentSlot.transform.parent.gameObject);
         }
     }
 
@@ -225,10 +225,10 @@ public class MainMenu : MonoBehaviour
     {
         if (target.name == "Second Button")
         {
-            GetComponent<PowerUpSlider>().SetUpMenu(Menus.Menu.Graphics);
+            GetComponent<MenuSlider>().SetUpMenu(Menus.Menu.Graphics);
             GetComponent<ScreenTextManagment>().CannotPressAnything();
             gameObject.AddComponent<CameraMovement>().MoveToGraphics();
-            lastScrollX = -Mathf.RoundToInt(GetComponent<PowerUpSlider>().GetMiddleObject().transform.localPosition.z);
+            lastScrollX = -Mathf.RoundToInt(GetComponent<MenuSlider>().GetMiddleObject().transform.localPosition.z);
         }
         else if (target.name == "Fifth Button")
         {
@@ -245,13 +245,13 @@ public class MainMenu : MonoBehaviour
             case "Third Button":
                 GetComponent<ScreenTextManagment>().BuyUpgrade();
                 GetComponent<ScreenTextManagment>().ChangeToUpgradeText();
-                GetComponent<PowerUpSlider>().HighLightSlot(currentSlot.transform.parent.gameObject);
+                GetComponent<MenuSlider>().HighLightSlot(currentSlot.transform.parent.gameObject);
                 break;
             case "Fourth Button":
                 break;
             case "Fifth Button":
                 GetComponent<ScreenTextManagment>().ChangeToUpgradeText();
-                GetComponent<PowerUpSlider>().HighLightSlot(currentSlot.transform.parent.gameObject);
+                GetComponent<MenuSlider>().HighLightSlot(currentSlot.transform.parent.gameObject);
                 break;
         }
     }
@@ -276,25 +276,25 @@ public class MainMenu : MonoBehaviour
 
     void MouseUpGraphicsMenu()
     {
-        if (target.name == "Third Button")
+        switch (target.name)
         {
-            GetComponent<PowerUpSlider>().ChangeSlotSpriteGraphics();
-        }
-        else if (target.name == "Fifth Button")
-        {
-            roundScroller = false;
-            GetComponent<ScreenTextManagment>().CannotPressAnything();
-            gameObject.AddComponent<CameraMovement>().MoveToCustomize();
-        }
-        else if (target.name == "Scroller")
-        {
-            GetComponent<PowerUpSlider>().EnableScroller(false);
-            if (!changeScrollerObjects)
-            {
-                GetComponent<PowerUpSlider>().ChangeSlotSpriteGraphics();
-            }
-            roundScroller = true;
-            changeScrollerObjects = false;
+            case "Third Button":
+                GetComponent<MenuSlider>().ChangeSlotSpriteGraphics();
+                break;
+            case "Fifth Button":
+                roundScroller = false;
+                GetComponent<ScreenTextManagment>().CannotPressAnything();
+                gameObject.AddComponent<CameraMovement>().MoveToCustomize();
+                break;
+            case "Scroller":
+                GetComponent<MenuSlider>().EnableScroller(false);
+                if (!changeScrollerObjects)
+                {
+                    GetComponent<MenuSlider>().ChangeSlotSpriteGraphics();
+                }
+                roundScroller = true;
+                changeScrollerObjects = false;
+                break;
         }
     }
 
@@ -309,7 +309,7 @@ public class MainMenu : MonoBehaviour
             case "Fourth Button":
                 break;
             case "Fifth Button":
-                GetComponent<PowerUpSlider>().GetComponent<GraphicsManager>().SetGraphic(PlayerPrefs.GetInt("GRAPHICS"));
+                GetComponent<MenuSlider>().GetComponent<GraphicsManager>().SetGraphic(PlayerPrefs.GetInt("GRAPHICS"));
                 GetComponent<ScreenTextManagment>().ChangeToGraphicsScreen();
                 break;
         }

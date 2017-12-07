@@ -40,34 +40,31 @@ public class GraphicsManager : MonoBehaviour
 
     public void SetGraphic(int graphicNum)
     {
-        if (graphicNum == 0)
+        switch (graphicNum)
         {
-            GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = false;
-            GetComponent<Assets.Pixelation.Scripts.Pixelation>().enabled = false;
-        }
-        else if (graphicNum == 1)
-        {
-            GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = true;
-            GetComponent<Assets.Pixelation.Scripts.Chunky>().SprTex = classicTexture;
-        }
-        else if (graphicNum == 2)
-        {
-            GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = true;
-            GetComponent<Assets.Pixelation.Scripts.Chunky>().SprTex = blueAndGreenTexture;
-        }
-        else if (graphicNum == 3)
-        {
-            GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = true;
-            GetComponent<Assets.Pixelation.Scripts.Chunky>().SprTex = blackAndWhiteTexture;
-        }
-        else if (graphicNum == 4)
-        {
-            GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = false;
-            GetComponent<Assets.Pixelation.Scripts.Pixelation>().enabled = true;
-        }
-        else
-        {
-            GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = false;
+            case 0:
+                GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = false;
+                GetComponent<Assets.Pixelation.Scripts.Pixelation>().enabled = false;
+                break;
+            case 1:
+                GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = true;
+                GetComponent<Assets.Pixelation.Scripts.Chunky>().SprTex = classicTexture;
+                break;
+            case 2:
+                GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = true;
+                GetComponent<Assets.Pixelation.Scripts.Chunky>().SprTex = blueAndGreenTexture;
+                break;
+            case 3:
+                GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = true;
+                GetComponent<Assets.Pixelation.Scripts.Chunky>().SprTex = blackAndWhiteTexture;
+                break;
+            case 4:
+                GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = false;
+                GetComponent<Assets.Pixelation.Scripts.Pixelation>().enabled = true;
+                break;
+            default:
+                GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = false;
+                break;
         }
     }
 }

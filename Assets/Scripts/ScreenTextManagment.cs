@@ -62,8 +62,8 @@ ScreenTextManagment : MonoBehaviour
         EnableButton(line3, "", null);
         DisableButton(line4, PlayerPrefs.GetInt("Coins", 0).ToString(), coinSprite);
         EnableButton(line5, "Back", backSprite);
-        TurnOnScrollList();
         currentArea = Menus.Menu.PowerUps;
+        TurnOnScrollList(currentArea);
     }
 
     public void ChangeToCustomizeScreen()
@@ -84,8 +84,8 @@ ScreenTextManagment : MonoBehaviour
         EnableButton(line3, "", null);
         DisableButton(line4, PlayerPrefs.GetInt("Coins", 0).ToString(), coinSprite);
         EnableButton(line5, "Back", backSprite);
-        TurnOnGraphicsScrollList();
         currentArea = Menus.Menu.Graphics;
+        TurnOnScrollList(currentArea);
     }
 
     public void ChangeToStoreScreen()
@@ -110,7 +110,7 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToConfirmationScreen()
     {
-        GameObject middleObj = GetComponent<PowerUpSlider>().GetMiddleObject();
+        GameObject middleObj = GetComponent<MenuSlider>().GetMiddleObject();
         TurnOffScrollList();
         DisableButton(line1, middleObj.transform.GetChild(0).GetComponent<TextMesh>().text, middleObj.GetComponent<SpriteRenderer>().sprite);
         if (int.Parse(middleObj.transform.GetChild(0).GetComponent<TextMesh>().text) <= PlayerPrefs.GetInt("Coins", 0))
@@ -132,7 +132,7 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToConfirmationGraphicsScreen()
     {
-        GameObject middleObj = GetComponent<PowerUpSlider>().GetMiddleObject();
+        GameObject middleObj = GetComponent<MenuSlider>().GetMiddleObject();
         TurnOffScrollList();
         DisableButton(line1, middleObj.transform.GetChild(0).GetComponent<TextMesh>().text, middleObj.GetComponent<SpriteRenderer>().sprite);
         if (int.Parse(middleObj.transform.GetChild(0).GetComponent<TextMesh>().text) <= PlayerPrefs.GetInt("Coins", 0))
@@ -154,7 +154,7 @@ ScreenTextManagment : MonoBehaviour
 
     public void BuyGraphics()
     {
-        GameObject middleObj = GetComponent<PowerUpSlider>().GetMiddleObject();
+        GameObject middleObj = GetComponent<MenuSlider>().GetMiddleObject();
         GetComponent<Gameplay>().DecreaseCoinCount(int.Parse(middleObj.transform.GetChild(0).GetComponent<TextMesh>().text));
         PlayerPrefs.SetInt("Graphic " + int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name), 1);
         GetComponent<GraphicsManager>().graphicList[int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name)].unlocked = true;
@@ -164,7 +164,7 @@ ScreenTextManagment : MonoBehaviour
 
     public void BuyUpgrade()
     {
-        GameObject middleObj = GetComponent<PowerUpSlider>().GetMiddleObject();
+        GameObject middleObj = GetComponent<MenuSlider>().GetMiddleObject();
         GetComponent<Gameplay>().DecreaseCoinCount(int.Parse(middleObj.transform.GetChild(0).GetComponent<TextMesh>().text));
         PlayerPrefs.SetInt("Power Up " + int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name), 1);
         GetComponent<PowerUpsManager>().powerUpList[int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name)].unlocked = true;
@@ -468,7 +468,7 @@ ScreenTextManagment : MonoBehaviour
         }
         if (!pressDown && target == scrollView)
         {
-            GetComponent<PowerUpSlider>().ChangeScrollerItemColor(true);
+            GetComponent<MenuSlider>().ChangeScrollerItemColor(true);
             pressDown = true;
         }
     }
@@ -489,7 +489,7 @@ ScreenTextManagment : MonoBehaviour
         }
         if (pressDown && target == scrollView)
         {
-            GetComponent<PowerUpSlider>().ChangeScrollerItemColor(false);
+            GetComponent<MenuSlider>().ChangeScrollerItemColor(false);
             pressDown = false;
         }
     }
@@ -501,27 +501,19 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeSliderInfo()
     {
-        int n = GetComponent<PowerUpSlider>().GetMiddleObjectNumber();
-        line3.GetComponent<TextMesh>().text = GetComponent<PowerUpSlider>().GetSliderDescription(n);
+        int n = GetComponent<MenuSlider>().GetMiddleObjectNumber();
+        line3.GetComponent<TextMesh>().text = GetComponent<MenuSlider>().GetSliderDescription(n);
     }
 
     void TurnOffScrollList()
     {
-        GetComponent<PowerUpSlider>().TurnOffScrollView();
+        GetComponent<MenuSlider>().TurnOffScrollView();
         line3.GetComponent<TextMesh>().characterSize = 0.025f;
     }
 
-    void TurnOnScrollList()
+    void TurnOnScrollList(Menus.Menu menu)
     {
-        GetComponent<PowerUpSlider>().TurnOnScrollView();
-        ChangeSliderInfo();
-        line2.transform.GetChild(0).gameObject.layer = 2;
-        line3.GetComponent<TextMesh>().characterSize = 0.01625f;
-    }
-
-    void TurnOnGraphicsScrollList()
-    {
-        GetComponent<PowerUpSlider>().TurnOnGraphicsScrollView();
+        GetComponent<MenuSlider>().TurnOnScrollView(menu);
         ChangeSliderInfo();
         line2.transform.GetChild(0).gameObject.layer = 2;
         line3.GetComponent<TextMesh>().characterSize = 0.01625f;
@@ -529,7 +521,7 @@ ScreenTextManagment : MonoBehaviour
 
     public void CannotPressAnything()
     {
-        GetComponent<PowerUpSlider>().TurnOffColliders();
+        GetComponent<MenuSlider>().TurnOffSliderColliders();
         line1.transform.GetChild(0).gameObject.layer = 2;
         line2.transform.GetChild(0).gameObject.layer = 2;
         line3.transform.GetChild(0).gameObject.layer = 2;

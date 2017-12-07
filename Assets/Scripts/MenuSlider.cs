@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerUpSlider : MonoBehaviour
+public class MenuSlider : MonoBehaviour
 {
     List<GameObject> scrollList = new List<GameObject>();
     GameObject scrollView, slot1, slot2, slot3;
@@ -10,7 +10,7 @@ public class PowerUpSlider : MonoBehaviour
     int sliderObjectCount;
     Menus.Menu lastMenu, currentMenu;
 
-    void Awake()
+    void Start()
     {
         scrollView = GetComponent<ObjectManager>().Phone().transform.GetChild(5).gameObject;
         slot1 = scrollView.transform.GetChild(2).GetChild(0).gameObject;
@@ -199,7 +199,7 @@ public class PowerUpSlider : MonoBehaviour
 
     public void ChangeSlotSprite(GameObject slot, int slotPosition)
     {
-        if (!GetSliderUnlock(int.Parse(GetMiddleObject().GetComponent<SpriteRenderer>().sprite.name)))
+        if (!GetSliderUnlock(GetMiddleObjectNumber()))
         {
             GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen();
         }
@@ -243,9 +243,9 @@ public class PowerUpSlider : MonoBehaviour
 
     public void ChangeSlotSpriteGraphics()
     {
-        if (!GetSliderUnlock(int.Parse(GetMiddleObject().GetComponent<SpriteRenderer>().sprite.name)))
+        if (!GetSliderUnlock(GetMiddleObjectNumber()))
         {
-            GetComponent<GraphicsManager>().SetGraphic(int.Parse(GetMiddleObject().GetComponent<SpriteRenderer>().sprite.name));
+            GetComponent<GraphicsManager>().SetGraphic(GetMiddleObjectNumber());
             GetComponent<ScreenTextManagment>().ChangeToConfirmationGraphicsScreen();
         }
         else
@@ -342,37 +342,36 @@ public class PowerUpSlider : MonoBehaviour
         }
     }
 
-    public void TurnOnScrollView()
+    public void TurnOnScrollView(Menus.Menu menu)
     {
         scrollView.transform.GetChild(0).gameObject.layer = 0;
         scrollView.transform.GetChild(3).gameObject.layer = 2;
         scrollView.transform.GetChild(1).transform.localScale = new Vector3(1, 1, 1);
-        slot1.transform.GetChild(0).gameObject.layer = 0;
-        slot2.transform.GetChild(0).gameObject.layer = 0;
-        slot3.transform.GetChild(0).gameObject.layer = 0;
-        slot1.GetComponent<SpriteRenderer>().color = textColor;
-        slot2.GetComponent<SpriteRenderer>().color = textColor;
-        slot3.GetComponent<SpriteRenderer>().color = textColor;
-        slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
-        slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
-        slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
-        HighLightSlot(slot1);
-    }
-
-    public void TurnOnGraphicsScrollView()
-    {
-        scrollView.transform.GetChild(0).gameObject.layer = 0;
-        scrollView.transform.GetChild(3).gameObject.layer = 2;
-        scrollView.transform.GetChild(1).transform.localScale = new Vector3(1, 1, 1);
-        slot1.transform.GetChild(0).gameObject.layer = 2;
-        slot2.transform.GetChild(0).gameObject.layer = 0;
-        slot3.transform.GetChild(0).gameObject.layer = 2;
-        slot1.GetComponent<SpriteRenderer>().color = Color.clear;
-        slot2.GetComponent<SpriteRenderer>().color = Color.green;
-        slot3.GetComponent<SpriteRenderer>().color = Color.clear;
-        slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.clear;
-        slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
-        slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.clear;
+        if (menu == Menus.Menu.PowerUps)
+        {
+            slot1.transform.GetChild(0).gameObject.layer = 0;
+            slot2.transform.GetChild(0).gameObject.layer = 0;
+            slot3.transform.GetChild(0).gameObject.layer = 0;
+            slot1.GetComponent<SpriteRenderer>().color = textColor;
+            slot2.GetComponent<SpriteRenderer>().color = textColor;
+            slot3.GetComponent<SpriteRenderer>().color = textColor;
+            slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
+            slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
+            slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
+            HighLightSlot(slot1);
+        }
+        else if (menu == Menus.Menu.Graphics)
+        {
+            slot1.transform.GetChild(0).gameObject.layer = 2;
+            slot2.transform.GetChild(0).gameObject.layer = 0;
+            slot3.transform.GetChild(0).gameObject.layer = 2;
+            slot1.GetComponent<SpriteRenderer>().color = Color.clear;
+            slot2.GetComponent<SpriteRenderer>().color = Color.green;
+            slot3.GetComponent<SpriteRenderer>().color = Color.clear;
+            slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.clear;
+            slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
+            slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.clear;
+        }
     }
 
     public void TurnOffScrollView()
@@ -391,7 +390,7 @@ public class PowerUpSlider : MonoBehaviour
         slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.clear;
     }
 
-    public void TurnOffColliders()
+    public void TurnOffSliderColliders()
     {
         scrollView.transform.GetChild(0).gameObject.layer = 2;
         slot1.transform.GetChild(0).gameObject.layer = 2;
