@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class SodaMachine : MonoBehaviour
 {
-	static int updateInterval = 2;
+    static int updateInterval = 5;
 
-	int maxOnTime = 5;
+    int maxOnTime = 5;
     float currentTimeOn;
     bool turnOn = true;
-    float sodaMaxScale = 2.22f;
+    float sodaMaxScale = 1f;
     float sodaCurrentScale;
+
+    void Start()
+    {
+        transform.parent.GetComponent<ParticleSystem>().Play();
+    }
 
     void Update()
     {
@@ -27,27 +32,28 @@ public class SodaMachine : MonoBehaviour
                 }
             }
             if (!turnOn || currentTimeOn > maxOnTime)
-			{
-				turnOn = false;
-				sodaCurrentScale -= Time.deltaTime * updateInterval * 50;
-				transform.localScale = Vector3.one * sodaCurrentScale;
-				if (sodaCurrentScale < 0)
-				{
-					transform.localScale = Vector3.zero;
-					Destroy(gameObject.GetComponent<SodaMachine>());
-				}
-			}
+            {
+                turnOn = false;
+                sodaCurrentScale -= Time.deltaTime * updateInterval * 50;
+                transform.localScale = Vector3.one * sodaCurrentScale;
+                if (sodaCurrentScale < 0)
+                {
+                    TurnOff();
+                }
+            }
         }
     }
 
     public void ButtonPressed()
     {
+        transform.parent.GetComponent<ParticleSystem>().Stop();
         turnOn = false;
     }
 
-    public void Restart()
+    public void TurnOff()
     {
         transform.localScale = Vector3.zero;
+        transform.parent.GetComponent<ParticleSystem>().Stop();
         Destroy(gameObject.GetComponent<SodaMachine>());
     }
 }

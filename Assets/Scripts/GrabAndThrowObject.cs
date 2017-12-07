@@ -736,15 +736,15 @@ public class GrabAndThrowObject : MonoBehaviour
         DestroyArrayOfObjects(lids);
         if (sodaFountain1.GetComponent<SodaMachine>() != null)
         {
-            sodaFountain1.GetComponent<SodaMachine>().Restart();
+            sodaFountain1.GetComponent<SodaMachine>().TurnOff();
         }
         if (sodaFountain2.GetComponent<SodaMachine>() != null)
         {
-            sodaFountain2.GetComponent<SodaMachine>().Restart();
+            sodaFountain2.GetComponent<SodaMachine>().TurnOff();
         }
         if (sodaFountain3.GetComponent<SodaMachine>() != null)
         {
-            sodaFountain3.GetComponent<SodaMachine>().Restart();
+            sodaFountain3.GetComponent<SodaMachine>().TurnOff();
         }
         if (GetComponent<Poisoned>() != null)
         {
