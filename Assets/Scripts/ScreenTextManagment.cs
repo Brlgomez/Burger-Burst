@@ -77,6 +77,17 @@ ScreenTextManagment : MonoBehaviour
         currentArea = Menus.Menu.Customize;
     }
 
+	public void ChangeToThemeScreen()
+	{
+		EnableButton(line1, "Flooring", null);
+		EnableButton(line2, "Walls", null);
+		EnableButton(line3, "Detail", null);
+		DisableButton(line4, "", null);
+		EnableButton(line5, "Back", backSprite);
+		TurnOffScrollList();
+        currentArea = Menus.Menu.Theme;
+	}
+
     public void ChangeToGraphicsScreen()
     {
         DisableButton(line1, "", null);
@@ -88,14 +99,14 @@ ScreenTextManagment : MonoBehaviour
         TurnOnScrollList(currentArea);
 	}
 
-    public void ChangeToThemeScreen()
+    public void ChangeToFlooringScreen()
     {
         DisableButton(line1, "", null);
         EnableButton(line2, "", null);
         EnableButton(line3, "", null);
         DisableButton(line4, GetComponent<PlayerPrefsManager>().GetCoins().ToString(), coinSprite);
         EnableButton(line5, "Back", backSprite);
-        currentArea = Menus.Menu.Theme;
+        currentArea = Menus.Menu.Flooring;
         TurnOnScrollList(currentArea);
     }
 
@@ -159,11 +170,11 @@ ScreenTextManagment : MonoBehaviour
         BoughtItem(middleObj);
     }
 
-    public void BuyTheme()
+    public void BuyFlooing()
     {
         GameObject middleObj = GetComponent<MenuSlider>().GetMiddleObject();
-        GetComponent<PlayerPrefsManager>().BuyTheme(GetComponent<MenuSlider>().GetMiddleObjectNumber());
-        GetComponent<ThemeManager>().themeList[int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name)].unlocked = true;
+        GetComponent<PlayerPrefsManager>().BuyFlooring(GetComponent<MenuSlider>().GetMiddleObjectNumber());
+        GetComponent<ThemeManager>().flooringList[int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name)].unlocked = true;
         //TODO: GetComponent<ThemeManager>().SetTheme(GetComponent<PlayerPrefsManager>().GetTheme());
 		BoughtItem(middleObj);
     }

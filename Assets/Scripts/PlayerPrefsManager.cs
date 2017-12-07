@@ -70,9 +70,9 @@ public class PlayerPrefsManager : MonoBehaviour
         PlayerPrefs.SetInt("Graphic " + num, 1);
     }
 
-    public void BuyTheme(int num)
+    public void BuyFlooring(int num)
     {
-        PlayerPrefs.SetInt("Theme " + num, 1);
+        PlayerPrefs.SetInt("Flooring " + num, 1);
     }
 
     public void BuyPowerUp(int num)
@@ -105,14 +105,14 @@ public class PlayerPrefsManager : MonoBehaviour
         PlayerPrefs.SetInt("GRAPHICS", graphicNumber);
     }
 
-    public int GetTheme()
+    public int GetFlooring()
     {
-        return PlayerPrefs.GetInt("THEME", 0);
+        return PlayerPrefs.GetInt("FLOORING", 0);
     }
 
-    public void SetTheme(int themeNumber)
+    public void SetFlooring(int themeNumber)
     {
-        PlayerPrefs.SetInt("THEME", themeNumber);
+        PlayerPrefs.SetInt("FLOORING", themeNumber);
     }
 
     public int GetCoins()

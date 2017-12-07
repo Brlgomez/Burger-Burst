@@ -9,7 +9,7 @@ public class CameraMovement : MonoBehaviour
     static int maxSpeed = 15;
     static int accelerating = 15;
     Transform menu, gameplay, pause, towards, gameOver, grill, fryer, soda;
-    Transform powerUp, customize, setting, store, graphics, theme;
+    Transform powerUp, customize, setting, store, graphics, flooring, theme;
     Transform deviceFront, deviceBack, deviceTowards;
     float speed;
     bool moveToPosition;
@@ -151,13 +151,17 @@ public class CameraMovement : MonoBehaviour
         {
             GetComponent<ScreenTextManagment>().ChangeToUpgradeText();
         }
+        else if (towards == theme)
+		{
+			GetComponent<ScreenTextManagment>().ChangeToThemeScreen();
+		}
         else if (towards == graphics)
         {
             GetComponent<ScreenTextManagment>().ChangeToGraphicsScreen();
         }
-        else if (towards == theme)
+        else if (towards == flooring)
         {
-            GetComponent<ScreenTextManagment>().ChangeToThemeScreen();
+            GetComponent<ScreenTextManagment>().ChangeToFlooringScreen();
         }
         Destroy(GetComponent<CameraMovement>());
     }
@@ -186,6 +190,13 @@ public class CameraMovement : MonoBehaviour
         moveToPosition = true;
     }
 
+	public void MoveToTheme()
+	{
+		theme = GetComponent<PositionManager>().CustomizePosition();
+        towards = theme;
+		moveToPosition = true;
+	}
+
     public void MoveToGraphics()
     {
         graphics = GetComponent<PositionManager>().GraphicsPosition();
@@ -193,10 +204,10 @@ public class CameraMovement : MonoBehaviour
         moveToPosition = true;
     }
 
-    public void MoveToTheme()
+    public void MoveToFlooring()
     {
-        theme = GetComponent<PositionManager>().ThemePosition();
-        towards = theme;
+        flooring = GetComponent<PositionManager>().ThemePosition();
+        towards = flooring;
         moveToPosition = true;
     }
 

@@ -6,7 +6,6 @@ public class GraphicsManager : MonoBehaviour
 {
     public List<Sprite> graphicSprites;
     public List<Graphic> graphicList = new List<Graphic>();
-    public Graphic normal, classic, classicColor, blackAndWhite, noir;
     public Texture2D classicTexture, blueAndGreenTexture, blackAndWhiteTexture;
 
     public class Graphic
@@ -30,11 +29,11 @@ public class GraphicsManager : MonoBehaviour
     void Awake()
     {
         PlayerPrefs.SetInt("Graphic 0", 1);
-        graphicList.Add(normal = new Graphic(0, 0, "Normal", graphicSprites[0]));
-        graphicList.Add(classic = new Graphic(1, 0, "Classic", graphicSprites[1]));
-        graphicList.Add(classicColor = new Graphic(2, 10, "Blue-green gradient", graphicSprites[2]));
-        graphicList.Add(blackAndWhite = new Graphic(3, 20, "Black & white", graphicSprites[3]));
-        graphicList.Add(noir = new Graphic(4, 30, "Pixelated", graphicSprites[4]));
+        graphicList.Add(new Graphic(0, 0, "Normal", graphicSprites[0]));
+        graphicList.Add(new Graphic(1, 0, "Classic", graphicSprites[1]));
+        graphicList.Add(new Graphic(2, 10, "Blue-green gradient", graphicSprites[2]));
+        graphicList.Add(new Graphic(3, 20, "Black & white", graphicSprites[3]));
+        graphicList.Add(new Graphic(4, 30, "Pixelated", graphicSprites[4]));
         SetGraphic(GetComponent<PlayerPrefsManager>().GetGraphics());
     }
 

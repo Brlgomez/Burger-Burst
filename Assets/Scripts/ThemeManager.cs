@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class ThemeManager : MonoBehaviour
 {
-    public List<Sprite> themeSprites;
-    public List<Texture> themeTexture;
-    public List<Theme> themeList = new List<Theme>();
-    public Theme normal, classic, classicColor, blackAndWhite, noir;
+    public Material floor, wall, details;
+    public List<Sprite> flooringSprites;
+    public List<Texture> flooringTexture;
+    public List<Flooring> flooringList = new List<Flooring>();
 
-    public class Theme
+    public class Flooring
     {
         public int themeNumber;
         public int price;
@@ -18,11 +18,11 @@ public class ThemeManager : MonoBehaviour
         public Sprite sprite;
         public Texture texture;
 
-        public Theme(int powerUpNum, int cost, string info, Sprite icon, Texture tex)
+        public Flooring(int powerUpNum, int cost, string info, Sprite icon, Texture tex)
         {
             themeNumber = powerUpNum;
             price = cost;
-            unlocked = (PlayerPrefs.GetInt("Theme " + powerUpNum, 0) == 1);
+            unlocked = (PlayerPrefs.GetInt("Flooring " + powerUpNum, 0) == 1);
             description = info;
             sprite = icon;
             texture = tex;
@@ -31,10 +31,17 @@ public class ThemeManager : MonoBehaviour
 
     void Awake()
     {
-        themeList.Add(new Theme(0, 0, "Default", themeSprites[0], themeTexture[0]));
-        themeList.Add(new Theme(1, 10, "One", themeSprites[1], themeTexture[1]));
-        themeList.Add(new Theme(2, 20, "Two", themeSprites[2], themeTexture[2]));
-        themeList.Add(new Theme(3, 30, "Three", themeSprites[3], themeTexture[3]));
-        themeList.Add(new Theme(4, 40, "Four", themeSprites[4], themeTexture[4]));
+		PlayerPrefs.SetInt("Flooring 0", 1);
+		flooringList.Add(new Flooring(0, 0, "Default", flooringSprites[0], flooringTexture[0]));
+        flooringList.Add(new Flooring(1, 10, "One", flooringSprites[1], flooringTexture[1]));
+        flooringList.Add(new Flooring(2, 20, "Two", flooringSprites[2], flooringTexture[2]));
+        flooringList.Add(new Flooring(3, 30, "Three", flooringSprites[3], flooringTexture[3]));
+        flooringList.Add(new Flooring(4, 40, "Four", flooringSprites[4], flooringTexture[4]));
+        SetFlooring(GetComponent<PlayerPrefsManager>().GetFlooring());
+	}
+
+    public void SetFlooring(int num)
+    {
+        floor.mainTexture = flooringList[num].texture;
     }
 }

@@ -82,11 +82,14 @@ public class MainMenu : MonoBehaviour
                 case Menus.Menu.Theme:
 					MouseUpThemeMenu();
 					break;
+                case Menus.Menu.Flooring:
+                    MouseUpFlooringMenu();
+					break;
                 case Menus.Menu.ConfirmationGraphics:
                     MouseUpConfirmationGraphicsMenu();
                     break;
-                case Menus.Menu.ConfirmationTheme:
-                    MouseUpConfirmationThemeMenu();
+                case Menus.Menu.ConfirmationFooring:
+                    MouseUpConfirmationFlooringMenu();
 					break;
             }
         }
@@ -231,10 +234,8 @@ public class MainMenu : MonoBehaviour
     {
 		if (target.name == "First Button")
 		{
-            GetComponent<MenuSlider>().SetUpMenu(Menus.Menu.Theme);
 			GetComponent<ScreenTextManagment>().CannotPressAnything();
-			gameObject.AddComponent<CameraMovement>().MoveToTheme();
-			lastScrollX = -Mathf.RoundToInt(GetComponent<MenuSlider>().GetMiddleObject().transform.localPosition.z);
+            gameObject.AddComponent<CameraMovement>().MoveToTheme();
 		}
         else  if (target.name == "Second Button")
         {
@@ -249,6 +250,23 @@ public class MainMenu : MonoBehaviour
             GetComponent<ScreenTextManagment>().CannotPressAnything();
             gameObject.AddComponent<CameraMovement>().MoveToMenu(false);
         }
+    }
+
+    void MouseUpThemeMenu()
+    {
+		if (target.name == "First Button")
+		{
+            GetComponent<MenuSlider>().SetUpMenu(Menus.Menu.Flooring);
+			GetComponent<ScreenTextManagment>().CannotPressAnything();
+			gameObject.AddComponent<CameraMovement>().MoveToFlooring();
+			lastScrollX = -Mathf.RoundToInt(GetComponent<MenuSlider>().GetMiddleObject().transform.localPosition.z);
+		}
+		else if (target.name == "Fifth Button")
+		{
+			roundScroller = false;
+			GetComponent<ScreenTextManagment>().CannotPressAnything();
+            gameObject.AddComponent<CameraMovement>().MoveToCustomize();
+		} 
     }
 
     void MouseUpConfirmationMenu()
@@ -311,23 +329,23 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-	void MouseUpThemeMenu()
+	void MouseUpFlooringMenu()
 	{
 		switch (target.name)
 		{
 			case "Third Button":
-                GetComponent<MenuSlider>().ChangeSlotSpriteTheme();
+                GetComponent<MenuSlider>().ChangeSlotSpriteFlooring();
 				break;
 			case "Fifth Button":
 				roundScroller = false;
 				GetComponent<ScreenTextManagment>().CannotPressAnything();
-				gameObject.AddComponent<CameraMovement>().MoveToCustomize();
+                gameObject.AddComponent<CameraMovement>().MoveToTheme();
 				break;
 			case "Scroller":
 				GetComponent<MenuSlider>().EnableScroller(false);
 				if (!changeScrollerObjects)
 				{
-					GetComponent<MenuSlider>().ChangeSlotSpriteTheme();
+                    GetComponent<MenuSlider>().ChangeSlotSpriteFlooring();
 				}
 				roundScroller = true;
 				changeScrollerObjects = false;
@@ -346,24 +364,25 @@ public class MainMenu : MonoBehaviour
             case "Fourth Button":
                 break;
             case "Fifth Button":
-                GetComponent<MenuSlider>().GetComponent<GraphicsManager>().SetGraphic(GetComponent<PlayerPrefsManager>().GetGraphics());
+                GetComponent<GraphicsManager>().SetGraphic(GetComponent<PlayerPrefsManager>().GetGraphics());
                 GetComponent<ScreenTextManagment>().ChangeToGraphicsScreen();
                 break;
         }
     }
 
-	void MouseUpConfirmationThemeMenu()
+	void MouseUpConfirmationFlooringMenu()
 	{
 		switch (target.name)
 		{
 			case "Third Button":
-                GetComponent<ScreenTextManagment>().BuyTheme();
-                GetComponent<ScreenTextManagment>().ChangeToThemeScreen();
+                GetComponent<ScreenTextManagment>().BuyFlooing();
+                GetComponent<ScreenTextManagment>().ChangeToFlooringScreen();
 				break;
 			case "Fourth Button":
 				break;
 			case "Fifth Button":
-                GetComponent<ScreenTextManagment>().ChangeToThemeScreen();
+                GetComponent<ThemeManager>().SetFlooring(GetComponent<PlayerPrefsManager>().GetFlooring());
+				GetComponent<ScreenTextManagment>().ChangeToFlooringScreen();
 				break;
 		}
 	}

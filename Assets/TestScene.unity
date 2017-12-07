@@ -60346,7 +60346,7 @@ Prefab:
     - target: {fileID: 2300002, guid: a1414f0b5e00349e1ab48101e0303018, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 57535e78207fc4ca6ab091b4be2e3a10, type: 2}
+      objectReference: {fileID: 2100000, guid: 6eff2fc159a904bdd980296d4df217fc, type: 2}
     - target: {fileID: 2300020, guid: a1414f0b5e00349e1ab48101e0303018, type: 3}
       propertyPath: m_LightProbeUsage
       value: 0
@@ -60653,35 +60653,35 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400032, guid: a1414f0b5e00349e1ab48101e0303018, type: 3}
       propertyPath: m_RootOrder
-      value: 20
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 400028, guid: a1414f0b5e00349e1ab48101e0303018, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 400044, guid: a1414f0b5e00349e1ab48101e0303018, type: 3}
       propertyPath: m_RootOrder
-      value: 19
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: a1414f0b5e00349e1ab48101e0303018, type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 400048, guid: a1414f0b5e00349e1ab48101e0303018, type: 3}
       propertyPath: m_RootOrder
-      value: 22
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 400042, guid: a1414f0b5e00349e1ab48101e0303018, type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 400026, guid: a1414f0b5e00349e1ab48101e0303018, type: 3}
       propertyPath: m_RootOrder
-      value: 17
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 400018, guid: a1414f0b5e00349e1ab48101e0303018, type: 3}
       propertyPath: m_RootOrder
-      value: 18
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 400036, guid: a1414f0b5e00349e1ab48101e0303018, type: 3}
       propertyPath: m_RootOrder
@@ -60689,11 +60689,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400046, guid: a1414f0b5e00349e1ab48101e0303018, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 400038, guid: a1414f0b5e00349e1ab48101e0303018, type: 3}
       propertyPath: m_RootOrder
-      value: 21
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 400014, guid: a1414f0b5e00349e1ab48101e0303018, type: 3}
       propertyPath: m_RootOrder
@@ -60717,7 +60717,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400050, guid: a1414f0b5e00349e1ab48101e0303018, type: 3}
       propertyPath: m_RootOrder
-      value: 16
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 400052, guid: a1414f0b5e00349e1ab48101e0303018, type: 3}
       propertyPath: m_RootOrder
@@ -60946,6 +60946,14 @@ Prefab:
     - target: {fileID: 100012, guid: a1414f0b5e00349e1ab48101e0303018, type: 3}
       propertyPath: m_Layer
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: a1414f0b5e00349e1ab48101e0303018, type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 400020, guid: a1414f0b5e00349e1ab48101e0303018, type: 3}
+      propertyPath: m_RootOrder
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9500000, guid: a1414f0b5e00349e1ab48101e0303018, type: 3}
@@ -79229,18 +79237,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26d943f57b4f74eea9d0853c24b23e55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  themeSprites:
+  floor: {fileID: 2100000, guid: c096284abaa124d978adc652b4023d57, type: 2}
+  wall: {fileID: 2100000, guid: 51a0593762c9e4a08a18062982e64c89, type: 2}
+  details: {fileID: 2100000, guid: 6eff2fc159a904bdd980296d4df217fc, type: 2}
+  flooringSprites:
   - {fileID: 21300000, guid: f5ca77d9dd7994e86919fa476824a63e, type: 3}
   - {fileID: 21300000, guid: 8dd6048aca47f4cb49bafe7353a263ff, type: 3}
   - {fileID: 21300000, guid: 9d352a5bf745445b3a90fe8a1accc7e9, type: 3}
   - {fileID: 21300000, guid: 0f1ca74840abe4e8aa3a9bdb9ab029b9, type: 3}
   - {fileID: 21300000, guid: 1206f66db3ad44a5fab3cd39d36076e6, type: 3}
-  themeTexture:
-  - {fileID: 2800000, guid: 06ddc5756492e43bfa5e9f0e883f4669, type: 3}
-  - {fileID: 2800000, guid: 06ddc5756492e43bfa5e9f0e883f4669, type: 3}
-  - {fileID: 2800000, guid: 06ddc5756492e43bfa5e9f0e883f4669, type: 3}
-  - {fileID: 2800000, guid: 06ddc5756492e43bfa5e9f0e883f4669, type: 3}
-  - {fileID: 2800000, guid: 06ddc5756492e43bfa5e9f0e883f4669, type: 3}
+  flooringTexture:
+  - {fileID: 2800000, guid: 7be20c9fbe5574ceb9937c59fff151c9, type: 3}
+  - {fileID: 2800000, guid: 7be20c9fbe5574ceb9937c59fff151c9, type: 3}
+  - {fileID: 2800000, guid: 7be20c9fbe5574ceb9937c59fff151c9, type: 3}
+  - {fileID: 2800000, guid: 7be20c9fbe5574ceb9937c59fff151c9, type: 3}
+  - {fileID: 2800000, guid: 7be20c9fbe5574ceb9937c59fff151c9, type: 3}
 --- !u!1001 &1867519524
 Prefab:
   m_ObjectHideFlags: 0
