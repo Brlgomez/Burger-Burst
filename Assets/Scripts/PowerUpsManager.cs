@@ -55,20 +55,23 @@ public class PowerUpsManager : MonoBehaviour
 
     public void SetPowerUpLED()
     {
-        if (PlayerPrefs.GetInt("UPGRADE 1", -1) > -1)
-        {
-            GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(0).GetComponent<SpriteRenderer>().sprite =
-                GetComponent<PowerUpsManager>().powerUpList[PlayerPrefs.GetInt("UPGRADE 1")].sprite;
-        }
-        if (PlayerPrefs.GetInt("UPGRADE 2", -1) > -1)
-        {
-            GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(1).GetComponent<SpriteRenderer>().sprite =
-                GetComponent<PowerUpsManager>().powerUpList[PlayerPrefs.GetInt("UPGRADE 2")].sprite;
-        }
-        if (PlayerPrefs.GetInt("UPGRADE 3", -1) > -1)
-        {
-            GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(2).GetComponent<SpriteRenderer>().sprite =
-                GetComponent<PowerUpsManager>().powerUpList[PlayerPrefs.GetInt("UPGRADE 3")].sprite;
-        }
+		int slot1PowerUp = GetComponent<PlayerPrefsManager>().GetPowerUpFromSlot(1);
+		int slot2PowerUp = GetComponent<PlayerPrefsManager>().GetPowerUpFromSlot(2);
+		int slot3PowerUp = GetComponent<PlayerPrefsManager>().GetPowerUpFromSlot(3);
+		if (slot1PowerUp >= 0)
+		{
+			GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(0).GetComponent<SpriteRenderer>().sprite =
+                GetComponent<PowerUpsManager>().powerUpList[slot1PowerUp].sprite;
+		}
+		if (slot2PowerUp >= 0)
+		{
+			GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(1).GetComponent<SpriteRenderer>().sprite =
+                GetComponent<PowerUpsManager>().powerUpList[slot2PowerUp].sprite;
+		}
+		if (slot3PowerUp >= 0)
+		{
+			GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(2).GetComponent<SpriteRenderer>().sprite =
+                GetComponent<PowerUpsManager>().powerUpList[slot3PowerUp].sprite;
+		}
     }
 }

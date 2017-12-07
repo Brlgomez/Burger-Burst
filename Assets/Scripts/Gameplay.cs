@@ -222,9 +222,9 @@ public class Gameplay : MonoBehaviour
         gameObject.AddComponent<CoinSpawn>().StartCoinLaunch(amount, obj.transform.position);
     }
 
-    public void DecreaseCoinCount(int number)
+    public void DecreaseCoinCount(int amount)
     {
-        PlayerPrefs.SetInt("Coins", (PlayerPrefs.GetInt("Coins", 0) - number));
+        GetComponent<PlayerPrefsManager>().DecreaseCoins(amount);
         GetComponent<LEDManager>().UpdateCoinsText();
     }
 

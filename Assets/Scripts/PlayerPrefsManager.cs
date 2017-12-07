@@ -38,11 +38,6 @@ public class PlayerPrefsManager : MonoBehaviour
         return -1;
     }
 
-    public int GetUpgrades(int n)
-    {
-        return PlayerPrefs.GetInt("UPGRADE " + n, -1);
-    }
-
     public bool ContainsUpgradeBesidesSlot(int n, int slot)
     {
         for (int i = 1; i <= 3; i++)
@@ -68,6 +63,66 @@ public class PlayerPrefsManager : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public void BuyGraphic(int num)
+    {
+        PlayerPrefs.SetInt("Graphic " + num, 1);
+    }
+
+    public void BuyTheme(int num)
+    {
+        PlayerPrefs.SetInt("Theme " + num, 1);
+    }
+
+    public void BuyPowerUp(int num)
+    {
+        PlayerPrefs.SetInt("Power Up " + num, 1);
+    }
+
+    public bool IsPowerUpUnlocked(int powerUp)
+    {
+        return (PlayerPrefs.GetInt("Power Up " + powerUp, 0) == 1);
+    }
+
+    public int GetPowerUpFromSlot(int slot)
+    {
+        return PlayerPrefs.GetInt("UPGRADE " + slot, -1);
+    }
+
+    public void SetPowerUpSlot(int slot, int powerUpNum)
+    {
+        PlayerPrefs.SetInt("UPGRADE " + slot, powerUpNum);
+    }
+
+    public int GetGraphics()
+    {
+        return PlayerPrefs.GetInt("GRAPHICS", 0);
+    }
+
+    public void SetGraphics(int graphicNumber)
+    {
+        PlayerPrefs.SetInt("GRAPHICS", graphicNumber);
+    }
+
+    public int GetTheme()
+    {
+        return PlayerPrefs.GetInt("THEME", 0);
+    }
+
+    public void SetTheme(int themeNumber)
+    {
+        PlayerPrefs.SetInt("THEME", themeNumber);
+    }
+
+    public int GetCoins()
+    {
+        return PlayerPrefs.GetInt("Coins", 0);
+    }
+
+    public void DecreaseCoins(int amount)
+    {
+        PlayerPrefs.SetInt("Coins", GetCoins() - amount);
     }
 
     public void DeleteAll()

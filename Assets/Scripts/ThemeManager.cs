@@ -31,9 +31,6 @@ public class ThemeManager : MonoBehaviour
 
     void Awake()
     {
-		PlayerPrefs.DeleteAll();
-		PlayerPrefs.SetInt("Coins", 1000);
-        PlayerPrefs.SetInt("Theme 0", 1);
         themeList.Add(new Theme(0, 0, "Default", themeSprites[0], themeTexture[0]));
         themeList.Add(new Theme(1, 10, "One", themeSprites[1], themeTexture[1]));
         themeList.Add(new Theme(2, 20, "Two", themeSprites[2], themeTexture[2]));

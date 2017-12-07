@@ -296,7 +296,7 @@ public class MainMenu : MonoBehaviour
                 break;
             case "Fifth Button":
                 roundScroller = false;
-                GetComponent<ScreenTextManagment>().CannotPressAnything();
+				GetComponent<ScreenTextManagment>().CannotPressAnything();
                 gameObject.AddComponent<CameraMovement>().MoveToCustomize();
                 break;
             case "Scroller":
@@ -346,7 +346,7 @@ public class MainMenu : MonoBehaviour
             case "Fourth Button":
                 break;
             case "Fifth Button":
-                GetComponent<MenuSlider>().GetComponent<GraphicsManager>().SetGraphic(PlayerPrefs.GetInt("GRAPHICS"));
+                GetComponent<MenuSlider>().GetComponent<GraphicsManager>().SetGraphic(GetComponent<PlayerPrefsManager>().GetGraphics());
                 GetComponent<ScreenTextManagment>().ChangeToGraphicsScreen();
                 break;
         }

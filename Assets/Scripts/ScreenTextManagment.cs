@@ -60,7 +60,7 @@ ScreenTextManagment : MonoBehaviour
         EnableButton(line1, "", null);
         EnableButton(line2, "", null);
         EnableButton(line3, "", null);
-        DisableButton(line4, PlayerPrefs.GetInt("Coins", 0).ToString(), coinSprite);
+        DisableButton(line4, GetComponent<PlayerPrefsManager>().GetCoins().ToString(), coinSprite);
         EnableButton(line5, "Back", backSprite);
         currentArea = Menus.Menu.PowerUps;
         TurnOnScrollList(currentArea);
@@ -82,22 +82,22 @@ ScreenTextManagment : MonoBehaviour
         DisableButton(line1, "", null);
         EnableButton(line2, "", null);
         EnableButton(line3, "", null);
-        DisableButton(line4, PlayerPrefs.GetInt("Coins", 0).ToString(), coinSprite);
+        DisableButton(line4, GetComponent<PlayerPrefsManager>().GetCoins().ToString(), coinSprite);
         EnableButton(line5, "Back", backSprite);
         currentArea = Menus.Menu.Graphics;
         TurnOnScrollList(currentArea);
-    }
-
-	public void ChangeToThemeScreen()
-	{
-		DisableButton(line1, "", null);
-		EnableButton(line2, "", null);
-		EnableButton(line3, "", null);
-		DisableButton(line4, PlayerPrefs.GetInt("Coins", 0).ToString(), coinSprite);
-		EnableButton(line5, "Back", backSprite);
-        currentArea = Menus.Menu.Theme;
-		TurnOnScrollList(currentArea);
 	}
+
+    public void ChangeToThemeScreen()
+    {
+        DisableButton(line1, "", null);
+        EnableButton(line2, "", null);
+        EnableButton(line3, "", null);
+        DisableButton(line4, GetComponent<PlayerPrefsManager>().GetCoins().ToString(), coinSprite);
+        EnableButton(line5, "Back", backSprite);
+        currentArea = Menus.Menu.Theme;
+        TurnOnScrollList(currentArea);
+    }
 
     public void ChangeToStoreScreen()
     {
@@ -124,17 +124,18 @@ ScreenTextManagment : MonoBehaviour
         GameObject middleObj = GetComponent<MenuSlider>().GetMiddleObject();
         TurnOffScrollList();
         DisableButton(line1, middleObj.transform.GetChild(0).GetComponent<TextMesh>().text, middleObj.GetComponent<SpriteRenderer>().sprite);
-        if (int.Parse(middleObj.transform.GetChild(0).GetComponent<TextMesh>().text) <= PlayerPrefs.GetInt("Coins", 0))
+        if (int.Parse(middleObj.transform.GetChild(0).GetComponent<TextMesh>().text) <= GetComponent<PlayerPrefsManager>().GetCoins())
         {
             DisableButton(line2, question, null);
             EnableButton(line3, "Yes", yesSprite);
         }
         else
         {
+            int middleObjectPrice = int.Parse(middleObj.transform.GetChild(0).GetComponent<TextMesh>().text);
+            int currentCoinCount = GetComponent<PlayerPrefsManager>().GetCoins();
             DisableButton(line2, "", null);
+            DisableButton(line3, "Coins needed:\n" + (middleObjectPrice - currentCoinCount), null);
             line3.GetComponent<TextMesh>().characterSize = 0.025f;
-            DisableButton(line3, "Coins needed:\n" +
-                          (int.Parse(middleObj.transform.GetChild(0).GetComponent<TextMesh>().text) - PlayerPrefs.GetInt("Coins", 0)), null);
         }
         EnableButton(line4, "Get coins", coinSprite);
         EnableButton(line5, "Back", backSprite);
@@ -144,32 +145,34 @@ ScreenTextManagment : MonoBehaviour
     public void BuyGraphics()
     {
         GameObject middleObj = GetComponent<MenuSlider>().GetMiddleObject();
-        PlayerPrefs.SetInt("Graphic " + int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name), 1);
+        GetComponent<PlayerPrefsManager>().BuyGraphic(GetComponent<MenuSlider>().GetMiddleObjectNumber());
         GetComponent<GraphicsManager>().graphicList[int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name)].unlocked = true;
+		GetComponent<GraphicsManager>().SetGraphic(GetComponent<PlayerPrefsManager>().GetGraphics());
 		BoughtItem(middleObj);
-	}
+    }
 
     public void BuyUpgrade()
     {
         GameObject middleObj = GetComponent<MenuSlider>().GetMiddleObject();
-        PlayerPrefs.SetInt("Power Up " + int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name), 1);
+        GetComponent<PlayerPrefsManager>().BuyPowerUp(GetComponent<MenuSlider>().GetMiddleObjectNumber());
         GetComponent<PowerUpsManager>().powerUpList[int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name)].unlocked = true;
-		BoughtItem(middleObj);
-	}
-
-	public void BuyTheme()
-	{
-		GameObject middleObj = GetComponent<MenuSlider>().GetMiddleObject();
-		PlayerPrefs.SetInt("Theme " + int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name), 1);
-        GetComponent<ThemeManager>().themeList[int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name)].unlocked = true;
         BoughtItem(middleObj);
-	}
+    }
+
+    public void BuyTheme()
+    {
+        GameObject middleObj = GetComponent<MenuSlider>().GetMiddleObject();
+        GetComponent<PlayerPrefsManager>().BuyTheme(GetComponent<MenuSlider>().GetMiddleObjectNumber());
+        GetComponent<ThemeManager>().themeList[int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name)].unlocked = true;
+        //TODO: GetComponent<ThemeManager>().SetTheme(GetComponent<PlayerPrefsManager>().GetTheme());
+		BoughtItem(middleObj);
+    }
 
     void BoughtItem(GameObject middleObj)
     {
-		GetComponent<Gameplay>().DecreaseCoinCount(int.Parse(middleObj.transform.GetChild(0).GetComponent<TextMesh>().text));
-		middleObj.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
-		middleObj.transform.GetChild(0).GetComponent<TextMesh>().text = "";
+        GetComponent<Gameplay>().DecreaseCoinCount(int.Parse(middleObj.transform.GetChild(0).GetComponent<TextMesh>().text));
+        middleObj.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
+        middleObj.transform.GetChild(0).GetComponent<TextMesh>().text = "";
     }
 
     public void ChangeToGameOverText()
@@ -177,7 +180,7 @@ ScreenTextManagment : MonoBehaviour
         EnableButton(line1, "Restart", restartSprite);
         EnableButton(line2, "Quit", quitSprite);
         DisableButton(line3, GetComponent<Gameplay>().GetPoints().ToString(), pointSprite);
-        DisableButton(line4, PlayerPrefs.GetInt("Coins", 0).ToString(), coinSprite);
+        DisableButton(line4, GetComponent<PlayerPrefsManager>().GetCoins().ToString(), coinSprite);
         DisableButton(line5, "", null);
         line1.GetComponent<TextMesh>().color = Color.red;
         line2.GetComponent<TextMesh>().color = Color.red;

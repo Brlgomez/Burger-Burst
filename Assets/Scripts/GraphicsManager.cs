@@ -35,7 +35,7 @@ public class GraphicsManager : MonoBehaviour
         graphicList.Add(classicColor = new Graphic(2, 10, "Blue-green gradient", graphicSprites[2]));
         graphicList.Add(blackAndWhite = new Graphic(3, 20, "Black & white", graphicSprites[3]));
         graphicList.Add(noir = new Graphic(4, 30, "Pixelated", graphicSprites[4]));
-        SetGraphic(PlayerPrefs.GetInt("GRAPHICS"));
+        SetGraphic(GetComponent<PlayerPrefsManager>().GetGraphics());
     }
 
     public void SetGraphic(int graphicNum)
