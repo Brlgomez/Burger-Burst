@@ -10,7 +10,7 @@ public class MenuSlider : MonoBehaviour
     int sliderObjectCount;
     Menus.Menu lastMenu, currentMenu;
 
-    void Start()
+    void Awake()
     {
         scrollView = GetComponent<ObjectManager>().Phone().transform.GetChild(5).gameObject;
         slot1 = scrollView.transform.GetChild(2).GetChild(0).gameObject;

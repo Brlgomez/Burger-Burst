@@ -47,15 +47,18 @@ public class GraphicsManager : MonoBehaviour
                 GetComponent<Assets.Pixelation.Scripts.Pixelation>().enabled = false;
                 break;
             case 1:
-                GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = true;
-                GetComponent<Assets.Pixelation.Scripts.Chunky>().SprTex = classicTexture;
+				GetComponent<Assets.Pixelation.Scripts.Pixelation>().enabled = false;
+				GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = true;
+				GetComponent<Assets.Pixelation.Scripts.Chunky>().SprTex = classicTexture;
                 break;
             case 2:
-                GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = true;
-                GetComponent<Assets.Pixelation.Scripts.Chunky>().SprTex = blueAndGreenTexture;
+				GetComponent<Assets.Pixelation.Scripts.Pixelation>().enabled = false;
+				GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = true;
+				GetComponent<Assets.Pixelation.Scripts.Chunky>().SprTex = blueAndGreenTexture;
                 break;
             case 3:
-                GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = true;
+				GetComponent<Assets.Pixelation.Scripts.Pixelation>().enabled = false;
+				GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = true;
                 GetComponent<Assets.Pixelation.Scripts.Chunky>().SprTex = blackAndWhiteTexture;
                 break;
             case 4:
@@ -63,7 +66,8 @@ public class GraphicsManager : MonoBehaviour
                 GetComponent<Assets.Pixelation.Scripts.Pixelation>().enabled = true;
                 break;
             default:
-                GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = false;
+				GetComponent<Assets.Pixelation.Scripts.Pixelation>().enabled = false;
+				GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = false;
                 break;
         }
     }

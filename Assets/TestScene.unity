@@ -68771,6 +68771,7 @@ GameObject:
   - component: {fileID: 1865169786}
   - component: {fileID: 1865169779}
   - component: {fileID: 1865169791}
+  - component: {fileID: 1865169792}
   - component: {fileID: 1865169777}
   - component: {fileID: 1865169788}
   - component: {fileID: 1865169781}
@@ -68778,10 +68779,9 @@ GameObject:
   - component: {fileID: 1865169776}
   - component: {fileID: 1865169787}
   - component: {fileID: 1865169785}
-  - component: {fileID: 1865169784}
-  - component: {fileID: 1865169792}
-  - component: {fileID: 1865169789}
   - component: {fileID: 1865169790}
+  - component: {fileID: 1865169784}
+  - component: {fileID: 1865169789}
   - component: {fileID: 1865169793}
   - component: {fileID: 1865169794}
   - component: {fileID: 1865169795}
