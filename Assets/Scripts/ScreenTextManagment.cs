@@ -68,7 +68,7 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToCustomizeScreen()
     {
-        EnableButton(line1, "Theme", themeSprite);
+        EnableButton(line1, "Paint", themeSprite);
         EnableButton(line2, "Graphics", graphicsSprite);
         DisableButton(line3, "", null);
         DisableButton(line4, "", null);

@@ -488,7 +488,7 @@ public class MainMenu : MonoBehaviour
             case "Fourth Button":
                 break;
             case "Fifth Button":
-                GetComponent<ThemeManager>().SetWallpaper(GetComponent<PlayerPrefsManager>().GetDetail());
+                GetComponent<ThemeManager>().SetDetail(GetComponent<PlayerPrefsManager>().GetDetail());
                 GetComponent<ScreenTextManagment>().ChangeToDetailScreen();
                 break;
         }
