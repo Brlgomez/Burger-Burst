@@ -77,16 +77,16 @@ ScreenTextManagment : MonoBehaviour
         currentArea = Menus.Menu.Customize;
     }
 
-	public void ChangeToThemeScreen()
-	{
+    public void ChangeToThemeScreen()
+    {
         EnableButton(line1, "Flooring", floorSprite);
         EnableButton(line2, "Walls", wallSprite);
         EnableButton(line3, "Detail", detailSprite);
-		DisableButton(line4, "", null);
-		EnableButton(line5, "Back", backSprite);
-		TurnOffScrollList();
+        DisableButton(line4, "", null);
+        EnableButton(line5, "Back", backSprite);
+        TurnOffScrollList();
         currentArea = Menus.Menu.Theme;
-	}
+    }
 
     public void ChangeToGraphicsScreen()
     {
@@ -97,7 +97,7 @@ ScreenTextManagment : MonoBehaviour
         EnableButton(line5, "Back", backSprite);
         currentArea = Menus.Menu.Graphics;
         TurnOnScrollList(currentArea);
-	}
+    }
 
     public void ChangeToFlooringScreen()
     {
@@ -107,6 +107,28 @@ ScreenTextManagment : MonoBehaviour
         DisableButton(line4, GetComponent<PlayerPrefsManager>().GetCoins().ToString(), coinSprite);
         EnableButton(line5, "Back", backSprite);
         currentArea = Menus.Menu.Flooring;
+        TurnOnScrollList(currentArea);
+    }
+
+    public void ChangeToWallpaperScreen()
+    {
+        DisableButton(line1, "", null);
+        EnableButton(line2, "", null);
+        EnableButton(line3, "", null);
+        DisableButton(line4, GetComponent<PlayerPrefsManager>().GetCoins().ToString(), coinSprite);
+        EnableButton(line5, "Back", backSprite);
+        currentArea = Menus.Menu.Wallpaper;
+        TurnOnScrollList(currentArea);
+    }
+
+    public void ChangeToDetailScreen()
+    {
+        DisableButton(line1, "", null);
+        EnableButton(line2, "", null);
+        EnableButton(line3, "", null);
+        DisableButton(line4, GetComponent<PlayerPrefsManager>().GetCoins().ToString(), coinSprite);
+        EnableButton(line5, "Back", backSprite);
+        currentArea = Menus.Menu.Detail;
         TurnOnScrollList(currentArea);
     }
 
@@ -158,8 +180,8 @@ ScreenTextManagment : MonoBehaviour
         GameObject middleObj = GetComponent<MenuSlider>().GetMiddleObject();
         GetComponent<PlayerPrefsManager>().BuyGraphic(GetComponent<MenuSlider>().GetMiddleObjectNumber());
         GetComponent<GraphicsManager>().graphicList[int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name)].unlocked = true;
-		GetComponent<GraphicsManager>().SetGraphic(GetComponent<PlayerPrefsManager>().GetGraphics());
-		BoughtItem(middleObj);
+        GetComponent<GraphicsManager>().SetGraphic(GetComponent<PlayerPrefsManager>().GetGraphics());
+        BoughtItem(middleObj);
     }
 
     public void BuyUpgrade()
@@ -170,13 +192,28 @@ ScreenTextManagment : MonoBehaviour
         BoughtItem(middleObj);
     }
 
-    public void BuyFlooing()
+    public void BuyFlooring()
     {
         GameObject middleObj = GetComponent<MenuSlider>().GetMiddleObject();
         GetComponent<PlayerPrefsManager>().BuyFlooring(GetComponent<MenuSlider>().GetMiddleObjectNumber());
         GetComponent<ThemeManager>().flooringList[int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name)].unlocked = true;
-        //TODO: GetComponent<ThemeManager>().SetTheme(GetComponent<PlayerPrefsManager>().GetTheme());
-		BoughtItem(middleObj);
+        BoughtItem(middleObj);
+    }
+
+    public void BuyWallpaper()
+    {
+        GameObject middleObj = GetComponent<MenuSlider>().GetMiddleObject();
+        GetComponent<PlayerPrefsManager>().BuyWallpaper(GetComponent<MenuSlider>().GetMiddleObjectNumber());
+        GetComponent<ThemeManager>().wallList[int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name)].unlocked = true;
+        BoughtItem(middleObj);
+    }
+
+    public void BuyDetail()
+    {
+        GameObject middleObj = GetComponent<MenuSlider>().GetMiddleObject();
+        GetComponent<PlayerPrefsManager>().BuyDetail(GetComponent<MenuSlider>().GetMiddleObjectNumber());
+        GetComponent<ThemeManager>().detailList[int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name)].unlocked = true;
+        BoughtItem(middleObj);
     }
 
     void BoughtItem(GameObject middleObj)

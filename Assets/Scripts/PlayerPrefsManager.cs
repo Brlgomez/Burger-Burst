@@ -75,6 +75,16 @@ public class PlayerPrefsManager : MonoBehaviour
         PlayerPrefs.SetInt("Flooring " + num, 1);
     }
 
+    public void BuyWallpaper(int num)
+    {
+        PlayerPrefs.SetInt("Wallpaper " + num, 1);
+    }
+
+    public void BuyDetail(int num)
+    {
+        PlayerPrefs.SetInt("Detail " + num, 1);
+    }
+
     public void BuyPowerUp(int num)
     {
         PlayerPrefs.SetInt("Power Up " + num, 1);
@@ -110,9 +120,29 @@ public class PlayerPrefsManager : MonoBehaviour
         return PlayerPrefs.GetInt("FLOORING", 0);
     }
 
-    public void SetFlooring(int themeNumber)
+    public void SetFlooring(int num)
     {
-        PlayerPrefs.SetInt("FLOORING", themeNumber);
+        PlayerPrefs.SetInt("FLOORING", num);
+    }
+
+    public int GetWallpaper()
+    {
+        return PlayerPrefs.GetInt("WALLPAPER", 0);
+    }
+
+    public void SetWallpaper(int num)
+    {
+        PlayerPrefs.SetInt("WALLPAPER", num);
+    }
+
+    public int GetDetail()
+    {
+        return PlayerPrefs.GetInt("DETAIL", 0);
+    }
+
+    public void SetDetail(int num)
+    {
+        PlayerPrefs.SetInt("DETAIL", num);
     }
 
     public int GetCoins()

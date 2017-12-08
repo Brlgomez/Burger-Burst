@@ -24,20 +24,28 @@ public class MenuSlider : MonoBehaviour
         currentMenu = menu;
         if (lastMenu != menu)
         {
-            if (menu == Menus.Menu.PowerUps)
+            switch (menu)
             {
-                sliderObjectCount = GetComponent<PowerUpsManager>().powerUpList.Count;
-                SetSlotSprites();
-            }
-            else if (menu == Menus.Menu.Graphics)
-            {
-                sliderObjectCount = GetComponent<GraphicsManager>().graphicList.Count;
-                SetGraphicsSprite();
-            }
-            else if (menu == Menus.Menu.Flooring)
-            {
-                sliderObjectCount = GetComponent<ThemeManager>().flooringList.Count;
-                SetFlooringSprite();
+                case Menus.Menu.PowerUps:
+                    sliderObjectCount = GetComponent<PowerUpsManager>().powerUpList.Count;
+                    SetSlotSprites();
+                    break;
+                case Menus.Menu.Graphics:
+                    sliderObjectCount = GetComponent<GraphicsManager>().graphicList.Count;
+                    SetGraphicsSprite();
+                    break;
+                case Menus.Menu.Flooring:
+                    sliderObjectCount = GetComponent<ThemeManager>().flooringList.Count;
+                    SetFlooringSprite();
+                    break;
+                case Menus.Menu.Wallpaper:
+                    sliderObjectCount = GetComponent<ThemeManager>().wallList.Count;
+                    SetWallpaperSprite();
+                    break;
+                case Menus.Menu.Detail:
+                    sliderObjectCount = GetComponent<ThemeManager>().detailList.Count;
+                    SetDetailSprite();
+                    break;
             }
             RestartScrollList();
             ScaleScrollerObjects();
@@ -101,7 +109,7 @@ public class MenuSlider : MonoBehaviour
             scrollObj.transform.GetChild(1).GetComponent<SpriteRenderer>().color = new Color(0.5f, 0.5f, 0.5f, 0.5f);
             scrollObj.transform.GetChild(0).GetComponent<TextMesh>().text = GetSliderPrice(powerUpNum).ToString();
         }
-	}
+    }
 
     public void ScaleScrollerObjects()
     {
@@ -209,6 +217,16 @@ public class MenuSlider : MonoBehaviour
         slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = GetSliderSprite(GetComponent<PlayerPrefsManager>().GetFlooring());
     }
 
+    public void SetWallpaperSprite()
+    {
+        slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = GetSliderSprite(GetComponent<PlayerPrefsManager>().GetWallpaper());
+    }
+
+    public void SetDetailSprite()
+    {
+        slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = GetSliderSprite(GetComponent<PlayerPrefsManager>().GetDetail());
+    }
+
     public void ChangeSlotSprite(GameObject slot, int slotPosition)
     {
         if (!GetSliderUnlock(GetMiddleObjectNumber()))
@@ -280,73 +298,107 @@ public class MenuSlider : MonoBehaviour
             GetComponent<PlayerPrefsManager>().SetFlooring(GetMiddleObjectNumber());
             slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = GetMiddleObject().GetComponent<SpriteRenderer>().sprite;
             GetComponent<ThemeManager>().SetFlooring(GetComponent<PlayerPrefsManager>().GetFlooring());
-		}
+        }
+    }
+
+    public void ChangeSlotSpriteWallpaper()
+    {
+        if (!GetSliderUnlock(GetMiddleObjectNumber()))
+        {
+            GetComponent<ThemeManager>().SetWallpaper(GetMiddleObjectNumber());
+            GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationWalls, "Get wallpaper?");
+        }
+        else
+        {
+            GetComponent<PlayerPrefsManager>().SetWallpaper(GetMiddleObjectNumber());
+            slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = GetMiddleObject().GetComponent<SpriteRenderer>().sprite;
+            GetComponent<ThemeManager>().SetWallpaper(GetComponent<PlayerPrefsManager>().GetWallpaper());
+        }
+    }
+
+    public void ChangeSlotSpriteDetail()
+    {
+        if (!GetSliderUnlock(GetMiddleObjectNumber()))
+        {
+            GetComponent<ThemeManager>().SetDetail(GetMiddleObjectNumber());
+            GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationDetail, "Get detail?");
+        }
+        else
+        {
+            GetComponent<PlayerPrefsManager>().SetDetail(GetMiddleObjectNumber());
+            slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = GetMiddleObject().GetComponent<SpriteRenderer>().sprite;
+            GetComponent<ThemeManager>().SetDetail(GetComponent<PlayerPrefsManager>().GetDetail());
+        }
     }
 
     Sprite GetSliderSprite(int index)
     {
-        if (currentMenu == Menus.Menu.PowerUps)
+        switch (currentMenu)
         {
-            return GetComponent<PowerUpsManager>().powerUpList[index].sprite;
-        }
-        else if (currentMenu == Menus.Menu.Graphics)
-        {
-            return GetComponent<GraphicsManager>().graphicList[index].sprite;
-        }
-        else if (currentMenu == Menus.Menu.Flooring)
-        {
-            return GetComponent<ThemeManager>().flooringList[index].sprite;
+            case Menus.Menu.PowerUps:
+                return GetComponent<PowerUpsManager>().powerUpList[index].sprite;
+            case Menus.Menu.Graphics:
+                return GetComponent<GraphicsManager>().graphicList[index].sprite;
+            case Menus.Menu.Flooring:
+                return GetComponent<ThemeManager>().flooringList[index].sprite;
+            case Menus.Menu.Wallpaper:
+                return GetComponent<ThemeManager>().wallList[index].sprite;
+            case Menus.Menu.Detail:
+                return GetComponent<ThemeManager>().detailList[index].sprite;
         }
         return null;
     }
 
     bool GetSliderUnlock(int index)
     {
-        if (currentMenu == Menus.Menu.PowerUps)
+        switch (currentMenu)
         {
-            return GetComponent<PowerUpsManager>().powerUpList[index].unlocked;
-        }
-        else if (currentMenu == Menus.Menu.Graphics)
-        {
-            return GetComponent<GraphicsManager>().graphicList[index].unlocked;
-        }
-        else if (currentMenu == Menus.Menu.Flooring)
-        {
-            return GetComponent<ThemeManager>().flooringList[index].unlocked;
+            case Menus.Menu.PowerUps:
+                return GetComponent<PowerUpsManager>().powerUpList[index].unlocked;
+            case Menus.Menu.Graphics:
+                return GetComponent<GraphicsManager>().graphicList[index].unlocked;
+            case Menus.Menu.Flooring:
+                return GetComponent<ThemeManager>().flooringList[index].unlocked;
+            case Menus.Menu.Wallpaper:
+                return GetComponent<ThemeManager>().wallList[index].unlocked;
+            case Menus.Menu.Detail:
+                return GetComponent<ThemeManager>().detailList[index].unlocked;
         }
         return false;
     }
 
     int GetSliderPrice(int index)
     {
-        if (currentMenu == Menus.Menu.PowerUps)
+        switch (currentMenu)
         {
-            return GetComponent<PowerUpsManager>().powerUpList[index].price;
-        }
-        else if (currentMenu == Menus.Menu.Graphics)
-        {
-            return GetComponent<GraphicsManager>().graphicList[index].price;
-        }
-        else if (currentMenu == Menus.Menu.Flooring)
-        {
-            return GetComponent<ThemeManager>().flooringList[index].price;
+            case Menus.Menu.PowerUps:
+                return GetComponent<PowerUpsManager>().powerUpList[index].price;
+            case Menus.Menu.Graphics:
+                return GetComponent<GraphicsManager>().graphicList[index].price;
+            case Menus.Menu.Flooring:
+                return GetComponent<ThemeManager>().flooringList[index].price;
+            case Menus.Menu.Wallpaper:
+                return GetComponent<ThemeManager>().wallList[index].price;
+            case Menus.Menu.Detail:
+                return GetComponent<ThemeManager>().detailList[index].price;
         }
         return 1000000000;
     }
 
     public string GetSliderDescription(int index)
     {
-        if (currentMenu == Menus.Menu.PowerUps)
+        switch (currentMenu)
         {
-            return GetComponent<PowerUpsManager>().powerUpList[index].description;
-        }
-        else if (currentMenu == Menus.Menu.Graphics)
-        {
-            return GetComponent<GraphicsManager>().graphicList[index].description;
-        }
-        else if (currentMenu == Menus.Menu.Flooring)
-        {
-            return GetComponent<ThemeManager>().flooringList[index].description;
+            case Menus.Menu.PowerUps:
+                return GetComponent<PowerUpsManager>().powerUpList[index].description;
+            case Menus.Menu.Graphics:
+                return GetComponent<GraphicsManager>().graphicList[index].description;
+            case Menus.Menu.Flooring:
+                return GetComponent<ThemeManager>().flooringList[index].description;
+            case Menus.Menu.Wallpaper:
+                return GetComponent<ThemeManager>().wallList[index].description;
+            case Menus.Menu.Detail:
+                return GetComponent<ThemeManager>().detailList[index].description;
         }
         return "";
     }
@@ -403,7 +455,7 @@ public class MenuSlider : MonoBehaviour
             slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
             HighLightSlot(slot1);
         }
-        else if (menu == Menus.Menu.Graphics || menu == Menus.Menu.Flooring)
+        else if (menu == Menus.Menu.Graphics || menu == Menus.Menu.Flooring || menu == Menus.Menu.Wallpaper || menu == Menus.Menu.Detail)
         {
             slot1.transform.GetChild(0).gameObject.layer = 2;
             slot2.transform.GetChild(0).gameObject.layer = 0;

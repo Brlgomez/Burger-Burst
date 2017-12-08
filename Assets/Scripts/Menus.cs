@@ -8,6 +8,6 @@ public class Menus : MonoBehaviour {
     {
         MainMenu, PowerUps, Gameplay, GameOver, Pause,
         Confirmation, Customize, Setting, Store, Graphics, Theme,
-        Flooring, Walls, Detail, ConfirmationGraphics, ConfirmationFooring,
+        Flooring, Wallpaper, Detail, ConfirmationGraphics, ConfirmationFooring,
         ConfirmationWalls, ConfirmationDetail};
 }

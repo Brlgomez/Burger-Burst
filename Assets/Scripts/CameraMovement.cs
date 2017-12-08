@@ -9,7 +9,7 @@ public class CameraMovement : MonoBehaviour
     static int maxSpeed = 15;
     static int accelerating = 15;
     Transform menu, gameplay, pause, towards, gameOver, grill, fryer, soda;
-    Transform powerUp, customize, setting, store, graphics, flooring, theme;
+    Transform powerUp, customize, setting, store, graphics, theme, flooring, wallpaper, detail;
     Transform deviceFront, deviceBack, deviceTowards;
     float speed;
     bool moveToPosition;
@@ -152,9 +152,9 @@ public class CameraMovement : MonoBehaviour
             GetComponent<ScreenTextManagment>().ChangeToUpgradeText();
         }
         else if (towards == theme)
-		{
-			GetComponent<ScreenTextManagment>().ChangeToThemeScreen();
-		}
+        {
+            GetComponent<ScreenTextManagment>().ChangeToThemeScreen();
+        }
         else if (towards == graphics)
         {
             GetComponent<ScreenTextManagment>().ChangeToGraphicsScreen();
@@ -162,6 +162,14 @@ public class CameraMovement : MonoBehaviour
         else if (towards == flooring)
         {
             GetComponent<ScreenTextManagment>().ChangeToFlooringScreen();
+        }
+        else if (towards == wallpaper)
+        {
+            GetComponent<ScreenTextManagment>().ChangeToWallpaperScreen();
+        }
+        else if (towards == detail)
+        {
+            GetComponent<ScreenTextManagment>().ChangeToDetailScreen();
         }
         Destroy(GetComponent<CameraMovement>());
     }
@@ -190,12 +198,12 @@ public class CameraMovement : MonoBehaviour
         moveToPosition = true;
     }
 
-	public void MoveToTheme()
-	{
-		theme = GetComponent<PositionManager>().CustomizePosition();
+    public void MoveToTheme()
+    {
+        theme = GetComponent<PositionManager>().CustomizePosition();
         towards = theme;
-		moveToPosition = true;
-	}
+        moveToPosition = true;
+    }
 
     public void MoveToGraphics()
     {
@@ -208,6 +216,20 @@ public class CameraMovement : MonoBehaviour
     {
         flooring = GetComponent<PositionManager>().ThemePosition();
         towards = flooring;
+        moveToPosition = true;
+    }
+
+    public void MoveToWallpaper()
+    {
+        wallpaper = GetComponent<PositionManager>().ThemePosition();
+        towards = wallpaper;
+        moveToPosition = true;
+    }
+
+    public void MoveToDetail()
+    {
+        detail = GetComponent<PositionManager>().ThemePosition();
+        towards = detail;
         moveToPosition = true;
     }
 
