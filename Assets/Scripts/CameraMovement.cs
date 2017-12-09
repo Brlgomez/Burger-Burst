@@ -149,7 +149,14 @@ public class CameraMovement : MonoBehaviour
         }
         else if (towards == powerUp)
         {
-            GetComponent<ScreenTextManagment>().ChangeToUpgradeText();
+            if (GetComponent<ScreenTextManagment>().GetLastMenu() == Menus.Menu.ConfirmationPowerUp)
+            {
+                GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationPowerUp);
+            }
+            else
+            {
+				GetComponent<ScreenTextManagment>().ChangeToUpgradeText();
+			}
         }
         else if (towards == theme)
         {
@@ -157,19 +164,47 @@ public class CameraMovement : MonoBehaviour
         }
         else if (towards == graphics)
         {
-            GetComponent<ScreenTextManagment>().ChangeToGraphicsScreen();
+            if (GetComponent<ScreenTextManagment>().GetLastMenu() == Menus.Menu.ConfirmationGraphics)
+            {
+                GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationGraphics);
+            }
+            else
+            {
+                GetComponent<ScreenTextManagment>().ChangeToGraphicsScreen();
+            }
         }
         else if (towards == flooring)
         {
-            GetComponent<ScreenTextManagment>().ChangeToFlooringScreen();
+            if (GetComponent<ScreenTextManagment>().GetLastMenu() == Menus.Menu.ConfirmationFlooring)
+            {
+                GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationFlooring);
+            }
+            else
+            {
+                GetComponent<ScreenTextManagment>().ChangeToFlooringScreen();
+            }
         }
         else if (towards == wallpaper)
         {
-            GetComponent<ScreenTextManagment>().ChangeToWallpaperScreen();
+            if (GetComponent<ScreenTextManagment>().GetLastMenu() == Menus.Menu.ConfirmationWalls)
+            {
+                GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationWalls);
+            }
+            else
+            {
+                GetComponent<ScreenTextManagment>().ChangeToWallpaperScreen();
+            }
         }
         else if (towards == detail)
         {
-            GetComponent<ScreenTextManagment>().ChangeToDetailScreen();
+            if (GetComponent<ScreenTextManagment>().GetLastMenu() == Menus.Menu.ConfirmationDetail)
+            {
+                GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationDetail);
+            }
+            else
+            {
+                GetComponent<ScreenTextManagment>().ChangeToDetailScreen();
+            }
         }
         Destroy(GetComponent<CameraMovement>());
     }

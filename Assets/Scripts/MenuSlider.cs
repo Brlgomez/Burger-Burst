@@ -231,7 +231,7 @@ public class MenuSlider : MonoBehaviour
     {
         if (!GetSliderUnlock(GetMiddleObjectNumber()))
         {
-            GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.Confirmation, "Get power up?");
+            GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationPowerUp);
         }
         else
         {
@@ -276,7 +276,7 @@ public class MenuSlider : MonoBehaviour
         if (!GetSliderUnlock(GetMiddleObjectNumber()))
         {
             GetComponent<GraphicsManager>().SetGraphic(GetMiddleObjectNumber());
-            GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationGraphics, "Get graphics?");
+            GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationGraphics);
         }
         else
         {
@@ -291,7 +291,7 @@ public class MenuSlider : MonoBehaviour
         if (!GetSliderUnlock(GetMiddleObjectNumber()))
         {
             GetComponent<ThemeManager>().SetFlooring(GetMiddleObjectNumber());
-            GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationFooring, "Get flooring?");
+            GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationFlooring);
         }
         else
         {
@@ -306,7 +306,7 @@ public class MenuSlider : MonoBehaviour
         if (!GetSliderUnlock(GetMiddleObjectNumber()))
         {
             GetComponent<ThemeManager>().SetWallpaper(GetMiddleObjectNumber());
-            GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationWalls, "Get wallpaper?");
+            GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationWalls);
         }
         else
         {
@@ -321,7 +321,7 @@ public class MenuSlider : MonoBehaviour
         if (!GetSliderUnlock(GetMiddleObjectNumber()))
         {
             GetComponent<ThemeManager>().SetDetail(GetMiddleObjectNumber());
-            GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationDetail, "Get detail?");
+            GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationDetail);
         }
         else
         {

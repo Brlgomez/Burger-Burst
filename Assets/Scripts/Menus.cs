@@ -7,7 +7,8 @@ public class Menus : MonoBehaviour {
     public enum Menu
     {
         MainMenu, PowerUps, Gameplay, GameOver, Pause,
-        Confirmation, Customize, Setting, Store, Graphics, Theme,
-        Flooring, Wallpaper, Detail, ConfirmationGraphics, ConfirmationFooring,
-        ConfirmationWalls, ConfirmationDetail};
+        ConfirmationPowerUp, Customize, Setting, Store, Graphics, Theme,
+        Flooring, Wallpaper, Detail, ConfirmationGraphics, ConfirmationFlooring,
+        ConfirmationWalls, ConfirmationDetail
+    };
 }

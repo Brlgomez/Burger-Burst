@@ -36,7 +36,7 @@ public class MainMenu : MonoBehaviour
         {
             roundScroller = GetComponent<MenuSlider>().MoveScroller();
         }
-    }
+	}
 
     void MouseDown()
     {
@@ -73,8 +73,8 @@ public class MainMenu : MonoBehaviour
                 case Menus.Menu.Setting:
                     MouseUpSettingMenu();
                     break;
-                case Menus.Menu.Confirmation:
-                    MouseUpConfirmationMenu();
+                case Menus.Menu.ConfirmationPowerUp:
+                    MouseUpConfirmationPowerUpMenu();
                     break;
                 case Menus.Menu.Graphics:
                     MouseUpGraphicsMenu();
@@ -88,7 +88,7 @@ public class MainMenu : MonoBehaviour
                 case Menus.Menu.Flooring:
                     MouseUpFlooringMenu();
                     break;
-                case Menus.Menu.ConfirmationFooring:
+                case Menus.Menu.ConfirmationFlooring:
                     MouseUpConfirmationFlooringMenu();
                     break;
                 case Menus.Menu.Wallpaper:
@@ -294,7 +294,7 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    void MouseUpConfirmationMenu()
+    void MouseUpConfirmationPowerUpMenu()
     {
         switch (target.name)
         {
@@ -304,7 +304,9 @@ public class MainMenu : MonoBehaviour
                 GetComponent<MenuSlider>().HighLightSlot(currentSlot.transform.parent.gameObject);
                 break;
             case "Fourth Button":
-                break;
+				GetComponent<ScreenTextManagment>().CannotPressAnything();
+				gameObject.AddComponent<CameraMovement>().MoveToStore();
+				break;
             case "Fifth Button":
                 GetComponent<ScreenTextManagment>().ChangeToUpgradeText();
                 GetComponent<MenuSlider>().HighLightSlot(currentSlot.transform.parent.gameObject);
@@ -317,7 +319,28 @@ public class MainMenu : MonoBehaviour
         if (target.name == "Fifth Button")
         {
             GetComponent<ScreenTextManagment>().CannotPressAnything();
-            gameObject.AddComponent<CameraMovement>().MoveToMenu(false);
+            Menus.Menu lastMenu = GetComponent<ScreenTextManagment>().GetLastMenu();
+            switch (lastMenu)
+            {
+                case Menus.Menu.MainMenu:
+                    gameObject.AddComponent<CameraMovement>().MoveToMenu(false);
+                    break;
+                case Menus.Menu.ConfirmationPowerUp:
+                    gameObject.AddComponent<CameraMovement>().MoveToPowerUp();
+                    break;
+                case Menus.Menu.ConfirmationFlooring:
+                    gameObject.AddComponent<CameraMovement>().MoveToFlooring();
+                    break;
+                case Menus.Menu.ConfirmationWalls:
+                    gameObject.AddComponent<CameraMovement>().MoveToWallpaper();
+                    break;
+                case Menus.Menu.ConfirmationDetail:
+                    gameObject.AddComponent<CameraMovement>().MoveToDetail();
+                    break;
+                case Menus.Menu.ConfirmationGraphics:
+                    gameObject.AddComponent<CameraMovement>().MoveToGraphics();
+                    break;
+            }
         }
     }
 
@@ -363,6 +386,8 @@ public class MainMenu : MonoBehaviour
                 GetComponent<ScreenTextManagment>().ChangeToGraphicsScreen();
                 break;
             case "Fourth Button":
+				GetComponent<ScreenTextManagment>().CannotPressAnything();
+				gameObject.AddComponent<CameraMovement>().MoveToStore();
                 break;
             case "Fifth Button":
                 GetComponent<GraphicsManager>().SetGraphic(GetComponent<PlayerPrefsManager>().GetGraphics());
@@ -404,6 +429,8 @@ public class MainMenu : MonoBehaviour
                 GetComponent<ScreenTextManagment>().ChangeToFlooringScreen();
                 break;
             case "Fourth Button":
+				GetComponent<ScreenTextManagment>().CannotPressAnything();
+				gameObject.AddComponent<CameraMovement>().MoveToStore();
                 break;
             case "Fifth Button":
                 GetComponent<ThemeManager>().SetFlooring(GetComponent<PlayerPrefsManager>().GetFlooring());
@@ -445,6 +472,8 @@ public class MainMenu : MonoBehaviour
                 GetComponent<ScreenTextManagment>().ChangeToWallpaperScreen();
                 break;
             case "Fourth Button":
+				GetComponent<ScreenTextManagment>().CannotPressAnything();
+				gameObject.AddComponent<CameraMovement>().MoveToStore();
                 break;
             case "Fifth Button":
                 GetComponent<ThemeManager>().SetWallpaper(GetComponent<PlayerPrefsManager>().GetWallpaper());
@@ -486,6 +515,8 @@ public class MainMenu : MonoBehaviour
                 GetComponent<ScreenTextManagment>().ChangeToDetailScreen();
                 break;
             case "Fourth Button":
+				GetComponent<ScreenTextManagment>().CannotPressAnything();
+				gameObject.AddComponent<CameraMovement>().MoveToStore();
                 break;
             case "Fifth Button":
                 GetComponent<ThemeManager>().SetDetail(GetComponent<PlayerPrefsManager>().GetDetail());
