@@ -66,12 +66,12 @@ public class GrabAndThrowObject : MonoBehaviour
             GetComponent<ZombieManager>().ZombieUpdate(updateInterval);
             GetComponent<WindManager>().WindUpdate(updateInterval);
         }
-        /*
+
         if (Input.GetKeyDown("space"))
             GetComponent<ZombieManager>().Print();
         if (Input.GetKeyDown("d"))
             GetComponent<Gameplay>().ReduceHealth(10, gameObject);
-        */
+
     }
 
     void MouseDown()
@@ -520,12 +520,11 @@ public class GrabAndThrowObject : MonoBehaviour
         }
     }
 
-    public void ResetEverything()
+    public void DeleteEverything()
     {
-        GetComponent<FloatingTextManagement>().DeleteAllText();
-        GetComponent<LEDManager>().ResetPointsText();
-        GetComponent<WindManager>().ResetValues();
         GetComponent<ZombieManager>().ResetValues();
+        GetComponent<FloatingTextManagement>().DeleteAllText();
+        GetComponent<WindManager>().ResetValues();
         leftFryer.GetComponent<FryerBasket>().Restart();
         rightFryer.GetComponent<FryerBasket>().Restart();
         GameObject[] ingredients = GameObject.FindGameObjectsWithTag("Ingredient");

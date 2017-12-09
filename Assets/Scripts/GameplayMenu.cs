@@ -98,6 +98,9 @@ public class GameplayMenu : MonoBehaviour
                 Quit();
                 break;
             case "Third Button":
+                Continue();
+                break;
+            case "Fourth Button":
                 break;
         }
     }
@@ -159,25 +162,43 @@ public class GameplayMenu : MonoBehaviour
 
     void Restart()
     {
-		GetComponent<ScreenTextManagment>().CannotPressAnything();
+        GetComponent<ScreenTextManagment>().CannotPressAnything();
         GetComponent<GrabAndThrowObject>().currentArea = GrabAndThrowObject.Area.counter;
         initialPosition = GetComponent<PositionManager>().GameplayPosition();
         transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 0, 0, 0);
-		GetComponent<Gameplay>().ResetValues();
-		GetComponent<GrabAndThrowObject>().ResetEverything();
+        GetComponent<Gameplay>().ResetValues();
+        GetComponent<GrabAndThrowObject>().DeleteEverything();
         gameObject.AddComponent<CameraMovement>().MoveToGameplay("Restart");
     }
 
     void Quit()
     {
-		GetComponent<ScreenTextManagment>().CannotPressAnything();
+        GetComponent<ScreenTextManagment>().CannotPressAnything();
         GetComponent<GrabAndThrowObject>().currentArea = GrabAndThrowObject.Area.quit;
         transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 0, 0, 0);
-		GetComponent<Gameplay>().ResetValues();
-		GetComponent<GrabAndThrowObject>().ResetEverything();
+        GetComponent<Gameplay>().ResetValues();
         UnPauseGame();
         gameObject.AddComponent<CameraMovement>().MoveToMenu(true);
         Destroy(GetComponent<GrabAndThrowObject>());
+    }
+
+    void Continue()
+    {
+        if (GetComponent<PlayerPrefsManager>().GetCoins() >= GetComponent<Gameplay>().ContinuePrice())
+        {
+            GetComponent<Gameplay>().DecreaseCoinCount(GetComponent<Gameplay>().ContinuePrice());
+            GetComponent<ScreenTextManagment>().CannotPressAnything();
+            GetComponent<GrabAndThrowObject>().currentArea = GrabAndThrowObject.Area.counter;
+            transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 0, 0, 0);
+            GetComponent<Gameplay>().Continue();
+            GetComponent<GrabAndThrowObject>().DeleteEverything();
+            UnPauseGame();
+            gameObject.AddComponent<CameraMovement>().MoveToGameplay("Restart");
+        }
+        else
+        {
+            //TODO: coin store menu
+        }
     }
 
     void PauseGame()
@@ -190,8 +211,8 @@ public class GameplayMenu : MonoBehaviour
     public void UnPauseGame()
     {
         paused = false;
-		GetComponent<GrabAndThrowObject>().SetPause(paused);
-		Time.timeScale = 1;
+        GetComponent<GrabAndThrowObject>().SetPause(paused);
+        Time.timeScale = 1;
     }
 
     public bool GetPausedState()
@@ -201,7 +222,6 @@ public class GameplayMenu : MonoBehaviour
 
     public Transform GetInitialPosition()
     {
-        Debug.Log(initialPosition);
         return initialPosition;
     }
 }

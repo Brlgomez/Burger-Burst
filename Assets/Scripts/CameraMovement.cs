@@ -131,7 +131,7 @@ public class CameraMovement : MonoBehaviour
         }
         else if (towards == gameOver)
         {
-            GetComponent<GrabAndThrowObject>().ResetEverything();
+            GetComponent<GrabAndThrowObject>().DeleteEverything();
             GetComponent<GameplayMenu>().UnPauseGame();
             GetComponent<ScreenTextManagment>().ChangeToGameOverText();
         }

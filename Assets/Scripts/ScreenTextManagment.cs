@@ -40,8 +40,8 @@ ScreenTextManagment : MonoBehaviour
         EnableButton(line5, "Settings", settingsSprite);
         TurnOffScrollList();
         TurnOffGameplayImages();
-		lastArea = currentArea;
-		currentArea = Menus.Menu.MainMenu;
+        lastArea = currentArea;
+        currentArea = Menus.Menu.MainMenu;
     }
 
     public void ChangeToGamePlayText()
@@ -54,8 +54,8 @@ ScreenTextManagment : MonoBehaviour
         line1.transform.GetChild(5).GetComponent<SpriteRenderer>().color = Color.black;
         line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
         line5.transform.GetChild(3).gameObject.layer = 0;
-		lastArea = currentArea;
-		currentArea = Menus.Menu.Gameplay;
+        lastArea = currentArea;
+        currentArea = Menus.Menu.Gameplay;
     }
 
     public void ChangeToUpgradeText()
@@ -65,8 +65,8 @@ ScreenTextManagment : MonoBehaviour
         EnableButton(line3, "", null);
         DisableButton(line4, GetComponent<PlayerPrefsManager>().GetCoins().ToString(), coinSprite);
         EnableButton(line5, "Back", backSprite);
-		lastArea = currentArea;
-		currentArea = Menus.Menu.PowerUps;
+        lastArea = currentArea;
+        currentArea = Menus.Menu.PowerUps;
         TurnOnScrollList(currentArea);
     }
 
@@ -78,8 +78,8 @@ ScreenTextManagment : MonoBehaviour
         DisableButton(line4, "", null);
         EnableButton(line5, "Back", backSprite);
         TurnOffScrollList();
-		lastArea = currentArea;
-		currentArea = Menus.Menu.Customize;
+        lastArea = currentArea;
+        currentArea = Menus.Menu.Customize;
     }
 
     public void ChangeToThemeScreen()
@@ -90,8 +90,8 @@ ScreenTextManagment : MonoBehaviour
         DisableButton(line4, "", null);
         EnableButton(line5, "Back", backSprite);
         TurnOffScrollList();
-		lastArea = currentArea;
-		currentArea = Menus.Menu.Theme;
+        lastArea = currentArea;
+        currentArea = Menus.Menu.Theme;
     }
 
     public void ChangeToGraphicsScreen()
@@ -101,8 +101,8 @@ ScreenTextManagment : MonoBehaviour
         EnableButton(line3, "", null);
         DisableButton(line4, GetComponent<PlayerPrefsManager>().GetCoins().ToString(), coinSprite);
         EnableButton(line5, "Back", backSprite);
-		lastArea = currentArea;
-		currentArea = Menus.Menu.Graphics;
+        lastArea = currentArea;
+        currentArea = Menus.Menu.Graphics;
         TurnOnScrollList(currentArea);
     }
 
@@ -113,8 +113,8 @@ ScreenTextManagment : MonoBehaviour
         EnableButton(line3, "", null);
         DisableButton(line4, GetComponent<PlayerPrefsManager>().GetCoins().ToString(), coinSprite);
         EnableButton(line5, "Back", backSprite);
-		lastArea = currentArea;
-		currentArea = Menus.Menu.Flooring;
+        lastArea = currentArea;
+        currentArea = Menus.Menu.Flooring;
         TurnOnScrollList(currentArea);
     }
 
@@ -125,8 +125,8 @@ ScreenTextManagment : MonoBehaviour
         EnableButton(line3, "", null);
         DisableButton(line4, GetComponent<PlayerPrefsManager>().GetCoins().ToString(), coinSprite);
         EnableButton(line5, "Back", backSprite);
-		lastArea = currentArea;
-		currentArea = Menus.Menu.Wallpaper;
+        lastArea = currentArea;
+        currentArea = Menus.Menu.Wallpaper;
         TurnOnScrollList(currentArea);
     }
 
@@ -137,8 +137,8 @@ ScreenTextManagment : MonoBehaviour
         EnableButton(line3, "", null);
         DisableButton(line4, GetComponent<PlayerPrefsManager>().GetCoins().ToString(), coinSprite);
         EnableButton(line5, "Back", backSprite);
-		lastArea = currentArea;
-		currentArea = Menus.Menu.Detail;
+        lastArea = currentArea;
+        currentArea = Menus.Menu.Detail;
         TurnOnScrollList(currentArea);
     }
 
@@ -160,33 +160,31 @@ ScreenTextManagment : MonoBehaviour
         EnableButton(line3, "Sound", soundSprite);
         EnableButton(line4, "Game Center", trophySprite);
         EnableButton(line5, "Back", backSprite);
-		lastArea = currentArea;
-		currentArea = Menus.Menu.Setting;
+        lastArea = currentArea;
+        currentArea = Menus.Menu.Setting;
     }
 
     public void ChangeToConfirmationScreen(Menus.Menu menu)
     {
         string question = "";
-        if (Menus.Menu.ConfirmationPowerUp == menu)
+        switch (menu)
         {
-            question = "Get power up?";
+            case Menus.Menu.ConfirmationPowerUp:
+                question = "Get power up?";
+                break;
+            case Menus.Menu.ConfirmationGraphics:
+                question = "Get graphics?";
+                break;
+            case Menus.Menu.ConfirmationFlooring:
+                question = "Get flooring?";
+                break;
+            case Menus.Menu.ConfirmationWalls:
+                question = "Get wallpaper?";
+                break;
+            case Menus.Menu.ConfirmationDetail:
+                question = "Get detail?";
+                break;
         }
-		else if (Menus.Menu.ConfirmationGraphics == menu)
-		{
-			question = "Get graphics?";
-		}
-        else if (Menus.Menu.ConfirmationFlooring == menu)
-		{
-			question = "Get flooring?";
-		}
-        else if (Menus.Menu.ConfirmationWalls == menu)
-		{
-			question = "Get wallpaper?";
-		}
-        else if (Menus.Menu.ConfirmationDetail == menu)
-		{
-			question = "Get detail?";
-		}
         GameObject middleObj = GetComponent<MenuSlider>().GetMiddleObject();
         TurnOffScrollList();
         DisableButton(line1, middleObj.transform.GetChild(0).GetComponent<TextMesh>().text, middleObj.GetComponent<SpriteRenderer>().sprite);
@@ -261,17 +259,21 @@ ScreenTextManagment : MonoBehaviour
     {
         EnableButton(line1, "Restart", restartSprite);
         EnableButton(line2, "Quit", quitSprite);
-        EnableButton(line3, "Continue for", null);
-        EnableButton(line4, "Get Coins?", coinSprite);
-		DisableButton(line5, GetComponent<PlayerPrefsManager>().GetCoins().ToString(), coinSprite);
-		line1.GetComponent<TextMesh>().color = Color.red;
-        line2.GetComponent<TextMesh>().color = Color.red;
-        line3.GetComponent<TextMesh>().color = Color.red;
+        if (GetComponent<Gameplay>().ContinuePrice() > 1)
+        {
+            EnableButton(line3, "Continue for\n" + GetComponent<Gameplay>().ContinuePrice() + " coins?", null);
+        }
+        else
+        {
+            EnableButton(line3, "Continue for\n" + GetComponent<Gameplay>().ContinuePrice() + " coin?", null);
+        }
+        DisableButton(line4, GetComponent<PlayerPrefsManager>().GetCoins().ToString(), coinSprite);
+        DisableButton(line5, "", null);
         line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
         line5.transform.GetChild(3).gameObject.layer = 2;
         TurnOffGameplayImages();
-		lastArea = currentArea;
-		currentArea = Menus.Menu.GameOver;
+        lastArea = currentArea;
+        currentArea = Menus.Menu.GameOver;
     }
 
     public void ChangeToPauseText()
@@ -284,8 +286,8 @@ ScreenTextManagment : MonoBehaviour
         line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
         line5.transform.GetChild(3).gameObject.layer = 2;
         TurnOffGameplayImages();
-		lastArea = currentArea;
-		currentArea = Menus.Menu.Pause;
+        lastArea = currentArea;
+        currentArea = Menus.Menu.Pause;
     }
 
     public void ChangeToGrillArea()
@@ -586,10 +588,10 @@ ScreenTextManagment : MonoBehaviour
         return currentArea;
     }
 
-	public Menus.Menu GetLastMenu()
-	{
+    public Menus.Menu GetLastMenu()
+    {
         return lastArea;
-	}
+    }
 
     public void ChangeSliderInfo()
     {
