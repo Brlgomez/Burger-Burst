@@ -175,7 +175,8 @@ public class MainMenu : MonoBehaviour
         {
             case "First Button":
                 GetComponent<ScreenTextManagment>().CannotPressAnything();
-                gameObject.AddComponent<CameraMovement>().MoveToGameplay("Start");
+				GetComponent<Gameplay>().ResetValues();
+				gameObject.AddComponent<CameraMovement>().MoveToGameplay("Start");
                 Destroy(GetComponent<MainMenu>());
                 break;
             case "Second Button":

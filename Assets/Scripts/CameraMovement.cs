@@ -80,7 +80,7 @@ public class CameraMovement : MonoBehaviour
         if (unpause)
         {
             GetComponent<ScreenTextManagment>().ChangeToGamePlayText();
-            GetComponent<GrabAndThrowObject>().UnPauseGame();
+            GetComponent<GameplayMenu>().UnPauseGame();
         }
         if (towards == gameplay)
         {
@@ -88,7 +88,7 @@ public class CameraMovement : MonoBehaviour
             {
                 case "Restart":
                     GetComponent<ScreenTextManagment>().ChangeToGamePlayText();
-                    GetComponent<GrabAndThrowObject>().UnPauseGame();
+                    GetComponent<GameplayMenu>().UnPauseGame();
                     GetComponent<DropMoreProducts>().DropItems();
                     GetComponent<DropMoreProducts>().DropMadeProducts();
                     break;
@@ -100,7 +100,7 @@ public class CameraMovement : MonoBehaviour
                     break;
                 case "Unpause":
                     GetComponent<ScreenTextManagment>().ChangeToGamePlayText();
-                    GetComponent<GrabAndThrowObject>().UnPauseGame();
+                    GetComponent<GameplayMenu>().UnPauseGame();
                     break;
             }
             GetComponent<ScreenTextManagment>().ChangeToFrontArea();
@@ -132,7 +132,7 @@ public class CameraMovement : MonoBehaviour
         else if (towards == gameOver)
         {
             GetComponent<GrabAndThrowObject>().ResetEverything();
-            GetComponent<GrabAndThrowObject>().UnPauseGame();
+            GetComponent<GameplayMenu>().UnPauseGame();
             GetComponent<ScreenTextManagment>().ChangeToGameOverText();
         }
         else if (towards == grill)
@@ -155,8 +155,8 @@ public class CameraMovement : MonoBehaviour
             }
             else
             {
-				GetComponent<ScreenTextManagment>().ChangeToUpgradeText();
-			}
+                GetComponent<ScreenTextManagment>().ChangeToUpgradeText();
+            }
         }
         else if (towards == theme)
         {
@@ -294,7 +294,7 @@ public class CameraMovement : MonoBehaviour
         switch (gamePlayCommand)
         {
             case "Restart":
-                GetComponent<GrabAndThrowObject>().UnPauseGame();
+                GetComponent<GameplayMenu>().UnPauseGame();
                 GetComponent<DropMoreProducts>().DropItems();
                 break;
             case "Start":
@@ -316,25 +316,24 @@ public class CameraMovement : MonoBehaviour
     public void MoveToUnpause(string area)
     {
         unpause = true;
-        if (area == "Front")
+        switch (area)
         {
-            gameplay = GetComponent<PositionManager>().GameplayPosition();
-            towards = gameplay;
-        }
-        else if (area == "Grill")
-        {
-            grill = GetComponent<PositionManager>().GrillPosition();
-            towards = grill;
-        }
-        else if (area == "Fryer")
-        {
-            fryer = GetComponent<PositionManager>().FryerPosition();
-            towards = fryer;
-        }
-        else if (area == "Soda Machine")
-        {
-            soda = GetComponent<PositionManager>().SodaPosition();
-            towards = soda;
+            case "Front":
+                gameplay = GetComponent<PositionManager>().GameplayPosition();
+                towards = gameplay;
+                break;
+            case "Grill":
+                grill = GetComponent<PositionManager>().GrillPosition();
+                towards = grill;
+                break;
+            case "Fryer":
+                fryer = GetComponent<PositionManager>().FryerPosition();
+                towards = fryer;
+                break;
+            case "Soda Machine":
+                soda = GetComponent<PositionManager>().SodaPosition();
+                towards = soda;
+                break;
         }
         deviceBack = GetComponent<PositionManager>().DeviceBackPosition();
         deviceTowards = deviceBack;

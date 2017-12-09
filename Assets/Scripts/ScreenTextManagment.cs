@@ -261,10 +261,10 @@ ScreenTextManagment : MonoBehaviour
     {
         EnableButton(line1, "Restart", restartSprite);
         EnableButton(line2, "Quit", quitSprite);
-        DisableButton(line3, GetComponent<Gameplay>().GetPoints().ToString(), pointSprite);
-        DisableButton(line4, GetComponent<PlayerPrefsManager>().GetCoins().ToString(), coinSprite);
-        DisableButton(line5, "", null);
-        line1.GetComponent<TextMesh>().color = Color.red;
+        EnableButton(line3, "Continue for", null);
+        EnableButton(line4, "Get Coins?", coinSprite);
+		DisableButton(line5, GetComponent<PlayerPrefsManager>().GetCoins().ToString(), coinSprite);
+		line1.GetComponent<TextMesh>().color = Color.red;
         line2.GetComponent<TextMesh>().color = Color.red;
         line3.GetComponent<TextMesh>().color = Color.red;
         line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;

@@ -52,6 +52,13 @@ public class ZombieManager : MonoBehaviour
         }
     }
 
+    public void Print()
+    {
+        Debug.Log(GetCount());
+        Debug.Log(time);
+        Debug.Log(GetComponent<Gameplay>().IsGameOver());
+    }
+
     public void AddNewZombie(Vector3 position)
     {
         amountOfZombies++;
@@ -123,6 +130,7 @@ public class ZombieManager : MonoBehaviour
 
     public void ResetValues()
     {
+        amountOfZombies = 0;
         time = timeForNewZombie;
     }
 }

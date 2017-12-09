@@ -14,7 +14,7 @@ public class GettingHurt : MonoBehaviour
 
     void Start()
     {
-        initialTransform = GetComponent<GrabAndThrowObject>().GetInitialPosition();
+        initialTransform = GetComponent<GameplayMenu>().GetInitialPosition();
         screen = transform.GetChild(0).gameObject;
         alpha = 0;
         if (GetComponent<CameraMovement>() != null)

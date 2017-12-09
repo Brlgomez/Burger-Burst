@@ -10,15 +10,14 @@ public class GrabAndThrowObject : MonoBehaviour
     GameObject rightFryer, leftFryer, sodaFountain1, sodaFountain2, sodaFountain3;
     List<Vector3> positions = new List<Vector3>();
     Vector3 direction;
-    Transform initialPosition;
-    bool paused;
     float timeForDrag;
     static float limitForNewDragPosition = 0.01f;
-    enum Area { counter, pause, gameOver, quit, grill, fryer, sodaMachine };
-    Area currentArea;
-    Area previousArea;
+    public enum Area { counter, pause, gameOver, quit, grill, fryer, sodaMachine };
+    public Area currentArea;
+    public Area previousArea;
     int throwingDistance = 15;
-    bool frozen = false;
+    bool frozen;
+    bool gameOver, paused;
 
     void Start()
     {
@@ -32,7 +31,6 @@ public class GrabAndThrowObject : MonoBehaviour
         sodaFountain2 = GetComponent<ObjectManager>().SodaMachine2();
         sodaFountain3 = GetComponent<ObjectManager>().SodaMachine3();
         phone = GetComponent<ObjectManager>().Phone();
-        initialPosition = GetComponent<PositionManager>().GameplayPosition();
         currentArea = Area.counter;
         if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(GetComponent<PowerUpsManager>().throwFurther.powerUpNumber))
         {
@@ -68,6 +66,12 @@ public class GrabAndThrowObject : MonoBehaviour
             GetComponent<ZombieManager>().ZombieUpdate(updateInterval);
             GetComponent<WindManager>().WindUpdate(updateInterval);
         }
+        /*
+        if (Input.GetKeyDown("space"))
+            GetComponent<ZombieManager>().Print();
+        if (Input.GetKeyDown("d"))
+            GetComponent<Gameplay>().ReduceHealth(10, gameObject);
+        */
     }
 
     void MouseDown()
@@ -115,14 +119,14 @@ public class GrabAndThrowObject : MonoBehaviour
                 GetComponent<ScreenTextManagment>().PressTextDown(obj.transform.parent.gameObject);
                 return obj;
             }
-            if (!paused && !GetComponent<Gameplay>().IsGameOver() && obj.GetComponent<FadeObject>() == null)
+            if (!paused && !gameOver && obj.GetComponent<FadeObject>() == null)
             {
                 TurnOffPhoneColliders();
                 TurnOffSodaButtonColliders();
                 if (obj.tag == "Pause" && gameObject.GetComponent<CameraMovement>() == null)
                 {
                     obj.GetComponent<SpriteRenderer>().color = Color.grey;
-					return obj;
+                    return obj;
                 }
                 if (currentArea == Area.counter)
                 {
@@ -148,7 +152,7 @@ public class GrabAndThrowObject : MonoBehaviour
 
     void MouseDrag()
     {
-        if (target != null && !paused && !GetComponent<Gameplay>().IsGameOver())
+        if (target != null && !paused && !gameOver)
         {
             switch (currentArea)
             {
@@ -176,12 +180,12 @@ public class GrabAndThrowObject : MonoBehaviour
         {
             if (target.tag == "UI")
             {
-                PhoneInterface(target);
+                GetComponent<GameplayMenu>().PhoneInterface(target);
                 GetComponent<ScreenTextManagment>().PressTextUp(target.transform.parent.gameObject);
             }
-            if (!paused && !gameObject.GetComponent<Gameplay>().IsGameOver())
+            if (!paused && !gameOver)
             {
-                MouseUpPauseButton();
+                GetComponent<GameplayMenu>().MouseUpPauseButton(target);
                 if (currentArea == Area.counter)
                 {
                     MouseUpCounter();
@@ -201,131 +205,6 @@ public class GrabAndThrowObject : MonoBehaviour
             }
         }
         target = null;
-    }
-
-    void PhoneInterface(GameObject obj)
-    {
-        if (!paused && !gameObject.GetComponent<Gameplay>().IsGameOver())
-        {
-            GameplayPhoneInterface(obj);
-        }
-        else if (gameObject.GetComponent<Gameplay>().IsGameOver() && gameObject.GetComponent<CameraMovement>() == null)
-        {
-            GameOverPhoneInterface(obj);
-        }
-        else if (paused && gameObject.GetComponent<CameraMovement>() == null)
-        {
-            PauseMenuInterface(obj);
-        }
-    }
-
-    void GameplayPhoneInterface(GameObject obj)
-    {
-        switch (obj.name)
-        {
-            case "Second Button":
-                if (currentArea != Area.grill)
-                {
-                    currentArea = Area.grill;
-                    gameObject.GetComponent<ScreenTextManagment>().ChangeToGrillArea();
-                    initialPosition = GetComponent<PositionManager>().GrillPosition();
-                    if (gameObject.GetComponent<CameraMovement>() != null)
-                    {
-                        Destroy(gameObject.GetComponent<CameraMovement>());
-                    }
-                    gameObject.AddComponent<CameraMovement>().MoveToGrill();
-                }
-                break;
-            case "Third Button":
-                if (currentArea != Area.fryer)
-                {
-                    currentArea = Area.fryer;
-                    gameObject.GetComponent<ScreenTextManagment>().ChangeToFryerArea();
-                    initialPosition = GetComponent<PositionManager>().FryerPosition();
-                    if (gameObject.GetComponent<CameraMovement>() != null)
-                    {
-                        Destroy(gameObject.GetComponent<CameraMovement>());
-                    }
-                    gameObject.AddComponent<CameraMovement>().MoveToFryer();
-                }
-                break;
-            case "Fourth Button":
-                if (currentArea != Area.sodaMachine)
-                {
-                    currentArea = Area.sodaMachine;
-                    gameObject.GetComponent<ScreenTextManagment>().ChangeToSodaMachineArea();
-                    initialPosition = GetComponent<PositionManager>().SodaPosition();
-                    if (gameObject.GetComponent<CameraMovement>() != null)
-                    {
-                        Destroy(gameObject.GetComponent<CameraMovement>());
-                    }
-                }
-                gameObject.AddComponent<CameraMovement>().MoveToSodaMachine();
-                break;
-            case "Fifth Button":
-                if (currentArea != Area.counter)
-                {
-                    currentArea = Area.counter;
-                    gameObject.GetComponent<ScreenTextManagment>().ChangeToFrontArea();
-                    initialPosition = GetComponent<PositionManager>().GameplayPosition();
-                    if (gameObject.GetComponent<CameraMovement>() != null)
-                    {
-                        Destroy(gameObject.GetComponent<CameraMovement>());
-                    }
-                    gameObject.AddComponent<CameraMovement>().MoveToGameplay("Unpause");
-                }
-                break;
-        }
-    }
-
-    void GameOverPhoneInterface(GameObject obj)
-    {
-        if (obj.name == "First Button")
-        {
-            Restart();
-        }
-        else if (obj.name == "Second Button")
-        {
-            Quit();
-        }
-    }
-
-    void PauseMenuInterface(GameObject obj)
-    {
-        if (paused)
-        {
-            if (obj.name == "First Button" && !gameObject.GetComponent<Gameplay>().IsGameOver())
-            {
-                currentArea = previousArea;
-                switch (currentArea)
-                {
-                    case Area.counter:
-                        initialPosition = GetComponent<PositionManager>().GameplayPosition();
-                        gameObject.AddComponent<CameraMovement>().MoveToGameplay("Unpause");
-                        break;
-                    case Area.grill:
-                        initialPosition = GetComponent<PositionManager>().GrillPosition();
-                        gameObject.AddComponent<CameraMovement>().MoveToUnpause("Grill");
-                        break;
-                    case Area.fryer:
-                        initialPosition = GetComponent<PositionManager>().FryerPosition();
-                        gameObject.AddComponent<CameraMovement>().MoveToUnpause("Fryer");
-                        break;
-                    case Area.sodaMachine:
-                        initialPosition = GetComponent<PositionManager>().SodaPosition();
-                        gameObject.AddComponent<CameraMovement>().MoveToUnpause("Soda Machine");
-                        break;
-                }
-            }
-            else if (obj.name == "Second Button")
-            {
-                Restart();
-            }
-            else if (obj.name == "Third Button")
-            {
-                Quit();
-            }
-        }
     }
 
     GameObject GetCounterObject(GameObject obj)
@@ -468,23 +347,6 @@ public class GrabAndThrowObject : MonoBehaviour
         }
     }
 
-    void MouseUpPauseButton()
-    {
-        if (target.name == "Pause Image")
-        {
-			target.GetComponent<SpriteRenderer>().color = Color.white;
-			previousArea = currentArea;
-            currentArea = Area.pause;
-            initialPosition = GetComponent<PositionManager>().PausePosition();
-            if (GetComponent<GettingHurt>() != null)
-            {
-                Destroy(GetComponent<GettingHurt>());
-            }
-            gameObject.AddComponent<CameraMovement>().MoveToPause();
-            PauseGame();
-        }
-    }
-
     void MouseUpCounter()
     {
         if (target.tag == "Ingredient")
@@ -597,53 +459,6 @@ public class GrabAndThrowObject : MonoBehaviour
         return new Vector3(xVelocity, yVelocity, zVelocity);
     }
 
-    void Restart()
-    {
-        GetComponent<ScreenTextManagment>().CannotPressAnything();
-        currentArea = Area.counter;
-        initialPosition = GetComponent<PositionManager>().GameplayPosition();
-        transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 0, 0, 0);
-        ResetEverything();
-        Destroy(GetComponent<Gameplay>());
-        gameObject.AddComponent<Gameplay>();
-        gameObject.AddComponent<CameraMovement>().MoveToGameplay("Restart");
-    }
-
-    void Quit()
-    {
-        GetComponent<ScreenTextManagment>().CannotPressAnything();
-        currentArea = Area.quit;
-        transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 0, 0, 0);
-        ResetEverything();
-        Destroy(GetComponent<Gameplay>());
-        UnPauseGame();
-        gameObject.AddComponent<CameraMovement>().MoveToMenu(true);
-        gameObject.AddComponent<Gameplay>();
-        Destroy(GetComponent<GrabAndThrowObject>());
-    }
-
-    void PauseGame()
-    {
-        paused = true;
-        Time.timeScale = 0;
-    }
-
-    public void UnPauseGame()
-    {
-        paused = false;
-        Time.timeScale = 1;
-    }
-
-    public bool GetPausedState()
-    {
-        return paused;
-    }
-
-    public Transform GetInitialPosition()
-    {
-        return initialPosition;
-    }
-
     void TurnOffPhoneColliders()
     {
         phone.GetComponent<Collider>().enabled = false;
@@ -711,7 +526,6 @@ public class GrabAndThrowObject : MonoBehaviour
         GetComponent<LEDManager>().ResetPointsText();
         GetComponent<WindManager>().ResetValues();
         GetComponent<ZombieManager>().ResetValues();
-        GetComponent<Gameplay>().ResetValues();
         leftFryer.GetComponent<FryerBasket>().Restart();
         rightFryer.GetComponent<FryerBasket>().Restart();
         GameObject[] ingredients = GameObject.FindGameObjectsWithTag("Ingredient");
@@ -767,5 +581,15 @@ public class GrabAndThrowObject : MonoBehaviour
     public void SetFrozen(bool b)
     {
         frozen = b;
+    }
+
+    public void SetGameOver(bool b)
+    {
+        gameOver = b;
+    }
+
+    public void SetPause(bool b)
+    {
+        paused = b;
     }
 }

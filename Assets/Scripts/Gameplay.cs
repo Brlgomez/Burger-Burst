@@ -81,15 +81,19 @@ public class Gameplay : MonoBehaviour
     void ReduceHealthLogic(int damage)
     {
         life -= Mathf.RoundToInt(damage * defense);
-        GetComponent<ScreenTextManagment>().ChangeHealthCount(-1);
-        if (gameObject.GetComponent<GettingHurt>() == null)
-        {
-            gameObject.AddComponent<GettingHurt>();
-        }
+		if (!gameOver)
+		{
+			GetComponent<ScreenTextManagment>().ChangeHealthCount(-1);
+			if (gameObject.GetComponent<GettingHurt>() == null)
+			{
+				gameObject.AddComponent<GettingHurt>();
+			}
+		}
         if (life < 1)
         {
             gameOver = true;
-            GetComponent<ScreenTextManagment>().CannotPressAnything();
+			GetComponent<GrabAndThrowObject>().SetGameOver(gameOver);
+			GetComponent<ScreenTextManagment>().CannotPressAnything();
             if (GetComponent<CameraMovement>() != null)
             {
                 Destroy(GetComponent<CameraMovement>());
@@ -200,7 +204,7 @@ public class Gameplay : MonoBehaviour
     public void IncreaseCompletedOrders()
     {
         completedOrders++;
-    }
+	}
 
     public int GetCompletedOrdersCount()
     {
@@ -258,6 +262,18 @@ public class Gameplay : MonoBehaviour
 
     public void ResetValues()
     {
+		maxLifeWithBonus = 200;
+		maxLife = 100;
+		life = 100;
+		burgers = 25;
+		fries = 25;
+		drinks = 25;
+        gameOver = false;
+		completedOrders = 0;
         regenTimer = 0;
+		if (GetComponent<GrabAndThrowObject>() != null)
+		{
+			GetComponent<GrabAndThrowObject>().SetGameOver(gameOver);
+		}
     }
 }
