@@ -18,6 +18,7 @@ public class Gameplay : MonoBehaviour
     bool gameOver;
     float defense = 1;
     bool moreLife;
+    bool continued;
 
     public void IncreasePoints(GameObject obj)
     {
@@ -92,6 +93,7 @@ public class Gameplay : MonoBehaviour
         if (life < 1)
         {
             gameOver = true;
+            GetComponent<PlayerPrefsManager>().CheckHighScore(points);
             GetComponent<GrabAndThrowObject>().SetGameOver(gameOver);
             GetComponent<ScreenTextManagment>().CannotPressAnything();
             if (GetComponent<CameraMovement>() != null)
@@ -216,7 +218,7 @@ public class Gameplay : MonoBehaviour
         defense = 0.75f;
     }
 
-    public void IncreaseCoinCount(int number, GameObject obj)
+    public void StartCoinLancher(int number, GameObject obj)
     {
         int amount = number;
         if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(GetComponent<PowerUpsManager>().doubleCoins.powerUpNumber))
@@ -224,12 +226,6 @@ public class Gameplay : MonoBehaviour
             amount *= 2;
         }
         gameObject.AddComponent<CoinSpawn>().StartCoinLaunch(amount, obj.transform.position);
-    }
-
-    public void DecreaseCoinCount(int amount)
-    {
-        GetComponent<PlayerPrefsManager>().DecreaseCoins(amount);
-        GetComponent<LEDManager>().UpdateCoinsText();
     }
 
     public void RegenerationUpdate(int updateInterval)
@@ -262,6 +258,7 @@ public class Gameplay : MonoBehaviour
 
     public void ResetValues()
     {
+        continued = false;
         maxLifeWithBonus = 200;
         maxLife = 100;
         life = 100;
@@ -271,12 +268,13 @@ public class Gameplay : MonoBehaviour
         completedOrders = 0;
         regenTimer = 0;
         points = 0;
-		GetComponent<LEDManager>().ResetPointsText();
-		NotGameOver();
+        GetComponent<LEDManager>().ResetPointsText();
+        NotGameOver();
     }
 
     public void Continue()
     {
+        continued = true;
         maxLifeWithBonus = 200;
         maxLife = 100;
         life = 100;
@@ -296,5 +294,10 @@ public class Gameplay : MonoBehaviour
     public int ContinuePrice()
     {
         return Mathf.RoundToInt(completedOrders * 0.75f) + 1;
+    }
+
+    public bool GetContinued()
+    {
+        return continued;
     }
 }

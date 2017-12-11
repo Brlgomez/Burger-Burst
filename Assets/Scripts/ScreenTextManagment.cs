@@ -250,30 +250,43 @@ ScreenTextManagment : MonoBehaviour
 
     void BoughtItem(GameObject middleObj)
     {
-        GetComponent<Gameplay>().DecreaseCoinCount(int.Parse(middleObj.transform.GetChild(0).GetComponent<TextMesh>().text));
+        GetComponent<PlayerPrefsManager>().DecreaseCoins(int.Parse(middleObj.transform.GetChild(0).GetComponent<TextMesh>().text));
         middleObj.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
         middleObj.transform.GetChild(0).GetComponent<TextMesh>().text = "";
     }
 
     public void ChangeToGameOverText()
     {
-        EnableButton(line1, "Restart", restartSprite);
-        EnableButton(line2, "Quit", quitSprite);
-        if (GetComponent<Gameplay>().ContinuePrice() > 1)
+        DisableButton(line1, GetComponent<Gameplay>().GetPoints().ToString(), pointSprite);
+        EnableButton(line2, "Restart", restartSprite);
+        EnableButton(line3, "Quit", quitSprite);
+        if (!GetComponent<Gameplay>().GetContinued())
         {
-            EnableButton(line3, "Continue for\n" + GetComponent<Gameplay>().ContinuePrice() + " coins?", null);
+            if (GetComponent<Gameplay>().ContinuePrice() > 1)
+            {
+                EnableButton(line4, "Continue for\n" + GetComponent<Gameplay>().ContinuePrice() + " coins?", null);
+            }
+            else
+            {
+                EnableButton(line4, "Continue for\n" + GetComponent<Gameplay>().ContinuePrice() + " coin?", null);
+            }
+            DisableButton(line5, GetComponent<PlayerPrefsManager>().GetCoins().ToString(), coinSprite);
         }
         else
         {
-            EnableButton(line3, "Continue for\n" + GetComponent<Gameplay>().ContinuePrice() + " coin?", null);
+            DisableButton(line4, "", null);
+            DisableButton(line5, "", null);
         }
-        DisableButton(line4, GetComponent<PlayerPrefsManager>().GetCoins().ToString(), coinSprite);
-        DisableButton(line5, "", null);
         line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
         line5.transform.GetChild(3).gameObject.layer = 2;
         TurnOffGameplayImages();
         lastArea = currentArea;
         currentArea = Menus.Menu.GameOver;
+    }
+
+    public void PressedContinue()
+    {
+        DisableButton(line5, GetComponent<PlayerPrefsManager>().GetCoins().ToString(), coinSprite);
     }
 
     public void ChangeToPauseText()

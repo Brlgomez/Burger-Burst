@@ -31,7 +31,7 @@ public class ThemeManager : MonoBehaviour
         {
             themeNumber = num;
             price = cost;
-            unlocked = (PlayerPrefs.GetInt(itemType + " " + num, 0) == 1);
+            unlocked = (PlayerPrefs.GetInt(itemType + num, 0) == 1);
             description = info;
             sprite = icon;
             texture = tex;
@@ -40,27 +40,27 @@ public class ThemeManager : MonoBehaviour
 
     void Awake()
     {
-        PlayerPrefs.SetInt("Flooring 0", 1);
-        PlayerPrefs.SetInt("Wallpaper 0", 1);
-        PlayerPrefs.SetInt("Detail 0", 1);
+        PlayerPrefs.SetInt("Flooring0", 1);
+        PlayerPrefs.SetInt("Wallpaper0", 1);
+        PlayerPrefs.SetInt("Detail0", 1);
 
-        flooringList.Add(new CustomItem(0, 0, "Flooring", "C&B", flooringSprites[0], flooringTexture[0]));
-        flooringList.Add(new CustomItem(1, 10, "Flooring", "Wood", flooringSprites[1], flooringTexture[1]));
-        flooringList.Add(new CustomItem(2, 20, "Flooring", "Lawn", flooringSprites[2], flooringTexture[2]));
-        flooringList.Add(new CustomItem(3, 30, "Flooring", "Ceramic", flooringSprites[3], flooringTexture[3]));
-        flooringList.Add(new CustomItem(4, 40, "Flooring", "Poka dots", flooringSprites[4], flooringTexture[4]));
+        flooringList.Add(new CustomItem(0, 0, PlayerPrefsManager.specificFlooring, "C&B", flooringSprites[0], flooringTexture[0]));
+        flooringList.Add(new CustomItem(1, 10, PlayerPrefsManager.specificFlooring, "Wood", flooringSprites[1], flooringTexture[1]));
+        flooringList.Add(new CustomItem(2, 20, PlayerPrefsManager.specificFlooring, "Lawn", flooringSprites[2], flooringTexture[2]));
+        flooringList.Add(new CustomItem(3, 30, PlayerPrefsManager.specificFlooring, "Ceramic", flooringSprites[3], flooringTexture[3]));
+        flooringList.Add(new CustomItem(4, 40, PlayerPrefsManager.specificFlooring, "Poka dots", flooringSprites[4], flooringTexture[4]));
 
-        wallList.Add(new CustomItem(0, 0, "Wallpaper", "C&B", wallSprites[0], wallTexture[0]));
-        wallList.Add(new CustomItem(1, 10, "Wallpaper", "", wallSprites[1], wallTexture[1]));
-        wallList.Add(new CustomItem(2, 20, "Wallpaper", "", wallSprites[2], wallTexture[2]));
-        wallList.Add(new CustomItem(3, 30, "Wallpaper", "", wallSprites[3], wallTexture[3]));
-        wallList.Add(new CustomItem(4, 40, "Wallpaper", "", wallSprites[4], wallTexture[4]));
+        wallList.Add(new CustomItem(0, 0, PlayerPrefsManager.specificWallpaper, "C&B", wallSprites[0], wallTexture[0]));
+        wallList.Add(new CustomItem(1, 10, PlayerPrefsManager.specificWallpaper, "", wallSprites[1], wallTexture[1]));
+        wallList.Add(new CustomItem(2, 20, PlayerPrefsManager.specificWallpaper, "", wallSprites[2], wallTexture[2]));
+        wallList.Add(new CustomItem(3, 30, PlayerPrefsManager.specificWallpaper, "", wallSprites[3], wallTexture[3]));
+        wallList.Add(new CustomItem(4, 40, PlayerPrefsManager.specificWallpaper, "", wallSprites[4], wallTexture[4]));
 
-        detailList.Add(new CustomItem(0, 0, "Detail", "C&B", detailSprites[0], detailTexture[0]));
-        detailList.Add(new CustomItem(1, 10, "Detail", "", detailSprites[1], detailTexture[1]));
-        detailList.Add(new CustomItem(2, 20, "Detail", "", detailSprites[2], detailTexture[2]));
-        detailList.Add(new CustomItem(3, 30, "Detail", "", detailSprites[3], detailTexture[3]));
-        detailList.Add(new CustomItem(4, 40, "Detail", "", detailSprites[4], detailTexture[4]));
+        detailList.Add(new CustomItem(0, 0, PlayerPrefsManager.specificDetail, "C&B", detailSprites[0], detailTexture[0]));
+        detailList.Add(new CustomItem(1, 10, PlayerPrefsManager.specificDetail, "", detailSprites[1], detailTexture[1]));
+        detailList.Add(new CustomItem(2, 20, PlayerPrefsManager.specificDetail, "", detailSprites[2], detailTexture[2]));
+        detailList.Add(new CustomItem(3, 30, PlayerPrefsManager.specificDetail, "", detailSprites[3], detailTexture[3]));
+        detailList.Add(new CustomItem(4, 40, PlayerPrefsManager.specificDetail, "", detailSprites[4], detailTexture[4]));
 
         SetFlooring(GetComponent<PlayerPrefsManager>().GetFlooring());
         SetWallpaper(GetComponent<PlayerPrefsManager>().GetWallpaper());

@@ -18,9 +18,15 @@ public class GameplayMenu : MonoBehaviour
         {
             GameplayPhoneInterface(obj);
         }
-        else if (GetComponent<Gameplay>().IsGameOver() && GetComponent<CameraMovement>() == null)
+        else if (GetComponent<Gameplay>().IsGameOver() && GetComponent<CameraMovement>() == null &&
+                 GetComponent<ScreenTextManagment>().GetMenu() == Menus.Menu.GameOver)
         {
             GameOverPhoneInterface(obj);
+        }
+        else if (GetComponent<Gameplay>().IsGameOver() && GetComponent<CameraMovement>() == null &&
+                 GetComponent<ScreenTextManagment>().GetMenu() == Menus.Menu.Store)
+        {
+            StorePhoneInterface(obj);
         }
         else if (paused && GetComponent<CameraMovement>() == null)
         {
@@ -91,16 +97,32 @@ public class GameplayMenu : MonoBehaviour
     {
         switch (obj.name)
         {
-            case "First Button":
+            case "Second Button":
                 Restart();
                 break;
-            case "Second Button":
+            case "Third Button":
                 Quit();
                 break;
-            case "Third Button":
+            case "Fourth Button":
                 Continue();
                 break;
+        }
+    }
+
+    void StorePhoneInterface(GameObject obj)
+    {
+        switch (obj.name)
+        {
+            case "First Button":
+                break;
+            case "Second Button":
+                break;
+            case "Third Button":
+                break;
             case "Fourth Button":
+                break;
+            case "Fifth Button":
+                GetComponent<ScreenTextManagment>().ChangeToGameOverText();
                 break;
         }
     }
@@ -186,7 +208,8 @@ public class GameplayMenu : MonoBehaviour
     {
         if (GetComponent<PlayerPrefsManager>().GetCoins() >= GetComponent<Gameplay>().ContinuePrice())
         {
-            GetComponent<Gameplay>().DecreaseCoinCount(GetComponent<Gameplay>().ContinuePrice());
+			GetComponent<PlayerPrefsManager>().DecreaseCoins(GetComponent<Gameplay>().ContinuePrice());
+			GetComponent<ScreenTextManagment>().PressedContinue();
             GetComponent<ScreenTextManagment>().CannotPressAnything();
             GetComponent<GrabAndThrowObject>().currentArea = GrabAndThrowObject.Area.counter;
             transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 0, 0, 0);
@@ -197,7 +220,7 @@ public class GameplayMenu : MonoBehaviour
         }
         else
         {
-            //TODO: coin store menu
+            GetComponent<ScreenTextManagment>().ChangeToStoreScreen();
         }
     }
 

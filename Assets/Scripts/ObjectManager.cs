@@ -6,7 +6,7 @@ public class ObjectManager : MonoBehaviour
 {
     GameObject counterWall, grillWall, fryerWall, sodaWall;
     GameObject rightFryer, leftFryer, sodaFountain1, sodaFountain2, sodaFountain3;
-    GameObject phone, led, powerUpsLed, coinsLed;
+    GameObject phone, led, powerUpsLed, coinsLed, highScoreLed;
     GameObject fries, burger, drink;
     GameObject meat, topBun, bottomBun, uncookedFries, friesBasket, cup, lid;
     GameObject foodTruck;
@@ -32,7 +32,8 @@ public class ObjectManager : MonoBehaviour
         led = GameObject.Find("Points LED");
         powerUpsLed = GameObject.Find("Power Ups LED");
         coinsLed = GameObject.Find("Coins LED");
-        fries = GameObject.Find("Fries");
+		highScoreLed = GameObject.Find("High Score LED");
+		fries = GameObject.Find("Fries");
         burger = GameObject.Find("Burger");
         drink = GameObject.Find("Drink");
         foodTruck = GameObject.Find("Food Truck");
@@ -76,7 +77,9 @@ public class ObjectManager : MonoBehaviour
 
     public GameObject CoinsLED() { return coinsLed; }
 
-    public GameObject Fries() { return fries; }
+    public GameObject HighScoreLED() { return highScoreLed; }
+
+	public GameObject Fries() { return fries; }
 
     public GameObject Burger() { return burger; }
 

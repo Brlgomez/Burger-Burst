@@ -15,8 +15,7 @@ public class CoinSpawn : MonoBehaviour
         tempCoin.AddComponent<CoinEffect>();
         tempCoin.transform.position = coinSpawnPosition;
         tempCoin.GetComponent<ParticleSystem>().Play();
-        PlayerPrefs.SetInt("Coins", (PlayerPrefs.GetInt("Coins", 0) + 1));
-        GetComponent<LEDManager>().UpdateCoinsText();
+        GetComponent<PlayerPrefsManager>().IncreaseCoins();
         amountOfCoins--;
         if (amountOfCoins > 0)
         {

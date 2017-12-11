@@ -150,16 +150,16 @@ public class Zombie : MonoBehaviour
             particlesPlaying = true;
             if (thisZombieType == ZombieType.coin)
             {
-                Camera.main.GetComponent<Gameplay>().IncreaseCoinCount(10, thinkBubble);
+                Camera.main.GetComponent<Gameplay>().StartCoinLancher(10, thinkBubble);
             }
             else if (thisZombieType == ZombieType.healing)
             {
-                Camera.main.GetComponent<Gameplay>().IncreaseCoinCount(1, thinkBubble);
+                Camera.main.GetComponent<Gameplay>().StartCoinLancher(1, thinkBubble);
                 Camera.main.GetComponent<Gameplay>().AddLife(15, thinkBubble);
             }
             else
             {
-                Camera.main.GetComponent<Gameplay>().IncreaseCoinCount(1, thinkBubble);
+                Camera.main.GetComponent<Gameplay>().StartCoinLancher(1, thinkBubble);
             }
         }
         if (ragDollTime < 0)

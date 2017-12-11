@@ -70,8 +70,9 @@ public class GrabAndThrowObject : MonoBehaviour
         if (Input.GetKeyDown("space"))
             GetComponent<ZombieManager>().Print();
         if (Input.GetKeyDown("d"))
+        {
             GetComponent<Gameplay>().ReduceHealth(10, gameObject);
-
+		}
     }
 
     void MouseDown()
