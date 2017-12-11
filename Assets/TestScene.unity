@@ -61293,6 +61293,18 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 60
       objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: 5413dfe024539467da6235525f09dfc3, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 3fb74289c6d2a44179be9b839de9d597, type: 2}
+    - target: {fileID: 2300000, guid: 5413dfe024539467da6235525f09dfc3, type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 5413dfe024539467da6235525f09dfc3, type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5413dfe024539467da6235525f09dfc3, type: 3}
   m_IsPrefabParent: 0

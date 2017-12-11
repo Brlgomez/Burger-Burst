@@ -230,10 +230,13 @@ public class PlayerPrefsManager : MonoBehaviour
         if (GetMusic())
         {
             PlayerPrefs.SetInt(music, 0);
-        }
+            GetComponent<ObjectManager>().Stereo().GetComponent<Animator>().SetBool("Music Off", true);
+		}
         else
         {
             PlayerPrefs.SetInt(music, 1);
+			GetComponent<ObjectManager>().Stereo().GetComponent<Animator>().SetBool("Music Off", false);
+			GetComponent<ObjectManager>().Stereo().GetComponent<Animator>().Play("MusicOn");
         }
         GetComponent<ScreenTextManagment>().ChangeToSettingScreen();
     }
