@@ -11,6 +11,9 @@ public class PlayerPrefsManager : MonoBehaviour
     static string flooring = "FLOORING";
     static string wallpaper = "WALLPAPER";
     static string detail = "DETAIL";
+    static string sound = "SOUND";
+    static string music = "MUSIC";
+    static string vibration = "VIBRATION";
     public static string specificPowerUp = "PowerUp";
     public static string specificGraphics = "Graphic";
     public static string specificFlooring = "Flooring";
@@ -180,17 +183,71 @@ public class PlayerPrefsManager : MonoBehaviour
     public void IncreaseCoins()
     {
         PlayerPrefs.SetInt(coins, (GetCoins() + 1));
-		GetComponent<LEDManager>().UpdateCoinsText();
-	}
+        GetComponent<LEDManager>().UpdateCoinsText();
+    }
 
     public void DecreaseCoins(int amount)
     {
         PlayerPrefs.SetInt(coins, GetCoins() - amount);
-		GetComponent<LEDManager>().UpdateCoinsText();
-	}
+        GetComponent<LEDManager>().UpdateCoinsText();
+    }
 
     public void DeleteAll()
     {
         PlayerPrefs.DeleteAll();
+    }
+
+    public bool GetSound()
+    {
+        return (PlayerPrefs.GetInt(sound, 1) == 1);
+    }
+
+    public bool GetMusic()
+    {
+        return (PlayerPrefs.GetInt(music, 1) == 1);
+    }
+
+    public bool GetVibration()
+    {
+        return (PlayerPrefs.GetInt(vibration, 1) == 1);
+    }
+
+    public void SetSound()
+    {
+        if (GetSound())
+        {
+            PlayerPrefs.SetInt(sound, 0);
+        }
+        else
+        {
+            PlayerPrefs.SetInt(sound, 1);
+        }
+        GetComponent<ScreenTextManagment>().ChangeToSettingScreen();
+    }
+
+    public void SetMusic()
+    {
+        if (GetMusic())
+        {
+            PlayerPrefs.SetInt(music, 0);
+        }
+        else
+        {
+            PlayerPrefs.SetInt(music, 1);
+        }
+        GetComponent<ScreenTextManagment>().ChangeToSettingScreen();
+    }
+
+    public void SetVibration()
+    {
+        if (GetVibration())
+        {
+            PlayerPrefs.SetInt(vibration, 0);
+        }
+        else
+        {
+            PlayerPrefs.SetInt(vibration, 1);
+        }
+        GetComponent<ScreenTextManagment>().ChangeToSettingScreen();
     }
 }

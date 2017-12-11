@@ -40,6 +40,7 @@ ScreenTextManagment : MonoBehaviour
         EnableButton(line5, "Settings", settingsSprite);
         TurnOffScrollList();
         TurnOffGameplayImages();
+        line4.GetComponent<TextMesh>().characterSize = 0.025f;
         lastArea = currentArea;
         currentArea = Menus.Menu.MainMenu;
     }
@@ -155,11 +156,33 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToSettingScreen()
     {
-        EnableButton(line1, "Vibration", vibrationSprite);
-        EnableButton(line2, "Music", musicSprite);
-        EnableButton(line3, "Sound", soundSprite);
-        EnableButton(line4, "Game Center", trophySprite);
+        if (GetComponent<PlayerPrefsManager>().GetMusic())
+        {
+            EnableButton(line1, "On", musicSprite);
+        }
+        else
+        {
+            EnableButton(line1, "Off", musicSprite);
+        }
+        if (GetComponent<PlayerPrefsManager>().GetSound())
+        {
+            EnableButton(line2, "On", soundSprite);
+        }
+        else
+        {
+            EnableButton(line2, "Off", soundSprite);
+        }
+        if (GetComponent<PlayerPrefsManager>().GetVibration())
+        {
+            EnableButton(line3, "On", vibrationSprite);
+        }
+        else
+        {
+            EnableButton(line3, "Off", vibrationSprite);
+        }
+        EnableButton(line4, " Leaderboards\n      & achievments", trophySprite);
         EnableButton(line5, "Back", backSprite);
+        line4.GetComponent<TextMesh>().characterSize = 0.02f;
         lastArea = currentArea;
         currentArea = Menus.Menu.Setting;
     }

@@ -36,7 +36,7 @@ public class MainMenu : MonoBehaviour
         {
             roundScroller = GetComponent<MenuSlider>().MoveScroller();
         }
-	}
+    }
 
     void MouseDown()
     {
@@ -175,8 +175,8 @@ public class MainMenu : MonoBehaviour
         {
             case "First Button":
                 GetComponent<ScreenTextManagment>().CannotPressAnything();
-				GetComponent<Gameplay>().ResetValues();
-				gameObject.AddComponent<CameraMovement>().MoveToGameplay("Start");
+                GetComponent<Gameplay>().ResetValues();
+                gameObject.AddComponent<CameraMovement>().MoveToGameplay("Start");
                 Destroy(GetComponent<MainMenu>());
                 break;
             case "Second Button":
@@ -305,9 +305,9 @@ public class MainMenu : MonoBehaviour
                 GetComponent<MenuSlider>().HighLightSlot(currentSlot.transform.parent.gameObject);
                 break;
             case "Fourth Button":
-				GetComponent<ScreenTextManagment>().CannotPressAnything();
-				gameObject.AddComponent<CameraMovement>().MoveToStore();
-				break;
+                GetComponent<ScreenTextManagment>().CannotPressAnything();
+                gameObject.AddComponent<CameraMovement>().MoveToStore();
+                break;
             case "Fifth Button":
                 GetComponent<ScreenTextManagment>().ChangeToUpgradeText();
                 GetComponent<MenuSlider>().HighLightSlot(currentSlot.transform.parent.gameObject);
@@ -317,7 +317,23 @@ public class MainMenu : MonoBehaviour
 
     void MouseUpStoreMenu()
     {
-        if (target.name == "Fifth Button")
+        if (target.name == "First Button")
+        {
+            //TODO: IAP
+        }
+        else if (target.name == "Second Button")
+        {
+            //TODO: IAP
+        }
+        else if (target.name == "Third Button")
+        {
+            //TODO: IAP
+        }
+        else if (target.name == "Fourth Button")
+        {
+            //TODO: IAP
+        }
+        else if (target.name == "Fifth Button")
         {
             GetComponent<ScreenTextManagment>().CannotPressAnything();
             Menus.Menu lastMenu = GetComponent<ScreenTextManagment>().GetLastMenu();
@@ -347,10 +363,24 @@ public class MainMenu : MonoBehaviour
 
     void MouseUpSettingMenu()
     {
-        if (target.name == "Fifth Button")
+        switch (target.name)
         {
-            GetComponent<ScreenTextManagment>().CannotPressAnything();
-            gameObject.AddComponent<CameraMovement>().MoveToMenu(false);
+            case "First Button":
+                GetComponent<PlayerPrefsManager>().SetMusic();
+                break;
+            case "Second Button":
+                GetComponent<PlayerPrefsManager>().SetSound();
+                break;
+            case "Third Button":
+                GetComponent<PlayerPrefsManager>().SetVibration();
+                break;
+            case "Fourth Button":
+                //TODO: achivements and leaderboards
+                break;
+            case "Fifth Button":
+                GetComponent<ScreenTextManagment>().CannotPressAnything();
+                gameObject.AddComponent<CameraMovement>().MoveToMenu(false);
+                break;
         }
     }
 
@@ -387,8 +417,8 @@ public class MainMenu : MonoBehaviour
                 GetComponent<ScreenTextManagment>().ChangeToGraphicsScreen();
                 break;
             case "Fourth Button":
-				GetComponent<ScreenTextManagment>().CannotPressAnything();
-				gameObject.AddComponent<CameraMovement>().MoveToStore();
+                GetComponent<ScreenTextManagment>().CannotPressAnything();
+                gameObject.AddComponent<CameraMovement>().MoveToStore();
                 break;
             case "Fifth Button":
                 GetComponent<GraphicsManager>().SetGraphic(GetComponent<PlayerPrefsManager>().GetGraphics());
@@ -430,8 +460,8 @@ public class MainMenu : MonoBehaviour
                 GetComponent<ScreenTextManagment>().ChangeToFlooringScreen();
                 break;
             case "Fourth Button":
-				GetComponent<ScreenTextManagment>().CannotPressAnything();
-				gameObject.AddComponent<CameraMovement>().MoveToStore();
+                GetComponent<ScreenTextManagment>().CannotPressAnything();
+                gameObject.AddComponent<CameraMovement>().MoveToStore();
                 break;
             case "Fifth Button":
                 GetComponent<ThemeManager>().SetFlooring(GetComponent<PlayerPrefsManager>().GetFlooring());
@@ -473,8 +503,8 @@ public class MainMenu : MonoBehaviour
                 GetComponent<ScreenTextManagment>().ChangeToWallpaperScreen();
                 break;
             case "Fourth Button":
-				GetComponent<ScreenTextManagment>().CannotPressAnything();
-				gameObject.AddComponent<CameraMovement>().MoveToStore();
+                GetComponent<ScreenTextManagment>().CannotPressAnything();
+                gameObject.AddComponent<CameraMovement>().MoveToStore();
                 break;
             case "Fifth Button":
                 GetComponent<ThemeManager>().SetWallpaper(GetComponent<PlayerPrefsManager>().GetWallpaper());
@@ -516,8 +546,8 @@ public class MainMenu : MonoBehaviour
                 GetComponent<ScreenTextManagment>().ChangeToDetailScreen();
                 break;
             case "Fourth Button":
-				GetComponent<ScreenTextManagment>().CannotPressAnything();
-				gameObject.AddComponent<CameraMovement>().MoveToStore();
+                GetComponent<ScreenTextManagment>().CannotPressAnything();
+                gameObject.AddComponent<CameraMovement>().MoveToStore();
                 break;
             case "Fifth Button":
                 GetComponent<ThemeManager>().SetDetail(GetComponent<PlayerPrefsManager>().GetDetail());

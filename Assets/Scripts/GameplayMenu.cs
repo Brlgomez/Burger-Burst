@@ -114,12 +114,16 @@ public class GameplayMenu : MonoBehaviour
         switch (obj.name)
         {
             case "First Button":
+                //TODO: IAP
                 break;
             case "Second Button":
+                //TODO: IAP
                 break;
             case "Third Button":
+                //TODO: IAP
                 break;
             case "Fourth Button":
+                //TODO: IAP
                 break;
             case "Fifth Button":
                 GetComponent<ScreenTextManagment>().ChangeToGameOverText();
@@ -199,6 +203,7 @@ public class GameplayMenu : MonoBehaviour
         GetComponent<GrabAndThrowObject>().currentArea = GrabAndThrowObject.Area.quit;
         transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 0, 0, 0);
         GetComponent<Gameplay>().ResetValues();
+        GetComponent<GrabAndThrowObject>().DeleteEverything();
         UnPauseGame();
         gameObject.AddComponent<CameraMovement>().MoveToMenu(true);
         Destroy(GetComponent<GrabAndThrowObject>());
@@ -208,8 +213,8 @@ public class GameplayMenu : MonoBehaviour
     {
         if (GetComponent<PlayerPrefsManager>().GetCoins() >= GetComponent<Gameplay>().ContinuePrice())
         {
-			GetComponent<PlayerPrefsManager>().DecreaseCoins(GetComponent<Gameplay>().ContinuePrice());
-			GetComponent<ScreenTextManagment>().PressedContinue();
+            GetComponent<PlayerPrefsManager>().DecreaseCoins(GetComponent<Gameplay>().ContinuePrice());
+            GetComponent<ScreenTextManagment>().PressedContinue();
             GetComponent<ScreenTextManagment>().CannotPressAnything();
             GetComponent<GrabAndThrowObject>().currentArea = GrabAndThrowObject.Area.counter;
             transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 0, 0, 0);

@@ -72,7 +72,7 @@ public class GrabAndThrowObject : MonoBehaviour
         if (Input.GetKeyDown("d"))
         {
             GetComponent<Gameplay>().ReduceHealth(10, gameObject);
-		}
+        }
     }
 
     void MouseDown()
