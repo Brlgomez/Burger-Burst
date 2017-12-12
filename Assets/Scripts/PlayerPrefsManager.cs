@@ -217,11 +217,13 @@ public class PlayerPrefsManager : MonoBehaviour
         if (GetSound())
         {
             PlayerPrefs.SetInt(sound, 0);
-        }
+		}
         else
         {
             PlayerPrefs.SetInt(sound, 1);
-        }
+            GetComponent<ObjectManager>().Horn().GetComponent<Animator>().Play("Horn");
+            GetComponent<ObjectManager>().Horn().GetComponent<ParticleSystem>().Play();
+		}
         GetComponent<ScreenTextManagment>().ChangeToSettingScreen();
     }
 
@@ -254,7 +256,9 @@ public class PlayerPrefsManager : MonoBehaviour
         else
         {
             PlayerPrefs.SetInt(vibration, 1);
-        }
+            GetComponent<ObjectManager>().VibratingDevice().GetComponent<Animator>().Play("Vibrating");
+            GetComponent<ObjectManager>().VibratingDevice().GetComponent<ParticleSystem>().Play();
+		}
         GetComponent<ScreenTextManagment>().ChangeToSettingScreen();
     }
 }

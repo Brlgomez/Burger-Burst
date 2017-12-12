@@ -199,6 +199,8 @@ public class MainMenu : MonoBehaviour
                 GetComponent<ScreenTextManagment>().CannotPressAnything();
                 gameObject.AddComponent<CameraMovement>().MoveToSetting();
 				GetComponent<ObjectManager>().Stereo().GetComponent<Animator>().enabled = true;
+                GetComponent<ObjectManager>().Horn().GetComponent<Animator>().enabled = true;
+                GetComponent<ObjectManager>().VibratingDevice().GetComponent<Animator>().enabled = true;
 				if (GetComponent<PlayerPrefsManager>().GetMusic())
 				{
 					GetComponent<ObjectManager>().Stereo().GetComponent<Animator>().SetBool("Music Off", false);
@@ -394,7 +396,9 @@ public class MainMenu : MonoBehaviour
                 gameObject.AddComponent<CameraMovement>().MoveToMenu(false);
 				GetComponent<ObjectManager>().Stereo().GetComponent<Animator>().SetBool("Music Off", true);
                 GetComponent<ObjectManager>().Stereo().GetComponent<Animator>().enabled = false;
-                GetComponent<ObjectManager>().Stereo().GetComponent<ParticleSystem>().Stop();
+				GetComponent<ObjectManager>().Stereo().GetComponent<ParticleSystem>().Stop();
+                GetComponent<ObjectManager>().Horn().GetComponent<Animator>().enabled = false;
+                GetComponent<ObjectManager>().VibratingDevice().GetComponent<Animator>().enabled = false;
 				break;
         }
     }
