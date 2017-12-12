@@ -231,13 +231,17 @@ public class PlayerPrefsManager : MonoBehaviour
         {
             PlayerPrefs.SetInt(music, 0);
             GetComponent<ObjectManager>().Stereo().GetComponent<Animator>().SetBool("Music Off", true);
+            GetComponent<ObjectManager>().Stereo().GetComponent<Renderer>().material.mainTexture = GetComponent<Textures>().stereoOff;
+			GetComponent<ObjectManager>().Stereo().GetComponent<ParticleSystem>().Stop();
 		}
         else
         {
             PlayerPrefs.SetInt(music, 1);
 			GetComponent<ObjectManager>().Stereo().GetComponent<Animator>().SetBool("Music Off", false);
 			GetComponent<ObjectManager>().Stereo().GetComponent<Animator>().Play("MusicOn");
-        }
+			GetComponent<ObjectManager>().Stereo().GetComponent<Renderer>().material.mainTexture = GetComponent<Textures>().stereoOn;
+            GetComponent<ObjectManager>().Stereo().GetComponent<ParticleSystem>().Play();
+		}
         GetComponent<ScreenTextManagment>().ChangeToSettingScreen();
     }
 
