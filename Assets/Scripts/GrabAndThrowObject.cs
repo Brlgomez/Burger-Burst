@@ -263,8 +263,9 @@ public class GrabAndThrowObject : MonoBehaviour
             target.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
             target.GetComponent<Rigidbody>().isKinematic = false;
             target.GetComponent<Rigidbody>().useGravity = false;
-            counterWall.GetComponent<Collider>().enabled = true;
-        }
+			target.GetComponent<ParticleSystem>().Play();
+			counterWall.GetComponent<Collider>().enabled = true;
+		}
     }
 
     void MouseDownGrill()
@@ -370,6 +371,7 @@ public class GrabAndThrowObject : MonoBehaviour
                 }
                 target.GetComponent<Rigidbody>().velocity = newVelocity;
                 target.GetComponent<Rigidbody>().angularVelocity = new Vector3(zVelocity, xVelocity, 0);
+                target.GetComponent<ParticleSystem>().Play();
             }
         }
     }

@@ -365,7 +365,8 @@ public class Zombie : MonoBehaviour
         landParticles.AddComponent<DestroySpawnedParticle>();
         Camera.main.GetComponent<Gameplay>().IncreasePoints(obj);
         obj.GetComponent<RemoveObjects>().DropProduct();
-        Destroy(obj.GetComponent<Rigidbody>());
+        obj.GetComponent<ParticleSystem>().Stop();
+		Destroy(obj.GetComponent<Rigidbody>());
         Destroy(obj.GetComponent<RemoveObjects>());
         if (obj.GetComponent<MagnetPowerUp>() != null)
         {
