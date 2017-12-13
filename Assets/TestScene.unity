@@ -12031,7 +12031,7 @@ ParticleSystemRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -12128,7 +12128,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1113828596
+  randomSeed: 571222349
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -12218,7 +12218,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.253, g: 0.203, b: 0.141, a: 1}
+      maxColor: {r: 0.2509804, g: 0.1882353, b: 0.1882353, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -14559,7 +14559,7 @@ ParticleSystem:
     enabled: 0
     subEmitters:
     - emitter: {fileID: 0}
-      type: 0
+      type: 2
       properties: 0
   LightsModule:
     enabled: 0
@@ -16095,7 +16095,7 @@ GameObject:
   m_Component:
   - component: {fileID: 230883225}
   - component: {fileID: 230883226}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Second Button
   m_TagString: UI
   m_Icon: {fileID: 0}
@@ -16277,7 +16277,7 @@ GameObject:
   m_Component:
   - component: {fileID: 259172491}
   - component: {fileID: 259172492}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Fourth Button
   m_TagString: UI
   m_Icon: {fileID: 0}
@@ -67046,7 +67046,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1413232432}
   - component: {fileID: 1413232433}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: First Button
   m_TagString: UI
   m_Icon: {fileID: 0}
@@ -72188,7 +72188,7 @@ ParticleSystemRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -72285,7 +72285,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1113828596
+  randomSeed: 571222349
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -72375,7 +72375,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.253, g: 0.203, b: 0.141, a: 1}
+      maxColor: {r: 0.2509804, g: 0.1882353, b: 0.1882353, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -74716,7 +74716,7 @@ ParticleSystem:
     enabled: 0
     subEmitters:
     - emitter: {fileID: 0}
-      type: 0
+      type: 2
       properties: 0
   LightsModule:
     enabled: 0
@@ -83578,7 +83578,7 @@ ParticleSystemRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -83675,7 +83675,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1113828596
+  randomSeed: 571222349
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -83765,7 +83765,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.253, g: 0.203, b: 0.141, a: 1}
+      maxColor: {r: 0.2509804, g: 0.1882353, b: 0.1882353, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -86106,7 +86106,7 @@ ParticleSystem:
     enabled: 0
     subEmitters:
     - emitter: {fileID: 0}
-      type: 0
+      type: 2
       properties: 0
   LightsModule:
     enabled: 0
@@ -87047,7 +87047,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1643917534}
   - component: {fileID: 1643917535}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Third Button
   m_TagString: UI
   m_Icon: {fileID: 0}
@@ -88488,7 +88488,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1775857510}
   - component: {fileID: 1775857511}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Fifth Button
   m_TagString: UI
   m_Icon: {fileID: 0}
@@ -92062,7 +92062,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 192784786
+  randomSeed: 1050539615
   InitialModule:
     serializedVersion: 3
     enabled: 1

@@ -11,6 +11,7 @@ public class MainMenu : MonoBehaviour
     bool changeScrollerObjects;
     GameObject currentSlot;
     int slotPosition = 1;
+    bool pressedTitle;
 
     void Start()
     {
@@ -57,8 +58,9 @@ public class MainMenu : MonoBehaviour
         {
             gameObject.AddComponent<CameraMovement>().MoveToTitle();
         }
-        else if (target != null && target.name == "Phone" && GetComponent<ScreenTextManagment>().GetMenu() == Menus.Menu.Title)
+        else if (target != null && target.name == "Phone" && GetComponent<ScreenTextManagment>().GetMenu() == Menus.Menu.Title && !pressedTitle)
         {
+            pressedTitle = true;
             StartCoroutine(PhoneStartUp());
         }
         else if (target != null && target.tag == "UI")
@@ -186,8 +188,8 @@ public class MainMenu : MonoBehaviour
             target.GetComponent<Renderer>().material.mainTexture = GetComponent<Textures>().phoneLoading2;
             yield return new WaitForSeconds(0.25f);
         }
-        GetComponent<ScreenTextManagment>().ChangeToMenuText();
-        target.GetComponent<Renderer>().material.mainTexture = GetComponent<Textures>().phoneOn;
+		target.GetComponent<Renderer>().material.mainTexture = GetComponent<Textures>().phoneOn;
+		GetComponent<ScreenTextManagment>().ChangeToMenuText();
     }
 
     void MouseUpMainMenu()
