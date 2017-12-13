@@ -8,9 +8,9 @@ public class CameraMovement : MonoBehaviour
 
     static int maxSpeed = 15;
     static int accelerating = 15;
-    Transform menu, gameplay, pause, towards, gameOver, grill, fryer, soda;
+    Transform title, menu, gameplay, pause, towards, gameOver, grill, fryer, soda;
     Transform powerUp, customize, setting, store, graphics, theme, flooring, wallpaper, detail;
-    Transform deviceFront, deviceBack, deviceTowards;
+    Transform deviceTowards;
     float speed;
     bool moveToPosition;
     bool moveDevice;
@@ -34,8 +34,15 @@ public class CameraMovement : MonoBehaviour
             {
                 if (Vector3.Distance(transform.position, towards.transform.position) < 0.001f)
                 {
-                    Finished();
-                }
+                    if (moveDevice && Vector3.Distance(transform.GetChild(1).localPosition, deviceTowards.transform.localPosition) < 0.001f)
+                    {
+						Finished();
+					}
+                    else if (!moveDevice)
+                    {
+						Finished();
+					}
+				}
             }
         }
     }
@@ -105,6 +112,10 @@ public class CameraMovement : MonoBehaviour
             }
             GetComponent<ScreenTextManagment>().ChangeToFrontArea();
         }
+        else if (towards == title)
+		{
+            GetComponent<ScreenTextManagment>().ChangeToTitleText();
+		}
         else if (towards == menu)
         {
             GetComponent<ScreenTextManagment>().ChangeToMenuText();
@@ -209,12 +220,20 @@ public class CameraMovement : MonoBehaviour
         Destroy(GetComponent<CameraMovement>());
     }
 
+	public void MoveToTitle()
+	{
+        title = GetComponent<PositionManager>().MenuPosition();
+        deviceTowards = GetComponent<PositionManager>().DeviceMiddlePosition();
+        towards = title;
+		moveToPosition = true;
+        moveDevice = true;
+	}
+
     public void MoveToMenu(bool moveDev)
     {
         menu = GetComponent<PositionManager>().MenuPosition();
-        deviceFront = GetComponent<PositionManager>().DeviceFrontPosition();
+        deviceTowards = GetComponent<PositionManager>().DeviceMiddlePosition();
         towards = menu;
-        deviceTowards = deviceFront;
         moveToPosition = true;
         moveDevice = moveDev;
     }
@@ -222,16 +241,20 @@ public class CameraMovement : MonoBehaviour
     public void MoveToPowerUp()
     {
         powerUp = GetComponent<PositionManager>().PowerUpsPosition();
-        towards = powerUp;
+        deviceTowards = GetComponent<PositionManager>().DeviceFrontPosition();
+		towards = powerUp;
         moveToPosition = true;
-    }
+		moveDevice = true;
+	}
 
     public void MoveToCustomize()
     {
         customize = GetComponent<PositionManager>().CustomizePosition();
-        towards = customize;
+		deviceTowards = GetComponent<PositionManager>().DeviceFrontPosition();
+		towards = customize;
         moveToPosition = true;
-    }
+		moveDevice = true;
+	}
 
     public void MoveToTheme()
     {
@@ -271,23 +294,26 @@ public class CameraMovement : MonoBehaviour
     public void MoveToStore()
     {
         store = GetComponent<PositionManager>().StorePosition();
-        towards = store;
+		deviceTowards = GetComponent<PositionManager>().DeviceFrontPosition();
+		towards = store;
         moveToPosition = true;
-    }
+		moveDevice = true;
+	}
 
     public void MoveToSetting()
     {
         setting = GetComponent<PositionManager>().SettingPosition();
-        towards = setting;
+		deviceTowards = GetComponent<PositionManager>().DeviceFrontPosition();
+		towards = setting;
         moveToPosition = true;
-    }
+		moveDevice = true;
+	}
 
     public void MoveToGameplay(string c)
     {
         gameplay = GetComponent<PositionManager>().GameplayPosition();
-        deviceBack = GetComponent<PositionManager>().DeviceBackPosition();
+        deviceTowards = GetComponent<PositionManager>().DeviceBackPosition();
         towards = gameplay;
-        deviceTowards = deviceBack;
         moveToPosition = true;
         moveDevice = true;
         gamePlayCommand = c;
@@ -306,9 +332,8 @@ public class CameraMovement : MonoBehaviour
     public void MoveToPause()
     {
         pause = GetComponent<PositionManager>().PausePosition();
-        deviceFront = GetComponent<PositionManager>().DeviceFrontPosition();
+        deviceTowards = GetComponent<PositionManager>().DeviceFrontPosition();
         towards = pause;
-        deviceTowards = deviceFront;
         moveToPosition = true;
         moveDevice = true;
     }
@@ -335,8 +360,7 @@ public class CameraMovement : MonoBehaviour
                 towards = soda;
                 break;
         }
-        deviceBack = GetComponent<PositionManager>().DeviceBackPosition();
-        deviceTowards = deviceBack;
+        deviceTowards = GetComponent<PositionManager>().DeviceBackPosition();
         moveToPosition = true;
         moveDevice = true;
     }
@@ -344,9 +368,8 @@ public class CameraMovement : MonoBehaviour
     public void MoveToGameOver()
     {
         gameOver = GetComponent<PositionManager>().GameOverPosition();
-        deviceFront = GetComponent<PositionManager>().DeviceFrontPosition();
+        deviceTowards = GetComponent<PositionManager>().DeviceFrontPosition();
         towards = gameOver;
-        deviceTowards = deviceFront;
         moveToPosition = true;
         moveDevice = true;
     }

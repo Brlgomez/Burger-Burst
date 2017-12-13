@@ -53,7 +53,15 @@ public class MainMenu : MonoBehaviour
 
     void MouseUp()
     {
-        if (target != null && target.tag == "UI")
+        if (GetComponent<ScreenTextManagment>().GetMenu() == Menus.Menu.PhoneDown)
+        {
+            gameObject.AddComponent<CameraMovement>().MoveToTitle();
+        }
+        else if (target != null && target.name == "Phone" && GetComponent<ScreenTextManagment>().GetMenu() == Menus.Menu.Title)
+        {
+            StartCoroutine(PhoneStartUp());
+        }
+        else if (target != null && target.tag == "UI")
         {
             GetComponent<ScreenTextManagment>().PressTextUp(target.transform.parent.gameObject);
             switch (GetComponent<ScreenTextManagment>().GetMenu())
@@ -169,6 +177,19 @@ public class MainMenu : MonoBehaviour
         }
     }
 
+    IEnumerator PhoneStartUp()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            target.GetComponent<Renderer>().material.mainTexture = GetComponent<Textures>().phoneLoading;
+            yield return new WaitForSeconds(0.25f);
+            target.GetComponent<Renderer>().material.mainTexture = GetComponent<Textures>().phoneLoading2;
+            yield return new WaitForSeconds(0.25f);
+        }
+        GetComponent<ScreenTextManagment>().ChangeToMenuText();
+        target.GetComponent<Renderer>().material.mainTexture = GetComponent<Textures>().phoneOn;
+    }
+
     void MouseUpMainMenu()
     {
         switch (target.name)
@@ -198,20 +219,20 @@ public class MainMenu : MonoBehaviour
             case "Fifth Button":
                 GetComponent<ScreenTextManagment>().CannotPressAnything();
                 gameObject.AddComponent<CameraMovement>().MoveToSetting();
-				GetComponent<ObjectManager>().Stereo().GetComponent<Animator>().enabled = true;
+                GetComponent<ObjectManager>().Stereo().GetComponent<Animator>().enabled = true;
                 GetComponent<ObjectManager>().Horn().GetComponent<Animator>().enabled = true;
                 GetComponent<ObjectManager>().VibratingDevice().GetComponent<Animator>().enabled = true;
-				if (GetComponent<PlayerPrefsManager>().GetMusic())
-				{
-					GetComponent<ObjectManager>().Stereo().GetComponent<Animator>().SetBool("Music Off", false);
-					GetComponent<ObjectManager>().Stereo().GetComponent<Animator>().Play("MusicOn");
+                if (GetComponent<PlayerPrefsManager>().GetMusic())
+                {
+                    GetComponent<ObjectManager>().Stereo().GetComponent<Animator>().SetBool("Music Off", false);
+                    GetComponent<ObjectManager>().Stereo().GetComponent<Animator>().Play("MusicOn");
                     GetComponent<ObjectManager>().Stereo().GetComponent<Renderer>().material.mainTexture = GetComponent<Textures>().stereoOn;
                     GetComponent<ObjectManager>().Stereo().GetComponent<ParticleSystem>().Play();
-				}
-                else 
+                }
+                else
                 {
                     GetComponent<ObjectManager>().Stereo().GetComponent<Renderer>().material.mainTexture = GetComponent<Textures>().stereoOff;
-				}
+                }
                 break;
         }
     }
@@ -226,7 +247,7 @@ public class MainMenu : MonoBehaviour
         {
             roundScroller = false;
             GetComponent<ScreenTextManagment>().CannotPressAnything();
-            gameObject.AddComponent<CameraMovement>().MoveToMenu(false);
+            gameObject.AddComponent<CameraMovement>().MoveToMenu(true);
         }
         else if (target.name == "Scroller")
         {
@@ -274,7 +295,7 @@ public class MainMenu : MonoBehaviour
             case "Fifth Button":
                 roundScroller = false;
                 GetComponent<ScreenTextManagment>().CannotPressAnything();
-                gameObject.AddComponent<CameraMovement>().MoveToMenu(false);
+                gameObject.AddComponent<CameraMovement>().MoveToMenu(true);
                 break;
         }
     }
@@ -354,7 +375,7 @@ public class MainMenu : MonoBehaviour
             switch (lastMenu)
             {
                 case Menus.Menu.MainMenu:
-                    gameObject.AddComponent<CameraMovement>().MoveToMenu(false);
+                    gameObject.AddComponent<CameraMovement>().MoveToMenu(true);
                     break;
                 case Menus.Menu.ConfirmationPowerUp:
                     gameObject.AddComponent<CameraMovement>().MoveToPowerUp();
@@ -393,13 +414,13 @@ public class MainMenu : MonoBehaviour
                 break;
             case "Fifth Button":
                 GetComponent<ScreenTextManagment>().CannotPressAnything();
-                gameObject.AddComponent<CameraMovement>().MoveToMenu(false);
-				GetComponent<ObjectManager>().Stereo().GetComponent<Animator>().SetBool("Music Off", true);
+                gameObject.AddComponent<CameraMovement>().MoveToMenu(true);
+                GetComponent<ObjectManager>().Stereo().GetComponent<Animator>().SetBool("Music Off", true);
                 GetComponent<ObjectManager>().Stereo().GetComponent<Animator>().enabled = false;
-				GetComponent<ObjectManager>().Stereo().GetComponent<ParticleSystem>().Stop();
+                GetComponent<ObjectManager>().Stereo().GetComponent<ParticleSystem>().Stop();
                 GetComponent<ObjectManager>().Horn().GetComponent<Animator>().enabled = false;
                 GetComponent<ObjectManager>().VibratingDevice().GetComponent<Animator>().enabled = false;
-				break;
+                break;
         }
     }
 

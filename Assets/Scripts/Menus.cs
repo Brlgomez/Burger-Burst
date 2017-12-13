@@ -6,7 +6,7 @@ public class Menus : MonoBehaviour {
 
     public enum Menu
     {
-        MainMenu, PowerUps, Gameplay, GameOver, Pause,
+        PhoneDown, Title, MainMenu, PowerUps, Gameplay, GameOver, Pause,
         ConfirmationPowerUp, Customize, Setting, Store, Graphics, Theme,
         Flooring, Wallpaper, Detail, ConfirmationGraphics, ConfirmationFlooring,
         ConfirmationWalls, ConfirmationDetail

@@ -28,16 +28,29 @@ ScreenTextManagment : MonoBehaviour
         line4 = GetComponent<ObjectManager>().Phone().transform.GetChild(3).gameObject;
         line5 = GetComponent<ObjectManager>().Phone().transform.GetChild(4).gameObject;
         scrollView = GetComponent<ObjectManager>().Phone().transform.GetChild(5).gameObject;
-        ChangeToMenuText();
+		TurnOffScrollList();
+		TurnOffGameplayImages();
+        currentArea = Menus.Menu.PhoneDown;
     }
+
+	public void ChangeToTitleText()
+	{
+        DisableButton(line1, "", null, Color.white);
+		DisableButton(line2, "", null, Color.white);
+		DisableButton(line3, "", null, Color.white);
+		DisableButton(line4, "", null, Color.white);
+		DisableButton(line5, "", null, Color.white);
+		lastArea = currentArea;
+        currentArea = Menus.Menu.Title;
+	}
 
     public void ChangeToMenuText()
     {
-        EnableButton(line1, "Play", playSprite);
-        EnableButton(line2, "Power Ups", powerUpSprite);
-        EnableButton(line3, "Customize", customizSprite);
-        EnableButton(line4, "Store", storeSprite);
-        EnableButton(line5, "Settings", settingsSprite);
+        EnableButton(line1, "Play", playSprite, Color.white);
+        EnableButton(line2, "Power Ups", powerUpSprite, Color.white);
+        EnableButton(line3, "Customize", customizSprite, Color.white);
+        EnableButton(line4, "Store", storeSprite, Color.white);
+        EnableButton(line5, "Settings", settingsSprite, Color.white);
         TurnOffScrollList();
         TurnOffGameplayImages();
         line4.GetComponent<TextMesh>().characterSize = 0.025f;
@@ -47,11 +60,11 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToGamePlayText()
     {
-        DisableButton(line1, "", heartSprite);
-        EnableButton(line2, "", burgerSprite);
-        EnableButton(line3, "", friesSprite);
-        EnableButton(line4, "", drinkSprite);
-        EnableButton(line5, "", null);
+        DisableButton(line1, "", heartSprite, Color.white);
+        EnableButton(line2, "", burgerSprite, Color.white);
+        EnableButton(line3, "", friesSprite, Color.white);
+        EnableButton(line4, "", drinkSprite, Color.white);
+        EnableButton(line5, "", null, Color.white);
         line1.transform.GetChild(5).GetComponent<SpriteRenderer>().color = Color.black;
         line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
         line5.transform.GetChild(3).gameObject.layer = 0;
@@ -61,11 +74,11 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToUpgradeText()
     {
-        EnableButton(line1, "", null);
-        EnableButton(line2, "", null);
-        EnableButton(line3, "", null);
-        DisableButton(line4, GetComponent<PlayerPrefsManager>().GetCoins().ToString(), coinSprite);
-        EnableButton(line5, "Back", backSprite);
+        EnableButton(line1, "", null, Color.white);
+        EnableButton(line2, "", null, Color.white);
+        EnableButton(line3, "", null, Color.white);
+        DisableButton(line4, GetComponent<PlayerPrefsManager>().GetCoins().ToString(), coinSprite, Color.white);
+        EnableButton(line5, "Back", backSprite, Color.white);
         lastArea = currentArea;
         currentArea = Menus.Menu.PowerUps;
         TurnOnScrollList(currentArea);
@@ -73,11 +86,11 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToCustomizeScreen()
     {
-        EnableButton(line1, "Paint", themeSprite);
-        EnableButton(line2, "Graphics", graphicsSprite);
-        DisableButton(line3, "", null);
-        DisableButton(line4, "", null);
-        EnableButton(line5, "Back", backSprite);
+        EnableButton(line1, "Paint", themeSprite, Color.white);
+        EnableButton(line2, "Graphics", graphicsSprite, Color.white);
+        DisableButton(line3, "", null, Color.white);
+        DisableButton(line4, "", null, Color.white);
+        EnableButton(line5, "Back", backSprite, Color.white);
         TurnOffScrollList();
         lastArea = currentArea;
         currentArea = Menus.Menu.Customize;
@@ -85,11 +98,11 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToThemeScreen()
     {
-        EnableButton(line1, "Flooring", floorSprite);
-        EnableButton(line2, "Walls", wallSprite);
-        EnableButton(line3, "Detail", detailSprite);
-        DisableButton(line4, "", null);
-        EnableButton(line5, "Back", backSprite);
+        EnableButton(line1, "Flooring", floorSprite, Color.white);
+        EnableButton(line2, "Walls", wallSprite, Color.white);
+        EnableButton(line3, "Detail", detailSprite, Color.white);
+        DisableButton(line4, "", null, Color.white);
+        EnableButton(line5, "Back", backSprite, Color.white);
         TurnOffScrollList();
         lastArea = currentArea;
         currentArea = Menus.Menu.Theme;
@@ -97,11 +110,11 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToGraphicsScreen()
     {
-        DisableButton(line1, "", null);
-        EnableButton(line2, "", null);
-        EnableButton(line3, "", null);
-        DisableButton(line4, GetComponent<PlayerPrefsManager>().GetCoins().ToString(), coinSprite);
-        EnableButton(line5, "Back", backSprite);
+        DisableButton(line1, "", null, Color.white);
+        EnableButton(line2, "", null, Color.white);
+        EnableButton(line3, "", null, Color.white);
+        DisableButton(line4, GetComponent<PlayerPrefsManager>().GetCoins().ToString(), coinSprite, Color.white);
+        EnableButton(line5, "Back", backSprite, Color.white);
         lastArea = currentArea;
         currentArea = Menus.Menu.Graphics;
         TurnOnScrollList(currentArea);
@@ -109,11 +122,11 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToFlooringScreen()
     {
-        DisableButton(line1, "", null);
-        EnableButton(line2, "", null);
-        EnableButton(line3, "", null);
-        DisableButton(line4, GetComponent<PlayerPrefsManager>().GetCoins().ToString(), coinSprite);
-        EnableButton(line5, "Back", backSprite);
+        DisableButton(line1, "", null, Color.white);
+        EnableButton(line2, "", null, Color.white);
+        EnableButton(line3, "", null, Color.white);
+        DisableButton(line4, GetComponent<PlayerPrefsManager>().GetCoins().ToString(), coinSprite, Color.white);
+        EnableButton(line5, "Back", backSprite, Color.white);
         lastArea = currentArea;
         currentArea = Menus.Menu.Flooring;
         TurnOnScrollList(currentArea);
@@ -121,11 +134,11 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToWallpaperScreen()
     {
-        DisableButton(line1, "", null);
-        EnableButton(line2, "", null);
-        EnableButton(line3, "", null);
-        DisableButton(line4, GetComponent<PlayerPrefsManager>().GetCoins().ToString(), coinSprite);
-        EnableButton(line5, "Back", backSprite);
+        DisableButton(line1, "", null, Color.white);
+        EnableButton(line2, "", null, Color.white);
+        EnableButton(line3, "", null, Color.white);
+        DisableButton(line4, GetComponent<PlayerPrefsManager>().GetCoins().ToString(), coinSprite, Color.white);
+        EnableButton(line5, "Back", backSprite, Color.white);
         lastArea = currentArea;
         currentArea = Menus.Menu.Wallpaper;
         TurnOnScrollList(currentArea);
@@ -133,11 +146,11 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToDetailScreen()
     {
-        DisableButton(line1, "", null);
-        EnableButton(line2, "", null);
-        EnableButton(line3, "", null);
-        DisableButton(line4, GetComponent<PlayerPrefsManager>().GetCoins().ToString(), coinSprite);
-        EnableButton(line5, "Back", backSprite);
+        DisableButton(line1, "", null, Color.white);
+        EnableButton(line2, "", null, Color.white);
+        EnableButton(line3, "", null, Color.white);
+        DisableButton(line4, GetComponent<PlayerPrefsManager>().GetCoins().ToString(), coinSprite, Color.white);
+        EnableButton(line5, "Back", backSprite, Color.white);
         lastArea = currentArea;
         currentArea = Menus.Menu.Detail;
         TurnOnScrollList(currentArea);
@@ -145,11 +158,11 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToStoreScreen()
     {
-        EnableButton(line1, "100 coins", coinSprite);
-        EnableButton(line2, "250 coins", coinSprite);
-        EnableButton(line3, "1000 coins", coinSprite);
-        EnableButton(line4, "2500 coins", coinSprite);
-        EnableButton(line5, "Back", backSprite);
+        EnableButton(line1, "100 coins", coinSprite, Color.white);
+        EnableButton(line2, "250 coins", coinSprite, Color.white);
+        EnableButton(line3, "1000 coins", coinSprite, Color.white);
+        EnableButton(line4, "2500 coins", coinSprite, Color.white);
+        EnableButton(line5, "Back", backSprite, Color.white);
         lastArea = currentArea;
         currentArea = Menus.Menu.Store;
     }
@@ -158,30 +171,30 @@ ScreenTextManagment : MonoBehaviour
     {
         if (GetComponent<PlayerPrefsManager>().GetMusic())
         {
-            EnableButton(line1, "On", musicSprite);
+            EnableButton(line1, "On", musicSprite, Color.white);
         }
         else
         {
-            EnableButton(line1, "Off", musicSprite);
+            EnableButton(line1, "Off", musicSprite, Color.white);
         }
         if (GetComponent<PlayerPrefsManager>().GetSound())
         {
-            EnableButton(line2, "On", soundSprite);
+            EnableButton(line2, "On", soundSprite, Color.white);
         }
         else
         {
-            EnableButton(line2, "Off", soundSprite);
+            EnableButton(line2, "Off", soundSprite, Color.white);
         }
         if (GetComponent<PlayerPrefsManager>().GetVibration())
         {
-            EnableButton(line3, "On", vibrationSprite);
+            EnableButton(line3, "On", vibrationSprite, Color.white);
         }
         else
         {
-            EnableButton(line3, "Off", vibrationSprite);
+            EnableButton(line3, "Off", vibrationSprite, Color.white);
         }
-        EnableButton(line4, " Leaderboards\n      & achievments", trophySprite);
-        EnableButton(line5, "Back", backSprite);
+        EnableButton(line4, " Leaderboards\n      & achievments", trophySprite, Color.white);
+        EnableButton(line5, "Back", backSprite, Color.white);
         line4.GetComponent<TextMesh>().characterSize = 0.02f;
         lastArea = currentArea;
         currentArea = Menus.Menu.Setting;
@@ -210,22 +223,22 @@ ScreenTextManagment : MonoBehaviour
         }
         GameObject middleObj = GetComponent<MenuSlider>().GetMiddleObject();
         TurnOffScrollList();
-        DisableButton(line1, middleObj.transform.GetChild(0).GetComponent<TextMesh>().text, middleObj.GetComponent<SpriteRenderer>().sprite);
+        DisableButton(line1, middleObj.transform.GetChild(0).GetComponent<TextMesh>().text, middleObj.GetComponent<SpriteRenderer>().sprite, Color.white);
         if (int.Parse(middleObj.transform.GetChild(0).GetComponent<TextMesh>().text) <= GetComponent<PlayerPrefsManager>().GetCoins())
         {
-            DisableButton(line2, question, null);
-            EnableButton(line3, "Yes", yesSprite);
+            DisableButton(line2, question, null, Color.white);
+            EnableButton(line3, "Yes", yesSprite, Color.white);
         }
         else
         {
             int middleObjectPrice = int.Parse(middleObj.transform.GetChild(0).GetComponent<TextMesh>().text);
             int currentCoinCount = GetComponent<PlayerPrefsManager>().GetCoins();
-            DisableButton(line2, "", null);
-            DisableButton(line3, "Coins needed:\n" + (middleObjectPrice - currentCoinCount), null);
+            DisableButton(line2, "", null, Color.white);
+            DisableButton(line3, "Coins needed:\n" + (middleObjectPrice - currentCoinCount), null, Color.white);
             line3.GetComponent<TextMesh>().characterSize = 0.025f;
         }
-        EnableButton(line4, "Get coins", coinSprite);
-        EnableButton(line5, "Back", backSprite);
+        EnableButton(line4, "Get coins", coinSprite, Color.white);
+        EnableButton(line5, "Back", backSprite, Color.white);
         lastArea = currentArea;
         currentArea = menu;
     }
@@ -280,25 +293,25 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToGameOverText()
     {
-        DisableButton(line1, GetComponent<Gameplay>().GetPoints().ToString(), pointSprite);
-        EnableButton(line2, "Restart", restartSprite);
-        EnableButton(line3, "Quit", quitSprite);
+        DisableButton(line1, GetComponent<Gameplay>().GetPoints().ToString(), pointSprite, Color.white);
+        EnableButton(line2, "Restart", restartSprite, Color.white);
+        EnableButton(line3, "Quit", quitSprite, Color.white);
         if (!GetComponent<Gameplay>().GetContinued())
         {
             if (GetComponent<Gameplay>().ContinuePrice() > 1)
             {
-                EnableButton(line4, "Continue for\n" + GetComponent<Gameplay>().ContinuePrice() + " coins?", null);
+                EnableButton(line4, "Continue for\n" + GetComponent<Gameplay>().ContinuePrice() + " coins?", null, Color.white);
             }
             else
             {
-                EnableButton(line4, "Continue for\n" + GetComponent<Gameplay>().ContinuePrice() + " coin?", null);
+                EnableButton(line4, "Continue for\n" + GetComponent<Gameplay>().ContinuePrice() + " coin?", null, Color.white);
             }
-            DisableButton(line5, GetComponent<PlayerPrefsManager>().GetCoins().ToString(), coinSprite);
+            DisableButton(line5, GetComponent<PlayerPrefsManager>().GetCoins().ToString(), coinSprite, Color.white);
         }
         else
         {
-            DisableButton(line4, "", null);
-            DisableButton(line5, "", null);
+            DisableButton(line4, "", null, Color.white);
+            DisableButton(line5, "", null, Color.white);
         }
         line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
         line5.transform.GetChild(3).gameObject.layer = 2;
@@ -309,16 +322,16 @@ ScreenTextManagment : MonoBehaviour
 
     public void PressedContinue()
     {
-        DisableButton(line5, GetComponent<PlayerPrefsManager>().GetCoins().ToString(), coinSprite);
+        DisableButton(line5, GetComponent<PlayerPrefsManager>().GetCoins().ToString(), coinSprite, Color.white);
     }
 
     public void ChangeToPauseText()
     {
-        EnableButton(line1, "Resume", playSprite);
-        EnableButton(line2, "Restart", restartSprite);
-        EnableButton(line3, "Quit", quitSprite);
-        DisableButton(line4, "", null);
-        DisableButton(line5, "", null);
+        EnableButton(line1, "Resume", playSprite, Color.white);
+        EnableButton(line2, "Restart", restartSprite, Color.white);
+        EnableButton(line3, "Quit", quitSprite, Color.white);
+        DisableButton(line4, "", null, Color.white);
+        DisableButton(line5, "", null, Color.white);
         line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
         line5.transform.GetChild(3).gameObject.layer = 2;
         TurnOffGameplayImages();
@@ -328,69 +341,57 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToGrillArea()
     {
-        DisableButton(line1, "", heartSprite);
-        DisableButton(line2, "", burgerSprite);
-        EnableButton(line3, "", friesSprite);
-        EnableButton(line4, "", drinkSprite);
-        EnableButton(line5, "", null);
+        DisableButton(line1, "", heartSprite, Color.white);
+        DisableButton(line2, "", burgerSprite, notPressable);
+        EnableButton(line3, "", friesSprite, Color.white);
+        EnableButton(line4, "", drinkSprite, Color.white);
+        EnableButton(line5, "", null, Color.white);
         ChangeBurgerTextColor();
         ChangeFriesTextColor();
         ChangeDrinkTextColor();
         ChangeHealthTextColor();
-        line2.transform.GetChild(1).GetComponent<SpriteRenderer>().color = notPressable;
-        line3.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
-        line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
         line5.transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.white;
     }
 
     public void ChangeToFryerArea()
     {
-        DisableButton(line1, "", heartSprite);
-        EnableButton(line2, "", burgerSprite);
-        DisableButton(line3, "", friesSprite);
-        EnableButton(line4, "", drinkSprite);
-        EnableButton(line5, "", null);
+        DisableButton(line1, "", heartSprite, Color.white);
+        EnableButton(line2, "", burgerSprite, Color.white);
+        DisableButton(line3, "", friesSprite, notPressable);
+        EnableButton(line4, "", drinkSprite, Color.white);
+        EnableButton(line5, "", null, Color.white);
         ChangeBurgerTextColor();
         ChangeFriesTextColor();
         ChangeDrinkTextColor();
         ChangeHealthTextColor();
-        line2.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
-        line3.transform.GetChild(1).GetComponent<SpriteRenderer>().color = notPressable;
-        line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
         line5.transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.white;
     }
 
     public void ChangeToSodaMachineArea()
     {
-        DisableButton(line1, "", heartSprite);
-        EnableButton(line2, "", burgerSprite);
-        EnableButton(line3, "", friesSprite);
-        DisableButton(line4, "", drinkSprite);
-        EnableButton(line5, "", null);
+        DisableButton(line1, "", heartSprite, Color.white);
+        EnableButton(line2, "", burgerSprite, Color.white);
+        EnableButton(line3, "", friesSprite, Color.white);
+        DisableButton(line4, "", drinkSprite, notPressable);
+        EnableButton(line5, "", null, Color.white);
         ChangeBurgerTextColor();
         ChangeFriesTextColor();
         ChangeDrinkTextColor();
         ChangeHealthTextColor();
-        line2.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
-        line3.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
-        line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = notPressable;
         line5.transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.white;
     }
 
     public void ChangeToFrontArea()
     {
-        DisableButton(line1, "", heartSprite);
-        EnableButton(line2, "", burgerSprite);
-        EnableButton(line3, "", friesSprite);
-        EnableButton(line4, "", drinkSprite);
-        DisableButton(line5, "", null);
+        DisableButton(line1, "", heartSprite, Color.white);
+        EnableButton(line2, "", burgerSprite, Color.white);
+        EnableButton(line3, "", friesSprite, Color.white);
+        EnableButton(line4, "", drinkSprite, Color.white);
+        DisableButton(line5, "", null, Color.white);
         ChangeBurgerTextColor();
         ChangeFriesTextColor();
         ChangeDrinkTextColor();
         ChangeHealthTextColor();
-        line2.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
-        line3.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
-        line4.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
         line5.transform.GetChild(4).GetComponent<SpriteRenderer>().color = notPressable;
     }
 
@@ -401,6 +402,7 @@ ScreenTextManagment : MonoBehaviour
         line1.transform.GetChild(5).GetComponent<SpriteRenderer>().color = Color.clear;
         line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
         line5.transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.clear;
+        line5.transform.GetChild(3).gameObject.layer = 2;
     }
 
     public void ChangeHealthCount(int num)
@@ -533,10 +535,11 @@ ScreenTextManagment : MonoBehaviour
         line4.GetComponent<TextMesh>().text = "      " + initialDrinks;
     }
 
-    void DisableButton(GameObject button, string text, Sprite icon)
+    void DisableButton(GameObject button, string text, Sprite icon, Color iconColor)
     {
         button.transform.GetChild(0).gameObject.layer = 2;
         button.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.clear;
+        button.transform.GetChild(1).GetComponent<SpriteRenderer>().color = iconColor;
         button.GetComponent<TextMesh>().color = textColor;
         if (icon != null)
         {
@@ -550,10 +553,11 @@ ScreenTextManagment : MonoBehaviour
         }
     }
 
-    void EnableButton(GameObject button, string text, Sprite icon)
+    void EnableButton(GameObject button, string text, Sprite icon, Color iconColor)
     {
         button.transform.GetChild(0).gameObject.layer = 0;
         button.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.white;
+        button.transform.GetChild(1).GetComponent<SpriteRenderer>().color = iconColor;
         button.GetComponent<TextMesh>().color = textColor;
         if (icon != null)
         {
@@ -657,5 +661,6 @@ ScreenTextManagment : MonoBehaviour
         line3.transform.GetChild(0).gameObject.layer = 2;
         line4.transform.GetChild(0).gameObject.layer = 2;
         line5.transform.GetChild(0).gameObject.layer = 2;
+        line5.transform.GetChild(3).gameObject.layer = 2;
     }
 }
