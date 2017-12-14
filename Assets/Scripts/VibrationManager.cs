@@ -20,6 +20,14 @@ public class VibrationManager : MonoBehaviour
         }
     }
 
+    public void Vibrate()
+    {
+        if (canVibrate)
+        {
+            Handheld.Vibrate();
+        }
+    }
+
     public void ChangeVibration(bool b)
     {
         canVibrate = b;
