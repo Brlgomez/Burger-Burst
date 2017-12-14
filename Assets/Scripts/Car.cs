@@ -6,7 +6,7 @@ public class Car : MonoBehaviour
 {
     int updateInterval = 1;
 
-    static float speed = 10;
+    float speed = 10;
     static int maxSpeed = 10;
     static int acceleration = 10;
     static int deceleration = 10;
@@ -78,10 +78,10 @@ public class Car : MonoBehaviour
             Camera.main.GetComponent<ZombieManager>().AddNewZombie(new Vector3(transform.position.x - 1, 0, transform.position.z + 4.25f));
             Camera.main.GetComponent<ZombieManager>().AddNewZombie(new Vector3(transform.position.x + 1, 0, transform.position.z + 3.75f));
         }
-        else 
+        else
         {
             Camera.main.GetComponent<ZombieManager>().AddNewZombie(new Vector3(transform.position.x, 0, transform.position.z + 4));
-		}
+        }
         droppedOff = true;
     }
 

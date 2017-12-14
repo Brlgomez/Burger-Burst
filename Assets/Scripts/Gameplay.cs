@@ -6,7 +6,6 @@ public class Gameplay : MonoBehaviour
 {
     static float regenMaxTime = 15;
     float regenTimer;
-
     int maxLifeWithBonus = 200;
     int maxLife = 100;
     float life = 100;
@@ -19,6 +18,8 @@ public class Gameplay : MonoBehaviour
     float defense = 1;
     bool moreLife;
     bool continued;
+    float timeForNewZombie = 12;
+    static int minTimeForNewZombie = 5;
 
     public void IncreasePoints(GameObject obj)
     {
@@ -206,6 +207,11 @@ public class Gameplay : MonoBehaviour
     public void IncreaseCompletedOrders()
     {
         completedOrders++;
+        if (timeForNewZombie > minTimeForNewZombie)
+        {
+            timeForNewZombie -= 0.1f;
+            Debug.Log(timeForNewZombie);
+        }
     }
 
     public int GetCompletedOrdersCount()
@@ -268,6 +274,7 @@ public class Gameplay : MonoBehaviour
         completedOrders = 0;
         regenTimer = 0;
         points = 0;
+        timeForNewZombie = 12;
         GetComponent<LEDManager>().ResetPointsText();
         NotGameOver();
     }
@@ -299,5 +306,10 @@ public class Gameplay : MonoBehaviour
     public bool GetContinued()
     {
         return continued;
+    }
+
+    public float GetTimeForNewZombie()
+    {
+        return timeForNewZombie;
     }
 }

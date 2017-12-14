@@ -5,7 +5,6 @@ using UnityEngine;
 public class ZombieManager : MonoBehaviour
 {
     static int maxAmountOfZombies = 10;
-    float timeForNewZombie = 12;
     float time;
 
     GameObject zombie;
@@ -32,13 +31,13 @@ public class ZombieManager : MonoBehaviour
     {
         gameplayPosition = GetComponent<PositionManager>().GameplayPosition().position;
         zombie = GetComponent<ObjectManager>().Zombie();
-        time = timeForNewZombie;
+        time = GetComponent<Gameplay>().GetTimeForNewZombie();
     }
 
     public void ZombieUpdate(int updateInterval)
     {
         time += Time.deltaTime * updateInterval;
-        if (time > timeForNewZombie)
+        if (time > GetComponent<Gameplay>().GetTimeForNewZombie())
         {
             if (GetCount() < maxAmountOfZombies && !GetComponent<Gameplay>().IsGameOver())
             {
@@ -106,7 +105,7 @@ public class ZombieManager : MonoBehaviour
         amountOfZombies--;
         if (amountOfZombies == 0)
         {
-            time = timeForNewZombie;
+            time = GetComponent<Gameplay>().GetTimeForNewZombie();
         }
         Destroy(waiter);
     }
@@ -131,6 +130,6 @@ public class ZombieManager : MonoBehaviour
     public void ResetValues()
     {
         amountOfZombies = 0;
-        time = timeForNewZombie;
+        time = GetComponent<Gameplay>().GetTimeForNewZombie();
     }
 }
