@@ -749,11 +749,11 @@ public class Zombie : MonoBehaviour
 
     void OrderBubbleScale()
     {
-        thinkBubble.GetComponent<SpriteRenderer>().sortingOrder = -Mathf.RoundToInt(transform.position.z * 100);
-        thinkBubble.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = -Mathf.RoundToInt(transform.position.z * 100) + 1;
-        thinkBubble.transform.GetChild(1).GetComponent<SpriteRenderer>().sortingOrder = -Mathf.RoundToInt(transform.position.z * 100) + 1;
-        thinkBubble.transform.GetChild(2).GetComponent<SpriteRenderer>().sortingOrder = -Mathf.RoundToInt(transform.position.z * 100) + 1;
-        thinkBubble.transform.GetChild(3).GetComponent<SpriteRenderer>().sortingOrder = -Mathf.RoundToInt(transform.position.z * 100) + 1;
+        thinkBubble.GetComponent<SpriteRenderer>().sortingOrder = -Mathf.RoundToInt(transform.position.z * 100) - 100;
+        thinkBubble.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = -Mathf.RoundToInt(transform.position.z * 100) - 99;
+        thinkBubble.transform.GetChild(1).GetComponent<SpriteRenderer>().sortingOrder = -Mathf.RoundToInt(transform.position.z * 100) - 99;
+        thinkBubble.transform.GetChild(2).GetComponent<SpriteRenderer>().sortingOrder = -Mathf.RoundToInt(transform.position.z * 100) - 99;
+        thinkBubble.transform.GetChild(3).GetComponent<SpriteRenderer>().sortingOrder = -Mathf.RoundToInt(transform.position.z * 100) - 99;
         if (thinkBubble.transform.localScale.x > bubbleMinScale)
         {
             if ((head.transform.position.z - endingZ) / (startingZ - endingZ) > bubbleMinScale)

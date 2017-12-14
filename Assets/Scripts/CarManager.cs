@@ -16,7 +16,7 @@ public class CarManager : MonoBehaviour
     public void CreateNewCarWithZombie()
     {
         GameObject newCar;
-        if (Random.value > 0.1f)
+        if (Random.value > GetComponent<Gameplay>().GetChanceOfSUV())
         {
             newCar = Instantiate(car);
 			newCar.AddComponent<Car>();

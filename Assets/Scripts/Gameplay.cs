@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class Gameplay : MonoBehaviour
 {
-    static float regenMaxTime = 15;
-    float regenTimer;
-    int maxLifeWithBonus = 200;
     int maxLife = 100;
     float life = 100;
     int burgers = 25;
@@ -15,11 +12,22 @@ public class Gameplay : MonoBehaviour
     int completedOrders;
     int points;
     bool gameOver;
-    float defense = 1;
-    bool moreLife;
     bool continued;
-    float timeForNewZombie = 12;
-    static int minTimeForNewZombie = 5;
+
+	//Power Ups
+	static float regenMaxTime = 15;
+	float regenTimer;
+	float defense = 1;
+	bool moreLife;
+	int maxLifeWithBonus = 200;
+
+	//Zombies
+	static int minTimeForNewZombie = 5;
+	float timeForNewZombie = 12;
+
+    //SUV spawn
+    static float maxChanceOfSUV = 0.5f;
+    float chanceOfSUV;
 
     public void IncreasePoints(GameObject obj)
     {
@@ -210,7 +218,10 @@ public class Gameplay : MonoBehaviour
         if (timeForNewZombie > minTimeForNewZombie)
         {
             timeForNewZombie -= 0.1f;
-            Debug.Log(timeForNewZombie);
+        }
+        if (chanceOfSUV < maxChanceOfSUV)
+        {
+            chanceOfSUV += 0.01f;
         }
     }
 
@@ -275,6 +286,7 @@ public class Gameplay : MonoBehaviour
         regenTimer = 0;
         points = 0;
         timeForNewZombie = 12;
+        chanceOfSUV = 0;
         GetComponent<LEDManager>().ResetPointsText();
         NotGameOver();
     }
@@ -311,5 +323,10 @@ public class Gameplay : MonoBehaviour
     public float GetTimeForNewZombie()
     {
         return timeForNewZombie;
+    }
+
+    public float GetChanceOfSUV()
+    {
+        return chanceOfSUV;
     }
 }
