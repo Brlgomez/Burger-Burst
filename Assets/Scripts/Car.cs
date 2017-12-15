@@ -10,7 +10,7 @@ public class Car : MonoBehaviour
     static int maxSpeed = 10;
     static int acceleration = 10;
     static int deceleration = 10;
-    float randomStoppingPos;
+    float randomStoppingPos, suvRand1, suvRand2;
     bool slowDown;
     bool slowingDown;
     bool droppedOff;
@@ -20,6 +20,8 @@ public class Car : MonoBehaviour
     void Start()
     {
         randomStoppingPos = Random.Range(-7.5f, 17.5f);
+        suvRand1 = Random.Range(-7.5f, 2.5f);
+        suvRand2 = Random.Range(7.5f, 17.5f);
         myRenderer = GetComponent<Renderer>();
     }
 
@@ -36,7 +38,14 @@ public class Car : MonoBehaviour
             {
                 updateInterval = 10;
             }
-            Logic();
+            if (multiZombies)
+            {
+                SUVLogic();
+            }
+            else
+            {
+                Logic();
+            }
             transform.Translate(-Vector3.forward * Time.deltaTime * speed * updateInterval);
         }
     }
@@ -71,17 +80,44 @@ public class Car : MonoBehaviour
         }
     }
 
+    void SUVLogic()
+    {
+        if ((Mathf.Abs(suvRand1 - transform.position.x) < 2 && speed > 0))
+        {
+            slowingDown = true;
+        }
+        if ((Mathf.Abs(suvRand2 - transform.position.x) < 2 && speed > 0))
+        {
+            slowingDown = true;
+        }
+        if (slowingDown)
+        {
+            speed -= Time.deltaTime * deceleration * updateInterval;
+            if (speed < 0)
+            {
+                speed = 0;
+                slowDown = false;
+                slowingDown = false;
+                if (!Camera.main.GetComponent<Gameplay>().IsGameOver() && !droppedOff)
+                {
+                    AddZombie();
+                }
+            }
+        }
+        else if (!slowDown && droppedOff)
+        {
+            speed += Time.deltaTime * acceleration * updateInterval;
+            if (speed > maxSpeed)
+            {
+                speed = maxSpeed;
+                droppedOff = false;
+            }
+        }
+    }
+
     void AddZombie()
     {
-        if (multiZombies)
-        {
-            Camera.main.GetComponent<ZombieManager>().AddNewZombie(new Vector3(transform.position.x - 1.25f, 0, transform.position.z + 4.25f));
-            Camera.main.GetComponent<ZombieManager>().AddNewZombie(new Vector3(transform.position.x + 1.25f, 0, transform.position.z + 3.75f));
-        }
-        else
-        {
-            Camera.main.GetComponent<ZombieManager>().AddNewZombie(new Vector3(transform.position.x, 0, transform.position.z + 4));
-        }
+        Camera.main.GetComponent<ZombieManager>().AddNewZombie(new Vector3(transform.position.x, 0, transform.position.z + 4));
         droppedOff = true;
     }
 

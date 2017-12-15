@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Gameplay : MonoBehaviour
 {
+    int completedOrders;
+    int points;
+    bool gameOver;
+    bool continued;
     int maxLife = 100;
     float life = 100;
     int burgers = 25;
     int fries = 25;
     int drinks = 25;
-    int completedOrders;
-    int points;
-    bool gameOver;
-    bool continued;
 
     //Power Ups
     static float regenMaxTime = 15;
@@ -349,8 +349,8 @@ public class Gameplay : MonoBehaviour
         return chanceOfDifSizedZombie;
     }
 
-	public float GetChanceOfSpecialZombie()
-	{
+    public float GetChanceOfSpecialZombie()
+    {
         return chanceOfSpecialZombie;
-	}
+    }
 }
