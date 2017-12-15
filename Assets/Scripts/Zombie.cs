@@ -35,6 +35,7 @@ public class Zombie : MonoBehaviour
     float frozenTime;
     bool frozen;
     int damageAmount = 10;
+    int pointsMultiplier = 1;
 
     enum ZombieType { regular, coin, healing, instantKill, poison, speed, ice };
     ZombieType thisZombieType = ZombieType.regular;
@@ -368,7 +369,7 @@ public class Zombie : MonoBehaviour
         landParticles.transform.position = obj.transform.position;
         landParticles.GetComponent<ParticleSystem>().Play();
         landParticles.AddComponent<DestroySpawnedParticle>();
-        Camera.main.GetComponent<Gameplay>().IncreasePoints(obj);
+        Camera.main.GetComponent<Gameplay>().IncreasePoints(obj, pointsMultiplier);
         obj.GetComponent<RemoveObjects>().DropProduct();
         obj.GetComponent<ParticleSystem>().Stop();
         Destroy(obj.GetComponent<Rigidbody>());
@@ -661,21 +662,25 @@ public class Zombie : MonoBehaviour
                 powerParticles.Play();
                 break;
             case "Death Zombie":
+                pointsMultiplier = 2;
                 thisZombieType = ZombieType.instantKill;
                 powerParticles = upperBody.transform.GetChild(5).GetComponent<ParticleSystem>();
                 powerParticles.Play();
                 break;
             case "Poison Zombie":
+                pointsMultiplier = 2;
                 thisZombieType = ZombieType.poison;
                 powerParticles = upperBody.transform.GetChild(6).GetComponent<ParticleSystem>();
                 powerParticles.Play();
                 break;
             case "Speed Zombie":
+                pointsMultiplier = 2;
                 thisZombieType = ZombieType.speed;
                 speed = 3;
                 originalSpeed = speed;
                 break;
             case "Ice Zombie":
+                pointsMultiplier = 2;
                 thisZombieType = ZombieType.ice;
                 powerParticles = upperBody.transform.GetChild(7).GetComponent<ParticleSystem>();
                 powerParticles.Play();

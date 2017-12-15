@@ -33,11 +33,11 @@ public class Gameplay : MonoBehaviour
     static float maxChanceOfSUV = 0.5f;
     float chanceOfSUV;
 
-    public void IncreasePoints(GameObject obj)
+    public void IncreasePoints(GameObject obj, int multiplier)
     {
         if (!IsGameOver())
         {
-            int addedPoints = (int)Vector3.Distance(obj.transform.position, transform.position) / 2;
+            int addedPoints = ((int)Vector3.Distance(obj.transform.position, transform.position) / 2) * multiplier;
             if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(GetComponent<PowerUpsManager>().doublePoints.powerUpNumber))
             {
                 addedPoints *= 2;

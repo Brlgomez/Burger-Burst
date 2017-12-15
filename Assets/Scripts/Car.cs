@@ -75,8 +75,8 @@ public class Car : MonoBehaviour
     {
         if (multiZombies)
         {
-            Camera.main.GetComponent<ZombieManager>().AddNewZombie(new Vector3(transform.position.x - 1, 0, transform.position.z + 4.25f));
-            Camera.main.GetComponent<ZombieManager>().AddNewZombie(new Vector3(transform.position.x + 1, 0, transform.position.z + 3.75f));
+            Camera.main.GetComponent<ZombieManager>().AddNewZombie(new Vector3(transform.position.x - 1.25f, 0, transform.position.z + 4.25f));
+            Camera.main.GetComponent<ZombieManager>().AddNewZombie(new Vector3(transform.position.x + 1.25f, 0, transform.position.z + 3.75f));
         }
         else
         {

@@ -9,6 +9,7 @@ public class MenuSlider : MonoBehaviour
     Color textColor = new Color(0, 0.5f, 1);
     int sliderObjectCount;
     Menus.Menu lastMenu, currentMenu;
+    float scrollerY;
 
     void Awake()
     {
@@ -17,6 +18,7 @@ public class MenuSlider : MonoBehaviour
         slot2 = scrollView.transform.GetChild(2).GetChild(1).gameObject;
         slot3 = scrollView.transform.GetChild(2).GetChild(2).gameObject;
         GetComponent<PowerUpsManager>().SetPowerUpLED();
+        scrollerY = scrollView.transform.GetChild(1).localPosition.y;
     }
 
     public void SetUpMenu(Menus.Menu menu)
@@ -130,7 +132,7 @@ public class MenuSlider : MonoBehaviour
         int roundedPositionX = Mathf.RoundToInt(scrollView.transform.GetChild(1).localPosition.x);
         Vector3 roundedPosition = new Vector3(
             roundedPositionX,
-            scrollView.transform.GetChild(1).localPosition.y,
+            scrollerY,
             scrollView.transform.GetChild(1).localPosition.z
         );
         scrollView.transform.GetChild(1).localPosition = Vector3.Slerp(
@@ -165,7 +167,7 @@ public class MenuSlider : MonoBehaviour
             {
                 SetUpScrollObject(scrollList[i], sliderObjectCount + 2 - i);
             }
-            scrollList[i].transform.localPosition = new Vector3(0.5f, 0, 2 - i);
+            scrollList[i].transform.localPosition = new Vector3(0.11f, 0, 2 - i);
         }
     }
 
