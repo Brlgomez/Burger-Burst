@@ -650,32 +650,32 @@ public class Zombie : MonoBehaviour
         SetUpLimb(upperBody, uB, outfit);
         switch (outfit.name)
         {
-            case "Zombie8":
+            case "Coin Zombie":
                 thisZombieType = ZombieType.coin;
                 powerParticles = upperBody.transform.GetChild(3).GetComponent<ParticleSystem>();
                 powerParticles.Play();
                 break;
-            case "Zombie9":
+            case "Health Zombie":
                 thisZombieType = ZombieType.healing;
                 powerParticles = upperBody.transform.GetChild(4).GetComponent<ParticleSystem>();
                 powerParticles.Play();
                 break;
-            case "Zombie10":
+            case "Death Zombie":
                 thisZombieType = ZombieType.instantKill;
                 powerParticles = upperBody.transform.GetChild(5).GetComponent<ParticleSystem>();
                 powerParticles.Play();
                 break;
-            case "Zombie11":
+            case "Poison Zombie":
                 thisZombieType = ZombieType.poison;
                 powerParticles = upperBody.transform.GetChild(6).GetComponent<ParticleSystem>();
                 powerParticles.Play();
                 break;
-            case "Zombie12":
+            case "Speed Zombie":
                 thisZombieType = ZombieType.speed;
                 speed = 3;
                 originalSpeed = speed;
                 break;
-            case "Zombie13":
+            case "Ice Zombie":
                 thisZombieType = ZombieType.ice;
                 powerParticles = upperBody.transform.GetChild(7).GetComponent<ParticleSystem>();
                 powerParticles.Play();

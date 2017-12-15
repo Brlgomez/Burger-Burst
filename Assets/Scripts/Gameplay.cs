@@ -26,6 +26,8 @@ public class Gameplay : MonoBehaviour
     float timeForNewZombie = 12;
     static float maxChanceOfDifSizedZombie = 0.25f;
     float chanceOfDifSizedZombie;
+    static float maxChanceOfSpecialZombie = 0.25f;
+    float chanceOfSpecialZombie;
 
     //SUV spawn
     static float maxChanceOfSUV = 0.5f;
@@ -229,6 +231,10 @@ public class Gameplay : MonoBehaviour
         {
             chanceOfDifSizedZombie += 0.005f;
         }
+        if (chanceOfSpecialZombie < maxChanceOfSpecialZombie)
+        {
+            chanceOfSpecialZombie += 0.005f;
+        }
     }
 
     public int GetCompletedOrdersCount()
@@ -294,6 +300,7 @@ public class Gameplay : MonoBehaviour
         timeForNewZombie = 12;
         chanceOfSUV = 0;
         chanceOfDifSizedZombie = 0;
+        chanceOfSpecialZombie = 0;
         GetComponent<LEDManager>().ResetPointsText();
         NotGameOver();
     }
@@ -341,4 +348,9 @@ public class Gameplay : MonoBehaviour
     {
         return chanceOfDifSizedZombie;
     }
+
+	public float GetChanceOfSpecialZombie()
+	{
+        return chanceOfSpecialZombie;
+	}
 }

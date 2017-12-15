@@ -25,7 +25,9 @@ public class ZombieManager : MonoBehaviour
     public Mesh[] heads;
     public Mesh[] lowerBody;
     public Mesh[] upperBody;
-    public Texture[] outfit;
+    public Texture[] outfits;
+    public Texture[] specialOutfits;
+    public Texture healthOutfit;
 
     void Start()
     {
@@ -60,6 +62,7 @@ public class ZombieManager : MonoBehaviour
 
     public void AddNewZombie(Vector3 position)
     {
+        Texture newOutfit;
         amountOfZombies++;
         if (Random.value < GetComponent<Gameplay>().GetChanceOfDifSizedZombie() / 2)
         {
@@ -72,6 +75,21 @@ public class ZombieManager : MonoBehaviour
         else
         {
             zombie.transform.localScale = Vector3.one;
+        }
+        if (Random.value < GetComponent<Gameplay>().GetChanceOfSpecialZombie())
+        {
+            if (Random.value > 0.75f)
+            {
+                newOutfit = healthOutfit;
+            }
+            else
+            {
+                newOutfit = specialOutfits[Random.Range(0, specialOutfits.Length)];
+            }
+        }
+        else
+        {
+            newOutfit = outfits[Random.Range(0, outfits.Length)];
         }
         GameObject newZombie = Instantiate(zombie);
         newZombie.transform.position = position;
@@ -95,7 +113,7 @@ public class ZombieManager : MonoBehaviour
             heads[Random.Range(0, heads.Length)],
             lowerBody[Random.Range(0, lowerBody.Length)],
             upperBody[Random.Range(0, upperBody.Length)],
-            outfit[Random.Range(0, outfit.Length)]
+            newOutfit
         );
         newZombie.tag = "Clone";
     }

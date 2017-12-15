@@ -96092,7 +96092,7 @@ MonoBehaviour:
   - {fileID: 4300108, guid: 3da25bf0aabe543338ad9d02fa316ade, type: 3}
   upperBody:
   - {fileID: 4300028, guid: 3da25bf0aabe543338ad9d02fa316ade, type: 3}
-  outfit:
+  outfits:
   - {fileID: 2800000, guid: ca54222f764ba41c89199a503757e6c6, type: 3}
   - {fileID: 2800000, guid: 6b309c0852e0a4319b0900b38053b829, type: 3}
   - {fileID: 2800000, guid: 92a0ac4fb1e334c249e0c0a5b29cd6f5, type: 3}
@@ -96100,12 +96100,13 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 95fb5ca20f326450fb5393b9b3854aaa, type: 3}
   - {fileID: 2800000, guid: 152bec39c3d054ef0928d6781052ae1f, type: 3}
   - {fileID: 2800000, guid: 219a9ad00be124a338610f744d16f90f, type: 3}
-  - {fileID: 2800000, guid: 318bbf523b0a54235b9c8e9658cba6ee, type: 3}
-  - {fileID: 2800000, guid: 82958f6ff47de428789824c500a949ff, type: 3}
-  - {fileID: 2800000, guid: 2ca60d3e6deb2450fa98d3d3cbb8947c, type: 3}
-  - {fileID: 2800000, guid: e3512b852b7c743bc98abaae716da8d6, type: 3}
-  - {fileID: 2800000, guid: ea312c3c312d9464986c1d05fe97f592, type: 3}
-  - {fileID: 2800000, guid: 30795e942f0304db0846ba07d4344bf5, type: 3}
+  specialOutfits:
+  - {fileID: 2800000, guid: 6546d1897a6c945bdba48832c8df429f, type: 3}
+  - {fileID: 2800000, guid: 03a2e3e75bf3f47f7852258dafc9b00a, type: 3}
+  - {fileID: 2800000, guid: ed984b104adb449a9be8bfb92f44673e, type: 3}
+  - {fileID: 2800000, guid: 40686287d5ee1459782c11e63e25b594, type: 3}
+  - {fileID: 2800000, guid: f939d9f860b5944bab05c22faf7686c5, type: 3}
+  healthOutfit: {fileID: 2800000, guid: 9323ac36a6a034ba19ddae702c0d34ee, type: 3}
 --- !u!114 &1865169789
 MonoBehaviour:
   m_ObjectHideFlags: 0
