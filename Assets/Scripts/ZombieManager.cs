@@ -61,11 +61,11 @@ public class ZombieManager : MonoBehaviour
     public void AddNewZombie(Vector3 position)
     {
         amountOfZombies++;
-        if (Random.value < 0.05f)
+        if (Random.value < GetComponent<Gameplay>().GetChanceOfDifSizedZombie() / 2)
         {
             zombie.transform.localScale = Vector3.one * 1.25f;
         }
-        else if (Random.value < 0.1f)
+        else if (Random.value < GetComponent<Gameplay>().GetChanceOfDifSizedZombie())
         {
             zombie.transform.localScale = Vector3.one * 0.75f;
         }

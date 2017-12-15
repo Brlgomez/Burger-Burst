@@ -276,8 +276,13 @@ public class Zombie : MonoBehaviour
         int maxAmountOfProduct = Mathf.CeilToInt(Camera.main.GetComponent<Gameplay>().GetCompletedOrdersCount() / 5) + 1;
         int amountOfProduct;
         int absoluteMax = 5;
+        int absoluteMin = 1;
         orderComplete = false;
-        amountOfProduct = Random.Range(1, maxAmountOfProduct);
+        if (transform.localScale.x > 1.1f)
+        {
+            absoluteMin = 3;
+        }
+        amountOfProduct = Random.Range(absoluteMin, maxAmountOfProduct);
         if (transform.localScale.x > 1.1f)
         {
             absoluteMax = 7;
@@ -366,7 +371,7 @@ public class Zombie : MonoBehaviour
         Camera.main.GetComponent<Gameplay>().IncreasePoints(obj);
         obj.GetComponent<RemoveObjects>().DropProduct();
         obj.GetComponent<ParticleSystem>().Stop();
-		Destroy(obj.GetComponent<Rigidbody>());
+        Destroy(obj.GetComponent<Rigidbody>());
         Destroy(obj.GetComponent<RemoveObjects>());
         if (obj.GetComponent<MagnetPowerUp>() != null)
         {

@@ -19,8 +19,8 @@ public class CarManager : MonoBehaviour
         if (Random.value > GetComponent<Gameplay>().GetChanceOfSUV())
         {
             newCar = Instantiate(car);
-			newCar.AddComponent<Car>();
-		}
+            newCar.AddComponent<Car>();
+        }
         else
         {
             newCar = Instantiate(suv);

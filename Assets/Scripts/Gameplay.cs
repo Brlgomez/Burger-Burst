@@ -14,16 +14,18 @@ public class Gameplay : MonoBehaviour
     bool gameOver;
     bool continued;
 
-	//Power Ups
-	static float regenMaxTime = 15;
-	float regenTimer;
-	float defense = 1;
-	bool moreLife;
-	int maxLifeWithBonus = 200;
+    //Power Ups
+    static float regenMaxTime = 15;
+    float regenTimer;
+    float defense = 1;
+    bool moreLife;
+    int maxLifeWithBonus = 200;
 
-	//Zombies
-	static int minTimeForNewZombie = 5;
-	float timeForNewZombie = 12;
+    //Zombies
+    static int minTimeForNewZombie = 6;
+    float timeForNewZombie = 12;
+    static float maxChanceOfDifSizedZombie = 0.25f;
+    float chanceOfDifSizedZombie;
 
     //SUV spawn
     static float maxChanceOfSUV = 0.5f;
@@ -223,6 +225,10 @@ public class Gameplay : MonoBehaviour
         {
             chanceOfSUV += 0.01f;
         }
+        if (chanceOfDifSizedZombie < maxChanceOfDifSizedZombie)
+        {
+            chanceOfDifSizedZombie += 0.005f;
+        }
     }
 
     public int GetCompletedOrdersCount()
@@ -287,6 +293,7 @@ public class Gameplay : MonoBehaviour
         points = 0;
         timeForNewZombie = 12;
         chanceOfSUV = 0;
+        chanceOfDifSizedZombie = 0;
         GetComponent<LEDManager>().ResetPointsText();
         NotGameOver();
     }
@@ -328,5 +335,10 @@ public class Gameplay : MonoBehaviour
     public float GetChanceOfSUV()
     {
         return chanceOfSUV;
+    }
+
+    public float GetChanceOfDifSizedZombie()
+    {
+        return chanceOfDifSizedZombie;
     }
 }
