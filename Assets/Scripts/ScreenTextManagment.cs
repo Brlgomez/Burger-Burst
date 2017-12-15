@@ -595,7 +595,7 @@ ScreenTextManagment : MonoBehaviour
                 target.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.grey;
             }
         }
-        if (!pressDown && target == scrollView)
+        if (!pressDown && target == scrollView && currentArea != Menus.Menu.Gameplay)
         {
             GetComponent<MenuSlider>().ChangeScrollerItemColor(true);
             pressDown = true;
@@ -616,7 +616,7 @@ ScreenTextManagment : MonoBehaviour
                 target.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
             }
         }
-        if (pressDown && target == scrollView)
+        if (pressDown && target == scrollView && currentArea != Menus.Menu.Gameplay)
         {
             GetComponent<MenuSlider>().ChangeScrollerItemColor(false);
             pressDown = false;

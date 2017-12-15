@@ -248,9 +248,13 @@ public class GrabAndThrowObject : MonoBehaviour
 
     GameObject GetSodaMachineObject(GameObject obj)
     {
-        if ((obj.tag == "Soda" || obj.tag == "Lid" || obj.name == "Soda Button") && GetComponent<Frozen>() == null)
+        if ((obj.tag == "Soda" || obj.tag == "Lid" || obj.name == "Soda Button" && GetComponent<Frozen>() == null))
         {
             return obj;
+        }
+        if ((obj.layer == 12 && obj.transform.parent.tag == "Soda") && GetComponent<Frozen>() == null)
+        {
+            return obj.transform.parent.gameObject;
         }
         return null;
     }
