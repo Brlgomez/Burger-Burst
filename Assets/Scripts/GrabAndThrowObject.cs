@@ -267,9 +267,9 @@ public class GrabAndThrowObject : MonoBehaviour
             target.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
             target.GetComponent<Rigidbody>().isKinematic = false;
             target.GetComponent<Rigidbody>().useGravity = false;
-			target.GetComponent<ParticleSystem>().Play();
-			counterWall.GetComponent<Collider>().enabled = true;
-		}
+            target.GetComponent<ParticleSystem>().Play();
+            counterWall.GetComponent<Collider>().enabled = true;
+        }
     }
 
     void MouseDownGrill()

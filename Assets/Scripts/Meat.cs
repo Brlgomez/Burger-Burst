@@ -59,7 +59,7 @@ public class Meat : MonoBehaviour
         }
         if (collision.gameObject.name == "Top_Bun(Clone)" && !touchingTop)
         {
-            if (CheckDistance(collision.gameObject))
+            if (!TouchingBottom(collision))
             {
                 touchingTop = true;
                 topBun = collision.gameObject;
@@ -67,7 +67,7 @@ public class Meat : MonoBehaviour
         }
         if (collision.gameObject.name == "Bottom_Bun(Clone)" && !touchingBottom)
         {
-            if (CheckDistance(collision.gameObject))
+            if (TouchingBottom(collision))
             {
                 touchingBottom = true;
                 bottomBun = collision.gameObject;
@@ -80,14 +80,19 @@ public class Meat : MonoBehaviour
         CheckRange();
     }
 
-    bool CheckDistance(GameObject obj)
+    bool TouchingBottom(Collision collision)
     {
-        if (Vector3.Distance(gameObject.transform.position, obj.transform.position) < 0.1f)
+        if (collision.contacts.Length > 0)
         {
-            return true;
+            ContactPoint contact = collision.contacts[0];
+            if (Vector3.Dot(contact.normal, Vector3.up) > 0.5)
+            {
+                return true;
+            }
         }
         return false;
     }
+
     void BurgerCompleted()
     {
         float percentage = (((maxTimeOnGrill / 2) - (Mathf.Abs(timeOnGrill - (maxTimeOnGrill / 2)))) / (maxTimeOnGrill / 2));

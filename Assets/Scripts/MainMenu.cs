@@ -17,7 +17,8 @@ public class MainMenu : MonoBehaviour
     {
         Application.targetFrameRate = 60;
         Input.multiTouchEnabled = false;
-    }
+        StartCoroutine(MovePhoneUp());
+	}
 
     void Update()
     {
@@ -54,11 +55,7 @@ public class MainMenu : MonoBehaviour
 
     void MouseUp()
     {
-        if (GetComponent<ScreenTextManagment>().GetMenu() == Menus.Menu.PhoneDown)
-        {
-            gameObject.AddComponent<CameraMovement>().MoveToTitle();
-        }
-        else if (target != null && target.name == "Phone" && GetComponent<ScreenTextManagment>().GetMenu() == Menus.Menu.Title && !pressedTitle)
+        if (target != null && target.name == "Phone" && GetComponent<ScreenTextManagment>().GetMenu() == Menus.Menu.Title && !pressedTitle)
         {
             pressedTitle = true;
             StartCoroutine(PhoneStartUp());
@@ -178,6 +175,12 @@ public class MainMenu : MonoBehaviour
             }
         }
     }
+
+    IEnumerator MovePhoneUp()
+    {
+        yield return new WaitForSeconds(0.5f);
+		gameObject.AddComponent<CameraMovement>().MoveToTitle();
+	}
 
     IEnumerator PhoneStartUp()
     {

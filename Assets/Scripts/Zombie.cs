@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class Zombie : MonoBehaviour
 {
-    int updateInterval = 3;
+    int updateInterval = 2;
 
     int neededBurgers, neededFries, neededDrinks;
     int amountOfBurgers, amountOfFries, amountOfDrinks;
@@ -89,7 +89,7 @@ public class Zombie : MonoBehaviour
             }
             if (myRenderer.isVisible)
             {
-                updateInterval = 3;
+                updateInterval = 2;
                 OrderBubbleScale();
                 if (powerParticles != null && powerParticles.isPaused)
                 {

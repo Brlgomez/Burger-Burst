@@ -202,7 +202,8 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToConfirmationScreen(Menus.Menu menu)
     {
-        string question = "";
+		int currentCoinCount = GetComponent<PlayerPrefsManager>().GetCoins();
+		string question = "";
         switch (menu)
         {
             case Menus.Menu.ConfirmationPowerUp:
@@ -223,21 +224,21 @@ ScreenTextManagment : MonoBehaviour
         }
         GameObject middleObj = GetComponent<MenuSlider>().GetMiddleObject();
         TurnOffScrollList();
-        DisableButton(line1, middleObj.transform.GetChild(0).GetComponent<TextMesh>().text, middleObj.GetComponent<SpriteRenderer>().sprite, Color.white);
+        DisableButton(line1, "Price: " + middleObj.transform.GetChild(0).GetComponent<TextMesh>().text, middleObj.GetComponent<SpriteRenderer>().sprite, Color.white);
         if (int.Parse(middleObj.transform.GetChild(0).GetComponent<TextMesh>().text) <= GetComponent<PlayerPrefsManager>().GetCoins())
         {
             DisableButton(line2, question, null, Color.white);
             EnableButton(line3, "Yes", yesSprite, Color.white);
-        }
+            DisableButton(line4, currentCoinCount.ToString(), coinSprite, Color.white);
+		}
         else
         {
             int middleObjectPrice = int.Parse(middleObj.transform.GetChild(0).GetComponent<TextMesh>().text);
-            int currentCoinCount = GetComponent<PlayerPrefsManager>().GetCoins();
-            DisableButton(line2, "", null, Color.white);
+            DisableButton(line2, "Cannot get", null, Color.white);
             DisableButton(line3, "Coins needed:\n" + (middleObjectPrice - currentCoinCount), null, Color.white);
             line3.GetComponent<TextMesh>().characterSize = 0.025f;
-        }
-        EnableButton(line4, "Get coins", coinSprite, Color.white);
+			EnableButton(line4, "Get coins", coinSprite, Color.white);
+		}
         EnableButton(line5, "Back", backSprite, Color.white);
         lastArea = currentArea;
         currentArea = menu;
