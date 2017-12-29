@@ -36,13 +36,13 @@ public class CameraMovement : MonoBehaviour
                 {
                     if (moveDevice && Vector3.Distance(transform.GetChild(1).localPosition, deviceTowards.transform.localPosition) < 0.001f)
                     {
-						Finished();
-					}
+                        Finished();
+                    }
                     else if (!moveDevice)
                     {
-						Finished();
-					}
-				}
+                        Finished();
+                    }
+                }
             }
         }
     }
@@ -113,32 +113,8 @@ public class CameraMovement : MonoBehaviour
             GetComponent<ScreenTextManagment>().ChangeToFrontArea();
         }
         else if (towards == title)
-		{
+        {
             GetComponent<ScreenTextManagment>().ChangeToTitleText();
-		}
-        else if (towards == menu)
-        {
-            GetComponent<ScreenTextManagment>().ChangeToMenuText();
-            if (GetComponent<MainMenu>() == null)
-            {
-                gameObject.AddComponent<MainMenu>();
-            }
-        }
-        else if (towards == pause)
-        {
-            GetComponent<ScreenTextManagment>().ChangeToPauseText();
-        }
-        else if (towards == customize)
-        {
-            GetComponent<ScreenTextManagment>().ChangeToCustomizeScreen();
-        }
-        else if (towards == setting)
-        {
-            GetComponent<ScreenTextManagment>().ChangeToSettingScreen();
-        }
-        else if (towards == store)
-        {
-            GetComponent<ScreenTextManagment>().ChangeToStoreScreen();
         }
         else if (towards == gameOver)
         {
@@ -158,76 +134,17 @@ public class CameraMovement : MonoBehaviour
         {
             GetComponent<ScreenTextManagment>().ChangeToSodaMachineArea();
         }
-        else if (towards == powerUp)
-        {
-            if (GetComponent<ScreenTextManagment>().GetLastMenu() == Menus.Menu.ConfirmationPowerUp)
-            {
-                GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationPowerUp);
-            }
-            else
-            {
-                GetComponent<ScreenTextManagment>().ChangeToUpgradeText();
-            }
-        }
-        else if (towards == theme)
-        {
-            GetComponent<ScreenTextManagment>().ChangeToThemeScreen();
-        }
-        else if (towards == graphics)
-        {
-            if (GetComponent<ScreenTextManagment>().GetLastMenu() == Menus.Menu.ConfirmationGraphics)
-            {
-                GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationGraphics);
-            }
-            else
-            {
-                GetComponent<ScreenTextManagment>().ChangeToGraphicsScreen();
-            }
-        }
-        else if (towards == flooring)
-        {
-            if (GetComponent<ScreenTextManagment>().GetLastMenu() == Menus.Menu.ConfirmationFlooring)
-            {
-                GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationFlooring);
-            }
-            else
-            {
-                GetComponent<ScreenTextManagment>().ChangeToFlooringScreen();
-            }
-        }
-        else if (towards == wallpaper)
-        {
-            if (GetComponent<ScreenTextManagment>().GetLastMenu() == Menus.Menu.ConfirmationWalls)
-            {
-                GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationWalls);
-            }
-            else
-            {
-                GetComponent<ScreenTextManagment>().ChangeToWallpaperScreen();
-            }
-        }
-        else if (towards == detail)
-        {
-            if (GetComponent<ScreenTextManagment>().GetLastMenu() == Menus.Menu.ConfirmationDetail)
-            {
-                GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationDetail);
-            }
-            else
-            {
-                GetComponent<ScreenTextManagment>().ChangeToDetailScreen();
-            }
-        }
         Destroy(GetComponent<CameraMovement>());
     }
 
-	public void MoveToTitle()
-	{
+    public void MoveToTitle()
+    {
         title = GetComponent<PositionManager>().MenuPosition();
         deviceTowards = GetComponent<PositionManager>().DeviceMiddlePosition();
         towards = title;
-		moveToPosition = true;
+        moveToPosition = true;
         moveDevice = true;
-	}
+    }
 
     public void MoveToMenu(bool moveDev)
     {
@@ -242,19 +159,19 @@ public class CameraMovement : MonoBehaviour
     {
         powerUp = GetComponent<PositionManager>().PowerUpsPosition();
         deviceTowards = GetComponent<PositionManager>().DeviceFrontPosition();
-		towards = powerUp;
+        towards = powerUp;
         moveToPosition = true;
-		moveDevice = true;
-	}
+        moveDevice = true;
+    }
 
     public void MoveToCustomize()
     {
         customize = GetComponent<PositionManager>().CustomizePosition();
-		deviceTowards = GetComponent<PositionManager>().DeviceFrontPosition();
-		towards = customize;
+        deviceTowards = GetComponent<PositionManager>().DeviceFrontPosition();
+        towards = customize;
         moveToPosition = true;
-		moveDevice = true;
-	}
+        moveDevice = true;
+    }
 
     public void MoveToTheme()
     {
@@ -294,20 +211,20 @@ public class CameraMovement : MonoBehaviour
     public void MoveToStore()
     {
         store = GetComponent<PositionManager>().StorePosition();
-		deviceTowards = GetComponent<PositionManager>().DeviceFrontPosition();
-		towards = store;
+        deviceTowards = GetComponent<PositionManager>().DeviceFrontPosition();
+        towards = store;
         moveToPosition = true;
-		moveDevice = true;
-	}
+        moveDevice = true;
+    }
 
     public void MoveToSetting()
     {
         setting = GetComponent<PositionManager>().SettingPosition();
-		deviceTowards = GetComponent<PositionManager>().DeviceFrontPosition();
-		towards = setting;
+        deviceTowards = GetComponent<PositionManager>().DeviceFrontPosition();
+        towards = setting;
         moveToPosition = true;
-		moveDevice = true;
-	}
+        moveDevice = true;
+    }
 
     public void MoveToGameplay(string c)
     {

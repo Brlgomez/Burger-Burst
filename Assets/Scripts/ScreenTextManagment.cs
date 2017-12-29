@@ -28,21 +28,21 @@ ScreenTextManagment : MonoBehaviour
         line4 = GetComponent<ObjectManager>().Phone().transform.GetChild(3).gameObject;
         line5 = GetComponent<ObjectManager>().Phone().transform.GetChild(4).gameObject;
         scrollView = GetComponent<ObjectManager>().Phone().transform.GetChild(5).gameObject;
-		TurnOffScrollList();
-		TurnOffGameplayImages();
+        TurnOffScrollList();
+        TurnOffGameplayImages();
         currentArea = Menus.Menu.PhoneDown;
     }
 
-	public void ChangeToTitleText()
-	{
+    public void ChangeToTitleText()
+    {
         DisableButton(line1, "", null, Color.white);
-		DisableButton(line2, "", null, Color.white);
-		DisableButton(line3, "", null, Color.white);
-		DisableButton(line4, "", null, Color.white);
-		DisableButton(line5, "", null, Color.white);
-		lastArea = currentArea;
+        DisableButton(line2, "", null, Color.white);
+        DisableButton(line3, "", null, Color.white);
+        DisableButton(line4, "", null, Color.white);
+        DisableButton(line5, "", null, Color.white);
+        lastArea = currentArea;
         currentArea = Menus.Menu.Title;
-	}
+    }
 
     public void ChangeToMenuText()
     {
@@ -202,8 +202,8 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToConfirmationScreen(Menus.Menu menu)
     {
-		int currentCoinCount = GetComponent<PlayerPrefsManager>().GetCoins();
-		string question = "";
+        int currentCoinCount = GetComponent<PlayerPrefsManager>().GetCoins();
+        string question = "";
         switch (menu)
         {
             case Menus.Menu.ConfirmationPowerUp:
@@ -230,15 +230,15 @@ ScreenTextManagment : MonoBehaviour
             DisableButton(line2, question, null, Color.white);
             EnableButton(line3, "Yes", yesSprite, Color.white);
             DisableButton(line4, currentCoinCount.ToString(), coinSprite, Color.white);
-		}
+        }
         else
         {
             int middleObjectPrice = int.Parse(middleObj.transform.GetChild(0).GetComponent<TextMesh>().text);
             DisableButton(line2, "Cannot get", null, Color.white);
             DisableButton(line3, "Coins needed:\n" + (middleObjectPrice - currentCoinCount), null, Color.white);
             line3.GetComponent<TextMesh>().characterSize = 0.025f;
-			EnableButton(line4, "Get coins", coinSprite, Color.white);
-		}
+            EnableButton(line4, "Get coins", coinSprite, Color.white);
+        }
         EnableButton(line5, "Back", backSprite, Color.white);
         lastArea = currentArea;
         currentArea = menu;

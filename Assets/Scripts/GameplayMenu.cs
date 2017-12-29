@@ -28,7 +28,7 @@ public class GameplayMenu : MonoBehaviour
         {
             StorePhoneInterface(obj);
         }
-        else if (paused && GetComponent<CameraMovement>() == null)
+        else if (paused && GetComponent<ScreenTextManagment>().GetMenu() == Menus.Menu.Pause)
         {
             PauseMenuInterface(obj);
         }
@@ -44,10 +44,7 @@ public class GameplayMenu : MonoBehaviour
                     GetComponent<GrabAndThrowObject>().currentArea = GrabAndThrowObject.Area.grill;
                     gameObject.GetComponent<ScreenTextManagment>().ChangeToGrillArea();
                     initialPosition = GetComponent<PositionManager>().GrillPosition();
-                    if (gameObject.GetComponent<CameraMovement>() != null)
-                    {
-                        Destroy(gameObject.GetComponent<CameraMovement>());
-                    }
+                    CheckCamera();
                     gameObject.AddComponent<CameraMovement>().MoveToGrill();
                 }
                 break;
@@ -57,10 +54,7 @@ public class GameplayMenu : MonoBehaviour
                     GetComponent<GrabAndThrowObject>().currentArea = GrabAndThrowObject.Area.fryer;
                     gameObject.GetComponent<ScreenTextManagment>().ChangeToFryerArea();
                     initialPosition = GetComponent<PositionManager>().FryerPosition();
-                    if (gameObject.GetComponent<CameraMovement>() != null)
-                    {
-                        Destroy(gameObject.GetComponent<CameraMovement>());
-                    }
+                    CheckCamera();
                     gameObject.AddComponent<CameraMovement>().MoveToFryer();
                 }
                 break;
@@ -70,10 +64,7 @@ public class GameplayMenu : MonoBehaviour
                     GetComponent<GrabAndThrowObject>().currentArea = GrabAndThrowObject.Area.sodaMachine;
                     gameObject.GetComponent<ScreenTextManagment>().ChangeToSodaMachineArea();
                     initialPosition = GetComponent<PositionManager>().SodaPosition();
-                    if (gameObject.GetComponent<CameraMovement>() != null)
-                    {
-                        Destroy(gameObject.GetComponent<CameraMovement>());
-                    }
+                    CheckCamera();
                 }
                 gameObject.AddComponent<CameraMovement>().MoveToSodaMachine();
                 break;
@@ -83,10 +74,7 @@ public class GameplayMenu : MonoBehaviour
                     GetComponent<GrabAndThrowObject>().currentArea = GrabAndThrowObject.Area.counter;
                     gameObject.GetComponent<ScreenTextManagment>().ChangeToFrontArea();
                     initialPosition = GetComponent<PositionManager>().GameplayPosition();
-                    if (gameObject.GetComponent<CameraMovement>() != null)
-                    {
-                        Destroy(gameObject.GetComponent<CameraMovement>());
-                    }
+                    CheckCamera();
                     gameObject.AddComponent<CameraMovement>().MoveToGameplay("Unpause");
                 }
                 break;
@@ -137,24 +125,30 @@ public class GameplayMenu : MonoBehaviour
         {
             if (obj.name == "First Button" && !gameObject.GetComponent<Gameplay>().IsGameOver())
             {
+                CheckCamera();
                 GetComponent<GrabAndThrowObject>().currentArea = GetComponent<GrabAndThrowObject>().previousArea;
+                GetComponent<ScreenTextManagment>().ChangeToGamePlayText();
                 switch (GetComponent<GrabAndThrowObject>().currentArea)
                 {
                     case GrabAndThrowObject.Area.counter:
                         initialPosition = GetComponent<PositionManager>().GameplayPosition();
                         gameObject.AddComponent<CameraMovement>().MoveToGameplay("Unpause");
+                        GetComponent<ScreenTextManagment>().ChangeToFrontArea();
                         break;
                     case GrabAndThrowObject.Area.grill:
                         initialPosition = GetComponent<PositionManager>().GrillPosition();
                         gameObject.AddComponent<CameraMovement>().MoveToUnpause("Grill");
+                        GetComponent<ScreenTextManagment>().ChangeToGrillArea();
                         break;
                     case GrabAndThrowObject.Area.fryer:
                         initialPosition = GetComponent<PositionManager>().FryerPosition();
                         gameObject.AddComponent<CameraMovement>().MoveToUnpause("Fryer");
+                        GetComponent<ScreenTextManagment>().ChangeToFryerArea();
                         break;
                     case GrabAndThrowObject.Area.sodaMachine:
                         initialPosition = GetComponent<PositionManager>().SodaPosition();
                         gameObject.AddComponent<CameraMovement>().MoveToUnpause("Soda Machine");
+                        GetComponent<ScreenTextManagment>().ChangeToSodaMachineArea();
                         break;
                 }
             }
@@ -181,31 +175,38 @@ public class GameplayMenu : MonoBehaviour
             {
                 Destroy(GetComponent<GettingHurt>());
             }
+            CheckCamera();
+            GetComponent<ScreenTextManagment>().CannotPressAnything();
             gameObject.AddComponent<CameraMovement>().MoveToPause();
+            GetComponent<ScreenTextManagment>().ChangeToPauseText();
             PauseGame();
         }
     }
 
     void Restart()
     {
-        GetComponent<ScreenTextManagment>().CannotPressAnything();
+        CheckCamera();
         GetComponent<GrabAndThrowObject>().currentArea = GrabAndThrowObject.Area.counter;
         initialPosition = GetComponent<PositionManager>().GameplayPosition();
         transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 0, 0, 0);
         GetComponent<Gameplay>().ResetValues();
         GetComponent<GrabAndThrowObject>().DeleteEverything();
         gameObject.AddComponent<CameraMovement>().MoveToGameplay("Restart");
+        GetComponent<ScreenTextManagment>().ChangeToGamePlayText();
+        GetComponent<ScreenTextManagment>().ChangeToFrontArea();
     }
 
     void Quit()
     {
-        GetComponent<ScreenTextManagment>().CannotPressAnything();
+        CheckCamera();
         GetComponent<GrabAndThrowObject>().currentArea = GrabAndThrowObject.Area.quit;
         transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 0, 0, 0);
         GetComponent<Gameplay>().ResetValues();
         GetComponent<GrabAndThrowObject>().DeleteEverything();
         UnPauseGame();
         gameObject.AddComponent<CameraMovement>().MoveToMenu(true);
+        GetComponent<ScreenTextManagment>().ChangeToMenuText();
+        gameObject.AddComponent<MainMenu>();
         Destroy(GetComponent<GrabAndThrowObject>());
     }
 
@@ -221,7 +222,10 @@ public class GameplayMenu : MonoBehaviour
             GetComponent<Gameplay>().Continue();
             GetComponent<GrabAndThrowObject>().DeleteEverything();
             UnPauseGame();
+            CheckCamera();
             gameObject.AddComponent<CameraMovement>().MoveToGameplay("Restart");
+            GetComponent<ScreenTextManagment>().ChangeToGamePlayText();
+            GetComponent<ScreenTextManagment>().ChangeToFrontArea();
         }
         else
         {
@@ -251,5 +255,13 @@ public class GameplayMenu : MonoBehaviour
     public Transform GetInitialPosition()
     {
         return initialPosition;
+    }
+
+    void CheckCamera()
+    {
+        if (gameObject.GetComponent<CameraMovement>())
+        {
+            Destroy(gameObject.GetComponent<CameraMovement>());
+        }
     }
 }
