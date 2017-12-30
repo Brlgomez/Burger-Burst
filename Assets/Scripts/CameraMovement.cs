@@ -140,7 +140,6 @@ public class CameraMovement : MonoBehaviour
         }
         if (unpause)
         {
-            GetComponent<ScreenTextManagment>().ChangeToGamePlayText();
             GetComponent<GameplayMenu>().UnPauseGame();
         }
         if (towards == gameplay)
@@ -148,19 +147,16 @@ public class CameraMovement : MonoBehaviour
             switch (gamePlayCommand)
             {
                 case "Restart":
-                    GetComponent<ScreenTextManagment>().ChangeToGamePlayText();
                     GetComponent<GameplayMenu>().UnPauseGame();
                     GetComponent<DropMoreProducts>().DropItems();
                     GetComponent<DropMoreProducts>().DropMadeProducts();
                     break;
                 case "Start":
-                    GetComponent<ScreenTextManagment>().ChangeToGamePlayText();
                     gameObject.AddComponent<GrabAndThrowObject>();
                     GetComponent<DropMoreProducts>().DropItems();
                     GetComponent<DropMoreProducts>().DropMadeProducts();
                     break;
                 case "Unpause":
-                    GetComponent<ScreenTextManagment>().ChangeToGamePlayText();
                     GetComponent<GameplayMenu>().UnPauseGame();
                     break;
             }

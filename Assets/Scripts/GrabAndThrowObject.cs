@@ -66,7 +66,6 @@ public class GrabAndThrowObject : MonoBehaviour
             GetComponent<ZombieManager>().ZombieUpdate(updateInterval);
             GetComponent<WindManager>().WindUpdate(updateInterval);
         }
-
         if (Input.GetKeyDown("space"))
             GetComponent<ZombieManager>().Print();
         if (Input.GetKeyDown("d"))
@@ -124,9 +123,8 @@ public class GrabAndThrowObject : MonoBehaviour
             {
                 TurnOffPhoneColliders();
                 TurnOffSodaButtonColliders();
-                if (obj.tag == "Pause" && gameObject.GetComponent<CameraMovement>() == null)
+                if (obj.name == "Pause" && gameObject.GetComponent<CameraMovement>() == null)
                 {
-                    obj.GetComponent<SpriteRenderer>().color = Color.grey;
                     return obj;
                 }
                 if (currentArea == Area.counter)

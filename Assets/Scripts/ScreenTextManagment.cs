@@ -16,6 +16,7 @@ ScreenTextManagment : MonoBehaviour
     public Sprite burgerSprite, friesSprite, drinkSprite, heartSprite;
     public Sprite graphicsSprite, themeSprite, vibrationSprite, musicSprite, soundSprite, trophySprite;
     public Sprite restartSprite, quitSprite, yesSprite, pointSprite, floorSprite, wallSprite, detailSprite;
+    public Sprite arrowSprite, currentSprite;
 
     void Start()
     {
@@ -330,11 +331,23 @@ ScreenTextManagment : MonoBehaviour
         EnableButton(line3, "Quit", quitSprite, Color.white);
         DisableButton(line4, "", null, Color.white);
         DisableButton(line5, "", null, Color.white);
-        line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
         TurnOffGameplayImages();
         lastArea = currentArea;
         currentArea = Menus.Menu.Pause;
     }
+
+    public void TurnOnExtraButtonImages()
+    {
+		line2.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
+		line3.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
+		line4.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
+        line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
+        line5.transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.white;
+		line2.transform.GetChild(3).GetComponent<SpriteRenderer>().sprite = arrowSprite;
+		line3.transform.GetChild(3).GetComponent<SpriteRenderer>().sprite = arrowSprite;
+		line4.transform.GetChild(3).GetComponent<SpriteRenderer>().sprite = arrowSprite;
+		line5.transform.GetChild(3).GetComponent<SpriteRenderer>().sprite = arrowSprite;
+	}
 
     public void ChangeToGrillArea()
     {
@@ -347,11 +360,8 @@ ScreenTextManagment : MonoBehaviour
         ChangeFriesTextColor();
         ChangeDrinkTextColor();
         ChangeHealthTextColor();
-        line2.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
-		line3.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
-		line4.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
-        line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
-        line5.transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.white;
+        TurnOnExtraButtonImages();
+        line2.transform.GetChild(3).GetComponent<SpriteRenderer>().sprite = currentSprite;
     }
 
     public void ChangeToFryerArea()
@@ -365,12 +375,9 @@ ScreenTextManagment : MonoBehaviour
         ChangeFriesTextColor();
         ChangeDrinkTextColor();
         ChangeHealthTextColor();
-        line2.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
-        line3.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
-		line4.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
-		line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
-        line5.transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.white;
-    }
+        TurnOnExtraButtonImages();
+		line3.transform.GetChild(3).GetComponent<SpriteRenderer>().sprite = currentSprite;
+	}
 
     public void ChangeToSodaMachineArea()
     {
@@ -383,11 +390,8 @@ ScreenTextManagment : MonoBehaviour
         ChangeFriesTextColor();
         ChangeDrinkTextColor();
         ChangeHealthTextColor();
-		line2.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
-        line3.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
-        line4.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
-		line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
-        line5.transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.white;
+        TurnOnExtraButtonImages();
+        line4.transform.GetChild(3).GetComponent<SpriteRenderer>().sprite = currentSprite;
     }
 
     public void ChangeToFrontArea()
@@ -401,10 +405,8 @@ ScreenTextManagment : MonoBehaviour
         ChangeFriesTextColor();
         ChangeDrinkTextColor();
         ChangeHealthTextColor();
-		line2.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
-		line3.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
-        line4.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
-        line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
+        TurnOnExtraButtonImages();
+        line5.transform.GetChild(3).GetComponent<SpriteRenderer>().sprite = currentSprite;
         line5.transform.GetChild(4).GetComponent<SpriteRenderer>().color = notPressable;
     }
 
@@ -609,6 +611,10 @@ ScreenTextManagment : MonoBehaviour
             if (target.transform.childCount > 1 && currentArea == Menus.Menu.Gameplay)
             {
                 target.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.grey;
+                if (target.name != "Line1")
+                {
+                    target.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.grey;
+                }
             }
         }
         if (!pressDown && target == scrollView && currentArea != Menus.Menu.Gameplay)
@@ -624,13 +630,17 @@ ScreenTextManagment : MonoBehaviour
         {
             if (target.transform.childCount > 2)
             {
-                target.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.white;
+                //target.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.white;
             }
             pressDown = false;
             if (target.transform.childCount > 1 && currentArea == Menus.Menu.Gameplay)
             {
-                target.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
-            }
+                //target.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
+                if (target.name != "Line1")
+                {
+                    target.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
+                }
+			}
         }
         if (pressDown && target == scrollView && currentArea != Menus.Menu.Gameplay)
         {

@@ -65,8 +65,8 @@ public class GameplayMenu : MonoBehaviour
                     gameObject.GetComponent<ScreenTextManagment>().ChangeToSodaMachineArea();
                     initialPosition = GetComponent<PositionManager>().SodaPosition();
                     CheckCamera();
-                }
-                gameObject.AddComponent<CameraMovement>().MoveToSodaMachine();
+					gameObject.AddComponent<CameraMovement>().MoveToSodaMachine();
+				}
                 break;
             case "Fifth Button":
                 if (GetComponent<GrabAndThrowObject>().currentArea != GrabAndThrowObject.Area.counter)
@@ -165,9 +165,9 @@ public class GameplayMenu : MonoBehaviour
 
     public void MouseUpPauseButton(GameObject target)
     {
-        if (target.name == "Pause Image")
+        if (target.name == "Pause")
         {
-            target.GetComponent<SpriteRenderer>().color = Color.white;
+            target.GetComponent<Animator>().Play("ButtonClick");
             GetComponent<GrabAndThrowObject>().previousArea = GetComponent<GrabAndThrowObject>().currentArea;
             GetComponent<GrabAndThrowObject>().currentArea = GrabAndThrowObject.Area.pause;
             initialPosition = GetComponent<PositionManager>().PausePosition();
