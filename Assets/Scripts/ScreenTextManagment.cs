@@ -65,9 +65,7 @@ ScreenTextManagment : MonoBehaviour
         EnableButton(line3, "", friesSprite, Color.white);
         EnableButton(line4, "", drinkSprite, Color.white);
         EnableButton(line5, "", null, Color.white);
-        line1.transform.GetChild(5).GetComponent<SpriteRenderer>().color = Color.black;
-        line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
-        line5.transform.GetChild(3).gameObject.layer = 0;
+        line1.transform.GetChild(6).GetComponent<SpriteRenderer>().color = Color.black;
         lastArea = currentArea;
         currentArea = Menus.Menu.Gameplay;
     }
@@ -315,7 +313,6 @@ ScreenTextManagment : MonoBehaviour
             DisableButton(line5, "", null, Color.white);
         }
         line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
-        line5.transform.GetChild(3).gameObject.layer = 2;
         TurnOffGameplayImages();
         lastArea = currentArea;
         currentArea = Menus.Menu.GameOver;
@@ -334,7 +331,6 @@ ScreenTextManagment : MonoBehaviour
         DisableButton(line4, "", null, Color.white);
         DisableButton(line5, "", null, Color.white);
         line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
-        line5.transform.GetChild(3).gameObject.layer = 2;
         TurnOffGameplayImages();
         lastArea = currentArea;
         currentArea = Menus.Menu.Pause;
@@ -351,6 +347,10 @@ ScreenTextManagment : MonoBehaviour
         ChangeFriesTextColor();
         ChangeDrinkTextColor();
         ChangeHealthTextColor();
+        line2.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
+		line3.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
+		line4.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
+        line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
         line5.transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.white;
     }
 
@@ -365,6 +365,10 @@ ScreenTextManagment : MonoBehaviour
         ChangeFriesTextColor();
         ChangeDrinkTextColor();
         ChangeHealthTextColor();
+        line2.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
+        line3.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
+		line4.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
+		line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
         line5.transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.white;
     }
 
@@ -379,6 +383,10 @@ ScreenTextManagment : MonoBehaviour
         ChangeFriesTextColor();
         ChangeDrinkTextColor();
         ChangeHealthTextColor();
+		line2.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
+        line3.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
+        line4.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
+		line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
         line5.transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.white;
     }
 
@@ -393,17 +401,24 @@ ScreenTextManagment : MonoBehaviour
         ChangeFriesTextColor();
         ChangeDrinkTextColor();
         ChangeHealthTextColor();
+		line2.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
+		line3.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
+        line4.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
+        line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
         line5.transform.GetChild(4).GetComponent<SpriteRenderer>().color = notPressable;
     }
 
     void TurnOffGameplayImages()
     {
-        line1.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
-        line1.transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.clear;
+		line1.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
+		line1.transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.clear;
         line1.transform.GetChild(5).GetComponent<SpriteRenderer>().color = Color.clear;
-        line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
+        line1.transform.GetChild(6).GetComponent<SpriteRenderer>().color = Color.clear;
+		line2.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
+		line3.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
+		line4.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
+		line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
         line5.transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.clear;
-        line5.transform.GetChild(3).gameObject.layer = 2;
     }
 
     public void ChangeHealthCount(int num)
@@ -415,7 +430,7 @@ ScreenTextManagment : MonoBehaviour
             if (line1.GetComponent<ShakeText>() == null)
             {
                 line1.AddComponent<ShakeText>().ChangeColor(num);
-                line1.transform.GetChild(5).gameObject.AddComponent<ShakeText>().ChangeSpriteColor(num);
+                line1.transform.GetChild(6).gameObject.AddComponent<ShakeText>().ChangeSpriteColor(num);
             }
         }
         else
@@ -431,22 +446,22 @@ ScreenTextManagment : MonoBehaviour
         if (!GetComponent<Gameplay>().HaveMoreLife())
         {
             Color newColor = Color.Lerp(Color.red, textColor, ((float)n) / GetComponent<Gameplay>().GetMaxLife());
-            line1.transform.GetChild(3).GetComponent<SpriteRenderer>().color = newColor;
-            line1.transform.GetChild(3).transform.localScale = new Vector3((((float)n) / GetComponent<Gameplay>().GetMaxLife()) * 255, 90, 1);
-            line1.transform.GetChild(4).transform.localScale = new Vector3(0, 90, 1);
+            line1.transform.GetChild(4).GetComponent<SpriteRenderer>().color = newColor;
+            line1.transform.GetChild(4).transform.localScale = new Vector3((((float)n) / GetComponent<Gameplay>().GetMaxLife()) * 255, 90, 1);
+            line1.transform.GetChild(5).transform.localScale = new Vector3(0, 90, 1);
         }
         else
         {
             if (n <= 100)
             {
                 Color newColor = Color.Lerp(Color.red, textColor, (((float)n) / (GetComponent<Gameplay>().GetMaxLife() / 2)));
-                line1.transform.GetChild(3).GetComponent<SpriteRenderer>().color = newColor;
-                line1.transform.GetChild(3).transform.localScale = new Vector3(
+                line1.transform.GetChild(4).GetComponent<SpriteRenderer>().color = newColor;
+                line1.transform.GetChild(4).transform.localScale = new Vector3(
                     (((float)n) / (GetComponent<Gameplay>().GetMaxLife() / 2)) * 255,
                     90,
                     1
                 );
-                line1.transform.GetChild(4).transform.localScale = new Vector3(0, 90, 1);
+                line1.transform.GetChild(5).transform.localScale = new Vector3(0, 90, 1);
             }
             else
             {
@@ -455,14 +470,14 @@ ScreenTextManagment : MonoBehaviour
                     Color.cyan,
                     ((float)n - (GetComponent<Gameplay>().GetMaxLife() / 2)) / (GetComponent<Gameplay>().GetMaxLife() / 2)
                 );
-                line1.transform.GetChild(3).transform.localScale = new Vector3(255, 90, 1);
-                line1.transform.GetChild(3).GetComponent<SpriteRenderer>().color = textColor;
-                line1.transform.GetChild(4).transform.localScale = new Vector3(
+                line1.transform.GetChild(4).transform.localScale = new Vector3(255, 90, 1);
+                line1.transform.GetChild(4).GetComponent<SpriteRenderer>().color = textColor;
+                line1.transform.GetChild(5).transform.localScale = new Vector3(
                     (((float)n - (GetComponent<Gameplay>().GetMaxLife() / 2)) / (GetComponent<Gameplay>().GetMaxLife() / 2)) * 255,
                     90,
                     1
                 );
-                line1.transform.GetChild(4).GetComponent<SpriteRenderer>().color = newColor;
+                line1.transform.GetChild(5).GetComponent<SpriteRenderer>().color = newColor;
             }
         }
     }
@@ -662,6 +677,5 @@ ScreenTextManagment : MonoBehaviour
         line3.transform.GetChild(0).gameObject.layer = 2;
         line4.transform.GetChild(0).gameObject.layer = 2;
         line5.transform.GetChild(0).gameObject.layer = 2;
-        line5.transform.GetChild(3).gameObject.layer = 2;
     }
 }

@@ -15,7 +15,18 @@ public class CameraMovement : MonoBehaviour
     bool moveToPosition;
     bool moveDevice;
     bool unpause;
+    bool moveArrows;
     string gamePlayCommand;
+    GameObject phone;
+
+    void Start()
+    {
+        if (GetComponent<GrabAndThrowObject>())
+        {
+            moveArrows = true;
+            phone = GetComponent<ObjectManager>().Phone();
+        }
+    }
 
     void Update()
     {
@@ -59,6 +70,53 @@ public class CameraMovement : MonoBehaviour
             towards.transform.rotation,
             Time.unscaledDeltaTime * speed
         );
+        if (moveArrows)
+        {
+            if (towards == grill)
+            {
+                for (int i = 1; i <= 4; i++)
+                {
+                    phone.transform.GetChild(i).GetChild(3).transform.localEulerAngles = Vector3.Lerp(
+                       phone.transform.GetChild(i).GetChild(3).transform.localEulerAngles,
+                       new Vector3(0, 0, phone.transform.GetChild(i).GetChild(3).GetComponent<ArrowDirection>().fromBurgerDirection),
+                       Time.unscaledDeltaTime * speed
+                   );
+                }
+            }
+            else if (towards == fryer)
+            {
+                for (int i = 1; i <= 4; i++)
+                {
+                    phone.transform.GetChild(i).GetChild(3).transform.localEulerAngles = Vector3.Lerp(
+                        phone.transform.GetChild(i).GetChild(3).transform.localEulerAngles,
+                        new Vector3(0, 0, phone.transform.GetChild(i).GetChild(3).GetComponent<ArrowDirection>().fromFriesDirection),
+                        Time.unscaledDeltaTime * speed
+                    );
+                }
+            }
+            else if (towards == soda)
+            {
+                for (int i = 1; i <= 4; i++)
+                {
+                    phone.transform.GetChild(i).GetChild(3).transform.localEulerAngles = Vector3.Lerp(
+                        phone.transform.GetChild(i).GetChild(3).transform.localEulerAngles,
+                        new Vector3(0, 0, phone.transform.GetChild(i).GetChild(3).GetComponent<ArrowDirection>().fromDrinkDirection),
+                        Time.unscaledDeltaTime * speed
+                    );
+                }
+            }
+            else
+            {
+                for (int i = 1; i <= 4; i++)
+                {
+                    phone.transform.GetChild(i).GetChild(3).transform.localEulerAngles = Vector3.Lerp(
+                        phone.transform.GetChild(i).GetChild(3).transform.localEulerAngles,
+                        new Vector3(0, 0, phone.transform.GetChild(i).GetChild(3).GetComponent<ArrowDirection>().fromCounterDirection),
+                        Time.unscaledDeltaTime * speed
+                    );
+                }
+            }
+        }
     }
 
     void MoveDevice()
