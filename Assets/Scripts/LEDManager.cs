@@ -16,7 +16,10 @@ public class LEDManager : MonoBehaviour
         pointsLed.GetComponent<Renderer>().material.color = Color.cyan;
         coinsLed = GetComponent<ObjectManager>().CoinsLED().transform.GetChild(0).gameObject;
         coinsLed.GetComponent<Renderer>().material.color = Color.yellow;
-        ResetPointsText();
+        highScoreLed.GetComponent<TextMesh>().fontSize = 0;
+        pointsLed.GetComponent<TextMesh>().fontSize = 0;
+        coinsLed.GetComponent<TextMesh>().fontSize = 0;
+		ResetPointsText();
         UpdateCoinsText();
         UpdateHighScoreText();
     }
