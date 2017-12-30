@@ -338,16 +338,16 @@ ScreenTextManagment : MonoBehaviour
 
     public void TurnOnExtraButtonImages()
     {
-		line2.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
-		line3.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
-		line4.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
+        line2.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
+        line3.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
+        line4.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
         line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
         line5.transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.white;
-		line2.transform.GetChild(3).GetComponent<SpriteRenderer>().sprite = arrowSprite;
-		line3.transform.GetChild(3).GetComponent<SpriteRenderer>().sprite = arrowSprite;
-		line4.transform.GetChild(3).GetComponent<SpriteRenderer>().sprite = arrowSprite;
-		line5.transform.GetChild(3).GetComponent<SpriteRenderer>().sprite = arrowSprite;
-	}
+        line2.transform.GetChild(3).GetComponent<SpriteRenderer>().sprite = arrowSprite;
+        line3.transform.GetChild(3).GetComponent<SpriteRenderer>().sprite = arrowSprite;
+        line4.transform.GetChild(3).GetComponent<SpriteRenderer>().sprite = arrowSprite;
+        line5.transform.GetChild(3).GetComponent<SpriteRenderer>().sprite = arrowSprite;
+    }
 
     public void ChangeToGrillArea()
     {
@@ -376,8 +376,8 @@ ScreenTextManagment : MonoBehaviour
         ChangeDrinkTextColor();
         ChangeHealthTextColor();
         TurnOnExtraButtonImages();
-		line3.transform.GetChild(3).GetComponent<SpriteRenderer>().sprite = currentSprite;
-	}
+        line3.transform.GetChild(3).GetComponent<SpriteRenderer>().sprite = currentSprite;
+    }
 
     public void ChangeToSodaMachineArea()
     {
@@ -412,14 +412,14 @@ ScreenTextManagment : MonoBehaviour
 
     void TurnOffGameplayImages()
     {
-		line1.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
-		line1.transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.clear;
+        line1.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
+        line1.transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.clear;
         line1.transform.GetChild(5).GetComponent<SpriteRenderer>().color = Color.clear;
         line1.transform.GetChild(6).GetComponent<SpriteRenderer>().color = Color.clear;
-		line2.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
-		line3.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
-		line4.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
-		line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
+        line2.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
+        line3.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
+        line4.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
+        line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
         line5.transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.clear;
     }
 
@@ -628,9 +628,9 @@ ScreenTextManagment : MonoBehaviour
     {
         if (pressDown && target.GetComponent<TextMesh>() != null)
         {
-            if (target.transform.childCount > 2)
+            if (target.transform.childCount > 2 && currentArea != Menus.Menu.Gameplay)
             {
-                //target.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.white;
+                target.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.white;
             }
             pressDown = false;
             if (target.transform.childCount > 1 && currentArea == Menus.Menu.Gameplay)
@@ -640,7 +640,7 @@ ScreenTextManagment : MonoBehaviour
                 {
                     target.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
                 }
-			}
+            }
         }
         if (pressDown && target == scrollView && currentArea != Menus.Menu.Gameplay)
         {

@@ -20,6 +20,22 @@ public class VibrationManager : MonoBehaviour
         }
     }
 
+    public void MediumTapticFeeddback()
+    {
+        if (canVibrate)
+        {
+            TapticPlugin.TapticManager.Impact(TapticPlugin.ImpactFeedback.Midium);
+        }
+    }
+
+    public void HeavyTapticFeeddback()
+    {
+        if (canVibrate)
+        {
+            TapticPlugin.TapticManager.Impact(TapticPlugin.ImpactFeedback.Heavy);
+        }
+    }
+
     public void Vibrate()
     {
         if (canVibrate)

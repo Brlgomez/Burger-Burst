@@ -257,9 +257,10 @@ public class PlayerPrefsManager : MonoBehaviour
         else
         {
             PlayerPrefs.SetInt(vibration, 1);
-            GetComponent<ObjectManager>().VibratingDevice().GetComponent<Animator>().Play("Vibrating");
+			GetComponent<ObjectManager>().VibratingDevice().GetComponent<Animator>().Play("Vibrating");
             GetComponent<ObjectManager>().VibratingDevice().GetComponent<ParticleSystem>().Play();
 			GetComponent<VibrationManager>().ChangeVibration(true);
+			GetComponent<VibrationManager>().Vibrate();
 		}
         GetComponent<ScreenTextManagment>().ChangeToSettingScreen();
     }

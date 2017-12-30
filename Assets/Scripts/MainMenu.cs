@@ -11,16 +11,11 @@ public class MainMenu : MonoBehaviour
     bool changeScrollerObjects;
     GameObject currentSlot;
     int slotPosition = 1;
-    bool pressedTitle;
 
     void Start()
     {
         Application.targetFrameRate = 60;
         Input.multiTouchEnabled = false;
-        if (GetComponent<ScreenTextManagment>().GetMenu() == Menus.Menu.PhoneDown)
-        {
-            StartCoroutine(MovePhoneUp());
-        }
     }
 
     void Update()
@@ -58,10 +53,9 @@ public class MainMenu : MonoBehaviour
 
     void MouseUp()
     {
-        if (target != null && target.name == "Phone" && GetComponent<ScreenTextManagment>().GetMenu() == Menus.Menu.Title && !pressedTitle)
+        if (GetComponent<ScreenTextManagment>().GetMenu() == Menus.Menu.PhoneDown)
         {
-            pressedTitle = true;
-            StartCoroutine(PhoneStartUp());
+            gameObject.AddComponent<CameraMovement>().MoveToTitle();
         }
         else if (target != null && target.tag == "UI")
         {
@@ -179,22 +173,22 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    IEnumerator MovePhoneUp()
+    public void LoadingAnimation()
     {
-        yield return new WaitForSeconds(0.5f);
-        gameObject.AddComponent<CameraMovement>().MoveToTitle();
+        StartCoroutine(PhoneStartUp());
     }
 
-    IEnumerator PhoneStartUp()
+    public IEnumerator PhoneStartUp()
     {
+        GameObject phone = GetComponent<ObjectManager>().Phone();
         for (int i = 0; i < 5; i++)
         {
-            target.GetComponent<Renderer>().material.mainTexture = GetComponent<Textures>().phoneLoading;
+            phone.GetComponent<Renderer>().material.mainTexture = GetComponent<Textures>().phoneLoading;
             yield return new WaitForSeconds(0.25f);
-            target.GetComponent<Renderer>().material.mainTexture = GetComponent<Textures>().phoneLoading2;
+            phone.GetComponent<Renderer>().material.mainTexture = GetComponent<Textures>().phoneLoading2;
             yield return new WaitForSeconds(0.25f);
         }
-        target.GetComponent<Renderer>().material.mainTexture = GetComponent<Textures>().phoneOn;
+        phone.GetComponent<Renderer>().material.mainTexture = GetComponent<Textures>().phoneOn;
         GetComponent<ScreenTextManagment>().ChangeToMenuText();
     }
 
@@ -306,9 +300,9 @@ public class MainMenu : MonoBehaviour
         switch (target.name)
         {
             case "First Button":
-				CheckCamera();
-				gameObject.AddComponent<CameraMovement>().MoveToTheme();
-				GetComponent<ScreenTextManagment>().ChangeToThemeScreen();
+                CheckCamera();
+                gameObject.AddComponent<CameraMovement>().MoveToTheme();
+                GetComponent<ScreenTextManagment>().ChangeToThemeScreen();
                 break;
             case "Second Button":
                 GetComponent<MenuSlider>().SetUpMenu(Menus.Menu.Graphics);
@@ -334,15 +328,15 @@ public class MainMenu : MonoBehaviour
                 GetComponent<MenuSlider>().SetUpMenu(Menus.Menu.Flooring);
                 CheckCamera();
                 gameObject.AddComponent<CameraMovement>().MoveToFlooring();
-				GetComponent<ScreenTextManagment>().ChangeToFlooringScreen();
-				lastScrollX = -Mathf.RoundToInt(GetComponent<MenuSlider>().GetMiddleObject().transform.localPosition.z);
+                GetComponent<ScreenTextManagment>().ChangeToFlooringScreen();
+                lastScrollX = -Mathf.RoundToInt(GetComponent<MenuSlider>().GetMiddleObject().transform.localPosition.z);
                 break;
             case "Second Button":
                 GetComponent<MenuSlider>().SetUpMenu(Menus.Menu.Wallpaper);
-				CheckCamera();
-				gameObject.AddComponent<CameraMovement>().MoveToWallpaper();
+                CheckCamera();
+                gameObject.AddComponent<CameraMovement>().MoveToWallpaper();
                 GetComponent<ScreenTextManagment>().ChangeToWallpaperScreen();
-				lastScrollX = -Mathf.RoundToInt(GetComponent<MenuSlider>().GetMiddleObject().transform.localPosition.z);
+                lastScrollX = -Mathf.RoundToInt(GetComponent<MenuSlider>().GetMiddleObject().transform.localPosition.z);
                 break;
             case "Third Button":
                 GetComponent<MenuSlider>().SetUpMenu(Menus.Menu.Detail);
@@ -411,24 +405,24 @@ public class MainMenu : MonoBehaviour
                     break;
                 case Menus.Menu.ConfirmationPowerUp:
                     gameObject.AddComponent<CameraMovement>().MoveToPowerUp();
-					GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationPowerUp);
-					break;
+                    GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationPowerUp);
+                    break;
                 case Menus.Menu.ConfirmationFlooring:
                     gameObject.AddComponent<CameraMovement>().MoveToFlooring();
-					GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationFlooring);
-					break;
+                    GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationFlooring);
+                    break;
                 case Menus.Menu.ConfirmationWalls:
                     gameObject.AddComponent<CameraMovement>().MoveToWallpaper();
-					GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationWalls);
-					break;
+                    GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationWalls);
+                    break;
                 case Menus.Menu.ConfirmationDetail:
                     gameObject.AddComponent<CameraMovement>().MoveToDetail();
-					GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationDetail);
-					break;
+                    GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationDetail);
+                    break;
                 case Menus.Menu.ConfirmationGraphics:
                     gameObject.AddComponent<CameraMovement>().MoveToGraphics();
-					GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationGraphics);
-					break;
+                    GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationGraphics);
+                    break;
             }
         }
     }

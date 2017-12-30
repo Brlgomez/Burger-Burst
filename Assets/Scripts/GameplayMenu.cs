@@ -65,8 +65,8 @@ public class GameplayMenu : MonoBehaviour
                     gameObject.GetComponent<ScreenTextManagment>().ChangeToSodaMachineArea();
                     initialPosition = GetComponent<PositionManager>().SodaPosition();
                     CheckCamera();
-					gameObject.AddComponent<CameraMovement>().MoveToSodaMachine();
-				}
+                    gameObject.AddComponent<CameraMovement>().MoveToSodaMachine();
+                }
                 break;
             case "Fifth Button":
                 if (GetComponent<GrabAndThrowObject>().currentArea != GrabAndThrowObject.Area.counter)

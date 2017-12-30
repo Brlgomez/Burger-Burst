@@ -94,6 +94,7 @@ public class Gameplay : MonoBehaviour
 
     void ReduceHealthLogic(int damage)
     {
+        GetComponent<VibrationManager>().Vibrate();
         life -= Mathf.RoundToInt(damage * defense);
         if (!gameOver)
         {

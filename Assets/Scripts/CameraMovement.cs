@@ -165,6 +165,7 @@ public class CameraMovement : MonoBehaviour
         else if (towards == title)
         {
             GetComponent<ScreenTextManagment>().ChangeToTitleText();
+            GetComponent<MainMenu>().LoadingAnimation();
         }
         else if (towards == gameOver)
         {
