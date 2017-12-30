@@ -49,6 +49,7 @@ public class MenuSlider : MonoBehaviour
                     SetDetailSprite();
                     break;
             }
+            scrollView.transform.GetChild(4).transform.localScale = new Vector3(435 / sliderObjectCount, 10, 10);
             RestartScrollList();
             ScaleScrollerObjects();
         }
@@ -118,13 +119,16 @@ public class MenuSlider : MonoBehaviour
     {
         for (int i = 0; i < scrollList.Count; i++)
         {
-            float scale = ((0.025f - Mathf.Abs(scrollList[i].transform.position.z - scrollView.transform.position.z)) / 0.05f) * 14;
+            float scale = 320 * (0.025f - Mathf.Abs((scrollList[i].transform.position.z) - scrollView.transform.position.z));
             if (scale < 0)
             {
                 scale = 0;
             }
             scrollList[i].transform.localScale = new Vector3(scale, scale, scale);
         }
+        float xPos = (((float)GetMiddleObjectNumber() / (sliderObjectCount)) - 0.5f) * 4.3f;
+        xPos += (scrollView.transform.GetChild(4).transform.localScale.x / 200);
+        scrollView.transform.GetChild(4).transform.localPosition = new Vector3(xPos, 0.69f, -0.11f);
     }
 
     public bool MoveScroller()
@@ -444,7 +448,8 @@ public class MenuSlider : MonoBehaviour
     {
         scrollView.transform.GetChild(0).gameObject.layer = 0;
         scrollView.transform.GetChild(3).gameObject.layer = 2;
-        scrollView.transform.GetChild(1).transform.localScale = new Vector3(1, 1, 1);
+        scrollView.transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.black;
+		scrollView.transform.GetChild(1).transform.localScale = new Vector3(1, 1, 1);
         if (menu == Menus.Menu.PowerUps)
         {
             slot1.transform.GetChild(0).gameObject.layer = 0;
@@ -477,6 +482,7 @@ public class MenuSlider : MonoBehaviour
         scrollView.transform.GetChild(1).transform.localScale = new Vector3(1, 0, 1);
         scrollView.transform.GetChild(0).gameObject.layer = 2;
         scrollView.transform.GetChild(3).gameObject.layer = 2;
+        scrollView.transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.clear;
         slot1.transform.GetChild(0).gameObject.layer = 2;
         slot2.transform.GetChild(0).gameObject.layer = 2;
         slot3.transform.GetChild(0).gameObject.layer = 2;
