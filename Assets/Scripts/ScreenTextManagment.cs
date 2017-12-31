@@ -54,6 +54,9 @@ ScreenTextManagment : MonoBehaviour
         EnableButton(line5, "Settings", settingsSprite, Color.white);
         TurnOffScrollList();
         TurnOffGameplayImages();
+        line1.GetComponent<TextMesh>().characterSize = 0.025f;
+        line2.GetComponent<TextMesh>().characterSize = 0.025f;
+        line3.GetComponent<TextMesh>().characterSize = 0.025f;
         line4.GetComponent<TextMesh>().characterSize = 0.025f;
         lastArea = currentArea;
         currentArea = Menus.Menu.MainMenu;
@@ -170,30 +173,33 @@ ScreenTextManagment : MonoBehaviour
     {
         if (GetComponent<PlayerPrefsManager>().GetMusic())
         {
-            EnableButton(line1, "On", musicSprite, Color.white);
+            EnableButton(line1, " Music: On", musicSprite, Color.white);
         }
         else
         {
-            EnableButton(line1, "Off", musicSprite, Color.white);
+            EnableButton(line1, " Music: Off", musicSprite, Color.white);
         }
         if (GetComponent<PlayerPrefsManager>().GetSound())
         {
-            EnableButton(line2, "On", soundSprite, Color.white);
+            EnableButton(line2, " Sounds: On", soundSprite, Color.white);
         }
         else
         {
-            EnableButton(line2, "Off", soundSprite, Color.white);
+            EnableButton(line2, " Sounds: Off", soundSprite, Color.white);
         }
         if (GetComponent<PlayerPrefsManager>().GetVibration())
         {
-            EnableButton(line3, "On", vibrationSprite, Color.white);
+            EnableButton(line3, " Vibration: On", vibrationSprite, Color.white);
         }
         else
         {
-            EnableButton(line3, "Off", vibrationSprite, Color.white);
+            EnableButton(line3, " Vibration: Off", vibrationSprite, Color.white);
         }
         EnableButton(line4, " Leaderboards\n      & achievments", trophySprite, Color.white);
         EnableButton(line5, "Back", backSprite, Color.white);
+        line1.GetComponent<TextMesh>().characterSize = 0.02f;
+        line2.GetComponent<TextMesh>().characterSize = 0.02f;
+        line3.GetComponent<TextMesh>().characterSize = 0.02f;
         line4.GetComponent<TextMesh>().characterSize = 0.02f;
         lastArea = currentArea;
         currentArea = Menus.Menu.Setting;
@@ -293,7 +299,8 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToGameOverText()
     {
-        DisableButton(line1, GetComponent<Gameplay>().GetPoints().ToString(), pointSprite, Color.white);
+		CheckShakeText();
+		DisableButton(line1, GetComponent<Gameplay>().GetPoints().ToString(), pointSprite, Color.white);
         EnableButton(line2, "Restart", restartSprite, Color.white);
         EnableButton(line3, "Quit", quitSprite, Color.white);
         if (!GetComponent<Gameplay>().GetContinued())
@@ -326,6 +333,7 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToPauseText()
     {
+        CheckShakeText();
         EnableButton(line1, "Resume", playSprite, Color.white);
         EnableButton(line2, "Restart", restartSprite, Color.white);
         EnableButton(line3, "Quit", quitSprite, Color.white);
@@ -687,5 +695,33 @@ ScreenTextManagment : MonoBehaviour
         line3.transform.GetChild(0).gameObject.layer = 2;
         line4.transform.GetChild(0).gameObject.layer = 2;
         line5.transform.GetChild(0).gameObject.layer = 2;
+    }
+
+    void CheckShakeText()
+    {
+        if (GetComponent<GettingHurt>())
+        {
+            
+        }
+		if (line1.GetComponent<ShakeText>())
+		{
+			line1.GetComponent<ShakeText>().Finished();
+		}
+		if (line2.GetComponent<ShakeText>())
+		{
+			line2.GetComponent<ShakeText>().Finished();
+		}
+		if (line3.GetComponent<ShakeText>())
+		{
+			line3.GetComponent<ShakeText>().Finished();
+		}
+		if (line4.GetComponent<ShakeText>())
+		{
+			line4.GetComponent<ShakeText>().Finished();
+		}
+		if (line5.GetComponent<ShakeText>())
+		{
+			line5.GetComponent<ShakeText>().Finished();
+		}
     }
 }
