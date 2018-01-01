@@ -19,9 +19,9 @@ public class Car : MonoBehaviour
 
     void Start()
     {
-        randomStoppingPos = Random.Range(-7.5f, 17.5f);
-        suvRand1 = Random.Range(-7.5f, 2.5f);
-        suvRand2 = Random.Range(7.5f, 17.5f);
+        randomStoppingPos = Random.Range(-11.5f, 17.5f);
+        suvRand1 = Random.Range(-11.5f, -2.5f);
+        suvRand2 = Random.Range(8.5f, 17.5f);
         myRenderer = GetComponent<Renderer>();
     }
 
