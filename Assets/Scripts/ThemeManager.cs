@@ -52,13 +52,13 @@ public class ThemeManager : MonoBehaviour
 
         wallList.Add(new CustomItem(0, 0, PlayerPrefsManager.specificWallpaper, "C&B", wallSprites[0], wallTexture[0]));
         wallList.Add(new CustomItem(1, 50, PlayerPrefsManager.specificWallpaper, "Woodland", wallSprites[1], wallTexture[1]));
-        wallList.Add(new CustomItem(2, 50, PlayerPrefsManager.specificWallpaper, "", wallSprites[2], wallTexture[2]));
+        wallList.Add(new CustomItem(2, 50, PlayerPrefsManager.specificWallpaper, "Cloudy Sky", wallSprites[2], wallTexture[2]));
         wallList.Add(new CustomItem(3, 50, PlayerPrefsManager.specificWallpaper, "", wallSprites[3], wallTexture[3]));
         wallList.Add(new CustomItem(4, 50, PlayerPrefsManager.specificWallpaper, "", wallSprites[4], wallTexture[4]));
 
         detailList.Add(new CustomItem(0, 0, PlayerPrefsManager.specificDetail, "C&B", detailSprites[0], detailTexture[0]));
         detailList.Add(new CustomItem(1, 25, PlayerPrefsManager.specificDetail, "Woodland", detailSprites[1], detailTexture[1]));
-        detailList.Add(new CustomItem(2, 25, PlayerPrefsManager.specificDetail, "", detailSprites[2], detailTexture[2]));
+        detailList.Add(new CustomItem(2, 25, PlayerPrefsManager.specificDetail, "The Great Outdoors", detailSprites[2], detailTexture[2]));
         detailList.Add(new CustomItem(3, 25, PlayerPrefsManager.specificDetail, "", detailSprites[3], detailTexture[3]));
         detailList.Add(new CustomItem(4, 25, PlayerPrefsManager.specificDetail, "", detailSprites[4], detailTexture[4]));
 

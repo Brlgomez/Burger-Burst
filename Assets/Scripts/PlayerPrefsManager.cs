@@ -26,6 +26,7 @@ public class PlayerPrefsManager : MonoBehaviour
         {
             PlayerPrefs.SetInt(highScore, points);
             GetComponent<LEDManager>().UpdateHighScoreText();
+            PlayerPrefs.Save();
         }
     }
 
@@ -44,6 +45,7 @@ public class PlayerPrefsManager : MonoBehaviour
             }
         }
         PlayerPrefs.SetInt(powerUp + slotPosition, upgradeNumber);
+        PlayerPrefs.Save();
         return true;
     }
 
@@ -98,26 +100,31 @@ public class PlayerPrefsManager : MonoBehaviour
     public void BuyGraphic(int num)
     {
         PlayerPrefs.SetInt(specificGraphics + num, 1);
+        PlayerPrefs.Save();
     }
 
     public void BuyFlooring(int num)
     {
         PlayerPrefs.SetInt(specificFlooring + num, 1);
+        PlayerPrefs.Save();
     }
 
     public void BuyWallpaper(int num)
     {
         PlayerPrefs.SetInt(specificWallpaper + num, 1);
+        PlayerPrefs.Save();
     }
 
     public void BuyDetail(int num)
     {
         PlayerPrefs.SetInt(specificDetail + num, 1);
+        PlayerPrefs.Save();
     }
 
     public void BuyPowerUp(int powerUpNum)
     {
         PlayerPrefs.SetInt(specificPowerUp + powerUpNum, 1);
+        PlayerPrefs.Save();
     }
 
     public bool IsPowerUpUnlocked(int powerUpNum)
@@ -133,6 +140,7 @@ public class PlayerPrefsManager : MonoBehaviour
     public void SetPowerUpSlot(int slot, int powerUpNum)
     {
         PlayerPrefs.SetInt(powerUp + slot, powerUpNum);
+        PlayerPrefs.Save();
     }
 
     public int GetGraphics()
@@ -143,6 +151,7 @@ public class PlayerPrefsManager : MonoBehaviour
     public void SetGraphics(int graphicNumber)
     {
         PlayerPrefs.SetInt(graphics, graphicNumber);
+        PlayerPrefs.Save();
     }
 
     public int GetFlooring()
@@ -153,6 +162,7 @@ public class PlayerPrefsManager : MonoBehaviour
     public void SetFlooring(int num)
     {
         PlayerPrefs.SetInt(flooring, num);
+        PlayerPrefs.Save();
     }
 
     public int GetWallpaper()
@@ -163,6 +173,7 @@ public class PlayerPrefsManager : MonoBehaviour
     public void SetWallpaper(int num)
     {
         PlayerPrefs.SetInt(wallpaper, num);
+        PlayerPrefs.Save();
     }
 
     public int GetDetail()
@@ -173,6 +184,7 @@ public class PlayerPrefsManager : MonoBehaviour
     public void SetDetail(int num)
     {
         PlayerPrefs.SetInt(detail, num);
+        PlayerPrefs.Save();
     }
 
     public int GetCoins()
@@ -184,12 +196,14 @@ public class PlayerPrefsManager : MonoBehaviour
     {
         PlayerPrefs.SetInt(coins, (GetCoins() + 1));
         GetComponent<LEDManager>().UpdateCoinsText();
+        PlayerPrefs.Save();
     }
 
     public void DecreaseCoins(int amount)
     {
         PlayerPrefs.SetInt(coins, GetCoins() - amount);
         GetComponent<LEDManager>().UpdateCoinsText();
+        PlayerPrefs.Save();
     }
 
     public void DeleteAll()
@@ -217,14 +231,15 @@ public class PlayerPrefsManager : MonoBehaviour
         if (GetSound())
         {
             PlayerPrefs.SetInt(sound, 0);
-		}
+        }
         else
         {
             PlayerPrefs.SetInt(sound, 1);
             GetComponent<ObjectManager>().Horn().GetComponent<Animator>().Play("Horn");
             GetComponent<ObjectManager>().Horn().GetComponent<ParticleSystem>().Play();
-		}
+        }
         GetComponent<ScreenTextManagment>().ChangeToSettingScreen();
+        PlayerPrefs.Save();
     }
 
     public void SetMusic()
@@ -234,17 +249,18 @@ public class PlayerPrefsManager : MonoBehaviour
             PlayerPrefs.SetInt(music, 0);
             GetComponent<ObjectManager>().Stereo().GetComponent<Animator>().SetBool("Music Off", true);
             GetComponent<ObjectManager>().Stereo().GetComponent<Renderer>().material.mainTexture = GetComponent<Textures>().stereoOff;
-			GetComponent<ObjectManager>().Stereo().GetComponent<ParticleSystem>().Stop();
-		}
+            GetComponent<ObjectManager>().Stereo().GetComponent<ParticleSystem>().Stop();
+        }
         else
         {
             PlayerPrefs.SetInt(music, 1);
-			GetComponent<ObjectManager>().Stereo().GetComponent<Animator>().SetBool("Music Off", false);
-			GetComponent<ObjectManager>().Stereo().GetComponent<Animator>().Play("MusicOn");
-			GetComponent<ObjectManager>().Stereo().GetComponent<Renderer>().material.mainTexture = GetComponent<Textures>().stereoOn;
+            GetComponent<ObjectManager>().Stereo().GetComponent<Animator>().SetBool("Music Off", false);
+            GetComponent<ObjectManager>().Stereo().GetComponent<Animator>().Play("MusicOn");
+            GetComponent<ObjectManager>().Stereo().GetComponent<Renderer>().material.mainTexture = GetComponent<Textures>().stereoOn;
             GetComponent<ObjectManager>().Stereo().GetComponent<ParticleSystem>().Play();
-		}
+        }
         GetComponent<ScreenTextManagment>().ChangeToSettingScreen();
+        PlayerPrefs.Save();
     }
 
     public void SetVibration()
@@ -257,11 +273,12 @@ public class PlayerPrefsManager : MonoBehaviour
         else
         {
             PlayerPrefs.SetInt(vibration, 1);
-			GetComponent<ObjectManager>().VibratingDevice().GetComponent<Animator>().Play("Vibrating");
+            GetComponent<ObjectManager>().VibratingDevice().GetComponent<Animator>().Play("Vibrating");
             GetComponent<ObjectManager>().VibratingDevice().GetComponent<ParticleSystem>().Play();
-			GetComponent<VibrationManager>().ChangeVibration(true);
-			GetComponent<VibrationManager>().Vibrate();
-		}
+            GetComponent<VibrationManager>().ChangeVibration(true);
+            GetComponent<VibrationManager>().Vibrate();
+        }
         GetComponent<ScreenTextManagment>().ChangeToSettingScreen();
+        PlayerPrefs.Save();
     }
 }
