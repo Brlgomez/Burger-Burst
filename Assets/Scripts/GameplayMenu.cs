@@ -200,6 +200,7 @@ public class GameplayMenu : MonoBehaviour
     {
         CheckCamera();
         GetComponent<GrabAndThrowObject>().currentArea = GrabAndThrowObject.Area.quit;
+        initialPosition = GetComponent<PositionManager>().GameplayPosition();
         transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 0, 0, 0);
         GetComponent<Gameplay>().ResetValues();
         GetComponent<GrabAndThrowObject>().DeleteEverything();
@@ -218,6 +219,7 @@ public class GameplayMenu : MonoBehaviour
             GetComponent<ScreenTextManagment>().PressedContinue();
             GetComponent<ScreenTextManagment>().CannotPressAnything();
             GetComponent<GrabAndThrowObject>().currentArea = GrabAndThrowObject.Area.counter;
+            initialPosition = GetComponent<PositionManager>().GameplayPosition();
             transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 0, 0, 0);
             GetComponent<Gameplay>().Continue();
             GetComponent<GrabAndThrowObject>().DeleteEverything();
