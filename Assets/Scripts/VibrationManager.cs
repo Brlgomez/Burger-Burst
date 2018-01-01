@@ -12,7 +12,23 @@ public class VibrationManager : MonoBehaviour
         canVibrate = GetComponent<PlayerPrefsManager>().GetVibration();
     }
 
-    public void LightTapticFeeddback()
+    public void Vibrate()
+    {
+        if (canVibrate)
+        {
+            Handheld.Vibrate();
+        }
+    }
+
+    public void SelectTapticFeedback()
+    {
+        if (canVibrate)
+        {
+            TapticPlugin.TapticManager.Selection();
+        }
+    }
+
+    public void LightTapticFeedback()
     {
         if (canVibrate)
         {
@@ -20,7 +36,7 @@ public class VibrationManager : MonoBehaviour
         }
     }
 
-    public void MediumTapticFeeddback()
+    public void MediumTapticFeedback()
     {
         if (canVibrate)
         {
@@ -28,7 +44,7 @@ public class VibrationManager : MonoBehaviour
         }
     }
 
-    public void HeavyTapticFeeddback()
+    public void HeavyTapticFeedback()
     {
         if (canVibrate)
         {
@@ -36,11 +52,27 @@ public class VibrationManager : MonoBehaviour
         }
     }
 
-    public void Vibrate()
+    public void SuccessTapticFeedback()
     {
         if (canVibrate)
         {
-            Handheld.Vibrate();
+            TapticPlugin.TapticManager.Notification(TapticPlugin.NotificationFeedback.Success);
+        }
+    }
+
+    public void WariningTapticFeedback()
+    {
+        if (canVibrate)
+        {
+            TapticPlugin.TapticManager.Notification(TapticPlugin.NotificationFeedback.Warning);
+        }
+    }
+
+    public void ErrorTapticFeedback()
+    {
+        if (canVibrate)
+        {
+            TapticPlugin.TapticManager.Notification(TapticPlugin.NotificationFeedback.Error);
         }
     }
 

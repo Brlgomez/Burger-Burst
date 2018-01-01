@@ -168,7 +168,8 @@ public class GameplayMenu : MonoBehaviour
         if (target.name == "Pause")
         {
             target.GetComponent<Animator>().Play("ButtonClick");
-            GetComponent<GrabAndThrowObject>().previousArea = GetComponent<GrabAndThrowObject>().currentArea;
+			GetComponent<VibrationManager>().LightTapticFeedback();
+			GetComponent<GrabAndThrowObject>().previousArea = GetComponent<GrabAndThrowObject>().currentArea;
             GetComponent<GrabAndThrowObject>().currentArea = GrabAndThrowObject.Area.pause;
             initialPosition = GetComponent<PositionManager>().PausePosition();
             if (GetComponent<GettingHurt>() != null)

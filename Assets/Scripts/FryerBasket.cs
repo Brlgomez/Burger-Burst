@@ -16,6 +16,7 @@ public class FryerBasket : MonoBehaviour
 
     public void PressedButton()
     {
+        Camera.main.GetComponent<VibrationManager>().LightTapticFeedback();
         down = !down;
         if (gameObject.GetComponent<FryerLift>() != null)
         {

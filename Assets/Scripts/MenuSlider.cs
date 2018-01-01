@@ -58,7 +58,7 @@ public class MenuSlider : MonoBehaviour
 
     public void MoveScrollObjects(int dir)
     {
-        GetComponent<VibrationManager>().LightTapticFeeddback();
+        GetComponent<VibrationManager>().SelectTapticFeedback();
         if (dir > 0)
         {
             int scrollSprite = int.Parse(scrollList[scrollList.Count - 1].GetComponent<SpriteRenderer>().sprite.name);

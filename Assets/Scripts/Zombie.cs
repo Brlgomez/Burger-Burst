@@ -71,21 +71,26 @@ public class Zombie : MonoBehaviour
         }
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (Time.frameCount % updateInterval == 0)
         {
-            if (!orderComplete && head.transform.position.z > endingZ && !frozen)
+            if (!orderComplete)
             {
-                Walk();
+                leftHand.GetComponent<Rigidbody>().AddRelativeForce(-leftHand.transform.forward * 20);
+                rightHand.GetComponent<Rigidbody>().AddRelativeForce(-rightHand.transform.forward * 20);
+                if (head.transform.position.z > endingZ && !frozen)
+                {
+                    Walk();
+                }
+                else if (head.transform.position.z <= endingZ)
+                {
+                    NearFoodTruck();
+                }
             }
-            else if (orderComplete)
+            else
             {
                 OrderCompleted();
-            }
-            else if (!orderComplete && head.transform.position.z <= endingZ)
-            {
-                NearFoodTruck();
             }
             if (myRenderer.isVisible)
             {

@@ -46,7 +46,8 @@ public class SodaMachine : MonoBehaviour
 
     public void ButtonPressed()
     {
-        transform.parent.GetComponent<ParticleSystem>().Stop();
+		Camera.main.GetComponent<VibrationManager>().LightTapticFeedback();
+		transform.parent.GetComponent<ParticleSystem>().Stop();
         turnOn = false;
     }
 
