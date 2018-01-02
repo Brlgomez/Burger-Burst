@@ -96828,36 +96828,42 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9d352a5bf745445b3a90fe8a1accc7e9, type: 3}
   - {fileID: 21300000, guid: 0f1ca74840abe4e8aa3a9bdb9ab029b9, type: 3}
   - {fileID: 21300000, guid: 1206f66db3ad44a5fab3cd39d36076e6, type: 3}
+  - {fileID: 21300000, guid: 60750c7fc267f43549f0e046cd853930, type: 3}
   flooringTexture:
   - {fileID: 2800000, guid: 7be20c9fbe5574ceb9937c59fff151c9, type: 3}
   - {fileID: 2800000, guid: 513329e38c79346a18c41984fb8b03bb, type: 3}
   - {fileID: 2800000, guid: e90a8123c05ba4387aa037977af00416, type: 3}
   - {fileID: 2800000, guid: e4bc9c6022424420784db120d842d4dd, type: 3}
   - {fileID: 2800000, guid: c24e431a27ffa4d47b0c76a97699be6b, type: 3}
+  - {fileID: 2800000, guid: ea46d0fc95fb4460cbef7d2b785ddc65, type: 3}
   wallSprites:
   - {fileID: 21300000, guid: f08c4e556d77e46749f84f5046e99119, type: 3}
   - {fileID: 21300000, guid: 60f3cef3ee9c9492ca091a126fb3d9b3, type: 3}
   - {fileID: 21300000, guid: 65f25495ea08143c3afaec12cab076d5, type: 3}
   - {fileID: 21300000, guid: 2096dd06f2dc24e6aafdd1d53aab4227, type: 3}
   - {fileID: 21300000, guid: 80348d1c19c684947b1e60e846636744, type: 3}
+  - {fileID: 21300000, guid: 21c43da79d8b549098484c4757744dd6, type: 3}
   wallTexture:
   - {fileID: 2800000, guid: 8f2b0baf37ca941a29329f130d6cfcde, type: 3}
   - {fileID: 2800000, guid: 00dfa75232e924f9e869ad54ff2d472a, type: 3}
   - {fileID: 2800000, guid: 5dc28a1d047d648a89da9e0e60b2dfbe, type: 3}
   - {fileID: 2800000, guid: d225756c713af4d26a487ea1b3d576d9, type: 3}
   - {fileID: 2800000, guid: 1b86434768f5b46d1876d72ceeddd1c7, type: 3}
+  - {fileID: 2800000, guid: abe03c9addbcb4fd8885944a42fa832e, type: 3}
   detailSprites:
   - {fileID: 21300000, guid: 980ffb02196fe4879a05f1b34d9957d1, type: 3}
   - {fileID: 21300000, guid: 9472155d8e8ae46f9919d0e7eb40cf1d, type: 3}
   - {fileID: 21300000, guid: 3eec4dbfb28fa4768a88ecdc0b85e6a4, type: 3}
   - {fileID: 21300000, guid: a3159ae201af348189c76f0b0b49931d, type: 3}
   - {fileID: 21300000, guid: accd85e883d7c44c0a1078d6243e266f, type: 3}
+  - {fileID: 21300000, guid: 2ae886d299a684d20b1ff385133c8f66, type: 3}
   detailTexture:
   - {fileID: 2800000, guid: 1801f0478c9eb4bb78ea0f3baeb0661b, type: 3}
   - {fileID: 2800000, guid: 0460a6e2a6e7f461784b65ef4cce10cc, type: 3}
   - {fileID: 2800000, guid: fc01024e15bf948e581116c4da584696, type: 3}
   - {fileID: 2800000, guid: 97c2e80d96a9e4fa78b10710aace4225, type: 3}
   - {fileID: 2800000, guid: 3e527c750ae1e4a74bea04d3b16a832b, type: 3}
+  - {fileID: 2800000, guid: 5ec268e6ef4224ce69f4fa0405a93adc, type: 3}
 --- !u!114 &1865169797
 MonoBehaviour:
   m_ObjectHideFlags: 0
