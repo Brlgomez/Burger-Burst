@@ -40,32 +40,35 @@ public class ThemeManager : MonoBehaviour
 
     void Awake()
     {
-		PlayerPrefs.SetInt("Flooring0", 1);
+        PlayerPrefs.SetInt("Flooring0", 1);
         PlayerPrefs.SetInt("Wallpaper0", 1);
         PlayerPrefs.SetInt("Detail0", 1);
 
-        flooringList.Add(new CustomItem(0, 0, PlayerPrefsManager.specificFlooring, "C&B", flooringSprites[0], flooringTexture[0]));
-        flooringList.Add(new CustomItem(1, 50, PlayerPrefsManager.specificFlooring, "Woodland", flooringSprites[1], flooringTexture[1]));
-        flooringList.Add(new CustomItem(2, 50, PlayerPrefsManager.specificFlooring, "Lawn", flooringSprites[2], flooringTexture[2]));
-        flooringList.Add(new CustomItem(3, 50, PlayerPrefsManager.specificFlooring, "Ceramic", flooringSprites[3], flooringTexture[3]));
-        flooringList.Add(new CustomItem(4, 50, PlayerPrefsManager.specificFlooring, "Robotic", flooringSprites[4], flooringTexture[4]));
-		flooringList.Add(new CustomItem(5, 50, PlayerPrefsManager.specificFlooring, "Minimal", flooringSprites[5], flooringTexture[5]));
+        flooringList.Add(new CustomItem(0, 0, PlayerPrefsManager.specificFlooring, "C&B Floor", flooringSprites[0], flooringTexture[0]));
+        flooringList.Add(new CustomItem(1, 50, PlayerPrefsManager.specificFlooring, "Woodland Floor", flooringSprites[1], flooringTexture[1]));
+        flooringList.Add(new CustomItem(2, 50, PlayerPrefsManager.specificFlooring, "Lawn Floor", flooringSprites[2], flooringTexture[2]));
+        flooringList.Add(new CustomItem(3, 50, PlayerPrefsManager.specificFlooring, "Ceramic Floor", flooringSprites[3], flooringTexture[3]));
+        flooringList.Add(new CustomItem(4, 50, PlayerPrefsManager.specificFlooring, "Robotic Floor", flooringSprites[4], flooringTexture[4]));
+        flooringList.Add(new CustomItem(5, 50, PlayerPrefsManager.specificFlooring, "Minimal Floor", flooringSprites[5], flooringTexture[5]));
+        flooringList.Add(new CustomItem(6, 50, PlayerPrefsManager.specificFlooring, "Pancake Tuesday\nFloor", flooringSprites[6], flooringTexture[6]));
 
-		wallList.Add(new CustomItem(0, 0, PlayerPrefsManager.specificWallpaper, "C&B", wallSprites[0], wallTexture[0]));
-        wallList.Add(new CustomItem(1, 50, PlayerPrefsManager.specificWallpaper, "Woodland", wallSprites[1], wallTexture[1]));
-        wallList.Add(new CustomItem(2, 50, PlayerPrefsManager.specificWallpaper, "Cloudy Sky", wallSprites[2], wallTexture[2]));
-        wallList.Add(new CustomItem(3, 50, PlayerPrefsManager.specificWallpaper, "Ceramic", wallSprites[3], wallTexture[3]));
-        wallList.Add(new CustomItem(4, 50, PlayerPrefsManager.specificWallpaper, "Robotic", wallSprites[4], wallTexture[4]));
-		wallList.Add(new CustomItem(5, 50, PlayerPrefsManager.specificWallpaper, "Minimal", wallSprites[5], wallTexture[5]));
+        wallList.Add(new CustomItem(0, 0, PlayerPrefsManager.specificWallpaper, "C&B Wallpaper", wallSprites[0], wallTexture[0]));
+        wallList.Add(new CustomItem(1, 50, PlayerPrefsManager.specificWallpaper, "Woodland Wallpaper", wallSprites[1], wallTexture[1]));
+        wallList.Add(new CustomItem(2, 50, PlayerPrefsManager.specificWallpaper, "Cloudy Sky Wallpaper", wallSprites[2], wallTexture[2]));
+        wallList.Add(new CustomItem(3, 50, PlayerPrefsManager.specificWallpaper, "Ceramic Wallpaper", wallSprites[3], wallTexture[3]));
+        wallList.Add(new CustomItem(4, 50, PlayerPrefsManager.specificWallpaper, "Robotic Wallpaper", wallSprites[4], wallTexture[4]));
+        wallList.Add(new CustomItem(5, 50, PlayerPrefsManager.specificWallpaper, "Minimal Wallpaper", wallSprites[5], wallTexture[5]));
+        wallList.Add(new CustomItem(6, 50, PlayerPrefsManager.specificWallpaper, "Pancake Tuesday\nWallpaper", wallSprites[6], wallTexture[6]));
 
-		detailList.Add(new CustomItem(0, 0, PlayerPrefsManager.specificDetail, "C&B", detailSprites[0], detailTexture[0]));
-        detailList.Add(new CustomItem(1, 25, PlayerPrefsManager.specificDetail, "Woodland", detailSprites[1], detailTexture[1]));
-        detailList.Add(new CustomItem(2, 25, PlayerPrefsManager.specificDetail, "The Great Outdoors", detailSprites[2], detailTexture[2]));
-        detailList.Add(new CustomItem(3, 25, PlayerPrefsManager.specificDetail, "Ceramic", detailSprites[3], detailTexture[3]));
-        detailList.Add(new CustomItem(4, 25, PlayerPrefsManager.specificDetail, "Robotic", detailSprites[4], detailTexture[4]));
-		detailList.Add(new CustomItem(5, 25, PlayerPrefsManager.specificDetail, "Minimal", detailSprites[5], detailTexture[5]));
+        detailList.Add(new CustomItem(0, 0, PlayerPrefsManager.specificDetail, "C&B Detail", detailSprites[0], detailTexture[0]));
+        detailList.Add(new CustomItem(1, 25, PlayerPrefsManager.specificDetail, "Woodland Detail", detailSprites[1], detailTexture[1]));
+        detailList.Add(new CustomItem(2, 25, PlayerPrefsManager.specificDetail, "Outdoors Detail", detailSprites[2], detailTexture[2]));
+        detailList.Add(new CustomItem(3, 25, PlayerPrefsManager.specificDetail, "Ceramic Detail", detailSprites[3], detailTexture[3]));
+        detailList.Add(new CustomItem(4, 25, PlayerPrefsManager.specificDetail, "Robotic Detail", detailSprites[4], detailTexture[4]));
+        detailList.Add(new CustomItem(5, 25, PlayerPrefsManager.specificDetail, "Minimal Detail", detailSprites[5], detailTexture[5]));
+        detailList.Add(new CustomItem(6, 25, PlayerPrefsManager.specificDetail, "Pancake Tuesday\nDetail", detailSprites[6], detailTexture[6]));
 
-		SetFlooring(GetComponent<PlayerPrefsManager>().GetFlooring());
+        SetFlooring(GetComponent<PlayerPrefsManager>().GetFlooring());
         SetWallpaper(GetComponent<PlayerPrefsManager>().GetWallpaper());
         SetDetail(GetComponent<PlayerPrefsManager>().GetDetail());
     }
