@@ -239,8 +239,15 @@ ScreenTextManagment : MonoBehaviour
         else
         {
             int middleObjectPrice = int.Parse(middleObj.transform.GetChild(0).GetComponent<TextMesh>().text);
-            DisableButton(line2, "Cannot get", null, Color.white);
-            DisableButton(line3, "Coins needed:\n" + (middleObjectPrice - currentCoinCount), null, Color.white);
+            DisableButton(line2, "Not enough\ncoins. Need", null, Color.white);
+            if ((middleObjectPrice - currentCoinCount) == 1)
+            {
+                DisableButton(line3, (middleObjectPrice - currentCoinCount) + " more\ncoin", null, Color.white);
+            }
+            else
+            {
+                DisableButton(line3, (middleObjectPrice - currentCoinCount) + " more\ncoins", null, Color.white);
+            }
             line3.GetComponent<TextMesh>().characterSize = 0.025f;
             EnableButton(line4, "Get coins", coinSprite, Color.white);
         }
@@ -254,10 +261,10 @@ ScreenTextManagment : MonoBehaviour
         GameObject middleObj = GetComponent<MenuSlider>().GetMiddleObject();
         GetComponent<PlayerPrefsManager>().BuyGraphic(GetComponent<MenuSlider>().GetMiddleObjectNumber());
         GetComponent<PlayerPrefsManager>().SetGraphics(GetComponent<MenuSlider>().GetMiddleObjectNumber());
-		GetComponent<GraphicsManager>().graphicList[int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name)].unlocked = true;
+        GetComponent<GraphicsManager>().graphicList[int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name)].unlocked = true;
         GetComponent<GraphicsManager>().SetGraphic(GetComponent<PlayerPrefsManager>().GetGraphics());
-		GetComponent<MenuSlider>().ChangeSlotSpriteGraphics();
-		BoughtItem(middleObj);
+        GetComponent<MenuSlider>().ChangeSlotSpriteGraphics();
+        BoughtItem(middleObj);
     }
 
     public void BuyUpgrade()
@@ -273,9 +280,9 @@ ScreenTextManagment : MonoBehaviour
         GameObject middleObj = GetComponent<MenuSlider>().GetMiddleObject();
         GetComponent<PlayerPrefsManager>().BuyFlooring(GetComponent<MenuSlider>().GetMiddleObjectNumber());
         GetComponent<PlayerPrefsManager>().SetFlooring(GetComponent<MenuSlider>().GetMiddleObjectNumber());
-		GetComponent<ThemeManager>().flooringList[int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name)].unlocked = true;
-		GetComponent<MenuSlider>().ChangeSlotSpriteFlooring();
-		BoughtItem(middleObj);
+        GetComponent<ThemeManager>().flooringList[int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name)].unlocked = true;
+        GetComponent<MenuSlider>().ChangeSlotSpriteFlooring();
+        BoughtItem(middleObj);
     }
 
     public void BuyWallpaper()
@@ -284,31 +291,32 @@ ScreenTextManagment : MonoBehaviour
         GetComponent<PlayerPrefsManager>().BuyWallpaper(GetComponent<MenuSlider>().GetMiddleObjectNumber());
         GetComponent<PlayerPrefsManager>().SetWallpaper(GetComponent<MenuSlider>().GetMiddleObjectNumber());
         GetComponent<ThemeManager>().wallList[int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name)].unlocked = true;
-		GetComponent<MenuSlider>().ChangeSlotSpriteWallpaper();
-		BoughtItem(middleObj);
+        GetComponent<MenuSlider>().ChangeSlotSpriteWallpaper();
+        BoughtItem(middleObj);
     }
 
     public void BuyDetail()
     {
         GameObject middleObj = GetComponent<MenuSlider>().GetMiddleObject();
         GetComponent<PlayerPrefsManager>().BuyDetail(GetComponent<MenuSlider>().GetMiddleObjectNumber());
-		GetComponent<PlayerPrefsManager>().SetDetail(GetComponent<MenuSlider>().GetMiddleObjectNumber());
-		GetComponent<ThemeManager>().detailList[int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name)].unlocked = true;
-		GetComponent<MenuSlider>().ChangeSlotSpriteDetail();
-		BoughtItem(middleObj);
-	}
+        GetComponent<PlayerPrefsManager>().SetDetail(GetComponent<MenuSlider>().GetMiddleObjectNumber());
+        GetComponent<ThemeManager>().detailList[int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name)].unlocked = true;
+        GetComponent<MenuSlider>().ChangeSlotSpriteDetail();
+        BoughtItem(middleObj);
+    }
 
     void BoughtItem(GameObject middleObj)
     {
         GetComponent<PlayerPrefsManager>().DecreaseCoins(int.Parse(middleObj.transform.GetChild(0).GetComponent<TextMesh>().text));
         middleObj.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.clear;
         middleObj.transform.GetChild(0).GetComponent<TextMesh>().text = "";
+        GetComponent<VibrationManager>().SuccessTapticFeedback();
     }
 
     public void ChangeToGameOverText()
     {
-		CheckShakeText();
-		DisableButton(line1, GetComponent<Gameplay>().GetPoints().ToString(), pointSprite, Color.white);
+        CheckShakeText();
+        DisableButton(line1, GetComponent<Gameplay>().GetPoints().ToString(), pointSprite, Color.white);
         EnableButton(line2, "Restart", restartSprite, Color.white);
         EnableButton(line3, "Quit", quitSprite, Color.white);
         if (!GetComponent<Gameplay>().GetContinued())
@@ -709,27 +717,27 @@ ScreenTextManagment : MonoBehaviour
     {
         if (GetComponent<GettingHurt>())
         {
-            
+
         }
-		if (line1.GetComponent<ShakeText>())
-		{
-			line1.GetComponent<ShakeText>().Finished();
-		}
-		if (line2.GetComponent<ShakeText>())
-		{
-			line2.GetComponent<ShakeText>().Finished();
-		}
-		if (line3.GetComponent<ShakeText>())
-		{
-			line3.GetComponent<ShakeText>().Finished();
-		}
-		if (line4.GetComponent<ShakeText>())
-		{
-			line4.GetComponent<ShakeText>().Finished();
-		}
-		if (line5.GetComponent<ShakeText>())
-		{
-			line5.GetComponent<ShakeText>().Finished();
-		}
+        if (line1.GetComponent<ShakeText>())
+        {
+            line1.GetComponent<ShakeText>().Finished();
+        }
+        if (line2.GetComponent<ShakeText>())
+        {
+            line2.GetComponent<ShakeText>().Finished();
+        }
+        if (line3.GetComponent<ShakeText>())
+        {
+            line3.GetComponent<ShakeText>().Finished();
+        }
+        if (line4.GetComponent<ShakeText>())
+        {
+            line4.GetComponent<ShakeText>().Finished();
+        }
+        if (line5.GetComponent<ShakeText>())
+        {
+            line5.GetComponent<ShakeText>().Finished();
+        }
     }
 }

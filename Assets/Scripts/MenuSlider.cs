@@ -119,7 +119,7 @@ public class MenuSlider : MonoBehaviour
     {
         for (int i = 0; i < scrollList.Count; i++)
         {
-            float scale = 320 * (0.025f - Mathf.Abs((scrollList[i].transform.position.z) - scrollView.transform.position.z));
+            float scale = 291 * (0.025f - Mathf.Abs((scrollList[i].transform.position.z) - scrollView.transform.position.z));
             if (scale < 0)
             {
                 scale = 0;
