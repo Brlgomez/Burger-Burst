@@ -38,7 +38,6 @@ public class MenuSlider : MonoBehaviour
                     break;
                 case Menus.Menu.Flooring:
                     sliderObjectCount = GetComponent<ThemeManager>().flooringList.Count;
-                    Debug.Log(sliderObjectCount);
                     SetFlooringSprite();
                     break;
                 case Menus.Menu.Wallpaper:

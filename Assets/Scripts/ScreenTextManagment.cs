@@ -253,9 +253,11 @@ ScreenTextManagment : MonoBehaviour
     {
         GameObject middleObj = GetComponent<MenuSlider>().GetMiddleObject();
         GetComponent<PlayerPrefsManager>().BuyGraphic(GetComponent<MenuSlider>().GetMiddleObjectNumber());
-        GetComponent<GraphicsManager>().graphicList[int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name)].unlocked = true;
+        GetComponent<PlayerPrefsManager>().SetGraphics(GetComponent<MenuSlider>().GetMiddleObjectNumber());
+		GetComponent<GraphicsManager>().graphicList[int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name)].unlocked = true;
         GetComponent<GraphicsManager>().SetGraphic(GetComponent<PlayerPrefsManager>().GetGraphics());
-        BoughtItem(middleObj);
+		GetComponent<MenuSlider>().ChangeSlotSpriteGraphics();
+		BoughtItem(middleObj);
     }
 
     public void BuyUpgrade()
@@ -270,25 +272,31 @@ ScreenTextManagment : MonoBehaviour
     {
         GameObject middleObj = GetComponent<MenuSlider>().GetMiddleObject();
         GetComponent<PlayerPrefsManager>().BuyFlooring(GetComponent<MenuSlider>().GetMiddleObjectNumber());
-        GetComponent<ThemeManager>().flooringList[int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name)].unlocked = true;
-        BoughtItem(middleObj);
+        GetComponent<PlayerPrefsManager>().SetFlooring(GetComponent<MenuSlider>().GetMiddleObjectNumber());
+		GetComponent<ThemeManager>().flooringList[int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name)].unlocked = true;
+		GetComponent<MenuSlider>().ChangeSlotSpriteFlooring();
+		BoughtItem(middleObj);
     }
 
     public void BuyWallpaper()
     {
         GameObject middleObj = GetComponent<MenuSlider>().GetMiddleObject();
         GetComponent<PlayerPrefsManager>().BuyWallpaper(GetComponent<MenuSlider>().GetMiddleObjectNumber());
+        GetComponent<PlayerPrefsManager>().SetWallpaper(GetComponent<MenuSlider>().GetMiddleObjectNumber());
         GetComponent<ThemeManager>().wallList[int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name)].unlocked = true;
-        BoughtItem(middleObj);
+		GetComponent<MenuSlider>().ChangeSlotSpriteWallpaper();
+		BoughtItem(middleObj);
     }
 
     public void BuyDetail()
     {
         GameObject middleObj = GetComponent<MenuSlider>().GetMiddleObject();
         GetComponent<PlayerPrefsManager>().BuyDetail(GetComponent<MenuSlider>().GetMiddleObjectNumber());
-        GetComponent<ThemeManager>().detailList[int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name)].unlocked = true;
-        BoughtItem(middleObj);
-    }
+		GetComponent<PlayerPrefsManager>().SetDetail(GetComponent<MenuSlider>().GetMiddleObjectNumber());
+		GetComponent<ThemeManager>().detailList[int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name)].unlocked = true;
+		GetComponent<MenuSlider>().ChangeSlotSpriteDetail();
+		BoughtItem(middleObj);
+	}
 
     void BoughtItem(GameObject middleObj)
     {

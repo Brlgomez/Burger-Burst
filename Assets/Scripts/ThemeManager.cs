@@ -40,7 +40,7 @@ public class ThemeManager : MonoBehaviour
 
     void Awake()
     {
-        PlayerPrefs.SetInt("Flooring0", 1);
+		PlayerPrefs.SetInt("Flooring0", 1);
         PlayerPrefs.SetInt("Wallpaper0", 1);
         PlayerPrefs.SetInt("Detail0", 1);
 

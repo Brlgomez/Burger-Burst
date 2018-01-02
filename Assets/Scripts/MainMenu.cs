@@ -379,6 +379,7 @@ public class MainMenu : MonoBehaviour
     {
         if (target.name == "First Button")
         {
+            GetComponent<PlayerPrefsManager>().IncreaseCoins(100);
             //TODO: IAP
         }
         else if (target.name == "Second Button")

@@ -192,9 +192,9 @@ public class PlayerPrefsManager : MonoBehaviour
         return PlayerPrefs.GetInt(coins, 0);
     }
 
-    public void IncreaseCoins()
+    public void IncreaseCoins(int amount)
     {
-        PlayerPrefs.SetInt(coins, (GetCoins() + 1));
+        PlayerPrefs.SetInt(coins, (GetCoins() + amount));
         GetComponent<LEDManager>().UpdateCoinsText();
         PlayerPrefs.Save();
     }
