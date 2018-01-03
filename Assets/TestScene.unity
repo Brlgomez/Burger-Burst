@@ -64330,7 +64330,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1093843162}
-  m_LocalRotation: {x: 0.3535534, y: 0.6123725, z: -0.35355344, w: 0.61237246}
+  m_LocalRotation: {x: 0.35355338, y: 0.61237246, z: -0.3535534, w: 0.6123724}
   m_LocalPosition: {x: -0.02, y: 0.06, z: 0.3}
   m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_Children: []
@@ -96831,6 +96831,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 60750c7fc267f43549f0e046cd853930, type: 3}
   - {fileID: 21300000, guid: 4b93542b6e7cf49e58228c72d0e53457, type: 3}
   - {fileID: 21300000, guid: 7dcf3eefb3bdd462bb984274c064d54c, type: 3}
+  - {fileID: 21300000, guid: e441819db23704136979066a2b498739, type: 3}
   flooringTexture:
   - {fileID: 2800000, guid: 7be20c9fbe5574ceb9937c59fff151c9, type: 3}
   - {fileID: 2800000, guid: 513329e38c79346a18c41984fb8b03bb, type: 3}
@@ -96840,6 +96841,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: ea46d0fc95fb4460cbef7d2b785ddc65, type: 3}
   - {fileID: 2800000, guid: 2fa4b77b3fe7d4298a1b37377e1495e8, type: 3}
   - {fileID: 2800000, guid: fa63a3715163a4fc49202d7c8558acf8, type: 3}
+  - {fileID: 2800000, guid: b60fbca7ecb0640ebb23ad9f0794ea53, type: 3}
   wallSprites:
   - {fileID: 21300000, guid: f08c4e556d77e46749f84f5046e99119, type: 3}
   - {fileID: 21300000, guid: 60f3cef3ee9c9492ca091a126fb3d9b3, type: 3}
@@ -96849,6 +96851,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 21c43da79d8b549098484c4757744dd6, type: 3}
   - {fileID: 21300000, guid: b042c0ba11cf04cb49b3fe12121f5b02, type: 3}
   - {fileID: 21300000, guid: fa07820ef4f2a4fd594bde0d711e170c, type: 3}
+  - {fileID: 21300000, guid: 6d97b96f6786a42a98f79f2fb2c51191, type: 3}
   wallTexture:
   - {fileID: 2800000, guid: 8f2b0baf37ca941a29329f130d6cfcde, type: 3}
   - {fileID: 2800000, guid: 00dfa75232e924f9e869ad54ff2d472a, type: 3}
@@ -96858,6 +96861,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: abe03c9addbcb4fd8885944a42fa832e, type: 3}
   - {fileID: 2800000, guid: e92217856339243d8af1f01421408994, type: 3}
   - {fileID: 2800000, guid: 497882b2affc04ddf9c3807995bb57e8, type: 3}
+  - {fileID: 2800000, guid: c2d70655420be4fcdb791380e2b817f9, type: 3}
   detailSprites:
   - {fileID: 21300000, guid: 980ffb02196fe4879a05f1b34d9957d1, type: 3}
   - {fileID: 21300000, guid: 9472155d8e8ae46f9919d0e7eb40cf1d, type: 3}
@@ -96867,6 +96871,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 2ae886d299a684d20b1ff385133c8f66, type: 3}
   - {fileID: 21300000, guid: b16fcbed717fe432a934b62c794b173a, type: 3}
   - {fileID: 21300000, guid: 752899a09559e4c958366c960244d9f7, type: 3}
+  - {fileID: 21300000, guid: a643ad0a5d37a4f07ba1367036aab690, type: 3}
   detailTexture:
   - {fileID: 2800000, guid: 1801f0478c9eb4bb78ea0f3baeb0661b, type: 3}
   - {fileID: 2800000, guid: 0460a6e2a6e7f461784b65ef4cce10cc, type: 3}
@@ -96876,6 +96881,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 5ec268e6ef4224ce69f4fa0405a93adc, type: 3}
   - {fileID: 2800000, guid: d11e596cc7ffd4e15a4c5b23ca2a1f06, type: 3}
   - {fileID: 2800000, guid: 316e68ad9fff341bbb4d4b32110026b0, type: 3}
+  - {fileID: 2800000, guid: e8d960dadbb3040ffa1091a6c0b286d6, type: 3}
 --- !u!114 &1865169797
 MonoBehaviour:
   m_ObjectHideFlags: 0
