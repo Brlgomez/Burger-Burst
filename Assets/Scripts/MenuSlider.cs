@@ -449,7 +449,7 @@ public class MenuSlider : MonoBehaviour
         scrollView.transform.GetChild(0).gameObject.layer = 0;
         scrollView.transform.GetChild(3).gameObject.layer = 2;
         scrollView.transform.GetChild(4).GetComponent<SpriteRenderer>().color = textColor;
-		scrollView.transform.GetChild(1).transform.localScale = new Vector3(1, 1, 1);
+        scrollView.transform.GetChild(1).transform.localScale = new Vector3(1, 1, 1);
         if (menu == Menus.Menu.PowerUps)
         {
             slot1.transform.GetChild(0).gameObject.layer = 0;

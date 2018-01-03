@@ -54,6 +54,7 @@ public class ThemeManager : MonoBehaviour
         flooringList.Add(new CustomItem(7, 50, PlayerPrefsManager.specificFlooring, "Bubbles Floor", flooringSprites[7], flooringTexture[7]));
 		flooringList.Add(new CustomItem(8, 50, PlayerPrefsManager.specificFlooring, "Groovy Baby Floor", flooringSprites[8], flooringTexture[8]));
 		flooringList.Add(new CustomItem(9, 50, PlayerPrefsManager.specificFlooring, "Shabby Chic Floor", flooringSprites[9], flooringTexture[9]));
+		flooringList.Add(new CustomItem(10, 50, PlayerPrefsManager.specificFlooring, "Floor", flooringSprites[10], flooringTexture[10]));
 
 		wallList.Add(new CustomItem(0, 0, PlayerPrefsManager.specificWallpaper, "C&B Wallpaper", wallSprites[0], wallTexture[0]));
         wallList.Add(new CustomItem(1, 50, PlayerPrefsManager.specificWallpaper, "Woodland Wallpaper", wallSprites[1], wallTexture[1]));
@@ -65,6 +66,7 @@ public class ThemeManager : MonoBehaviour
         wallList.Add(new CustomItem(7, 50, PlayerPrefsManager.specificWallpaper, "Electric Fish Wallpaper", wallSprites[7], wallTexture[7]));
 		wallList.Add(new CustomItem(8, 50, PlayerPrefsManager.specificWallpaper, "Grovy Baby Wallpaper", wallSprites[8], wallTexture[8]));
 		wallList.Add(new CustomItem(9, 50, PlayerPrefsManager.specificWallpaper, "Shabby Chic Wallpaper", wallSprites[9], wallTexture[9]));
+		wallList.Add(new CustomItem(10, 50, PlayerPrefsManager.specificWallpaper, "Wallpaper", wallSprites[10], wallTexture[10]));
 
 		detailList.Add(new CustomItem(0, 0, PlayerPrefsManager.specificDetail, "C&B Detail", detailSprites[0], detailTexture[0]));
         detailList.Add(new CustomItem(1, 25, PlayerPrefsManager.specificDetail, "Woodland Detail", detailSprites[1], detailTexture[1]));
@@ -76,6 +78,7 @@ public class ThemeManager : MonoBehaviour
         detailList.Add(new CustomItem(7, 25, PlayerPrefsManager.specificDetail, "Electric Blue Detail", detailSprites[7], detailTexture[7]));
 		detailList.Add(new CustomItem(8, 25, PlayerPrefsManager.specificDetail, "Groovy Baby Detail", detailSprites[8], detailTexture[8]));
 		detailList.Add(new CustomItem(9, 25, PlayerPrefsManager.specificDetail, "Shabby Chic Detail", detailSprites[9], detailTexture[9]));
+		detailList.Add(new CustomItem(10, 25, PlayerPrefsManager.specificDetail, "Detail", detailSprites[10], detailTexture[10]));
 
 		SetFlooring(GetComponent<PlayerPrefsManager>().GetFlooring());
         SetWallpaper(GetComponent<PlayerPrefsManager>().GetWallpaper());
