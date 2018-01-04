@@ -1,0 +1,20 @@
+Throw further*15
+Faster cooking*25
+Make more food*25
+Defense increase*100
+Double health*100
+Larger food*50
+Health regeneration*100
+Burger regeneration*100
+Fries regeneration*100
+Drink regeneration*100
+Double points*100
+Double coins*100
+Thrown food isNEWLINEdivided and scattered*200
+Food magnetic toNEWLINEzombies*300
+Food unaffected byNEWLINEwind*150
+Muffle instant deathNEWLINEattacks*150
+Chance of dodgingNEWLINEattacks*150
+Immuned to posionNEWLINEzombies*150
+Immuned to iceNEWLINEzombies*150
+Food freezes zombies*300

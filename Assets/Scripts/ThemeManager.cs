@@ -44,13 +44,13 @@ public class ThemeManager : MonoBehaviour
         {
             string description = allDescriptions[i].Replace("NEWLINE", "\n");
             flooringList.Add(new CustomItem(i, int.Parse(description.Split('*')[3]),
-                                            PlayerPrefsManager.specificFlooring, description.Split('*')[0] + " Floor"));
+                                            PlayerPrefsManager.specificFlooring, description.Split('*')[0] + "Floor"));
 
             wallList.Add(new CustomItem(i, int.Parse(description.Split('*')[4]),
-                                        PlayerPrefsManager.specificWallpaper, description.Split('*')[1] + " Wallpaper"));
+                                        PlayerPrefsManager.specificWallpaper, description.Split('*')[1] + "Wallpaper"));
 
             detailList.Add(new CustomItem(i, int.Parse(allDescriptions[i].Split('*')[5]),
-                                          PlayerPrefsManager.specificDetail, allDescriptions[i].Split('*')[2] + " Detail"));
+                                          PlayerPrefsManager.specificDetail, allDescriptions[i].Split('*')[2] + "Detail"));
         }
 
         SetFlooring(GetComponent<PlayerPrefsManager>().GetFlooring());
