@@ -46,6 +46,7 @@ public class ThemeManager : MonoBehaviour
         flooringList.Add(new CustomItem(10, 50, PlayerPrefsManager.specificFlooring, "Paw Print Floor"));
         flooringList.Add(new CustomItem(11, 50, PlayerPrefsManager.specificFlooring, "Retro Floor"));
         flooringList.Add(new CustomItem(12, 50, PlayerPrefsManager.specificFlooring, "Gothic Floor"));
+        flooringList.Add(new CustomItem(13, 50, PlayerPrefsManager.specificFlooring, "Criss Cross Floor"));
 
         wallList.Add(new CustomItem(0, 0, PlayerPrefsManager.specificWallpaper, "C&B Wallpaper"));
         wallList.Add(new CustomItem(1, 50, PlayerPrefsManager.specificWallpaper, "Woodland Wallpaper"));
@@ -60,6 +61,7 @@ public class ThemeManager : MonoBehaviour
         wallList.Add(new CustomItem(10, 50, PlayerPrefsManager.specificWallpaper, "Bow Wow Wallpaper"));
         wallList.Add(new CustomItem(11, 50, PlayerPrefsManager.specificWallpaper, "Retro Wallpaper"));
         wallList.Add(new CustomItem(12, 50, PlayerPrefsManager.specificWallpaper, "Gothic Wallpaper"));
+        wallList.Add(new CustomItem(13, 50, PlayerPrefsManager.specificWallpaper, "Diamond Wallpaper"));
 
         detailList.Add(new CustomItem(0, 0, PlayerPrefsManager.specificDetail, "C&B Detail"));
         detailList.Add(new CustomItem(1, 25, PlayerPrefsManager.specificDetail, "Woodland Detail"));
@@ -74,6 +76,7 @@ public class ThemeManager : MonoBehaviour
         detailList.Add(new CustomItem(10, 25, PlayerPrefsManager.specificDetail, "Woof Detail"));
         detailList.Add(new CustomItem(11, 25, PlayerPrefsManager.specificDetail, "Retro Detail"));
         detailList.Add(new CustomItem(12, 25, PlayerPrefsManager.specificDetail, "Gothic Detail"));
+        detailList.Add(new CustomItem(13, 25, PlayerPrefsManager.specificDetail, "Cool Detail"));
 
         SetFlooring(GetComponent<PlayerPrefsManager>().GetFlooring());
         SetWallpaper(GetComponent<PlayerPrefsManager>().GetWallpaper());
