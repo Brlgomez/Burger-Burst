@@ -1,0 +1,16 @@
+C&B*C&B*C&B*0*0*0
+Woodland*Woodland*Woodland*50*50*25
+Lawn*Cloudy Sky*Outdoors*50*50*25
+Ceramic*Ceramic*Ceramic*50*50*25
+Robotic*Robotic*Robotic*50*50*25
+Minimal*Minimal*Minimal*50*50*25
+Mardi Gras*Mardi Gras*Mardi Gras*50*50*25
+Bubbles*Electric Fish*Electric Blue*50*50*25
+Groovy Baby*Groovy Baby*Groovy Baby*50*50*25
+Shabby Chic*Shabby Chic*Shabby Chic*50*50*25
+Paw Print*Bow Wow*Woof*50*50*25
+Retro*Retro*Retro*50*50*25
+Gothic*Gothic*Gothic*50*50*25
+Criss Cross*Diamond*Cool*50*50*25
+Flower*Flower*Flower*50*50*25
+Hue*Hue*Hue*50*50*25

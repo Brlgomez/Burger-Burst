@@ -33,55 +33,27 @@ public class ThemeManager : MonoBehaviour
         PlayerPrefs.SetInt("Wallpaper0", 1);
         PlayerPrefs.SetInt("Detail0", 1);
 
-        flooringList.Add(new CustomItem(0, 0, PlayerPrefsManager.specificFlooring, "C&B Floor"));
-        flooringList.Add(new CustomItem(1, 50, PlayerPrefsManager.specificFlooring, "Woodland Floor"));
-        flooringList.Add(new CustomItem(2, 50, PlayerPrefsManager.specificFlooring, "Lawn Floor"));
-        flooringList.Add(new CustomItem(3, 50, PlayerPrefsManager.specificFlooring, "Ceramic Floor"));
-        flooringList.Add(new CustomItem(4, 50, PlayerPrefsManager.specificFlooring, "Robotic Floor"));
-        flooringList.Add(new CustomItem(5, 50, PlayerPrefsManager.specificFlooring, "Minimal Floor"));
-        flooringList.Add(new CustomItem(6, 50, PlayerPrefsManager.specificFlooring, "Pancake Tuesday\nFloor"));
-        flooringList.Add(new CustomItem(7, 50, PlayerPrefsManager.specificFlooring, "Bubbles Floor"));
-        flooringList.Add(new CustomItem(8, 50, PlayerPrefsManager.specificFlooring, "Groovy Baby Floor"));
-        flooringList.Add(new CustomItem(9, 50, PlayerPrefsManager.specificFlooring, "Shabby Chic Floor"));
-        flooringList.Add(new CustomItem(10, 50, PlayerPrefsManager.specificFlooring, "Paw Print Floor"));
-        flooringList.Add(new CustomItem(11, 50, PlayerPrefsManager.specificFlooring, "Retro Floor"));
-        flooringList.Add(new CustomItem(12, 50, PlayerPrefsManager.specificFlooring, "Gothic Floor"));
-        flooringList.Add(new CustomItem(13, 50, PlayerPrefsManager.specificFlooring, "Criss Cross Floor"));
-		flooringList.Add(new CustomItem(14, 50, PlayerPrefsManager.specificFlooring, "Flower Floor"));
+        TextAsset t = new TextAsset();
+        t = Resources.Load("Themes") as TextAsset;
+        string[] allDescriptions = t.text.Split('\n');
 
-		wallList.Add(new CustomItem(0, 0, PlayerPrefsManager.specificWallpaper, "C&B Wallpaper"));
-        wallList.Add(new CustomItem(1, 50, PlayerPrefsManager.specificWallpaper, "Woodland Wallpaper"));
-        wallList.Add(new CustomItem(2, 50, PlayerPrefsManager.specificWallpaper, "Cloudy Sky Wallpaper"));
-        wallList.Add(new CustomItem(3, 50, PlayerPrefsManager.specificWallpaper, "Ceramic Wallpaper"));
-        wallList.Add(new CustomItem(4, 50, PlayerPrefsManager.specificWallpaper, "Robotic Wallpaper"));
-        wallList.Add(new CustomItem(5, 50, PlayerPrefsManager.specificWallpaper, "Minimal Wallpaper"));
-        wallList.Add(new CustomItem(6, 50, PlayerPrefsManager.specificWallpaper, "Pancake Tuesday\nWallpaper"));
-        wallList.Add(new CustomItem(7, 50, PlayerPrefsManager.specificWallpaper, "Electric Fish Wallpaper"));
-        wallList.Add(new CustomItem(8, 50, PlayerPrefsManager.specificWallpaper, "Grovy Baby Wallpaper"));
-        wallList.Add(new CustomItem(9, 50, PlayerPrefsManager.specificWallpaper, "Shabby Chic Wallpaper"));
-        wallList.Add(new CustomItem(10, 50, PlayerPrefsManager.specificWallpaper, "Bow Wow Wallpaper"));
-        wallList.Add(new CustomItem(11, 50, PlayerPrefsManager.specificWallpaper, "Retro Wallpaper"));
-        wallList.Add(new CustomItem(12, 50, PlayerPrefsManager.specificWallpaper, "Gothic Wallpaper"));
-        wallList.Add(new CustomItem(13, 50, PlayerPrefsManager.specificWallpaper, "Diamond Wallpaper"));
-		wallList.Add(new CustomItem(14, 50, PlayerPrefsManager.specificWallpaper, "Flower Wallpaper"));
+        for (int i = 0; i <= 15; i++)
+        {
+            flooringList.Add(new CustomItem(i, int.Parse(allDescriptions[i].Split('*')[3]),
+                                            PlayerPrefsManager.specificFlooring, allDescriptions[i].Split('*')[0] + " Floor"));
+        }
+        for (int i = 0; i <= 15; i++)
+        {
+            wallList.Add(new CustomItem(i, int.Parse(allDescriptions[i].Split('*')[4]),
+                                        PlayerPrefsManager.specificWallpaper, allDescriptions[i].Split('*')[1] + " Wallpaper"));
+        }
+        for (int i = 0; i <= 15; i++)
+        {
+            detailList.Add(new CustomItem(i, int.Parse(allDescriptions[i].Split('*')[5]),
+                                          PlayerPrefsManager.specificDetail, allDescriptions[i].Split('*')[2] + " Detail"));
+        }
 
-		detailList.Add(new CustomItem(0, 0, PlayerPrefsManager.specificDetail, "C&B Detail"));
-        detailList.Add(new CustomItem(1, 25, PlayerPrefsManager.specificDetail, "Woodland Detail"));
-        detailList.Add(new CustomItem(2, 25, PlayerPrefsManager.specificDetail, "Outdoors Detail"));
-        detailList.Add(new CustomItem(3, 25, PlayerPrefsManager.specificDetail, "Ceramic Detail"));
-        detailList.Add(new CustomItem(4, 25, PlayerPrefsManager.specificDetail, "Robotic Detail"));
-        detailList.Add(new CustomItem(5, 25, PlayerPrefsManager.specificDetail, "Minimal Detail"));
-        detailList.Add(new CustomItem(6, 25, PlayerPrefsManager.specificDetail, "Pancake Tuesday\nDetail"));
-        detailList.Add(new CustomItem(7, 25, PlayerPrefsManager.specificDetail, "Electric Blue Detail"));
-        detailList.Add(new CustomItem(8, 25, PlayerPrefsManager.specificDetail, "Groovy Baby Detail"));
-        detailList.Add(new CustomItem(9, 25, PlayerPrefsManager.specificDetail, "Shabby Chic Detail"));
-        detailList.Add(new CustomItem(10, 25, PlayerPrefsManager.specificDetail, "Woof Detail"));
-        detailList.Add(new CustomItem(11, 25, PlayerPrefsManager.specificDetail, "Retro Detail"));
-        detailList.Add(new CustomItem(12, 25, PlayerPrefsManager.specificDetail, "Gothic Detail"));
-        detailList.Add(new CustomItem(13, 25, PlayerPrefsManager.specificDetail, "Cool Detail"));
-		detailList.Add(new CustomItem(14, 25, PlayerPrefsManager.specificDetail, "Flower Detail"));
-
-		SetFlooring(GetComponent<PlayerPrefsManager>().GetFlooring());
+        SetFlooring(GetComponent<PlayerPrefsManager>().GetFlooring());
         SetWallpaper(GetComponent<PlayerPrefsManager>().GetWallpaper());
         SetDetail(GetComponent<PlayerPrefsManager>().GetDetail());
     }
