@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerPrefsManager : MonoBehaviour
 {
+    static string ordersCompleted = "ORDERS COMPLETED";
+    static string foodLanded = "FOOD LANDED";
     static string highScore = "HIGH SCORE";
     static string coins = "COINS";
     static string powerUp = "POWERUP";
@@ -19,6 +21,31 @@ public class PlayerPrefsManager : MonoBehaviour
     public static string specificFlooring = "Flooring";
     public static string specificWallpaper = "Wallpaper";
     public static string specificDetail = "Detail";
+    static string powerUpsUnlocked = "PowerUpsUnlocked";
+    static string floorsUnlocked = "FlooringUnlocked";
+    static string wallsUnlocked = "WallpapersUnlocked";
+    static string detailsUnlocked = "DetailsUnlocked";
+    static string nextUnlock = "NextUnlock";
+
+    public int GetOrdersCompleted()
+    {
+        return PlayerPrefs.GetInt(ordersCompleted, 0);
+    }
+
+    public void IncreaseOrdersCompleted()
+    {
+        PlayerPrefs.SetInt(ordersCompleted, (GetOrdersCompleted() + 1));
+    }
+
+    public int GetFoodLanded()
+    {
+        return PlayerPrefs.GetInt(foodLanded, 0);
+    }
+
+    public void IncreaseFoodLanded()
+    {
+        PlayerPrefs.SetInt(foodLanded, (GetFlooring() + 1));
+    }
 
     public void CheckHighScore(int points)
     {
@@ -280,5 +307,65 @@ public class PlayerPrefsManager : MonoBehaviour
         }
         GetComponent<ScreenTextManagment>().ChangeToSettingScreen();
         PlayerPrefs.Save();
+    }
+
+    public int GetPowerUpsUnlocked()
+    {
+        return PlayerPrefs.GetInt(powerUpsUnlocked, 5);
+    }
+
+    public void IncreasePowerUpsUnlocked()
+    {
+        PlayerPrefs.SetInt(powerUpsUnlocked, (GetPowerUpsUnlocked() + 1));
+    }
+
+    public int GetFloorsUnlocked()
+    {
+        return PlayerPrefs.GetInt(floorsUnlocked, 5);
+    }
+
+    public void IncreaseFloorsUnlocked()
+    {
+        PlayerPrefs.SetInt(floorsUnlocked, (GetFloorsUnlocked() + 1));
+    }
+
+    public int GetWallsUnlocked()
+    {
+        return PlayerPrefs.GetInt(wallsUnlocked, 5);
+    }
+
+    public void IncreaseWallsUnlocked()
+    {
+        PlayerPrefs.SetInt(wallsUnlocked, (GetWallsUnlocked() + 1));
+    }
+
+    public int GetDetailUnlocked()
+    {
+        return PlayerPrefs.GetInt(detailsUnlocked, 5);
+    }
+
+    public void IncreaseDetailUnlocked()
+    {
+        PlayerPrefs.SetInt(detail, (GetDetailUnlocked() + 1));
+    }
+
+    int GetNextUnlock()
+    {
+        return PlayerPrefs.GetInt(nextUnlock, 10);
+    }
+
+    void IncreaseNextUnlock()
+    {
+        PlayerPrefs.SetInt(nextUnlock, Mathf.RoundToInt(GetNextUnlock() + ((float)GetNextUnlock() * 0.1f) + 10));
+    }
+
+    public bool CheckIfAnythingUnlocked()
+    {
+        if (GetFoodLanded() > GetNextUnlock())
+        {
+            IncreaseNextUnlock();
+            return true;
+        }
+        return false;
     }
 }

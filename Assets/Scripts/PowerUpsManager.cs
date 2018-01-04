@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PowerUpsManager : MonoBehaviour
 {
+    int maxPowerUps;
     public List<Sprite> powerUpSprites;
     public List<PowerUp> powerUpList = new List<PowerUp>();
     public PowerUp throwFurther, quickerCooking, makeMoreFood, defenseIncrease, moreHealth;
@@ -31,6 +32,16 @@ public class PowerUpsManager : MonoBehaviour
 
     void Awake()
     {
+        TextAsset t = new TextAsset();
+        t = Resources.Load("Power Ups") as TextAsset;
+        string[] allDescriptions = t.text.Split('\n');
+
+        maxPowerUps = allDescriptions.Length;
+
+        for (int i = 0; i < maxPowerUps; i++)
+        {
+
+        }
         powerUpList.Add(throwFurther = new PowerUp(0, 1, "Throw further", powerUpSprites[0]));
         powerUpList.Add(quickerCooking = new PowerUp(1, 5, "Faster cooking", powerUpSprites[1]));
         powerUpList.Add(makeMoreFood = new PowerUp(2, 5, "Make more food", powerUpSprites[2]));
@@ -55,23 +66,23 @@ public class PowerUpsManager : MonoBehaviour
 
     public void SetPowerUpLED()
     {
-		int slot1PowerUp = GetComponent<PlayerPrefsManager>().GetPowerUpFromSlot(1);
-		int slot2PowerUp = GetComponent<PlayerPrefsManager>().GetPowerUpFromSlot(2);
-		int slot3PowerUp = GetComponent<PlayerPrefsManager>().GetPowerUpFromSlot(3);
-		if (slot1PowerUp >= 0)
-		{
-			GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(0).GetComponent<SpriteRenderer>().sprite =
+        int slot1PowerUp = GetComponent<PlayerPrefsManager>().GetPowerUpFromSlot(1);
+        int slot2PowerUp = GetComponent<PlayerPrefsManager>().GetPowerUpFromSlot(2);
+        int slot3PowerUp = GetComponent<PlayerPrefsManager>().GetPowerUpFromSlot(3);
+        if (slot1PowerUp >= 0)
+        {
+            GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(0).GetComponent<SpriteRenderer>().sprite =
                 GetComponent<PowerUpsManager>().powerUpList[slot1PowerUp].sprite;
-		}
-		if (slot2PowerUp >= 0)
-		{
-			GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(1).GetComponent<SpriteRenderer>().sprite =
+        }
+        if (slot2PowerUp >= 0)
+        {
+            GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(1).GetComponent<SpriteRenderer>().sprite =
                 GetComponent<PowerUpsManager>().powerUpList[slot2PowerUp].sprite;
-		}
-		if (slot3PowerUp >= 0)
-		{
-			GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(2).GetComponent<SpriteRenderer>().sprite =
+        }
+        if (slot3PowerUp >= 0)
+        {
+            GetComponent<ObjectManager>().PowerUpsLed().transform.GetChild(2).GetComponent<SpriteRenderer>().sprite =
                 GetComponent<PowerUpsManager>().powerUpList[slot3PowerUp].sprite;
-		}
+        }
     }
 }

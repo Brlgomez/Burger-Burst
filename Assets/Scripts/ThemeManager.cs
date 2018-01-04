@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ThemeManager : MonoBehaviour
 {
+    public int maxThemes;
     public Material floor, wall, details;
     public List<CustomItem> flooringList = new List<CustomItem>();
     public List<CustomItem> wallList = new List<CustomItem>();
@@ -29,26 +30,25 @@ public class ThemeManager : MonoBehaviour
 
     void Awake()
     {
-        PlayerPrefs.SetInt("Flooring0", 1);
-        PlayerPrefs.SetInt("Wallpaper0", 1);
-        PlayerPrefs.SetInt("Detail0", 1);
+        PlayerPrefs.SetInt(PlayerPrefsManager.specificFlooring + "0", 1);
+        PlayerPrefs.SetInt(PlayerPrefsManager.specificWallpaper + "0", 1);
+        PlayerPrefs.SetInt(PlayerPrefsManager.specificDetail + "0", 1);
 
         TextAsset t = new TextAsset();
         t = Resources.Load("Themes") as TextAsset;
         string[] allDescriptions = t.text.Split('\n');
 
-        for (int i = 0; i <= 16; i++)
+        maxThemes = allDescriptions.Length;
+
+        for (int i = 0; i < maxThemes; i++)
         {
-            flooringList.Add(new CustomItem(i, int.Parse(allDescriptions[i].Split('*')[3]),
-                                            PlayerPrefsManager.specificFlooring, allDescriptions[i].Split('*')[0] + " Floor"));
-        }
-        for (int i = 0; i <= 16; i++)
-        {
-            wallList.Add(new CustomItem(i, int.Parse(allDescriptions[i].Split('*')[4]),
-                                        PlayerPrefsManager.specificWallpaper, allDescriptions[i].Split('*')[1] + " Wallpaper"));
-        }
-        for (int i = 0; i <= 16; i++)
-        {
+            string description = allDescriptions[i].Replace("NEWLINE", "\n");
+            flooringList.Add(new CustomItem(i, int.Parse(description.Split('*')[3]),
+                                            PlayerPrefsManager.specificFlooring, description.Split('*')[0] + " Floor"));
+
+            wallList.Add(new CustomItem(i, int.Parse(description.Split('*')[4]),
+                                        PlayerPrefsManager.specificWallpaper, description.Split('*')[1] + " Wallpaper"));
+
             detailList.Add(new CustomItem(i, int.Parse(allDescriptions[i].Split('*')[5]),
                                           PlayerPrefsManager.specificDetail, allDescriptions[i].Split('*')[2] + " Detail"));
         }
