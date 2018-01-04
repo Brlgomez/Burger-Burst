@@ -47,8 +47,9 @@ public class ThemeManager : MonoBehaviour
         flooringList.Add(new CustomItem(11, 50, PlayerPrefsManager.specificFlooring, "Retro Floor"));
         flooringList.Add(new CustomItem(12, 50, PlayerPrefsManager.specificFlooring, "Gothic Floor"));
         flooringList.Add(new CustomItem(13, 50, PlayerPrefsManager.specificFlooring, "Criss Cross Floor"));
+		flooringList.Add(new CustomItem(14, 50, PlayerPrefsManager.specificFlooring, "Flower Floor"));
 
-        wallList.Add(new CustomItem(0, 0, PlayerPrefsManager.specificWallpaper, "C&B Wallpaper"));
+		wallList.Add(new CustomItem(0, 0, PlayerPrefsManager.specificWallpaper, "C&B Wallpaper"));
         wallList.Add(new CustomItem(1, 50, PlayerPrefsManager.specificWallpaper, "Woodland Wallpaper"));
         wallList.Add(new CustomItem(2, 50, PlayerPrefsManager.specificWallpaper, "Cloudy Sky Wallpaper"));
         wallList.Add(new CustomItem(3, 50, PlayerPrefsManager.specificWallpaper, "Ceramic Wallpaper"));
@@ -62,8 +63,9 @@ public class ThemeManager : MonoBehaviour
         wallList.Add(new CustomItem(11, 50, PlayerPrefsManager.specificWallpaper, "Retro Wallpaper"));
         wallList.Add(new CustomItem(12, 50, PlayerPrefsManager.specificWallpaper, "Gothic Wallpaper"));
         wallList.Add(new CustomItem(13, 50, PlayerPrefsManager.specificWallpaper, "Diamond Wallpaper"));
+		wallList.Add(new CustomItem(14, 50, PlayerPrefsManager.specificWallpaper, "Flower Wallpaper"));
 
-        detailList.Add(new CustomItem(0, 0, PlayerPrefsManager.specificDetail, "C&B Detail"));
+		detailList.Add(new CustomItem(0, 0, PlayerPrefsManager.specificDetail, "C&B Detail"));
         detailList.Add(new CustomItem(1, 25, PlayerPrefsManager.specificDetail, "Woodland Detail"));
         detailList.Add(new CustomItem(2, 25, PlayerPrefsManager.specificDetail, "Outdoors Detail"));
         detailList.Add(new CustomItem(3, 25, PlayerPrefsManager.specificDetail, "Ceramic Detail"));
@@ -77,8 +79,9 @@ public class ThemeManager : MonoBehaviour
         detailList.Add(new CustomItem(11, 25, PlayerPrefsManager.specificDetail, "Retro Detail"));
         detailList.Add(new CustomItem(12, 25, PlayerPrefsManager.specificDetail, "Gothic Detail"));
         detailList.Add(new CustomItem(13, 25, PlayerPrefsManager.specificDetail, "Cool Detail"));
+		detailList.Add(new CustomItem(14, 25, PlayerPrefsManager.specificDetail, "Flower Detail"));
 
-        SetFlooring(GetComponent<PlayerPrefsManager>().GetFlooring());
+		SetFlooring(GetComponent<PlayerPrefsManager>().GetFlooring());
         SetWallpaper(GetComponent<PlayerPrefsManager>().GetWallpaper());
         SetDetail(GetComponent<PlayerPrefsManager>().GetDetail());
     }
