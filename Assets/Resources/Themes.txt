@@ -14,3 +14,4 @@ Gothic*Gothic*Gothic*50*50*25
 Criss Cross*Diamond*Cool*50*50*25
 Flower*Flower*Flower*50*50*25
 Hue*Hue*Hue*50*50*25
+Stars*Stars*Stars*50*50*25

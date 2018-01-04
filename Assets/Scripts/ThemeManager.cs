@@ -37,17 +37,17 @@ public class ThemeManager : MonoBehaviour
         t = Resources.Load("Themes") as TextAsset;
         string[] allDescriptions = t.text.Split('\n');
 
-        for (int i = 0; i <= 15; i++)
+        for (int i = 0; i <= 16; i++)
         {
             flooringList.Add(new CustomItem(i, int.Parse(allDescriptions[i].Split('*')[3]),
                                             PlayerPrefsManager.specificFlooring, allDescriptions[i].Split('*')[0] + " Floor"));
         }
-        for (int i = 0; i <= 15; i++)
+        for (int i = 0; i <= 16; i++)
         {
             wallList.Add(new CustomItem(i, int.Parse(allDescriptions[i].Split('*')[4]),
                                         PlayerPrefsManager.specificWallpaper, allDescriptions[i].Split('*')[1] + " Wallpaper"));
         }
-        for (int i = 0; i <= 15; i++)
+        for (int i = 0; i <= 16; i++)
         {
             detailList.Add(new CustomItem(i, int.Parse(allDescriptions[i].Split('*')[5]),
                                           PlayerPrefsManager.specificDetail, allDescriptions[i].Split('*')[2] + " Detail"));
