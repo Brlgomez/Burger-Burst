@@ -45,6 +45,7 @@ public class Gameplay : MonoBehaviour
             points += addedPoints;
             GetComponent<FloatingTextManagement>().AddFloatingText(obj, addedPoints.ToString(), Color.cyan, addedPoints + 1);
             GetComponent<LEDManager>().UpdatePointsText(points);
+            GetComponent<PlayerPrefsManager>().IncreaseTotalPoints(points);
         }
     }
 
@@ -107,7 +108,6 @@ public class Gameplay : MonoBehaviour
         if (life < 1)
         {
             gameOver = true;
-            GetComponent<PlayerPrefsManager>().CheckHighScore(points);
             GetComponent<GrabAndThrowObject>().SetGameOver(gameOver);
             GetComponent<ScreenTextManagment>().CannotPressAnything();
             if (GetComponent<CameraMovement>() != null)

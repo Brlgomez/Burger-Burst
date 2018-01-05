@@ -166,7 +166,6 @@ public class CameraMovement : MonoBehaviour
         {
             GetComponent<GrabAndThrowObject>().DeleteEverything();
             GetComponent<GameplayMenu>().UnPauseGame();
-            GetComponent<ScreenTextManagment>().ChangeToGameOverText();
         }
         Destroy(GetComponent<CameraMovement>());
     }

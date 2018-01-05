@@ -316,6 +316,18 @@ ScreenTextManagment : MonoBehaviour
     public void ChangeToGameOverText()
     {
         CheckShakeText();
+        if (GetComponent<PlayerPrefsManager>().CheckIfAnythingUnlocked())
+        {
+            Debug.Log("NEW UNLOCK");
+        }
+        else
+        {
+            Debug.Log(GetComponent<PlayerPrefsManager>().PointsToNextUpgrade() + " points to next unlock");
+        }
+        if (GetComponent<PlayerPrefsManager>().CheckHighScore(GetComponent<Gameplay>().GetPoints()))
+        {
+            Debug.Log("NEW HIGH SCORE");
+        }
         DisableButton(line1, GetComponent<Gameplay>().GetPoints().ToString(), pointSprite, Color.white);
         EnableButton(line2, "Restart", restartSprite, Color.white);
         EnableButton(line3, "Quit", quitSprite, Color.white);
@@ -453,7 +465,7 @@ ScreenTextManagment : MonoBehaviour
         if (n >= 1)
         {
             ChangeHealthTextColor();
-            if (line1.GetComponent<ShakeText>() == null)
+            if (line1.GetComponent<ShakeText>() == null && currentArea != Menus.Menu.GameOver)
             {
                 line1.AddComponent<ShakeText>().ChangeColor(num);
                 line1.transform.GetChild(6).gameObject.AddComponent<ShakeText>().ChangeSpriteColor(num);

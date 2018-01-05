@@ -33,29 +33,40 @@ public class ThemeManager : MonoBehaviour
         PlayerPrefs.SetInt(PlayerPrefsManager.specificFlooring + "0", 1);
         PlayerPrefs.SetInt(PlayerPrefsManager.specificWallpaper + "0", 1);
         PlayerPrefs.SetInt(PlayerPrefsManager.specificDetail + "0", 1);
-
-        TextAsset t = new TextAsset();
-        t = Resources.Load("Themes") as TextAsset;
-        string[] allDescriptions = t.text.Split('\n');
-
-        maxThemes = allDescriptions.Length;
-
-        for (int i = 0; i < maxThemes; i++)
-        {
-            string description = allDescriptions[i].Replace("NEWLINE", "\n");
-            flooringList.Add(new CustomItem(i, int.Parse(description.Split('*')[3]),
-                                            PlayerPrefsManager.specificFlooring, description.Split('*')[0] + "Floor"));
-
-            wallList.Add(new CustomItem(i, int.Parse(description.Split('*')[4]),
-                                        PlayerPrefsManager.specificWallpaper, description.Split('*')[1] + "Wallpaper"));
-
-            detailList.Add(new CustomItem(i, int.Parse(description.Split('*')[5]),
-                                          PlayerPrefsManager.specificDetail, description.Split('*')[2] + "Detail"));
-        }
-
+        SetThemeLists();
         SetFlooring(GetComponent<PlayerPrefsManager>().GetFlooring());
         SetWallpaper(GetComponent<PlayerPrefsManager>().GetWallpaper());
         SetDetail(GetComponent<PlayerPrefsManager>().GetDetail());
+    }
+
+    public void SetThemeLists()
+    {
+        TextAsset t = new TextAsset();
+        t = Resources.Load("Themes") as TextAsset;
+        string[] allDescriptions = t.text.Split('\n');
+        maxThemes = allDescriptions.Length;
+        flooringList.Clear();
+        wallList.Clear();
+        detailList.Clear();
+        for (int i = 0; i < maxThemes; i++)
+        {
+            string description = allDescriptions[i].Replace("NEWLINE", "\n");
+            if (i < GetComponent<PlayerPrefsManager>().GetFloorsUnlocked())
+            {
+                flooringList.Add(new CustomItem(i, int.Parse(description.Split('*')[3]),
+                                                PlayerPrefsManager.specificFlooring, description.Split('*')[0] + "Floor"));
+            }
+            if (i < GetComponent<PlayerPrefsManager>().GetWallsUnlocked())
+            {
+                wallList.Add(new CustomItem(i, int.Parse(description.Split('*')[4]),
+                                            PlayerPrefsManager.specificWallpaper, description.Split('*')[1] + "Wallpaper"));
+            }
+            if (i < GetComponent<PlayerPrefsManager>().GetDetailUnlocked())
+            {
+                detailList.Add(new CustomItem(i, int.Parse(description.Split('*')[5]),
+                                              PlayerPrefsManager.specificDetail, description.Split('*')[2] + "Detail"));
+            }
+        }
     }
 
     public void SetFlooring(int num)

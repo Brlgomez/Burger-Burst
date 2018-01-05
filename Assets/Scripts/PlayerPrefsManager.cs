@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class PlayerPrefsManager : MonoBehaviour
 {
-    static string ordersCompleted = "ORDERS COMPLETED";
-    static string foodLanded = "FOOD LANDED";
+    static string totalOrdersCompleted = "TOTAL ORDERS COMPLETED";
+    static string totalFoodLanded = "TOTAL FOOD LANDED";
+    static string totalPoints = "TOTAL POINTS";
     static string highScore = "HIGH SCORE";
     static string coins = "COINS";
     static string powerUp = "POWERUP";
@@ -26,35 +27,48 @@ public class PlayerPrefsManager : MonoBehaviour
     static string wallsUnlocked = "WallpapersUnlocked";
     static string detailsUnlocked = "DetailsUnlocked";
     static string nextUnlock = "NextUnlock";
+    int floorsLeft, wallsLeft, detailsLeft, powerUpsLeft;
 
     public int GetOrdersCompleted()
     {
-        return PlayerPrefs.GetInt(ordersCompleted, 0);
+        return PlayerPrefs.GetInt(totalOrdersCompleted, 0);
     }
 
     public void IncreaseOrdersCompleted()
     {
-        PlayerPrefs.SetInt(ordersCompleted, (GetOrdersCompleted() + 1));
+        PlayerPrefs.SetInt(totalOrdersCompleted, (GetOrdersCompleted() + 1));
     }
 
     public int GetFoodLanded()
     {
-        return PlayerPrefs.GetInt(foodLanded, 0);
+        return PlayerPrefs.GetInt(totalFoodLanded, 0);
     }
 
     public void IncreaseFoodLanded()
     {
-        PlayerPrefs.SetInt(foodLanded, (GetFlooring() + 1));
+        PlayerPrefs.SetInt(totalFoodLanded, (GetFlooring() + 1));
     }
 
-    public void CheckHighScore(int points)
+    public int GetTotalPoints()
+    {
+        return PlayerPrefs.GetInt(totalPoints, 0);
+    }
+
+    public void IncreaseTotalPoints(int n)
+    {
+        PlayerPrefs.SetInt(totalPoints, (GetTotalPoints() + n));
+    }
+
+    public bool CheckHighScore(int points)
     {
         if (points > PlayerPrefs.GetInt(highScore, 0))
         {
             PlayerPrefs.SetInt(highScore, points);
             GetComponent<LEDManager>().UpdateHighScoreText();
             PlayerPrefs.Save();
+            return true;
         }
+        return false;
     }
 
     public int GetHighScore()
@@ -351,21 +365,70 @@ public class PlayerPrefsManager : MonoBehaviour
 
     int GetNextUnlock()
     {
-        return PlayerPrefs.GetInt(nextUnlock, 10);
+        return PlayerPrefs.GetInt(nextUnlock, 100);
     }
 
     void IncreaseNextUnlock()
     {
-        PlayerPrefs.SetInt(nextUnlock, Mathf.RoundToInt(GetNextUnlock() + ((float)GetNextUnlock() * 0.1f) + 10));
+        PlayerPrefs.SetInt(nextUnlock, Mathf.RoundToInt(GetNextUnlock() + GetNextUnlock() * 0.1f + 100));
     }
 
     public bool CheckIfAnythingUnlocked()
     {
-        if (GetFoodLanded() > GetNextUnlock())
+        int themeCount = GetComponent<ThemeManager>().maxThemes;
+        int powerUpCount = GetComponent<PowerUpsManager>().maxPowerUps;
+        floorsLeft = themeCount - GetFloorsUnlocked();
+        wallsLeft = themeCount - GetWallsUnlocked();
+        detailsLeft = themeCount - GetDetailUnlocked();
+        powerUpsLeft = powerUpCount - GetPowerUpsUnlocked();
+        if (GetTotalPoints() > GetNextUnlock())
         {
-            IncreaseNextUnlock();
-            return true;
+            if (floorsLeft + wallsLeft + detailsLeft + powerUpsLeft > 0)
+            {
+                IncreaseNextUnlock();
+                return true;
+            }
         }
         return false;
+    }
+
+    public string UnlockItem()
+    {
+        string description = "";
+        int randomValue = Random.Range(0, floorsLeft + wallsLeft + detailsLeft + powerUpsLeft);
+        if (randomValue >= 0 && randomValue < floorsLeft)
+        {
+            description = "flooring";
+            IncreaseFloorsUnlocked();
+            GetComponent<ThemeManager>().SetThemeLists();
+        }
+        else if (randomValue >= floorsLeft && randomValue < wallsLeft)
+        {
+            description = "wallpaper";
+            IncreaseWallsUnlocked();
+            GetComponent<ThemeManager>().SetThemeLists();
+        }
+        else if (randomValue >= wallsLeft && randomValue < detailsLeft)
+        {
+            description = "detail";
+            IncreaseDetailUnlocked();
+            GetComponent<ThemeManager>().SetThemeLists();
+        }
+        else
+        {
+            description = "power up";
+            IncreasePowerUpsUnlocked();
+            GetComponent<PowerUpsManager>().SetPowerUpLists();
+        }
+        return description;
+    }
+
+    public int PointsToNextUpgrade()
+    {
+        if (floorsLeft + wallsLeft + detailsLeft + powerUpsLeft > 0)
+        {
+            return GetNextUnlock() - GetTotalPoints();
+        }
+        return -1;
     }
 }

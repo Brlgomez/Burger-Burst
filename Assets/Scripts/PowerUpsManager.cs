@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PowerUpsManager : MonoBehaviour
 {
-    int maxPowerUps;
+    public int maxPowerUps;
     public List<PowerUp> powerUpList = new List<PowerUp>();
     public PowerUp throwFurther, quickerCooking, makeMoreFood, defenseIncrease, moreHealth;
     public PowerUp largerFood, regenHealth, regenBurgers, regenFries, regenDrinks, doublePoints;
@@ -39,39 +39,45 @@ public class PowerUpsManager : MonoBehaviour
         allDescriptions = t.text.Split('\n');
         maxPowerUps = allDescriptions.Length;
 
-        CreatePowerUp(throwFurther);
-        CreatePowerUp(quickerCooking);
-        CreatePowerUp(makeMoreFood);
-        CreatePowerUp(defenseIncrease);
-        CreatePowerUp(moreHealth);
-        CreatePowerUp(largerFood);
-        CreatePowerUp(regenHealth);
-        CreatePowerUp(regenBurgers);
-        CreatePowerUp(regenFries);
-        CreatePowerUp(regenDrinks);
-        CreatePowerUp(doublePoints);
-        CreatePowerUp(doubleCoins);
-        CreatePowerUp(throwMultiple);
-        CreatePowerUp(magnet);
-        CreatePowerUp(noWind);
-        CreatePowerUp(noInstantKill);
-        CreatePowerUp(luck);
-        CreatePowerUp(noPoison);
-        CreatePowerUp(noIce);
-        CreatePowerUp(freeze);
+        throwFurther = CreatePowerUp();
+        quickerCooking = CreatePowerUp();
+        makeMoreFood = CreatePowerUp();
+        defenseIncrease = CreatePowerUp();
+        moreHealth = CreatePowerUp();
+        largerFood = CreatePowerUp();
+        regenHealth = CreatePowerUp();
+        regenBurgers = CreatePowerUp();
+        regenFries = CreatePowerUp();
+        regenDrinks = CreatePowerUp();
+        doublePoints = CreatePowerUp();
+        doubleCoins = CreatePowerUp();
+        throwMultiple = CreatePowerUp();
+        magnet = CreatePowerUp();
+        noWind = CreatePowerUp();
+        noInstantKill = CreatePowerUp();
+        luck = CreatePowerUp();
+        noPoison = CreatePowerUp();
+        noIce = CreatePowerUp();
+        freeze = CreatePowerUp();
 
-        for (int i = 0; i < maxPowerUps; i++)
+        SetPowerUpLists();
+    }
+
+    public void SetPowerUpLists()
+    {
+        for (int i = 0; i < GetComponent<PlayerPrefsManager>().GetPowerUpsUnlocked(); i++)
         {
             powerUpList.Add(powerUpListTemp[i]);
         }
     }
 
-    void CreatePowerUp(PowerUp powerUp)
+    PowerUp CreatePowerUp()
     {
         string description = allDescriptions[powerUpInc].Replace("NEWLINE", "\n");
-        powerUp = new PowerUp(powerUpInc, int.Parse(description.Split('*')[1]), description.Split('*')[0]);
+        PowerUp powerUp = new PowerUp(powerUpInc, int.Parse(description.Split('*')[1]), description.Split('*')[0]);
         powerUpListTemp.Add(powerUp);
         powerUpInc++;
+        return powerUp;
     }
 
     public void SetPowerUpLED()
