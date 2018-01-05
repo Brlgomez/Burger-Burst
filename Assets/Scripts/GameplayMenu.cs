@@ -186,6 +186,10 @@ public class GameplayMenu : MonoBehaviour
 
     void Restart()
     {
+        if (GetComponent<ObjectManager>().Phone().transform.GetChild(0).gameObject.GetComponent<PingPongColor>())
+        {
+            Destroy(GetComponent<ObjectManager>().Phone().transform.GetChild(0).gameObject.GetComponent<PingPongColor>());
+        }
         CheckCamera();
         GetComponent<GrabAndThrowObject>().currentArea = GrabAndThrowObject.Area.counter;
         initialPosition = GetComponent<PositionManager>().GameplayPosition();
@@ -199,13 +203,17 @@ public class GameplayMenu : MonoBehaviour
 
     void Quit()
     {
+        if (GetComponent<ObjectManager>().Phone().transform.GetChild(0).gameObject.GetComponent<PingPongColor>())
+        {
+            Destroy(GetComponent<ObjectManager>().Phone().transform.GetChild(0).gameObject.GetComponent<PingPongColor>());
+        }
         CheckCamera();
         if (GetComponent<PlayerPrefsManager>().CheckIfAnythingUnlocked())
         {
             GetComponent<LEDManager>().ShowWhatIsUnlocked(GetComponent<PlayerPrefsManager>().UnlockItem());
         }
-		GetComponent<LEDManager>().UpdateHighScoreText();
-		GetComponent<GrabAndThrowObject>().currentArea = GrabAndThrowObject.Area.quit;
+        GetComponent<LEDManager>().UpdateHighScoreText();
+        GetComponent<GrabAndThrowObject>().currentArea = GrabAndThrowObject.Area.quit;
         initialPosition = GetComponent<PositionManager>().GameplayPosition();
         transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 0, 0, 0);
         GetComponent<Gameplay>().ResetValues();
@@ -219,6 +227,10 @@ public class GameplayMenu : MonoBehaviour
 
     void Continue()
     {
+        if (GetComponent<ObjectManager>().Phone().transform.GetChild(0).gameObject.GetComponent<PingPongColor>())
+        {
+            Destroy(GetComponent<ObjectManager>().Phone().transform.GetChild(0).gameObject.GetComponent<PingPongColor>());
+        }
         if (GetComponent<PlayerPrefsManager>().GetCoins() >= GetComponent<Gameplay>().ContinuePrice())
         {
             GetComponent<PlayerPrefsManager>().DecreaseCoins(GetComponent<Gameplay>().ContinuePrice());

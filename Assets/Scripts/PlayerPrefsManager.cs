@@ -369,12 +369,12 @@ public class PlayerPrefsManager : MonoBehaviour
 
     int GetNextUnlock()
     {
-        return PlayerPrefs.GetInt(nextUnlock, 100);
+        return PlayerPrefs.GetInt(nextUnlock, 50);
     }
 
     void IncreaseNextUnlock()
     {
-        PlayerPrefs.SetInt(nextUnlock, Mathf.RoundToInt(GetNextUnlock() + GetNextUnlock() * 0.01f + 100));
+        PlayerPrefs.SetInt(nextUnlock, Mathf.RoundToInt(GetNextUnlock() + GetNextUnlock() * 0.01f + 50));
     }
 
     public bool CheckIfAnythingUnlocked()

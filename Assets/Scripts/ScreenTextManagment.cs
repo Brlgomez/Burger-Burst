@@ -334,6 +334,11 @@ ScreenTextManagment : MonoBehaviour
         CheckShakeText();
         if (GetComponent<PlayerPrefsManager>().CheckHighScore(GetComponent<Gameplay>().GetPoints()))
         {
+			Color[] highScoreColors = new Color[3];
+			highScoreColors[0] = new Color(1, 0.25f, 1);
+			highScoreColors[1] = new Color(1, 1, 0.25f);
+			highScoreColors[2] = new Color(0.25f, 1, 1);
+			line1.AddComponent<PingPongColor>().SetColorAndObject(highScoreColors);
             DisableButton(line1, "NEW HIGH\n     " + GetComponent<Gameplay>().GetPoints().ToString(), pointSprite, Color.white);
         }
         else
