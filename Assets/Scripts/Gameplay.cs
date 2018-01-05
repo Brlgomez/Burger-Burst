@@ -109,7 +109,6 @@ public class Gameplay : MonoBehaviour
         {
             gameOver = true;
             GetComponent<GrabAndThrowObject>().SetGameOver(gameOver);
-            GetComponent<ScreenTextManagment>().CannotPressAnything();
             if (GetComponent<CameraMovement>() != null)
             {
                 Destroy(GetComponent<CameraMovement>());

@@ -7,19 +7,33 @@ public class LEDManager : MonoBehaviour
     GameObject pointsLed;
     GameObject coinsLed;
     GameObject highScoreLed;
+    GameObject totalScoreLed;
+    GameObject nextUnlockLed;
+    GameObject unlockedLed;
 
     void Start()
     {
         highScoreLed = GetComponent<ObjectManager>().HighScoreLED().transform.GetChild(0).gameObject;
         highScoreLed.GetComponent<Renderer>().material.color = Color.cyan;
-		pointsLed = GetComponent<ObjectManager>().LED().transform.GetChild(0).gameObject;
+        pointsLed = GetComponent<ObjectManager>().LED().transform.GetChild(0).gameObject;
         pointsLed.GetComponent<Renderer>().material.color = Color.cyan;
         coinsLed = GetComponent<ObjectManager>().CoinsLED().transform.GetChild(0).gameObject;
         coinsLed.GetComponent<Renderer>().material.color = Color.yellow;
+        totalScoreLed = GetComponent<ObjectManager>().HighScoreLED().transform.GetChild(1).gameObject;
+        totalScoreLed.GetComponent<Renderer>().material.color = Color.cyan;
+        nextUnlockLed = GetComponent<ObjectManager>().TotalPointsLED().transform.GetChild(0).gameObject;
+        nextUnlockLed.GetComponent<Renderer>().material.color = Color.cyan;
+        unlockedLed = GetComponent<ObjectManager>().TotalPointsLED().transform.GetChild(1).gameObject;
+        unlockedLed.GetComponent<Renderer>().material.color = Color.cyan;
+
         highScoreLed.GetComponent<TextMesh>().fontSize = 0;
         pointsLed.GetComponent<TextMesh>().fontSize = 0;
         coinsLed.GetComponent<TextMesh>().fontSize = 0;
-		ResetPointsText();
+        totalScoreLed.GetComponent<TextMesh>().fontSize = 0;
+        nextUnlockLed.GetComponent<TextMesh>().fontSize = 0;
+        unlockedLed.GetComponent<TextMesh>().fontSize = 0;
+
+        ResetPointsText();
         UpdateCoinsText();
         UpdateHighScoreText();
     }
@@ -42,5 +56,33 @@ public class LEDManager : MonoBehaviour
     public void UpdateHighScoreText()
     {
         highScoreLed.GetComponent<TextMesh>().text = "High Score\n" + GetComponent<PlayerPrefsManager>().GetHighScore().ToString("n0");
+        totalScoreLed.GetComponent<TextMesh>().text = "Total Points\n" + GetComponent<PlayerPrefsManager>().GetTotalPoints().ToString("n0");
+        if (GetComponent<PlayerPrefsManager>().PointsToNextUpgrade() > -1)
+        {
+            nextUnlockLed.GetComponent<TextMesh>().text = "Next Unlock\n" + GetComponent<PlayerPrefsManager>().PointsToNextUpgrade().ToString("n0");
+        }
+        else
+        {
+            nextUnlockLed.GetComponent<TextMesh>().text = "All Items\nUnlocked";
+        }
 	}
+
+    public void ShowWhatIsUnlocked(string text)
+    {
+        unlockedLed.GetComponent<TextMesh>().text = "NEW " + text + " \nAVAILABLE";
+    }
+
+    public void EraseUnlockText()
+    {
+        unlockedLed.GetComponent<TextMesh>().text = "";
+    }
+
+    public string GetUnlockLedText()
+    {
+		if (unlockedLed.GetComponent<TextMesh>().text != "")
+        {
+            return unlockedLed.GetComponent<TextMesh>().text.Split(' ')[1];
+        }
+        return "";
+    }
 }

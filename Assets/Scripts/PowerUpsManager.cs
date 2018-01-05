@@ -65,6 +65,7 @@ public class PowerUpsManager : MonoBehaviour
 
     public void SetPowerUpLists()
     {
+        powerUpList.Clear();
         for (int i = 0; i < GetComponent<PlayerPrefsManager>().GetPowerUpsUnlocked(); i++)
         {
             powerUpList.Add(powerUpListTemp[i]);

@@ -168,8 +168,8 @@ public class GameplayMenu : MonoBehaviour
         if (target.name == "Pause")
         {
             target.GetComponent<Animator>().Play("ButtonClick");
-			GetComponent<VibrationManager>().LightTapticFeedback();
-			GetComponent<GrabAndThrowObject>().previousArea = GetComponent<GrabAndThrowObject>().currentArea;
+            GetComponent<VibrationManager>().LightTapticFeedback();
+            GetComponent<GrabAndThrowObject>().previousArea = GetComponent<GrabAndThrowObject>().currentArea;
             GetComponent<GrabAndThrowObject>().currentArea = GrabAndThrowObject.Area.pause;
             initialPosition = GetComponent<PositionManager>().PausePosition();
             if (GetComponent<GettingHurt>() != null)
@@ -200,7 +200,12 @@ public class GameplayMenu : MonoBehaviour
     void Quit()
     {
         CheckCamera();
-        GetComponent<GrabAndThrowObject>().currentArea = GrabAndThrowObject.Area.quit;
+        if (GetComponent<PlayerPrefsManager>().CheckIfAnythingUnlocked())
+        {
+            GetComponent<LEDManager>().ShowWhatIsUnlocked(GetComponent<PlayerPrefsManager>().UnlockItem());
+        }
+		GetComponent<LEDManager>().UpdateHighScoreText();
+		GetComponent<GrabAndThrowObject>().currentArea = GrabAndThrowObject.Area.quit;
         initialPosition = GetComponent<PositionManager>().GameplayPosition();
         transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 0, 0, 0);
         GetComponent<Gameplay>().ResetValues();

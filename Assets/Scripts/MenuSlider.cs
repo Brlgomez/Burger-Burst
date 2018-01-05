@@ -24,35 +24,32 @@ public class MenuSlider : MonoBehaviour
     public void SetUpMenu(Menus.Menu menu)
     {
         currentMenu = menu;
-        if (lastMenu != menu)
+        switch (menu)
         {
-            switch (menu)
-            {
-                case Menus.Menu.PowerUps:
-                    sliderObjectCount = GetComponent<PowerUpsManager>().powerUpList.Count;
-                    SetSlotSprites();
-                    break;
-                case Menus.Menu.Graphics:
-                    sliderObjectCount = GetComponent<GraphicsManager>().graphicList.Count;
-                    SetGraphicsSprite();
-                    break;
-                case Menus.Menu.Flooring:
-                    sliderObjectCount = GetComponent<ThemeManager>().flooringList.Count;
-                    SetFlooringSprite();
-                    break;
-                case Menus.Menu.Wallpaper:
-                    sliderObjectCount = GetComponent<ThemeManager>().wallList.Count;
-                    SetWallpaperSprite();
-                    break;
-                case Menus.Menu.Detail:
-                    sliderObjectCount = GetComponent<ThemeManager>().detailList.Count;
-                    SetDetailSprite();
-                    break;
-            }
-            scrollView.transform.GetChild(4).transform.localScale = new Vector3(435 / sliderObjectCount, 10, 10);
-            RestartScrollList();
-            ScaleScrollerObjects();
+            case Menus.Menu.PowerUps:
+                sliderObjectCount = GetComponent<PowerUpsManager>().powerUpList.Count;
+                SetSlotSprites();
+                break;
+            case Menus.Menu.Graphics:
+                sliderObjectCount = GetComponent<GraphicsManager>().graphicList.Count;
+                SetGraphicsSprite();
+                break;
+            case Menus.Menu.Flooring:
+                sliderObjectCount = GetComponent<ThemeManager>().flooringList.Count;
+                SetFlooringSprite();
+                break;
+            case Menus.Menu.Wallpaper:
+                sliderObjectCount = GetComponent<ThemeManager>().wallList.Count;
+                SetWallpaperSprite();
+                break;
+            case Menus.Menu.Detail:
+                sliderObjectCount = GetComponent<ThemeManager>().detailList.Count;
+                SetDetailSprite();
+                break;
         }
+        scrollView.transform.GetChild(4).transform.localScale = new Vector3(435 / sliderObjectCount, 10, 10);
+        RestartScrollList();
+        ScaleScrollerObjects();
         lastMenu = menu;
     }
 

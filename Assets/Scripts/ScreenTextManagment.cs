@@ -76,6 +76,10 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToUpgradeText()
     {
+        if (GetComponent<LEDManager>().GetUnlockLedText() == "POWER")
+        {
+            GetComponent<LEDManager>().EraseUnlockText();
+        }
         EnableButton(line1, "", null, Color.white);
         EnableButton(line2, "", null, Color.white);
         EnableButton(line3, "", null, Color.white);
@@ -124,6 +128,10 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToFlooringScreen()
     {
+		if (GetComponent<LEDManager>().GetUnlockLedText() == "FLOOR")
+		{
+			GetComponent<LEDManager>().EraseUnlockText();
+		}
         DisableButton(line1, "", null, Color.white);
         EnableButton(line2, "", null, Color.white);
         EnableButton(line3, "", null, Color.white);
@@ -136,6 +144,10 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToWallpaperScreen()
     {
+		if (GetComponent<LEDManager>().GetUnlockLedText() == "WALL")
+		{
+			GetComponent<LEDManager>().EraseUnlockText();
+		}
         DisableButton(line1, "", null, Color.white);
         EnableButton(line2, "", null, Color.white);
         EnableButton(line3, "", null, Color.white);
@@ -148,6 +160,10 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToDetailScreen()
     {
+		if (GetComponent<LEDManager>().GetUnlockLedText() == "DETAIL")
+		{
+			GetComponent<LEDManager>().EraseUnlockText();
+		}
         DisableButton(line1, "", null, Color.white);
         EnableButton(line2, "", null, Color.white);
         EnableButton(line3, "", null, Color.white);
@@ -316,19 +332,14 @@ ScreenTextManagment : MonoBehaviour
     public void ChangeToGameOverText()
     {
         CheckShakeText();
-        if (GetComponent<PlayerPrefsManager>().CheckIfAnythingUnlocked())
+        if (GetComponent<PlayerPrefsManager>().CheckHighScore(GetComponent<Gameplay>().GetPoints()))
         {
-            Debug.Log("NEW UNLOCK");
+            DisableButton(line1, "NEW HIGH\n     " + GetComponent<Gameplay>().GetPoints().ToString(), pointSprite, Color.white);
         }
         else
         {
-            Debug.Log(GetComponent<PlayerPrefsManager>().PointsToNextUpgrade() + " points to next unlock");
+            DisableButton(line1, GetComponent<Gameplay>().GetPoints().ToString(), pointSprite, Color.white);
         }
-        if (GetComponent<PlayerPrefsManager>().CheckHighScore(GetComponent<Gameplay>().GetPoints()))
-        {
-            Debug.Log("NEW HIGH SCORE");
-        }
-        DisableButton(line1, GetComponent<Gameplay>().GetPoints().ToString(), pointSprite, Color.white);
         EnableButton(line2, "Restart", restartSprite, Color.white);
         EnableButton(line3, "Quit", quitSprite, Color.white);
         if (!GetComponent<Gameplay>().GetContinued())
