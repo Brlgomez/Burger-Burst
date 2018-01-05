@@ -49,8 +49,8 @@ public class ThemeManager : MonoBehaviour
             wallList.Add(new CustomItem(i, int.Parse(description.Split('*')[4]),
                                         PlayerPrefsManager.specificWallpaper, description.Split('*')[1] + "Wallpaper"));
 
-            detailList.Add(new CustomItem(i, int.Parse(allDescriptions[i].Split('*')[5]),
-                                          PlayerPrefsManager.specificDetail, allDescriptions[i].Split('*')[2] + "Detail"));
+            detailList.Add(new CustomItem(i, int.Parse(description.Split('*')[5]),
+                                          PlayerPrefsManager.specificDetail, description.Split('*')[2] + "Detail"));
         }
 
         SetFlooring(GetComponent<PlayerPrefsManager>().GetFlooring());
