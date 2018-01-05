@@ -15,4 +15,5 @@ Criss Cross *Diamond *Cool *50*50*25
 Flower *Flower *Flower *50*50*25
 Hue *Hue *Hue *50*50*25
 Stars *Stars *Stars *50*50*25
-Coffee & SucculentsNEWLINE*Coffee & SucculentsNEWLINE*Coffee & SucculentsNEWLINE*50*50*25
+Plants & Beans *Plants & BeansNEWLINE*Plants & Beans *50*50*25
+Bathroom Vibes *Bathroom VibesNEWLINE*Bathroom Vibes *50*50*25
