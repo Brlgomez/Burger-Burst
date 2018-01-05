@@ -31,6 +31,7 @@ public class PlayerPrefsManager : MonoBehaviour
 
     void Start()
     {
+        //PlayerPrefs.DeleteAll();
         GetUnlockValues();
     }
 
@@ -276,12 +277,14 @@ public class PlayerPrefsManager : MonoBehaviour
         if (GetSound())
         {
             PlayerPrefs.SetInt(sound, 0);
+            GetComponent<SoundAndMusicManager>().ChangeSoundSetting(false);
         }
         else
         {
             PlayerPrefs.SetInt(sound, 1);
             GetComponent<ObjectManager>().Horn().GetComponent<Animator>().Play("Horn");
             GetComponent<ObjectManager>().Horn().GetComponent<ParticleSystem>().Play();
+            GetComponent<SoundAndMusicManager>().ChangeSoundSetting(true);
         }
         GetComponent<ScreenTextManagment>().ChangeToSettingScreen();
         PlayerPrefs.Save();

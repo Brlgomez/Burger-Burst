@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class SoundAndMusicManager : MonoBehaviour 
 {
+	AudioSource source;
+
+	public AudioClip scrollSound;
+
     bool canPlayMusic = true;
     bool canPlaySound = true;
 
 	void Start () 
     {
-        canPlayMusic = GetComponent<PlayerPrefsManager>().GetMusic();
+		source = GetComponent<AudioSource>();
+		canPlayMusic = GetComponent<PlayerPrefsManager>().GetMusic();
         canPlaySound = GetComponent<PlayerPrefsManager>().GetSound();
 	}
 
@@ -28,4 +33,18 @@ public class SoundAndMusicManager : MonoBehaviour
             
         }
     }
+
+    public void PlayScrollSound()
+    {
+		if (canPlaySound)
+		{
+            source.clip = scrollSound;
+            source.Play();
+		} 
+    }
+
+	public void ChangeSoundSetting(bool b)
+	{
+        canPlaySound = b;
+	}
 }

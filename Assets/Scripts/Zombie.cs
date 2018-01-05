@@ -375,8 +375,9 @@ public class Zombie : MonoBehaviour
         landParticles.GetComponent<ParticleSystem>().Play();
         landParticles.AddComponent<DestroySpawnedParticle>();
         Camera.main.GetComponent<Gameplay>().IncreasePoints(obj, pointsMultiplier);
-		Camera.main.GetComponent<PlayerPrefsManager>().IncreaseFoodLanded();
-		obj.GetComponent<RemoveObjects>().DropProduct();
+        Camera.main.GetComponent<PlayerPrefsManager>().IncreaseFoodLanded();
+        Camera.main.GetComponent<VibrationManager>().MediumTapticFeedback();
+        obj.GetComponent<RemoveObjects>().DropProduct();
         obj.GetComponent<ParticleSystem>().Stop();
         Destroy(obj.GetComponent<Rigidbody>());
         Destroy(obj.GetComponent<RemoveObjects>());
@@ -397,7 +398,7 @@ public class Zombie : MonoBehaviour
             Camera.main.GetComponent<Gameplay>().IncreaseCompletedOrders();
             orderComplete = true;
             Camera.main.GetComponent<PlayerPrefsManager>().IncreaseOrdersCompleted();
-			Died();
+            Died();
         }
     }
 

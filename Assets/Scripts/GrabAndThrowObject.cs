@@ -72,7 +72,7 @@ public class GrabAndThrowObject : MonoBehaviour
             GetComponent<Gameplay>().ReduceHealth(10, gameObject);
         if (Input.GetKeyDown("p"))
         {
-			GetComponent<PlayerPrefsManager>().IncreaseTotalPoints(10);
+            GetComponent<PlayerPrefsManager>().IncreaseTotalPoints(10);
         }
     }
 
