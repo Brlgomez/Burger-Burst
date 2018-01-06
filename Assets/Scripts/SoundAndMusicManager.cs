@@ -6,7 +6,7 @@ public class SoundAndMusicManager : MonoBehaviour
 {
     AudioSource source;
     public AudioClip scrollSound, pickingSlotSound, pickItemSound, removePowerUpSound;
-    public AudioClip boughtItemWithCoins, horn, vibrate, stereoSwitch;
+    public AudioClip boughtItemWithCoins, horn, vibrate, stereoSwitch, bootUp;
 
     bool canPlayMusic = true;
     bool canPlaySound = true;
@@ -32,6 +32,15 @@ public class SoundAndMusicManager : MonoBehaviour
     }
 
     /* DEVICE SOUNDS */
+
+    public void PlayBootUpSound()
+    {
+        if (canPlaySound)
+        {
+            source.clip = bootUp;
+            source.Play();
+        }
+    }
 
     public void PlayScrollSound()
     {
@@ -78,30 +87,115 @@ public class SoundAndMusicManager : MonoBehaviour
         }
     }
 
-	public void PlayHornSound()
-	{
-		if (canPlaySound)
-		{
+    public void PlayHornSound()
+    {
+        if (canPlaySound)
+        {
             source.clip = horn;
-			source.Play();
-		}
-	}
+            source.Play();
+        }
+    }
 
-	public void PlayVibrateSound()
-	{
-		if (canPlaySound)
-		{
+    public void PlayVibrateSound()
+    {
+        if (canPlaySound)
+        {
             source.clip = vibrate;
-			source.Play();
-		}
-	}
+            source.Play();
+        }
+    }
 
-	public void PlayStereoSwitchSound()
-	{
-		if (canPlaySound)
-		{
+    public void PlayStereoSwitchSound()
+    {
+        if (canPlaySound)
+        {
             source.clip = stereoSwitch;
-			source.Play();
-		}
-	}
+            source.Play();
+        }
+    }
+
+    /* Gameplay */
+
+    public void PlayLoopFromSourceAndRaiseVolume(GameObject obj, int directionAndSpeed)
+    {
+        if (canPlaySound)
+        {
+            obj.GetComponent<AudioSource>().loop = true;
+            obj.GetComponent<AudioSource>().Play();
+            if (obj.GetComponent<ShiftVolume>() == null)
+            {
+                obj.AddComponent<ShiftVolume>().SetDirection(directionAndSpeed);
+            }
+            else
+            {
+                obj.GetComponent<ShiftVolume>().SetDirection(directionAndSpeed);
+            }
+        }
+    }
+
+    public void StopLoopFromSourceAndLowerVolume(GameObject obj, int directionAndSpeed)
+    {
+        if (canPlaySound)
+        {
+            if (obj.GetComponent<ShiftVolume>() == null)
+            {
+                obj.AddComponent<ShiftVolume>().SetDirection(directionAndSpeed);
+            }
+            else
+            {
+                obj.GetComponent<ShiftVolume>().SetDirection(directionAndSpeed);
+            }
+        }
+    }
+
+    public void PlayLoopFromSource(GameObject obj)
+    {
+        if (canPlaySound)
+        {
+            obj.GetComponent<AudioSource>().loop = true;
+            obj.GetComponent<AudioSource>().Play();
+        }
+    }
+
+    public void StopLoopFromSource(GameObject obj)
+    {
+        if (canPlaySound)
+        {
+            obj.GetComponent<AudioSource>().Stop();
+        }
+    }
+
+    public void PlayFromSource(GameObject obj)
+    {
+        if (canPlaySound)
+        {
+            obj.GetComponent<AudioSource>().Play();
+        }
+    }
+
+    public void PauseFromSource(GameObject obj)
+    {
+        if (canPlaySound)
+        {
+            obj.GetComponent<AudioSource>().Pause();
+        }
+    }
+
+    public void UnPauseFromSource(GameObject obj)
+    {
+        if (canPlaySound)
+        {
+            obj.GetComponent<AudioSource>().UnPause();
+        }
+    }
+
+    public void PlayFromSourceWithSelectedVolume(GameObject obj, float vol)
+    {
+        if (canPlaySound)
+        {
+            obj.GetComponent<AudioSource>().Play();
+            obj.GetComponent<AudioSource>().volume = vol;
+            obj.GetComponent<AudioSource>().pitch = Random.Range(0.90f, 1.1f);
+        }
+    }
 }

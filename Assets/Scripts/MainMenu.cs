@@ -175,6 +175,7 @@ public class MainMenu : MonoBehaviour
 
     public void LoadingAnimation()
     {
+        GetComponent<SoundAndMusicManager>().PlayBootUpSound(); 
         StartCoroutine(PhoneStartUp());
     }
 

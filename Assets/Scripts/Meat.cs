@@ -44,6 +44,7 @@ public class Meat : MonoBehaviour
         topBun = null;
         bottomBun = null;
         transform.GetChild(0).GetComponent<ParticleSystem>().Stop();
+        Camera.main.GetComponent<SoundAndMusicManager>().StopLoopFromSourceAndLowerVolume(gameObject, -2);
         if (GetComponent<CookMeat>())
         {
             timeOnGrill = GetComponent<CookMeat>().GetTimeOnGrill();
@@ -56,6 +57,7 @@ public class Meat : MonoBehaviour
         if (collision.gameObject.name == "Grill Top" && timeOnGrill < maxTimeOnGrill)
         {
             gameObject.AddComponent<CookMeat>();
+            Camera.main.GetComponent<SoundAndMusicManager>().PlayLoopFromSourceAndRaiseVolume(gameObject, 2);
         }
         if (collision.gameObject.name == "Top_Bun(Clone)" && !touchingTop)
         {

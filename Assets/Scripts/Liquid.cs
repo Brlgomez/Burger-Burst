@@ -6,6 +6,7 @@ public class Liquid : MonoBehaviour
 {
     ParticleSystem particleSyst;
     ParticleSystem.MainModule mainModule;
+    float velocityMagnitude;
 
     void Start()
     {
@@ -15,11 +16,16 @@ public class Liquid : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
+        velocityMagnitude = col.GetComponent<Rigidbody>().velocity.magnitude;
         GetComponent<Animator>().Play("Oil");
-        if (col.GetComponent<Rigidbody>() != null && col.GetComponent<Rigidbody>().velocity.magnitude > 1)
+        if (velocityMagnitude / 3 > 0.20f)
+        {
+            Camera.main.GetComponent<SoundAndMusicManager>().PlayFromSourceWithSelectedVolume(gameObject, velocityMagnitude / 3);
+        }
+        if (col.GetComponent<Rigidbody>() != null && velocityMagnitude > 1)
         {
             transform.GetChild(0).GetComponent<ParticleSystem>().Play();
-            mainModule.startSpeed = col.GetComponent<Rigidbody>().velocity.magnitude;
+            mainModule.startSpeed = velocityMagnitude;
         }
     }
 }

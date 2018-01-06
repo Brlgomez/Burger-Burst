@@ -35,14 +35,17 @@ public class SodaCup : MonoBehaviour
         incS = (maxScale - currentScale) * (1.0f / maxTimeUnderFountain);
         incMass = (maxMass - initialMass) * (1.0f / maxMass);
         myRenderer = GetComponent<Renderer>();
+        Camera.main.GetComponent<SoundAndMusicManager>().PlayFromSource(gameObject);
+        Camera.main.GetComponent<SoundAndMusicManager>().PauseFromSource(gameObject);
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.name == "SodaFromMachine1" || other.name == "SodaFromMachine2" || other.name == "SodaFromMachine3")
         {
-            if (GetComponent<FillCup>() == null && other.transform.localScale.x > 0)
+            if (GetComponent<FillCup>() == null && other.transform.localScale.x > 0 && currentY < top)
             {
+                Camera.main.GetComponent<SoundAndMusicManager>().UnPauseFromSource(gameObject);
                 gameObject.AddComponent<FillCup>();
             }
         }
@@ -52,6 +55,7 @@ public class SodaCup : MonoBehaviour
     {
         if (other.name == "SodaFromMachine1" || other.name == "SodaFromMachine2" || other.name == "SodaFromMachine3")
         {
+            Camera.main.GetComponent<SoundAndMusicManager>().PauseFromSource(gameObject);
             if (GetComponent<FillCup>())
             {
                 Destroy(GetComponent<FillCup>());

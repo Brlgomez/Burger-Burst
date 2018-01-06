@@ -15,8 +15,9 @@ public class SodaMachine : MonoBehaviour
     void Start()
     {
         transform.parent.GetComponent<ParticleSystem>().Play();
-		Camera.main.GetComponent<VibrationManager>().LightTapticFeedback();
-	}
+        Camera.main.GetComponent<VibrationManager>().LightTapticFeedback();
+        Camera.main.GetComponent<SoundAndMusicManager>().PlayLoopFromSourceAndRaiseVolume(transform.parent.gameObject, 5);
+    }
 
     void Update()
     {
@@ -47,8 +48,9 @@ public class SodaMachine : MonoBehaviour
 
     public void ButtonPressed()
     {
-		Camera.main.GetComponent<VibrationManager>().LightTapticFeedback();
-		transform.parent.GetComponent<ParticleSystem>().Stop();
+        Camera.main.GetComponent<VibrationManager>().LightTapticFeedback();
+        transform.parent.GetComponent<ParticleSystem>().Stop();
+        Camera.main.GetComponent<SoundAndMusicManager>().StopLoopFromSourceAndLowerVolume(transform.parent.gameObject, -5);
         turnOn = false;
     }
 
@@ -56,6 +58,7 @@ public class SodaMachine : MonoBehaviour
     {
         transform.localScale = Vector3.zero;
         transform.parent.GetComponent<ParticleSystem>().Stop();
+        Camera.main.GetComponent<SoundAndMusicManager>().StopLoopFromSourceAndLowerVolume(transform.parent.gameObject, -5);
         Destroy(gameObject.GetComponent<SodaMachine>());
     }
 }
