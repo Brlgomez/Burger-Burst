@@ -276,8 +276,9 @@ public class MainMenu : MonoBehaviour
             roundScroller = true;
             changeScrollerObjects = false;
         }
-        else if (target.name == "Left Slot" || target.name == "Middle Slot" || target.name == "Right Slot")
+        else if ((target.name == "Left Slot" || target.name == "Middle Slot" || target.name == "Right Slot") && currentSlot != target)
         {
+            GetComponent<SoundAndMusicManager>().PlayPickingSlotSound();
             switch (target.name)
             {
                 case "Left Slot":

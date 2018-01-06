@@ -267,6 +267,7 @@ public class MenuSlider : MonoBehaviour
             }
             else
             {
+                GetComponent<SoundAndMusicManager>().PlayPickItemSound();
                 GetComponent<PlayerPrefsManager>().SetPowerUpSlot(slotPosition, GetMiddleObjectNumber());
                 slot.GetComponent<SpriteRenderer>().sprite = GetMiddleObject().GetComponent<SpriteRenderer>().sprite;
                 slot.GetComponent<SpriteRenderer>().color = Color.white;
@@ -285,6 +286,7 @@ public class MenuSlider : MonoBehaviour
         }
         else
         {
+            GetComponent<SoundAndMusicManager>().PlayPickItemSound();
             GetComponent<PlayerPrefsManager>().SetGraphics(GetMiddleObjectNumber());
             slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = GetMiddleObject().GetComponent<SpriteRenderer>().sprite;
             GetComponent<GraphicsManager>().SetGraphic(GetComponent<PlayerPrefsManager>().GetGraphics());
@@ -300,6 +302,7 @@ public class MenuSlider : MonoBehaviour
         }
         else
         {
+            GetComponent<SoundAndMusicManager>().PlayPickItemSound();
             GetComponent<PlayerPrefsManager>().SetFlooring(GetMiddleObjectNumber());
             slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = GetMiddleObject().GetComponent<SpriteRenderer>().sprite;
             GetComponent<ThemeManager>().SetFlooring(GetComponent<PlayerPrefsManager>().GetFlooring());
@@ -315,6 +318,7 @@ public class MenuSlider : MonoBehaviour
         }
         else
         {
+            GetComponent<SoundAndMusicManager>().PlayPickItemSound();
             GetComponent<PlayerPrefsManager>().SetWallpaper(GetMiddleObjectNumber());
             slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = GetMiddleObject().GetComponent<SpriteRenderer>().sprite;
             GetComponent<ThemeManager>().SetWallpaper(GetComponent<PlayerPrefsManager>().GetWallpaper());
@@ -330,6 +334,7 @@ public class MenuSlider : MonoBehaviour
         }
         else
         {
+            GetComponent<SoundAndMusicManager>().PlayPickItemSound();
             GetComponent<PlayerPrefsManager>().SetDetail(GetMiddleObjectNumber());
             slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = GetMiddleObject().GetComponent<SpriteRenderer>().sprite;
             GetComponent<ThemeManager>().SetDetail(GetComponent<PlayerPrefsManager>().GetDetail());

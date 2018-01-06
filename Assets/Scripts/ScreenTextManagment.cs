@@ -128,10 +128,10 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToFlooringScreen()
     {
-		if (GetComponent<LEDManager>().GetUnlockLedText() == "FLOOR")
-		{
-			GetComponent<LEDManager>().EraseUnlockText();
-		}
+        if (GetComponent<LEDManager>().GetUnlockLedText() == "FLOOR")
+        {
+            GetComponent<LEDManager>().EraseUnlockText();
+        }
         DisableButton(line1, "", null, Color.white);
         EnableButton(line2, "", null, Color.white);
         EnableButton(line3, "", null, Color.white);
@@ -144,10 +144,10 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToWallpaperScreen()
     {
-		if (GetComponent<LEDManager>().GetUnlockLedText() == "WALL")
-		{
-			GetComponent<LEDManager>().EraseUnlockText();
-		}
+        if (GetComponent<LEDManager>().GetUnlockLedText() == "WALL")
+        {
+            GetComponent<LEDManager>().EraseUnlockText();
+        }
         DisableButton(line1, "", null, Color.white);
         EnableButton(line2, "", null, Color.white);
         EnableButton(line3, "", null, Color.white);
@@ -160,10 +160,10 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToDetailScreen()
     {
-		if (GetComponent<LEDManager>().GetUnlockLedText() == "DETAIL")
-		{
-			GetComponent<LEDManager>().EraseUnlockText();
-		}
+        if (GetComponent<LEDManager>().GetUnlockLedText() == "DETAIL")
+        {
+            GetComponent<LEDManager>().EraseUnlockText();
+        }
         DisableButton(line1, "", null, Color.white);
         EnableButton(line2, "", null, Color.white);
         EnableButton(line3, "", null, Color.white);
@@ -334,11 +334,11 @@ ScreenTextManagment : MonoBehaviour
         CheckShakeText();
         if (GetComponent<PlayerPrefsManager>().CheckHighScore(GetComponent<Gameplay>().GetPoints()))
         {
-			Color[] highScoreColors = new Color[3];
-			highScoreColors[0] = new Color(1, 0.25f, 1);
-			highScoreColors[1] = new Color(1, 1, 0.25f);
-			highScoreColors[2] = new Color(0.25f, 1, 1);
-			line1.AddComponent<PingPongColor>().SetColorAndObject(highScoreColors);
+            Color[] highScoreColors = new Color[3];
+            highScoreColors[0] = new Color(1, 0.25f, 1);
+            highScoreColors[1] = new Color(1, 1, 0.25f);
+            highScoreColors[2] = new Color(0.25f, 1, 1);
+            line1.AddComponent<PingPongColor>().SetColorAndObject(highScoreColors);
             DisableButton(line1, "NEW HIGH\n     " + GetComponent<Gameplay>().GetPoints().ToString(), pointSprite, Color.white);
         }
         else
