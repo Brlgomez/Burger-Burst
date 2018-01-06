@@ -285,6 +285,7 @@ public class PlayerPrefsManager : MonoBehaviour
             GetComponent<ObjectManager>().Horn().GetComponent<Animator>().Play("Horn");
             GetComponent<ObjectManager>().Horn().GetComponent<ParticleSystem>().Play();
             GetComponent<SoundAndMusicManager>().ChangeSoundSetting(true);
+            GetComponent<SoundAndMusicManager>().PlayHornSound();
         }
         GetComponent<ScreenTextManagment>().ChangeToSettingScreen();
         PlayerPrefs.Save();
@@ -292,7 +293,8 @@ public class PlayerPrefsManager : MonoBehaviour
 
     public void SetMusic()
     {
-        if (GetMusic())
+		GetComponent<SoundAndMusicManager>().PlayStereoSwitchSound();
+		if (GetMusic())
         {
             PlayerPrefs.SetInt(music, 0);
             GetComponent<ObjectManager>().Stereo().GetComponent<Animator>().SetBool("Music Off", true);
@@ -325,6 +327,7 @@ public class PlayerPrefsManager : MonoBehaviour
             GetComponent<ObjectManager>().VibratingDevice().GetComponent<ParticleSystem>().Play();
             GetComponent<VibrationManager>().ChangeVibration(true);
             GetComponent<VibrationManager>().Vibrate();
+            GetComponent<SoundAndMusicManager>().PlayVibrateSound();
         }
         GetComponent<ScreenTextManagment>().ChangeToSettingScreen();
         PlayerPrefs.Save();

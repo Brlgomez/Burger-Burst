@@ -26,7 +26,7 @@ public class PowerUpsManager : MonoBehaviour
         {
             powerUpNumber = powerUpNum;
             price = cost;
-            unlocked = (PlayerPrefs.GetInt("Power Up " + powerUpNum, 0) == 1);
+            unlocked = (PlayerPrefs.GetInt(PlayerPrefsManager.specificPowerUp + powerUpNum, 0) == 1);
             description = info;
             sprite = (Sprite)Resources.Load("Sprites/Power Ups/" + powerUpNum, typeof(Sprite));
         }

@@ -260,6 +260,7 @@ public class MenuSlider : MonoBehaviour
             }
             if (GetComponent<PlayerPrefsManager>().SlotContainsUpgrade(slotPosition, GetMiddleObjectNumber()))
             {
+                GetComponent<SoundAndMusicManager>().PlayRemovePowerUpSound();
                 GetComponent<PlayerPrefsManager>().SetPowerUpSlot(slotPosition, -1);
                 slot.GetComponent<SpriteRenderer>().sprite = null;
                 slot.GetComponent<SpriteRenderer>().color = Color.clear;
