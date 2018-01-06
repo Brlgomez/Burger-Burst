@@ -6,7 +6,8 @@ public class SoundAndMusicManager : MonoBehaviour
 {
     AudioSource source;
     public AudioClip scrollSound, pickingSlotSound, pickItemSound, removePowerUpSound;
-    public AudioClip boughtItemWithCoins, horn, vibrate, stereoSwitch, bootUp;
+    public AudioClip boughtItemWithCoins, horn, vibrate, stereoSwitch, bootUp, highScore;
+    public AudioClip steam, button;
 
     bool canPlayMusic = true;
     bool canPlaySound = true;
@@ -114,6 +115,15 @@ public class SoundAndMusicManager : MonoBehaviour
         }
     }
 
+    public void PlayHighScoreSound()
+    {
+        if (canPlaySound)
+        {
+            source.clip = highScore;
+            source.Play();
+        }
+    }
+
     /* Gameplay */
 
     public void PlayLoopFromSourceAndRaiseVolume(GameObject obj, int directionAndSpeed)
@@ -198,4 +208,20 @@ public class SoundAndMusicManager : MonoBehaviour
             obj.GetComponent<AudioSource>().pitch = Random.Range(0.90f, 1.1f);
         }
     }
+
+    public void PlaySteamSound(GameObject obj)
+    {
+        if (canPlaySound)
+        {
+            AudioSource.PlayClipAtPoint(steam, obj.transform.position);
+        }
+    }
+
+	public void PlayButtonSound(GameObject obj)
+	{
+		if (canPlaySound)
+		{
+            AudioSource.PlayClipAtPoint(button, obj.transform.position);
+		}
+	}
 }

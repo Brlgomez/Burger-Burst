@@ -85,4 +85,26 @@ public class LEDManager : MonoBehaviour
         }
         return "";
     }
+
+    public void MakeUnlockTextBlink()
+    {
+        if (unlockedLed.GetComponent<TextMesh>().text != "")
+        {
+            if (unlockedLed.GetComponent<PingPongColor>() == null)
+            {
+                Color[] ledColors = new Color[2];
+                ledColors[0] = Color.cyan;
+                ledColors[1] = Color.clear;
+                unlockedLed.AddComponent<PingPongColor>().SetColorAndObject(ledColors, true);
+            }
+        }
+    }
+
+    public void RemoveBlinkingLED()
+    {
+        if (unlockedLed.GetComponent<PingPongColor>() != null)
+        {
+            Destroy(unlockedLed.GetComponent<PingPongColor>());
+        } 
+    }
 }

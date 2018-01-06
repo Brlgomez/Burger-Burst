@@ -58,6 +58,7 @@ ScreenTextManagment : MonoBehaviour
         line2.GetComponent<TextMesh>().characterSize = 0.025f;
         line3.GetComponent<TextMesh>().characterSize = 0.025f;
         line4.GetComponent<TextMesh>().characterSize = 0.025f;
+        GetComponent<LEDManager>().MakeUnlockTextBlink();
         lastArea = currentArea;
         currentArea = Menus.Menu.MainMenu;
     }
@@ -70,6 +71,7 @@ ScreenTextManagment : MonoBehaviour
         EnableButton(line4, "", drinkSprite, Color.white);
         EnableButton(line5, "", null, Color.white);
         line1.transform.GetChild(6).GetComponent<SpriteRenderer>().color = Color.black;
+        GetComponent<LEDManager>().RemoveBlinkingLED();
         lastArea = currentArea;
         currentArea = Menus.Menu.Gameplay;
     }
@@ -79,6 +81,7 @@ ScreenTextManagment : MonoBehaviour
         if (GetComponent<LEDManager>().GetUnlockLedText() == "POWER")
         {
             GetComponent<LEDManager>().EraseUnlockText();
+            GetComponent<LEDManager>().RemoveBlinkingLED();
         }
         EnableButton(line1, "", null, Color.white);
         EnableButton(line2, "", null, Color.white);
@@ -99,6 +102,7 @@ ScreenTextManagment : MonoBehaviour
         EnableButton(line5, "Back", backSprite, Color.white);
         TurnOffScrollList();
         lastArea = currentArea;
+        GetComponent<LEDManager>().RemoveBlinkingLED();
         currentArea = Menus.Menu.Customize;
     }
 
@@ -181,6 +185,7 @@ ScreenTextManagment : MonoBehaviour
         EnableButton(line3, "1000 coins", coinSprite, Color.white);
         EnableButton(line4, "2500 coins", coinSprite, Color.white);
         EnableButton(line5, "Back", backSprite, Color.white);
+        GetComponent<LEDManager>().RemoveBlinkingLED();
         lastArea = currentArea;
         currentArea = Menus.Menu.Store;
     }
@@ -217,6 +222,7 @@ ScreenTextManagment : MonoBehaviour
         line2.GetComponent<TextMesh>().characterSize = 0.02f;
         line3.GetComponent<TextMesh>().characterSize = 0.02f;
         line4.GetComponent<TextMesh>().characterSize = 0.02f;
+        GetComponent<LEDManager>().RemoveBlinkingLED();
         lastArea = currentArea;
         currentArea = Menus.Menu.Setting;
     }
@@ -339,8 +345,9 @@ ScreenTextManagment : MonoBehaviour
             highScoreColors[0] = new Color(1, 0.25f, 1);
             highScoreColors[1] = new Color(1, 1, 0.25f);
             highScoreColors[2] = new Color(0.25f, 1, 1);
-            line1.AddComponent<PingPongColor>().SetColorAndObject(highScoreColors);
+            line1.AddComponent<PingPongColor>().SetColorAndObject(highScoreColors, false);
             DisableButton(line1, "NEW HIGH\n     " + GetComponent<Gameplay>().GetPoints().ToString(), pointSprite, Color.white);
+            GetComponent<SoundAndMusicManager>().PlayHighScoreSound();
         }
         else
         {

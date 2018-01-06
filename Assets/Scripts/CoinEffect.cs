@@ -14,6 +14,8 @@ public class CoinEffect : MonoBehaviour
     void Start()
     {
         transform.localScale = Vector3.zero;
+        GetComponent<ParticleSystem>().Play();
+        Camera.main.GetComponent<SoundAndMusicManager>().PlayFromSource(gameObject);
     }
 
     void Update()
