@@ -15,6 +15,7 @@ public class SodaCup : MonoBehaviour
     float initialMass;
     float incMass;
     int maxAmountOfDrinks = 5;
+    bool justPlayedSound;
     GameObject lid;
     Renderer myRenderer;
 
@@ -71,6 +72,14 @@ public class SodaCup : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        if (!justPlayedSound)
+        {
+            float impactSpeed = GetComponent<Rigidbody>().velocity.magnitude;
+            float fill = (((maxTimeUnderFountain) - (Mathf.Abs(timeUnderFountain - (maxTimeUnderFountain)))) / (maxTimeUnderFountain));
+            float pitch = (1 - (fill / 4));
+            Camera.main.GetComponent<SoundAndMusicManager>().PlayDropCupSound(gameObject, (impactSpeed / 10), pitch);
+            JustPlayedSound();
+        }
         if (collision.gameObject.tag == "Lid")
         {
             lid = collision.gameObject;
@@ -157,5 +166,17 @@ public class SodaCup : MonoBehaviour
 
             }
         }
+    }
+
+    public void JustPlayedSound()
+    {
+        justPlayedSound = true;
+        StartCoroutine(Timer());
+    }
+
+    public IEnumerator Timer()
+    {
+        yield return new WaitForSeconds(0.1f);
+        justPlayedSound = false;
     }
 }

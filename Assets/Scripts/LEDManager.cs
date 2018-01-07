@@ -65,7 +65,7 @@ public class LEDManager : MonoBehaviour
         {
             nextUnlockLed.GetComponent<TextMesh>().text = "All Items\nUnlocked";
         }
-	}
+    }
 
     public void ShowWhatIsUnlocked(string text)
     {
@@ -79,7 +79,7 @@ public class LEDManager : MonoBehaviour
 
     public string GetUnlockLedText()
     {
-		if (unlockedLed.GetComponent<TextMesh>().text != "")
+        if (unlockedLed.GetComponent<TextMesh>().text != "")
         {
             return unlockedLed.GetComponent<TextMesh>().text.Split(' ')[1];
         }
@@ -105,6 +105,6 @@ public class LEDManager : MonoBehaviour
         if (unlockedLed.GetComponent<PingPongColor>() != null)
         {
             Destroy(unlockedLed.GetComponent<PingPongColor>());
-        } 
+        }
     }
 }

@@ -375,12 +375,12 @@ public class PlayerPrefsManager : MonoBehaviour
 
     int GetNextUnlock()
     {
-        return PlayerPrefs.GetInt(nextUnlock, 50);
+        return PlayerPrefs.GetInt(nextUnlock, 100);
     }
 
     void IncreaseNextUnlock()
     {
-        PlayerPrefs.SetInt(nextUnlock, Mathf.RoundToInt(GetNextUnlock() + (GetNextUnlock() * 0.01f) + 50));
+        PlayerPrefs.SetInt(nextUnlock, Mathf.RoundToInt(GetNextUnlock() + (GetNextUnlock() * 0.025f) + 100));
     }
 
     public bool CheckIfAnythingUnlocked()
@@ -430,12 +430,12 @@ public class PlayerPrefsManager : MonoBehaviour
 
     public int PointsToNextUpgrade()
     {
-		if (floorsLeft + wallsLeft + detailsLeft + powerUpsLeft > 0)
+        if (floorsLeft + wallsLeft + detailsLeft + powerUpsLeft > 0)
         {
             if (CheckIfAnythingUnlocked())
             {
-				GetComponent<LEDManager>().ShowWhatIsUnlocked(UnlockItem());
-			}
+                GetComponent<LEDManager>().ShowWhatIsUnlocked(UnlockItem());
+            }
             return GetNextUnlock() - GetTotalPoints();
         }
         return -1;

@@ -66,14 +66,10 @@ public class GrabAndThrowObject : MonoBehaviour
             GetComponent<ZombieManager>().ZombieUpdate(updateInterval);
             GetComponent<WindManager>().WindUpdate(updateInterval);
         }
-        if (Input.GetKeyDown("space"))
-            GetComponent<ZombieManager>().Print();
         if (Input.GetKeyDown("d"))
             GetComponent<Gameplay>().ReduceHealth(10, gameObject);
         if (Input.GetKeyDown("p"))
-        {
             GetComponent<PlayerPrefsManager>().IncreaseTotalPoints(10);
-        }
     }
 
     void MouseDown()
@@ -401,14 +397,14 @@ public class GrabAndThrowObject : MonoBehaviour
         {
             target.GetComponent<Animator>().Play("ButtonClick");
             leftFryer.GetComponent<FryerBasket>().PressedButton();
-			GetComponent<SoundAndMusicManager>().PlayButtonSound(target);
-		}
+            GetComponent<SoundAndMusicManager>().PlayButtonSound(target);
+        }
         if (target.name == "Right Fryer Button")
         {
             target.GetComponent<Animator>().Play("ButtonClick");
             rightFryer.GetComponent<FryerBasket>().PressedButton();
-			GetComponent<SoundAndMusicManager>().PlayButtonSound(target);
-		}
+            GetComponent<SoundAndMusicManager>().PlayButtonSound(target);
+        }
         if (target.tag == "Fries" || target.tag == "Basket")
         {
             target.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
@@ -427,8 +423,8 @@ public class GrabAndThrowObject : MonoBehaviour
         if (target.name == "Soda Button")
         {
             target.GetComponent<Animator>().Play("ButtonClick");
-			GetComponent<SoundAndMusicManager>().PlayButtonSound(target);
-			if (target.transform.GetChild(0).gameObject.GetComponent<SodaMachine>() == null)
+            GetComponent<SoundAndMusicManager>().PlayButtonSound(target);
+            if (target.transform.GetChild(0).gameObject.GetComponent<SodaMachine>() == null)
             {
                 target.transform.GetChild(0).gameObject.AddComponent<SodaMachine>();
             }

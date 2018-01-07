@@ -5,9 +5,11 @@ using UnityEngine;
 public class RemoveObjects : MonoBehaviour
 {
     bool hasDropped;
+    bool justPlayedSound;
 
     void OnCollisionEnter(Collision col)
     {
+        PlayDropSound(col);
         if (gameObject.tag == "GrillIngredientClone")
         {
             Vector3 grillRange = Camera.main.GetComponent<PositionManager>().GrillRange().position;
@@ -108,5 +110,35 @@ public class RemoveObjects : MonoBehaviour
                 Destroy(GetComponent<MagnetPowerUp>());
             }
         }
+    }
+
+    void PlayDropSound(Collision col)
+    {
+        if (!justPlayedSound)
+        {
+            JustPlayedSound();
+            float impactSpeed = col.relativeVelocity.magnitude;
+            if (gameObject.tag == "Ingredient")
+            {
+                //Camera.main.GetComponent<SoundAndMusicManager>().PlayDropItemSound(gameObject, (impactSpeed / 12));
+            }
+            else if (gameObject.tag == "Lid")
+            {
+                Camera.main.GetComponent<SoundAndMusicManager>().PlayDropLidSound(gameObject, (impactSpeed / 12));
+            }
+
+        }
+    }
+
+    public void JustPlayedSound()
+    {
+        justPlayedSound = true;
+        StartCoroutine(Timer());
+    }
+
+    public IEnumerator Timer()
+    {
+        yield return new WaitForSeconds(0.1f);
+        justPlayedSound = false;
     }
 }

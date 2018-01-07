@@ -12033,7 +12033,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1475733918
+  randomSeed: -862616903
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -65556,7 +65556,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.01, y: 0.7, z: 0.35}
+  m_Size: {x: 0.01, y: 0.65, z: 0.35}
   m_Center: {x: 0.2, y: 0, z: 0}
 --- !u!65 &1128181454
 BoxCollider:
@@ -65568,7 +65568,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.01, y: 0.7, z: 0.35}
+  m_Size: {x: 0.01, y: 0.65, z: 0.35}
   m_Center: {x: -0.2, y: 0, z: 0}
 --- !u!65 &1128181455
 BoxCollider:
@@ -65581,7 +65581,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.3, y: 0.01, z: 0.3}
-  m_Center: {x: 0, y: -0.35, z: 0}
+  m_Center: {x: 0, y: -0.34, z: 0}
 --- !u!1 &1134678884
 GameObject:
   m_ObjectHideFlags: 0
@@ -97876,6 +97876,9 @@ MonoBehaviour:
   highScore: {fileID: 8300000, guid: 73bf710e2067e4c1ca5e3867a21e29d6, type: 3}
   steam: {fileID: 8300000, guid: 8c19782454ef740cb80bf73a86c5a005, type: 3}
   button: {fileID: 8300000, guid: 0b9a86d8891b24b288abeb431e72ca8e, type: 3}
+  dropItem: {fileID: 8300000, guid: 588574a241b6f4002bf2c2c66f92d4cb, type: 3}
+  dropCup: {fileID: 8300000, guid: d26d4b405ebd642fca8f6f23afe429f8, type: 3}
+  dropLid: {fileID: 8300000, guid: 64473346061354f92847b19aa5071f22, type: 3}
 --- !u!82 &1865169801
 AudioSource:
   m_ObjectHideFlags: 0
@@ -99691,7 +99694,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.95, y: 0.2, z: 0.95}
+  m_Size: {x: 0.95, y: 0.2, z: 0.9}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &2001911379
 Prefab:

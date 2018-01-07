@@ -22,7 +22,7 @@ public class WindManager : MonoBehaviour
         if (timer > timeForNextWindChange)
         {
             timeForNextWindChange = Random.Range(15, 60);
-            if (Random.value > 0.05f)
+            if (Random.value > 0.75f)
             {
                 StartWind();
             }
@@ -73,7 +73,7 @@ public class WindManager : MonoBehaviour
 
     public void ResetValues()
     {
-        timeForNextWindChange = 12.0f;
+        timeForNextWindChange = 90f;
         timer = 0;
         StopWind();
     }

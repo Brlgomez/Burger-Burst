@@ -54,9 +54,13 @@ public class ShakeText : MonoBehaviour
             GetComponent<TextMesh>().color = Color.green;
 
         }
-        else
+        else if (num < 0)
         {
             GetComponent<TextMesh>().color = Color.red;
+        }
+        else
+        {
+            GetComponent<TextMesh>().color = Color.gray;
         }
     }
 
@@ -67,12 +71,16 @@ public class ShakeText : MonoBehaviour
             GetComponent<SpriteRenderer>().color = Color.green;
 
         }
-        else
+        else if (num < 0)
         {
             GetComponent<SpriteRenderer>().color = Color.red;
         }
+        else
+        {
+            GetComponent<SpriteRenderer>().color = Color.gray;
+        }
     }
-   
+
     public void Finished()
     {
         transform.localPosition = initialPos;
