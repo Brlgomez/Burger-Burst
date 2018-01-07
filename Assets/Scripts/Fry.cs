@@ -44,7 +44,7 @@ public class Fry : MonoBehaviour
             {
                 transform.GetChild(0).GetComponent<ParticleSystem>().Play();
                 gameObject.AddComponent<FryFries>();
-                Camera.main.GetComponent<SoundAndMusicManager>().PlayLoopFromSourceAndRaiseVolume(gameObject, 1);
+                Camera.main.GetComponent<SoundAndMusicManager>().PlayLoopFromSourceAndRaiseVolume(gameObject, 1, 1);
             }
         }
     }

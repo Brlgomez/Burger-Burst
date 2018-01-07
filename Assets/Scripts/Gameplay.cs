@@ -302,7 +302,8 @@ public class Gameplay : MonoBehaviour
         chanceOfDifSizedZombie = 0;
         chanceOfSpecialZombie = 0;
         GetComponent<LEDManager>().ResetPointsText();
-        NotGameOver();
+		GetComponent<WindManager>().ResetValues();
+		NotGameOver();
     }
 
     public void Continue()

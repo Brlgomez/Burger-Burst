@@ -293,8 +293,8 @@ public class PlayerPrefsManager : MonoBehaviour
 
     public void SetMusic()
     {
-		GetComponent<SoundAndMusicManager>().PlayStereoSwitchSound();
-		if (GetMusic())
+        GetComponent<SoundAndMusicManager>().PlayStereoSwitchSound();
+        if (GetMusic())
         {
             PlayerPrefs.SetInt(music, 0);
             GetComponent<ObjectManager>().Stereo().GetComponent<Animator>().SetBool("Music Off", true);
@@ -380,7 +380,7 @@ public class PlayerPrefsManager : MonoBehaviour
 
     void IncreaseNextUnlock()
     {
-        PlayerPrefs.SetInt(nextUnlock, Mathf.RoundToInt(GetNextUnlock() + GetNextUnlock() * 0.01f + 50));
+        PlayerPrefs.SetInt(nextUnlock, Mathf.RoundToInt(GetNextUnlock() + (GetNextUnlock() * 0.01f) + 50));
     }
 
     public bool CheckIfAnythingUnlocked()
@@ -430,8 +430,12 @@ public class PlayerPrefsManager : MonoBehaviour
 
     public int PointsToNextUpgrade()
     {
-        if (floorsLeft + wallsLeft + detailsLeft + powerUpsLeft > 0)
+		if (floorsLeft + wallsLeft + detailsLeft + powerUpsLeft > 0)
         {
+            if (CheckIfAnythingUnlocked())
+            {
+				GetComponent<LEDManager>().ShowWhatIsUnlocked(UnlockItem());
+			}
             return GetNextUnlock() - GetTotalPoints();
         }
         return -1;

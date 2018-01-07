@@ -57,7 +57,7 @@ public class Meat : MonoBehaviour
         if (collision.gameObject.name == "Grill Top" && timeOnGrill < maxTimeOnGrill)
         {
             gameObject.AddComponent<CookMeat>();
-            Camera.main.GetComponent<SoundAndMusicManager>().PlayLoopFromSourceAndRaiseVolume(gameObject, 2);
+            Camera.main.GetComponent<SoundAndMusicManager>().PlayLoopFromSourceAndRaiseVolume(gameObject, 2, 1);
             Camera.main.GetComponent<SoundAndMusicManager>().PlaySteamSound(gameObject);
         }
         if (collision.gameObject.name == "Top_Bun(Clone)" && !touchingTop)

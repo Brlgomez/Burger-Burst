@@ -60,7 +60,7 @@ public class GrabAndThrowObject : MonoBehaviour
         {
             MouseUp();
         }
-        if (Time.frameCount % updateInterval == 0)
+        if (Time.frameCount % updateInterval == 0 && !gameOver)
         {
             GetComponent<Gameplay>().RegenerationUpdate(updateInterval);
             GetComponent<ZombieManager>().ZombieUpdate(updateInterval);
@@ -534,7 +534,6 @@ public class GrabAndThrowObject : MonoBehaviour
     {
         GetComponent<ZombieManager>().ResetValues();
         GetComponent<FloatingTextManagement>().DeleteAllText();
-        GetComponent<WindManager>().ResetValues();
         leftFryer.GetComponent<FryerBasket>().Restart();
         rightFryer.GetComponent<FryerBasket>().Restart();
         GameObject[] ingredients = GameObject.FindGameObjectsWithTag("Ingredient");

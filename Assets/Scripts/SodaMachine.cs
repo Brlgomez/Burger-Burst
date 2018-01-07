@@ -16,7 +16,7 @@ public class SodaMachine : MonoBehaviour
     {
         transform.parent.GetComponent<ParticleSystem>().Play();
         Camera.main.GetComponent<VibrationManager>().LightTapticFeedback();
-        Camera.main.GetComponent<SoundAndMusicManager>().PlayLoopFromSourceAndRaiseVolume(transform.parent.gameObject, 5);
+        Camera.main.GetComponent<SoundAndMusicManager>().PlayLoopFromSourceAndRaiseVolume(transform.parent.gameObject, 5, 1);
     }
 
     void Update()

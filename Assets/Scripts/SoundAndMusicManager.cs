@@ -126,7 +126,7 @@ public class SoundAndMusicManager : MonoBehaviour
 
     /* Gameplay */
 
-    public void PlayLoopFromSourceAndRaiseVolume(GameObject obj, int directionAndSpeed)
+    public void PlayLoopFromSourceAndRaiseVolume(GameObject obj, int directionAndSpeed, float maxVolume)
     {
         if (canPlaySound)
         {
@@ -134,11 +134,11 @@ public class SoundAndMusicManager : MonoBehaviour
             obj.GetComponent<AudioSource>().Play();
             if (obj.GetComponent<ShiftVolume>() == null)
             {
-                obj.AddComponent<ShiftVolume>().SetDirection(directionAndSpeed);
+                obj.AddComponent<ShiftVolume>().SetDirection(directionAndSpeed, maxVolume);
             }
             else
             {
-                obj.GetComponent<ShiftVolume>().SetDirection(directionAndSpeed);
+                obj.GetComponent<ShiftVolume>().SetDirection(directionAndSpeed, maxVolume);
             }
         }
     }
@@ -149,11 +149,11 @@ public class SoundAndMusicManager : MonoBehaviour
         {
             if (obj.GetComponent<ShiftVolume>() == null)
             {
-                obj.AddComponent<ShiftVolume>().SetDirection(directionAndSpeed);
+                obj.AddComponent<ShiftVolume>().SetDirection(directionAndSpeed, 0);
             }
             else
             {
-                obj.GetComponent<ShiftVolume>().SetDirection(directionAndSpeed);
+                obj.GetComponent<ShiftVolume>().SetDirection(directionAndSpeed, 0);
             }
         }
     }
@@ -217,11 +217,34 @@ public class SoundAndMusicManager : MonoBehaviour
         }
     }
 
-	public void PlayButtonSound(GameObject obj)
-	{
-		if (canPlaySound)
-		{
+    public void PlayButtonSound(GameObject obj)
+    {
+        if (canPlaySound)
+        {
             AudioSource.PlayClipAtPoint(button, obj.transform.position);
-		}
-	}
+        }
+    }
+
+    public void ChangePitchShift(GameObject obj, float shift)
+    {
+        if (canPlaySound)
+        {
+            obj.GetComponent<AudioSource>().pitch = shift;
+        }
+    }
+
+    public void GraduallyShiftPitch(GameObject obj, float newPitch)
+    {
+        if (canPlaySound)
+        {
+            if (obj.GetComponent<ShiftPitch>() == null)
+            {
+                obj.AddComponent<ShiftPitch>().SetPitch(newPitch);
+            }
+            else
+            {
+                obj.GetComponent<ShiftPitch>().SetPitch(newPitch);
+            }
+        }
+    }
 }

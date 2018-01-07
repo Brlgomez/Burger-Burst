@@ -31,12 +31,12 @@ ScreenTextManagment : MonoBehaviour
         scrollView = GetComponent<ObjectManager>().Phone().transform.GetChild(5).gameObject;
         TurnOffScrollList();
         TurnOffGameplayImages();
-        currentArea = Menus.Menu.PhoneDown;
+		currentArea = Menus.Menu.PhoneDown;
     }
 
     public void ChangeToTitleText()
     {
-        DisableButton(line1, "", null, Color.white);
+		DisableButton(line1, "", null, Color.white);
         DisableButton(line2, "", null, Color.white);
         DisableButton(line3, "", null, Color.white);
         DisableButton(line4, "", null, Color.white);

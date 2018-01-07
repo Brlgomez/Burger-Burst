@@ -22,7 +22,7 @@ public class WindManager : MonoBehaviour
         if (timer > timeForNextWindChange)
         {
             timeForNextWindChange = Random.Range(15, 60);
-            if (Random.value > 0.75f)
+            if (Random.value > 0.05f)
             {
                 StartWind();
             }
@@ -41,6 +41,8 @@ public class WindManager : MonoBehaviour
         var main = windParticles.main;
         main.startSpeed = windPower * 5f;
         main.maxParticles = Mathf.RoundToInt(Mathf.Abs(windPower * 2));
+        GetComponent<SoundAndMusicManager>().PlayLoopFromSourceAndRaiseVolume(windObject, 1, Mathf.Abs(windPower / 5.0f));
+        GetComponent<SoundAndMusicManager>().GraduallyShiftPitch(windObject, (Mathf.Abs(windPower / 5.0f) * 2.5f) + 0.5f);
         GetComponent<ObjectManager>().WindParticles().transform.position = new Vector3(
             -windPower * 5f,
             GetComponent<ObjectManager>().WindParticles().transform.position.y,
@@ -61,6 +63,7 @@ public class WindManager : MonoBehaviour
 
     void StopWind()
     {
+        GetComponent<SoundAndMusicManager>().StopLoopFromSourceAndLowerVolume(windObject, -1);
         windParticles.Stop();
         if (windObject.GetComponent<Wind>())
         {
@@ -70,8 +73,8 @@ public class WindManager : MonoBehaviour
 
     public void ResetValues()
     {
-        timeForNextWindChange = 120;
-        windPower = 0;
+        timeForNextWindChange = 12.0f;
+        timer = 0;
         StopWind();
     }
 

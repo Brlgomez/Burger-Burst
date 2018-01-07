@@ -7,6 +7,7 @@ public class ShiftVolume : MonoBehaviour
     int direction;
     AudioSource source;
     bool changeVolume;
+    float maxVolume;
 
     void Start()
     {
@@ -18,9 +19,9 @@ public class ShiftVolume : MonoBehaviour
         if (changeVolume)
         {
             source.volume += Time.deltaTime * direction;
-            if (source.volume >= 1 && direction > 0)
+            if (source.volume >= maxVolume && direction > 0)
             {
-                source.volume = 1;
+                source.volume = maxVolume;
                 Destroy(GetComponent<ShiftVolume>());
             }
             else if (source.volume <= 0 && direction < 0)
@@ -32,9 +33,10 @@ public class ShiftVolume : MonoBehaviour
         }
     }
 
-    public void SetDirection(int directionAndSpeed)
+    public void SetDirection(int directionAndSpeed, float maxVol)
     {
         changeVolume = true;
         direction = directionAndSpeed;
+        maxVolume = maxVol;
     }
 }
