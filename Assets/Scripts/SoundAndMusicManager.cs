@@ -7,7 +7,7 @@ public class SoundAndMusicManager : MonoBehaviour
     AudioSource source;
     public AudioClip scrollSound, pickingSlotSound, pickItemSound, removePowerUpSound;
     public AudioClip boughtItemWithCoins, horn, vibrate, stereoSwitch, bootUp, highScore;
-    public AudioClip steam, button, dropItem, dropCup, dropLid;
+    public AudioClip steam, button, dropCup, dropLid, dropPatty, dropFries, dropBasket;
 
     bool canPlayMusic = true;
     bool canPlaySound = true;
@@ -248,14 +248,6 @@ public class SoundAndMusicManager : MonoBehaviour
         }
     }
 
-    public void PlayDropItemSound(GameObject obj, float volume)
-    {
-        if (canPlaySound)
-        {
-            AudioSource.PlayClipAtPoint(dropItem, obj.transform.position, volume);
-        }
-    }
-
     public void PlayDropLidSound(GameObject obj, float volume)
     {
         if (canPlaySound)
@@ -272,6 +264,30 @@ public class SoundAndMusicManager : MonoBehaviour
         }
     }
 
+    public void PlayDropPattySound(GameObject obj, float volume)
+    {
+        if (canPlaySound)
+        {
+            PlayClipAt(dropPatty, obj.transform.position, volume, Random.Range(0.9f, 1.1f));
+        }
+    }
+
+    public void PlayDropFriesSound(GameObject obj, float volume)
+    {
+        if (canPlaySound)
+        {
+            PlayClipAt(dropFries, obj.transform.position, volume, Random.Range(0.9f, 1.1f));
+        }
+    }
+
+    public void PlayDropBasketSound(GameObject obj, float volume)
+    {
+        if (canPlaySound)
+        {
+            PlayClipAt(dropBasket, obj.transform.position, volume, Random.Range(0.9f, 1.1f));
+        }
+    }
+
     AudioSource PlayClipAt(AudioClip clip, Vector3 pos, float volume, float pitch)
     {
         GameObject temp = new GameObject("TempAudio");
@@ -284,5 +300,4 @@ public class SoundAndMusicManager : MonoBehaviour
         Destroy(temp, clip.length);
         return tempSource;
     }
-
 }

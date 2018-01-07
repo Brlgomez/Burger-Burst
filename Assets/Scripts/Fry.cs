@@ -7,6 +7,7 @@ public class Fry : MonoBehaviour
     float maxTimeInFryer = 20;
     int maxAmountOfFries = 10;
     float timeInFryer;
+    bool justPlayedSound;
     GameObject basket;
 
     void Start()
@@ -65,6 +66,12 @@ public class Fry : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        if (!justPlayedSound)
+        {
+            float impactSpeed = GetComponent<Rigidbody>().velocity.magnitude;
+            Camera.main.GetComponent<SoundAndMusicManager>().PlayDropFriesSound(gameObject, (impactSpeed / 10));
+            JustPlayedSound();
+        }
         if (collision.gameObject.tag == "Basket" && GetComponent<FryFries>() == null)
         {
             basket = collision.gameObject;
@@ -124,5 +131,17 @@ public class Fry : MonoBehaviour
                 Destroy(GetComponent<Fry>());
             }
         }
+    }
+
+    public void JustPlayedSound()
+    {
+        justPlayedSound = true;
+        StartCoroutine(Timer());
+    }
+
+    public IEnumerator Timer()
+    {
+        yield return new WaitForSeconds(0.1f);
+        justPlayedSound = false;
     }
 }

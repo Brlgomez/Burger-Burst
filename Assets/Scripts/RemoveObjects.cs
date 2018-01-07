@@ -9,7 +9,7 @@ public class RemoveObjects : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
-        PlayDropSound(col);
+        PlayDropSound();
         if (gameObject.tag == "GrillIngredientClone")
         {
             Vector3 grillRange = Camera.main.GetComponent<PositionManager>().GrillRange().position;
@@ -112,21 +112,28 @@ public class RemoveObjects : MonoBehaviour
         }
     }
 
-    void PlayDropSound(Collision col)
+    void PlayDropSound()
     {
         if (!justPlayedSound)
         {
             JustPlayedSound();
-            float impactSpeed = col.relativeVelocity.magnitude;
+            float impactSpeed = GetComponent<Rigidbody>().velocity.magnitude;
             if (gameObject.tag == "Ingredient")
             {
-                //Camera.main.GetComponent<SoundAndMusicManager>().PlayDropItemSound(gameObject, (impactSpeed / 12));
+                //Camera.main.GetComponent<SoundAndMusicManager>().PlayDropItemSound(gameObject, (impactSpeed / 10));
             }
             else if (gameObject.tag == "Lid")
             {
-                Camera.main.GetComponent<SoundAndMusicManager>().PlayDropLidSound(gameObject, (impactSpeed / 12));
+                Camera.main.GetComponent<SoundAndMusicManager>().PlayDropLidSound(gameObject, (impactSpeed / 10));
             }
-
+            else if (gameObject.tag == "GrillIngredientClone")
+            {
+                Camera.main.GetComponent<SoundAndMusicManager>().PlayDropPattySound(gameObject, (impactSpeed / 12));
+            }
+            else if (gameObject.tag == "Basket")
+            {
+                Camera.main.GetComponent<SoundAndMusicManager>().PlayDropBasketSound(gameObject, (impactSpeed / 12));
+            }
         }
     }
 

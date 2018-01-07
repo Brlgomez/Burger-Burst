@@ -54,6 +54,8 @@ public class Meat : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        float impactSpeed = GetComponent<Rigidbody>().velocity.magnitude;
+        Camera.main.GetComponent<SoundAndMusicManager>().PlayDropPattySound(gameObject, (impactSpeed / 10));
         if (collision.gameObject.name == "Grill Top" && timeOnGrill < maxTimeOnGrill)
         {
             gameObject.AddComponent<CookMeat>();

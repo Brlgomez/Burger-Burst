@@ -64897,7 +64897,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1093843162}
-  m_LocalRotation: {x: 0.3535534, y: 0.6123725, z: -0.35355344, w: 0.61237246}
+  m_LocalRotation: {x: 0.35355338, y: 0.61237246, z: -0.3535534, w: 0.6123724}
   m_LocalPosition: {x: -0.02, y: 0.06, z: 0.3}
   m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_Children: []
@@ -97876,9 +97876,11 @@ MonoBehaviour:
   highScore: {fileID: 8300000, guid: 73bf710e2067e4c1ca5e3867a21e29d6, type: 3}
   steam: {fileID: 8300000, guid: 8c19782454ef740cb80bf73a86c5a005, type: 3}
   button: {fileID: 8300000, guid: 0b9a86d8891b24b288abeb431e72ca8e, type: 3}
-  dropItem: {fileID: 8300000, guid: 588574a241b6f4002bf2c2c66f92d4cb, type: 3}
   dropCup: {fileID: 8300000, guid: d26d4b405ebd642fca8f6f23afe429f8, type: 3}
   dropLid: {fileID: 8300000, guid: 64473346061354f92847b19aa5071f22, type: 3}
+  dropPatty: {fileID: 8300000, guid: 9bc2613ab60384d079c87110086222f7, type: 3}
+  dropFries: {fileID: 8300000, guid: 3bbb6e83e07bf4c3cb3a4f3e9c2159f5, type: 3}
+  dropBasket: {fileID: 8300000, guid: fc026b389ec41416db1793a1e6a8ee04, type: 3}
 --- !u!82 &1865169801
 AudioSource:
   m_ObjectHideFlags: 0
