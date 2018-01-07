@@ -99,6 +99,7 @@ public class Fry : MonoBehaviour
         if (worth == 0)
         {
             Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Fries", Color.gray, 1);
+            Camera.main.GetComponent<SoundAndMusicManager>().PlayBadFoodSound(gameObject);
         }
         else if (worth == 1)
         {
@@ -107,6 +108,10 @@ public class Fry : MonoBehaviour
         else if (worth > 1)
         {
             Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Fries", Color.green, 1);
+        }
+        if (worth > 0)
+        {
+            Camera.main.GetComponent<SoundAndMusicManager>().PlayFoodCompleteSound(gameObject);
         }
         Camera.main.GetComponent<Gameplay>().AddFries(worth);
         if (gameObject.GetComponent<FadeObject>() == null)

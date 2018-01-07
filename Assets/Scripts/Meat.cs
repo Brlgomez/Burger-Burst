@@ -105,6 +105,7 @@ public class Meat : MonoBehaviour
         if (worth == 0)
         {
             Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Burgers", Color.gray, 1);
+            Camera.main.GetComponent<SoundAndMusicManager>().PlayBadFoodSound(gameObject);
         }
         else if (worth == 1)
         {
@@ -113,6 +114,10 @@ public class Meat : MonoBehaviour
         else if (worth > 1)
         {
             Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Burgers", Color.green, 1);
+        }
+        if (worth > 0)
+        {
+            Camera.main.GetComponent<SoundAndMusicManager>().PlayFoodCompleteSound(gameObject);
         }
         Camera.main.GetComponent<Gameplay>().AddBurgers(worth);
         RemoveObject(topBun);

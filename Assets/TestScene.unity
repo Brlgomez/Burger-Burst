@@ -97881,6 +97881,9 @@ MonoBehaviour:
   dropPatty: {fileID: 8300000, guid: 9bc2613ab60384d079c87110086222f7, type: 3}
   dropFries: {fileID: 8300000, guid: 3bbb6e83e07bf4c3cb3a4f3e9c2159f5, type: 3}
   dropBasket: {fileID: 8300000, guid: fc026b389ec41416db1793a1e6a8ee04, type: 3}
+  foodComplete: {fileID: 8300000, guid: ac9ad9f9b6b4b4bdaa7515b7c8431c98, type: 3}
+  badFood: {fileID: 8300000, guid: a9e74e478964a49639f392eb01744c17, type: 3}
+  dropDrink: {fileID: 8300000, guid: 1d2b20a7ca1454911aa0501b81a6f02c, type: 3}
 --- !u!82 &1865169801
 AudioSource:
   m_ObjectHideFlags: 0

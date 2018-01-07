@@ -133,6 +133,7 @@ public class SodaCup : MonoBehaviour
         if (worth == 0)
         {
             Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Drinks", Color.gray, 1);
+            Camera.main.GetComponent<SoundAndMusicManager>().PlayBadFoodSound(gameObject);
         }
         else if (worth == 1)
         {
@@ -141,6 +142,10 @@ public class SodaCup : MonoBehaviour
         else if (worth > 1)
         {
             Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Drinks", Color.green, 1);
+        }
+        if (worth > 0)
+        {
+            Camera.main.GetComponent<SoundAndMusicManager>().PlayFoodCompleteSound(gameObject);
         }
         Camera.main.GetComponent<DropMoreProducts>().DropLid();
         Camera.main.GetComponent<DropMoreProducts>().DropCup();
@@ -163,7 +168,6 @@ public class SodaCup : MonoBehaviour
                 gameObject.AddComponent<FadeObject>();
                 gameObject.tag = "Fallen";
                 Destroy(GetComponent<SodaCup>());
-
             }
         }
     }

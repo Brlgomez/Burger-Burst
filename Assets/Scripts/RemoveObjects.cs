@@ -118,21 +118,31 @@ public class RemoveObjects : MonoBehaviour
         {
             JustPlayedSound();
             float impactSpeed = GetComponent<Rigidbody>().velocity.magnitude;
-            if (gameObject.tag == "Ingredient")
+            switch (gameObject.tag)
             {
-                //Camera.main.GetComponent<SoundAndMusicManager>().PlayDropItemSound(gameObject, (impactSpeed / 10));
-            }
-            else if (gameObject.tag == "Lid")
-            {
-                Camera.main.GetComponent<SoundAndMusicManager>().PlayDropLidSound(gameObject, (impactSpeed / 10));
-            }
-            else if (gameObject.tag == "GrillIngredientClone")
-            {
-                Camera.main.GetComponent<SoundAndMusicManager>().PlayDropPattySound(gameObject, (impactSpeed / 12));
-            }
-            else if (gameObject.tag == "Basket")
-            {
-                Camera.main.GetComponent<SoundAndMusicManager>().PlayDropBasketSound(gameObject, (impactSpeed / 12));
+                case "Ingredient":
+                    if (gameObject.name == "Burger(Clone)")
+                    {
+                        Camera.main.GetComponent<SoundAndMusicManager>().PlayDropBurgerSound(gameObject, (impactSpeed / 12));
+                    }
+                    else if (gameObject.name == "Fries(Clone)")
+                    {
+                        Camera.main.GetComponent<SoundAndMusicManager>().PlayDropFriesSound(gameObject, (impactSpeed / 12));
+                    }
+                    else
+                    {
+                        Camera.main.GetComponent<SoundAndMusicManager>().PlayDropDrinkSound(gameObject, (impactSpeed / 12));
+                    }
+                    break;
+                case "Lid":
+                    Camera.main.GetComponent<SoundAndMusicManager>().PlayDropLidSound(gameObject, (impactSpeed / 12));
+                    break;
+                case "GrillIngredientClone":
+                    Camera.main.GetComponent<SoundAndMusicManager>().PlayDropPattySound(gameObject, (impactSpeed / 12));
+                    break;
+                case "Basket":
+                    Camera.main.GetComponent<SoundAndMusicManager>().PlayDropBasketSound(gameObject, (impactSpeed / 12));
+                    break;
             }
         }
     }
