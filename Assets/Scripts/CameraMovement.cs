@@ -143,12 +143,10 @@ public class CameraMovement : MonoBehaviour
             {
                 case "Restart":
                     GetComponent<GameplayMenu>().UnPauseGame();
-                    GetComponent<DropMoreProducts>().DropItems();
                     GetComponent<DropMoreProducts>().DropMadeProducts();
                     break;
                 case "Start":
                     gameObject.AddComponent<GrabAndThrowObject>();
-                    GetComponent<DropMoreProducts>().DropItems();
                     GetComponent<DropMoreProducts>().DropMadeProducts();
                     break;
                 case "Unpause":
@@ -236,10 +234,8 @@ public class CameraMovement : MonoBehaviour
         {
             case "Restart":
                 GetComponent<GameplayMenu>().UnPauseGame();
-                GetComponent<DropMoreProducts>().DropItems();
                 break;
             case "Start":
-                GetComponent<DropMoreProducts>().DropItems();
                 break;
         }
     }
@@ -282,18 +278,33 @@ public class CameraMovement : MonoBehaviour
     {
         grill = true;
         SetCameraPosition(GetComponent<PositionManager>().GrillPosition());
+        if (!GetComponent<DropMoreProducts>().GetDroppedBurgers())
+        {
+            GetComponent<DropMoreProducts>().SetDroppedBurgers();
+            GetComponent<DropMoreProducts>().DropBurgerProducts();
+        }
     }
 
     public void MoveToFryer()
     {
         fryer = true;
         SetCameraPosition(GetComponent<PositionManager>().FryerPosition());
+        if (!GetComponent<DropMoreProducts>().GetDroppedFries())
+        {
+            GetComponent<DropMoreProducts>().SetDroppedFries();
+            GetComponent<DropMoreProducts>().DropFryProducts();
+        }
     }
 
     public void MoveToSodaMachine()
     {
         soda = true;
         SetCameraPosition(GetComponent<PositionManager>().SodaPosition());
+        if (!GetComponent<DropMoreProducts>().GetDroppedDrinks())
+        {
+            GetComponent<DropMoreProducts>().SetDroppedDrinks();
+            GetComponent<DropMoreProducts>().DropDrinkProducts();
+        }
     }
 
     void SetCameraPosition(Transform movingTowards)

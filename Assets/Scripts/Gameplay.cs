@@ -308,6 +308,7 @@ public class Gameplay : MonoBehaviour
         chanceOfSpecialZombie = 0;
         GetComponent<LEDManager>().ResetPointsText();
         GetComponent<WindManager>().ResetValues();
+        GetComponent<DropMoreProducts>().ResetDroppedItems();
         NotGameOver();
     }
 
@@ -318,6 +319,7 @@ public class Gameplay : MonoBehaviour
         maxLife = 100;
         life = 100;
         regenTimer = 0;
+        GetComponent<DropMoreProducts>().ResetDroppedItems();
         NotGameOver();
     }
 

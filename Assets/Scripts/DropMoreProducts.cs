@@ -8,6 +8,7 @@ public class DropMoreProducts : MonoBehaviour
     GameObject fries, burger, drink;
     GameObject meat, topBun, bottomBun, uncookedFries, friesBasket, cup, lid;
     GameObject foodTruck;
+    bool droppedBurgers, droppedDrinks, droppedFries;
 
     void Start()
     {
@@ -26,17 +27,6 @@ public class DropMoreProducts : MonoBehaviour
         cup = GetComponent<ObjectManager>().Cup();
         lid = GetComponent<ObjectManager>().Lid();
         foodTruck = GetComponent<ObjectManager>().FoodTruck();
-    }
-
-    public void DropItems()
-    {
-        DropMeat();
-        DropTopBun();
-        DropBottomBun();
-        DropFries();
-        DropBasket();
-        DropCup();
-        DropLid();
     }
 
     public void DropMadeProducts()
@@ -72,8 +62,8 @@ public class DropMoreProducts : MonoBehaviour
             {
                 newProduct.transform.localScale = Vector3.one * 1.25f;
             }
-			newProduct.GetComponent<Rigidbody>().velocity = new Vector3(0, -5, 0);
-		}
+            newProduct.GetComponent<Rigidbody>().velocity = new Vector3(0, -5, 0);
+        }
     }
 
     public void DropDrink()
@@ -87,8 +77,8 @@ public class DropMoreProducts : MonoBehaviour
             {
                 newProduct.transform.localScale = Vector3.one * 1.25f;
             }
-			newProduct.GetComponent<Rigidbody>().velocity = new Vector3(0, -5, 0);
-		}
+            newProduct.GetComponent<Rigidbody>().velocity = new Vector3(0, -5, 0);
+        }
     }
 
     public void DropMeat()
@@ -183,5 +173,86 @@ public class DropMoreProducts : MonoBehaviour
         Physics.IgnoreCollision(sodaWall.GetComponent<Collider>(), newProduct.GetComponent<Collider>());
         Physics.IgnoreCollision(counterWall.GetComponent<Collider>(), newProduct.GetComponent<Collider>());
         Physics.IgnoreCollision(fryerWall.GetComponent<Collider>(), newProduct.GetComponent<Collider>());
+    }
+
+    public bool GetDroppedBurgers()
+    {
+        return droppedBurgers;
+    }
+
+    public bool GetDroppedFries()
+    {
+        return droppedFries;
+    }
+
+    public bool GetDroppedDrinks()
+    {
+        return droppedDrinks;
+    }
+
+    public void SetDroppedBurgers()
+    {
+        droppedBurgers = true;
+    }
+
+    public void SetDroppedFries()
+    {
+        droppedFries = true;
+    }
+
+    public void SetDroppedDrinks()
+    {
+        droppedDrinks = true;
+    }
+
+    public void DropBurgerProducts()
+    {
+        DropMeat();
+        DropTopBun();
+        DropBottomBun();
+        StartCoroutine(DropMoreBurgers());
+    }
+
+    public void DropFryProducts()
+    {
+        DropFries();
+        DropBasket();
+        StartCoroutine(DropMoreFries());
+    }
+
+    public void DropDrinkProducts()
+    {
+        DropCup();
+        DropLid();
+        StartCoroutine(DropMoreDrinks());
+    }
+
+    public void ResetDroppedItems()
+    {
+        droppedFries = false;
+        droppedDrinks = false;
+        droppedBurgers = false;
+    }
+
+    IEnumerator DropMoreBurgers()
+    {
+        yield return new WaitForSeconds(0.3f);
+        DropMeat();
+        DropTopBun();
+        DropBottomBun();
+    }
+
+    IEnumerator DropMoreFries()
+    {
+        yield return new WaitForSeconds(0.3f);
+        DropFries();
+        DropBasket();
+    }
+
+    IEnumerator DropMoreDrinks()
+    {
+        yield return new WaitForSeconds(0.3f);
+        DropCup();
+        DropLid();
     }
 }
