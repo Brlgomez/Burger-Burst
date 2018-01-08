@@ -8,6 +8,7 @@ public class Meat : MonoBehaviour
     int maxAmountOfBurgers = 10;
     float timeOnGrill;
     bool touchingTop, touchingBottom;
+    bool justPlayedSound;
     GameObject topBun, bottomBun;
 
     void Start()
@@ -54,8 +55,12 @@ public class Meat : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        float impactSpeed = GetComponent<Rigidbody>().velocity.magnitude;
-        Camera.main.GetComponent<SoundAndMusicManager>().PlayDropPattySound(gameObject, (impactSpeed / 10));
+        if (!justPlayedSound)
+        {
+            float impactSpeed = GetComponent<Rigidbody>().velocity.magnitude;
+            Camera.main.GetComponent<SoundAndMusicManager>().PlayDropPattySound(gameObject, (impactSpeed / 10));
+            JustPlayedSound();
+        }
         if (collision.gameObject.name == "Grill Top" && timeOnGrill < maxTimeOnGrill)
         {
             gameObject.AddComponent<CookMeat>();
@@ -144,5 +149,17 @@ public class Meat : MonoBehaviour
             RemoveObject(gameObject);
             Destroy(GetComponent<Meat>());
         }
+    }
+
+    public void JustPlayedSound()
+    {
+        justPlayedSound = true;
+        StartCoroutine(Timer());
+    }
+
+    public IEnumerator Timer()
+    {
+        yield return new WaitForSeconds(0.1f);
+        justPlayedSound = false;
     }
 }

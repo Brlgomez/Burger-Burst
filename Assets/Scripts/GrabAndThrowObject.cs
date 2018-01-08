@@ -265,6 +265,18 @@ public class GrabAndThrowObject : MonoBehaviour
             target.GetComponent<Rigidbody>().useGravity = false;
             target.GetComponent<ParticleSystem>().Play();
             counterWall.GetComponent<Collider>().enabled = true;
+            if (target.name == "Burger(Clone)")
+            {
+                GetComponent<SoundAndMusicManager>().PlayDropBurgerSound(gameObject, 0.25f);
+            }
+            else if (target.name == "Fries(Clone)")
+            {
+                GetComponent<SoundAndMusicManager>().PlayDropFriesSound(gameObject, 0.25f);
+            }
+            else
+            {
+                GetComponent<SoundAndMusicManager>().PlayDropDrinkSound(gameObject, 0.25f);
+            }
         }
     }
 
@@ -282,6 +294,7 @@ public class GrabAndThrowObject : MonoBehaviour
             {
                 target.GetComponent<Meat>().PickedUp();
             }
+            GetComponent<SoundAndMusicManager>().PlayDropPattySound(target, 0.25f);
         }
     }
 
@@ -294,6 +307,14 @@ public class GrabAndThrowObject : MonoBehaviour
             target.GetComponent<Rigidbody>().isKinematic = false;
             target.GetComponent<Rigidbody>().useGravity = false;
             fryerWall.GetComponent<Collider>().enabled = true;
+            if (target.tag == "Fries")
+            {
+                GetComponent<SoundAndMusicManager>().PlayDropFriesSound(target, 0.25f);
+            }
+            else
+            {
+                GetComponent<SoundAndMusicManager>().PlayDropBasketSound(target, 0.25f);
+            }
         }
     }
 
@@ -308,10 +329,12 @@ public class GrabAndThrowObject : MonoBehaviour
             sodaWall.GetComponent<Collider>().enabled = true;
             if (target.tag == "Soda")
             {
+                target.GetComponent<SodaCup>().PickedUp();
                 target.layer = 2;
             }
             else
             {
+                GetComponent<SoundAndMusicManager>().PlayDropLidSound(target, 0.25f);
                 target.GetComponent<Collider>().enabled = false;
             }
         }

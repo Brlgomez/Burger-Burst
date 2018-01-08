@@ -183,4 +183,11 @@ public class SodaCup : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         justPlayedSound = false;
     }
+
+    public void PickedUp()
+    {
+        float fill = (((maxTimeUnderFountain) - (Mathf.Abs(timeUnderFountain - (maxTimeUnderFountain)))) / (maxTimeUnderFountain));
+        float pitch = (1 - (fill / 4));
+        Camera.main.GetComponent<SoundAndMusicManager>().PlayDropCupSound(gameObject, 0.25f, pitch);
+    }
 }
