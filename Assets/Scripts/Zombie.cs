@@ -36,9 +36,13 @@ public class Zombie : MonoBehaviour
     bool frozen;
     int damageAmount = 10;
     int pointsMultiplier = 1;
+    float timerForIdleNoise;
+    int timeForNextIdelSound;
 
     enum ZombieType { regular, coin, healing, instantKill, poison, speed, ice };
+    enum ZombieSize { normal, large, small };
     ZombieType thisZombieType = ZombieType.regular;
+    ZombieSize thisZombieSize = ZombieSize.normal;
 
     Renderer myRenderer;
 
@@ -54,10 +58,12 @@ public class Zombie : MonoBehaviour
         deathParticles = upperBody.transform.GetChild(2).GetComponent<ParticleSystem>();
         WakeUp();
         SetOrder();
+        PickNextIdleSoundTime();
         thinkBubble.AddComponent<IncreaseSize>();
         myRenderer = head.GetComponent<Renderer>();
         if (transform.localScale.x > 1.1f)
         {
+            thisZombieSize = ZombieSize.large;
             damageAmount *= 2;
             thinkBubble.transform.position = new Vector3(
                 thinkBubble.transform.position.x - 0.25f,
@@ -67,6 +73,7 @@ public class Zombie : MonoBehaviour
         }
         else if (transform.localScale.x < 0.9f)
         {
+            thisZombieSize = ZombieSize.small;
             damageAmount /= 2;
         }
     }
@@ -87,6 +94,7 @@ public class Zombie : MonoBehaviour
                 {
                     NearFoodTruck();
                 }
+                IncreaseIdleSoundTimer();
             }
             else
             {
@@ -826,5 +834,32 @@ public class Zombie : MonoBehaviour
     {
         GetComponent<Animator>().enabled = false;
         Destroy(gameObject.GetComponent<Zombie>());
+    }
+
+    void IncreaseIdleSoundTimer()
+    {
+        timerForIdleNoise += (Time.deltaTime * updateInterval);
+        if (timerForIdleNoise > timeForNextIdelSound)
+        {
+            if (thisZombieSize == ZombieSize.small)
+            {
+                Camera.main.GetComponent<SoundAndMusicManager>().PlayZombieIdleSound(gameObject, 2);
+            }
+            else if (thisZombieSize == ZombieSize.large)
+            {
+                Camera.main.GetComponent<SoundAndMusicManager>().PlayZombieIdleSound(gameObject, 0.75f);
+            }
+            else
+            {
+                Camera.main.GetComponent<SoundAndMusicManager>().PlayZombieIdleSound(gameObject, 1);
+            }
+            PickNextIdleSoundTime();
+        }
+    }
+
+    void PickNextIdleSoundTime()
+    {
+        timerForIdleNoise = 0;
+        timeForNextIdelSound = Random.Range(5, 30);
     }
 }

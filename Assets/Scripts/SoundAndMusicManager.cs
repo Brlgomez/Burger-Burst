@@ -9,8 +9,9 @@ public class SoundAndMusicManager : MonoBehaviour
     public AudioClip boughtItemWithCoins, horn, vibrate, stereoSwitch, bootUp, highScore;
     public AudioClip steam, button, dropCup, dropLid, dropPatty, dropFries, dropBasket;
     public AudioClip foodComplete, badFood, dropDrink, healthUp, healthDown, punch;
-    public AudioClip deathPunch, puff;
+    public AudioClip deathPunch, puff, sparkle;
     public AudioClip[] walkOnGrass;
+    public AudioClip[] zombieIdleNoises;
 
     bool canPlayMusic = true;
     bool canPlaySound = true;
@@ -347,13 +348,21 @@ public class SoundAndMusicManager : MonoBehaviour
         }
     }
 
-	public void PlayPunchSound(GameObject obj)
-	{
-		if (canPlaySound)
-		{
-			PlayClipAt(punch, obj.transform.position, 1, Random.Range(0.9f, 1.1f));
-		}
-	}
+    public void PlayZombieIdleSound(GameObject obj, float pitch)
+    {
+        if (canPlaySound)
+        {
+            PlayClipAt(zombieIdleNoises[Random.Range(0, zombieIdleNoises.Length)], obj.transform.position, 1, pitch);
+        }
+    }
+
+    public void PlayPunchSound(GameObject obj)
+    {
+        if (canPlaySound)
+        {
+            PlayClipAt(punch, obj.transform.position, 1, Random.Range(0.9f, 1.1f));
+        }
+    }
 
     public void PlayDeathPunchSound(GameObject obj)
     {
@@ -364,12 +373,21 @@ public class SoundAndMusicManager : MonoBehaviour
     }
 
     public void PlayPuffSound(GameObject obj)
-	{
-		if (canPlaySound)
-		{
-			PlayClipAt(puff, obj.transform.position, 1, 1);
-		}
-	}
+    {
+        if (canPlaySound)
+        {
+            PlayClipAt(puff, obj.transform.position, 1, 1);
+        }
+    }
+
+    public void PlayZombieSparckleSound(AudioSource zombieSource)
+    {
+        if (canPlaySound)
+        {
+            zombieSource.clip = sparkle;
+            zombieSource.Play();
+        }
+    }
 
     AudioSource PlayClipAt(AudioClip clip, Vector3 pos, float volume, float pitch)
     {
