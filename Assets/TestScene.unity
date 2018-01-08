@@ -28385,7 +28385,7 @@ Transform:
   - {fileID: 184067283}
   m_Father: {fileID: 2047138150}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 26.302223, y: -179.99998, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -179.99998, z: 0}
 --- !u!144 &477247587
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -99493,7 +99493,7 @@ Transform:
   - {fileID: 1546090970}
   m_Father: {fileID: 2047138150}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: -26.302223, y: -179.99998, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -179.99998, z: 0}
 --- !u!144 &1739818921
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -101237,6 +101237,12 @@ MonoBehaviour:
   dropDrink: {fileID: 8300000, guid: 1d2b20a7ca1454911aa0501b81a6f02c, type: 3}
   healthUp: {fileID: 8300000, guid: 13b266154195e4680897f8f3bda8b995, type: 3}
   healthDown: {fileID: 8300000, guid: b6be798a8e69b46688dd35f989e0cd0e, type: 3}
+  punch: {fileID: 8300000, guid: 6ab1e5f151ef7481f907af977b3cb7c9, type: 3}
+  deathPunch: {fileID: 8300000, guid: 4002ad1f40d31460195ea6777c8ac2ed, type: 3}
+  puff: {fileID: 8300000, guid: a9f51d5613f274ea9b1a321254bfedc2, type: 3}
+  walkOnGrass:
+  - {fileID: 8300000, guid: f3e9b36bd4d6b4c598ad8a819690c8c5, type: 3}
+  - {fileID: 8300000, guid: a22565a88c43845e3831c34df9ce7153, type: 3}
 --- !u!82 &1865169801
 AudioSource:
   m_ObjectHideFlags: 0
@@ -101304,7 +101310,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -103252,6 +103258,7 @@ GameObject:
   - component: {fileID: 2047138150}
   - component: {fileID: 2047138152}
   - component: {fileID: 2047138153}
+  - component: {fileID: 2047138154}
   m_Layer: 0
   m_Name: Zombie
   m_TagString: Untagged
@@ -103288,6 +103295,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 3, z: 1}
   m_Center: {x: 0, y: 1.5, z: 0}
+--- !u!114 &2047138154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2047138151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a986ecb22f465424681ede97a1593b8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2065319406
 GameObject:
   m_ObjectHideFlags: 0

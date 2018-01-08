@@ -45,7 +45,7 @@ public class Gameplay : MonoBehaviour
             points += addedPoints;
             GetComponent<FloatingTextManagement>().AddFloatingText(obj, addedPoints.ToString(), Color.cyan, addedPoints + 1);
             GetComponent<LEDManager>().UpdatePointsText(points);
-            GetComponent<PlayerPrefsManager>().IncreaseTotalPoints(points);
+            GetComponent<PlayerPrefsManager>().IncreaseTotalPoints(addedPoints);
         }
     }
 

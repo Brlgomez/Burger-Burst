@@ -154,6 +154,7 @@ public class Zombie : MonoBehaviour
             deathParticles.Play();
             MakeZombieDisappear();
             particlesPlaying = true;
+            Camera.main.GetComponent<SoundAndMusicManager>().PlayPuffSound(gameObject);
             if (thisZombieType == ZombieType.coin)
             {
                 Camera.main.GetComponent<Gameplay>().StartCoinLancher(10, thinkBubble);
@@ -218,18 +219,20 @@ public class Zombie : MonoBehaviour
             case ZombieType.instantKill:
                 if (!Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(Camera.main.GetComponent<PowerUpsManager>().noInstantKill.powerUpNumber))
                 {
+                    Camera.main.GetComponent<SoundAndMusicManager>().PlayDeathPunchSound(gameObject);
                     Camera.main.GetComponent<Gameplay>().ReduceHealth(1000, upperBody);
                 }
                 else
                 {
+                    Camera.main.GetComponent<SoundAndMusicManager>().PlayPunchSound(gameObject);
                     Camera.main.GetComponent<Gameplay>().ReduceHealth(damageAmount, upperBody);
                 }
-
                 break;
             case ZombieType.poison:
                 thisZombieType = ZombieType.regular;
                 powerParticles.Play();
                 powerParticles.Stop();
+                Camera.main.GetComponent<SoundAndMusicManager>().PlayPunchSound(gameObject);
                 if (!Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(Camera.main.GetComponent<PowerUpsManager>().noPoison.powerUpNumber))
                 {
                     Camera.main.GetComponent<Gameplay>().ReduceHealth(damageAmount, upperBody);
@@ -251,6 +254,7 @@ public class Zombie : MonoBehaviour
                 thisZombieType = ZombieType.regular;
                 powerParticles.Play();
                 powerParticles.Stop();
+                Camera.main.GetComponent<SoundAndMusicManager>().PlayPunchSound(gameObject);
                 if (!Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(Camera.main.GetComponent<PowerUpsManager>().noIce.powerUpNumber))
                 {
                     Camera.main.GetComponent<Gameplay>().ReduceHealth(damageAmount, upperBody);
@@ -270,6 +274,7 @@ public class Zombie : MonoBehaviour
 
                 break;
             default:
+                Camera.main.GetComponent<SoundAndMusicManager>().PlayPunchSound(gameObject);
                 Camera.main.GetComponent<Gameplay>().ReduceHealth(damageAmount, upperBody);
                 break;
         }

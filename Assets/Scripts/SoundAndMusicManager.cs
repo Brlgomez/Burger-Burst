@@ -8,7 +8,9 @@ public class SoundAndMusicManager : MonoBehaviour
     public AudioClip scrollSound, pickingSlotSound, pickItemSound, removePowerUpSound;
     public AudioClip boughtItemWithCoins, horn, vibrate, stereoSwitch, bootUp, highScore;
     public AudioClip steam, button, dropCup, dropLid, dropPatty, dropFries, dropBasket;
-    public AudioClip foodComplete, badFood, dropDrink, healthUp, healthDown;
+    public AudioClip foodComplete, badFood, dropDrink, healthUp, healthDown, punch;
+    public AudioClip deathPunch, puff;
+    public AudioClip[] walkOnGrass;
 
     bool canPlayMusic = true;
     bool canPlaySound = true;
@@ -337,6 +339,38 @@ public class SoundAndMusicManager : MonoBehaviour
         }
     }
 
+    public void PlayWalkingOnGrassSound(GameObject obj)
+    {
+        if (canPlaySound)
+        {
+            PlayClipAt(walkOnGrass[Random.Range(0, walkOnGrass.Length)], obj.transform.position, 0.25f, Random.Range(0.9f, 1.1f));
+        }
+    }
+
+	public void PlayPunchSound(GameObject obj)
+	{
+		if (canPlaySound)
+		{
+			PlayClipAt(punch, obj.transform.position, 1, Random.Range(0.9f, 1.1f));
+		}
+	}
+
+    public void PlayDeathPunchSound(GameObject obj)
+    {
+        if (canPlaySound)
+        {
+            PlayClipAt(deathPunch, obj.transform.position, 1, 1);
+        }
+    }
+
+    public void PlayPuffSound(GameObject obj)
+	{
+		if (canPlaySound)
+		{
+			PlayClipAt(puff, obj.transform.position, 1, 1);
+		}
+	}
+
     AudioSource PlayClipAt(AudioClip clip, Vector3 pos, float volume, float pitch)
     {
         GameObject temp = new GameObject("TempAudio");
@@ -345,6 +379,8 @@ public class SoundAndMusicManager : MonoBehaviour
         tempSource.clip = clip;
         tempSource.volume = volume;
         tempSource.pitch = pitch;
+        tempSource.spatialBlend = 1;
+        tempSource.maxDistance = 10;
         tempSource.Play();
         Destroy(temp, clip.length);
         return tempSource;
