@@ -97884,6 +97884,8 @@ MonoBehaviour:
   foodComplete: {fileID: 8300000, guid: ac9ad9f9b6b4b4bdaa7515b7c8431c98, type: 3}
   badFood: {fileID: 8300000, guid: a9e74e478964a49639f392eb01744c17, type: 3}
   dropDrink: {fileID: 8300000, guid: 1d2b20a7ca1454911aa0501b81a6f02c, type: 3}
+  healthUp: {fileID: 8300000, guid: 13b266154195e4680897f8f3bda8b995, type: 3}
+  healthDown: {fileID: 8300000, guid: b6be798a8e69b46688dd35f989e0cd0e, type: 3}
 --- !u!82 &1865169801
 AudioSource:
   m_ObjectHideFlags: 0

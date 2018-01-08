@@ -58,7 +58,6 @@ ScreenTextManagment : MonoBehaviour
         line2.GetComponent<TextMesh>().characterSize = 0.025f;
         line3.GetComponent<TextMesh>().characterSize = 0.025f;
         line4.GetComponent<TextMesh>().characterSize = 0.025f;
-        GetComponent<LEDManager>().MakeUnlockTextBlink();
         lastArea = currentArea;
         currentArea = Menus.Menu.MainMenu;
     }

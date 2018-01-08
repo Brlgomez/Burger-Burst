@@ -35,7 +35,6 @@ public class LEDManager : MonoBehaviour
 
         ResetPointsText();
         UpdateCoinsText();
-        UpdateHighScoreText();
     }
 
     public void UpdatePointsText(float number)
@@ -53,7 +52,7 @@ public class LEDManager : MonoBehaviour
         coinsLed.GetComponent<TextMesh>().text = "    " + GetComponent<PlayerPrefsManager>().GetCoins().ToString("n0");
     }
 
-    public void UpdateHighScoreText()
+    void UpdateHighScoreText()
     {
         highScoreLed.GetComponent<TextMesh>().text = "High Score\n" + GetComponent<PlayerPrefsManager>().GetHighScore().ToString("n0");
         totalScoreLed.GetComponent<TextMesh>().text = "Total Points\n" + GetComponent<PlayerPrefsManager>().GetTotalPoints().ToString("n0");
@@ -69,7 +68,10 @@ public class LEDManager : MonoBehaviour
 
     public void ShowWhatIsUnlocked(string text)
     {
-        unlockedLed.GetComponent<TextMesh>().text = "NEW " + text + " \nAVAILABLE";
+        if (text != "")
+        {
+            unlockedLed.GetComponent<TextMesh>().text = "NEW " + text + " \nAVAILABLE";
+        }
     }
 
     public void EraseUnlockText()
@@ -86,7 +88,7 @@ public class LEDManager : MonoBehaviour
         return "";
     }
 
-    public void MakeUnlockTextBlink()
+    void MakeUnlockTextBlink()
     {
         if (unlockedLed.GetComponent<TextMesh>().text != "")
         {
@@ -106,5 +108,12 @@ public class LEDManager : MonoBehaviour
         {
             Destroy(unlockedLed.GetComponent<PingPongColor>());
         }
+    }
+
+    public void CheckIfAnythingUnlocked()
+    {
+        ShowWhatIsUnlocked(GetComponent<PlayerPrefsManager>().CheckIfAnythingUnlocked());
+        UpdateHighScoreText();
+        MakeUnlockTextBlink();
     }
 }

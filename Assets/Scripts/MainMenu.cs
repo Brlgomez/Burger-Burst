@@ -55,6 +55,7 @@ public class MainMenu : MonoBehaviour
     {
         if (GetComponent<ScreenTextManagment>().GetMenu() == Menus.Menu.PhoneDown)
         {
+            GetComponent<LEDManager>().CheckIfAnythingUnlocked();
             GetComponent<ScreenTextManagment>().ChangeToTitleText();
             gameObject.AddComponent<CameraMovement>().MoveToTitle();
         }
@@ -181,13 +182,13 @@ public class MainMenu : MonoBehaviour
 
     public IEnumerator PhoneStartUp()
     {
-		GetComponent<SoundAndMusicManager>().PlayBootUpSound();
-		GameObject phone = GetComponent<ObjectManager>().Phone();
+        GetComponent<SoundAndMusicManager>().PlayBootUpSound();
+        GameObject phone = GetComponent<ObjectManager>().Phone();
         for (int i = 0; i < 5; i++)
         {
-			phone.GetComponent<Renderer>().material.mainTexture = GetComponent<Textures>().phoneLoading;
+            phone.GetComponent<Renderer>().material.mainTexture = GetComponent<Textures>().phoneLoading;
             yield return new WaitForSeconds(0.25f);
-			phone.GetComponent<Renderer>().material.mainTexture = GetComponent<Textures>().phoneLoading2;
+            phone.GetComponent<Renderer>().material.mainTexture = GetComponent<Textures>().phoneLoading2;
             yield return new WaitForSeconds(0.25f);
         }
         phone.GetComponent<Renderer>().material.mainTexture = GetComponent<Textures>().phoneOn;

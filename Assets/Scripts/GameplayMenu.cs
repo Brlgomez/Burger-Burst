@@ -209,11 +209,7 @@ public class GameplayMenu : MonoBehaviour
             Destroy(GetComponent<ObjectManager>().Phone().transform.GetChild(0).gameObject.GetComponent<PingPongColor>());
         }
         CheckCamera();
-        if (GetComponent<PlayerPrefsManager>().CheckIfAnythingUnlocked())
-        {
-            GetComponent<LEDManager>().ShowWhatIsUnlocked(GetComponent<PlayerPrefsManager>().UnlockItem());
-        }
-        GetComponent<LEDManager>().UpdateHighScoreText();
+        GetComponent<LEDManager>().CheckIfAnythingUnlocked();
         GetComponent<GrabAndThrowObject>().currentArea = GrabAndThrowObject.Area.quit;
         initialPosition = GetComponent<PositionManager>().GameplayPosition();
         transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 0, 0, 0);

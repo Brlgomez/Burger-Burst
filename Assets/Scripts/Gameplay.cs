@@ -71,6 +71,7 @@ public class Gameplay : MonoBehaviour
             }
             GetComponent<FloatingTextManagement>().AddFloatingText(obj, "+HP", Color.green, size + 1);
             GetComponent<ScreenTextManagment>().ChangeHealthCount(n);
+            GetComponent<SoundAndMusicManager>().PlayHealthUpSound(gameObject);
         }
     }
 
@@ -96,6 +97,7 @@ public class Gameplay : MonoBehaviour
     void ReduceHealthLogic(int damage)
     {
         GetComponent<VibrationManager>().Vibrate();
+        GetComponent<SoundAndMusicManager>().PlayHealthDownSound(gameObject);
         life -= Mathf.RoundToInt(damage * defense);
         if (!gameOver)
         {
@@ -302,8 +304,8 @@ public class Gameplay : MonoBehaviour
         chanceOfDifSizedZombie = 0;
         chanceOfSpecialZombie = 0;
         GetComponent<LEDManager>().ResetPointsText();
-		GetComponent<WindManager>().ResetValues();
-		NotGameOver();
+        GetComponent<WindManager>().ResetValues();
+        NotGameOver();
     }
 
     public void Continue()

@@ -8,7 +8,7 @@ public class SoundAndMusicManager : MonoBehaviour
     public AudioClip scrollSound, pickingSlotSound, pickItemSound, removePowerUpSound;
     public AudioClip boughtItemWithCoins, horn, vibrate, stereoSwitch, bootUp, highScore;
     public AudioClip steam, button, dropCup, dropLid, dropPatty, dropFries, dropBasket;
-    public AudioClip foodComplete, badFood, dropDrink;
+    public AudioClip foodComplete, badFood, dropDrink, healthUp, healthDown;
 
     bool canPlayMusic = true;
     bool canPlaySound = true;
@@ -318,6 +318,22 @@ public class SoundAndMusicManager : MonoBehaviour
         if (canPlaySound)
         {
             PlayClipAt(badFood, obj.transform.position, 1, 1);
+        }
+    }
+
+    public void PlayHealthUpSound(GameObject obj)
+    {
+        if (canPlaySound)
+        {
+            PlayClipAt(healthUp, obj.transform.position, 1, 1);
+        }
+    }
+
+    public void PlayHealthDownSound(GameObject obj)
+    {
+        if (canPlaySound)
+        {
+            PlayClipAt(healthDown, obj.transform.position, 1, 1);
         }
     }
 

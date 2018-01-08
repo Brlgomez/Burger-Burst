@@ -383,17 +383,22 @@ public class PlayerPrefsManager : MonoBehaviour
         PlayerPrefs.SetInt(nextUnlock, Mathf.RoundToInt(GetNextUnlock() + (GetNextUnlock() * 0.025f) + 100));
     }
 
-    public bool CheckIfAnythingUnlocked()
+    public string CheckIfAnythingUnlocked()
     {
-        if (GetTotalPoints() >= GetNextUnlock())
+        string somethingUnlocked = "";
+        while (GetTotalPoints() >= GetNextUnlock())
         {
             if (floorsLeft + wallsLeft + detailsLeft + powerUpsLeft > 0)
             {
                 IncreaseNextUnlock();
-                return true;
+                somethingUnlocked = UnlockItem();
+            }
+            else
+            {
+                break;
             }
         }
-        return false;
+        return somethingUnlocked;
     }
 
     public string UnlockItem()
@@ -432,10 +437,6 @@ public class PlayerPrefsManager : MonoBehaviour
     {
         if (floorsLeft + wallsLeft + detailsLeft + powerUpsLeft > 0)
         {
-            if (CheckIfAnythingUnlocked())
-            {
-                GetComponent<LEDManager>().ShowWhatIsUnlocked(UnlockItem());
-            }
             return GetNextUnlock() - GetTotalPoints();
         }
         return -1;

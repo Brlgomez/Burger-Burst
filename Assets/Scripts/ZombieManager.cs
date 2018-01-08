@@ -43,7 +43,7 @@ public class ZombieManager : MonoBehaviour
         {
             if (GetCount() < maxAmountOfZombies && !GetComponent<Gameplay>().IsGameOver())
             {
-                //GetComponent<CarManager>().CreateNewCarWithZombie();
+                GetComponent<CarManager>().CreateNewCarWithZombie();
                 if (Random.value < 0.25f)
                 {
                     GetComponent<CarManager>().CreateNewCarWithNoZombie();
