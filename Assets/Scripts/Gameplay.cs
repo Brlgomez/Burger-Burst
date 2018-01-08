@@ -72,6 +72,9 @@ public class Gameplay : MonoBehaviour
             GetComponent<FloatingTextManagement>().AddFloatingText(obj, "+HP", Color.green, size + 1);
             GetComponent<ScreenTextManagment>().ChangeHealthCount(n);
             GetComponent<SoundAndMusicManager>().PlayHealthUpSound(gameObject);
+            var main = gameObject.transform.GetChild(9).GetComponent<ParticleSystem>().main;
+            gameObject.transform.GetChild(9).GetComponent<ParticleSystem>().Play();
+            main.maxParticles = n;
         }
     }
 
