@@ -380,7 +380,7 @@ public class PlayerPrefsManager : MonoBehaviour
 
     void IncreaseNextUnlock()
     {
-        PlayerPrefs.SetInt(nextUnlock, Mathf.RoundToInt(GetNextUnlock() + (GetNextUnlock() * 0.025f) + 100));
+        PlayerPrefs.SetInt(nextUnlock, Mathf.RoundToInt((1.025f * GetNextUnlock()) + 100));
     }
 
     public string CheckIfAnythingUnlocked()

@@ -76,17 +76,18 @@ public class Zombie : MonoBehaviour
             thisZombieSize = ZombieSize.small;
             damageAmount /= 2;
         }
+        originalMaterial = head.GetComponent<Renderer>().material;
     }
 
     void FixedUpdate()
     {
         if (Time.frameCount % updateInterval == 0)
         {
-            if (!orderComplete)
+            if (!orderComplete && !frozen)
             {
                 leftHand.GetComponent<Rigidbody>().AddRelativeForce(-leftHand.transform.forward * 20);
                 rightHand.GetComponent<Rigidbody>().AddRelativeForce(-rightHand.transform.forward * 20);
-                if (head.transform.position.z > endingZ && !frozen)
+                if (head.transform.position.z > endingZ)
                 {
                     Walk();
                 }
@@ -96,7 +97,7 @@ public class Zombie : MonoBehaviour
                 }
                 IncreaseIdleSoundTimer();
             }
-            else
+            if (orderComplete)
             {
                 OrderCompleted();
             }
@@ -186,10 +187,7 @@ public class Zombie : MonoBehaviour
     void NearFoodTruck()
     {
         GetComponent<Animator>().SetFloat("Speed", 0);
-        if (!frozen)
-        {
-            damageTime += Time.deltaTime * updateInterval;
-        }
+        damageTime += Time.deltaTime * updateInterval;
         if (rightThigh.GetComponent<Rigidbody>().isKinematic)
         {
             rightThigh.GetComponent<Rigidbody>().isKinematic = false;
@@ -227,12 +225,10 @@ public class Zombie : MonoBehaviour
             case ZombieType.instantKill:
                 if (!Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(Camera.main.GetComponent<PowerUpsManager>().noInstantKill.powerUpNumber))
                 {
-                    Camera.main.GetComponent<SoundAndMusicManager>().PlayDeathPunchSound(gameObject);
                     Camera.main.GetComponent<Gameplay>().ReduceHealth(1000, upperBody);
                 }
                 else
                 {
-                    Camera.main.GetComponent<SoundAndMusicManager>().PlayPunchSound(gameObject);
                     Camera.main.GetComponent<Gameplay>().ReduceHealth(damageAmount, upperBody);
                 }
                 break;
@@ -241,7 +237,6 @@ public class Zombie : MonoBehaviour
                 powerParticles.Play();
                 powerParticles.Stop();
                 Camera.main.GetComponent<SoundAndMusicManager>().StopLoopFromSourceAndLowerVolume(gameObject, -1);
-                Camera.main.GetComponent<SoundAndMusicManager>().PlayPunchSound(gameObject);
                 if (!Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(Camera.main.GetComponent<PowerUpsManager>().noPoison.powerUpNumber))
                 {
                     Camera.main.GetComponent<Gameplay>().ReduceHealth(damageAmount, upperBody);
@@ -264,7 +259,6 @@ public class Zombie : MonoBehaviour
                 powerParticles.Play();
                 powerParticles.Stop();
                 Camera.main.GetComponent<SoundAndMusicManager>().StopLoopFromSourceAndLowerVolume(gameObject, -1);
-                Camera.main.GetComponent<SoundAndMusicManager>().PlayPunchSound(gameObject);
                 if (!Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(Camera.main.GetComponent<PowerUpsManager>().noIce.powerUpNumber))
                 {
                     Camera.main.GetComponent<Gameplay>().ReduceHealth(damageAmount, upperBody);
@@ -284,7 +278,6 @@ public class Zombie : MonoBehaviour
 
                 break;
             default:
-                Camera.main.GetComponent<SoundAndMusicManager>().PlayPunchSound(gameObject);
                 Camera.main.GetComponent<Gameplay>().ReduceHealth(damageAmount, upperBody);
                 break;
         }
@@ -336,10 +329,6 @@ public class Zombie : MonoBehaviour
 
     public void AddToPlatter(GameObject obj)
     {
-        if (Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(Camera.main.GetComponent<PowerUpsManager>().freeze.powerUpNumber))
-        {
-            FreezeZombie();
-        }
         if (!orderComplete)
         {
             if (obj.name == "Burger(Clone)" || obj.name == "Burger(Clone)Copy")
@@ -377,6 +366,10 @@ public class Zombie : MonoBehaviour
                 {
                     AddToBody(obj);
                 }
+            }
+            if (Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(Camera.main.GetComponent<PowerUpsManager>().freeze.powerUpNumber))
+            {
+                FreezeZombie();
             }
         }
     }
@@ -506,7 +499,7 @@ public class Zombie : MonoBehaviour
         {
             obj.GetComponent<Rigidbody>().drag = 0;
             obj.GetComponent<Rigidbody>().angularDrag = 0;
-            if (obj == rightThigh || obj == leftThigh)
+            if ((obj == rightThigh || obj == leftThigh) && !frozen)
             {
                 obj.GetComponent<Rigidbody>().useGravity = true;
                 obj.GetComponent<Rigidbody>().isKinematic = false;
@@ -816,7 +809,7 @@ public class Zombie : MonoBehaviour
 
     public void FreezeZombie()
     {
-        originalMaterial = head.GetComponent<Renderer>().material;
+        Camera.main.GetComponent<SoundAndMusicManager>().PlayFreezeSound(gameObject);
         frozen = true;
         speed = 0;
         updateInterval = 15;

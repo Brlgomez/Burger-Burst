@@ -66,6 +66,7 @@ public class RemoveObjects : MonoBehaviour
             {
                 if (!gameObject.name.EndsWith("Copy"))
                 {
+                    Camera.main.GetComponent<SoundAndMusicManager>().PlayPuffSound(gameObject);
                     Camera.main.GetComponent<CopyPowerUp>().CopyObject(gameObject);
                 }
             }
@@ -100,6 +101,7 @@ public class RemoveObjects : MonoBehaviour
 
     void HasFallen()
     {
+        string oldTag = gameObject.tag;
         gameObject.tag = "Fallen";
         if (gameObject.GetComponent<FadeObject>() == null)
         {
@@ -112,7 +114,7 @@ public class RemoveObjects : MonoBehaviour
         }
     }
 
-    void PlayDropSound()
+    public void PlayDropSound()
     {
         if (!justPlayedSound)
         {
@@ -121,17 +123,24 @@ public class RemoveObjects : MonoBehaviour
             switch (gameObject.tag)
             {
                 case "Ingredient":
-                    if (gameObject.name == "Burger(Clone)")
+                    if (GetComponent<Renderer>().material.name.Split(' ')[0] == "Ice")
                     {
-                        Camera.main.GetComponent<SoundAndMusicManager>().PlayDropBurgerSound(gameObject, (impactSpeed / 12));
-                    }
-                    else if (gameObject.name == "Fries(Clone)")
-                    {
-                        Camera.main.GetComponent<SoundAndMusicManager>().PlayDropFriesSound(gameObject, (impactSpeed / 12));
+                        Camera.main.GetComponent<SoundAndMusicManager>().PlayDropIceSound(gameObject, (impactSpeed / 12));
                     }
                     else
                     {
-                        Camera.main.GetComponent<SoundAndMusicManager>().PlayDropDrinkSound(gameObject, (impactSpeed / 12));
+                        if (name == "Burger(Clone)")
+                        {
+                            Camera.main.GetComponent<SoundAndMusicManager>().PlayDropBurgerSound(gameObject, (impactSpeed / 12));
+                        }
+                        else if (name == "Fries(Clone)")
+                        {
+                            Camera.main.GetComponent<SoundAndMusicManager>().PlayDropFriesSound(gameObject, (impactSpeed / 12));
+                        }
+                        else
+                        {
+                            Camera.main.GetComponent<SoundAndMusicManager>().PlayDropDrinkSound(gameObject, (impactSpeed / 12));
+                        }
                     }
                     break;
                 case "Lid":

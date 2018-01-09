@@ -84,10 +84,19 @@ public class Gameplay : MonoBehaviour
         {
             if (Random.value > 0.125f)
             {
+                if (damage > 500)
+                {
+                    Camera.main.GetComponent<SoundAndMusicManager>().PlayDeathPunchSound(gameObject);
+                }
+                else
+                {
+                    Camera.main.GetComponent<SoundAndMusicManager>().PlayPunchSound(gameObject);
+                }
                 ReduceHealthLogic(damage);
             }
             else
             {
+                GetComponent<SoundAndMusicManager>().PlayWooshSound(zombie);
                 GetComponent<FloatingTextManagement>().AddFloatingText(zombie, "MISS", Color.yellow, 4);
             }
         }

@@ -7,16 +7,21 @@ public class FadeObject : MonoBehaviour
     static int updateInterval = 4;
     static int maxTime = 1;
     float time;
-    float r, g, b;
+    float r, g, b, a;
+    float newAlpha;
     Renderer myRenderer;
 
-    void Start()
+    void Awake()
     {
         gameObject.layer = 2;
-        Camera.main.GetComponent<FoodManager>().ChangeToTransparentMaterial(gameObject);
+        if (GetComponent<Renderer>().material.name.Split(' ')[0] != "Ice")
+        {
+            Camera.main.GetComponent<FoodManager>().ChangeToTransparentMaterial(gameObject);
+        }
         r = GetComponent<Renderer>().material.color.r;
         g = GetComponent<Renderer>().material.color.g;
         b = GetComponent<Renderer>().material.color.b;
+        a = GetComponent<Renderer>().material.color.a;
         myRenderer = GetComponent<Renderer>();
         AddNewItem();
     }
@@ -26,12 +31,12 @@ public class FadeObject : MonoBehaviour
         if (Time.frameCount % updateInterval == 0)
         {
             time += Time.deltaTime * updateInterval;
-            float alpha = ((maxTime / maxTime) - (time / maxTime));
+            newAlpha = (a - (time / maxTime));
             if (myRenderer.isVisible)
             {
-                GetComponent<Renderer>().material.color = new Color(r, g, b, alpha);
+                GetComponent<Renderer>().material.color = new Color(r, g, b, newAlpha);
             }
-            if (alpha < 0.01f)
+            if (time > maxTime)
             {
                 Destroy(gameObject);
             }

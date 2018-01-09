@@ -26,6 +26,8 @@ public class CopyPowerUp : MonoBehaviour
             obj.GetComponent<Rigidbody>().velocity.x + 1.5f,
             obj.GetComponent<Rigidbody>().velocity.y,
             obj.GetComponent<Rigidbody>().velocity.z);
+        leftCopy.GetComponent<ParticleSystem>().Play();
+        rightCopy.GetComponent<ParticleSystem>().Play();
         Physics.IgnoreCollision(leftCopy.GetComponent<Collider>(), obj.GetComponent<Collider>());
         Physics.IgnoreCollision(rightCopy.GetComponent<Collider>(), obj.GetComponent<Collider>());
         Physics.IgnoreCollision(leftCopy.GetComponent<Collider>(), rightCopy.GetComponent<Collider>());

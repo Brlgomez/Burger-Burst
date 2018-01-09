@@ -47,9 +47,15 @@ public class DropMoreProducts : MonoBehaviour
             {
                 newProduct.transform.localScale = Vector3.one * 1.25f;
             }
+            if (Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(Camera.main.GetComponent<PowerUpsManager>().freeze.powerUpNumber))
+            {
+                newProduct.GetComponent<Renderer>().material = GetComponent<Materials>().ice;
+            }
             newProduct.GetComponent<Rigidbody>().velocity = new Vector3(0, -5, 0);
         }
     }
+
+
 
     public void DropBurger()
     {
@@ -62,6 +68,10 @@ public class DropMoreProducts : MonoBehaviour
             {
                 newProduct.transform.localScale = Vector3.one * 1.25f;
             }
+			if (Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(Camera.main.GetComponent<PowerUpsManager>().freeze.powerUpNumber))
+			{
+				newProduct.GetComponent<Renderer>().material = GetComponent<Materials>().ice;
+			}
             newProduct.GetComponent<Rigidbody>().velocity = new Vector3(0, -5, 0);
         }
     }
@@ -77,6 +87,10 @@ public class DropMoreProducts : MonoBehaviour
             {
                 newProduct.transform.localScale = Vector3.one * 1.25f;
             }
+			if (Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(Camera.main.GetComponent<PowerUpsManager>().freeze.powerUpNumber))
+			{
+				newProduct.GetComponent<Renderer>().material = GetComponent<Materials>().ice;
+			}
             newProduct.GetComponent<Rigidbody>().velocity = new Vector3(0, -5, 0);
         }
     }
