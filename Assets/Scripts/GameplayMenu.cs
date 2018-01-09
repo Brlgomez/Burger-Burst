@@ -255,6 +255,7 @@ public class GameplayMenu : MonoBehaviour
         paused = true;
         GetComponent<GrabAndThrowObject>().SetPause(paused);
         Time.timeScale = 0;
+        GetComponent<SoundAndMusicManager>().PauseAllSounds();
     }
 
     public void UnPauseGame()
@@ -262,6 +263,7 @@ public class GameplayMenu : MonoBehaviour
         paused = false;
         GetComponent<GrabAndThrowObject>().SetPause(paused);
         Time.timeScale = 1;
+        GetComponent<SoundAndMusicManager>().ResumeAllSounds();
     }
 
     public bool GetPausedState()

@@ -230,14 +230,6 @@ public class CameraMovement : MonoBehaviour
         gameplay = true;
         SetCameraAndDevicePosition(GetComponent<PositionManager>().GameplayPosition(), GetComponent<PositionManager>().DeviceBackPosition());
         gamePlayCommand = c;
-        switch (gamePlayCommand)
-        {
-            case "Restart":
-                GetComponent<GameplayMenu>().UnPauseGame();
-                break;
-            case "Start":
-                break;
-        }
     }
 
     public void MoveToPause()

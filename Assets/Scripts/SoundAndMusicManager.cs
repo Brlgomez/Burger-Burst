@@ -485,4 +485,34 @@ public class SoundAndMusicManager : MonoBehaviour
         Destroy(temp, clip.length);
         return tempSource;
     }
+
+    public void PauseAllSounds()
+    {
+        if (canPlaySound)
+        {
+            AudioSource[] allAudio = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
+            foreach (AudioSource a in allAudio)
+            {
+                if (a.name != "One shot audio")
+                {
+					a.Pause();
+                }
+            }
+        }
+    }
+
+    public void ResumeAllSounds()
+    {
+        if (canPlaySound)
+        {
+            AudioSource[] allAudio = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
+            foreach (AudioSource a in allAudio)
+            {
+                if (a.name != "Empty_Cup(Clone)")
+                {
+                    a.UnPause();
+                }
+            }
+        }
+    }
 }
