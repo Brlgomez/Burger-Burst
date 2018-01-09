@@ -411,6 +411,8 @@ public class Zombie : MonoBehaviour
             Camera.main.GetComponent<Gameplay>().IncreaseCompletedOrders();
             orderComplete = true;
             Camera.main.GetComponent<PlayerPrefsManager>().IncreaseOrdersCompleted();
+            Camera.main.GetComponent<SoundAndMusicManager>().StopLoopFromSourceAndLowerVolume(gameObject, -1);
+            PlayGruntNoise();
             Died();
         }
     }
@@ -676,6 +678,7 @@ public class Zombie : MonoBehaviour
                 thisZombieType = ZombieType.coin;
                 powerParticles = upperBody.transform.GetChild(3).GetComponent<ParticleSystem>();
                 powerParticles.Play();
+                Camera.main.GetComponent<SoundAndMusicManager>().PlayZombieSparckleSound(GetComponent<AudioSource>());
                 break;
             case "Health Zombie":
                 thisZombieType = ZombieType.healing;
@@ -687,12 +690,14 @@ public class Zombie : MonoBehaviour
                 thisZombieType = ZombieType.instantKill;
                 powerParticles = upperBody.transform.GetChild(5).GetComponent<ParticleSystem>();
                 powerParticles.Play();
+                Camera.main.GetComponent<SoundAndMusicManager>().PlayZombieInstantDeathSound(GetComponent<AudioSource>());
                 break;
             case "Poison Zombie":
                 pointsMultiplier = 2;
                 thisZombieType = ZombieType.poison;
                 powerParticles = upperBody.transform.GetChild(6).GetComponent<ParticleSystem>();
                 powerParticles.Play();
+                Camera.main.GetComponent<SoundAndMusicManager>().PlayZombieBubblingSound(GetComponent<AudioSource>());
                 break;
             case "Speed Zombie":
                 pointsMultiplier = 2;
@@ -705,6 +710,7 @@ public class Zombie : MonoBehaviour
                 thisZombieType = ZombieType.ice;
                 powerParticles = upperBody.transform.GetChild(7).GetComponent<ParticleSystem>();
                 powerParticles.Play();
+                Camera.main.GetComponent<SoundAndMusicManager>().PlayZombieIceSound(GetComponent<AudioSource>());
                 break;
         }
     }
@@ -834,6 +840,22 @@ public class Zombie : MonoBehaviour
     {
         GetComponent<Animator>().enabled = false;
         Destroy(gameObject.GetComponent<Zombie>());
+    }
+
+    void PlayGruntNoise()
+    {
+        if (thisZombieSize == ZombieSize.small)
+        {
+            Camera.main.GetComponent<SoundAndMusicManager>().PlayZombieGruntSound(gameObject, 2);
+        }
+        else if (thisZombieSize == ZombieSize.large)
+        {
+            Camera.main.GetComponent<SoundAndMusicManager>().PlayZombieGruntSound(gameObject, 0.75f);
+        }
+        else
+        {
+            Camera.main.GetComponent<SoundAndMusicManager>().PlayZombieGruntSound(gameObject, 1);
+        }
     }
 
     void IncreaseIdleSoundTimer()

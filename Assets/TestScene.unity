@@ -64897,7 +64897,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1093843162}
-  m_LocalRotation: {x: 0.3535534, y: 0.6123725, z: -0.35355344, w: 0.61237246}
+  m_LocalRotation: {x: 0.35355338, y: 0.61237246, z: -0.3535534, w: 0.6123724}
   m_LocalPosition: {x: -0.02, y: 0.06, z: 0.3}
   m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_Children: []
@@ -101240,6 +101240,10 @@ MonoBehaviour:
   punch: {fileID: 8300000, guid: 6ab1e5f151ef7481f907af977b3cb7c9, type: 3}
   deathPunch: {fileID: 8300000, guid: 4002ad1f40d31460195ea6777c8ac2ed, type: 3}
   puff: {fileID: 8300000, guid: a9f51d5613f274ea9b1a321254bfedc2, type: 3}
+  sparkle: {fileID: 8300000, guid: 57a4bd9189de34928b2d4d2dc626fae5, type: 3}
+  bubbling: {fileID: 8300000, guid: 837f48095bb734686bfa520a31d09729, type: 3}
+  death: {fileID: 8300000, guid: 9aa0a92c774eb4fe58861ce70bd01ced, type: 3}
+  ice: {fileID: 8300000, guid: 2bac22bf27e744ffb9566a2f8083b4c8, type: 3}
   walkOnGrass:
   - {fileID: 8300000, guid: f3e9b36bd4d6b4c598ad8a819690c8c5, type: 3}
   - {fileID: 8300000, guid: a22565a88c43845e3831c34df9ce7153, type: 3}
@@ -101248,6 +101252,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a3d7a128e5bc143c2bad8ad0d91741a2, type: 3}
   - {fileID: 8300000, guid: 3b458d65a0f6440539eda2f302c532b6, type: 3}
   - {fileID: 8300000, guid: 8712762253d93446981eeac2d8ff4e52, type: 3}
+  zombieGruntNoises:
+  - {fileID: 8300000, guid: 82965f9cd02ca4cf7ac447ee107b8d17, type: 3}
+  - {fileID: 8300000, guid: db665aa6a853d49f9b980a34089b1a91, type: 3}
+  - {fileID: 8300000, guid: 5ab8a00a0467546089f5823a9c64be51, type: 3}
 --- !u!82 &1865169801
 AudioSource:
   m_ObjectHideFlags: 0
@@ -103322,10 +103330,10 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
+  m_PlayOnAwake: 0
+  m_Volume: 0
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

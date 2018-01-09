@@ -91,7 +91,7 @@ public class ZombieManager : MonoBehaviour
         {
             newOutfit = outfits[Random.Range(0, outfits.Length)];
         }
-        GameObject newZombie = Instantiate(zombie);
+		GameObject newZombie = Instantiate(zombie);
         newZombie.transform.position = position;
         newZombie.transform.LookAt(gameplayPosition);
         newZombie.transform.eulerAngles = new Vector3(0, newZombie.transform.eulerAngles.y, newZombie.transform.eulerAngles.z);

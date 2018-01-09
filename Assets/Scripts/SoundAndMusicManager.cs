@@ -9,9 +9,10 @@ public class SoundAndMusicManager : MonoBehaviour
     public AudioClip boughtItemWithCoins, horn, vibrate, stereoSwitch, bootUp, highScore;
     public AudioClip steam, button, dropCup, dropLid, dropPatty, dropFries, dropBasket;
     public AudioClip foodComplete, badFood, dropDrink, healthUp, healthDown, punch;
-    public AudioClip deathPunch, puff, sparkle;
+    public AudioClip deathPunch, puff, sparkle, bubbling, death, ice;
     public AudioClip[] walkOnGrass;
     public AudioClip[] zombieIdleNoises;
+    public AudioClip[] zombieGruntNoises;
 
     bool canPlayMusic = true;
     bool canPlaySound = true;
@@ -356,6 +357,14 @@ public class SoundAndMusicManager : MonoBehaviour
         }
     }
 
+    public void PlayZombieGruntSound(GameObject obj, float pitch)
+    {
+        if (canPlaySound)
+        {
+            PlayClipAt(zombieGruntNoises[Random.Range(0, zombieGruntNoises.Length)], obj.transform.position, 1, pitch);
+        }
+    }
+
     public void PlayPunchSound(GameObject obj)
     {
         if (canPlaySound)
@@ -384,7 +393,38 @@ public class SoundAndMusicManager : MonoBehaviour
     {
         if (canPlaySound)
         {
+            zombieSource.volume = 1;
             zombieSource.clip = sparkle;
+            zombieSource.Play();
+        }
+    }
+
+    public void PlayZombieBubblingSound(AudioSource zombieSource)
+    {
+        if (canPlaySound)
+        {
+            zombieSource.volume = 1;
+            zombieSource.clip = bubbling;
+            zombieSource.Play();
+        }
+    }
+
+    public void PlayZombieInstantDeathSound(AudioSource zombieSource)
+    {
+        if (canPlaySound)
+        {
+            zombieSource.volume = 1;
+            zombieSource.clip = death;
+            zombieSource.Play();
+        }
+    }
+
+    public void PlayZombieIceSound(AudioSource zombieSource)
+    {
+        if (canPlaySound)
+        {
+            zombieSource.volume = 1;
+            zombieSource.clip = ice;
             zombieSource.Play();
         }
     }
