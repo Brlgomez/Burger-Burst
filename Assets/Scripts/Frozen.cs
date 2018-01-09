@@ -20,6 +20,7 @@ public class Frozen : MonoBehaviour
         screen = transform.GetChild(6).GetComponent<Renderer>().material;
         screen.color = frozenColor;
         GetComponent<GrabAndThrowObject>().SetFrozen(true);
+        GetComponent<SoundAndMusicManager>().PlayFreezeSound(gameObject);
     }
 
     void Update()
@@ -46,12 +47,13 @@ public class Frozen : MonoBehaviour
         updateInterval = 10;
         iceAlpha = maxAplha;
         screen.color = frozenColor;
+        GetComponent<SoundAndMusicManager>().PlayFreezeSound(gameObject);
     }
 
     public void DestroyFrozen()
     {
         screen.color = Color.clear;
-		GetComponent<GrabAndThrowObject>().SetFrozen(false);
-		Destroy(GetComponent<Frozen>());
+        GetComponent<GrabAndThrowObject>().SetFrozen(false);
+        Destroy(GetComponent<Frozen>());
     }
 }

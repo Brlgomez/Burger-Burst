@@ -9,7 +9,7 @@ public class SoundAndMusicManager : MonoBehaviour
     public AudioClip boughtItemWithCoins, horn, vibrate, stereoSwitch, bootUp, highScore;
     public AudioClip steam, button, dropCup, dropLid, dropPatty, dropFries, dropBasket;
     public AudioClip foodComplete, badFood, dropDrink, healthUp, healthDown, punch;
-    public AudioClip deathPunch, puff, sparkle, bubbling, death, ice;
+    public AudioClip deathPunch, puff, sparkle, bubbling, death, ice, freeze;
     public AudioClip[] walkOnGrass;
     public AudioClip[] zombieIdleNoises;
     public AudioClip[] zombieGruntNoises;
@@ -426,6 +426,22 @@ public class SoundAndMusicManager : MonoBehaviour
             zombieSource.volume = 1;
             zombieSource.clip = ice;
             zombieSource.Play();
+        }
+    }
+
+    public void PlayFreezeSound(GameObject obj)
+    {
+        if (canPlaySound)
+        {
+            PlayClipAt(freeze, obj.transform.position, 1, 1);
+        }
+    }
+
+    public void PlayBubblingSound(GameObject obj)
+    {
+        if (canPlaySound)
+        {
+            PlayClipAt(bubbling, obj.transform.position, 1, 1);
         }
     }
 

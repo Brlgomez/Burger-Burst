@@ -240,6 +240,7 @@ public class Zombie : MonoBehaviour
                 thisZombieType = ZombieType.regular;
                 powerParticles.Play();
                 powerParticles.Stop();
+                Camera.main.GetComponent<SoundAndMusicManager>().StopLoopFromSourceAndLowerVolume(gameObject, -1);
                 Camera.main.GetComponent<SoundAndMusicManager>().PlayPunchSound(gameObject);
                 if (!Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(Camera.main.GetComponent<PowerUpsManager>().noPoison.powerUpNumber))
                 {
@@ -262,6 +263,7 @@ public class Zombie : MonoBehaviour
                 thisZombieType = ZombieType.regular;
                 powerParticles.Play();
                 powerParticles.Stop();
+                Camera.main.GetComponent<SoundAndMusicManager>().StopLoopFromSourceAndLowerVolume(gameObject, -1);
                 Camera.main.GetComponent<SoundAndMusicManager>().PlayPunchSound(gameObject);
                 if (!Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(Camera.main.GetComponent<PowerUpsManager>().noIce.powerUpNumber))
                 {
@@ -699,7 +701,7 @@ public class Zombie : MonoBehaviour
                 powerParticles.Play();
                 Camera.main.GetComponent<SoundAndMusicManager>().PlayZombieBubblingSound(GetComponent<AudioSource>());
                 break;
-            case "Speed Zombie":
+            case "Fast Zombie":
                 pointsMultiplier = 2;
                 thisZombieType = ZombieType.speed;
                 speed = 3;

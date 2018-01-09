@@ -29,6 +29,7 @@ public class Poisoned : MonoBehaviour
         poisonBubbles.Play();
         main = poisonBubbles.main;
         main.maxParticles = intervalAmount;
+        GetComponent<SoundAndMusicManager>().PlayBubblingSound(gameObject);
     }
 
     void Update()
@@ -59,6 +60,7 @@ public class Poisoned : MonoBehaviour
         poisonAlpha = maxAplha;
         currentEffectiveness = initialEffectiveness;
         main.maxParticles = intervalAmount;
+        GetComponent<SoundAndMusicManager>().PlayBubblingSound(gameObject);
     }
 
     public void DestroyPoison()

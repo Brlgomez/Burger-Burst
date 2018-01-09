@@ -101244,6 +101244,7 @@ MonoBehaviour:
   bubbling: {fileID: 8300000, guid: 837f48095bb734686bfa520a31d09729, type: 3}
   death: {fileID: 8300000, guid: 9aa0a92c774eb4fe58861ce70bd01ced, type: 3}
   ice: {fileID: 8300000, guid: 2bac22bf27e744ffb9566a2f8083b4c8, type: 3}
+  freeze: {fileID: 8300000, guid: b90b7cd3223d444378e448a43a621441, type: 3}
   walkOnGrass:
   - {fileID: 8300000, guid: f3e9b36bd4d6b4c598ad8a819690c8c5, type: 3}
   - {fileID: 8300000, guid: a22565a88c43845e3831c34df9ce7153, type: 3}
