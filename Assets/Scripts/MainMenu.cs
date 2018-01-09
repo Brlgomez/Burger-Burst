@@ -205,6 +205,7 @@ public class MainMenu : MonoBehaviour
 
     void MouseUpMainMenu()
     {
+        GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
         switch (target.name)
         {
             case "First Button":
@@ -264,6 +265,7 @@ public class MainMenu : MonoBehaviour
         }
         else if (target.name == "Fifth Button")
         {
+            GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
             roundScroller = false;
             CheckCamera();
             gameObject.AddComponent<CameraMovement>().MoveToMenu(true);
@@ -301,6 +303,7 @@ public class MainMenu : MonoBehaviour
 
     void MouseUpCustomizeMenu()
     {
+        GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
         switch (target.name)
         {
             case "First Button":
@@ -326,6 +329,7 @@ public class MainMenu : MonoBehaviour
 
     void MouseUpThemeMenu()
     {
+        GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
         switch (target.name)
         {
             case "First Button":
@@ -360,6 +364,7 @@ public class MainMenu : MonoBehaviour
 
     void MouseUpConfirmationPowerUpMenu()
     {
+        GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
         switch (target.name)
         {
             case "Third Button":
@@ -381,6 +386,7 @@ public class MainMenu : MonoBehaviour
 
     void MouseUpStoreMenu()
     {
+        GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
         if (target.name == "First Button")
         {
             GetComponent<PlayerPrefsManager>().IncreaseCoins(100);
@@ -437,18 +443,22 @@ public class MainMenu : MonoBehaviour
         switch (target.name)
         {
             case "First Button":
+                GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
                 GetComponent<PlayerPrefsManager>().SetMusic();
                 break;
             case "Second Button":
                 GetComponent<PlayerPrefsManager>().SetSound();
                 break;
             case "Third Button":
+                GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
                 GetComponent<PlayerPrefsManager>().SetVibration();
                 break;
             case "Fourth Button":
+                GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
                 //TODO: achivements and leaderboards
                 break;
             case "Fifth Button":
+                GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
                 CheckCamera();
                 gameObject.AddComponent<CameraMovement>().MoveToMenu(true);
                 GetComponent<ScreenTextManagment>().ChangeToMenuText();
@@ -469,6 +479,7 @@ public class MainMenu : MonoBehaviour
                 GetComponent<MenuSlider>().ChangeSlotSpriteGraphics();
                 break;
             case "Fifth Button":
+                GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
                 roundScroller = false;
                 CheckCamera();
                 gameObject.AddComponent<CameraMovement>().MoveToCustomize();
@@ -488,6 +499,7 @@ public class MainMenu : MonoBehaviour
 
     void MouseUpConfirmationGraphicsMenu()
     {
+        GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
         switch (target.name)
         {
             case "Third Button":
@@ -518,6 +530,7 @@ public class MainMenu : MonoBehaviour
                 CheckCamera();
                 gameObject.AddComponent<CameraMovement>().MoveToTheme();
                 GetComponent<ScreenTextManagment>().ChangeToThemeScreen();
+                GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
                 break;
             case "Scroller":
                 GetComponent<MenuSlider>().EnableScroller(false);
@@ -533,6 +546,7 @@ public class MainMenu : MonoBehaviour
 
     void MouseUpConfirmationFlooringMenu()
     {
+        GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
         switch (target.name)
         {
             case "Third Button":
@@ -563,6 +577,7 @@ public class MainMenu : MonoBehaviour
                 CheckCamera();
                 gameObject.AddComponent<CameraMovement>().MoveToTheme();
                 GetComponent<ScreenTextManagment>().ChangeToThemeScreen();
+                GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
                 break;
             case "Scroller":
                 GetComponent<MenuSlider>().EnableScroller(false);
@@ -578,6 +593,7 @@ public class MainMenu : MonoBehaviour
 
     void MouseUpConfirmationWallpaperMenu()
     {
+        GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
         switch (target.name)
         {
             case "Third Button":
@@ -608,6 +624,7 @@ public class MainMenu : MonoBehaviour
                 CheckCamera();
                 gameObject.AddComponent<CameraMovement>().MoveToTheme();
                 GetComponent<ScreenTextManagment>().ChangeToThemeScreen();
+                GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
                 break;
             case "Scroller":
                 GetComponent<MenuSlider>().EnableScroller(false);
@@ -623,6 +640,7 @@ public class MainMenu : MonoBehaviour
 
     void MouseUpConfirmationDetailMenu()
     {
+        GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
         switch (target.name)
         {
             case "Third Button":

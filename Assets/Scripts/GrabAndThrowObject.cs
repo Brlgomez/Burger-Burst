@@ -179,7 +179,8 @@ public class GrabAndThrowObject : MonoBehaviour
         {
             if (target.tag == "UI")
             {
-                GetComponent<GameplayMenu>().PhoneInterface(target);
+				GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
+				GetComponent<GameplayMenu>().PhoneInterface(target);
                 GetComponent<ScreenTextManagment>().PressTextUp(target.transform.parent.gameObject);
             }
             if (!paused && !gameOver)

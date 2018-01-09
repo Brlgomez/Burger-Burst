@@ -370,6 +370,10 @@ public class Zombie : MonoBehaviour
             if (Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(Camera.main.GetComponent<PowerUpsManager>().freeze.powerUpNumber))
             {
                 FreezeZombie();
+                if (obj.GetComponent<MagnetPowerUp>())
+                {
+                    Destroy(obj.GetComponent<MagnetPowerUp>());
+                }
             }
         }
     }

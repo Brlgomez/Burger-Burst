@@ -10,7 +10,7 @@ public class SoundAndMusicManager : MonoBehaviour
     public AudioClip steam, button, dropCup, dropLid, dropPatty, dropFries, dropBasket;
     public AudioClip foodComplete, badFood, dropDrink, healthUp, healthDown, punch;
     public AudioClip deathPunch, puff, sparkle, bubbling, death, ice, freeze, dropIce;
-    public AudioClip woosh;
+    public AudioClip woosh, buttonSound;
     public AudioClip[] walkOnGrass;
     public AudioClip[] zombieIdleNoises;
     public AudioClip[] zombieGruntNoises;
@@ -45,6 +45,15 @@ public class SoundAndMusicManager : MonoBehaviour
         if (canPlaySound)
         {
             source.clip = bootUp;
+            source.Play();
+        }
+    }
+
+    public void PlayDeviceButtonSound()
+    {
+        if (canPlaySound)
+        {
+            source.clip = buttonSound;
             source.Play();
         }
     }
@@ -382,13 +391,13 @@ public class SoundAndMusicManager : MonoBehaviour
         }
     }
 
-	public void PlayWooshSound(GameObject obj)
-	{
-		if (canPlaySound)
-		{
+    public void PlayWooshSound(GameObject obj)
+    {
+        if (canPlaySound)
+        {
             PlayClipAt(woosh, obj.transform.position, 1, Random.Range(0.9f, 1.1f));
-		}
-	}
+        }
+    }
 
     public void PlayDeathPunchSound(GameObject obj)
     {
