@@ -85,8 +85,8 @@ public class Zombie : MonoBehaviour
         {
             if (!orderComplete && !frozen)
             {
-                leftHand.GetComponent<Rigidbody>().AddRelativeForce(-leftHand.transform.forward * 20);
-                rightHand.GetComponent<Rigidbody>().AddRelativeForce(-rightHand.transform.forward * 20);
+                leftHand.GetComponent<Rigidbody>().AddRelativeForce(-leftHand.transform.forward * Random.Range(15, 20));
+                rightHand.GetComponent<Rigidbody>().AddRelativeForce(-rightHand.transform.forward * Random.Range(15, 20));
                 if (head.transform.position.z > endingZ)
                 {
                     Walk();
@@ -275,7 +275,6 @@ public class Zombie : MonoBehaviour
                 {
                     Camera.main.GetComponent<Gameplay>().ReduceHealth(damageAmount, upperBody);
                 }
-
                 break;
             default:
                 Camera.main.GetComponent<Gameplay>().ReduceHealth(damageAmount, upperBody);
@@ -312,12 +311,12 @@ public class Zombie : MonoBehaviour
         for (int i = 0; i < amountOfProduct; i++)
         {
             float rand = Random.Range(0.0f, 1.0f);
-            if (rand < 0.33f)
+            if (rand < 0.333f)
             {
                 neededBurgers++;
                 continue;
             }
-            if (rand > 0.33f && rand < 0.66f)
+            if (rand >= 0.333f && rand < 0.666f)
             {
                 neededFries++;
                 continue;

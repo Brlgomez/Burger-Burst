@@ -64,34 +64,9 @@ public class ZombieManager : MonoBehaviour
     {
         Texture newOutfit;
         amountOfZombies++;
-        if (Random.value < GetComponent<Gameplay>().GetChanceOfDifSizedZombie() / 2)
-        {
-            zombie.transform.localScale = Vector3.one * 1.25f;
-        }
-        else if (Random.value < GetComponent<Gameplay>().GetChanceOfDifSizedZombie())
-        {
-            zombie.transform.localScale = Vector3.one * 0.75f;
-        }
-        else
-        {
-            zombie.transform.localScale = Vector3.one;
-        }
-        if (Random.value < GetComponent<Gameplay>().GetChanceOfSpecialZombie())
-        {
-            if (Random.value > 0.75f)
-            {
-                newOutfit = healthOutfit;
-            }
-            else
-            {
-                newOutfit = specialOutfits[Random.Range(0, specialOutfits.Length)];
-            }
-        }
-        else
-        {
-            newOutfit = outfits[Random.Range(0, outfits.Length)];
-        }
-		GameObject newZombie = Instantiate(zombie);
+        PickZombieSize();
+        newOutfit = PickZombieOutfit();
+        GameObject newZombie = Instantiate(zombie);
         newZombie.transform.position = position;
         newZombie.transform.LookAt(gameplayPosition);
         newZombie.transform.eulerAngles = new Vector3(0, newZombie.transform.eulerAngles.y, newZombie.transform.eulerAngles.z);
@@ -116,6 +91,44 @@ public class ZombieManager : MonoBehaviour
             newOutfit
         );
         newZombie.tag = "Clone";
+    }
+
+    void PickZombieSize()
+    {
+        if (Random.value < GetComponent<Gameplay>().GetChanceOfDifSizedZombie() / 2)
+        {
+            zombie.transform.localScale = Vector3.one * 1.25f;
+        }
+        else if (Random.value < GetComponent<Gameplay>().GetChanceOfDifSizedZombie())
+        {
+            zombie.transform.localScale = Vector3.one * 0.75f;
+        }
+        else
+        {
+            zombie.transform.localScale = Vector3.one;
+        }
+    }
+
+    Texture PickZombieOutfit()
+    {
+        Texture newOutfit;
+        if (Random.value < GetComponent<Gameplay>().GetChanceOfSpecialZombie())
+        {
+            newOutfit = specialOutfits[Random.Range(0, specialOutfits.Length)];
+        }
+        else
+        {
+            if (Random.value > 0.9f)
+            {
+                newOutfit = healthOutfit;
+
+            }
+            else
+            {
+                newOutfit = outfits[Random.Range(0, outfits.Length)];
+            }
+        }
+        return newOutfit;
     }
 
     public void RemoveWaiter(GameObject waiter)
