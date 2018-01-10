@@ -159,6 +159,8 @@ public class Zombie : MonoBehaviour
             {
                 powerParticles.Play();
                 powerParticles.Stop();
+                Behaviour halo = (Behaviour)powerParticles.GetComponent("Halo");
+                halo.enabled = false;
             }
             deathParticles.Play();
             MakeZombieDisappear();
@@ -236,6 +238,8 @@ public class Zombie : MonoBehaviour
                 thisZombieType = ZombieType.regular;
                 powerParticles.Play();
                 powerParticles.Stop();
+                Behaviour halo = (Behaviour)powerParticles.GetComponent("Halo");
+                halo.enabled = false;
                 Camera.main.GetComponent<SoundAndMusicManager>().StopLoopFromSourceAndLowerVolume(gameObject, -1);
                 if (!Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(Camera.main.GetComponent<PowerUpsManager>().noPoison.powerUpNumber))
                 {
@@ -258,6 +262,8 @@ public class Zombie : MonoBehaviour
                 thisZombieType = ZombieType.regular;
                 powerParticles.Play();
                 powerParticles.Stop();
+                Behaviour halo2 = (Behaviour)powerParticles.GetComponent("Halo");
+                halo2.enabled = false;
                 Camera.main.GetComponent<SoundAndMusicManager>().StopLoopFromSourceAndLowerVolume(gameObject, -1);
                 if (!Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(Camera.main.GetComponent<PowerUpsManager>().noIce.powerUpNumber))
                 {
@@ -677,11 +683,15 @@ public class Zombie : MonoBehaviour
                 powerParticles = upperBody.transform.GetChild(3).GetComponent<ParticleSystem>();
                 powerParticles.Play();
                 Camera.main.GetComponent<SoundAndMusicManager>().PlayZombieSparckleSound(GetComponent<AudioSource>());
+                Behaviour halo = (Behaviour)powerParticles.GetComponent("Halo");
+                halo.enabled = true;
                 break;
             case "Health Zombie":
                 thisZombieType = ZombieType.healing;
                 powerParticles = upperBody.transform.GetChild(4).GetComponent<ParticleSystem>();
                 powerParticles.Play();
+                Behaviour halo2 = (Behaviour)powerParticles.GetComponent("Halo");
+                halo2.enabled = true;
                 break;
             case "Death Zombie":
                 pointsMultiplier = 2;
@@ -689,6 +699,8 @@ public class Zombie : MonoBehaviour
                 powerParticles = upperBody.transform.GetChild(5).GetComponent<ParticleSystem>();
                 powerParticles.Play();
                 Camera.main.GetComponent<SoundAndMusicManager>().PlayZombieInstantDeathSound(GetComponent<AudioSource>());
+                Behaviour halo3 = (Behaviour)powerParticles.GetComponent("Halo");
+                halo3.enabled = true;
                 break;
             case "Poison Zombie":
                 pointsMultiplier = 2;
@@ -696,6 +708,8 @@ public class Zombie : MonoBehaviour
                 powerParticles = upperBody.transform.GetChild(6).GetComponent<ParticleSystem>();
                 powerParticles.Play();
                 Camera.main.GetComponent<SoundAndMusicManager>().PlayZombieBubblingSound(GetComponent<AudioSource>());
+                Behaviour halo4 = (Behaviour)powerParticles.GetComponent("Halo");
+                halo4.enabled = true;
                 break;
             case "Fast Zombie":
                 pointsMultiplier = 2;
@@ -709,6 +723,8 @@ public class Zombie : MonoBehaviour
                 powerParticles = upperBody.transform.GetChild(7).GetComponent<ParticleSystem>();
                 powerParticles.Play();
                 Camera.main.GetComponent<SoundAndMusicManager>().PlayZombieIceSound(GetComponent<AudioSource>());
+                Behaviour halo5 = (Behaviour)powerParticles.GetComponent("Halo");
+                halo5.enabled = true;
                 break;
         }
     }

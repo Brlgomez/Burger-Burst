@@ -118,7 +118,7 @@ public class ZombieManager : MonoBehaviour
         }
         else
         {
-            if (Random.value > 0.9f)
+            if (Random.value > 0.95f)
             {
                 newOutfit = healthOutfit;
 

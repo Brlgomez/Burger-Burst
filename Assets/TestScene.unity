@@ -3886,7 +3886,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1917493729
+  randomSeed: 596477932
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -24858,6 +24858,7 @@ GameObject:
   - component: {fileID: 460220124}
   - component: {fileID: 460220126}
   - component: {fileID: 460220125}
+  - component: {fileID: 460220127}
   m_Layer: 0
   m_Name: Heart Particles
   m_TagString: Untagged
@@ -24989,7 +24990,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -315424843
+  randomSeed: -2071221753
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -28198,6 +28199,17 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
+--- !u!122 &460220127
+Halo:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 460220123}
+  m_Enabled: 0
+  m_Color:
+    serializedVersion: 2
+    rgba: 4286578880
+  m_Size: 2.5
 --- !u!1 &461043814
 GameObject:
   m_ObjectHideFlags: 0
@@ -49996,6 +50008,7 @@ GameObject:
   - component: {fileID: 876961254}
   - component: {fileID: 876961256}
   - component: {fileID: 876961255}
+  - component: {fileID: 876961257}
   m_Layer: 0
   m_Name: Sparkle Particles
   m_TagString: Untagged
@@ -50127,7 +50140,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -739061560
+  randomSeed: 1979067334
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -53330,6 +53343,17 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
+--- !u!122 &876961257
+Halo:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 876961253}
+  m_Enabled: 0
+  m_Color:
+    serializedVersion: 2
+    rgba: 4278239424
+  m_Size: 2.5
 --- !u!1 &889120300
 GameObject:
   m_ObjectHideFlags: 0
@@ -64897,7 +64921,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1093843162}
-  m_LocalRotation: {x: 0.3535534, y: 0.6123725, z: -0.35355344, w: 0.61237246}
+  m_LocalRotation: {x: 0.35355338, y: 0.61237246, z: -0.3535534, w: 0.6123724}
   m_LocalPosition: {x: -0.02, y: 0.06, z: 0.3}
   m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_Children: []
@@ -65677,6 +65701,7 @@ GameObject:
   - component: {fileID: 1137897178}
   - component: {fileID: 1137897180}
   - component: {fileID: 1137897179}
+  - component: {fileID: 1137897181}
   m_Layer: 0
   m_Name: Snow Particles
   m_TagString: Untagged
@@ -65808,7 +65833,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 422815966
+  randomSeed: -57321701
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -69017,6 +69042,17 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
+--- !u!122 &1137897181
+Halo:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1137897177}
+  m_Enabled: 0
+  m_Color:
+    serializedVersion: 2
+    rgba: 4290822144
+  m_Size: 2.5
 --- !u!1 &1141791326
 GameObject:
   m_ObjectHideFlags: 0
@@ -87976,6 +88012,7 @@ GameObject:
   - component: {fileID: 1588457870}
   - component: {fileID: 1588457872}
   - component: {fileID: 1588457871}
+  - component: {fileID: 1588457873}
   m_Layer: 0
   m_Name: Skull Particles
   m_TagString: Untagged
@@ -88107,7 +88144,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 2069933011
+  randomSeed: 2068725034
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -91316,6 +91353,17 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
+--- !u!122 &1588457873
+Halo:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1588457869}
+  m_Enabled: 0
+  m_Color:
+    serializedVersion: 2
+    rgba: 4278190272
+  m_Size: 2.5
 --- !u!1 &1589826645
 GameObject:
   m_ObjectHideFlags: 0
@@ -107369,6 +107417,7 @@ GameObject:
   - component: {fileID: 2119995630}
   - component: {fileID: 2119995632}
   - component: {fileID: 2119995631}
+  - component: {fileID: 2119995633}
   m_Layer: 0
   m_Name: Bubble Particles
   m_TagString: Untagged
@@ -107500,7 +107549,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1543653126
+  randomSeed: 164087918
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -110709,6 +110758,17 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
+--- !u!122 &2119995633
+Halo:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2119995629}
+  m_Enabled: 0
+  m_Color:
+    serializedVersion: 2
+    rgba: 4290773120
+  m_Size: 2.5
 --- !u!1001 &2121962575
 Prefab:
   m_ObjectHideFlags: 0

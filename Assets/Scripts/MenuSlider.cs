@@ -236,7 +236,8 @@ public class MenuSlider : MonoBehaviour
     {
         if (!GetSliderUnlock(GetMiddleObjectNumber()))
         {
-            GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationPowerUp);
+			GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
+			GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationPowerUp);
         }
         else
         {
@@ -282,7 +283,8 @@ public class MenuSlider : MonoBehaviour
     {
         if (!GetSliderUnlock(GetMiddleObjectNumber()))
         {
-            GetComponent<GraphicsManager>().SetGraphic(GetMiddleObjectNumber());
+			GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
+			GetComponent<GraphicsManager>().SetGraphic(GetMiddleObjectNumber());
             GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationGraphics);
         }
         else
@@ -298,7 +300,8 @@ public class MenuSlider : MonoBehaviour
     {
         if (!GetSliderUnlock(GetMiddleObjectNumber()))
         {
-            GetComponent<ThemeManager>().SetFlooring(GetMiddleObjectNumber());
+			GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
+			GetComponent<ThemeManager>().SetFlooring(GetMiddleObjectNumber());
             GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationFlooring);
         }
         else
@@ -314,7 +317,8 @@ public class MenuSlider : MonoBehaviour
     {
         if (!GetSliderUnlock(GetMiddleObjectNumber()))
         {
-            GetComponent<ThemeManager>().SetWallpaper(GetMiddleObjectNumber());
+			GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
+			GetComponent<ThemeManager>().SetWallpaper(GetMiddleObjectNumber());
             GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationWalls);
         }
         else
@@ -330,7 +334,8 @@ public class MenuSlider : MonoBehaviour
     {
         if (!GetSliderUnlock(GetMiddleObjectNumber()))
         {
-            GetComponent<ThemeManager>().SetDetail(GetMiddleObjectNumber());
+			GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
+			GetComponent<ThemeManager>().SetDetail(GetMiddleObjectNumber());
             GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationDetail);
         }
         else
