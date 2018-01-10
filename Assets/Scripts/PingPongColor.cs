@@ -10,7 +10,7 @@ public class PingPongColor : MonoBehaviour
     float time;
     int currentColorNumber;
     int nextColor = 1;
-    bool changeMaterialColor;
+    int changeColorNumber;
 
     void Update()
     {
@@ -19,13 +19,17 @@ public class PingPongColor : MonoBehaviour
             time += Time.deltaTime;
             if (time < loopTime)
             {
-                if (!changeMaterialColor)
+                switch (changeColorNumber)
                 {
-                    GetComponent<TextMesh>().color = Color.Lerp(pickedColors[currentColorNumber], pickedColors[nextColor], time * 2);
-                }
-                else
-                {
-                    GetComponent<Renderer>().material.color = Color.Lerp(pickedColors[currentColorNumber], pickedColors[nextColor], time * 2);
+                    case 0:
+                        GetComponent<TextMesh>().color = Color.Lerp(pickedColors[currentColorNumber], pickedColors[nextColor], time * 2);
+                        break;
+                    case 1:
+                        GetComponent<Renderer>().material.color = Color.Lerp(pickedColors[currentColorNumber], pickedColors[nextColor], time * 2);
+                        break;
+                    case 2:
+                        GetComponent<SpriteRenderer>().color = Color.Lerp(pickedColors[currentColorNumber], pickedColors[nextColor], time * 2);
+                        break;
                 }
             }
             if (time > loopTime)
@@ -51,9 +55,9 @@ public class PingPongColor : MonoBehaviour
         }
     }
 
-    public void SetColorAndObject(Color[] colors, bool changeMaterial)
+    public void SetColorAndObject(Color[] colors, int changeItem)
     {
-        changeMaterialColor = changeMaterial;
+        changeColorNumber = changeItem;
         pickedColors = new List<Color>();
         for (int i = 0; i < colors.Length; i++)
         {

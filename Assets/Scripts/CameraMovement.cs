@@ -136,7 +136,8 @@ public class CameraMovement : MonoBehaviour
         if (unpause)
         {
             GetComponent<GameplayMenu>().UnPauseGame();
-        }
+			GetComponent<ScreenTextManagment>().PingPongHeart();
+		}
         if (gameplay)
         {
             switch (gamePlayCommand)
@@ -144,14 +145,15 @@ public class CameraMovement : MonoBehaviour
                 case "Restart":
                     GetComponent<GameplayMenu>().UnPauseGame();
                     GetComponent<DropMoreProducts>().DropMadeProducts();
-                    break;
+					break;
                 case "Start":
                     gameObject.AddComponent<GrabAndThrowObject>();
                     GetComponent<DropMoreProducts>().DropMadeProducts();
                     break;
                 case "Unpause":
                     GetComponent<GameplayMenu>().UnPauseGame();
-                    break;
+					GetComponent<ScreenTextManagment>().PingPongHeart();
+					break;
             }
             GetComponent<ScreenTextManagment>().ChangeToFrontArea();
         }

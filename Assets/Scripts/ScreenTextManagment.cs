@@ -340,13 +340,14 @@ ScreenTextManagment : MonoBehaviour
     public void ChangeToGameOverText()
     {
         CheckShakeText();
+        RemovePingPongHeart();
         if (GetComponent<PlayerPrefsManager>().CheckHighScore(GetComponent<Gameplay>().GetPoints()))
         {
             Color[] highScoreColors = new Color[3];
             highScoreColors[0] = new Color(1, 0.25f, 1);
             highScoreColors[1] = new Color(1, 1, 0.25f);
             highScoreColors[2] = new Color(0.25f, 1, 1);
-            line1.AddComponent<PingPongColor>().SetColorAndObject(highScoreColors, false);
+            line1.AddComponent<PingPongColor>().SetColorAndObject(highScoreColors, 0);
             DisableButton(line1, "NEW HIGH\n     " + GetComponent<Gameplay>().GetPoints().ToString(), pointSprite, Color.white);
             GetComponent<SoundAndMusicManager>().PlayHighScoreSound();
         }
@@ -386,6 +387,7 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToPauseText()
     {
+        RemovePingPongHeart();
         CheckShakeText();
         EnableButton(line1, "Resume", playSprite, Color.white);
         EnableButton(line2, "Restart", restartSprite, Color.white);
@@ -802,6 +804,29 @@ ScreenTextManagment : MonoBehaviour
         if (!GetComponent<Gameplay>().IsGameOver())
         {
             line1.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = currentHeartSprite;
+        }
+    }
+
+    public void PingPongHeart()
+    {
+        if (GetComponent<Gameplay>().GetLife() < 25)
+        {
+            if (line1.transform.GetChild(1).gameObject.GetComponent<PingPongColor>() == null)
+            {
+                Color[] colors = new Color[2];
+                colors[0] = new Color(1, 1, 1, 1);
+                colors[1] = new Color(1, 1, 1, 0);
+                line1.transform.GetChild(1).gameObject.AddComponent<PingPongColor>().SetColorAndObject(colors, 2);
+            }
+        }
+    }
+
+    public void RemovePingPongHeart()
+    {
+        if (line1.transform.GetChild(1).gameObject.GetComponent<PingPongColor>() != null)
+        {
+            Destroy(line1.transform.GetChild(1).gameObject.GetComponent<PingPongColor>());
+            line1.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
         }
     }
 }

@@ -76,6 +76,10 @@ public class Gameplay : MonoBehaviour
             var main = gameObject.transform.GetChild(9).GetComponent<ParticleSystem>().main;
             gameObject.transform.GetChild(9).GetComponent<ParticleSystem>().Play();
             main.maxParticles = n;
+            if (life >= 25)
+            {
+                GetComponent<ScreenTextManagment>().RemovePingPongHeart();
+            }
         }
     }
 
@@ -130,6 +134,10 @@ public class Gameplay : MonoBehaviour
             }
             gameObject.AddComponent<CameraMovement>().MoveToGameOver();
             GetComponent<ZombieManager>().DeleteAllScripts();
+        }
+        if (life < 25)
+        {
+            GetComponent<ScreenTextManagment>().PingPongHeart();
         }
     }
 
@@ -319,8 +327,9 @@ public class Gameplay : MonoBehaviour
         GetComponent<LEDManager>().ResetPointsText();
         GetComponent<WindManager>().ResetValues();
         GetComponent<DropMoreProducts>().ResetDroppedItems();
-		GetComponent<ScreenTextManagment>().ChangeHeartSprite("");
-		NotGameOver();
+        GetComponent<ScreenTextManagment>().ChangeHeartSprite("");
+        GetComponent<ScreenTextManagment>().RemovePingPongHeart();
+        NotGameOver();
     }
 
     public void Continue()
@@ -331,8 +340,9 @@ public class Gameplay : MonoBehaviour
         life = 100;
         regenTimer = 0;
         GetComponent<DropMoreProducts>().ResetDroppedItems();
-		GetComponent<ScreenTextManagment>().ChangeHeartSprite("");
-		NotGameOver();
+        GetComponent<ScreenTextManagment>().ChangeHeartSprite("");
+        GetComponent<ScreenTextManagment>().RemovePingPongHeart();
+        NotGameOver();
     }
 
     void NotGameOver()
