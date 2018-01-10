@@ -8,6 +8,7 @@ public class PlayerPrefsManager : MonoBehaviour
     static string totalFoodLanded = "TOTAL FOOD LANDED";
     static string totalPoints = "TOTAL POINTS";
     static string highScore = "HIGH SCORE";
+    static string longestSurvivalTime = "LONGEST SURVIVAL TIME";
     static string coins = "COINS";
     static string powerUp = "POWERUP";
     static string graphics = "GRAPHICS";
@@ -79,6 +80,25 @@ public class PlayerPrefsManager : MonoBehaviour
     public int GetHighScore()
     {
         return PlayerPrefs.GetInt(highScore, 0);
+    }
+
+    public void CheckSurvivalTime(float time)
+    {
+        Debug.Log(ConvertSurvivalTimeToMin());
+        if (time > PlayerPrefs.GetFloat(longestSurvivalTime, 0))
+        {
+            PlayerPrefs.SetFloat(longestSurvivalTime, time);
+            PlayerPrefs.Save();
+        }
+    }
+
+    public float ConvertSurvivalTimeToMin()
+    {
+        float min = Mathf.FloorToInt(time / 60);
+        min += ((time % 60) / 60);
+        min = Mathf.RoundToInt(min * 100);
+        min /= 100;
+        return min;
     }
 
     public bool SetUpgrades(int slotPosition, int upgradeNumber)

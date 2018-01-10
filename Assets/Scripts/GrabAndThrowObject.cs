@@ -18,6 +18,7 @@ public class GrabAndThrowObject : MonoBehaviour
     int throwingDistance = 15;
     bool frozen;
     bool gameOver, paused;
+    float survivalTime;
 
     void Start()
     {
@@ -62,6 +63,7 @@ public class GrabAndThrowObject : MonoBehaviour
         }
         if (Time.frameCount % updateInterval == 0 && !gameOver)
         {
+            survivalTime += Time.deltaTime * updateInterval;
             GetComponent<Gameplay>().RegenerationUpdate(updateInterval);
             GetComponent<ZombieManager>().ZombieUpdate(updateInterval);
             GetComponent<WindManager>().WindUpdate(updateInterval);
@@ -652,5 +654,15 @@ public class GrabAndThrowObject : MonoBehaviour
     public void SetPause(bool b)
     {
         paused = b;
+    }
+
+    public float GetSurvivalTime()
+    {
+        return survivalTime;
+    }
+
+    public void SetSurvivalTime(float time)
+    {
+        survivalTime = time;
     }
 }

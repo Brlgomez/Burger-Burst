@@ -33,6 +33,8 @@ public class Gameplay : MonoBehaviour
     static float maxChanceOfSUV = 0.5f;
     float chanceOfSUV;
 
+    float currentSurvivalTime;
+
     public void IncreasePoints(GameObject obj, int multiplier)
     {
         if (!IsGameOver())
@@ -127,6 +129,7 @@ public class Gameplay : MonoBehaviour
         if (life < 1)
         {
             gameOver = true;
+            CheckSurvivalTime();
             GetComponent<GrabAndThrowObject>().SetGameOver(gameOver);
             if (GetComponent<CameraMovement>() != null)
             {
@@ -324,6 +327,7 @@ public class Gameplay : MonoBehaviour
         chanceOfSUV = 0;
         chanceOfDifSizedZombie = 0;
         chanceOfSpecialZombie = 0;
+        currentSurvivalTime = 0;
         GetComponent<LEDManager>().ResetPointsText();
         GetComponent<WindManager>().ResetValues();
         GetComponent<DropMoreProducts>().ResetDroppedItems();
@@ -350,6 +354,7 @@ public class Gameplay : MonoBehaviour
         gameOver = false;
         if (GetComponent<GrabAndThrowObject>() != null)
         {
+            GetComponent<GrabAndThrowObject>().SetSurvivalTime(currentSurvivalTime);
             GetComponent<GrabAndThrowObject>().SetGameOver(gameOver);
         }
     }
@@ -382,5 +387,12 @@ public class Gameplay : MonoBehaviour
     public float GetChanceOfSpecialZombie()
     {
         return chanceOfSpecialZombie;
+    }
+
+    public void CheckSurvivalTime()
+    {
+        float time = GetComponent<GrabAndThrowObject>().GetSurvivalTime();
+        currentSurvivalTime = time;
+        GetComponent<PlayerPrefsManager>().CheckSurvivalTime(time);
     }
 }
