@@ -72,6 +72,29 @@ public class GrabAndThrowObject : MonoBehaviour
             GetComponent<PlayerPrefsManager>().IncreaseTotalPoints(10);
         if (Input.GetKeyDown("h"))
             GetComponent<Gameplay>().AddLife(15, gameObject);
+
+        if (Input.GetKeyDown("q"))
+        {
+            if (Camera.main.transform.GetComponent<Poisoned>())
+            {
+                Camera.main.transform.GetComponent<Poisoned>().ResetTime();
+            }
+            else
+            {
+                Camera.main.transform.gameObject.AddComponent<Poisoned>();
+            }
+        }
+        if (Input.GetKeyDown("w"))
+        {
+            if (Camera.main.GetComponent<Frozen>())
+            {
+                Camera.main.GetComponent<Frozen>().RestartTime();
+            }
+            else
+            {
+                Camera.main.gameObject.AddComponent<Frozen>();
+            }
+        }
     }
 
     void MouseDown()
@@ -179,8 +202,8 @@ public class GrabAndThrowObject : MonoBehaviour
         {
             if (target.tag == "UI")
             {
-				GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
-				GetComponent<GameplayMenu>().PhoneInterface(target);
+                GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
+                GetComponent<GameplayMenu>().PhoneInterface(target);
                 GetComponent<ScreenTextManagment>().PressTextUp(target.transform.parent.gameObject);
             }
             if (!paused && !gameOver)
@@ -269,25 +292,25 @@ public class GrabAndThrowObject : MonoBehaviour
             target.GetComponent<ParticleSystem>().Play();
             counterWall.GetComponent<Collider>().enabled = true;
             target.GetComponent<RemoveObjects>().PlayDropSound();
-			if (target.GetComponent<Renderer>().material.name == "Ice (Instance)")
-			{
-				GetComponent<SoundAndMusicManager>().PlayDropIceSound(gameObject, 0.25f);
-			}
-			else
-			{
-				if (target.name == "Burger(Clone)")
-				{
-					GetComponent<SoundAndMusicManager>().PlayDropBurgerSound(gameObject, 0.25f);
-				}
-				else if (target.name == "Fries(Clone)")
-				{
-					GetComponent<SoundAndMusicManager>().PlayDropFriesSound(gameObject, 0.25f);
-				}
-				else
-				{
-					GetComponent<SoundAndMusicManager>().PlayDropDrinkSound(gameObject, 0.25f);
-				}
-			}
+            if (target.GetComponent<Renderer>().material.name == "Ice (Instance)")
+            {
+                GetComponent<SoundAndMusicManager>().PlayDropIceSound(gameObject, 0.25f);
+            }
+            else
+            {
+                if (target.name == "Burger(Clone)")
+                {
+                    GetComponent<SoundAndMusicManager>().PlayDropBurgerSound(gameObject, 0.25f);
+                }
+                else if (target.name == "Fries(Clone)")
+                {
+                    GetComponent<SoundAndMusicManager>().PlayDropFriesSound(gameObject, 0.25f);
+                }
+                else
+                {
+                    GetComponent<SoundAndMusicManager>().PlayDropDrinkSound(gameObject, 0.25f);
+                }
+            }
         }
     }
 

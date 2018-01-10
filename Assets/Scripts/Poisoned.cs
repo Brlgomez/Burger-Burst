@@ -29,7 +29,7 @@ public class Poisoned : MonoBehaviour
         poisonBubbles.Play();
         main = poisonBubbles.main;
         main.maxParticles = intervalAmount;
-        GetComponent<SoundAndMusicManager>().PlayBubblingSound(gameObject);
+        GetComponent<ScreenTextManagment>().ChangeHeartSprite("");
     }
 
     void Update()
@@ -60,13 +60,14 @@ public class Poisoned : MonoBehaviour
         poisonAlpha = maxAplha;
         currentEffectiveness = initialEffectiveness;
         main.maxParticles = intervalAmount;
-        GetComponent<SoundAndMusicManager>().PlayBubblingSound(gameObject);
+        GetComponent<ScreenTextManagment>().ChangeHeartSprite("");
     }
 
     public void DestroyPoison()
     {
         screen.color = Color.clear;
         poisonBubbles.Stop();
+        GetComponent<ScreenTextManagment>().ChangeHeartSprite("Poisoned");
         Destroy(GetComponent<Poisoned>());
     }
 }

@@ -495,7 +495,7 @@ public class SoundAndMusicManager : MonoBehaviour
             {
                 if (a.name != "One shot audio")
                 {
-					a.Pause();
+                    a.Pause();
                 }
             }
         }

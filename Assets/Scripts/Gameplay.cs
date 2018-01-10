@@ -37,13 +37,14 @@ public class Gameplay : MonoBehaviour
     {
         if (!IsGameOver())
         {
-            int addedPoints = ((int)Vector3.Distance(obj.transform.position, transform.position) / 2) * multiplier;
+            float sizeOfText = Vector3.Distance(obj.transform.position, transform.position) / 2;
+            int addedPoints = (Mathf.RoundToInt(sizeOfText)) * multiplier;
             if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(GetComponent<PowerUpsManager>().doublePoints.powerUpNumber))
             {
                 addedPoints *= 2;
             }
             points += addedPoints;
-            GetComponent<FloatingTextManagement>().AddFloatingText(obj, addedPoints.ToString(), Color.cyan, addedPoints + 1);
+            GetComponent<FloatingTextManagement>().AddFloatingText(obj, addedPoints.ToString(), Color.cyan, sizeOfText + 1);
             GetComponent<LEDManager>().UpdatePointsText(points);
             GetComponent<PlayerPrefsManager>().IncreaseTotalPoints(addedPoints);
         }
@@ -318,7 +319,8 @@ public class Gameplay : MonoBehaviour
         GetComponent<LEDManager>().ResetPointsText();
         GetComponent<WindManager>().ResetValues();
         GetComponent<DropMoreProducts>().ResetDroppedItems();
-        NotGameOver();
+		GetComponent<ScreenTextManagment>().ChangeHeartSprite("");
+		NotGameOver();
     }
 
     public void Continue()
@@ -329,7 +331,8 @@ public class Gameplay : MonoBehaviour
         life = 100;
         regenTimer = 0;
         GetComponent<DropMoreProducts>().ResetDroppedItems();
-        NotGameOver();
+		GetComponent<ScreenTextManagment>().ChangeHeartSprite("");
+		NotGameOver();
     }
 
     void NotGameOver()

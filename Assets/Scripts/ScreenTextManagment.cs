@@ -16,7 +16,8 @@ ScreenTextManagment : MonoBehaviour
     public Sprite burgerSprite, friesSprite, drinkSprite, heartSprite;
     public Sprite graphicsSprite, themeSprite, vibrationSprite, musicSprite, soundSprite, trophySprite;
     public Sprite restartSprite, quitSprite, yesSprite, pointSprite, floorSprite, wallSprite, detailSprite;
-    public Sprite arrowSprite, currentSprite;
+    public Sprite arrowSprite, currentSprite, frozen, poisoned, frozenAndPoisoned;
+    Sprite currentHeartSprite;
 
     void Start()
     {
@@ -31,12 +32,13 @@ ScreenTextManagment : MonoBehaviour
         scrollView = GetComponent<ObjectManager>().Phone().transform.GetChild(5).gameObject;
         TurnOffScrollList();
         TurnOffGameplayImages();
-		currentArea = Menus.Menu.PhoneDown;
+        currentArea = Menus.Menu.PhoneDown;
+        currentHeartSprite = heartSprite;
     }
 
     public void ChangeToTitleText()
     {
-		DisableButton(line1, "", null, Color.white);
+        DisableButton(line1, "", null, Color.white);
         DisableButton(line2, "", null, Color.white);
         DisableButton(line3, "", null, Color.white);
         DisableButton(line4, "", null, Color.white);
@@ -64,7 +66,7 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToGamePlayText()
     {
-        DisableButton(line1, "", heartSprite, Color.white);
+        DisableButton(line1, "", currentHeartSprite, Color.white);
         EnableButton(line2, "", burgerSprite, Color.white);
         EnableButton(line3, "", friesSprite, Color.white);
         EnableButton(line4, "", drinkSprite, Color.white);
@@ -402,6 +404,7 @@ ScreenTextManagment : MonoBehaviour
         line4.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
         line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.white;
         line5.transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.white;
+        line1.transform.GetChild(6).transform.localScale = Vector3.one * 8;
         line2.transform.GetChild(3).GetComponent<SpriteRenderer>().sprite = arrowSprite;
         line3.transform.GetChild(3).GetComponent<SpriteRenderer>().sprite = arrowSprite;
         line4.transform.GetChild(3).GetComponent<SpriteRenderer>().sprite = arrowSprite;
@@ -410,7 +413,7 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToGrillArea()
     {
-        DisableButton(line1, "", heartSprite, Color.white);
+        DisableButton(line1, "", currentHeartSprite, Color.white);
         DisableButton(line2, "", burgerSprite, notPressable);
         EnableButton(line3, "", friesSprite, Color.white);
         EnableButton(line4, "", drinkSprite, Color.white);
@@ -425,7 +428,7 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToFryerArea()
     {
-        DisableButton(line1, "", heartSprite, Color.white);
+        DisableButton(line1, "", currentHeartSprite, Color.white);
         EnableButton(line2, "", burgerSprite, Color.white);
         DisableButton(line3, "", friesSprite, notPressable);
         EnableButton(line4, "", drinkSprite, Color.white);
@@ -440,7 +443,7 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToSodaMachineArea()
     {
-        DisableButton(line1, "", heartSprite, Color.white);
+        DisableButton(line1, "", currentHeartSprite, Color.white);
         EnableButton(line2, "", burgerSprite, Color.white);
         EnableButton(line3, "", friesSprite, Color.white);
         DisableButton(line4, "", drinkSprite, notPressable);
@@ -455,7 +458,7 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToFrontArea()
     {
-        DisableButton(line1, "", heartSprite, Color.white);
+        DisableButton(line1, "", currentHeartSprite, Color.white);
         EnableButton(line2, "", burgerSprite, Color.white);
         EnableButton(line3, "", friesSprite, Color.white);
         EnableButton(line4, "", drinkSprite, Color.white);
@@ -475,6 +478,7 @@ ScreenTextManagment : MonoBehaviour
         line1.transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.clear;
         line1.transform.GetChild(5).GetComponent<SpriteRenderer>().color = Color.clear;
         line1.transform.GetChild(6).GetComponent<SpriteRenderer>().color = Color.clear;
+        line1.transform.GetChild(6).transform.localScale = Vector3.zero;
         line2.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
         line3.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
         line4.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
@@ -773,6 +777,31 @@ ScreenTextManagment : MonoBehaviour
         if (line5.GetComponent<ShakeText>())
         {
             line5.GetComponent<ShakeText>().Finished();
+        }
+    }
+
+    public void ChangeHeartSprite(string justChanged)
+    {
+        bool ice = false;
+        bool poison = false;
+        currentHeartSprite = heartSprite;
+        if (GetComponent<Poisoned>() != null && justChanged != "Poisoned")
+        {
+            poison = true;
+            currentHeartSprite = poisoned;
+        }
+        if (GetComponent<Frozen>() != null && justChanged != "Frozen")
+        {
+            ice = true;
+            currentHeartSprite = frozen;
+        }
+        if (poison && ice)
+        {
+            currentHeartSprite = frozenAndPoisoned;
+        }
+        if (!GetComponent<Gameplay>().IsGameOver())
+        {
+            line1.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = currentHeartSprite;
         }
     }
 }

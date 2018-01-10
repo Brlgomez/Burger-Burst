@@ -166,7 +166,7 @@ public class Zombie : MonoBehaviour
             Camera.main.GetComponent<SoundAndMusicManager>().PlayPuffSound(gameObject);
             if (thisZombieType == ZombieType.coin)
             {
-                Camera.main.GetComponent<Gameplay>().StartCoinLancher(10, thinkBubble);
+                Camera.main.GetComponent<Gameplay>().StartCoinLancher(5, thinkBubble);
             }
             else if (thisZombieType == ZombieType.healing)
             {

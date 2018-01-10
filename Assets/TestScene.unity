@@ -100830,6 +100830,9 @@ MonoBehaviour:
   detailSprite: {fileID: 21300000, guid: 30970891999904b8e9988477fe790c2a, type: 3}
   arrowSprite: {fileID: 21300000, guid: 2710b2de76ac340e4882f6e532725a47, type: 3}
   currentSprite: {fileID: 21300000, guid: 37f4d5644774341df8e6a4686c9c3883, type: 3}
+  frozen: {fileID: 21300000, guid: 4ae25e71cc2694189b87de013e1aeef1, type: 3}
+  poisoned: {fileID: 21300000, guid: 6372ce5a49d794352b39b252c3007082, type: 3}
+  frozenAndPoisoned: {fileID: 21300000, guid: 1ccafd53a8d1e4370aef7fcea2432321, type: 3}
 --- !u!114 &1865169778
 MonoBehaviour:
   m_ObjectHideFlags: 0

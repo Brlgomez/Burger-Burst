@@ -21,6 +21,7 @@ public class Frozen : MonoBehaviour
         screen.color = frozenColor;
         GetComponent<GrabAndThrowObject>().SetFrozen(true);
         GetComponent<SoundAndMusicManager>().PlayFreezeSound(gameObject);
+        GetComponent<ScreenTextManagment>().ChangeHeartSprite("");
     }
 
     void Update()
@@ -48,12 +49,14 @@ public class Frozen : MonoBehaviour
         iceAlpha = maxAplha;
         screen.color = frozenColor;
         GetComponent<SoundAndMusicManager>().PlayFreezeSound(gameObject);
-    }
+		GetComponent<ScreenTextManagment>().ChangeHeartSprite("");
+	}
 
     public void DestroyFrozen()
     {
         screen.color = Color.clear;
         GetComponent<GrabAndThrowObject>().SetFrozen(false);
+        GetComponent<ScreenTextManagment>().ChangeHeartSprite("Frozen");
         Destroy(GetComponent<Frozen>());
-    }
+	}
 }
