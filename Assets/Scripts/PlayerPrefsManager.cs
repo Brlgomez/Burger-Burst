@@ -84,7 +84,6 @@ public class PlayerPrefsManager : MonoBehaviour
 
     public void CheckSurvivalTime(float time)
     {
-        Debug.Log(ConvertSurvivalTimeToMin());
         if (time > PlayerPrefs.GetFloat(longestSurvivalTime, 0))
         {
             PlayerPrefs.SetFloat(longestSurvivalTime, time);
@@ -94,6 +93,7 @@ public class PlayerPrefsManager : MonoBehaviour
 
     public float ConvertSurvivalTimeToMin()
     {
+        float time = PlayerPrefs.GetFloat(longestSurvivalTime, 0);
         float min = Mathf.FloorToInt(time / 60);
         min += ((time % 60) / 60);
         min = Mathf.RoundToInt(min * 100);
