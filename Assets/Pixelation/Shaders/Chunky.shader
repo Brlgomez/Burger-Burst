@@ -15,6 +15,7 @@
 
 			#include "UnityCG.cginc"
 
+            float _Size;
 			sampler2D _MainTex; // текстура экрана
 			sampler2D _SprTex; // лист chunky
 			float4 _Color = float4(1, 1, 1, 1); // управление яркостью экрана
@@ -36,14 +37,14 @@
 				grayscale = clamp(grayscale, 0.0, 1.0);
 
 				// (4)
-				float dx = floor(grayscale * 16.0);
+				float dx = floor(grayscale * _Size);
 
 				// (5)
 				float2 sprPos = i.uv;
 				sprPos -= blockPos*BlockSize;
-				sprPos.x /= 16;
+				sprPos.x /= _Size;
 				sprPos *= BlockCount;
-				sprPos.x += 1.0 / 16.0 * dx;
+				sprPos.x += 1.0 / _Size * dx;
 
 				// (6)
 				float4 tex2 = tex2D(_SprTex, sprPos);

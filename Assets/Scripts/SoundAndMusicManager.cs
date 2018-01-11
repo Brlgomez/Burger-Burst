@@ -355,7 +355,7 @@ public class SoundAndMusicManager : MonoBehaviour
     {
         if (canPlaySound)
         {
-            PlayClipAt(healthDown, obj.transform.position, 1, 1);
+            PlayClipAt(healthDown, obj.transform.position, 0.25f, 1);
         }
     }
 

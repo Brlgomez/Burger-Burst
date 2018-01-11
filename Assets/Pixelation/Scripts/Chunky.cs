@@ -16,11 +16,13 @@ namespace Assets.Pixelation.Scripts
             float h = Camera.main.pixelHeight;
             Vector2 count = new Vector2(w/SprTex.height, h/SprTex.height);
             Vector2 size = new Vector2(1.0f/count.x, 1.0f/count.y);
+            float pixel = SprTex.width / SprTex.height;
             //
             material.SetVector("BlockCount", count);
             material.SetVector("BlockSize", size);
             material.SetColor("_Color", Color);
             material.SetTexture("_SprTex", SprTex);
+            material.SetFloat("_Size", pixel);
             Graphics.Blit(source, destination, material);
         }
     }

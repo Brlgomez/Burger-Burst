@@ -85,8 +85,6 @@ public class Zombie : MonoBehaviour
         {
             if (!orderComplete && !frozen)
             {
-                leftHand.GetComponent<Rigidbody>().AddRelativeForce(-leftHand.transform.forward * Random.Range(15, 20));
-                rightHand.GetComponent<Rigidbody>().AddRelativeForce(-rightHand.transform.forward * Random.Range(15, 20));
                 if (head.transform.position.z > endingZ)
                 {
                     Walk();
@@ -131,6 +129,8 @@ public class Zombie : MonoBehaviour
 
     void Walk()
     {
+		leftHand.GetComponent<Rigidbody>().AddRelativeForce(-leftHand.transform.forward * Random.Range(15, 20));
+		rightHand.GetComponent<Rigidbody>().AddRelativeForce(-rightHand.transform.forward * Random.Range(15, 20));
         if (Mathf.Round(head.transform.position.z) < endingZ - 0.25f)
         {
             GetComponent<Animator>().SetBool("Attacking", true);
@@ -188,6 +188,8 @@ public class Zombie : MonoBehaviour
 
     void NearFoodTruck()
     {
+		leftHand.GetComponent<Rigidbody>().AddRelativeForce(-leftHand.transform.forward * Random.Range(5, 10));
+		rightHand.GetComponent<Rigidbody>().AddRelativeForce(-rightHand.transform.forward * Random.Range(5, 10));
         GetComponent<Animator>().SetFloat("Speed", 0);
         damageTime += Time.deltaTime * updateInterval;
         if (rightThigh.GetComponent<Rigidbody>().isKinematic)
@@ -800,11 +802,11 @@ public class Zombie : MonoBehaviour
 
     void OrderBubbleScale()
     {
-        thinkBubble.GetComponent<SpriteRenderer>().sortingOrder = -Mathf.RoundToInt(transform.position.z * 100) - 100;
-        thinkBubble.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = -Mathf.RoundToInt(transform.position.z * 100) - 99;
-        thinkBubble.transform.GetChild(1).GetComponent<SpriteRenderer>().sortingOrder = -Mathf.RoundToInt(transform.position.z * 100) - 99;
-        thinkBubble.transform.GetChild(2).GetComponent<SpriteRenderer>().sortingOrder = -Mathf.RoundToInt(transform.position.z * 100) - 98;
-        thinkBubble.transform.GetChild(3).GetComponent<SpriteRenderer>().sortingOrder = -Mathf.RoundToInt(transform.position.z * 100) - 97;
+        thinkBubble.GetComponent<SpriteRenderer>().sortingOrder = -Mathf.RoundToInt(transform.position.z * 100) - 200;
+        thinkBubble.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = -Mathf.RoundToInt(transform.position.z * 100) - 199;
+        thinkBubble.transform.GetChild(1).GetComponent<SpriteRenderer>().sortingOrder = -Mathf.RoundToInt(transform.position.z * 100) - 199;
+        thinkBubble.transform.GetChild(2).GetComponent<SpriteRenderer>().sortingOrder = -Mathf.RoundToInt(transform.position.z * 100) - 198;
+        thinkBubble.transform.GetChild(3).GetComponent<SpriteRenderer>().sortingOrder = -Mathf.RoundToInt(transform.position.z * 100) - 197;
         if (thinkBubble.transform.localScale.x > bubbleMinScale)
         {
             if ((head.transform.position.z - endingZ) / (startingZ - endingZ) > bubbleMinScale)
