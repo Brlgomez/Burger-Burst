@@ -64921,7 +64921,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1093843162}
-  m_LocalRotation: {x: 0.35355338, y: 0.61237246, z: -0.3535534, w: 0.6123724}
+  m_LocalRotation: {x: 0.3535534, y: 0.6123725, z: -0.35355344, w: 0.61237246}
   m_LocalPosition: {x: -0.02, y: 0.06, z: 0.3}
   m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_Children: []
@@ -100741,8 +100741,10 @@ GameObject:
   - component: {fileID: 1865169798}
   - component: {fileID: 1865169794}
   - component: {fileID: 1865169795}
+  - component: {fileID: 1865169802}
   - component: {fileID: 1865169799}
   - component: {fileID: 1865169800}
+  - component: {fileID: 1865169803}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -101185,10 +101187,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 8f9dba2f26bef4e1883e9752250430fa, type: 3}
   - {fileID: 21300000, guid: 2aa05217de5314540bcacb92528e98e9, type: 3}
   - {fileID: 21300000, guid: c9e835c8700f04f77993b4df9be01044, type: 3}
+  - {fileID: 21300000, guid: 1626aa8741a74441f81c4ba806065e4f, type: 3}
   classicTexture: {fileID: 2800000, guid: 2fa123c0c9c564f56ad9cef132820714, type: 3}
-  blueAndGreenTexture: {fileID: 2800000, guid: 9c1092bbf4dea44178900bb71b62e919, type: 3}
-  blackAndWhiteTexture: {fileID: 2800000, guid: e24d36d8ff948514689bd64ae291d616,
-    type: 3}
+  blueAndGreenTexture: {fileID: 2800000, guid: ed2057b69d9194ffea2b40bedfdc31dd, type: 3}
+  greenAndOrange: {fileID: 2800000, guid: 37064651f27234d9faee10011dfc5d22, type: 3}
 --- !u!114 &1865169794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101201,7 +101203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shader: {fileID: 4800000, guid: 021f74a6bc502364ea09233306e2eac2, type: 3}
-  SprTex: {fileID: 2800000, guid: a692e4adb620949e1b904f899c5573f5, type: 3}
+  SprTex: {fileID: 2800000, guid: 37064651f27234d9faee10011dfc5d22, type: 3}
   Color: {r: 0.88235295, g: 0.88235295, b: 0.88235295, a: 1}
 --- !u!114 &1865169795
 MonoBehaviour:
@@ -101215,7 +101217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shader: {fileID: 4800000, guid: 95703b29f49b899499233ea7308bb800, type: 3}
-  BlockCount: 512
+  BlockCount: 384
 --- !u!114 &1865169796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101406,6 +101408,51 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &1865169802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1865169770}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730475ee64f9a894bbac0d9e6f22e813, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mode: 4
+  sensitivityDepth: 1
+  sensitivityNormals: 100
+  lumThreshold: 0.001
+  edgeExp: 10000
+  sampleDist: 1
+  edgesOnly: 0.25
+  edgesOnlyBgColor: {r: 1, g: 1, b: 1, a: 1}
+  edgeDetectShader: {fileID: 4800000, guid: 0d1644bdf064147baa97f235fc5b4903, type: 3}
+--- !u!114 &1865169803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1865169770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e50e925fb93c78246bf995d9dc3a2330, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  adaptiveTextureSize: 32
+  remapCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  exposureAdjustment: 2
+  middleGrey: 0.5
+  white: 2
+  adaptionSpeed: 1.5
+  tonemapper: {fileID: 4800000, guid: 003377fc2620a44939dadde6fe3f8190, type: 3}
+  validRenderTextureFormat: 0
 --- !u!1001 &1867519524
 Prefab:
   m_ObjectHideFlags: 0
