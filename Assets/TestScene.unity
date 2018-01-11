@@ -3886,7 +3886,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 596477932
+  randomSeed: 1775617401
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -64921,7 +64921,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1093843162}
-  m_LocalRotation: {x: 0.35355338, y: 0.61237246, z: -0.3535534, w: 0.6123724}
+  m_LocalRotation: {x: 0.3535534, y: 0.6123725, z: -0.35355344, w: 0.61237246}
   m_LocalPosition: {x: -0.02, y: 0.06, z: 0.3}
   m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_Children: []
@@ -101087,6 +101087,7 @@ MonoBehaviour:
   - {fileID: 4300090, guid: 3da25bf0aabe543338ad9d02fa316ade, type: 3}
   - {fileID: 4300092, guid: 3da25bf0aabe543338ad9d02fa316ade, type: 3}
   - {fileID: 4300094, guid: 3da25bf0aabe543338ad9d02fa316ade, type: 3}
+  - {fileID: 4300000, guid: 3da25bf0aabe543338ad9d02fa316ade, type: 3}
   lowerBody:
   - {fileID: 4300014, guid: 3da25bf0aabe543338ad9d02fa316ade, type: 3}
   - {fileID: 4300102, guid: 3da25bf0aabe543338ad9d02fa316ade, type: 3}
@@ -101101,6 +101102,19 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 95fb5ca20f326450fb5393b9b3854aaa, type: 3}
   - {fileID: 2800000, guid: 152bec39c3d054ef0928d6781052ae1f, type: 3}
   - {fileID: 2800000, guid: 219a9ad00be124a338610f744d16f90f, type: 3}
+  - {fileID: 2800000, guid: affe6d5e5e5fe4714a3fe38417e47bfd, type: 3}
+  - {fileID: 2800000, guid: ef1b1634ea4ea463caeaba74563b4d89, type: 3}
+  - {fileID: 2800000, guid: 7f8e11be581b34a88817e3266161c167, type: 3}
+  - {fileID: 2800000, guid: 99ec15593d3494998a63e1ab2723ab68, type: 3}
+  - {fileID: 2800000, guid: 5a4d349ded33f4840854f914ef2c999a, type: 3}
+  - {fileID: 2800000, guid: 54a87445ad8eb42c9b1d25fffd246825, type: 3}
+  - {fileID: 2800000, guid: 7015edfacfc0f4e70ad616ace1ce0b66, type: 3}
+  - {fileID: 2800000, guid: 4d04c95c691194a5e9d0b7d989178439, type: 3}
+  - {fileID: 2800000, guid: e1bb181fb9efc4508a05301453e1164f, type: 3}
+  - {fileID: 2800000, guid: ada20b27b2d1f4182b44d208b5a8eae8, type: 3}
+  - {fileID: 2800000, guid: 79f8321e0fcf74cc3a7fa486e4e9acf3, type: 3}
+  - {fileID: 2800000, guid: ae3a5d9e686e54a5e84725c86abace8d, type: 3}
+  - {fileID: 2800000, guid: 8cf2ac242154249e8826177ac5e971fa, type: 3}
   specialOutfits:
   - {fileID: 2800000, guid: 6546d1897a6c945bdba48832c8df429f, type: 3}
   - {fileID: 2800000, guid: 03a2e3e75bf3f47f7852258dafc9b00a, type: 3}
