@@ -296,21 +296,21 @@ public class GrabAndThrowObject : MonoBehaviour
             target.GetComponent<RemoveObjects>().PlayDropSound();
             if (target.GetComponent<Renderer>().material.name == "Ice (Instance)")
             {
-                GetComponent<SoundAndMusicManager>().PlayDropIceSound(gameObject, 0.25f);
+                GetComponent<SoundAndMusicManager>().PlayDropIceSound(target, 0.25f);
             }
             else
             {
                 if (target.name == "Burger(Clone)")
                 {
-                    GetComponent<SoundAndMusicManager>().PlayDropBurgerSound(gameObject, 0.25f);
+                    GetComponent<SoundAndMusicManager>().PlayDropBurgerSound(target, 0.25f);
                 }
                 else if (target.name == "Fries(Clone)")
                 {
-                    GetComponent<SoundAndMusicManager>().PlayDropFriesSound(gameObject, 0.25f);
+                    GetComponent<SoundAndMusicManager>().PlayDropFriesSound(target, 0.25f);
                 }
                 else
                 {
-                    GetComponent<SoundAndMusicManager>().PlayDropDrinkSound(gameObject, 0.25f);
+                    GetComponent<SoundAndMusicManager>().PlayDropDrinkSound(target, 0.25f);
                 }
             }
         }

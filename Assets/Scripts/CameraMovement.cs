@@ -189,7 +189,7 @@ public class CameraMovement : MonoBehaviour
 
     public void MoveToCustomize()
     {
-        SetCameraAndDevicePosition(GetComponent<PositionManager>().CustomizePosition(), GetComponent<PositionManager>().DeviceFrontPosition());
+        SetCameraAndDevicePosition(GetComponent<PositionManager>().CustomizePosition(), GetComponent<PositionManager>().DeviceMiddlePosition());
     }
 
     public void MoveToTheme()
@@ -204,12 +204,12 @@ public class CameraMovement : MonoBehaviour
 
     public void MoveToFlooring()
     {
-        SetCameraAndDevicePosition(GetComponent<PositionManager>().ThemePosition(), GetComponent<PositionManager>().DeviceFrontPosition());
+        SetCameraAndDevicePosition(GetComponent<PositionManager>().FloorPosition(), GetComponent<PositionManager>().DeviceFrontPosition());
     }
 
     public void MoveToWallpaper()
     {
-        SetCameraAndDevicePosition(GetComponent<PositionManager>().ThemePosition(), GetComponent<PositionManager>().DeviceFrontPosition());
+        SetCameraAndDevicePosition(GetComponent<PositionManager>().WallPosition(), GetComponent<PositionManager>().DeviceFrontPosition());
     }
 
     public void MoveToDetail()
