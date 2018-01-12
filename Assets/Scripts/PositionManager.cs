@@ -6,7 +6,7 @@ public class PositionManager : MonoBehaviour
 {
     GameObject menu, gameplay, pause, gameOver, grill, fryer, soda, powerUp;
     GameObject customize, setting, store, graphics, theme, floor, wall;
-    GameObject deviceFront, deviceBack, deviceMiddle, deviceBackTablet, deviceBackX;
+    GameObject deviceFront, deviceBack, deviceMiddle, deviceBackTablet, deviceBackX, deviceBackShort;
     GameObject madeFriesPos, burgerPos, drinkPos;
     GameObject meatPos, topBunPos, bottomBunPos;
     GameObject friesPos, basketPos;
@@ -34,6 +34,7 @@ public class PositionManager : MonoBehaviour
         deviceBackTablet = GameObject.Find("Device Back Tablet Position");
         deviceBack = GameObject.Find("Device Back Position");
         deviceBackX = GameObject.Find("Device Back X Position");
+        deviceBackShort = GameObject.Find("Device Back Short Position");
         deviceMiddle = GameObject.Find("Device Middle Position");
         madeFriesPos = GameObject.Find("Made Fries Position");
         burgerPos = GameObject.Find("Burger Position");
@@ -91,11 +92,19 @@ public class PositionManager : MonoBehaviour
 
     public Transform DeviceBackPosition()
     {
-        if (((float)Screen.width / Screen.height) < 1.5f)
+        if (((float)Screen.width / Screen.height) < 1.4f)
         {
             return deviceBackTablet.transform;
         }
-        else if (((float)Screen.width / Screen.height) >= 2)
+        if (((float)Screen.width / Screen.height) < 1.525f)
+        {
+            return deviceBackShort.transform;
+        }
+        if (((float)Screen.width / Screen.height) < 1.8f)
+        {
+            return deviceBack.transform;
+        }
+        if (((float)Screen.width / Screen.height) >= 2)
         {
             return deviceBackX.transform;
         }
