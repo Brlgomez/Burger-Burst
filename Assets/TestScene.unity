@@ -7853,6 +7853,34 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 91919792}
   m_Mesh: {fileID: 4300012, guid: 3da25bf0aabe543338ad9d02fa316ade, type: 3}
+--- !u!1 &101348599
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 101348600}
+  m_Layer: 0
+  m_Name: Device Back X Position
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &101348600
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 101348599}
+  m_LocalRotation: {x: -0.092296, y: 0.56098557, z: 0.70105743, w: 0.43045935}
+  m_LocalPosition: {x: 0.225, y: -0.045, z: 0.2}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_Children: []
+  m_Father: {fileID: 1865169775}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: -60.000004, y: 45.000004, z: 90}
 --- !u!1001 &108243931
 Prefab:
   m_ObjectHideFlags: 0
@@ -65036,7 +65064,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1093843162}
-  m_LocalRotation: {x: 0.3535534, y: 0.6123725, z: -0.35355344, w: 0.61237246}
+  m_LocalRotation: {x: 0.35355338, y: 0.61237246, z: -0.3535534, w: 0.6123724}
   m_LocalPosition: {x: -0.02, y: 0.06, z: 0.3}
   m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_Children: []
@@ -71306,7 +71334,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 546695299
+  randomSeed: -1647315889
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -100975,6 +101003,8 @@ Transform:
   - {fileID: 119088051}
   - {fileID: 205472525}
   - {fileID: 1365904500}
+  - {fileID: 1978853563}
+  - {fileID: 101348600}
   m_Father: {fileID: 2587686}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
@@ -102824,6 +102854,34 @@ MeshCollider:
   m_InflateMesh: 0
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: f961c1110e666484ca20a4b01bf39ed7, type: 3}
+--- !u!1 &1978853562
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1978853563}
+  m_Layer: 0
+  m_Name: Device Back Tablet Position
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1978853563
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1978853562}
+  m_LocalRotation: {x: -0.092296, y: 0.56098557, z: 0.70105743, w: 0.43045935}
+  m_LocalPosition: {x: 0.24, y: -0.1, z: 0.3}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_Children: []
+  m_Father: {fileID: 1865169775}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: -60.000004, y: 45.000004, z: 90}
 --- !u!1 &1989339527
 GameObject:
   m_ObjectHideFlags: 0

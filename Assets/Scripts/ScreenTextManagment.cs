@@ -122,11 +122,11 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToGraphicsScreen()
     {
-		if (GetComponent<LEDManager>().GetUnlockLedText() == "Graphic")
-		{
-			GetComponent<LEDManager>().EraseUnlockText();
-			GetComponent<LEDManager>().RemoveBlinkingLED();
-		}
+        if (GetComponent<LEDManager>().GetUnlockLedText() == "Graphic")
+        {
+            GetComponent<LEDManager>().EraseUnlockText();
+            GetComponent<LEDManager>().RemoveBlinkingLED();
+        }
         DisableButton(line1, "", null, Color.white);
         EnableButton(line2, "", null, Color.white);
         EnableButton(line3, "", null, Color.white);

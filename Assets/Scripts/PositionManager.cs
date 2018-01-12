@@ -6,7 +6,7 @@ public class PositionManager : MonoBehaviour
 {
     GameObject menu, gameplay, pause, gameOver, grill, fryer, soda, powerUp;
     GameObject customize, setting, store, graphics, theme, floor, wall;
-    GameObject deviceFront, deviceBack, deviceMiddle;
+    GameObject deviceFront, deviceBack, deviceMiddle, deviceBackTablet, deviceBackX;
     GameObject madeFriesPos, burgerPos, drinkPos;
     GameObject meatPos, topBunPos, bottomBunPos;
     GameObject friesPos, basketPos;
@@ -23,17 +23,19 @@ public class PositionManager : MonoBehaviour
         graphics = GameObject.Find("Graphics Camera Position");
         theme = GameObject.Find("Theme Camera Position");
         floor = GameObject.Find("Floor Camera Position");
-		wall = GameObject.Find("Wall Camera Position");
-		gameplay = GameObject.Find("Gameplay Camera Position");
+        wall = GameObject.Find("Wall Camera Position");
+        gameplay = GameObject.Find("Gameplay Camera Position");
         pause = GameObject.Find("Pause Camera Position");
         grill = GameObject.Find("Grill Position");
         fryer = GameObject.Find("Fryer Position");
         soda = GameObject.Find("Soda Machine Position");
         gameOver = GameObject.Find("Game Over Camera Position");
         deviceFront = GameObject.Find("Device Front Position");
+        deviceBackTablet = GameObject.Find("Device Back Tablet Position");
         deviceBack = GameObject.Find("Device Back Position");
+        deviceBackX = GameObject.Find("Device Back X Position");
         deviceMiddle = GameObject.Find("Device Middle Position");
-		madeFriesPos = GameObject.Find("Made Fries Position");
+        madeFriesPos = GameObject.Find("Made Fries Position");
         burgerPos = GameObject.Find("Burger Position");
         drinkPos = GameObject.Find("Drink Position");
         meatPos = GameObject.Find("Meat Position");
@@ -65,11 +67,11 @@ public class PositionManager : MonoBehaviour
 
     public Transform ThemePosition() { return theme.transform; }
 
-	public Transform FloorPosition() { return floor.transform; }
+    public Transform FloorPosition() { return floor.transform; }
 
-	public Transform WallPosition() { return wall.transform; }
+    public Transform WallPosition() { return wall.transform; }
 
-	public Transform PausePosition() { return pause.transform; }
+    public Transform PausePosition() { return pause.transform; }
 
     public Transform GrillPosition() { return grill.transform; }
 
@@ -87,11 +89,22 @@ public class PositionManager : MonoBehaviour
 
     public Transform DeviceFrontPosition() { return deviceFront.transform; }
 
-    public Transform DeviceBackPosition() { return deviceBack.transform; }
+    public Transform DeviceBackPosition()
+    {
+        if (((float)Screen.width / Screen.height) < 1.5f)
+        {
+            return deviceBackTablet.transform;
+        }
+        else if (((float)Screen.width / Screen.height) >= 2)
+        {
+            return deviceBackX.transform;
+        }
+        return deviceBack.transform;
+    }
 
     public Transform DeviceMiddlePosition() { return deviceMiddle.transform; }
 
-	public Transform MeatSpawnPosition() { return meatPos.transform; }
+    public Transform MeatSpawnPosition() { return meatPos.transform; }
 
     public Transform TopBunSpawnPosition() { return topBunPos.transform; }
 
