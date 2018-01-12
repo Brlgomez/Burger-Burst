@@ -80,7 +80,7 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToUpgradeText()
     {
-        if (GetComponent<LEDManager>().GetUnlockLedText() == "POWER")
+        if (GetComponent<LEDManager>().GetUnlockLedText() == "Power")
         {
             GetComponent<LEDManager>().EraseUnlockText();
             GetComponent<LEDManager>().RemoveBlinkingLED();
@@ -122,7 +122,7 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToGraphicsScreen()
     {
-		if (GetComponent<LEDManager>().GetUnlockLedText() == "GRAPHIC")
+		if (GetComponent<LEDManager>().GetUnlockLedText() == "Graphic")
 		{
 			GetComponent<LEDManager>().EraseUnlockText();
 			GetComponent<LEDManager>().RemoveBlinkingLED();
@@ -139,7 +139,7 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToFlooringScreen()
     {
-        if (GetComponent<LEDManager>().GetUnlockLedText() == "FLOOR")
+        if (GetComponent<LEDManager>().GetUnlockLedText() == "Floor")
         {
             GetComponent<LEDManager>().EraseUnlockText();
         }
@@ -155,7 +155,7 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToWallpaperScreen()
     {
-        if (GetComponent<LEDManager>().GetUnlockLedText() == "WALL")
+        if (GetComponent<LEDManager>().GetUnlockLedText() == "Wall")
         {
             GetComponent<LEDManager>().EraseUnlockText();
         }
@@ -171,7 +171,7 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToDetailScreen()
     {
-        if (GetComponent<LEDManager>().GetUnlockLedText() == "DETAIL")
+        if (GetComponent<LEDManager>().GetUnlockLedText() == "Detail")
         {
             GetComponent<LEDManager>().EraseUnlockText();
         }

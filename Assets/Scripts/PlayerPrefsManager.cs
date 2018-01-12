@@ -438,31 +438,31 @@ public class PlayerPrefsManager : MonoBehaviour
         int randomValue = Random.Range(0, (floorsLeft + wallsLeft + detailsLeft + (powerUpsLeft * 2) + graphicsLeft));
         if (randomValue >= 0 && randomValue < floorsLeft)
         {
-            description = "FLOOR";
+            description = "Floor";
             IncreaseFloorsUnlocked();
             GetComponent<ThemeManager>().SetThemeLists();
         }
         else if (randomValue >= floorsLeft && randomValue < (floorsLeft + wallsLeft))
         {
-            description = "WALL";
+            description = "Wall";
             IncreaseWallsUnlocked();
             GetComponent<ThemeManager>().SetThemeLists();
         }
         else if (randomValue >= (floorsLeft + wallsLeft) && randomValue < (floorsLeft + wallsLeft + detailsLeft))
         {
-            description = "DETAIL";
+            description = "Detail";
             IncreaseDetailUnlocked();
             GetComponent<ThemeManager>().SetThemeLists();
         }
         else if (randomValue >= (floorsLeft + wallsLeft + detailsLeft) && randomValue < (floorsLeft + wallsLeft + detailsLeft + (powerUpsLeft * 2)))
         {
-            description = "POWER";
+            description = "Power";
             IncreasePowerUpsUnlocked();
             GetComponent<PowerUpsManager>().SetPowerUpLists();
         }
         else
         {
-            description = "GRAPHIC";
+            description = "Graphic";
             IncreaseGraphicsUnlocked();
             GetComponent<GraphicsManager>().SetGraphicsList();
         }

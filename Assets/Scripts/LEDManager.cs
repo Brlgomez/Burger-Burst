@@ -70,7 +70,7 @@ public class LEDManager : MonoBehaviour
     {
         if (text != "")
         {
-            unlockedLed.GetComponent<TextMesh>().text = "NEW " + text + " \nAVAILABLE";
+            unlockedLed.GetComponent<TextMesh>().text = "New " + text + " \nAvailable";
         }
     }
 
