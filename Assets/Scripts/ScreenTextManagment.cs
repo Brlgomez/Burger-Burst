@@ -56,6 +56,7 @@ ScreenTextManagment : MonoBehaviour
         EnableButton(line5, "Settings", settingsSprite, Color.white);
         TurnOffScrollList();
         TurnOffGameplayImages();
+        GetComponent<LEDManager>().MakeUnlockTextBlink();
         line1.GetComponent<TextMesh>().characterSize = 0.025f;
         line2.GetComponent<TextMesh>().characterSize = 0.025f;
         line3.GetComponent<TextMesh>().characterSize = 0.025f;
@@ -121,6 +122,11 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToGraphicsScreen()
     {
+		if (GetComponent<LEDManager>().GetUnlockLedText() == "GRAPHIC")
+		{
+			GetComponent<LEDManager>().EraseUnlockText();
+			GetComponent<LEDManager>().RemoveBlinkingLED();
+		}
         DisableButton(line1, "", null, Color.white);
         EnableButton(line2, "", null, Color.white);
         EnableButton(line3, "", null, Color.white);

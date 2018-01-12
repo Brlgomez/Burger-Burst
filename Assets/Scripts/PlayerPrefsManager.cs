@@ -24,11 +24,12 @@ public class PlayerPrefsManager : MonoBehaviour
     public static string specificWallpaper = "Wallpaper";
     public static string specificDetail = "Detail";
     static string powerUpsUnlocked = "PowerUpsUnlocked";
+    static string graphicsUnlocked = "GraphicsUnlocked";
     static string floorsUnlocked = "FlooringUnlocked";
     static string wallsUnlocked = "WallpapersUnlocked";
     static string detailsUnlocked = "DetailsUnlocked";
     static string nextUnlock = "NextUnlock";
-    int floorsLeft, wallsLeft, detailsLeft, powerUpsLeft;
+    int floorsLeft, wallsLeft, detailsLeft, powerUpsLeft, graphicsLeft;
 
     void Start()
     {
@@ -363,6 +364,16 @@ public class PlayerPrefsManager : MonoBehaviour
         PlayerPrefs.SetInt(powerUpsUnlocked, (GetPowerUpsUnlocked() + 1));
     }
 
+    public int GetGraphicsUnlocked()
+    {
+        return PlayerPrefs.GetInt(graphicsUnlocked, 5);
+    }
+
+    public void IncreaseGraphicsUnlocked()
+    {
+        PlayerPrefs.SetInt(graphicsUnlocked, (GetGraphicsUnlocked() + 1));
+    }
+
     public int GetFloorsUnlocked()
     {
         return PlayerPrefs.GetInt(floorsUnlocked, 5);
@@ -408,7 +419,7 @@ public class PlayerPrefsManager : MonoBehaviour
         string somethingUnlocked = "";
         while (GetTotalPoints() >= GetNextUnlock())
         {
-            if (floorsLeft + wallsLeft + detailsLeft + powerUpsLeft > 0)
+            if (floorsLeft + wallsLeft + detailsLeft + powerUpsLeft + graphicsLeft > 0)
             {
                 IncreaseNextUnlock();
                 somethingUnlocked = UnlockItem();
@@ -424,7 +435,7 @@ public class PlayerPrefsManager : MonoBehaviour
     public string UnlockItem()
     {
         string description = "";
-        int randomValue = Random.Range(0, (floorsLeft + wallsLeft + detailsLeft + (powerUpsLeft * 2)));
+        int randomValue = Random.Range(0, (floorsLeft + wallsLeft + detailsLeft + (powerUpsLeft * 2) + graphicsLeft));
         if (randomValue >= 0 && randomValue < floorsLeft)
         {
             description = "FLOOR";
@@ -443,11 +454,17 @@ public class PlayerPrefsManager : MonoBehaviour
             IncreaseDetailUnlocked();
             GetComponent<ThemeManager>().SetThemeLists();
         }
-        else
+        else if (randomValue >= (floorsLeft + wallsLeft + detailsLeft) && randomValue < (floorsLeft + wallsLeft + detailsLeft + (powerUpsLeft * 2)))
         {
             description = "POWER";
             IncreasePowerUpsUnlocked();
             GetComponent<PowerUpsManager>().SetPowerUpLists();
+        }
+        else
+        {
+            description = "GRAPHIC";
+            IncreaseGraphicsUnlocked();
+            GetComponent<GraphicsManager>().SetGraphicsList();
         }
         GetUnlockValues();
         return description;
@@ -455,7 +472,7 @@ public class PlayerPrefsManager : MonoBehaviour
 
     public int PointsToNextUpgrade()
     {
-        if (floorsLeft + wallsLeft + detailsLeft + powerUpsLeft > 0)
+        if (floorsLeft + wallsLeft + detailsLeft + powerUpsLeft + graphicsLeft > 0)
         {
             return GetNextUnlock() - GetTotalPoints();
         }
@@ -466,9 +483,11 @@ public class PlayerPrefsManager : MonoBehaviour
     {
         int themeCount = GetComponent<ThemeManager>().maxThemes;
         int powerUpCount = GetComponent<PowerUpsManager>().maxPowerUps;
+        int graphicsCount = GetComponent<GraphicsManager>().maxGraphics;
         floorsLeft = themeCount - GetFloorsUnlocked();
         wallsLeft = themeCount - GetWallsUnlocked();
         detailsLeft = themeCount - GetDetailUnlocked();
         powerUpsLeft = powerUpCount - GetPowerUpsUnlocked();
+        graphicsLeft = graphicsCount - GetGraphicsUnlocked();
     }
 }

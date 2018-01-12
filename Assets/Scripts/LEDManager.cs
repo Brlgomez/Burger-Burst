@@ -62,7 +62,7 @@ public class LEDManager : MonoBehaviour
         }
         else
         {
-            nextUnlockLed.GetComponent<TextMesh>().text = "All Items\nUnlocked";
+            nextUnlockLed.GetComponent<TextMesh>().text = "All Items\nAvailable";
         }
     }
 
@@ -88,7 +88,7 @@ public class LEDManager : MonoBehaviour
         return "";
     }
 
-    void MakeUnlockTextBlink()
+    public void MakeUnlockTextBlink()
     {
         if (unlockedLed.GetComponent<TextMesh>().text != "")
         {
@@ -114,6 +114,5 @@ public class LEDManager : MonoBehaviour
     {
         ShowWhatIsUnlocked(GetComponent<PlayerPrefsManager>().CheckIfAnythingUnlocked());
         UpdateHighScoreText();
-        MakeUnlockTextBlink();
     }
 }

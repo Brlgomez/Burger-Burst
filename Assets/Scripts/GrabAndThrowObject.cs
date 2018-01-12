@@ -423,7 +423,7 @@ public class GrabAndThrowObject : MonoBehaviour
                 float xVelocity = (diff.x * 10) + ((target.transform.position.x * speed * 2));
                 float yVelocity = diff.y * 3;
                 float zVelocity = diff.z * 15;
-                Vector3 newVelocity = new Vector3(xVelocity, yVelocity, zVelocity) * ((Screen.height / Screen.dpi) * 0.5f);
+                Vector3 newVelocity = new Vector3(xVelocity, yVelocity, zVelocity) * ((Camera.main.pixelHeight / Screen.dpi) * 0.5f);
                 if (newVelocity.magnitude > (throwingDistance * 0.66f))
                 {
                     newVelocity *= ((throwingDistance * 0.66f) / newVelocity.magnitude);

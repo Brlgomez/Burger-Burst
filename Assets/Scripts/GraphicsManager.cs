@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class GraphicsManager : MonoBehaviour
 {
-    public List<Sprite> graphicSprites;
+    public int maxGraphics;
     public List<Graphic> graphicList = new List<Graphic>();
     public Texture2D classicTexture, blueAndGreenTexture, greenAndOrange, redRetro, rainbow, grapeFruit;
+    string[] allDescriptions;
 
     public class Graphic
     {
@@ -16,29 +17,38 @@ public class GraphicsManager : MonoBehaviour
         public string description;
         public Sprite sprite;
 
-        public Graphic(int graphicNum, int cost, string info, Sprite icon)
+        public Graphic(int graphicNum, int cost, string info)
         {
             graphicNumber = graphicNum;
             price = cost;
             unlocked = (PlayerPrefs.GetInt(PlayerPrefsManager.specificGraphics + graphicNum, 0) == 1);
             description = info;
-            sprite = icon;
+            sprite = (Sprite)Resources.Load("Sprites/Graphics/" + graphicNum, typeof(Sprite));
         }
     }
 
     void Awake()
     {
+        TextAsset t = new TextAsset();
+        t = Resources.Load("Graphics") as TextAsset;
+        allDescriptions = t.text.Split('\n');
+        maxGraphics = allDescriptions.Length;
         PlayerPrefs.SetInt(PlayerPrefsManager.specificGraphics + 0, 1);
-        graphicList.Add(new Graphic(0, 0, "Normal", graphicSprites[0]));
-        graphicList.Add(new Graphic(1, 100, "Retro", graphicSprites[1]));
-        graphicList.Add(new Graphic(2, 100, "Blue & Green", graphicSprites[2]));
-        graphicList.Add(new Graphic(3, 100, "Green & Orange", graphicSprites[3]));
-        graphicList.Add(new Graphic(4, 100, "Pixelated", graphicSprites[4]));
-        graphicList.Add(new Graphic(5, 100, "Outlined", graphicSprites[5]));
-		graphicList.Add(new Graphic(6, 100, "Red Retro", graphicSprites[6]));
-		graphicList.Add(new Graphic(7, 100, "Grape Fruit", graphicSprites[7]));
-		graphicList.Add(new Graphic(8, 100, "Lucid Dreaming", graphicSprites[8]));
-		SetGraphic(GetComponent<PlayerPrefsManager>().GetGraphics());
+        SetGraphicsList();
+        SetGraphic(GetComponent<PlayerPrefsManager>().GetGraphics());
+    }
+
+    public void SetGraphicsList()
+    {
+        graphicList.Clear();
+        for (int i = 0; i < maxGraphics; i++)
+        {
+            string description = allDescriptions[i].Replace("NEWLINE", "\n");
+            if (i < GetComponent<PlayerPrefsManager>().GetGraphicsUnlocked())
+            {
+                graphicList.Add(new Graphic(i, int.Parse(description.Split('*')[1]), description.Split('*')[0]));
+            }
+        }
     }
 
     public void SetGraphic(int graphicNum)
