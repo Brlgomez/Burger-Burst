@@ -43,45 +43,41 @@ public class SoundAndMusicManager : MonoBehaviour
         {
             musicSource.clip = music[trackNumber];
             musicSource.Play();
-            Debug.Log("PLAYING SONG");
-            StartCoroutine(PlayNextSong(musicSource));
-        }
-        else
-        {
-            musicSource.clip = null;
-            musicSource.Stop();
         }
     }
 
-    public void PauseMusic()
+    public void StopMusic()
     {
         canPlayMusic = false;
-        musicSource.Pause();
+        musicSource.Stop();
+        PickNextSong();
     }
 
-    public void UnpauseMusic()
+    public void CanPlayMusic()
     {
         canPlayMusic = true;
-        if (musicSource.clip == null)
+        PlayMusic();
+    }
+
+    public void PickNextSong()
+    {
+        if (canPlayMusic)
         {
+            trackNumber++;
+            if (trackNumber >= music.Length)
+            {
+                trackNumber = 0;
+            }
             PlayMusic();
-        }
-        else
-        {
-            musicSource.UnPause();
         }
     }
 
-    IEnumerator PlayNextSong(AudioSource track)
+    public void CheckIfMusicPlaying()
     {
-        yield return new WaitForSeconds(track.clip.length);
-        trackNumber++;
-        if (trackNumber >= music.Length)
+        if (!musicSource.isPlaying && canPlayMusic)
         {
-            trackNumber = 0;
+            PickNextSong();
         }
-        Debug.Log("NEW TRACK NUMBER");
-        PlayMusic();
     }
 
     /* DEVICE SOUNDS */

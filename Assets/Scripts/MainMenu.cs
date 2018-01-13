@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
+    static int updateInterval = 30;
     GameObject target;
     Vector3 point1, point2, originalPoint;
     int lastScrollX;
@@ -16,6 +17,10 @@ public class MainMenu : MonoBehaviour
     {
         Application.targetFrameRate = 60;
         Input.multiTouchEnabled = false;
+        if (GetComponent<ScreenTextManagment>().GetMenu() == Menus.Menu.PhoneDown)
+        {
+            GetComponent<ObjectManager>().TitleSign().transform.GetChild(0).gameObject.AddComponent<PingPongColor>().SetColors(null);
+        }
     }
 
     void Update()
@@ -35,6 +40,10 @@ public class MainMenu : MonoBehaviour
         if (roundScroller)
         {
             roundScroller = GetComponent<MenuSlider>().MoveScroller();
+        }
+        if (Time.frameCount % updateInterval == 0)
+        {
+            GetComponent<SoundAndMusicManager>().CheckIfMusicPlaying();
         }
     }
 
@@ -58,6 +67,7 @@ public class MainMenu : MonoBehaviour
             GetComponent<LEDManager>().CheckIfAnythingUnlocked();
             GetComponent<ScreenTextManagment>().ChangeToTitleText();
             gameObject.AddComponent<CameraMovement>().MoveToTitle();
+            Destroy(GetComponent<ObjectManager>().TitleSign().transform.GetChild(0).gameObject);
         }
         else if (target != null && target.tag == "UI")
         {
@@ -177,7 +187,8 @@ public class MainMenu : MonoBehaviour
 
     public void LoadingAnimation()
     {
-        StartCoroutine(PhoneStartUp());
+		Destroy(GetComponent<TitleAnimation>());
+		StartCoroutine(PhoneStartUp());
     }
 
     public IEnumerator PhoneStartUp()

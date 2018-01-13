@@ -97,7 +97,7 @@ public class LEDManager : MonoBehaviour
                 Color[] ledColors = new Color[2];
                 ledColors[0] = Color.cyan;
                 ledColors[1] = Color.clear;
-                unlockedLed.AddComponent<PingPongColor>().SetColorAndObject(ledColors, 1);
+                unlockedLed.AddComponent<PingPongColor>().SetColors(ledColors);
             }
         }
     }

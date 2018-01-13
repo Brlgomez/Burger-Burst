@@ -353,7 +353,7 @@ ScreenTextManagment : MonoBehaviour
             highScoreColors[0] = new Color(1, 0.25f, 1);
             highScoreColors[1] = new Color(1, 1, 0.25f);
             highScoreColors[2] = new Color(0.25f, 1, 1);
-            line1.AddComponent<PingPongColor>().SetColorAndObject(highScoreColors, 0);
+            line1.AddComponent<PingPongColor>().SetColors(highScoreColors);
             DisableButton(line1, "NEW HIGH\n     " + GetComponent<Gameplay>().GetPoints().ToString(), pointSprite, Color.white);
             GetComponent<SoundAndMusicManager>().PlayHighScoreSound();
         }
@@ -822,7 +822,7 @@ ScreenTextManagment : MonoBehaviour
                 Color[] colors = new Color[2];
                 colors[0] = new Color(1, 1, 1, 1);
                 colors[1] = new Color(1, 1, 1, 0);
-                line1.transform.GetChild(1).gameObject.AddComponent<PingPongColor>().SetColorAndObject(colors, 2);
+                line1.transform.GetChild(1).gameObject.AddComponent<PingPongColor>().SetColors(colors);
             }
         }
     }

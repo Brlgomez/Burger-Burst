@@ -361,7 +361,7 @@ public class Gameplay : MonoBehaviour
 
     public int ContinuePrice()
     {
-        return Mathf.RoundToInt(completedOrders * 0.75f) + 1;
+        return Mathf.RoundToInt(completedOrders * 1.1f) + 1;
     }
 
     public bool GetContinued()

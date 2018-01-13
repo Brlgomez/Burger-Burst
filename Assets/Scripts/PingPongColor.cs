@@ -12,6 +12,23 @@ public class PingPongColor : MonoBehaviour
     int nextColor = 1;
     int changeColorNumber;
 
+    void Awake()
+    {
+        pickedColors = new List<Color>();
+        if (gameObject.GetComponent<TextMesh>())
+        {
+            changeColorNumber = 0;
+        }
+        if (gameObject.GetComponent<Renderer>())
+        {
+            changeColorNumber = 1;
+        }
+        if (gameObject.GetComponent<SpriteRenderer>())
+        {
+            changeColorNumber = 2;
+        }
+    }
+
     void Update()
     {
         if (startLooping && pickedColors.Count > 1)
@@ -19,16 +36,17 @@ public class PingPongColor : MonoBehaviour
             time += Time.deltaTime;
             if (time < loopTime)
             {
+                Color newColor = Color.Lerp(pickedColors[currentColorNumber], pickedColors[nextColor], (time / loopTime));
                 switch (changeColorNumber)
                 {
                     case 0:
-                        GetComponent<TextMesh>().color = Color.Lerp(pickedColors[currentColorNumber], pickedColors[nextColor], time * 2);
+                        GetComponent<TextMesh>().color = newColor;
                         break;
                     case 1:
-                        GetComponent<Renderer>().material.color = Color.Lerp(pickedColors[currentColorNumber], pickedColors[nextColor], time * 2);
+                        GetComponent<Renderer>().material.color = newColor;
                         break;
                     case 2:
-                        GetComponent<SpriteRenderer>().color = Color.Lerp(pickedColors[currentColorNumber], pickedColors[nextColor], time * 2);
+                        GetComponent<SpriteRenderer>().color = newColor;
                         break;
                 }
             }
@@ -55,13 +73,19 @@ public class PingPongColor : MonoBehaviour
         }
     }
 
-    public void SetColorAndObject(Color[] colors, int changeItem)
+    public void SetColors(Color[] colors)
     {
-        changeColorNumber = changeItem;
-        pickedColors = new List<Color>();
-        for (int i = 0; i < colors.Length; i++)
+        if (colors != null)
         {
-            pickedColors.Add(colors[i]);
+            for (int i = 0; i < colors.Length; i++)
+            {
+                pickedColors.Add(colors[i]);
+            }
+        }
+        else
+        {
+            pickedColors.Add(Color.white);
+            pickedColors.Add(Color.clear);
         }
         startLooping = true;
     }

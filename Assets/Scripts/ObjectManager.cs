@@ -9,7 +9,7 @@ public class ObjectManager : MonoBehaviour
     GameObject phone, led, powerUpsLed, coinsLed, highScoreLed, totalPointsLed;
     GameObject fries, burger, drink;
     GameObject meat, topBun, bottomBun, uncookedFries, friesBasket, cup, lid;
-    GameObject foodTruck;
+    GameObject foodTruck, titleSign;
     GameObject car, suv;
     GameObject zombie;
     GameObject blastParticles;
@@ -32,9 +32,9 @@ public class ObjectManager : MonoBehaviour
         led = GameObject.Find("Points LED");
         powerUpsLed = GameObject.Find("Power Ups LED");
         coinsLed = GameObject.Find("Coins LED");
-		highScoreLed = GameObject.Find("High Score LED");
+        highScoreLed = GameObject.Find("High Score LED");
         totalPointsLed = GameObject.Find("Total Points LED");
-		fries = GameObject.Find("Fries");
+        fries = GameObject.Find("Fries");
         burger = GameObject.Find("Burger");
         drink = GameObject.Find("Drink");
         foodTruck = GameObject.Find("Food Truck");
@@ -52,10 +52,11 @@ public class ObjectManager : MonoBehaviour
         windParticles = GameObject.Find("Wind Particles");
         landOnZombieParticles = GameObject.Find("Land on Zombie Particles");
         coin = GameObject.Find("Coin");
-		stereo = GameObject.Find("Speaker");
-		horn = GameObject.Find("Horn");
+        stereo = GameObject.Find("Speaker");
+        horn = GameObject.Find("Horn");
         vibratingDevice = GameObject.Find("Vibrating Device");
-	}
+        titleSign = GameObject.Find("Title Sign");
+    }
 
     public GameObject CounterWall() { return counterWall; }
 
@@ -83,9 +84,9 @@ public class ObjectManager : MonoBehaviour
 
     public GameObject HighScoreLED() { return highScoreLed; }
 
-	public GameObject TotalPointsLED() { return totalPointsLed; }
+    public GameObject TotalPointsLED() { return totalPointsLed; }
 
-	public GameObject Fries() { return fries; }
+    public GameObject Fries() { return fries; }
 
     public GameObject Burger() { return burger; }
 
@@ -128,4 +129,6 @@ public class ObjectManager : MonoBehaviour
     public GameObject Horn() { return horn; }
 
     public GameObject VibratingDevice() { return vibratingDevice; }
+
+    public GameObject TitleSign() { return titleSign; }
 }
