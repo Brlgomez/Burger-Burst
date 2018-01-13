@@ -26,6 +26,7 @@ namespace UnityStandardAssets.ImageEffects
         public float sampleDist = 1.0f;
         public float edgesOnly = 0.0f;
         public Color edgesOnlyBgColor = Color.white;
+		public Color edgesColor = Color.white;
 
         public Shader edgeDetectShader;
         private Material edgeDetectMaterial = null;
@@ -76,12 +77,14 @@ namespace UnityStandardAssets.ImageEffects
             }
 
             Vector2 sensitivity = new Vector2 (sensitivityDepth, sensitivityNormals);
-            edgeDetectMaterial.SetVector ("_Sensitivity", new Vector4 (sensitivity.x, sensitivity.y, 1.0f, sensitivity.y));
+			Vector4 edgeCol = edgesColor;
+			edgeDetectMaterial.SetVector ("_Sensitivity", new Vector4 (sensitivity.x, sensitivity.y, 1.0f, sensitivity.y));
             edgeDetectMaterial.SetFloat ("_BgFade", edgesOnly);
             edgeDetectMaterial.SetFloat ("_SampleDistance", sampleDist);
             edgeDetectMaterial.SetVector ("_BgColor", edgesOnlyBgColor);
             edgeDetectMaterial.SetFloat ("_Exponent", edgeExp);
             edgeDetectMaterial.SetFloat ("_Threshold", lumThreshold);
+			edgeDetectMaterial.SetVector("_Color", edgeCol);
 
             Graphics.Blit (source, destination, edgeDetectMaterial, (int) mode);
         }

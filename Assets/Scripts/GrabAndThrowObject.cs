@@ -71,7 +71,7 @@ public class GrabAndThrowObject : MonoBehaviour
         if (Input.GetKeyDown("d"))
             GetComponent<Gameplay>().ReduceHealth(10, gameObject);
         if (Input.GetKeyDown("p"))
-            GetComponent<PlayerPrefsManager>().IncreaseTotalPoints(10);
+            GetComponent<PlayerPrefsManager>().IncreaseTotalPoints(100);
         if (Input.GetKeyDown("h"))
             GetComponent<Gameplay>().AddLife(15, gameObject);
 
