@@ -17078,7 +17078,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1066741599
+  randomSeed: 551646484
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -20293,6 +20293,86 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
+--- !u!82 &314112547
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 314112544}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 25
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!4 &314112548 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 5413dfe024539467da6235525f09dfc3, type: 3}
@@ -101530,6 +101610,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 82965f9cd02ca4cf7ac447ee107b8d17, type: 3}
   - {fileID: 8300000, guid: db665aa6a853d49f9b980a34089b1a91, type: 3}
   - {fileID: 8300000, guid: 5ab8a00a0467546089f5823a9c64be51, type: 3}
+  music:
+  - {fileID: 8300000, guid: 3a08ae806946e442e86c91584ce144d9, type: 3}
+  - {fileID: 8300000, guid: 269e8c5a2b09a4b25ba85ce02e779b2a, type: 3}
+  - {fileID: 8300000, guid: 54aa8e517288642ceb2d8dd19637ef59, type: 3}
+  - {fileID: 8300000, guid: 9e8f113252f3a45019cdf51639dec43b, type: 3}
+  - {fileID: 8300000, guid: 64423c72697c34934a7a5cd8279f96a6, type: 3}
 --- !u!82 &1865169801
 AudioSource:
   m_ObjectHideFlags: 0

@@ -5,6 +5,7 @@ using UnityEngine;
 public class SoundAndMusicManager : MonoBehaviour
 {
     AudioSource source;
+    AudioSource musicSource;
     public AudioClip scrollSound, pickingSlotSound, pickItemSound, removePowerUpSound;
     public AudioClip boughtItemWithCoins, horn, vibrate, stereoSwitch, bootUp, highScore;
     public AudioClip steam, button, dropCup, dropLid, dropPatty, dropFries, dropBasket;
@@ -14,15 +15,21 @@ public class SoundAndMusicManager : MonoBehaviour
     public AudioClip[] walkOnGrass;
     public AudioClip[] zombieIdleNoises;
     public AudioClip[] zombieGruntNoises;
+    public AudioClip[] music;
 
     bool canPlayMusic = true;
     bool canPlaySound = true;
+
+    int trackNumber;
 
     void Start()
     {
         source = GetComponent<AudioSource>();
         canPlayMusic = GetComponent<PlayerPrefsManager>().GetMusic();
         canPlaySound = GetComponent<PlayerPrefsManager>().GetSound();
+        musicSource = GetComponent<ObjectManager>().Stereo().GetComponent<AudioSource>();
+        trackNumber = Random.Range(0, music.Length);
+        PlayMusic();
     }
 
     public void ChangeSoundSetting(bool b)
@@ -34,8 +41,47 @@ public class SoundAndMusicManager : MonoBehaviour
     {
         if (canPlayMusic)
         {
-
+            musicSource.clip = music[trackNumber];
+            musicSource.Play();
+            Debug.Log("PLAYING SONG");
+            StartCoroutine(PlayNextSong(musicSource));
         }
+        else
+        {
+            musicSource.clip = null;
+            musicSource.Stop();
+        }
+    }
+
+    public void PauseMusic()
+    {
+        canPlayMusic = false;
+        musicSource.Pause();
+    }
+
+    public void UnpauseMusic()
+    {
+        canPlayMusic = true;
+        if (musicSource.clip == null)
+        {
+            PlayMusic();
+        }
+        else
+        {
+            musicSource.UnPause();
+        }
+    }
+
+    IEnumerator PlayNextSong(AudioSource track)
+    {
+        yield return new WaitForSeconds(track.clip.length);
+        trackNumber++;
+        if (trackNumber >= music.Length)
+        {
+            trackNumber = 0;
+        }
+        Debug.Log("NEW TRACK NUMBER");
+        PlayMusic();
     }
 
     /* DEVICE SOUNDS */

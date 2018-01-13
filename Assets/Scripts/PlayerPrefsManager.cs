@@ -321,6 +321,7 @@ public class PlayerPrefsManager : MonoBehaviour
             GetComponent<ObjectManager>().Stereo().GetComponent<Animator>().SetBool("Music Off", true);
             GetComponent<ObjectManager>().Stereo().GetComponent<Renderer>().material.mainTexture = GetComponent<Textures>().stereoOff;
             GetComponent<ObjectManager>().Stereo().GetComponent<ParticleSystem>().Stop();
+            GetComponent<SoundAndMusicManager>().PauseMusic();
         }
         else
         {
@@ -329,6 +330,7 @@ public class PlayerPrefsManager : MonoBehaviour
             GetComponent<ObjectManager>().Stereo().GetComponent<Animator>().Play("MusicOn");
             GetComponent<ObjectManager>().Stereo().GetComponent<Renderer>().material.mainTexture = GetComponent<Textures>().stereoOn;
             GetComponent<ObjectManager>().Stereo().GetComponent<ParticleSystem>().Play();
+            GetComponent<SoundAndMusicManager>().UnpauseMusic();
         }
         GetComponent<ScreenTextManagment>().ChangeToSettingScreen();
         PlayerPrefs.Save();
