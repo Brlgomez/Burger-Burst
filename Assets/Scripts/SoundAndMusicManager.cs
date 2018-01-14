@@ -74,7 +74,7 @@ public class SoundAndMusicManager : MonoBehaviour
 
     public void CheckIfMusicPlaying()
     {
-        if (!musicSource.isPlaying && canPlayMusic)
+        if (!musicSource.isPlaying && canPlayMusic && Time.timeScale > 0)
         {
             PickNextSong();
         }
