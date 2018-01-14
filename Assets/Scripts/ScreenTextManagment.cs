@@ -705,7 +705,7 @@ ScreenTextManagment : MonoBehaviour
 
     void EnableButton(GameObject button, string text, Sprite icon, Color iconColor)
     {
-        button.transform.GetChild(0).gameObject.layer = 0;
+        button.transform.GetChild(0).gameObject.layer = 13;
         button.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.white;
         button.transform.GetChild(1).GetComponent<SpriteRenderer>().color = iconColor;
         button.GetComponent<TextMesh>().color = textColor;

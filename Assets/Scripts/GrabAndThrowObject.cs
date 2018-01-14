@@ -19,6 +19,7 @@ public class GrabAndThrowObject : MonoBehaviour
     bool frozen;
     bool gameOver, paused;
     float survivalTime;
+    float screenSizeVelocity;
 
     void Start()
     {
@@ -45,6 +46,7 @@ public class GrabAndThrowObject : MonoBehaviour
         {
             GetComponent<Gameplay>().IncreaseDefense();
         }
+        screenSizeVelocity = ((Camera.main.pixelHeight / Screen.dpi) * 0.33f);
     }
 
     void Update()
@@ -422,9 +424,9 @@ public class GrabAndThrowObject : MonoBehaviour
                 Vector3 diff = positions[positions.Count - 1] - positions[0];
                 float speed = Vector3.Distance(positions[positions.Count - 1], positions[0]);
                 float xVelocity = (diff.x * 10) + ((target.transform.position.x * speed * 2));
-                float yVelocity = diff.y * 3;
-                float zVelocity = diff.z * 15;
-                Vector3 newVelocity = new Vector3(xVelocity, yVelocity, zVelocity) * ((Camera.main.pixelHeight / Screen.dpi) * 0.5f);
+                float yVelocity = diff.y * 5;
+                float zVelocity = diff.z * 17.5f;
+                Vector3 newVelocity = new Vector3(xVelocity, yVelocity, zVelocity);
                 if (newVelocity.magnitude > (throwingDistance * 0.66f))
                 {
                     newVelocity *= ((throwingDistance * 0.66f) / newVelocity.magnitude);

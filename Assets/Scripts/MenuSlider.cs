@@ -462,7 +462,7 @@ public class MenuSlider : MonoBehaviour
     {
         if (b)
         {
-            scrollView.transform.GetChild(3).gameObject.layer = 0;
+            scrollView.transform.GetChild(3).gameObject.layer = 13;
         }
         else
         {
@@ -472,16 +472,16 @@ public class MenuSlider : MonoBehaviour
 
     public void TurnOnScrollView(Menus.Menu menu)
     {
-        scrollView.transform.GetChild(0).gameObject.layer = 0;
+        scrollView.transform.GetChild(0).gameObject.layer = 13;
         scrollView.transform.GetChild(3).gameObject.layer = 2;
         scrollView.transform.GetChild(3).localScale = Vector3.one;
         scrollView.transform.GetChild(4).GetComponent<SpriteRenderer>().color = textColor;
         scrollView.transform.GetChild(1).transform.localScale = new Vector3(1, 1, 1);
         if (menu == Menus.Menu.PowerUps)
         {
-            slot1.transform.GetChild(0).gameObject.layer = 0;
-            slot2.transform.GetChild(0).gameObject.layer = 0;
-            slot3.transform.GetChild(0).gameObject.layer = 0;
+            slot1.transform.GetChild(0).gameObject.layer = 13;
+            slot2.transform.GetChild(0).gameObject.layer = 13;
+            slot3.transform.GetChild(0).gameObject.layer = 13;
             slot1.GetComponent<SpriteRenderer>().color = textColor;
             slot2.GetComponent<SpriteRenderer>().color = textColor;
             slot3.GetComponent<SpriteRenderer>().color = textColor;
@@ -493,7 +493,7 @@ public class MenuSlider : MonoBehaviour
         else if (menu == Menus.Menu.Graphics || menu == Menus.Menu.Flooring || menu == Menus.Menu.Wallpaper || menu == Menus.Menu.Detail)
         {
             slot1.transform.GetChild(0).gameObject.layer = 2;
-            slot2.transform.GetChild(0).gameObject.layer = 0;
+            slot2.transform.GetChild(0).gameObject.layer = 13;
             slot3.transform.GetChild(0).gameObject.layer = 2;
             slot1.GetComponent<SpriteRenderer>().color = Color.clear;
             slot2.GetComponent<SpriteRenderer>().color = Color.green;

@@ -183,6 +183,7 @@ public class DropMoreProducts : MonoBehaviour
         newProduct.GetComponent<Collider>().enabled = true;
         newProduct.transform.position = newPosition;
         newProduct.tag = newTag;
+        newProduct.layer = 10;
         Physics.IgnoreCollision(grillWall.GetComponent<Collider>(), newProduct.GetComponent<Collider>());
         Physics.IgnoreCollision(sodaWall.GetComponent<Collider>(), newProduct.GetComponent<Collider>());
         Physics.IgnoreCollision(counterWall.GetComponent<Collider>(), newProduct.GetComponent<Collider>());
