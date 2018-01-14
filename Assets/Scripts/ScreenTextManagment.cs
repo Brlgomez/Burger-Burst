@@ -266,7 +266,7 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToCreditsScreen()
     {
-        DisableButton(line1, "", null, Color.white);
+        DisableButton(line1, "Thank You", null, Color.white);
         EnableButton(line2, "", null, Color.white);
         EnableButton(line3, "", null, Color.white);
         DisableButton(line4, "", null, Color.white);

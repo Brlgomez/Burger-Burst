@@ -139,7 +139,7 @@ public class MainMenu : MonoBehaviour
 
     void MouseDrag()
     {
-        if (target.name == "Scroller")
+        if (target.name == "Scroller" && GetComponent<CameraMovement>() == null)
         {
             GetComponent<MenuSlider>().EnableScroller(true);
             roundScroller = false;
@@ -557,14 +557,17 @@ public class MainMenu : MonoBehaviour
                 GetComponent<ScreenTextManagment>().ChangeToStuffScreen();
                 break;
             case "Scroller":
-                GetComponent<MenuSlider>().EnableScroller(false);
-                if (!changeScrollerObjects)
+                if (GetComponent<CameraMovement>() == null)
                 {
-                    GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
-                    GetComponent<ScreenTextManagment>().ChangeToCreditDetail();
+                    GetComponent<MenuSlider>().EnableScroller(false);
+                    if (!changeScrollerObjects)
+                    {
+                        GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
+                        GetComponent<ScreenTextManagment>().ChangeToCreditDetail();
+                    }
+                    roundScroller = true;
+                    changeScrollerObjects = false;
                 }
-                roundScroller = true;
-                changeScrollerObjects = false;
                 break;
         }
     }
@@ -595,13 +598,16 @@ public class MainMenu : MonoBehaviour
                 GetComponent<ScreenTextManagment>().ChangeToCustomizeScreen();
                 break;
             case "Scroller":
-                GetComponent<MenuSlider>().EnableScroller(false);
-                if (!changeScrollerObjects)
+                if (GetComponent<CameraMovement>() == null)
                 {
-                    GetComponent<MenuSlider>().ChangeSlotSpriteGraphics();
+                    GetComponent<MenuSlider>().EnableScroller(false);
+                    if (!changeScrollerObjects)
+                    {
+                        GetComponent<MenuSlider>().ChangeSlotSpriteGraphics();
+                    }
+                    roundScroller = true;
+                    changeScrollerObjects = false;
                 }
-                roundScroller = true;
-                changeScrollerObjects = false;
                 break;
         }
     }
@@ -642,13 +648,16 @@ public class MainMenu : MonoBehaviour
                 GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
                 break;
             case "Scroller":
-                GetComponent<MenuSlider>().EnableScroller(false);
-                if (!changeScrollerObjects)
+                if (GetComponent<CameraMovement>() == null)
                 {
-                    GetComponent<MenuSlider>().ChangeSlotSpriteFlooring();
+                    GetComponent<MenuSlider>().EnableScroller(false);
+                    if (!changeScrollerObjects)
+                    {
+                        GetComponent<MenuSlider>().ChangeSlotSpriteFlooring();
+                    }
+                    roundScroller = true;
+                    changeScrollerObjects = false;
                 }
-                roundScroller = true;
-                changeScrollerObjects = false;
                 break;
         }
     }
@@ -689,13 +698,16 @@ public class MainMenu : MonoBehaviour
                 GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
                 break;
             case "Scroller":
-                GetComponent<MenuSlider>().EnableScroller(false);
-                if (!changeScrollerObjects)
+                if (GetComponent<CameraMovement>() == null)
                 {
-                    GetComponent<MenuSlider>().ChangeSlotSpriteWallpaper();
+                    GetComponent<MenuSlider>().EnableScroller(false);
+                    if (!changeScrollerObjects)
+                    {
+                        GetComponent<MenuSlider>().ChangeSlotSpriteWallpaper();
+                    }
+                    roundScroller = true;
+                    changeScrollerObjects = false;
                 }
-                roundScroller = true;
-                changeScrollerObjects = false;
                 break;
         }
     }
@@ -736,13 +748,16 @@ public class MainMenu : MonoBehaviour
                 GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
                 break;
             case "Scroller":
-                GetComponent<MenuSlider>().EnableScroller(false);
-                if (!changeScrollerObjects)
+                if (GetComponent<CameraMovement>() == null)
                 {
-                    GetComponent<MenuSlider>().ChangeSlotSpriteDetail();
+                    GetComponent<MenuSlider>().EnableScroller(false);
+                    if (!changeScrollerObjects)
+                    {
+                        GetComponent<MenuSlider>().ChangeSlotSpriteDetail();
+                    }
+                    roundScroller = true;
+                    changeScrollerObjects = false;
                 }
-                roundScroller = true;
-                changeScrollerObjects = false;
                 break;
         }
     }

@@ -6,7 +6,7 @@ TextureImporter:
   fileIDToRecycleName: {}
   serializedVersion: 4
   mipmaps:
-    mipMapMode: 0
+    mipMapMode: 1
     enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0

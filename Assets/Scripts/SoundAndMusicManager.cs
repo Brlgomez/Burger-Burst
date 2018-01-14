@@ -48,10 +48,10 @@ public class SoundAndMusicManager : MonoBehaviour
 
     public void StopMusic()
     {
-        canPlayMusic = false;
-        musicSource.Stop();
         PickNextSong();
-    }
+		canPlayMusic = false;
+		musicSource.Stop();
+	}
 
     public void CanPlayMusic()
     {
