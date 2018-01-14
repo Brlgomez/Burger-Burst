@@ -282,17 +282,17 @@ ScreenTextManagment : MonoBehaviour
         int middleObjectNum = GetComponent<MenuSlider>().GetMiddleObjectNumber();
         TurnOffScrollList();
         DisableButton(line1, "", middleObj.GetComponent<SpriteRenderer>().sprite, Color.white);
-        DisableButton(line2, GetComponent<CreditsManager>().creditList[middleObjectNum].name + "\n" + GetComponent<CreditsManager>().creditList[middleObjectNum].role, null, Color.white);
-        DisableButton(line3, GetComponent<CreditsManager>().creditList[middleObjectNum].description, null, Color.white);
-        DisableButton(line4, "", null, Color.white);
+        DisableButton(line2, GetComponent<CreditsManager>().creditList[middleObjectNum].role + "\n" + GetComponent<CreditsManager>().creditList[middleObjectNum].name, null, Color.white);
+        DisableButton(line3, GetComponent<CreditsManager>().creditList[middleObjectNum].description1, null, Color.white);
+        DisableButton(line4, GetComponent<CreditsManager>().creditList[middleObjectNum].description2, null, Color.white);
         EnableButton(line5, "Back", backSprite, Color.white);
         lastArea = currentArea;
         currentArea = Menus.Menu.CreditDetail;
         TurnOffScrollList();
-        line1.GetComponent<TextMesh>().characterSize = 0.02f;
-        line2.GetComponent<TextMesh>().characterSize = 0.02f;
-        line3.GetComponent<TextMesh>().characterSize = 0.02f;
-        line4.GetComponent<TextMesh>().characterSize = 0.02f;
+        line1.GetComponent<TextMesh>().characterSize = 0.01625f;
+        line2.GetComponent<TextMesh>().characterSize = 0.01625f;
+        line3.GetComponent<TextMesh>().characterSize = 0.01625f;
+        line4.GetComponent<TextMesh>().characterSize = 0.01625f;
     }
 
     public void ChangeToConfirmationScreen(Menus.Menu menu)

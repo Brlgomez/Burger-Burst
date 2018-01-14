@@ -13,17 +13,19 @@ public class CreditsManager : MonoBehaviour
         public bool unlocked;
         public string name;
         public string role;
-        public string description;
+        public string description1;
+        public string description2;
         public Sprite sprite;
 
-        public Being(int num, string n, string r, string descipt)
+        public Being(int num, string description)
         {
             number = num;
             price = 0;
             unlocked = true;
-            name = n;
-            role = r;
-            description = descipt;
+            name = description.Split('*')[0];
+            role = description.Split('*')[1];
+            description1 = description.Split('*')[2];
+            description2 = description.Split('*')[3];
             sprite = (Sprite)Resources.Load("Sprites/Credits/" + num, typeof(Sprite));
         }
     }
@@ -41,7 +43,7 @@ public class CreditsManager : MonoBehaviour
         for (int i = 0; i < allDescriptions.Length; i++)
         {
             string description = allDescriptions[i].Replace("NEWLINE", "\n");
-            creditList.Add(new Being(i, description.Split('*')[0], description.Split('*')[1], description.Split('*')[2]));
+            creditList.Add(new Being(i, description));
         }
     }
 }
