@@ -17,6 +17,7 @@ ScreenTextManagment : MonoBehaviour
     public Sprite graphicsSprite, themeSprite, vibrationSprite, musicSprite, soundSprite, trophySprite;
     public Sprite restartSprite, quitSprite, yesSprite, pointSprite, floorSprite, wallSprite, detailSprite;
     public Sprite arrowSprite, currentSprite, frozen, poisoned, frozenAndPoisoned;
+    public Sprite leaderboards, other, restorePurchases, online, credits;
     Sprite currentHeartSprite;
 
     void Start()
@@ -53,14 +54,11 @@ ScreenTextManagment : MonoBehaviour
         EnableButton(line2, "Power Ups", powerUpSprite, Color.white);
         EnableButton(line3, "Customize", customizSprite, Color.white);
         EnableButton(line4, "Store", storeSprite, Color.white);
-        EnableButton(line5, "Settings", settingsSprite, Color.white);
+        EnableButton(line5, "Stuff", other, Color.white);
         TurnOffScrollList();
         TurnOffGameplayImages();
         GetComponent<LEDManager>().MakeUnlockTextBlink();
-        line1.GetComponent<TextMesh>().characterSize = 0.025f;
-        line2.GetComponent<TextMesh>().characterSize = 0.025f;
         line3.GetComponent<TextMesh>().characterSize = 0.025f;
-        line4.GetComponent<TextMesh>().characterSize = 0.025f;
         lastArea = currentArea;
         currentArea = Menus.Menu.MainMenu;
     }
@@ -197,6 +195,23 @@ ScreenTextManagment : MonoBehaviour
         currentArea = Menus.Menu.Store;
     }
 
+    public void ChangeToStuffScreen()
+    {
+        EnableButton(line1, "Settings", settingsSprite, Color.white);
+        EnableButton(line2, "Online", online, Color.white);
+        EnableButton(line3, "Credits", credits, Color.white);
+        DisableButton(line4, "", null, Color.white);
+        EnableButton(line5, "Back", backSprite, Color.white);
+        GetComponent<LEDManager>().RemoveBlinkingLED();
+        line1.GetComponent<TextMesh>().characterSize = 0.025f;
+        line2.GetComponent<TextMesh>().characterSize = 0.025f;
+        line3.GetComponent<TextMesh>().characterSize = 0.025f;
+        line4.GetComponent<TextMesh>().characterSize = 0.025f;
+        TurnOffScrollList();
+        lastArea = currentArea;
+        currentArea = Menus.Menu.Setting;
+    }
+
     public void ChangeToSettingScreen()
     {
         if (GetComponent<PlayerPrefsManager>().GetMusic())
@@ -223,15 +238,61 @@ ScreenTextManagment : MonoBehaviour
         {
             EnableButton(line3, " Vibration: Off", vibrationSprite, Color.white);
         }
-        EnableButton(line4, " Leaderboards\n      & achievments", trophySprite, Color.white);
+        DisableButton(line4, "", null, Color.white);
         EnableButton(line5, "Back", backSprite, Color.white);
         line1.GetComponent<TextMesh>().characterSize = 0.02f;
         line2.GetComponent<TextMesh>().characterSize = 0.02f;
         line3.GetComponent<TextMesh>().characterSize = 0.02f;
         line4.GetComponent<TextMesh>().characterSize = 0.02f;
-        GetComponent<LEDManager>().RemoveBlinkingLED();
         lastArea = currentArea;
-        currentArea = Menus.Menu.Setting;
+        currentArea = Menus.Menu.DeviceSettings;
+    }
+
+    public void ChangeToOnlineScreen()
+    {
+        EnableButton(line1, " Achievements", trophySprite, Color.white);
+        EnableButton(line2, " Leaderboards", leaderboards, Color.white);
+        EnableButton(line3, " Restore\n      Purchases", restorePurchases, Color.white);
+        DisableButton(line4, "", null, Color.white);
+        EnableButton(line5, "Back", backSprite, Color.white);
+        GetComponent<LEDManager>().RemoveBlinkingLED();
+        line1.GetComponent<TextMesh>().characterSize = 0.02f;
+        line2.GetComponent<TextMesh>().characterSize = 0.02f;
+        line3.GetComponent<TextMesh>().characterSize = 0.02f;
+        line4.GetComponent<TextMesh>().characterSize = 0.02f;
+        lastArea = currentArea;
+        currentArea = Menus.Menu.Online;
+    }
+
+    public void ChangeToCreditsScreen()
+    {
+        DisableButton(line1, "", null, Color.white);
+        EnableButton(line2, "", null, Color.white);
+        EnableButton(line3, "", null, Color.white);
+        DisableButton(line4, "", null, Color.white);
+        EnableButton(line5, "Back", backSprite, Color.white);
+        lastArea = currentArea;
+        currentArea = Menus.Menu.Credits;
+        TurnOnScrollList(currentArea);
+    }
+
+    public void ChangeToCreditDetail()
+    {
+        GameObject middleObj = GetComponent<MenuSlider>().GetMiddleObject();
+        int middleObjectNum = GetComponent<MenuSlider>().GetMiddleObjectNumber();
+        TurnOffScrollList();
+        DisableButton(line1, "", middleObj.GetComponent<SpriteRenderer>().sprite, Color.white);
+        DisableButton(line2, GetComponent<CreditsManager>().creditList[middleObjectNum].name + "\n" + GetComponent<CreditsManager>().creditList[middleObjectNum].role, null, Color.white);
+        DisableButton(line3, GetComponent<CreditsManager>().creditList[middleObjectNum].description, null, Color.white);
+        DisableButton(line4, "", null, Color.white);
+        EnableButton(line5, "Back", backSprite, Color.white);
+        lastArea = currentArea;
+        currentArea = Menus.Menu.CreditDetail;
+        TurnOffScrollList();
+        line1.GetComponent<TextMesh>().characterSize = 0.02f;
+        line2.GetComponent<TextMesh>().characterSize = 0.02f;
+        line3.GetComponent<TextMesh>().characterSize = 0.02f;
+        line4.GetComponent<TextMesh>().characterSize = 0.02f;
     }
 
     public void ChangeToConfirmationScreen(Menus.Menu menu)

@@ -46,6 +46,10 @@ public class MenuSlider : MonoBehaviour
                 sliderObjectCount = GetComponent<ThemeManager>().detailList.Count;
                 SetDetailSprite();
                 break;
+            case Menus.Menu.Credits:
+                sliderObjectCount = GetComponent<CreditsManager>().creditList.Count;
+                SetCreditSprite();
+                break;
         }
         scrollView.transform.GetChild(4).transform.localScale = new Vector3(435 / sliderObjectCount, 10, 10);
         RestartScrollList();
@@ -232,12 +236,17 @@ public class MenuSlider : MonoBehaviour
         slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = GetSliderSprite(GetComponent<PlayerPrefsManager>().GetDetail());
     }
 
+    public void SetCreditSprite()
+    {
+        slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = null;
+    }
+
     public void ChangeSlotSprite(GameObject slot, int slotPosition)
     {
         if (!GetSliderUnlock(GetMiddleObjectNumber()))
         {
-			GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
-			GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationPowerUp);
+            GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
+            GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationPowerUp);
         }
         else
         {
@@ -283,8 +292,8 @@ public class MenuSlider : MonoBehaviour
     {
         if (!GetSliderUnlock(GetMiddleObjectNumber()))
         {
-			GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
-			GetComponent<GraphicsManager>().SetGraphic(GetMiddleObjectNumber());
+            GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
+            GetComponent<GraphicsManager>().SetGraphic(GetMiddleObjectNumber());
             GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationGraphics);
         }
         else
@@ -300,8 +309,8 @@ public class MenuSlider : MonoBehaviour
     {
         if (!GetSliderUnlock(GetMiddleObjectNumber()))
         {
-			GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
-			GetComponent<ThemeManager>().SetFlooring(GetMiddleObjectNumber());
+            GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
+            GetComponent<ThemeManager>().SetFlooring(GetMiddleObjectNumber());
             GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationFlooring);
         }
         else
@@ -317,8 +326,8 @@ public class MenuSlider : MonoBehaviour
     {
         if (!GetSliderUnlock(GetMiddleObjectNumber()))
         {
-			GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
-			GetComponent<ThemeManager>().SetWallpaper(GetMiddleObjectNumber());
+            GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
+            GetComponent<ThemeManager>().SetWallpaper(GetMiddleObjectNumber());
             GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationWalls);
         }
         else
@@ -334,8 +343,8 @@ public class MenuSlider : MonoBehaviour
     {
         if (!GetSliderUnlock(GetMiddleObjectNumber()))
         {
-			GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
-			GetComponent<ThemeManager>().SetDetail(GetMiddleObjectNumber());
+            GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
+            GetComponent<ThemeManager>().SetDetail(GetMiddleObjectNumber());
             GetComponent<ScreenTextManagment>().ChangeToConfirmationScreen(Menus.Menu.ConfirmationDetail);
         }
         else
@@ -361,6 +370,8 @@ public class MenuSlider : MonoBehaviour
                 return GetComponent<ThemeManager>().wallList[index].sprite;
             case Menus.Menu.Detail:
                 return GetComponent<ThemeManager>().detailList[index].sprite;
+            case Menus.Menu.Credits:
+                return GetComponent<CreditsManager>().creditList[index].sprite;
         }
         return null;
     }
@@ -379,6 +390,8 @@ public class MenuSlider : MonoBehaviour
                 return GetComponent<ThemeManager>().wallList[index].unlocked;
             case Menus.Menu.Detail:
                 return GetComponent<ThemeManager>().detailList[index].unlocked;
+            case Menus.Menu.Credits:
+                return GetComponent<CreditsManager>().creditList[index].unlocked;
         }
         return false;
     }
@@ -397,6 +410,8 @@ public class MenuSlider : MonoBehaviour
                 return GetComponent<ThemeManager>().wallList[index].price;
             case Menus.Menu.Detail:
                 return GetComponent<ThemeManager>().detailList[index].price;
+            case Menus.Menu.Credits:
+                return GetComponent<CreditsManager>().creditList[index].price;
         }
         return 1000000000;
     }
@@ -415,6 +430,8 @@ public class MenuSlider : MonoBehaviour
                 return GetComponent<ThemeManager>().wallList[index].description;
             case Menus.Menu.Detail:
                 return GetComponent<ThemeManager>().detailList[index].description;
+            case Menus.Menu.Credits:
+                return GetComponent<CreditsManager>().creditList[index].name;
         }
         return "";
     }
@@ -458,7 +475,7 @@ public class MenuSlider : MonoBehaviour
         scrollView.transform.GetChild(0).gameObject.layer = 0;
         scrollView.transform.GetChild(3).gameObject.layer = 2;
         scrollView.transform.GetChild(3).localScale = Vector3.one;
-		scrollView.transform.GetChild(4).GetComponent<SpriteRenderer>().color = textColor;
+        scrollView.transform.GetChild(4).GetComponent<SpriteRenderer>().color = textColor;
         scrollView.transform.GetChild(1).transform.localScale = new Vector3(1, 1, 1);
         if (menu == Menus.Menu.PowerUps)
         {
@@ -483,6 +500,18 @@ public class MenuSlider : MonoBehaviour
             slot3.GetComponent<SpriteRenderer>().color = Color.clear;
             slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.clear;
             slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
+            slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.clear;
+        }
+        else if (menu == Menus.Menu.Credits)
+        {
+            slot1.transform.GetChild(0).gameObject.layer = 2;
+            slot2.transform.GetChild(0).gameObject.layer = 2;
+            slot3.transform.GetChild(0).gameObject.layer = 2;
+            slot1.GetComponent<SpriteRenderer>().color = Color.clear;
+            slot2.GetComponent<SpriteRenderer>().color = Color.clear;
+            slot3.GetComponent<SpriteRenderer>().color = Color.clear;
+            slot1.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.clear;
+            slot2.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.clear;
             slot3.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.clear;
         }
     }

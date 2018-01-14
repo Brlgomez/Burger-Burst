@@ -87,7 +87,19 @@ public class MainMenu : MonoBehaviour
                     MouseUpStoreMenu();
                     break;
                 case Menus.Menu.Setting:
+                    MouseUpStuffMenu();
+                    break;
+                case Menus.Menu.DeviceSettings:
                     MouseUpSettingMenu();
+                    break;
+                case Menus.Menu.Online:
+                    MouseUpOnlineMenu();
+                    break;
+                case Menus.Menu.Credits:
+                    MouseUpCreditsMenu();
+                    break;
+                case Menus.Menu.CreditDetail:
+                    MouseUpCreditDetailMenu();
                     break;
                 case Menus.Menu.ConfirmationPowerUp:
                     MouseUpConfirmationPowerUpMenu();
@@ -187,8 +199,8 @@ public class MainMenu : MonoBehaviour
 
     public void LoadingAnimation()
     {
-		Destroy(GetComponent<TitleAnimation>());
-		StartCoroutine(PhoneStartUp());
+        Destroy(GetComponent<TitleAnimation>());
+        StartCoroutine(PhoneStartUp());
     }
 
     public IEnumerator PhoneStartUp()
@@ -248,22 +260,8 @@ public class MainMenu : MonoBehaviour
                 break;
             case "Fifth Button":
                 CheckCamera();
-                gameObject.AddComponent<CameraMovement>().MoveToSetting();
-                GetComponent<ScreenTextManagment>().ChangeToSettingScreen();
-                GetComponent<ObjectManager>().Stereo().GetComponent<Animator>().enabled = true;
-                GetComponent<ObjectManager>().Horn().GetComponent<Animator>().enabled = true;
-                GetComponent<ObjectManager>().VibratingDevice().GetComponent<Animator>().enabled = true;
-                if (GetComponent<PlayerPrefsManager>().GetMusic())
-                {
-                    GetComponent<ObjectManager>().Stereo().GetComponent<Animator>().SetBool("Music Off", false);
-                    GetComponent<ObjectManager>().Stereo().GetComponent<Animator>().Play("MusicOn");
-                    GetComponent<ObjectManager>().Stereo().GetComponent<Renderer>().material.mainTexture = GetComponent<Textures>().stereoOn;
-                    GetComponent<ObjectManager>().Stereo().GetComponent<ParticleSystem>().Play();
-                }
-                else
-                {
-                    GetComponent<ObjectManager>().Stereo().GetComponent<Renderer>().material.mainTexture = GetComponent<Textures>().stereoOff;
-                }
+                gameObject.AddComponent<CameraMovement>().MoveToStuff();
+                GetComponent<ScreenTextManagment>().ChangeToStuffScreen();
                 break;
         }
     }
@@ -449,6 +447,50 @@ public class MainMenu : MonoBehaviour
         }
     }
 
+    void MouseUpStuffMenu()
+    {
+        GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
+        switch (target.name)
+        {
+            case "First Button":
+                CheckCamera();
+                gameObject.AddComponent<CameraMovement>().MoveToSettings();
+                GetComponent<ScreenTextManagment>().ChangeToSettingScreen();
+                GetComponent<ObjectManager>().Stereo().GetComponent<Animator>().enabled = true;
+                GetComponent<ObjectManager>().Horn().GetComponent<Animator>().enabled = true;
+                GetComponent<ObjectManager>().VibratingDevice().GetComponent<Animator>().enabled = true;
+                if (GetComponent<PlayerPrefsManager>().GetMusic())
+                {
+                    GetComponent<ObjectManager>().Stereo().GetComponent<Animator>().SetBool("Music Off", false);
+                    GetComponent<ObjectManager>().Stereo().GetComponent<Animator>().Play("MusicOn");
+                    GetComponent<ObjectManager>().Stereo().GetComponent<Renderer>().material.mainTexture = GetComponent<Textures>().stereoOn;
+                    GetComponent<ObjectManager>().Stereo().GetComponent<ParticleSystem>().Play();
+                }
+                else
+                {
+                    GetComponent<ObjectManager>().Stereo().GetComponent<Renderer>().material.mainTexture = GetComponent<Textures>().stereoOff;
+                }
+                break;
+            case "Second Button":
+                CheckCamera();
+                gameObject.AddComponent<CameraMovement>().MoveToOnline();
+                GetComponent<ScreenTextManagment>().ChangeToOnlineScreen();
+                break;
+            case "Third Button":
+                GetComponent<MenuSlider>().SetUpMenu(Menus.Menu.Credits);
+                CheckCamera();
+                gameObject.AddComponent<CameraMovement>().MoveToCredits();
+                GetComponent<ScreenTextManagment>().ChangeToCreditsScreen();
+                lastScrollX = -Mathf.RoundToInt(GetComponent<MenuSlider>().GetMiddleObject().transform.localPosition.z);
+                break;
+            case "Fifth Button":
+                CheckCamera();
+                gameObject.AddComponent<CameraMovement>().MoveToMenu(true);
+                GetComponent<ScreenTextManagment>().ChangeToMenuText();
+                break;
+        }
+    }
+
     void MouseUpSettingMenu()
     {
         switch (target.name)
@@ -464,20 +506,76 @@ public class MainMenu : MonoBehaviour
                 GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
                 GetComponent<PlayerPrefsManager>().SetVibration();
                 break;
-            case "Fourth Button":
-                GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
-                //TODO: achivements and leaderboards
-                break;
             case "Fifth Button":
                 GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
                 CheckCamera();
-                gameObject.AddComponent<CameraMovement>().MoveToMenu(true);
-                GetComponent<ScreenTextManagment>().ChangeToMenuText();
+                gameObject.AddComponent<CameraMovement>().MoveToStuff();
+                GetComponent<ScreenTextManagment>().ChangeToStuffScreen();
                 GetComponent<ObjectManager>().Stereo().GetComponent<Animator>().SetBool("Music Off", true);
                 GetComponent<ObjectManager>().Stereo().GetComponent<Animator>().enabled = false;
                 GetComponent<ObjectManager>().Stereo().GetComponent<ParticleSystem>().Stop();
                 GetComponent<ObjectManager>().Horn().GetComponent<Animator>().enabled = false;
                 GetComponent<ObjectManager>().VibratingDevice().GetComponent<Animator>().enabled = false;
+                break;
+        }
+    }
+
+    void MouseUpOnlineMenu()
+    {
+        GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
+        switch (target.name)
+        {
+            case "First Button":
+                //TODO: Achievements
+                break;
+            case "Second Button":
+                //TODO: Leaderboards
+                break;
+            case "Third Button":
+                //TODO: Restore
+                break;
+            case "Fifth Button":
+                CheckCamera();
+                gameObject.AddComponent<CameraMovement>().MoveToStuff();
+                GetComponent<ScreenTextManagment>().ChangeToStuffScreen();
+                break;
+        }
+    }
+
+    void MouseUpCreditsMenu()
+    {
+        switch (target.name)
+        {
+            case "Third Button":
+                GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
+                GetComponent<ScreenTextManagment>().ChangeToCreditDetail();
+                break;
+            case "Fifth Button":
+                GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
+                CheckCamera();
+                gameObject.AddComponent<CameraMovement>().MoveToStuff();
+                GetComponent<ScreenTextManagment>().ChangeToStuffScreen();
+                break;
+            case "Scroller":
+                GetComponent<MenuSlider>().EnableScroller(false);
+                if (!changeScrollerObjects)
+                {
+                    GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
+                    GetComponent<ScreenTextManagment>().ChangeToCreditDetail();
+                }
+                roundScroller = true;
+                changeScrollerObjects = false;
+                break;
+        }
+    }
+
+    void MouseUpCreditDetailMenu()
+    {
+        GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
+        switch (target.name)
+        {
+            case "Fifth Button":
+                GetComponent<ScreenTextManagment>().ChangeToCreditsScreen();
                 break;
         }
     }

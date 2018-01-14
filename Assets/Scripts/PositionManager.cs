@@ -5,12 +5,11 @@ using UnityEngine;
 public class PositionManager : MonoBehaviour
 {
     GameObject menu, gameplay, pause, gameOver, grill, fryer, soda, powerUp;
-    GameObject customize, setting, store, graphics, theme, floor, wall;
+    GameObject customize, setting, store, graphics, theme, floor, wall, stuff, online, credits;
     GameObject deviceFront, deviceBack, deviceMiddle, deviceBackTablet, deviceBackX, deviceBackShort;
     GameObject madeFriesPos, burgerPos, drinkPos;
     GameObject meatPos, topBunPos, bottomBunPos;
-    GameObject friesPos, basketPos;
-    GameObject cupPos, lidPos;
+    GameObject friesPos, basketPos, cupPos, lidPos;
     GameObject counterRange, grillRange, friesRange, drinkRange;
 
     void Awake()
@@ -24,6 +23,9 @@ public class PositionManager : MonoBehaviour
         theme = GameObject.Find("Theme Camera Position");
         floor = GameObject.Find("Floor Camera Position");
         wall = GameObject.Find("Wall Camera Position");
+        stuff = GameObject.Find("Stuff Camera Position");
+        online = GameObject.Find("Online Camera Position");
+        credits = GameObject.Find("Credits Camera Position");
         gameplay = GameObject.Find("Gameplay Camera Position");
         pause = GameObject.Find("Pause Camera Position");
         grill = GameObject.Find("Grill Position");
@@ -71,6 +73,12 @@ public class PositionManager : MonoBehaviour
     public Transform FloorPosition() { return floor.transform; }
 
     public Transform WallPosition() { return wall.transform; }
+
+    public Transform StuffPosition() { return stuff.transform; }
+
+    public Transform OnlinePosition() { return online.transform; }
+
+    public Transform CreditsPosition() { return credits.transform; }
 
     public Transform PausePosition() { return pause.transform; }
 

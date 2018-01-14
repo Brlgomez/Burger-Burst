@@ -222,9 +222,24 @@ public class CameraMovement : MonoBehaviour
         SetCameraAndDevicePosition(GetComponent<PositionManager>().StorePosition(), GetComponent<PositionManager>().DeviceFrontPosition());
     }
 
-    public void MoveToSetting()
+    public void MoveToStuff()
+    {
+        SetCameraAndDevicePosition(GetComponent<PositionManager>().StuffPosition(), GetComponent<PositionManager>().DeviceFrontPosition());
+    }
+
+    public void MoveToSettings()
     {
         SetCameraAndDevicePosition(GetComponent<PositionManager>().SettingPosition(), GetComponent<PositionManager>().DeviceFrontPosition());
+    }
+
+    public void MoveToOnline()
+    {
+        SetCameraAndDevicePosition(GetComponent<PositionManager>().OnlinePosition(), GetComponent<PositionManager>().DeviceFrontPosition());
+    }
+
+    public void MoveToCredits()
+    {
+        SetCameraAndDevicePosition(GetComponent<PositionManager>().CreditsPosition(), GetComponent<PositionManager>().DeviceMiddlePosition());
     }
 
     public void MoveToGameplay(string c)

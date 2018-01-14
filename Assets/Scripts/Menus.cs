@@ -9,6 +9,7 @@ public class Menus : MonoBehaviour {
         PhoneDown, Title, MainMenu, PowerUps, Gameplay, GameOver, Pause,
         ConfirmationPowerUp, Customize, Setting, Store, Graphics, Theme,
         Flooring, Wallpaper, Detail, ConfirmationGraphics, ConfirmationFlooring,
-        ConfirmationWalls, ConfirmationDetail
+        ConfirmationWalls, ConfirmationDetail, DeviceSettings, Online, Credits, 
+        CreditDetail
     };
 }
