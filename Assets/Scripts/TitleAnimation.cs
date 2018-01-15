@@ -9,6 +9,7 @@ public class TitleAnimation : MonoBehaviour
     float time;
     bool titleZoomed, imagesZoomed, goingLeft;
     Vector3 leftRot, rightRot;
+    float rotationSpeed = 2.5f;
 
     void Start()
     {
@@ -34,12 +35,12 @@ public class TitleAnimation : MonoBehaviour
         }
         else if (titleZoomed && !imagesZoomed)
         {
-            chefHat.transform.localScale = Vector3.one * time;
-            zombieHands.transform.localScale = Vector3.one * time;
-            if (chefHat.transform.localScale.x > 3)
+            chefHat.GetComponent<SpriteRenderer>().color = Color.Lerp(Color.clear, Color.white, time);
+            zombieHands.GetComponent<SpriteRenderer>().color = Color.Lerp(Color.clear, Color.white, time);
+            if (zombieHands.GetComponent<SpriteRenderer>().color.a > 0.95f)
             {
-                chefHat.transform.localScale = Vector3.one * 3;
-                zombieHands.transform.localScale = Vector3.one * 3;
+                chefHat.GetComponent<SpriteRenderer>().color = Color.white;
+                zombieHands.GetComponent<SpriteRenderer>().color = Color.white;
                 imagesZoomed = true;
                 time = 0;
             }
@@ -59,13 +60,29 @@ public class TitleAnimation : MonoBehaviour
         }
         if (goingLeft)
         {
+            if ((Mathf.Abs(title.transform.eulerAngles.z - leftRot.z)) > 5 && rotationSpeed < 5)
+            {
+                rotationSpeed += Time.deltaTime;
+            }
+            else if (rotationSpeed > 0.1f)
+            {
+                rotationSpeed -= Time.deltaTime * 2;
+            }
             title.transform.eulerAngles = new Vector3(
-                title.transform.eulerAngles.x, title.transform.eulerAngles.y, title.transform.eulerAngles.z - Time.deltaTime * 20);
+                title.transform.eulerAngles.x, title.transform.eulerAngles.y, title.transform.eulerAngles.z - Time.deltaTime * rotationSpeed);
         }
         else
         {
+            if ((Mathf.Abs(title.transform.eulerAngles.z - rightRot.z)) > 5 && rotationSpeed < 5)
+            {
+                rotationSpeed += Time.deltaTime;
+            }
+            else if (rotationSpeed > 0.1f)
+            {
+                rotationSpeed -= Time.deltaTime * 2;
+            }
             title.transform.eulerAngles = new Vector3(
-                title.transform.eulerAngles.x, title.transform.eulerAngles.y, title.transform.eulerAngles.z + Time.deltaTime * 20);
+                title.transform.eulerAngles.x, title.transform.eulerAngles.y, title.transform.eulerAngles.z + Time.deltaTime * rotationSpeed);
         }
     }
 
