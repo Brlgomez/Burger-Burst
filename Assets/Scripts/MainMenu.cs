@@ -209,8 +209,10 @@ public class MainMenu : MonoBehaviour
         GameObject phone = GetComponent<ObjectManager>().Phone();
         for (int i = 0; i < 5; i++)
         {
+            GetComponent<VibrationManager>().LightTapticFeedback();
             phone.GetComponent<Renderer>().material.mainTexture = GetComponent<Textures>().phoneLoading;
             yield return new WaitForSeconds(0.25f);
+            GetComponent<VibrationManager>().LightTapticFeedback();
             phone.GetComponent<Renderer>().material.mainTexture = GetComponent<Textures>().phoneLoading2;
             yield return new WaitForSeconds(0.25f);
         }

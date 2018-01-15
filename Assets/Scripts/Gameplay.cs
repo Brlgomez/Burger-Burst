@@ -259,7 +259,7 @@ public class Gameplay : MonoBehaviour
         }
         if (chanceOfSpecialZombie < maxChanceOfSpecialZombie)
         {
-            chanceOfSpecialZombie += 0.005f;
+            chanceOfSpecialZombie += 0.0075f;
         }
     }
 
@@ -342,6 +342,9 @@ public class Gameplay : MonoBehaviour
         maxLifeWithBonus = 200;
         maxLife = 100;
         life = 100;
+        burgers += 10;
+        fries += 10;
+        drinks += 10;
         regenTimer = 0;
         GetComponent<DropMoreProducts>().ResetDroppedItems();
         GetComponent<ScreenTextManagment>().ChangeHeartSprite("");
