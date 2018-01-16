@@ -39,8 +39,6 @@ public class PlayerPrefsManager : MonoBehaviour
     {
         //PlayerPrefs.DeleteAll();
         GetUnlockValues();
-        byte[] newArray = GetPlayerPrefsToByteArray();
-        SetPlayerPrefsFromSave(newArray);
     }
 
     public void SetOrdersCompleted(int num)
@@ -122,7 +120,12 @@ public class PlayerPrefsManager : MonoBehaviour
         return PlayerPrefs.GetInt(longestSurvivalTime, 0);
     }
 
-    int GetPlayTimeInSeconds()
+    void SetPlayTimeInSeconds(int seconds)
+    {
+        PlayerPrefs.GetInt(totalPlayTime, seconds);
+    }
+
+    public int GetPlayTimeInSeconds()
     {
         return PlayerPrefs.GetInt(totalPlayTime, 0);
     }
@@ -347,6 +350,19 @@ public class PlayerPrefsManager : MonoBehaviour
         PlayerPrefs.Save();
     }
 
+    void SaveSetSounds(int n)
+    {
+        PlayerPrefs.SetInt(sound, n);
+        if (n == 0)
+        {
+            GetComponent<SoundAndMusicManager>().ChangeSoundSetting(false);
+        }
+        else
+        {
+            GetComponent<SoundAndMusicManager>().ChangeSoundSetting(true);
+        }
+    }
+
     public void SetMusic()
     {
         GetComponent<SoundAndMusicManager>().PlayStereoSwitchSound();
@@ -402,6 +418,19 @@ public class PlayerPrefsManager : MonoBehaviour
         }
         GetComponent<ScreenTextManagment>().ChangeToSettingScreen();
         PlayerPrefs.Save();
+    }
+
+    void SaveSetVibration(int n)
+    {
+        PlayerPrefs.SetInt(vibration, n);
+        if (n == 0)
+        {
+            GetComponent<VibrationManager>().ChangeVibration(false);
+        }
+        else
+        {
+            GetComponent<VibrationManager>().ChangeVibration(true);
+        }
     }
 
     public int GetPowerUpsUnlocked()
@@ -541,11 +570,10 @@ public class PlayerPrefsManager : MonoBehaviour
         graphicsLeft = graphicsCount - GetGraphicsUnlocked();
     }
 
-    public void SetPlayerPrefsFromSave(byte[] gameSave)
+    public void LoadPlayerPrefsFromSave(byte[] gameSave)
     {
         string saveString = Encoding.ASCII.GetString(gameSave);
         string[] saveStringSplit = saveString.Split('*');
-
         CheckHighScore(int.Parse(saveStringSplit[0]));
         SetTotalPoints(int.Parse(saveStringSplit[1]));
         CheckSurvivalTime(int.Parse(saveStringSplit[2]));
@@ -553,9 +581,33 @@ public class PlayerPrefsManager : MonoBehaviour
         SetFoodLanded(int.Parse(saveStringSplit[4]));
         SetCoins(int.Parse(saveStringSplit[5]));
         SaveSetMusic(int.Parse(saveStringSplit[6]));
+        SaveSetSounds(int.Parse(saveStringSplit[7]));
+        SaveSetVibration(int.Parse(saveStringSplit[8]));
+        PlayerPrefs.SetInt(powerUp + 1, int.Parse(saveStringSplit[9]));
+        PlayerPrefs.SetInt(powerUp + 2, int.Parse(saveStringSplit[10]));
+        PlayerPrefs.SetInt(powerUp + 3, int.Parse(saveStringSplit[11]));
+        GetComponent<ThemeManager>().SetWallpaper(int.Parse(saveStringSplit[12]));
+        GetComponent<ThemeManager>().SetFlooring(int.Parse(saveStringSplit[13]));
+        GetComponent<ThemeManager>().SetDetail(int.Parse(saveStringSplit[14]));
+        GetComponent<GraphicsManager>().SetGraphic(int.Parse(saveStringSplit[15]));
+        SetPlayTimeInSeconds(int.Parse(saveStringSplit[16]));
+        for (int i = 0; i < 50; i++)
+        {
+            PlayerPrefs.SetInt(specificPowerUp + i, int.Parse(saveStringSplit[i + 17]));
+            PlayerPrefs.SetInt(specificWallpaper + i, int.Parse(saveStringSplit[i + 67]));
+            PlayerPrefs.SetInt(specificFlooring + i, int.Parse(saveStringSplit[i + 117]));
+            PlayerPrefs.SetInt(specificDetail + i, int.Parse(saveStringSplit[i + 167]));
+            PlayerPrefs.SetInt(specificGraphics + i, int.Parse(saveStringSplit[i + 217]));
+        }
+        GetComponent<PowerUpsManager>().SetPowerUpLists();
+        GetComponent<ThemeManager>().SetThemeLists();
+        GetComponent<GraphicsManager>().SetGraphicsList();
+        GetComponent<PowerUpsManager>().SetPowerUpLED();
+        GetComponent<LEDManager>().UpdateCoinsText();
+        GetComponent<LEDManager>().CheckIfAnythingUnlocked();
     }
 
-    public byte[] GetPlayerPrefsToByteArray()
+    public byte[] SavePlayerPrefsToByteArray()
     {
         List<Byte[]> data = new List<byte[]>();
         data.Add(CovertToByteArray(GetHighScore()));

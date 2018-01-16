@@ -531,7 +531,8 @@ public class MainMenu : MonoBehaviour
                 //TODO: Achievements
                 break;
             case "Second Button":
-                //TODO: Leaderboards
+                GetComponent<OnlineManagement>().PushAllLeaderboards();
+                GetComponent<OnlineManagement>().GetLeaderboards();
                 break;
             case "Third Button":
                 //TODO: Restore

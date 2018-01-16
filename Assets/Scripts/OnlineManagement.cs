@@ -129,8 +129,10 @@ public class OnlineManagement : MonoBehaviour
         }
     }
 
-    void SaveGame(ISavedGameMetadata game, byte[] savedData, TimeSpan totalPlaytime)
+    void SaveGame(ISavedGameMetadata game)
     {
+        TimeSpan totalPlaytime = TimeSpan.FromSeconds(GetComponent<PlayerPrefsManager>().GetPlayTimeInSeconds());
+
         ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
 
         SavedGameMetadataUpdate.Builder builder = new SavedGameMetadataUpdate.Builder();
@@ -147,7 +149,7 @@ public class OnlineManagement : MonoBehaviour
             builder = builder.WithUpdatedPngCoverImage(pngData);
         }
         SavedGameMetadataUpdate updatedMetadata = builder.Build();
-        savedGameClient.CommitUpdate(game, updatedMetadata, savedData, OnSavedGameWritten);
+        savedGameClient.CommitUpdate(game, updatedMetadata, GetComponent<PlayerPrefsManager>().SavePlayerPrefsToByteArray(), OnSavedGameWritten);
     }
 
     public void OnSavedGameWritten(SavedGameRequestStatus status, ISavedGameMetadata game)
@@ -156,6 +158,7 @@ public class OnlineManagement : MonoBehaviour
         if (status == SavedGameRequestStatus.Success)
         {
             // handle reading or writing of saved game.
+            SaveGame(game);
         }
         else
         {
@@ -187,6 +190,7 @@ public class OnlineManagement : MonoBehaviour
         if (status == SavedGameRequestStatus.Success)
         {
             // handle processing the byte array data
+            GetComponent<PlayerPrefsManager>().LoadPlayerPrefsFromSave(data);
         }
         else
         {
