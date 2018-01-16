@@ -8,7 +8,7 @@ public class MenuSlider : MonoBehaviour
     GameObject scrollView, slot1, slot2, slot3;
     Color textColor = new Color(0, 0.5f, 1);
     int sliderObjectCount;
-    Menus.Menu lastMenu, currentMenu;
+    Menus.Menu currentMenu;
     float scrollerY;
 
     void Awake()
@@ -54,7 +54,6 @@ public class MenuSlider : MonoBehaviour
         scrollView.transform.GetChild(4).transform.localScale = new Vector3(435 / sliderObjectCount, 10, 10);
         RestartScrollList();
         ScaleScrollerObjects();
-        lastMenu = menu;
     }
 
     public void MoveScrollObjects(int dir)

@@ -19,7 +19,7 @@ public class GrabAndThrowObject : MonoBehaviour
     bool frozen;
     bool gameOver, paused;
     float survivalTime;
-    float screenSizeVelocity;
+    //float screenSizeVelocity;
 
     void Start()
     {
@@ -46,7 +46,7 @@ public class GrabAndThrowObject : MonoBehaviour
         {
             GetComponent<Gameplay>().IncreaseDefense();
         }
-        screenSizeVelocity = ((Camera.main.pixelHeight / Screen.dpi) * 0.33f);
+        //screenSizeVelocity = ((Camera.main.pixelHeight / Screen.dpi) * 0.33f);
     }
 
     void Update()
