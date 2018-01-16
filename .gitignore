@@ -27,3 +27,4 @@ sysinfo.txt
 # Builds
 *.unitypackage
 user.keystore
+GPGSIds.cs
