@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using System.Text;
+using System.Linq;
 
 public class PlayerPrefsManager : MonoBehaviour
 {
@@ -9,6 +12,7 @@ public class PlayerPrefsManager : MonoBehaviour
     static string totalPoints = "TOTAL POINTS";
     static string highScore = "HIGH SCORE";
     static string longestSurvivalTime = "LONGEST SURVIVAL TIME";
+    static string totalPlayTime = "TOTAL PLAY TIME";
     static string coins = "COINS";
     static string powerUp = "POWERUP";
     static string graphics = "GRAPHICS";
@@ -35,6 +39,13 @@ public class PlayerPrefsManager : MonoBehaviour
     {
         //PlayerPrefs.DeleteAll();
         GetUnlockValues();
+        byte[] newArray = GetPlayerPrefsToByteArray();
+        SetPlayerPrefsFromSave(newArray);
+    }
+
+    public void SetOrdersCompleted(int num)
+    {
+        PlayerPrefs.SetInt(totalOrdersCompleted, num);
     }
 
     public int GetOrdersCompleted()
@@ -45,6 +56,11 @@ public class PlayerPrefsManager : MonoBehaviour
     public void IncreaseOrdersCompleted()
     {
         PlayerPrefs.SetInt(totalOrdersCompleted, (GetOrdersCompleted() + 1));
+    }
+
+    public void SetFoodLanded(int num)
+    {
+        PlayerPrefs.SetInt(totalFoodLanded, num);
     }
 
     public int GetFoodLanded()
@@ -62,6 +78,11 @@ public class PlayerPrefsManager : MonoBehaviour
         return PlayerPrefs.GetInt(totalPoints, 0);
     }
 
+    public void SetTotalPoints(int n)
+    {
+        PlayerPrefs.SetInt(totalPoints, n);
+    }
+
     public void IncreaseTotalPoints(int n)
     {
         PlayerPrefs.SetInt(totalPoints, (GetTotalPoints() + n));
@@ -71,6 +92,7 @@ public class PlayerPrefsManager : MonoBehaviour
     {
         if (points > PlayerPrefs.GetInt(highScore, 0))
         {
+            GetComponent<OnlineManagement>().PushHighScore(points);
             PlayerPrefs.SetInt(highScore, points);
             PlayerPrefs.Save();
             return true;
@@ -85,21 +107,29 @@ public class PlayerPrefsManager : MonoBehaviour
 
     public void CheckSurvivalTime(float time)
     {
-        if (time > PlayerPrefs.GetFloat(longestSurvivalTime, 0))
+        int milliseconds = Mathf.RoundToInt(time * 1000);
+        IncreasePlayTimeInSeconds(Mathf.RoundToInt(time));
+        if (time > PlayerPrefs.GetInt(longestSurvivalTime, 0))
         {
-            PlayerPrefs.SetFloat(longestSurvivalTime, time);
+            GetComponent<OnlineManagement>().PushLongestSurvivalTime(milliseconds);
+            PlayerPrefs.SetInt(longestSurvivalTime, milliseconds);
             PlayerPrefs.Save();
         }
     }
 
-    public float ConvertSurvivalTimeToMin()
+    public int GetLongestSurvivalTime()
     {
-        float time = PlayerPrefs.GetFloat(longestSurvivalTime, 0);
-        float min = Mathf.FloorToInt(time / 60);
-        min += ((time % 60) / 60);
-        min = Mathf.RoundToInt(min * 100);
-        min /= 100;
-        return min;
+        return PlayerPrefs.GetInt(longestSurvivalTime, 0);
+    }
+
+    int GetPlayTimeInSeconds()
+    {
+        return PlayerPrefs.GetInt(totalPlayTime, 0);
+    }
+
+    void IncreasePlayTimeInSeconds(int n)
+    {
+        PlayerPrefs.SetInt(totalPlayTime, (GetPlayTimeInSeconds() + n));
     }
 
     public bool SetUpgrades(int slotPosition, int upgradeNumber)
@@ -254,6 +284,11 @@ public class PlayerPrefsManager : MonoBehaviour
         PlayerPrefs.Save();
     }
 
+    public void SetCoins(int num)
+    {
+        PlayerPrefs.SetInt(coins, num);
+    }
+
     public int GetCoins()
     {
         return PlayerPrefs.GetInt(coins, 0);
@@ -334,6 +369,19 @@ public class PlayerPrefsManager : MonoBehaviour
         }
         GetComponent<ScreenTextManagment>().ChangeToSettingScreen();
         PlayerPrefs.Save();
+    }
+
+    void SaveSetMusic(int n)
+    {
+        PlayerPrefs.SetInt(music, n);
+        if (n == 0)
+        {
+            GetComponent<SoundAndMusicManager>().StopMusic();
+        }
+        else
+        {
+            GetComponent<SoundAndMusicManager>().CanPlayMusic();
+        }
     }
 
     public void SetVibration()
@@ -437,7 +485,7 @@ public class PlayerPrefsManager : MonoBehaviour
     public string UnlockItem()
     {
         string description = "";
-        int randomValue = Random.Range(0, (floorsLeft + wallsLeft + detailsLeft + (powerUpsLeft * 2) + graphicsLeft));
+        int randomValue = UnityEngine.Random.Range(0, (floorsLeft + wallsLeft + detailsLeft + (powerUpsLeft * 2) + graphicsLeft));
         if (randomValue >= 0 && randomValue < floorsLeft)
         {
             description = "Floor";
@@ -491,5 +539,80 @@ public class PlayerPrefsManager : MonoBehaviour
         detailsLeft = themeCount - GetDetailUnlocked();
         powerUpsLeft = powerUpCount - GetPowerUpsUnlocked();
         graphicsLeft = graphicsCount - GetGraphicsUnlocked();
+    }
+
+    public void SetPlayerPrefsFromSave(byte[] gameSave)
+    {
+        string saveString = Encoding.ASCII.GetString(gameSave);
+        string[] saveStringSplit = saveString.Split('*');
+
+        CheckHighScore(int.Parse(saveStringSplit[0]));
+        SetTotalPoints(int.Parse(saveStringSplit[1]));
+        CheckSurvivalTime(int.Parse(saveStringSplit[2]));
+        SetOrdersCompleted(int.Parse(saveStringSplit[3]));
+        SetFoodLanded(int.Parse(saveStringSplit[4]));
+        SetCoins(int.Parse(saveStringSplit[5]));
+        SaveSetMusic(int.Parse(saveStringSplit[6]));
+    }
+
+    public byte[] GetPlayerPrefsToByteArray()
+    {
+        List<Byte[]> data = new List<byte[]>();
+        data.Add(CovertToByteArray(GetHighScore()));
+        data.Add(CovertToByteArray(GetTotalPoints()));
+        data.Add(CovertToByteArray(GetLongestSurvivalTime()));
+        data.Add(CovertToByteArray(GetOrdersCompleted()));
+        data.Add(CovertToByteArray(GetFoodLanded()));
+        data.Add(CovertToByteArray(GetCoins()));
+        data.Add(CovertToByteArray(GetMusic() ? 1 : 0));
+        data.Add(CovertToByteArray(GetSound() ? 1 : 0));
+        data.Add(CovertToByteArray(GetVibration() ? 1 : 0));
+        data.Add(CovertToByteArray(PlayerPrefs.GetInt(powerUp + 1, -1)));
+        data.Add(CovertToByteArray(PlayerPrefs.GetInt(powerUp + 2, -1)));
+        data.Add(CovertToByteArray(PlayerPrefs.GetInt(powerUp + 3, -1)));
+        data.Add(CovertToByteArray(GetWallpaper()));
+        data.Add(CovertToByteArray(GetFlooring()));
+        data.Add(CovertToByteArray(GetDetail()));
+        data.Add(CovertToByteArray(GetGraphics()));
+        data.Add(CovertToByteArray(GetPlayTimeInSeconds()));
+        for (int i = 0; i < 50; i++)
+        {
+            data.Add(CovertToByteArray(PlayerPrefs.GetInt(specificPowerUp + i, 0)));
+        }
+        for (int i = 0; i < 50; i++)
+        {
+            data.Add(CovertToByteArray(PlayerPrefs.GetInt(specificWallpaper + i, 0)));
+        }
+        for (int i = 0; i < 50; i++)
+        {
+            data.Add(CovertToByteArray(PlayerPrefs.GetInt(specificFlooring + i, 0)));
+        }
+        for (int i = 0; i < 50; i++)
+        {
+            data.Add(CovertToByteArray(PlayerPrefs.GetInt(specificDetail + i, 0)));
+        }
+        for (int i = 0; i < 50; i++)
+        {
+            data.Add(CovertToByteArray(PlayerPrefs.GetInt(specificGraphics + i, 0)));
+        }
+        byte[] dataArray = data.SelectMany(a => a).ToArray();
+        return dataArray;
+    }
+
+    byte[] CovertToByteArray(int number)
+    {
+        return Encoding.ASCII.GetBytes(number.ToString() + "*");
+    }
+
+    ulong ConvertLittleEndian(byte[] array)
+    {
+        int pos = 0;
+        ulong result = 0;
+        foreach (byte by in array)
+        {
+            result |= ((ulong)by) << pos;
+            pos += 8;
+        }
+        return result;
     }
 }

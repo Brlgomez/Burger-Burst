@@ -252,7 +252,7 @@ ScreenTextManagment : MonoBehaviour
     {
         EnableButton(line1, " Achievements", trophySprite, Color.white);
         EnableButton(line2, " Leaderboards", leaderboards, Color.white);
-        EnableButton(line3, " Restore\n      Purchases", restorePurchases, Color.white);
+        DisableButton(line3, "", null, Color.white);
         DisableButton(line4, "", null, Color.white);
         EnableButton(line5, "Back", backSprite, Color.white);
         GetComponent<LEDManager>().RemoveBlinkingLED();

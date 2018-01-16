@@ -216,6 +216,7 @@ public class GameplayMenu : MonoBehaviour
         GetComponent<Gameplay>().ResetValues();
         GetComponent<GrabAndThrowObject>().DeleteEverything();
         UnPauseGame();
+        GetComponent<OnlineManagement>().PushTotalPoints();
         gameObject.AddComponent<CameraMovement>().MoveToMenu(true);
         GetComponent<ScreenTextManagment>().ChangeToMenuText();
         gameObject.AddComponent<MainMenu>();
