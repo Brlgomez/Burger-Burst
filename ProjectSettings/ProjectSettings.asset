@@ -37,7 +37,9 @@ PlayerSettings:
     y: 0
     width: 1
     height: 1
-  m_SplashScreenLogos: []
+  m_SplashScreenLogos:
+  - logo: {fileID: 21300000, guid: f8aa36e6fab544b109c2615f3e106fba, type: 3}
+    duration: 2
   m_SplashScreenBackgroundLandscape: {fileID: 1, guid: 00000000000000000000000000000000,
     type: 0}
   m_SplashScreenBackgroundPortrait: {fileID: 0}
@@ -142,7 +144,7 @@ PlayerSettings:
   targetPixelDensity: 0
   resolutionScalingMode: 0
   applicationIdentifier:
-    Android: com.BrandonGomez.BurgerBurst
+    Android: com.brandongomez.undeadcatering
     iOS: com.brandongomez.undeadcatering
   buildNumber: {}
   AndroidBundleVersionCode: 1
@@ -223,7 +225,7 @@ PlayerSettings:
   AndroidKeyaliasName: 
   AndroidTVCompatibility: 1
   AndroidIsGame: 1
-  androidEnableBanner: 1
+  androidEnableBanner: 0
   m_AndroidBanners:
   - width: 320
     height: 180
