@@ -508,6 +508,10 @@ public class MainMenu : MonoBehaviour
                 GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
                 GetComponent<PlayerPrefsManager>().SetVibration();
                 break;
+			case "Fourth Button":
+				GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
+				GetComponent<PlayerPrefsManager>().SetHaptic();
+				break;
             case "Fifth Button":
                 GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
                 CheckCamera();

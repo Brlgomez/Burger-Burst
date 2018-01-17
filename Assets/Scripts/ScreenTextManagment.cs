@@ -238,7 +238,21 @@ ScreenTextManagment : MonoBehaviour
         {
             EnableButton(line3, " Vibration: Off", vibrationSprite, Color.white);
         }
-        DisableButton(line4, "", null, Color.white);
+        if (GetComponent<VibrationManager>().HapticCompatible())
+        {
+            if (GetComponent<PlayerPrefsManager>().GetHaptic())
+			{
+				EnableButton(line3, " Haptic: On", vibrationSprite, Color.white);
+			}
+			else
+			{
+				EnableButton(line3, " Haptic: Off", vibrationSprite, Color.white);
+			}
+        }
+        else
+        {
+            DisableButton(line4, "", null, Color.white);
+        }
         EnableButton(line5, "Back", backSprite, Color.white);
         line1.GetComponent<TextMesh>().characterSize = 0.02f;
         line2.GetComponent<TextMesh>().characterSize = 0.02f;

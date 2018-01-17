@@ -6,10 +6,12 @@ using UnityEngine;
 public class VibrationManager : MonoBehaviour
 {
     bool canVibrate = true;
+    bool hapticFeedback = true;
 
     void Start()
     {
         canVibrate = GetComponent<PlayerPrefsManager>().GetVibration();
+        hapticFeedback = GetComponent<PlayerPrefsManager>().GetHaptic();
     }
 
     public void Vibrate()
@@ -22,7 +24,7 @@ public class VibrationManager : MonoBehaviour
 
     public void SelectTapticFeedback()
     {
-        if (canVibrate)
+        if (hapticFeedback && TapticPlugin.TapticManager.IsSupport())
         {
             TapticPlugin.TapticManager.Selection();
         }
@@ -30,7 +32,7 @@ public class VibrationManager : MonoBehaviour
 
     public void LightTapticFeedback()
     {
-        if (canVibrate)
+        if (hapticFeedback && TapticPlugin.TapticManager.IsSupport())
         {
             TapticPlugin.TapticManager.Impact(TapticPlugin.ImpactFeedback.Light);
         }
@@ -38,7 +40,7 @@ public class VibrationManager : MonoBehaviour
 
     public void MediumTapticFeedback()
     {
-        if (canVibrate)
+        if (hapticFeedback && TapticPlugin.TapticManager.IsSupport())
         {
             TapticPlugin.TapticManager.Impact(TapticPlugin.ImpactFeedback.Midium);
         }
@@ -46,7 +48,7 @@ public class VibrationManager : MonoBehaviour
 
     public void HeavyTapticFeedback()
     {
-        if (canVibrate)
+        if (hapticFeedback && TapticPlugin.TapticManager.IsSupport())
         {
             TapticPlugin.TapticManager.Impact(TapticPlugin.ImpactFeedback.Heavy);
         }
@@ -54,7 +56,7 @@ public class VibrationManager : MonoBehaviour
 
     public void SuccessTapticFeedback()
     {
-        if (canVibrate)
+        if (hapticFeedback && TapticPlugin.TapticManager.IsSupport())
         {
             TapticPlugin.TapticManager.Notification(TapticPlugin.NotificationFeedback.Success);
         }
@@ -62,7 +64,7 @@ public class VibrationManager : MonoBehaviour
 
     public void WariningTapticFeedback()
     {
-        if (canVibrate)
+        if (hapticFeedback && TapticPlugin.TapticManager.IsSupport())
         {
             TapticPlugin.TapticManager.Notification(TapticPlugin.NotificationFeedback.Warning);
         }
@@ -70,7 +72,7 @@ public class VibrationManager : MonoBehaviour
 
     public void ErrorTapticFeedback()
     {
-        if (canVibrate)
+        if (hapticFeedback && TapticPlugin.TapticManager.IsSupport())
         {
             TapticPlugin.TapticManager.Notification(TapticPlugin.NotificationFeedback.Error);
         }
@@ -79,5 +81,15 @@ public class VibrationManager : MonoBehaviour
     public void ChangeVibration(bool b)
     {
         canVibrate = b;
+    }
+
+    public void ChangeHaptic(bool b)
+    {
+        hapticFeedback = b;
+    }
+
+    public bool HapticCompatible()
+    {
+        return TapticPlugin.TapticManager.IsSupport();
     }
 }

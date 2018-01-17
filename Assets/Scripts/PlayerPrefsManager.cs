@@ -23,6 +23,7 @@ public class PlayerPrefsManager : MonoBehaviour
     static string sound = "SOUND";
     static string music = "MUSIC";
     static string vibration = "VIBRATION";
+    static string haptic = "HAPTIC";
     public static string specificPowerUp = "PowerUp";
     public static string specificGraphics = "Graphic";
     public static string specificFlooring = "Flooring";
@@ -367,6 +368,11 @@ public class PlayerPrefsManager : MonoBehaviour
         return (PlayerPrefs.GetInt(vibration, 1) == 1);
     }
 
+    public bool GetHaptic()
+    {
+        return (PlayerPrefs.GetInt(haptic, 1) == 1);
+    }
+
     public void SetSound()
     {
         if (GetSound())
@@ -467,6 +473,23 @@ public class PlayerPrefsManager : MonoBehaviour
         {
             GetComponent<VibrationManager>().ChangeVibration(true);
         }
+    }
+
+    public void SetHaptic()
+    {
+        if (GetHaptic())
+        {
+            PlayerPrefs.SetInt(haptic, 0);
+            GetComponent<VibrationManager>().ChangeHaptic(false);
+        }
+        else
+        {
+            PlayerPrefs.SetInt(haptic, 1);
+            GetComponent<VibrationManager>().ChangeHaptic(true);
+            GetComponent<VibrationManager>().SuccessTapticFeedback();
+        }
+        GetComponent<ScreenTextManagment>().ChangeToSettingScreen();
+        PlayerPrefs.Save();
     }
 
     public int GetPowerUpsUnlocked()
