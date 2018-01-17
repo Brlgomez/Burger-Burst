@@ -21,6 +21,7 @@ public class CameraMovement : MonoBehaviour
             moveArrows = true;
             phone = GetComponent<ObjectManager>().Phone();
         }
+        GetComponent<ObjectManager>().PostProcess().GetComponent<PostProcessing>().PlayMotionBlur();
     }
 
     void Update()
@@ -167,7 +168,8 @@ public class CameraMovement : MonoBehaviour
             GetComponent<GrabAndThrowObject>().DeleteEverything();
             GetComponent<GameplayMenu>().UnPauseGame();
         }
-        Destroy(GetComponent<CameraMovement>());
+        GetComponent<ObjectManager>().PostProcess().GetComponent<PostProcessing>().StopMotionBlur();
+		Destroy(GetComponent<CameraMovement>());
     }
 
     public void MoveToTitle()

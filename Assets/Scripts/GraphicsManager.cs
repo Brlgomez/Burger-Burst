@@ -36,7 +36,7 @@ public class GraphicsManager : MonoBehaviour
         PlayerPrefs.SetInt(PlayerPrefsManager.specificGraphics + 0, 1);
         SetGraphicsList();
         SetGraphic(GetComponent<PlayerPrefsManager>().GetGraphics());
-    }
+	}
 
     public void SetGraphicsList()
     {

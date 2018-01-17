@@ -534,9 +534,6 @@ public class MainMenu : MonoBehaviour
                 GetComponent<OnlineManagement>().PushAllLeaderboards();
                 GetComponent<OnlineManagement>().GetLeaderboards();
                 break;
-            case "Third Button":
-                //TODO: Restore
-                break;
             case "Fifth Button":
                 CheckCamera();
                 gameObject.AddComponent<CameraMovement>().MoveToStuff();

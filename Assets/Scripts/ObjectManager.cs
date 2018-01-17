@@ -15,7 +15,7 @@ public class ObjectManager : MonoBehaviour
     GameObject blastParticles;
     GameObject windParticles;
     GameObject landOnZombieParticles;
-    GameObject coin, stereo, horn, vibratingDevice;
+    GameObject coin, stereo, horn, vibratingDevice, postProcess;
 
     void Awake()
     {
@@ -56,6 +56,7 @@ public class ObjectManager : MonoBehaviour
         horn = GameObject.Find("Horn");
         vibratingDevice = GameObject.Find("Vibrating Device");
         titleSign = GameObject.Find("Title Sign");
+        postProcess = GameObject.Find("Post Process");
     }
 
     public GameObject CounterWall() { return counterWall; }
@@ -131,4 +132,6 @@ public class ObjectManager : MonoBehaviour
     public GameObject VibratingDevice() { return vibratingDevice; }
 
     public GameObject TitleSign() { return titleSign; }
+
+    public GameObject PostProcess() { return postProcess; }
 }
