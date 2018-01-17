@@ -15,6 +15,7 @@ public class CookMeat : MonoBehaviour
     ParticleSystem.MainModule mainModule;
     Renderer myRenderer;
     Material meatMaterial;
+    bool burned;
 
     void Start()
     {
@@ -55,6 +56,11 @@ public class CookMeat : MonoBehaviour
             meatMaterial.color = burntColor;
             GetComponent<Meat>().SetTimeOnGrill(timeOnGrill);
             Destroy(GetComponent<CookMeat>());
+        }
+        if (timeOnGrill > maxTimeOnGrill && !burned)
+        {
+            burned = true;
+            Camera.main.GetComponent<OnlineManagement>().BurnedBurger();
         }
     }
 

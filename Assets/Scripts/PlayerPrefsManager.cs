@@ -55,6 +55,7 @@ public class PlayerPrefsManager : MonoBehaviour
     public void IncreaseOrdersCompleted()
     {
         PlayerPrefs.SetInt(totalOrdersCompleted, (GetOrdersCompleted() + 1));
+        GetComponent<OnlineManagement>().CheckCompletedOrders(GetOrdersCompleted());
     }
 
     public void SetFoodProduced(int num)
@@ -70,6 +71,7 @@ public class PlayerPrefsManager : MonoBehaviour
     public void IncreaseFoodProduced(int num)
     {
         PlayerPrefs.SetInt(totalFoodProduced, (GetFoodProduced() + num));
+        GetComponent<OnlineManagement>().CheckFoodProductAmount(num, GetFoodProduced());
     }
 
     public void SetFoodLanded(int num)
@@ -104,8 +106,10 @@ public class PlayerPrefsManager : MonoBehaviour
 
     public bool CheckHighScore(int points)
     {
+        GetComponent<OnlineManagement>().CheckTotalPoints(GetTotalPoints(), points);
         if (points > PlayerPrefs.GetInt(highScore, 0))
         {
+            GetComponent<OnlineManagement>().CheckScore(points);
             GetComponent<OnlineManagement>().PushHighScore(points);
             PlayerPrefs.SetInt(highScore, points);
             PlayerPrefs.Save();
@@ -123,8 +127,9 @@ public class PlayerPrefsManager : MonoBehaviour
     {
         int milliseconds = Mathf.RoundToInt(time * 1000);
         IncreasePlayTimeInSeconds(Mathf.RoundToInt(time));
-        if (time > PlayerPrefs.GetInt(longestSurvivalTime, 0))
+        if (milliseconds > PlayerPrefs.GetInt(longestSurvivalTime, 0))
         {
+            GetComponent<OnlineManagement>().CheckTime(milliseconds);
             GetComponent<OnlineManagement>().PushLongestSurvivalTime(milliseconds);
             PlayerPrefs.SetInt(longestSurvivalTime, milliseconds);
             PlayerPrefs.Save();
@@ -217,30 +222,48 @@ public class PlayerPrefsManager : MonoBehaviour
     {
         PlayerPrefs.SetInt(specificGraphics + num, 1);
         PlayerPrefs.Save();
+        GetComponent<OnlineManagement>().CheckGraphics(CheckHowManyBought(GetComponent<GraphicsManager>().maxGraphics, specificGraphics));
     }
 
     public void BuyFlooring(int num)
     {
         PlayerPrefs.SetInt(specificFlooring + num, 1);
         PlayerPrefs.Save();
+        GetComponent<OnlineManagement>().CheckFlooring(CheckHowManyBought(GetComponent<ThemeManager>().maxThemes, specificFlooring));
     }
 
     public void BuyWallpaper(int num)
     {
         PlayerPrefs.SetInt(specificWallpaper + num, 1);
         PlayerPrefs.Save();
+        GetComponent<OnlineManagement>().CheckWallpaper(CheckHowManyBought(GetComponent<ThemeManager>().maxThemes, specificWallpaper));
     }
 
     public void BuyDetail(int num)
     {
         PlayerPrefs.SetInt(specificDetail + num, 1);
         PlayerPrefs.Save();
+        GetComponent<OnlineManagement>().CheckDetail(CheckHowManyBought(GetComponent<ThemeManager>().maxThemes, specificDetail));
     }
 
     public void BuyPowerUp(int powerUpNum)
     {
         PlayerPrefs.SetInt(specificPowerUp + powerUpNum, 1);
         PlayerPrefs.Save();
+        GetComponent<OnlineManagement>().CheckPowerUps(CheckHowManyBought(GetComponent<PowerUpsManager>().maxPowerUps, specificPowerUp));
+    }
+
+    int CheckHowManyBought(int max, string type)
+    {
+        int count = 0;
+        for (int i = 0; i < max; i++)
+        {
+            if (PlayerPrefs.GetInt(type + i, 0) == 1)
+            {
+                count++;
+            }
+        }
+        return count;
     }
 
     public bool IsPowerUpUnlocked(int powerUpNum)

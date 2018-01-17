@@ -528,7 +528,8 @@ public class MainMenu : MonoBehaviour
         switch (target.name)
         {
             case "First Button":
-                //TODO: Achievements
+                GetComponent<OnlineManagement>().CheckAllAchievements();
+                GetComponent<OnlineManagement>().GetAchievements();
                 break;
             case "Second Button":
                 GetComponent<OnlineManagement>().PushAllLeaderboards();

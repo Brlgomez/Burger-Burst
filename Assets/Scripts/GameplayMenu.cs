@@ -213,10 +213,11 @@ public class GameplayMenu : MonoBehaviour
         GetComponent<GrabAndThrowObject>().currentArea = GrabAndThrowObject.Area.quit;
         initialPosition = GetComponent<PositionManager>().GameplayPosition();
         transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 0, 0, 0);
+        GetComponent<OnlineManagement>().CheckTotalPoints(GetComponent<PlayerPrefsManager>().GetTotalPoints(), GetComponent<Gameplay>().GetPoints());
+        GetComponent<OnlineManagement>().PushTotalPoints();
         GetComponent<Gameplay>().ResetValues();
         GetComponent<GrabAndThrowObject>().DeleteEverything();
         UnPauseGame();
-        GetComponent<OnlineManagement>().PushTotalPoints();
         gameObject.AddComponent<CameraMovement>().MoveToMenu(true);
         GetComponent<ScreenTextManagment>().ChangeToMenuText();
         gameObject.AddComponent<MainMenu>();
