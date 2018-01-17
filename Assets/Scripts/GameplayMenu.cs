@@ -195,6 +195,9 @@ public class GameplayMenu : MonoBehaviour
         GetComponent<GrabAndThrowObject>().currentArea = GrabAndThrowObject.Area.counter;
         initialPosition = GetComponent<PositionManager>().GameplayPosition();
         transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 0, 0, 0);
+        GetComponent<OnlineManagement>().CheckFoodProductAmount(GetComponent<Gameplay>().GetFoodProduced());
+        GetComponent<OnlineManagement>().CheckCompletedOrders(GetComponent<Gameplay>().GetCompletedOrdersCount());
+        GetComponent<OnlineManagement>().CheckTotalPoints(GetComponent<PlayerPrefsManager>().GetTotalPoints(), GetComponent<Gameplay>().GetPoints());
         GetComponent<Gameplay>().ResetValues();
         GetComponent<GrabAndThrowObject>().DeleteEverything();
         gameObject.AddComponent<CameraMovement>().MoveToGameplay("Restart");
@@ -213,8 +216,10 @@ public class GameplayMenu : MonoBehaviour
         GetComponent<GrabAndThrowObject>().currentArea = GrabAndThrowObject.Area.quit;
         initialPosition = GetComponent<PositionManager>().GameplayPosition();
         transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 0, 0, 0);
-        GetComponent<OnlineManagement>().CheckTotalPoints(GetComponent<PlayerPrefsManager>().GetTotalPoints(), GetComponent<Gameplay>().GetPoints());
         GetComponent<OnlineManagement>().PushTotalPoints();
+        GetComponent<OnlineManagement>().CheckFoodProductAmount(GetComponent<Gameplay>().GetFoodProduced());
+        GetComponent<OnlineManagement>().CheckCompletedOrders(GetComponent<Gameplay>().GetCompletedOrdersCount());
+        GetComponent<OnlineManagement>().CheckTotalPoints(GetComponent<PlayerPrefsManager>().GetTotalPoints(), GetComponent<Gameplay>().GetPoints());
         GetComponent<Gameplay>().ResetValues();
         GetComponent<GrabAndThrowObject>().DeleteEverything();
         UnPauseGame();

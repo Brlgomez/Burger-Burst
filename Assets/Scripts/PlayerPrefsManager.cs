@@ -55,7 +55,6 @@ public class PlayerPrefsManager : MonoBehaviour
     public void IncreaseOrdersCompleted()
     {
         PlayerPrefs.SetInt(totalOrdersCompleted, (GetOrdersCompleted() + 1));
-        GetComponent<OnlineManagement>().CheckCompletedOrders(GetOrdersCompleted());
     }
 
     public void SetFoodProduced(int num)
@@ -71,7 +70,6 @@ public class PlayerPrefsManager : MonoBehaviour
     public void IncreaseFoodProduced(int num)
     {
         PlayerPrefs.SetInt(totalFoodProduced, (GetFoodProduced() + num));
-        GetComponent<OnlineManagement>().CheckFoodProductAmount(num, GetFoodProduced());
     }
 
     public void SetFoodLanded(int num)
@@ -106,7 +104,6 @@ public class PlayerPrefsManager : MonoBehaviour
 
     public bool CheckHighScore(int points)
     {
-        GetComponent<OnlineManagement>().CheckTotalPoints(GetTotalPoints(), points);
         if (points > PlayerPrefs.GetInt(highScore, 0))
         {
             GetComponent<OnlineManagement>().CheckScore(points);

@@ -3,7 +3,7 @@ using UnityEngine.Rendering.PostProcessing;
 
 public class PostProcessing : MonoBehaviour
 {
-    PostProcessVolume m_Volume;
+    PostProcessVolume volume;
     MotionBlur motionBlur;
     void Start()
     {
@@ -11,7 +11,7 @@ public class PostProcessing : MonoBehaviour
         motionBlur.enabled.Override(false);
         motionBlur.shutterAngle.Override(180);
         motionBlur.sampleCount.Override(5);
-        m_Volume = PostProcessManager.instance.QuickVolume(gameObject.layer, 100f, motionBlur);
+        volume = PostProcessManager.instance.QuickVolume(gameObject.layer, 100f, motionBlur);
     }
 
     public void PlayMotionBlur()

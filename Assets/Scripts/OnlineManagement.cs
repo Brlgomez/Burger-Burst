@@ -165,17 +165,20 @@ public class OnlineManagement : MonoBehaviour
 
     public void CheckTotalPoints(int lifetimePoints, int pointsIncrease)
     {
-        if (deviceOS == OS.Android)
+        if (pointsIncrease > 0)
         {
-            //PlayGamesPlatform.Instance.IncrementAchievement("Cfjewijawiu_QA", pointsIncrease, (bool success) => { });
-            if (lifetimePoints >= 100000)
+            if (deviceOS == OS.Android)
             {
-                //Social.ReportProgress(GPGSIds.achievement_the_creator, 100.0f, (bool success) => { });
+                //PlayGamesPlatform.Instance.IncrementAchievement("Cfjewijawiu_QA", pointsIncrease, (bool success) => { });
+                if (lifetimePoints >= 100000)
+                {
+                    //Social.ReportProgress(GPGSIds.achievement_the_creator, 100.0f, (bool success) => { });
+                }
             }
-        }
-        else if (deviceOS == OS.iOS)
-        {
-            //Social.ReportProgress(GPGSIds.achievement_the_creator, lifetimePoints/100000.0f, (bool success) => { });
+            else if (deviceOS == OS.iOS)
+            {
+                //Social.ReportProgress(GPGSIds.achievement_the_creator, lifetimePoints/100000.0f, (bool success) => { });
+            }
         }
     }
 
@@ -194,12 +197,13 @@ public class OnlineManagement : MonoBehaviour
         }
     }
 
-    public void CheckCompletedOrders(int totalOrder)
+    public void CheckCompletedOrders(int amount)
     {
+        int total = GetComponent<PlayerPrefsManager>().GetOrdersCompleted();
         if (deviceOS == OS.Android)
         {
-            //PlayGamesPlatform.Instance.IncrementAchievement("Cfjewijawiu_QA", 1, (bool success) => { });
-            if (totalOrder >= 250)
+            //PlayGamesPlatform.Instance.IncrementAchievement("Cfjewijawiu_QA", amount, (bool success) => { });
+            if (total >= 250)
             {
                 //Social.ReportProgress(GPGSIds.achievement_the_creator, 100.0f, (bool success) => { });
             }
@@ -210,8 +214,9 @@ public class OnlineManagement : MonoBehaviour
         }
     }
 
-    public void CheckFoodProductAmount(int amount, int total)
+    public void CheckFoodProductAmount(int amount)
     {
+        int total = GetComponent<PlayerPrefsManager>().GetFoodProduced();
         if (deviceOS == OS.Android)
         {
             //PlayGamesPlatform.Instance.IncrementAchievement("Cfjewijawiu_QA", amount, (bool success) => { });

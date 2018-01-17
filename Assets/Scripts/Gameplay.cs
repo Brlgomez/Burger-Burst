@@ -5,6 +5,7 @@ using UnityEngine;
 public class Gameplay : MonoBehaviour
 {
     int completedOrders;
+    int foodMade;
     int points;
     bool gameOver;
     bool continued;
@@ -211,6 +212,7 @@ public class Gameplay : MonoBehaviour
         {
             burgers += amount;
         }
+        foodMade += amount;
         GetComponent<PlayerPrefsManager>().IncreaseFoodProduced(amount);
         GetComponent<ScreenTextManagment>().ChangeBurgerCount(amount);
     }
@@ -226,6 +228,7 @@ public class Gameplay : MonoBehaviour
         {
             fries += amount;
         }
+        foodMade += amount;
         GetComponent<PlayerPrefsManager>().IncreaseFoodProduced(amount);
         GetComponent<ScreenTextManagment>().ChangeFriesCount(amount);
     }
@@ -241,6 +244,7 @@ public class Gameplay : MonoBehaviour
         {
             drinks += amount;
         }
+        foodMade += amount;
         GetComponent<PlayerPrefsManager>().IncreaseFoodProduced(amount);
         GetComponent<ScreenTextManagment>().ChangeDrinkCount(amount);
     }
@@ -269,6 +273,11 @@ public class Gameplay : MonoBehaviour
     public int GetCompletedOrdersCount()
     {
         return completedOrders;
+    }
+
+    public int GetFoodProduced()
+    {
+        return foodMade;
     }
 
     public void IncreaseDefense()
@@ -324,6 +333,7 @@ public class Gameplay : MonoBehaviour
         fries = 25;
         drinks = 25;
         completedOrders = 0;
+        foodMade = 0;
         regenTimer = 0;
         points = 0;
         timeForNewZombie = 12;

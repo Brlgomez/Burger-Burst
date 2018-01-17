@@ -72,13 +72,13 @@ public class GrabAndThrowObject : MonoBehaviour
             GetComponent<SoundAndMusicManager>().CheckIfMusicPlaying();
         }
 
-        if (Input.GetKeyDown("d"))
+        if (Input.GetKeyDown("d") && !gameOver)
             GetComponent<Gameplay>().ReduceHealth(10, gameObject);
-        if (Input.GetKeyDown("p"))
+        if (Input.GetKeyDown("p") && !gameOver)
             GetComponent<PlayerPrefsManager>().IncreaseTotalPoints(100);
-        if (Input.GetKeyDown("h"))
+        if (Input.GetKeyDown("h") && !gameOver)
             GetComponent<Gameplay>().AddLife(15, gameObject);
-        if (Input.GetKeyDown("q"))
+        if (Input.GetKeyDown("q") && !gameOver)
         {
             if (Camera.main.transform.GetComponent<Poisoned>())
             {
@@ -89,7 +89,7 @@ public class GrabAndThrowObject : MonoBehaviour
                 Camera.main.transform.gameObject.AddComponent<Poisoned>();
             }
         }
-        if (Input.GetKeyDown("w"))
+        if (Input.GetKeyDown("w") && !gameOver)
         {
             if (Camera.main.GetComponent<Frozen>())
             {

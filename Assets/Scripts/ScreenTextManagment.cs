@@ -893,7 +893,7 @@ ScreenTextManagment : MonoBehaviour
         if (line1.transform.GetChild(1).gameObject.GetComponent<PingPongColor>() != null)
         {
             Destroy(line1.transform.GetChild(1).gameObject.GetComponent<PingPongColor>());
-            line1.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
+            line1.transform.GetChild(1).GetComponent<Renderer>().material.color = Color.white;
         }
     }
 }
