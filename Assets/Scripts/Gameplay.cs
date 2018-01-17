@@ -211,6 +211,7 @@ public class Gameplay : MonoBehaviour
         {
             burgers += amount;
         }
+        GetComponent<PlayerPrefsManager>().IncreaseFoodProduced(amount);
         GetComponent<ScreenTextManagment>().ChangeBurgerCount(amount);
     }
 
@@ -225,6 +226,7 @@ public class Gameplay : MonoBehaviour
         {
             fries += amount;
         }
+        GetComponent<PlayerPrefsManager>().IncreaseFoodProduced(amount);
         GetComponent<ScreenTextManagment>().ChangeFriesCount(amount);
     }
 
@@ -239,6 +241,7 @@ public class Gameplay : MonoBehaviour
         {
             drinks += amount;
         }
+        GetComponent<PlayerPrefsManager>().IncreaseFoodProduced(amount);
         GetComponent<ScreenTextManagment>().ChangeDrinkCount(amount);
     }
 

@@ -10,6 +10,7 @@ public class PlayerPrefsManager : MonoBehaviour
     static string totalOrdersCompleted = "TOTAL ORDERS COMPLETED";
     static string totalFoodLanded = "TOTAL FOOD LANDED";
     static string totalPoints = "TOTAL POINTS";
+    static string totalFoodProduced = "TOTAL FOOD PRODUCED";
     static string highScore = "HIGH SCORE";
     static string longestSurvivalTime = "LONGEST SURVIVAL TIME";
     static string totalPlayTime = "TOTAL PLAY TIME";
@@ -54,6 +55,21 @@ public class PlayerPrefsManager : MonoBehaviour
     public void IncreaseOrdersCompleted()
     {
         PlayerPrefs.SetInt(totalOrdersCompleted, (GetOrdersCompleted() + 1));
+    }
+
+    public void SetFoodProduced(int num)
+    {
+        PlayerPrefs.SetInt(totalFoodProduced, num);
+    }
+
+    public int GetFoodProduced()
+    {
+        return PlayerPrefs.GetInt(totalFoodProduced, 0);
+    }
+
+    public void IncreaseFoodProduced(int num)
+    {
+        PlayerPrefs.SetInt(totalFoodProduced, (GetFoodProduced() + num));
     }
 
     public void SetFoodLanded(int num)
@@ -579,25 +595,26 @@ public class PlayerPrefsManager : MonoBehaviour
         CheckSurvivalTime(int.Parse(saveStringSplit[2]));
         SetOrdersCompleted(int.Parse(saveStringSplit[3]));
         SetFoodLanded(int.Parse(saveStringSplit[4]));
-        SetCoins(int.Parse(saveStringSplit[5]));
-        SaveSetMusic(int.Parse(saveStringSplit[6]));
-        SaveSetSounds(int.Parse(saveStringSplit[7]));
-        SaveSetVibration(int.Parse(saveStringSplit[8]));
-        PlayerPrefs.SetInt(powerUp + 1, int.Parse(saveStringSplit[9]));
-        PlayerPrefs.SetInt(powerUp + 2, int.Parse(saveStringSplit[10]));
-        PlayerPrefs.SetInt(powerUp + 3, int.Parse(saveStringSplit[11]));
-        GetComponent<ThemeManager>().SetWallpaper(int.Parse(saveStringSplit[12]));
-        GetComponent<ThemeManager>().SetFlooring(int.Parse(saveStringSplit[13]));
-        GetComponent<ThemeManager>().SetDetail(int.Parse(saveStringSplit[14]));
-        GetComponent<GraphicsManager>().SetGraphic(int.Parse(saveStringSplit[15]));
-        SetPlayTimeInSeconds(int.Parse(saveStringSplit[16]));
+        SetFoodProduced(int.Parse(saveStringSplit[5]));
+        SetCoins(int.Parse(saveStringSplit[6]));
+        SaveSetMusic(int.Parse(saveStringSplit[7]));
+        SaveSetSounds(int.Parse(saveStringSplit[8]));
+        SaveSetVibration(int.Parse(saveStringSplit[9]));
+        PlayerPrefs.SetInt(powerUp + 1, int.Parse(saveStringSplit[10]));
+        PlayerPrefs.SetInt(powerUp + 2, int.Parse(saveStringSplit[11]));
+        PlayerPrefs.SetInt(powerUp + 3, int.Parse(saveStringSplit[12]));
+        GetComponent<ThemeManager>().SetWallpaper(int.Parse(saveStringSplit[13]));
+        GetComponent<ThemeManager>().SetFlooring(int.Parse(saveStringSplit[14]));
+        GetComponent<ThemeManager>().SetDetail(int.Parse(saveStringSplit[15]));
+        GetComponent<GraphicsManager>().SetGraphic(int.Parse(saveStringSplit[16]));
+        SetPlayTimeInSeconds(int.Parse(saveStringSplit[17]));
         for (int i = 0; i < 50; i++)
         {
-            PlayerPrefs.SetInt(specificPowerUp + i, int.Parse(saveStringSplit[i + 17]));
-            PlayerPrefs.SetInt(specificWallpaper + i, int.Parse(saveStringSplit[i + 67]));
-            PlayerPrefs.SetInt(specificFlooring + i, int.Parse(saveStringSplit[i + 117]));
-            PlayerPrefs.SetInt(specificDetail + i, int.Parse(saveStringSplit[i + 167]));
-            PlayerPrefs.SetInt(specificGraphics + i, int.Parse(saveStringSplit[i + 217]));
+            PlayerPrefs.SetInt(specificPowerUp + i, int.Parse(saveStringSplit[i + 18]));
+            PlayerPrefs.SetInt(specificWallpaper + i, int.Parse(saveStringSplit[i + 68]));
+            PlayerPrefs.SetInt(specificFlooring + i, int.Parse(saveStringSplit[i + 118]));
+            PlayerPrefs.SetInt(specificDetail + i, int.Parse(saveStringSplit[i + 168]));
+            PlayerPrefs.SetInt(specificGraphics + i, int.Parse(saveStringSplit[i + 218]));
         }
         GetComponent<PowerUpsManager>().SetPowerUpLists();
         GetComponent<ThemeManager>().SetThemeLists();
@@ -615,6 +632,7 @@ public class PlayerPrefsManager : MonoBehaviour
         data.Add(CovertToByteArray(GetLongestSurvivalTime()));
         data.Add(CovertToByteArray(GetOrdersCompleted()));
         data.Add(CovertToByteArray(GetFoodLanded()));
+        data.Add(CovertToByteArray(GetFoodProduced()));
         data.Add(CovertToByteArray(GetCoins()));
         data.Add(CovertToByteArray(GetMusic() ? 1 : 0));
         data.Add(CovertToByteArray(GetSound() ? 1 : 0));
