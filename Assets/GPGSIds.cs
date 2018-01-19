@@ -24,9 +24,23 @@
 
 public static class GPGSIds
 {
-        public const string leaderboard_longest_survival_time = "CgkI0uihsP8HEAIQAw"; // <GPGSID>
-        public const string leaderboard_high_score = "CgkI0uihsP8HEAIQAQ"; // <GPGSID>
+        public const string achievement_picture_perfect = "CgkI0uihsP8HEAIQBg"; // <GPGSID>
+        public const string achievement_experienced_chef = "CgkI0uihsP8HEAIQCw"; // <GPGSID>
+        public const string achievement_sous_chef = "CgkI0uihsP8HEAIQBw"; // <GPGSID>
         public const string leaderboard_total_points = "CgkI0uihsP8HEAIQAg"; // <GPGSID>
+        public const string achievement_culinary_genius = "CgkI0uihsP8HEAIQDA"; // <GPGSID>
+        public const string achievement_paint_job = "CgkI0uihsP8HEAIQDg"; // <GPGSID>
+        public const string achievement_flame_broiled = "CgkI0uihsP8HEAIQBA"; // <GPGSID>
+        public const string leaderboard_high_score = "CgkI0uihsP8HEAIQAQ"; // <GPGSID>
+        public const string achievement_the_little_things = "CgkI0uihsP8HEAIQEA"; // <GPGSID>
+        public const string achievement_surviving_the_lunch_rush = "CgkI0uihsP8HEAIQCQ"; // <GPGSID>
+        public const string achievement_chef_de_cuisine = "CgkI0uihsP8HEAIQCA"; // <GPGSID>
+        public const string achievement_a_new_look = "CgkI0uihsP8HEAIQEQ"; // <GPGSID>
+        public const string achievement_satisfied_zombie = "CgkI0uihsP8HEAIQCg"; // <GPGSID>
+        public const string achievement_golden_glover = "CgkI0uihsP8HEAIQBQ"; // <GPGSID>
+        public const string achievement_all_that_power = "CgkI0uihsP8HEAIQDQ"; // <GPGSID>
+        public const string achievement_the_floor_below_me = "CgkI0uihsP8HEAIQDw"; // <GPGSID>
+        public const string leaderboard_longest_survival_time = "CgkI0uihsP8HEAIQAw"; // <GPGSID>
 
 }
 

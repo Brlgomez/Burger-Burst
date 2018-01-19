@@ -129,19 +129,7 @@ public class OnlineManagement : MonoBehaviour
     {
         if (deviceOS == OS.Android)
         {
-            //Social.ReportProgress(GPGSIds.achievement_the_creator, 100.0f, (bool success) => { });
-        }
-        else if (deviceOS == OS.iOS)
-        {
-            //Social.ReportProgress(GPGSIds.achievement_the_creator, 100.0f, (bool success) => { });
-        }
-    }
-
-    public void PerfectFoodItem()
-    {
-        if (deviceOS == OS.Android)
-        {
-            //Social.ReportProgress(GPGSIds.achievement_the_creator, 100.0f, (bool success) => { });
+            Social.ReportProgress(GPGSIds.achievement_flame_broiled, 100.0f, (bool success) => { });
         }
         else if (deviceOS == OS.iOS)
         {
@@ -153,7 +141,19 @@ public class OnlineManagement : MonoBehaviour
     {
         if (deviceOS == OS.Android)
         {
+            Social.ReportProgress(GPGSIds.achievement_golden_glover, 100.0f, (bool success) => { });
+        }
+        else if (deviceOS == OS.iOS)
+        {
             //Social.ReportProgress(GPGSIds.achievement_the_creator, 100.0f, (bool success) => { });
+        }
+    }
+
+    public void PerfectFoodItem()
+    {
+        if (deviceOS == OS.Android)
+        {
+            Social.ReportProgress(GPGSIds.achievement_picture_perfect, 100.0f, (bool success) => { });
         }
         else if (deviceOS == OS.iOS)
         {
@@ -163,22 +163,22 @@ public class OnlineManagement : MonoBehaviour
 
     public void CheckScore(int score)
     {
-        if (score >= 100)
+        if (score > 100)
         {
             if (deviceOS == OS.Android)
             {
-                //Social.ReportProgress(GPGSIds.achievement_the_creator, 100.0f, (bool success) => { });
+                Social.ReportProgress(GPGSIds.achievement_sous_chef, 100.0f, (bool success) => { });
             }
             else if (deviceOS == OS.iOS)
             {
                 //Social.ReportProgress(GPGSIds.achievement_the_creator, 100.0f, (bool success) => { });
             }
         }
-        if (score >= 1000)
+        if (score > 1000)
         {
             if (deviceOS == OS.Android)
             {
-                //Social.ReportProgress(GPGSIds.achievement_the_creator, 100.0f, (bool success) => { });
+                Social.ReportProgress(GPGSIds.achievement_chef_de_cuisine, 100.0f, (bool success) => { });
             }
             else if (deviceOS == OS.iOS)
             {
@@ -189,14 +189,16 @@ public class OnlineManagement : MonoBehaviour
 
     public void CheckTotalPoints(int lifetimePoints, int pointsIncrease)
     {
+        int beforeScore = (lifetimePoints - pointsIncrease) % 10;
+        int increase = beforeScore + pointsIncrease;
         if (pointsIncrease > 0)
         {
             if (deviceOS == OS.Android)
             {
-                //PlayGamesPlatform.Instance.IncrementAchievement("Cfjewijawiu_QA", pointsIncrease, (bool success) => { });
+                PlayGamesPlatform.Instance.IncrementAchievement(GPGSIds.achievement_experienced_chef, increase, (bool success) => { });
                 if (lifetimePoints >= 100000)
                 {
-                    //Social.ReportProgress(GPGSIds.achievement_the_creator, 100.0f, (bool success) => { });
+                    Social.ReportProgress(GPGSIds.achievement_experienced_chef, 100.0f, (bool success) => { });
                 }
             }
             else if (deviceOS == OS.iOS)
@@ -212,7 +214,7 @@ public class OnlineManagement : MonoBehaviour
         {
             if (deviceOS == OS.Android)
             {
-                //Social.ReportProgress(GPGSIds.achievement_the_creator, 100.0f, (bool success) => { });
+                Social.ReportProgress(GPGSIds.achievement_surviving_the_lunch_rush, 100.0f, (bool success) => { });
             }
             else if (deviceOS == OS.iOS)
             {
@@ -226,10 +228,10 @@ public class OnlineManagement : MonoBehaviour
         int total = GetComponent<PlayerPrefsManager>().GetOrdersCompleted();
         if (deviceOS == OS.Android)
         {
-            //PlayGamesPlatform.Instance.IncrementAchievement("Cfjewijawiu_QA", amount, (bool success) => { });
+            PlayGamesPlatform.Instance.IncrementAchievement(GPGSIds.achievement_satisfied_zombie, amount, (bool success) => { });
             if (total >= 250)
             {
-                //Social.ReportProgress(GPGSIds.achievement_the_creator, 100.0f, (bool success) => { });
+                Social.ReportProgress(GPGSIds.achievement_satisfied_zombie, 100.0f, (bool success) => { });
             }
         }
         else if (deviceOS == OS.iOS)
@@ -243,10 +245,10 @@ public class OnlineManagement : MonoBehaviour
         int total = GetComponent<PlayerPrefsManager>().GetFoodProduced();
         if (deviceOS == OS.Android)
         {
-            //PlayGamesPlatform.Instance.IncrementAchievement("Cfjewijawiu_QA", amount, (bool success) => { });
+            PlayGamesPlatform.Instance.IncrementAchievement(GPGSIds.achievement_culinary_genius, amount, (bool success) => { });
             if (total >= 1000)
             {
-                //Social.ReportProgress(GPGSIds.achievement_the_creator, 100.0f, (bool success) => { });
+                Social.ReportProgress(GPGSIds.achievement_culinary_genius, 100.0f, (bool success) => { });
             }
         }
         else if (deviceOS == OS.iOS)
@@ -259,10 +261,10 @@ public class OnlineManagement : MonoBehaviour
     {
         if (deviceOS == OS.Android)
         {
-            //PlayGamesPlatform.Instance.IncrementAchievement("Cfjewijawiu_QA", 1, (bool success) => { });
+            PlayGamesPlatform.Instance.IncrementAchievement(GPGSIds.achievement_all_that_power, 1, (bool success) => { });
             if (total >= 20)
             {
-                //Social.ReportProgress(GPGSIds.achievement_the_creator, 100.0f, (bool success) => { });
+                Social.ReportProgress(GPGSIds.achievement_all_that_power, 100.0f, (bool success) => { });
             }
         }
         else if (deviceOS == OS.iOS)
@@ -275,10 +277,10 @@ public class OnlineManagement : MonoBehaviour
     {
         if (deviceOS == OS.Android)
         {
-            //PlayGamesPlatform.Instance.IncrementAchievement("Cfjewijawiu_QA", 1, (bool success) => { });
+            PlayGamesPlatform.Instance.IncrementAchievement(GPGSIds.achievement_paint_job, 1, (bool success) => { });
             if (total >= 20)
             {
-                //Social.ReportProgress(GPGSIds.achievement_the_creator, 100.0f, (bool success) => { });
+                Social.ReportProgress(GPGSIds.achievement_paint_job, 100.0f, (bool success) => { });
             }
         }
         else if (deviceOS == OS.iOS)
@@ -291,10 +293,10 @@ public class OnlineManagement : MonoBehaviour
     {
         if (deviceOS == OS.Android)
         {
-            //PlayGamesPlatform.Instance.IncrementAchievement("Cfjewijawiu_QA", 1, (bool success) => { });
+            PlayGamesPlatform.Instance.IncrementAchievement(GPGSIds.achievement_the_floor_below_me, 1, (bool success) => { });
             if (total >= 20)
             {
-                //Social.ReportProgress(GPGSIds.achievement_the_creator, 100.0f, (bool success) => { });
+                Social.ReportProgress(GPGSIds.achievement_the_floor_below_me, 100.0f, (bool success) => { });
             }
         }
         else if (deviceOS == OS.iOS)
@@ -307,10 +309,10 @@ public class OnlineManagement : MonoBehaviour
     {
         if (deviceOS == OS.Android)
         {
-            //PlayGamesPlatform.Instance.IncrementAchievement("Cfjewijawiu_QA", 1, (bool success) => { });
+            PlayGamesPlatform.Instance.IncrementAchievement(GPGSIds.achievement_the_little_things, 1, (bool success) => { });
             if (total >= 20)
             {
-                //Social.ReportProgress(GPGSIds.achievement_the_creator, 100.0f, (bool success) => { });
+                Social.ReportProgress(GPGSIds.achievement_the_little_things, 100.0f, (bool success) => { });
             }
         }
         else if (deviceOS == OS.iOS)
@@ -323,10 +325,10 @@ public class OnlineManagement : MonoBehaviour
     {
         if (deviceOS == OS.Android)
         {
-            //PlayGamesPlatform.Instance.IncrementAchievement("Cfjewijawiu_QA", 1, (bool success) => { });
+            PlayGamesPlatform.Instance.IncrementAchievement(GPGSIds.achievement_a_new_look, 1, (bool success) => { });
             if (total >= 10)
             {
-                //Social.ReportProgress(GPGSIds.achievement_the_creator, 100.0f, (bool success) => { });
+                Social.ReportProgress(GPGSIds.achievement_a_new_look, 100.0f, (bool success) => { });
             }
         }
         else if (deviceOS == OS.iOS)

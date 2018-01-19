@@ -30,9 +30,21 @@ public class ThemeManager : MonoBehaviour
 
     void Awake()
     {
-        PlayerPrefs.SetInt(PlayerPrefsManager.specificFlooring + "0", 1);
-        PlayerPrefs.SetInt(PlayerPrefsManager.specificWallpaper + "0", 1);
-        PlayerPrefs.SetInt(PlayerPrefsManager.specificDetail + "0", 1);
+        if (PlayerPrefs.GetInt(PlayerPrefsManager.specificFlooring + "0") == 0)
+        {
+            PlayerPrefs.SetInt(PlayerPrefsManager.specificFlooring + "0", 1);
+            GetComponent<OnlineManagement>().CheckFlooring(1);
+        }
+        if (PlayerPrefs.GetInt(PlayerPrefsManager.specificWallpaper + "0") == 0)
+        {
+            PlayerPrefs.SetInt(PlayerPrefsManager.specificWallpaper + "0", 1);
+            GetComponent<OnlineManagement>().CheckWallpaper(1);
+        }
+        if (PlayerPrefs.GetInt(PlayerPrefsManager.specificDetail + "0") == 0)
+        {
+            PlayerPrefs.SetInt(PlayerPrefsManager.specificDetail + "0", 1);
+            GetComponent<OnlineManagement>().CheckDetail(1);
+        }
         SetThemeLists();
         SetFlooring(GetComponent<PlayerPrefsManager>().GetFlooring());
         SetWallpaper(GetComponent<PlayerPrefsManager>().GetWallpaper());

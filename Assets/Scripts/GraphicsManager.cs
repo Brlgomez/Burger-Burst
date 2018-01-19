@@ -33,10 +33,14 @@ public class GraphicsManager : MonoBehaviour
         t = Resources.Load("Graphics") as TextAsset;
         allDescriptions = t.text.Split('\n');
         maxGraphics = allDescriptions.Length;
-        PlayerPrefs.SetInt(PlayerPrefsManager.specificGraphics + 0, 1);
+        if (PlayerPrefs.GetInt(PlayerPrefsManager.specificGraphics + "0") == 0)
+        {
+            PlayerPrefs.SetInt(PlayerPrefsManager.specificGraphics + 0, 1);
+            GetComponent<OnlineManagement>().CheckGraphics(1);
+        }
         SetGraphicsList();
         SetGraphic(GetComponent<PlayerPrefsManager>().GetGraphics());
-	}
+    }
 
     public void SetGraphicsList()
     {
