@@ -147,6 +147,10 @@ public class SodaCup : MonoBehaviour
         {
             Camera.main.GetComponent<SoundAndMusicManager>().PlayFoodCompleteSound(gameObject);
         }
+        if (worth == maxAmountOfDrinks)
+        {
+            Camera.main.GetComponent<OnlineManagement>().PerfectFoodItem();
+        }
         Camera.main.GetComponent<DropMoreProducts>().DropLid();
         Camera.main.GetComponent<DropMoreProducts>().DropCup();
         Camera.main.GetComponent<Gameplay>().AddDrinks(worth);

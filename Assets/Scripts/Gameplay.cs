@@ -50,6 +50,11 @@ public class Gameplay : MonoBehaviour
             GetComponent<FloatingTextManagement>().AddFloatingText(obj, addedPoints.ToString(), Color.cyan, sizeOfText + 1);
             GetComponent<LEDManager>().UpdatePointsText(points);
             GetComponent<PlayerPrefsManager>().IncreaseTotalPoints(addedPoints);
+            Debug.Log(sizeOfText);
+            if (sizeOfText > 12.5f)
+            {
+                GetComponent<OnlineManagement>().FarawayThrow();
+            }
         }
     }
 

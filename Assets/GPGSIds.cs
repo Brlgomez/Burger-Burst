@@ -24,9 +24,9 @@
 
 public static class GPGSIds
 {
-        public const string leaderboard_longest_survival_time = "CgkI8bjCzLYHEAIQAw"; // <GPGSID>
-        public const string leaderboard_high_score = "CgkI8bjCzLYHEAIQAQ"; // <GPGSID>
-        public const string leaderboard_total_points = "CgkI8bjCzLYHEAIQAg"; // <GPGSID>
+        public const string leaderboard_longest_survival_time = "CgkI0uihsP8HEAIQAw"; // <GPGSID>
+        public const string leaderboard_high_score = "CgkI0uihsP8HEAIQAQ"; // <GPGSID>
+        public const string leaderboard_total_points = "CgkI0uihsP8HEAIQAg"; // <GPGSID>
 
 }
 

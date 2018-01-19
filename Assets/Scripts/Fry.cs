@@ -113,6 +113,10 @@ public class Fry : MonoBehaviour
         {
             Camera.main.GetComponent<SoundAndMusicManager>().PlayFoodCompleteSound(gameObject);
         }
+        if (worth == maxAmountOfFries)
+        {
+			Camera.main.GetComponent<OnlineManagement>().PerfectFoodItem();
+		}
         Camera.main.GetComponent<Gameplay>().AddFries(worth);
         if (gameObject.GetComponent<FadeObject>() == null)
         {

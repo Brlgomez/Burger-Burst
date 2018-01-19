@@ -137,6 +137,30 @@ public class OnlineManagement : MonoBehaviour
         }
     }
 
+    public void PerfectFoodItem()
+    {
+        if (deviceOS == OS.Android)
+        {
+            //Social.ReportProgress(GPGSIds.achievement_the_creator, 100.0f, (bool success) => { });
+        }
+        else if (deviceOS == OS.iOS)
+        {
+            //Social.ReportProgress(GPGSIds.achievement_the_creator, 100.0f, (bool success) => { });
+        }
+    }
+
+    public void FarawayThrow()
+    {
+        if (deviceOS == OS.Android)
+        {
+            //Social.ReportProgress(GPGSIds.achievement_the_creator, 100.0f, (bool success) => { });
+        }
+        else if (deviceOS == OS.iOS)
+        {
+            //Social.ReportProgress(GPGSIds.achievement_the_creator, 100.0f, (bool success) => { });
+        }
+    }
+
     public void CheckScore(int score)
     {
         if (score >= 100)

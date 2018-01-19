@@ -15,7 +15,7 @@ public class PingPongColor : MonoBehaviour
     void Awake()
     {
         pickedColors = new List<Color>();
-        if (gameObject.GetComponent<TextMesh>())
+        if (gameObject.GetComponent<TextMesh>() && GetComponent<Renderer>().material.name == "Font Material (Instance)")
         {
             changeColorNumber = 0;
         }

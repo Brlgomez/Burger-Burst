@@ -124,6 +124,10 @@ public class Meat : MonoBehaviour
         {
             Camera.main.GetComponent<SoundAndMusicManager>().PlayFoodCompleteSound(gameObject);
         }
+        if (worth == maxAmountOfBurgers)
+        {
+			Camera.main.GetComponent<OnlineManagement>().PerfectFoodItem();
+		}
         Camera.main.GetComponent<Gameplay>().AddBurgers(worth);
         RemoveObject(topBun);
         RemoveObject(bottomBun);
