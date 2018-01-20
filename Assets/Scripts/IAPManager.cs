@@ -11,23 +11,23 @@ public class IAPManager : MonoBehaviour, IStoreListener
         var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
         builder.AddProduct("100_coins", ProductType.Consumable, new IDs
         {
-            {"100_coins_google", GooglePlay.Name},
-            {"100_coins_mac", MacAppStore.Name}
+            {"100_coins", GooglePlay.Name},
+            {"100_coins", AppleAppStore.Name}
         });
         builder.AddProduct("250_coins", ProductType.Consumable, new IDs
         {
-            {"250_coins_google", GooglePlay.Name},
-            {"250_coins_mac", MacAppStore.Name}
+            {"250_coins", GooglePlay.Name},
+            {"250_coins", AppleAppStore.Name}
         });
         builder.AddProduct("1000_coins", ProductType.Consumable, new IDs
         {
-            {"1000_coins_google", GooglePlay.Name},
-            {"1000_coins_mac", MacAppStore.Name}
+            {"1000_coins", GooglePlay.Name},
+            {"1000_coins", AppleAppStore.Name}
         });
         builder.AddProduct("2500_coins", ProductType.Consumable, new IDs
         {
-            {"2500_coins_google", GooglePlay.Name},
-            {"2500_coins_mac", MacAppStore.Name}
+            {"2500_coins", GooglePlay.Name},
+            {"2500_coins", AppleAppStore.Name}
         });
         UnityPurchasing.Initialize(this, builder);
     }
