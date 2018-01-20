@@ -60,16 +60,35 @@ public class OnlineManagement : MonoBehaviour
 
     public void PushAllLeaderboards()
     {
-        PushHighScore(GetComponent<PlayerPrefsManager>().GetHighScore());
-        PushTotalPoints();
-        PushLongestSurvivalTime(GetComponent<PlayerPrefsManager>().GetLongestSurvivalTime());
+        if (PlayerPrefs.GetInt(GPGSIds.leaderboard_high_score, 0) <= -1)
+        {
+            PushHighScore(GetComponent<PlayerPrefsManager>().GetHighScore());
+        }
+        if (PlayerPrefs.GetInt(GPGSIds.leaderboard_longest_survival_time, 0) <= -1)
+        {
+            PushLongestSurvivalTime(GetComponent<PlayerPrefsManager>().GetLongestSurvivalTime());
+        }
+        if (PlayerPrefs.GetInt(GPGSIds.leaderboard_total_points, 0) <= -1)
+        {
+            PushTotalPoints();
+        }
     }
 
     public void PushHighScore(int score)
     {
         if (deviceOS == OS.Android)
         {
-            Social.ReportScore(score, GPGSIds.leaderboard_high_score, (bool success) => { });
+            Social.ReportScore(score, GPGSIds.leaderboard_high_score, (bool success) =>
+            {
+                if (success)
+                {
+                    PlayerPrefs.SetInt(GPGSIds.leaderboard_high_score, 1);
+                }
+                else
+                {
+                    PlayerPrefs.SetInt(GPGSIds.leaderboard_high_score, -score);
+                }
+            });
         }
         else if (deviceOS == OS.iOS)
         {
@@ -81,7 +100,17 @@ public class OnlineManagement : MonoBehaviour
     {
         if (deviceOS == OS.Android)
         {
-            Social.ReportScore(GetComponent<PlayerPrefsManager>().GetTotalPoints(), GPGSIds.leaderboard_total_points, (bool success) => { });
+            Social.ReportScore(GetComponent<PlayerPrefsManager>().GetTotalPoints(), GPGSIds.leaderboard_total_points, (bool success) =>
+            {
+                if (success)
+                {
+                    PlayerPrefs.SetInt(GPGSIds.leaderboard_total_points, 1);
+                }
+                else
+                {
+                    PlayerPrefs.SetInt(GPGSIds.leaderboard_total_points, -1);
+                }
+            });
         }
         else if (deviceOS == OS.iOS)
         {
@@ -93,7 +122,17 @@ public class OnlineManagement : MonoBehaviour
     {
         if (deviceOS == OS.Android)
         {
-            Social.ReportScore(time, GPGSIds.leaderboard_longest_survival_time, (bool success) => { });
+            Social.ReportScore(time, GPGSIds.leaderboard_longest_survival_time, (bool success) =>
+            {
+                if (success)
+                {
+                    PlayerPrefs.SetInt(GPGSIds.leaderboard_longest_survival_time, 1);
+                }
+                else
+                {
+                    PlayerPrefs.SetInt(GPGSIds.leaderboard_longest_survival_time, -time);
+                }
+            });
         }
         else if (deviceOS == OS.iOS)
         {
