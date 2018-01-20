@@ -58,7 +58,10 @@ ScreenTextManagment : MonoBehaviour
         TurnOffScrollList();
         TurnOffGameplayImages();
         GetComponent<LEDManager>().MakeUnlockTextBlink();
+        line1.GetComponent<TextMesh>().characterSize = 0.025f;
+        line2.GetComponent<TextMesh>().characterSize = 0.025f;
         line3.GetComponent<TextMesh>().characterSize = 0.025f;
+        line4.GetComponent<TextMesh>().characterSize = 0.025f;
         lastArea = currentArea;
         currentArea = Menus.Menu.MainMenu;
     }
@@ -189,11 +192,15 @@ ScreenTextManagment : MonoBehaviour
         string price250 = GetComponent<IAPManager>().GetPrice250();
         string price1000 = GetComponent<IAPManager>().GetPrice1000();
         string price2500 = GetComponent<IAPManager>().GetPrice2500();
-        EnableButton(line1, "100 coins\n     " + price100, coinSprite, Color.white);
-        EnableButton(line2, "250 coins\n     " + price250, coinSprite, Color.white);
-        EnableButton(line3, "1000 coins\n     " + price1000, coinSprite, Color.white);
-        EnableButton(line4, "2500 coins\n     " + price2500, coinSprite, Color.white);
+        EnableButton(line1, " 100 coins\n                 " + price100, coinSprite, Color.white);
+        EnableButton(line2, " 250 coins\n                 " + price250, coinSprite, Color.white);
+        EnableButton(line3, " 1000 coins\n                 " + price1000, coinSprite, Color.white);
+        EnableButton(line4, " 2500 coins\n                 " + price2500, coinSprite, Color.white);
         EnableButton(line5, "Back", backSprite, Color.white);
+        line1.GetComponent<TextMesh>().characterSize = 0.02f;
+        line2.GetComponent<TextMesh>().characterSize = 0.02f;
+        line3.GetComponent<TextMesh>().characterSize = 0.02f;
+        line4.GetComponent<TextMesh>().characterSize = 0.02f;
         GetComponent<LEDManager>().RemoveBlinkingLED();
         lastArea = currentArea;
         currentArea = Menus.Menu.Store;
@@ -359,6 +366,10 @@ ScreenTextManagment : MonoBehaviour
             line3.GetComponent<TextMesh>().characterSize = 0.025f;
             EnableButton(line4, "Get coins", coinSprite, Color.white);
         }
+        line1.GetComponent<TextMesh>().characterSize = 0.025f;
+        line2.GetComponent<TextMesh>().characterSize = 0.025f;
+        line3.GetComponent<TextMesh>().characterSize = 0.025f;
+        line4.GetComponent<TextMesh>().characterSize = 0.025f;
         EnableButton(line5, "Back", backSprite, Color.white);
         lastArea = currentArea;
         currentArea = menu;
@@ -459,6 +470,10 @@ ScreenTextManagment : MonoBehaviour
             DisableButton(line4, "", null, Color.white);
             DisableButton(line5, "", null, Color.white);
         }
+        line1.GetComponent<TextMesh>().characterSize = 0.025f;
+        line2.GetComponent<TextMesh>().characterSize = 0.025f;
+        line3.GetComponent<TextMesh>().characterSize = 0.025f;
+        line4.GetComponent<TextMesh>().characterSize = 0.025f;
         line5.transform.GetChild(3).GetComponent<SpriteRenderer>().color = Color.clear;
         TurnOffGameplayImages();
         lastArea = currentArea;
