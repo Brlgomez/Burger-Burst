@@ -102,16 +102,16 @@ public class GameplayMenu : MonoBehaviour
         switch (obj.name)
         {
             case "First Button":
-                //TODO: IAP
+                GetComponent<IAPManager>().OnPurchaseClicked100();
                 break;
             case "Second Button":
-                //TODO: IAP
+                GetComponent<IAPManager>().OnPurchaseClicked250();
                 break;
             case "Third Button":
-                //TODO: IAP
+                GetComponent<IAPManager>().OnPurchaseClicked1000();
                 break;
             case "Fourth Button":
-                //TODO: IAP
+                GetComponent<IAPManager>().OnPurchaseClicked2500();
                 break;
             case "Fifth Button":
                 GetComponent<ScreenTextManagment>().ChangeToGameOverText();

@@ -400,20 +400,19 @@ public class MainMenu : MonoBehaviour
         GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
         if (target.name == "First Button")
         {
-            GetComponent<PlayerPrefsManager>().IncreaseCoins(100);
-            //TODO: IAP
+            GetComponent<IAPManager>().OnPurchaseClicked100();
         }
         else if (target.name == "Second Button")
         {
-            //TODO: IAP
+            GetComponent<IAPManager>().OnPurchaseClicked250();
         }
         else if (target.name == "Third Button")
         {
-            //TODO: IAP
+            GetComponent<IAPManager>().OnPurchaseClicked1000();
         }
         else if (target.name == "Fourth Button")
         {
-            //TODO: IAP
+            GetComponent<IAPManager>().OnPurchaseClicked2500();
         }
         else if (target.name == "Fifth Button")
         {
@@ -508,10 +507,10 @@ public class MainMenu : MonoBehaviour
                 GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
                 GetComponent<PlayerPrefsManager>().SetVibration();
                 break;
-			case "Fourth Button":
-				GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
-				GetComponent<PlayerPrefsManager>().SetHaptic();
-				break;
+            case "Fourth Button":
+                GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
+                GetComponent<PlayerPrefsManager>().SetHaptic();
+                break;
             case "Fifth Button":
                 GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
                 CheckCamera();

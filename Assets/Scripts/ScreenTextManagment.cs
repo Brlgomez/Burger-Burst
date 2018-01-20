@@ -185,10 +185,14 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToStoreScreen()
     {
-        EnableButton(line1, "100 coins", coinSprite, Color.white);
-        EnableButton(line2, "250 coins", coinSprite, Color.white);
-        EnableButton(line3, "1000 coins", coinSprite, Color.white);
-        EnableButton(line4, "2500 coins", coinSprite, Color.white);
+        string price100 = GetComponent<IAPManager>().GetPrice100();
+        string price250 = GetComponent<IAPManager>().GetPrice250();
+        string price1000 = GetComponent<IAPManager>().GetPrice1000();
+        string price2500 = GetComponent<IAPManager>().GetPrice2500();
+        EnableButton(line1, "100 coins\n     " + price100, coinSprite, Color.white);
+        EnableButton(line2, "250 coins\n     " + price250, coinSprite, Color.white);
+        EnableButton(line3, "1000 coins\n     " + price1000, coinSprite, Color.white);
+        EnableButton(line4, "2500 coins\n     " + price2500, coinSprite, Color.white);
         EnableButton(line5, "Back", backSprite, Color.white);
         GetComponent<LEDManager>().RemoveBlinkingLED();
         lastArea = currentArea;
@@ -241,13 +245,13 @@ ScreenTextManagment : MonoBehaviour
         if (GetComponent<VibrationManager>().HapticCompatible())
         {
             if (GetComponent<PlayerPrefsManager>().GetHaptic())
-			{
-				EnableButton(line3, " Haptic: On", vibrationSprite, Color.white);
-			}
-			else
-			{
-				EnableButton(line3, " Haptic: Off", vibrationSprite, Color.white);
-			}
+            {
+                EnableButton(line3, " Haptic: On", vibrationSprite, Color.white);
+            }
+            else
+            {
+                EnableButton(line3, " Haptic: Off", vibrationSprite, Color.white);
+            }
         }
         else
         {

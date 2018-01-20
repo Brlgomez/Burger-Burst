@@ -1,22 +1,34 @@
 ﻿using UnityEngine;
 using UnityEngine.Purchasing;
 
-public class IAPManager : IStoreListener
+public class IAPManager : MonoBehaviour, IStoreListener
 {
-
     private IStoreController controller;
     private IExtensionProvider extensions;
 
-
-    public IAPManager()
+    void Start()
     {
         var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
-        builder.AddProduct("100_gold_coins", ProductType.Consumable, new IDs
+        builder.AddProduct("100_coins", ProductType.Consumable, new IDs
         {
-            {"100_gold_coins_google", GooglePlay.Name},
-            {"100_gold_coins_mac", MacAppStore.Name}
+            {"100_coins_google", GooglePlay.Name},
+            {"100_coins_mac", MacAppStore.Name}
         });
-
+        builder.AddProduct("250_coins", ProductType.Consumable, new IDs
+        {
+            {"250_coins_google", GooglePlay.Name},
+            {"250_coins_mac", MacAppStore.Name}
+        });
+        builder.AddProduct("1000_coins", ProductType.Consumable, new IDs
+        {
+            {"1000_coins_google", GooglePlay.Name},
+            {"1000_coins_mac", MacAppStore.Name}
+        });
+        builder.AddProduct("2500_coins", ProductType.Consumable, new IDs
+        {
+            {"2500_coins_google", GooglePlay.Name},
+            {"2500_coins_mac", MacAppStore.Name}
+        });
         UnityPurchasing.Initialize(this, builder);
     }
 
@@ -35,9 +47,7 @@ public class IAPManager : IStoreListener
     /// Note that this will not be called if Internet is unavailable; Unity IAP
     /// will attempt initialization until it becomes available.
     /// </summary>
-    public void OnInitializeFailed(InitializationFailureReason error)
-    {
-    }
+    public void OnInitializeFailed(InitializationFailureReason error) { }
 
     /// <summary>
     /// Called when a purchase completes.
@@ -46,6 +56,23 @@ public class IAPManager : IStoreListener
     /// </summary>
     public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs e)
     {
+        switch (e.purchasedProduct.definition.id)
+        {
+            case "100_coins":
+                GetComponent<PlayerPrefsManager>().IncreaseCoins(100);
+                break;
+            case "250_coins":
+                GetComponent<PlayerPrefsManager>().IncreaseCoins(250);
+                break;
+            case "1000_coins":
+                GetComponent<PlayerPrefsManager>().IncreaseCoins(1000);
+                break;
+            case "2500_coins":
+                GetComponent<PlayerPrefsManager>().IncreaseCoins(2500);
+                break;
+        }
+        GetComponent<VibrationManager>().SuccessTapticFeedback();
+        GetComponent<SoundAndMusicManager>().PlayIAPSound();
         return PurchaseProcessingResult.Complete;
     }
 
@@ -54,5 +81,46 @@ public class IAPManager : IStoreListener
     /// </summary>
     public void OnPurchaseFailed(Product i, PurchaseFailureReason p)
     {
+        GetComponent<VibrationManager>().ErrorTapticFeedback();
+    }
+
+    public void OnPurchaseClicked100()
+    {
+        controller.InitiatePurchase("100_coins");
+    }
+
+    public void OnPurchaseClicked250()
+    {
+        controller.InitiatePurchase("250_coins");
+    }
+
+    public void OnPurchaseClicked1000()
+    {
+        controller.InitiatePurchase("1000_coins");
+    }
+
+    public void OnPurchaseClicked2500()
+    {
+        controller.InitiatePurchase("2500_coins");
+    }
+
+    public string GetPrice100()
+    {
+        return controller.products.WithID("100_coins").metadata.localizedPriceString;
+    }
+
+    public string GetPrice250()
+    {
+        return controller.products.WithID("250_coins").metadata.localizedPriceString;
+    }
+
+    public string GetPrice1000()
+    {
+        return controller.products.WithID("1000_coins").metadata.localizedPriceString;
+    }
+
+    public string GetPrice2500()
+    {
+        return controller.products.WithID("2500_coins").metadata.localizedPriceString;
     }
 }

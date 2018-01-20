@@ -101756,6 +101756,7 @@ GameObject:
   - component: {fileID: 1865169803}
   - component: {fileID: 1865169805}
   - component: {fileID: 1865169806}
+  - component: {fileID: 1865169807}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -102331,6 +102332,7 @@ MonoBehaviour:
   dropIce: {fileID: 8300000, guid: d009a9faaf67348a4a39021d3df85031, type: 3}
   woosh: {fileID: 8300000, guid: 474fd26e7896c4c799975e0c12611fae, type: 3}
   buttonSound: {fileID: 8300000, guid: 13b59efad9bc74d489108ea583a6f395, type: 3}
+  iapSound: {fileID: 8300000, guid: f4600d5c1ca854b098458bb412da1fcc, type: 3}
   walkOnGrass:
   - {fileID: 8300000, guid: f3e9b36bd4d6b4c598ad8a819690c8c5, type: 3}
   - {fileID: 8300000, guid: a22565a88c43845e3831c34df9ce7153, type: 3}
@@ -102539,6 +102541,17 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!114 &1865169807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1865169770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 386f95991aab64b8e9ff30a41c5970ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1867519524
 Prefab:
   m_ObjectHideFlags: 0
