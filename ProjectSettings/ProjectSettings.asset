@@ -40,8 +40,7 @@ PlayerSettings:
   m_SplashScreenLogos:
   - logo: {fileID: 21300000, guid: f8aa36e6fab544b109c2615f3e106fba, type: 3}
     duration: 2
-  m_SplashScreenBackgroundLandscape: {fileID: 1, guid: 00000000000000000000000000000000,
-    type: 0}
+  m_SplashScreenBackgroundLandscape: {fileID: 0}
   m_SplashScreenBackgroundPortrait: {fileID: 0}
   m_VirtualRealitySplashScreen: {fileID: 0}
   m_HolographicTrackingLossScreen: {fileID: 0}
@@ -619,7 +618,7 @@ PlayerSettings:
     Collab: 0
     ErrorHub: 0
     Hub: 0
-    UNet: 0
+    UNet: 1
   facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
   cloudProjectId: e83f9757-62a0-45fa-a421-75d2e5bfd63e
