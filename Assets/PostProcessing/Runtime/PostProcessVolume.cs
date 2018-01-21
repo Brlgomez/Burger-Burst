@@ -129,6 +129,7 @@ namespace UnityEngine.Rendering.PostProcessing
             PostProcessManager.instance.Unregister(this);
         }
 
+        /*
         void Update()
         {
             // Unfortunately we need to track the current layer to update the volume manager in
@@ -151,6 +152,7 @@ namespace UnityEngine.Rendering.PostProcessing
                 m_PreviousPriority = priority;
             }
         }
+        */
 
         // TODO: Look into a better volume previsualization system
         void OnDrawGizmos()

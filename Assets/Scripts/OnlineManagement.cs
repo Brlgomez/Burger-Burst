@@ -9,7 +9,7 @@ public class OnlineManagement : MonoBehaviour
     public enum OS { iOS, Android, Unknown };
     OS deviceOS;
 
-    void Start()
+    void Awake()
     {
         if (Application.platform == RuntimePlatform.Android)
         {
