@@ -929,4 +929,10 @@ ScreenTextManagment : MonoBehaviour
             line1.transform.GetChild(1).GetComponent<Renderer>().material.color = Color.white;
         }
     }
+
+    public void Debug(string debug)
+    {
+        line5.GetComponent<TextMesh>().text = debug;
+        line5.GetComponent<TextMesh>().characterSize = 0.15f;
+    }
 }

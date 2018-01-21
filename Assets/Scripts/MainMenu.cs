@@ -400,19 +400,19 @@ public class MainMenu : MonoBehaviour
         GetComponent<SoundAndMusicManager>().PlayDeviceButtonSound();
         if (target.name == "First Button")
         {
-            GetComponent<IAPManager>().OnPurchaseClicked100();
+            GetComponent<IAPManager>().Buy100Coins();
         }
         else if (target.name == "Second Button")
         {
-            GetComponent<IAPManager>().OnPurchaseClicked250();
+            GetComponent<IAPManager>().Buy250Coins();
         }
         else if (target.name == "Third Button")
         {
-            GetComponent<IAPManager>().OnPurchaseClicked1000();
+            GetComponent<IAPManager>().Buy1000Coins();
         }
         else if (target.name == "Fourth Button")
         {
-            GetComponent<IAPManager>().OnPurchaseClicked2500();
+            GetComponent<IAPManager>().Buy2500Coins();
         }
         else if (target.name == "Fifth Button")
         {
