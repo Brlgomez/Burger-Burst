@@ -412,10 +412,12 @@ public class SoundAndMusicManager : MonoBehaviour
 
     public void PlayWalkingOnGrassSound(GameObject obj)
     {
+        /*
         if (canPlaySound)
         {
             PlayClipAt(walkOnGrass[Random.Range(0, walkOnGrass.Length)], obj.transform.position, 0.25f, Random.Range(0.9f, 1.1f));
         }
+        */
     }
 
     public void PlayZombieIdleSound(GameObject obj, float pitch)
