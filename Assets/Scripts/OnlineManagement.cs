@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GooglePlayGames;
-using GooglePlayGames.BasicApi;
+//using GooglePlayGames;
+//using GooglePlayGames.BasicApi;
 
 public class OnlineManagement : MonoBehaviour
 {
@@ -25,10 +25,10 @@ public class OnlineManagement : MonoBehaviour
         }
         if (deviceOS == OS.Android)
         {
-            PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder().Build();
-            PlayGamesPlatform.InitializeInstance(config);
-            PlayGamesPlatform.DebugLogEnabled = true;
-            PlayGamesPlatform.Activate();
+            //PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder().Build();
+            //PlayGamesPlatform.InitializeInstance(config);
+            //PlayGamesPlatform.DebugLogEnabled = true;
+            //PlayGamesPlatform.Activate();
         }
         LogIn();
     }
@@ -461,6 +461,7 @@ public class OnlineManagement : MonoBehaviour
         {
             if (PlayerPrefs.GetInt(achievement, 0) != 1)
             {
+                /*
                 PlayGamesPlatform.Instance.IncrementAchievement(achievement, increment, (bool success) =>
                 {
                     if (success)
@@ -472,9 +473,10 @@ public class OnlineManagement : MonoBehaviour
                         PlayerPrefs.SetInt(achievement, PlayerPrefs.GetInt(achievement, 0) - increment);
                     }
                 });
+                */
                 if (total >= max)
                 {
-                    Social.ReportProgress(GPGSIds.achievement_experienced_chef, 100.0f, (bool success) =>
+                    Social.ReportProgress(achievement, 100.0f, (bool success) =>
                     {
                         if (success)
                         {
@@ -494,6 +496,7 @@ public class OnlineManagement : MonoBehaviour
     {
         if (deviceOS == OS.Android)
         {
+			/*
             PlayGamesPlatform.Instance.IncrementAchievement(achievement, amount, (bool success) =>
             {
                 if (success)
@@ -501,6 +504,7 @@ public class OnlineManagement : MonoBehaviour
                     PlayerPrefs.SetInt(achievement, 0);
                 }
             });
+            */
         }
         else if (deviceOS == OS.iOS)
         {
@@ -508,3 +512,4 @@ public class OnlineManagement : MonoBehaviour
         }
     }
 }
+ 
