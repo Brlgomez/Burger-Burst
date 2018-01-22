@@ -253,11 +253,11 @@ ScreenTextManagment : MonoBehaviour
         {
             if (GetComponent<PlayerPrefsManager>().GetHaptic())
             {
-                EnableButton(line3, " Haptic: On", vibrationSprite, Color.white);
+                EnableButton(line4, " Haptic: On", vibrationSprite, Color.white);
             }
             else
             {
-                EnableButton(line3, " Haptic: Off", vibrationSprite, Color.white);
+                EnableButton(line4, " Haptic: Off", vibrationSprite, Color.white);
             }
         }
         else

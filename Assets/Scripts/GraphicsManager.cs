@@ -125,7 +125,8 @@ public class GraphicsManager : MonoBehaviour
             default:
                 GetComponent<Assets.Pixelation.Scripts.Pixelation>().enabled = false;
                 GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = false;
-                break;
+				GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = false;
+				break;
         }
     }
 }

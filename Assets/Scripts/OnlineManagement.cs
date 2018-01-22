@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if (!NO_GPGS)
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
+#endif
 
 public class OnlineManagement : MonoBehaviour
 {
