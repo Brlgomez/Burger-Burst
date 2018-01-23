@@ -178,36 +178,48 @@ public class IAPManager : MonoBehaviour, IStoreListener
 
     public string GetPrice100()
     {
-        if (m_StoreController.products.WithID(coins_100).availableToPurchase)
+        if (IsInitialized())
         {
-            return m_StoreController.products.WithID(coins_100).metadata.localizedPriceString;
+            if (m_StoreController.products.WithID(coins_100).availableToPurchase)
+            {
+                return m_StoreController.products.WithID(coins_100).metadata.localizedPriceString;
+            }
         }
         return "";
     }
 
     public string GetPrice250()
     {
-        if (m_StoreController.products.WithID(coins_250).availableToPurchase)
+        if (IsInitialized())
         {
-            return m_StoreController.products.WithID(coins_250).metadata.localizedPriceString;
+            if (m_StoreController.products.WithID(coins_250).availableToPurchase)
+            {
+                return m_StoreController.products.WithID(coins_250).metadata.localizedPriceString;
+            }
         }
         return "";
     }
 
     public string GetPrice1000()
     {
-        if (m_StoreController.products.WithID(coins_1000).availableToPurchase)
+        if (IsInitialized())
         {
-            return m_StoreController.products.WithID(coins_1000).metadata.localizedPriceString;
+            if (m_StoreController.products.WithID(coins_1000).availableToPurchase)
+            {
+                return m_StoreController.products.WithID(coins_1000).metadata.localizedPriceString;
+            }
         }
         return "";
     }
 
     public string GetPrice2500()
     {
-        if (m_StoreController.products.WithID(coins_2500).availableToPurchase)
+        if (IsInitialized())
         {
-            return m_StoreController.products.WithID(coins_2500).metadata.localizedPriceString;
+            if (m_StoreController.products.WithID(coins_2500).availableToPurchase)
+            {
+                return m_StoreController.products.WithID(coins_2500).metadata.localizedPriceString;
+            }
         }
         return "";
     }
