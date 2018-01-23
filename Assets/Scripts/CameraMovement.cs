@@ -41,13 +41,16 @@ public class CameraMovement : MonoBehaviour
             {
                 if (Vector3.Distance(transform.position, towards.transform.position) < 0.001f)
                 {
-                    if (moveDevice && Vector3.Distance(transform.GetChild(1).localPosition, deviceTowards.transform.localPosition) < 0.001f)
+                    if (Quaternion.Angle(transform.rotation, towards.transform.rotation) < 0.1f)
                     {
-                        Finished();
-                    }
-                    else if (!moveDevice)
-                    {
-                        Finished();
+                        if (moveDevice && Vector3.Distance(transform.GetChild(1).localPosition, deviceTowards.transform.localPosition) < 0.001f)
+                        {
+                            Finished();
+                        }
+                        else if (!moveDevice)
+                        {
+                            Finished();
+                        }
                     }
                 }
             }
@@ -169,7 +172,7 @@ public class CameraMovement : MonoBehaviour
             GetComponent<GameplayMenu>().UnPauseGame();
         }
         GetComponent<ObjectManager>().PostProcess().GetComponent<PostProcessing>().StopMotionBlur();
-		Destroy(GetComponent<CameraMovement>());
+        Destroy(GetComponent<CameraMovement>());
     }
 
     public void MoveToTitle()

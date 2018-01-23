@@ -39,6 +39,7 @@ public class GraphicsManager : MonoBehaviour
         }
         SetGraphicsList();
         SetGraphic(GetComponent<PlayerPrefsManager>().GetGraphics());
+        SetGraphic(1);
     }
 
     public void SetGraphicsList()
@@ -59,15 +60,20 @@ public class GraphicsManager : MonoBehaviour
         switch (graphicNum)
         {
             case 0:
-                GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = false;
-                GetComponent<Assets.Pixelation.Scripts.Pixelation>().enabled = false;
-                GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = false;
+                //GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = false;
+                //GetComponent<Assets.Pixelation.Scripts.Pixelation>().enabled = false;
+                //GetComponent<AlpacaSound.RetroPixel>().enabled = false;
+				GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = false;
                 break;
             case 1:
-                GetComponent<Assets.Pixelation.Scripts.Pixelation>().enabled = false;
-                GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = true;
-                GetComponent<Assets.Pixelation.Scripts.Chunky>().SprTex = classicTexture;
-                GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = false;
+                //GetComponent<Assets.Pixelation.Scripts.Pixelation>().enabled = false;
+                //GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = true;
+                //GetComponent<Assets.Pixelation.Scripts.Chunky>().SprTex = classicTexture;
+				GetComponent<AlpacaSound.RetroPixel>().enabled = true;
+                GetComponent<AlpacaSound.RetroPixel>().horizontalResolution = Screen.width / 2;
+                GetComponent<AlpacaSound.RetroPixel>().verticalResolution = Screen.height / 2;
+                GetComponent<AlpacaSound.RetroPixel>().image = classicTexture;
+				GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = false;
                 break;
             case 2:
                 GetComponent<Assets.Pixelation.Scripts.Pixelation>().enabled = false;
