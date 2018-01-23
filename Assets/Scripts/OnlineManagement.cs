@@ -34,7 +34,10 @@ public class OnlineManagement : MonoBehaviour
             PlayGamesPlatform.Activate();
 #endif
         }
-        LogIn();
+        if (deviceOS == OS.iOS || deviceOS == OS.Android)
+        {
+            LogIn();
+        }
     }
 
     public void LogIn()
@@ -64,17 +67,35 @@ public class OnlineManagement : MonoBehaviour
 
     public void PushAllLeaderboards()
     {
-        if (PlayerPrefs.GetInt(GPGSIds.leaderboard_high_score, 0) <= -1)
+        if (deviceOS == OS.Android)
         {
-            PushHighScore(GetComponent<PlayerPrefsManager>().GetHighScore());
+            if (PlayerPrefs.GetInt(GPGSIds.leaderboard_high_score, 0) <= -1)
+            {
+                PushHighScore(GetComponent<PlayerPrefsManager>().GetHighScore());
+            }
+            if (PlayerPrefs.GetInt(GPGSIds.leaderboard_longest_survival_time, 0) <= -1)
+            {
+                PushLongestSurvivalTime(GetComponent<PlayerPrefsManager>().GetLongestSurvivalTime());
+            }
+            if (PlayerPrefs.GetInt(GPGSIds.leaderboard_total_points, 0) <= -1)
+            {
+                PushTotalPoints();
+            }
         }
-        if (PlayerPrefs.GetInt(GPGSIds.leaderboard_longest_survival_time, 0) <= -1)
+        else if (deviceOS == OS.iOS)
         {
-            PushLongestSurvivalTime(GetComponent<PlayerPrefsManager>().GetLongestSurvivalTime());
-        }
-        if (PlayerPrefs.GetInt(GPGSIds.leaderboard_total_points, 0) <= -1)
-        {
-            PushTotalPoints();
+            if (PlayerPrefs.GetInt(GCIds.leaderboard_high_score, 0) <= -1)
+            {
+                PushHighScore(GetComponent<PlayerPrefsManager>().GetHighScore());
+            }
+            if (PlayerPrefs.GetInt(GCIds.leaderboard_longest_survival_time, 0) <= -1)
+            {
+                PushLongestSurvivalTime(GetComponent<PlayerPrefsManager>().GetLongestSurvivalTime());
+            }
+            if (PlayerPrefs.GetInt(GCIds.leaderboard_total_points, 0) <= -1)
+            {
+                PushTotalPoints();
+            }
         }
     }
 
@@ -96,7 +117,17 @@ public class OnlineManagement : MonoBehaviour
         }
         else if (deviceOS == OS.iOS)
         {
-
+            Social.ReportScore(score, GCIds.leaderboard_high_score, (bool success) =>
+            {
+                if (success)
+                {
+                    PlayerPrefs.SetInt(GCIds.leaderboard_high_score, 1);
+                }
+                else
+                {
+                    PlayerPrefs.SetInt(GCIds.leaderboard_high_score, -score);
+                }
+            });
         }
     }
 
@@ -118,7 +149,17 @@ public class OnlineManagement : MonoBehaviour
         }
         else if (deviceOS == OS.iOS)
         {
-
+            Social.ReportScore(GetComponent<PlayerPrefsManager>().GetTotalPoints(), GCIds.leaderboard_total_points, (bool success) =>
+            {
+                if (success)
+                {
+                    PlayerPrefs.SetInt(GCIds.leaderboard_total_points, 1);
+                }
+                else
+                {
+                    PlayerPrefs.SetInt(GCIds.leaderboard_total_points, -1);
+                }
+            });
         }
     }
 
@@ -140,7 +181,17 @@ public class OnlineManagement : MonoBehaviour
         }
         else if (deviceOS == OS.iOS)
         {
-
+            Social.ReportScore(time, GCIds.leaderboard_longest_survival_time, (bool success) =>
+            {
+                if (success)
+                {
+                    PlayerPrefs.SetInt(GCIds.leaderboard_longest_survival_time, 1);
+                }
+                else
+                {
+                    PlayerPrefs.SetInt(GCIds.leaderboard_longest_survival_time, -time);
+                }
+            });
         }
     }
 
@@ -165,61 +216,123 @@ public class OnlineManagement : MonoBehaviour
 
     public void CheckAllAchievements()
     {
-        if (PlayerPrefs.GetInt(GPGSIds.achievement_flame_broiled, 0) <= -1)
+        if (deviceOS == OS.Android)
         {
-            CheckNormalAchievement(GPGSIds.achievement_flame_broiled);
+            if (PlayerPrefs.GetInt(GPGSIds.achievement_flame_broiled, 0) <= -1)
+            {
+                CheckNormalAchievement(GPGSIds.achievement_flame_broiled);
+            }
+            if (PlayerPrefs.GetInt(GPGSIds.achievement_golden_glover, 0) <= -1)
+            {
+                CheckNormalAchievement(GPGSIds.achievement_golden_glover);
+            }
+            if (PlayerPrefs.GetInt(GPGSIds.achievement_picture_perfect, 0) <= -1)
+            {
+                CheckNormalAchievement(GPGSIds.achievement_picture_perfect);
+            }
+            if (PlayerPrefs.GetInt(GPGSIds.achievement_sous_chef, 0) <= -1)
+            {
+                CheckNormalAchievement(GPGSIds.achievement_sous_chef);
+            }
+            if (PlayerPrefs.GetInt(GPGSIds.achievement_chef_de_cuisine, 0) <= -1)
+            {
+                CheckNormalAchievement(GPGSIds.achievement_chef_de_cuisine);
+            }
+            if (PlayerPrefs.GetInt(GPGSIds.achievement_surviving_the_lunch_rush, 0) <= -1)
+            {
+                CheckNormalAchievement(GPGSIds.achievement_surviving_the_lunch_rush);
+            }
+            if (PlayerPrefs.GetInt(GPGSIds.achievement_experienced_chef, 0) <= -1)
+            {
+                IncrementAchievement(GPGSIds.achievement_experienced_chef, -PlayerPrefs.GetInt(GPGSIds.achievement_experienced_chef, 0));
+            }
+            if (PlayerPrefs.GetInt(GPGSIds.achievement_satisfied_zombie, 0) <= -1)
+            {
+                IncrementAchievement(GPGSIds.achievement_satisfied_zombie, -PlayerPrefs.GetInt(GPGSIds.achievement_satisfied_zombie, 0));
+            }
+            if (PlayerPrefs.GetInt(GPGSIds.achievement_culinary_genius, 0) <= -1)
+            {
+                IncrementAchievement(GPGSIds.achievement_culinary_genius, -PlayerPrefs.GetInt(GPGSIds.achievement_culinary_genius, 0));
+            }
+            if (PlayerPrefs.GetInt(GPGSIds.achievement_all_that_power, 0) <= -1)
+            {
+                IncrementAchievement(GPGSIds.achievement_all_that_power, -PlayerPrefs.GetInt(GPGSIds.achievement_all_that_power, 0));
+            }
+            if (PlayerPrefs.GetInt(GPGSIds.achievement_paint_job, 0) <= -1)
+            {
+                IncrementAchievement(GPGSIds.achievement_paint_job, -PlayerPrefs.GetInt(GPGSIds.achievement_paint_job, 0));
+            }
+            if (PlayerPrefs.GetInt(GPGSIds.achievement_the_floor_below_me, 0) <= -1)
+            {
+                IncrementAchievement(GPGSIds.achievement_the_floor_below_me, -PlayerPrefs.GetInt(GPGSIds.achievement_the_floor_below_me, 0));
+            }
+            if (PlayerPrefs.GetInt(GPGSIds.achievement_the_little_things, 0) <= -1)
+            {
+                IncrementAchievement(GPGSIds.achievement_the_little_things, -PlayerPrefs.GetInt(GPGSIds.achievement_the_little_things, 0));
+            }
+            if (PlayerPrefs.GetInt(GPGSIds.achievement_a_new_look, 0) <= -1)
+            {
+                IncrementAchievement(GPGSIds.achievement_a_new_look, -PlayerPrefs.GetInt(GPGSIds.achievement_a_new_look, 0));
+            }
         }
-        if (PlayerPrefs.GetInt(GPGSIds.achievement_golden_glover, 0) <= -1)
+        else if (deviceOS == OS.iOS)
         {
-            CheckNormalAchievement(GPGSIds.achievement_golden_glover);
-        }
-        if (PlayerPrefs.GetInt(GPGSIds.achievement_picture_perfect, 0) <= -1)
-        {
-            CheckNormalAchievement(GPGSIds.achievement_picture_perfect);
-        }
-        if (PlayerPrefs.GetInt(GPGSIds.achievement_sous_chef, 0) <= -1)
-        {
-            CheckNormalAchievement(GPGSIds.achievement_sous_chef);
-        }
-        if (PlayerPrefs.GetInt(GPGSIds.achievement_chef_de_cuisine, 0) <= -1)
-        {
-            CheckNormalAchievement(GPGSIds.achievement_chef_de_cuisine);
-        }
-        if (PlayerPrefs.GetInt(GPGSIds.achievement_surviving_the_lunch_rush, 0) <= -1)
-        {
-            CheckNormalAchievement(GPGSIds.achievement_surviving_the_lunch_rush);
-        }
-        if (PlayerPrefs.GetInt(GPGSIds.achievement_experienced_chef, 0) <= -1)
-        {
-            IncrementAchievement(GPGSIds.achievement_experienced_chef, -PlayerPrefs.GetInt(GPGSIds.achievement_experienced_chef, 0));
-        }
-        if (PlayerPrefs.GetInt(GPGSIds.achievement_satisfied_zombie, 0) <= -1)
-        {
-            IncrementAchievement(GPGSIds.achievement_satisfied_zombie, -PlayerPrefs.GetInt(GPGSIds.achievement_satisfied_zombie, 0));
-        }
-        if (PlayerPrefs.GetInt(GPGSIds.achievement_culinary_genius, 0) <= -1)
-        {
-            IncrementAchievement(GPGSIds.achievement_culinary_genius, -PlayerPrefs.GetInt(GPGSIds.achievement_culinary_genius, 0));
-        }
-        if (PlayerPrefs.GetInt(GPGSIds.achievement_all_that_power, 0) <= -1)
-        {
-            IncrementAchievement(GPGSIds.achievement_all_that_power, -PlayerPrefs.GetInt(GPGSIds.achievement_all_that_power, 0));
-        }
-        if (PlayerPrefs.GetInt(GPGSIds.achievement_paint_job, 0) <= -1)
-        {
-            IncrementAchievement(GPGSIds.achievement_paint_job, -PlayerPrefs.GetInt(GPGSIds.achievement_paint_job, 0));
-        }
-        if (PlayerPrefs.GetInt(GPGSIds.achievement_the_floor_below_me, 0) <= -1)
-        {
-            IncrementAchievement(GPGSIds.achievement_the_floor_below_me, -PlayerPrefs.GetInt(GPGSIds.achievement_the_floor_below_me, 0));
-        }
-        if (PlayerPrefs.GetInt(GPGSIds.achievement_the_little_things, 0) <= -1)
-        {
-            IncrementAchievement(GPGSIds.achievement_the_little_things, -PlayerPrefs.GetInt(GPGSIds.achievement_the_little_things, 0));
-        }
-        if (PlayerPrefs.GetInt(GPGSIds.achievement_a_new_look, 0) <= -1)
-        {
-            IncrementAchievement(GPGSIds.achievement_a_new_look, -PlayerPrefs.GetInt(GPGSIds.achievement_a_new_look, 0));
+            if (PlayerPrefs.GetInt(GCIds.achievement_flame_broiled, 0) <= -1)
+            {
+                CheckNormalAchievement(GCIds.achievement_flame_broiled);
+            }
+            if (PlayerPrefs.GetInt(GCIds.achievement_golden_glover, 0) <= -1)
+            {
+                CheckNormalAchievement(GCIds.achievement_golden_glover);
+            }
+            if (PlayerPrefs.GetInt(GCIds.achievement_picture_perfect, 0) <= -1)
+            {
+                CheckNormalAchievement(GCIds.achievement_picture_perfect);
+            }
+            if (PlayerPrefs.GetInt(GCIds.achievement_sous_chef, 0) <= -1)
+            {
+                CheckNormalAchievement(GCIds.achievement_sous_chef);
+            }
+            if (PlayerPrefs.GetInt(GCIds.achievement_chef_de_cuisine, 0) <= -1)
+            {
+                CheckNormalAchievement(GCIds.achievement_chef_de_cuisine);
+            }
+            if (PlayerPrefs.GetInt(GCIds.achievement_surviving_the_lunch_rush, 0) <= -1)
+            {
+                CheckNormalAchievement(GCIds.achievement_surviving_the_lunch_rush);
+            }
+            if (PlayerPrefs.GetInt(GPGSIds.achievement_experienced_chef, 0) <= -1)
+            {
+                CheckNormalAchievement(GCIds.achievement_experienced_chef);
+            }
+            if (PlayerPrefs.GetInt(GCIds.achievement_satisfied_zombie, 0) <= -1)
+            {
+                CheckNormalAchievement(GCIds.achievement_satisfied_zombie);
+            }
+            if (PlayerPrefs.GetInt(GCIds.achievement_culinary_genius, 0) <= -1)
+            {
+                CheckNormalAchievement(GCIds.achievement_culinary_genius);
+            }
+            if (PlayerPrefs.GetInt(GCIds.achievement_all_that_power, 0) <= -1)
+            {
+                CheckNormalAchievement(GCIds.achievement_all_that_power);
+            }
+            if (PlayerPrefs.GetInt(GCIds.achievement_paint_job, 0) <= -1)
+            {
+                CheckNormalAchievement(GCIds.achievement_paint_job);
+            }
+            if (PlayerPrefs.GetInt(GCIds.achievement_the_floor_below_me, 0) <= -1)
+            {
+                CheckNormalAchievement(GCIds.achievement_the_floor_below_me);
+            }
+            if (PlayerPrefs.GetInt(GCIds.achievement_the_little_things, 0) <= -1)
+            {
+                CheckNormalAchievement(GCIds.achievement_the_little_things);
+            }
+            if (PlayerPrefs.GetInt(GCIds.achievement_a_new_look, 0) <= -1)
+            {
+                CheckNormalAchievement(GCIds.achievement_a_new_look);
+            }
         }
     }
 
@@ -232,7 +345,7 @@ public class OnlineManagement : MonoBehaviour
         }
         else if (deviceOS == OS.iOS)
         {
-
+            achievement = GCIds.achievement_flame_broiled;
         }
         CheckNormalAchievement(achievement);
     }
@@ -246,7 +359,7 @@ public class OnlineManagement : MonoBehaviour
         }
         else if (deviceOS == OS.iOS)
         {
-            //Social.ReportProgress(GPGSIds.achievement_the_creator, 100.0f, (bool success) => { });
+            achievement = GCIds.achievement_golden_glover;
         }
         CheckNormalAchievement(achievement);
     }
@@ -260,7 +373,7 @@ public class OnlineManagement : MonoBehaviour
         }
         else if (deviceOS == OS.iOS)
         {
-            //Social.ReportProgress(GPGSIds.achievement_the_creator, 100.0f, (bool success) => { });
+            achievement = GCIds.achievement_picture_perfect;
         }
         CheckNormalAchievement(achievement);
     }
@@ -276,7 +389,7 @@ public class OnlineManagement : MonoBehaviour
             }
             else if (deviceOS == OS.iOS)
             {
-                //Social.ReportProgress(GPGSIds.achievement_the_creator, 100.0f, (bool success) => { });
+                achievement = GCIds.achievement_sous_chef;
             }
             CheckNormalAchievement(achievement);
         }
@@ -289,7 +402,7 @@ public class OnlineManagement : MonoBehaviour
             }
             else if (deviceOS == OS.iOS)
             {
-                //Social.ReportProgress(GPGSIds.achievement_the_creator, 100.0f, (bool success) => { });
+                achievement = GCIds.achievement_chef_de_cuisine;
             }
             CheckNormalAchievement(achievement);
         }
@@ -297,21 +410,22 @@ public class OnlineManagement : MonoBehaviour
 
     public void CheckTotalPoints(int lifetimePoints, int pointsIncrease)
     {
+        string achievement = "";
         int beforeScore = (lifetimePoints - pointsIncrease) % 10;
         int increase = beforeScore + pointsIncrease;
         increase = increase / 10;
         if (increase > 0)
         {
-            string achievement = "";
             if (deviceOS == OS.Android)
             {
                 achievement = GPGSIds.achievement_experienced_chef;
+                CheckIncrementAchievement(achievement, increase, 10000, (lifetimePoints / 10));
             }
-            else if (deviceOS == OS.iOS)
-            {
-                //Social.ReportProgress(GPGSIds.achievement_the_creator, lifetimePoints/100000.0f, (bool success) => { });
-            }
-            CheckIncrementAchievement(achievement, increase, 10000, (lifetimePoints / 10));
+        }
+        if (lifetimePoints > 100000 && deviceOS == OS.iOS)
+        {
+            achievement = GCIds.achievement_experienced_chef;
+            CheckNormalAchievement(achievement);
         }
     }
 
@@ -326,7 +440,7 @@ public class OnlineManagement : MonoBehaviour
             }
             else if (deviceOS == OS.iOS)
             {
-                //Social.ReportProgress(GPGSIds.achievement_the_creator, 100.0f, (bool success) => { });
+                achievement = GCIds.achievement_surviving_the_lunch_rush;
             }
             CheckNormalAchievement(achievement);
         }
@@ -341,12 +455,13 @@ public class OnlineManagement : MonoBehaviour
             if (deviceOS == OS.Android)
             {
                 achievement = GPGSIds.achievement_satisfied_zombie;
+                CheckIncrementAchievement(achievement, amount, 250, total);
             }
-            else if (deviceOS == OS.iOS)
+            else if (deviceOS == OS.iOS && total >= 250)
             {
-                //Social.ReportProgress(GPGSIds.achievement_the_creator, totalOrder/250.0f, (bool success) => { });
+                achievement = GCIds.achievement_satisfied_zombie;
+                CheckNormalAchievement(achievement);
             }
-            CheckIncrementAchievement(achievement, amount, 250, total);
         }
     }
 
@@ -359,12 +474,13 @@ public class OnlineManagement : MonoBehaviour
             if (deviceOS == OS.Android)
             {
                 achievement = GPGSIds.achievement_culinary_genius;
+                CheckIncrementAchievement(achievement, amount, 1000, total);
             }
-            else if (deviceOS == OS.iOS)
+            else if (deviceOS == OS.iOS && total >= 1000)
             {
-                //Social.ReportProgress(GPGSIds.achievement_the_creator, total/250.0f, (bool success) => { });
+                achievement = GCIds.achievement_culinary_genius;
+                CheckNormalAchievement(achievement);
             }
-            CheckIncrementAchievement(achievement, amount, 1000, total);
         }
     }
 
@@ -374,12 +490,13 @@ public class OnlineManagement : MonoBehaviour
         if (deviceOS == OS.Android)
         {
             achievement = GPGSIds.achievement_all_that_power;
+            CheckIncrementAchievement(achievement, 1, 20, total);
         }
-        else if (deviceOS == OS.iOS)
+        else if (deviceOS == OS.iOS && total >= 20)
         {
-            //Social.ReportProgress(GPGSIds.achievement_the_creator, total/20.0f, (bool success) => { });
+            achievement = GCIds.achievement_all_that_power;
+            CheckNormalAchievement(achievement);
         }
-        CheckIncrementAchievement(achievement, 1, 20, total);
     }
 
     public void CheckWallpaper(int total)
@@ -388,12 +505,13 @@ public class OnlineManagement : MonoBehaviour
         if (deviceOS == OS.Android)
         {
             achievement = GPGSIds.achievement_paint_job;
+            CheckIncrementAchievement(achievement, 1, 20, total);
         }
-        else if (deviceOS == OS.iOS)
+        else if (deviceOS == OS.iOS && total >= 20)
         {
-            //Social.ReportProgress(GPGSIds.achievement_the_creator, total/20.0f, (bool success) => { });
+            achievement = GCIds.achievement_paint_job;
+            CheckNormalAchievement(achievement);
         }
-        CheckIncrementAchievement(achievement, 1, 20, total);
     }
 
     public void CheckFlooring(int total)
@@ -402,12 +520,13 @@ public class OnlineManagement : MonoBehaviour
         if (deviceOS == OS.Android)
         {
             achievement = GPGSIds.achievement_the_floor_below_me;
+            CheckIncrementAchievement(achievement, 1, 20, total);
         }
-        else if (deviceOS == OS.iOS)
+        else if (deviceOS == OS.iOS && total >= 20)
         {
-            //Social.ReportProgress(GPGSIds.achievement_the_creator, total/20.0f, (bool success) => { });
+            achievement = GCIds.achievement_the_floor_below_me;
+            CheckNormalAchievement(achievement);
         }
-        CheckIncrementAchievement(achievement, 1, 20, total);
     }
 
     public void CheckDetail(int total)
@@ -416,12 +535,13 @@ public class OnlineManagement : MonoBehaviour
         if (deviceOS == OS.Android)
         {
             achievement = GPGSIds.achievement_the_little_things;
+            CheckIncrementAchievement(achievement, 1, 20, total);
         }
-        else if (deviceOS == OS.iOS)
+        else if (deviceOS == OS.iOS && total >= 20)
         {
-            //Social.ReportProgress(GPGSIds.achievement_the_creator, total/20.0f, (bool success) => { });
+            achievement = GCIds.achievement_the_little_things;
+            CheckNormalAchievement(achievement);
         }
-        CheckIncrementAchievement(achievement, 1, 20, total);
     }
 
     public void CheckGraphics(int total)
@@ -430,12 +550,13 @@ public class OnlineManagement : MonoBehaviour
         if (deviceOS == OS.Android)
         {
             achievement = GPGSIds.achievement_a_new_look;
+            CheckIncrementAchievement(achievement, 1, 10, total);
         }
-        else if (deviceOS == OS.iOS)
+        else if (deviceOS == OS.iOS && total >= 10)
         {
-            //Social.ReportProgress(GPGSIds.achievement_the_creator, total/10.0f, (bool success) => { });
+            achievement = GCIds.achievement_a_new_look;
+            CheckNormalAchievement(achievement);
         }
-        CheckIncrementAchievement(achievement, 1, 20, total);
     }
 
     void CheckNormalAchievement(string achievement)
@@ -509,10 +630,6 @@ public class OnlineManagement : MonoBehaviour
                 }
             });
 #endif
-        }
-        else if (deviceOS == OS.iOS)
-        {
-            //Social.ReportProgress(GPGSIds.achievement_the_creator, total/10.0f, (bool success) => { });
         }
     }
 }
