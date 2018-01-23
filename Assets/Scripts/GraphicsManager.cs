@@ -61,40 +61,35 @@ public class GraphicsManager : MonoBehaviour
         {
             case 0:
                 //GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = false;
-                //GetComponent<Assets.Pixelation.Scripts.Pixelation>().enabled = false;
-                //GetComponent<AlpacaSound.RetroPixel>().enabled = false;
-				GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = false;
+                GetComponent<Pixelate>().enabled = false;
+                GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = false;
                 break;
             case 1:
-                //GetComponent<Assets.Pixelation.Scripts.Pixelation>().enabled = false;
+                GetComponent<Pixelate>().enabled = false;
                 //GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = true;
                 //GetComponent<Assets.Pixelation.Scripts.Chunky>().SprTex = classicTexture;
-				GetComponent<AlpacaSound.RetroPixel>().enabled = true;
-                GetComponent<AlpacaSound.RetroPixel>().horizontalResolution = Screen.width / 2;
-                GetComponent<AlpacaSound.RetroPixel>().verticalResolution = Screen.height / 2;
-                GetComponent<AlpacaSound.RetroPixel>().image = classicTexture;
-				GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = false;
+                GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = false;
                 break;
             case 2:
-                GetComponent<Assets.Pixelation.Scripts.Pixelation>().enabled = false;
-                GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = true;
-                GetComponent<Assets.Pixelation.Scripts.Chunky>().SprTex = blueAndGreenTexture;
+                GetComponent<Pixelate>().enabled = false;
+                //GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = true;
+                //GetComponent<Assets.Pixelation.Scripts.Chunky>().SprTex = blueAndGreenTexture;
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = false;
                 break;
             case 3:
-                GetComponent<Assets.Pixelation.Scripts.Pixelation>().enabled = false;
-                GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = true;
-                GetComponent<Assets.Pixelation.Scripts.Chunky>().SprTex = greenAndOrange;
+                GetComponent<Pixelate>().enabled = false;
+                //GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = true;
+                //GetComponent<Assets.Pixelation.Scripts.Chunky>().SprTex = greenAndOrange;
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = false;
                 break;
             case 4:
-                GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = false;
-                GetComponent<Assets.Pixelation.Scripts.Pixelation>().enabled = true;
+                //GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = false;
+                GetComponent<Pixelate>().enabled = true;
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = false;
                 break;
             case 5:
-                GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = false;
-                GetComponent<Assets.Pixelation.Scripts.Pixelation>().enabled = false;
+                //GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = false;
+                GetComponent<Pixelate>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = true;
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().edgesOnlyBgColor = Color.white;
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().edgesColor = Color.black;
@@ -102,26 +97,26 @@ public class GraphicsManager : MonoBehaviour
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().mode = UnityStandardAssets.ImageEffects.EdgeDetection.EdgeDetectMode.TriangleLuminance;
                 break;
             case 6:
-                GetComponent<Assets.Pixelation.Scripts.Pixelation>().enabled = false;
-                GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = true;
-                GetComponent<Assets.Pixelation.Scripts.Chunky>().SprTex = redRetro;
+                GetComponent<Pixelate>().enabled = false;
+                //GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = true;
+                //GetComponent<Assets.Pixelation.Scripts.Chunky>().SprTex = redRetro;
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = false;
                 break;
             case 7:
-                GetComponent<Assets.Pixelation.Scripts.Pixelation>().enabled = false;
-                GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = true;
-                GetComponent<Assets.Pixelation.Scripts.Chunky>().SprTex = grapeFruit;
+                GetComponent<Pixelate>().enabled = false;
+                //GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = true;
+                //GetComponent<Assets.Pixelation.Scripts.Chunky>().SprTex = grapeFruit;
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = false;
                 break;
             case 8:
-                GetComponent<Assets.Pixelation.Scripts.Pixelation>().enabled = false;
-                GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = true;
-                GetComponent<Assets.Pixelation.Scripts.Chunky>().SprTex = rainbow;
+                GetComponent<Pixelate>().enabled = false;
+                //GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = true;
+                //GetComponent<Assets.Pixelation.Scripts.Chunky>().SprTex = rainbow;
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = false;
                 break;
             case 9:
-                GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = false;
-                GetComponent<Assets.Pixelation.Scripts.Pixelation>().enabled = false;
+                //GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = false;
+                GetComponent<Pixelate>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = true;
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().edgesOnlyBgColor = Color.black;
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().edgesColor = Color.green;
@@ -129,10 +124,10 @@ public class GraphicsManager : MonoBehaviour
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().mode = UnityStandardAssets.ImageEffects.EdgeDetection.EdgeDetectMode.TriangleDepthNormals;
                 break;
             default:
-                GetComponent<Assets.Pixelation.Scripts.Pixelation>().enabled = false;
-                GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = false;
-				GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = false;
-				break;
+                GetComponent<Pixelate>().enabled = false;
+                //GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = false;
+                GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = false;
+                break;
         }
     }
 }
