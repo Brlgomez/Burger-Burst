@@ -1,5 +1,5 @@
 Normal*0
-Hipsterish*100
+Summer Days*100
 Pixelated*250
 Stylish*250
 Outlined*500

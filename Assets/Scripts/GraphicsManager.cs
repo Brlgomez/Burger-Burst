@@ -6,7 +6,7 @@ public class GraphicsManager : MonoBehaviour
 {
     public int maxGraphics;
     public List<Graphic> graphicList = new List<Graphic>();
-    public Texture2D offWhite, rainbow, blue, jpeg;
+    public Texture2D summer, offWhite, rainbow, blue, jpeg;
     string[] allDescriptions;
 
     public class Graphic
@@ -60,7 +60,6 @@ public class GraphicsManager : MonoBehaviour
         {
             case 0:
                 GetComponent<Pixelate>().enabled = false;
-                GetComponent<UnityStandardAssets.ImageEffects.Tonemapping>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.SepiaTone>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.BloomOptimized>().enabled = false;
@@ -68,15 +67,14 @@ public class GraphicsManager : MonoBehaviour
                 break;
             case 1:
                 GetComponent<Pixelate>().enabled = false;
-                GetComponent<UnityStandardAssets.ImageEffects.Tonemapping>().enabled = true;
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.SepiaTone>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.BloomOptimized>().enabled = false;
-                GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionRamp>().enabled = false;
+				GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionRamp>().enabled = true;
+				GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionRamp>().textureRamp = summer;
                 break;
             case 2:
                 GetComponent<Pixelate>().enabled = true;
-                GetComponent<UnityStandardAssets.ImageEffects.Tonemapping>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.SepiaTone>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.BloomOptimized>().enabled = false;
@@ -84,7 +82,6 @@ public class GraphicsManager : MonoBehaviour
                 break;
             case 3:
                 GetComponent<Pixelate>().enabled = false;
-                GetComponent<UnityStandardAssets.ImageEffects.Tonemapping>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.SepiaTone>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.BloomOptimized>().enabled = false;
@@ -93,7 +90,6 @@ public class GraphicsManager : MonoBehaviour
                 break;
             case 4:
                 GetComponent<Pixelate>().enabled = false;
-                GetComponent<UnityStandardAssets.ImageEffects.Tonemapping>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.SepiaTone>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.BloomOptimized>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionRamp>().enabled = false;
@@ -105,7 +101,6 @@ public class GraphicsManager : MonoBehaviour
                 break;
             case 5:
                 GetComponent<Pixelate>().enabled = false;
-                GetComponent<UnityStandardAssets.ImageEffects.Tonemapping>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.SepiaTone>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.BloomOptimized>().enabled = true;
@@ -113,7 +108,6 @@ public class GraphicsManager : MonoBehaviour
                 break;
             case 6:
                 GetComponent<Pixelate>().enabled = false;
-                GetComponent<UnityStandardAssets.ImageEffects.Tonemapping>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.SepiaTone>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.BloomOptimized>().enabled = false;
@@ -122,7 +116,6 @@ public class GraphicsManager : MonoBehaviour
                 break;
             case 7:
                 GetComponent<Pixelate>().enabled = true;
-                GetComponent<UnityStandardAssets.ImageEffects.Tonemapping>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.SepiaTone>().enabled = true;
                 GetComponent<UnityStandardAssets.ImageEffects.BloomOptimized>().enabled = false;
@@ -130,7 +123,6 @@ public class GraphicsManager : MonoBehaviour
                 break;
             case 8:
                 GetComponent<Pixelate>().enabled = false;
-                GetComponent<UnityStandardAssets.ImageEffects.Tonemapping>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.SepiaTone>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.BloomOptimized>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionRamp>().enabled = false;
@@ -142,7 +134,6 @@ public class GraphicsManager : MonoBehaviour
                 break;
             case 9:
                 GetComponent<Pixelate>().enabled = false;
-                GetComponent<UnityStandardAssets.ImageEffects.Tonemapping>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.SepiaTone>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.BloomOptimized>().enabled = false;
@@ -151,7 +142,6 @@ public class GraphicsManager : MonoBehaviour
                 break;
             case 10:
                 GetComponent<Pixelate>().enabled = false;
-                GetComponent<UnityStandardAssets.ImageEffects.Tonemapping>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.SepiaTone>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.BloomOptimized>().enabled = false;
@@ -163,6 +153,7 @@ public class GraphicsManager : MonoBehaviour
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.SepiaTone>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.BloomOptimized>().enabled = false;
+                GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionRamp>().enabled = false;
                 break;
         }
     }
