@@ -17,4 +17,5 @@ Hue *Hue *Hue *50*50*25
 Stars *Stars *Stars *50*50*25
 Plants & Beans *Plants & BeansNEWLINE*Plants & Beans *50*50*25
 Bathroom Vibes *Bathroom VibesNEWLINE*Bathroom Vibes *50*50*25
+Valentine's *Valentine's *Valentine's *50*50*25
 Rainbow *Rainbow *Rainbow *200*200*100
