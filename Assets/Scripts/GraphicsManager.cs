@@ -6,7 +6,7 @@ public class GraphicsManager : MonoBehaviour
 {
     public int maxGraphics;
     public List<Graphic> graphicList = new List<Graphic>();
-    public Texture2D classicTexture, blueAndGreenTexture, greenAndOrange, redRetro, rainbow, grapeFruit;
+    public Texture2D offWhite, rainbow, blue;
     string[] allDescriptions;
 
     public class Graphic
@@ -39,7 +39,6 @@ public class GraphicsManager : MonoBehaviour
         }
         SetGraphicsList();
         SetGraphic(GetComponent<PlayerPrefsManager>().GetGraphics());
-        SetGraphic(1);
     }
 
     public void SetGraphicsList()
@@ -60,36 +59,51 @@ public class GraphicsManager : MonoBehaviour
         switch (graphicNum)
         {
             case 0:
-                //GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = false;
                 GetComponent<Pixelate>().enabled = false;
+                GetComponent<UnityStandardAssets.ImageEffects.Tonemapping>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = false;
+                GetComponent<UnityStandardAssets.ImageEffects.SepiaTone>().enabled = false;
+                GetComponent<UnityStandardAssets.ImageEffects.BloomOptimized>().enabled = false;
+                GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionRamp>().enabled = false;
                 break;
             case 1:
                 GetComponent<Pixelate>().enabled = false;
-                //GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = true;
-                //GetComponent<Assets.Pixelation.Scripts.Chunky>().SprTex = classicTexture;
+                GetComponent<UnityStandardAssets.ImageEffects.Tonemapping>().enabled = true;
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = false;
+                GetComponent<UnityStandardAssets.ImageEffects.SepiaTone>().enabled = false;
+                GetComponent<UnityStandardAssets.ImageEffects.BloomOptimized>().enabled = false;
+                GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionRamp>().enabled = false;
                 break;
             case 2:
-                GetComponent<Pixelate>().enabled = false;
-                //GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = true;
-                //GetComponent<Assets.Pixelation.Scripts.Chunky>().SprTex = blueAndGreenTexture;
+                GetComponent<Pixelate>().enabled = true;
+                GetComponent<UnityStandardAssets.ImageEffects.Tonemapping>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = false;
+                GetComponent<UnityStandardAssets.ImageEffects.SepiaTone>().enabled = false;
+                GetComponent<UnityStandardAssets.ImageEffects.BloomOptimized>().enabled = false;
+                GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionRamp>().enabled = false;
                 break;
             case 3:
                 GetComponent<Pixelate>().enabled = false;
-                //GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = true;
-                //GetComponent<Assets.Pixelation.Scripts.Chunky>().SprTex = greenAndOrange;
+                GetComponent<UnityStandardAssets.ImageEffects.Tonemapping>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = false;
+                GetComponent<UnityStandardAssets.ImageEffects.SepiaTone>().enabled = false;
+                GetComponent<UnityStandardAssets.ImageEffects.BloomOptimized>().enabled = true;
+                GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionRamp>().enabled = false;
                 break;
             case 4:
-                //GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = false;
                 GetComponent<Pixelate>().enabled = true;
+                GetComponent<UnityStandardAssets.ImageEffects.Tonemapping>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = false;
+                GetComponent<UnityStandardAssets.ImageEffects.SepiaTone>().enabled = true;
+                GetComponent<UnityStandardAssets.ImageEffects.BloomOptimized>().enabled = false;
+                GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionRamp>().enabled = false;
                 break;
             case 5:
-                //GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = false;
                 GetComponent<Pixelate>().enabled = false;
+                GetComponent<UnityStandardAssets.ImageEffects.Tonemapping>().enabled = false;
+                GetComponent<UnityStandardAssets.ImageEffects.SepiaTone>().enabled = false;
+                GetComponent<UnityStandardAssets.ImageEffects.BloomOptimized>().enabled = false;
+                GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionRamp>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = true;
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().edgesOnlyBgColor = Color.white;
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().edgesColor = Color.black;
@@ -98,25 +112,37 @@ public class GraphicsManager : MonoBehaviour
                 break;
             case 6:
                 GetComponent<Pixelate>().enabled = false;
-                //GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = true;
-                //GetComponent<Assets.Pixelation.Scripts.Chunky>().SprTex = redRetro;
+                GetComponent<UnityStandardAssets.ImageEffects.Tonemapping>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = false;
+                GetComponent<UnityStandardAssets.ImageEffects.SepiaTone>().enabled = false;
+                GetComponent<UnityStandardAssets.ImageEffects.BloomOptimized>().enabled = false;
+                GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionRamp>().enabled = true;
+                GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionRamp>().textureRamp = offWhite;
                 break;
             case 7:
                 GetComponent<Pixelate>().enabled = false;
-                //GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = true;
-                //GetComponent<Assets.Pixelation.Scripts.Chunky>().SprTex = grapeFruit;
+                GetComponent<UnityStandardAssets.ImageEffects.Tonemapping>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = false;
+                GetComponent<UnityStandardAssets.ImageEffects.SepiaTone>().enabled = false;
+                GetComponent<UnityStandardAssets.ImageEffects.BloomOptimized>().enabled = false;
+                GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionRamp>().enabled = true;
+                GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionRamp>().textureRamp = blue;
                 break;
             case 8:
                 GetComponent<Pixelate>().enabled = false;
-                //GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = true;
-                //GetComponent<Assets.Pixelation.Scripts.Chunky>().SprTex = rainbow;
+                GetComponent<UnityStandardAssets.ImageEffects.Tonemapping>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = false;
+                GetComponent<UnityStandardAssets.ImageEffects.SepiaTone>().enabled = false;
+                GetComponent<UnityStandardAssets.ImageEffects.BloomOptimized>().enabled = false;
+                GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionRamp>().enabled = true;
+                GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionRamp>().textureRamp = rainbow;
                 break;
             case 9:
-                //GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = false;
                 GetComponent<Pixelate>().enabled = false;
+                GetComponent<UnityStandardAssets.ImageEffects.Tonemapping>().enabled = false;
+                GetComponent<UnityStandardAssets.ImageEffects.SepiaTone>().enabled = false;
+                GetComponent<UnityStandardAssets.ImageEffects.BloomOptimized>().enabled = false;
+                GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionRamp>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = true;
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().edgesOnlyBgColor = Color.black;
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().edgesColor = Color.green;
@@ -125,8 +151,9 @@ public class GraphicsManager : MonoBehaviour
                 break;
             default:
                 GetComponent<Pixelate>().enabled = false;
-                //GetComponent<Assets.Pixelation.Scripts.Chunky>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = false;
+                GetComponent<UnityStandardAssets.ImageEffects.SepiaTone>().enabled = false;
+                GetComponent<UnityStandardAssets.ImageEffects.BloomOptimized>().enabled = false;
                 break;
         }
     }
