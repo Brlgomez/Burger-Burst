@@ -143,7 +143,7 @@ public class Gameplay : MonoBehaviour
             gameObject.AddComponent<CameraMovement>().MoveToGameOver();
             GetComponent<ZombieManager>().DeleteAllScripts();
         }
-        if (life < 25)
+        if (life < 25 && life > 1)
         {
             GetComponent<ScreenTextManagment>().PingPongHeart();
         }

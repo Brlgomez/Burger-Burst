@@ -19,7 +19,7 @@ public class Zombie : MonoBehaviour
     Vector3 initialBubbleSize;
 
     bool particlesPlaying;
-    float speed = 1;
+    float speed = 1.25f;
     float originalSpeed;
     static int maxDeathTime = 5;
     float alpha = 1;
@@ -129,8 +129,8 @@ public class Zombie : MonoBehaviour
 
     void Walk()
     {
-		leftHand.GetComponent<Rigidbody>().AddRelativeForce(-leftHand.transform.forward * Random.Range(15, 20));
-		rightHand.GetComponent<Rigidbody>().AddRelativeForce(-rightHand.transform.forward * Random.Range(15, 20));
+        leftHand.GetComponent<Rigidbody>().AddRelativeForce(-leftHand.transform.forward * Random.Range(20, 25));
+        rightHand.GetComponent<Rigidbody>().AddRelativeForce(-rightHand.transform.forward * Random.Range(20, 25));
         if (Mathf.Round(head.transform.position.z) < endingZ - 0.25f)
         {
             GetComponent<Animator>().SetBool("Attacking", true);
@@ -188,8 +188,8 @@ public class Zombie : MonoBehaviour
 
     void NearFoodTruck()
     {
-		leftHand.GetComponent<Rigidbody>().AddRelativeForce(-leftHand.transform.forward * Random.Range(5, 10));
-		rightHand.GetComponent<Rigidbody>().AddRelativeForce(-rightHand.transform.forward * Random.Range(5, 10));
+        leftHand.GetComponent<Rigidbody>().AddRelativeForce(-leftHand.transform.forward * Random.Range(5, 10));
+        rightHand.GetComponent<Rigidbody>().AddRelativeForce(-rightHand.transform.forward * Random.Range(5, 10));
         GetComponent<Animator>().SetFloat("Speed", 0);
         damageTime += Time.deltaTime * updateInterval;
         if (rightThigh.GetComponent<Rigidbody>().isKinematic)
@@ -703,6 +703,8 @@ public class Zombie : MonoBehaviour
                 Camera.main.GetComponent<SoundAndMusicManager>().PlayZombieInstantDeathSound(GetComponent<AudioSource>());
                 Behaviour halo3 = (Behaviour)powerParticles.GetComponent("Halo");
                 halo3.enabled = true;
+                speed = 1;
+                originalSpeed = speed;
                 break;
             case "Poison Zombie":
                 pointsMultiplier = 2;

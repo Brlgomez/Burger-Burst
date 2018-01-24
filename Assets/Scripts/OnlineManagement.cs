@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.GameCenter;
 #if (!NO_GPGS)
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
@@ -20,6 +21,7 @@ public class OnlineManagement : MonoBehaviour
         else if (Application.platform == RuntimePlatform.IPhonePlayer)
         {
             deviceOS = OS.iOS;
+            GameCenterPlatform.ShowDefaultAchievementCompletionBanner(true);
         }
         else
         {
