@@ -104910,7 +104910,7 @@ MonoBehaviour:
   maxGraphics: 0
   offWhite: {fileID: 2800000, guid: e3163ac1ca6e5487cb4b05be812b3464, type: 3}
   rainbow: {fileID: 2800000, guid: a692e4adb620949e1b904f899c5573f5, type: 3}
-  blue: {fileID: 2800000, guid: ed2057b69d9194ffea2b40bedfdc31dd, type: 3}
+  blue: {fileID: 2800000, guid: 1ef92661c5a424d838bcb9a50f73cdde, type: 3}
 --- !u!114 &1865169794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105251,7 +105251,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shader: {fileID: 4800000, guid: 67f8781cad112c75d0008dfa8d76c639, type: 3}
-  textureRamp: {fileID: 2800000, guid: ed2057b69d9194ffea2b40bedfdc31dd, type: 3}
+  textureRamp: {fileID: 2800000, guid: 1ef92661c5a424d838bcb9a50f73cdde, type: 3}
 --- !u!1001 &1867519524
 Prefab:
   m_ObjectHideFlags: 0
