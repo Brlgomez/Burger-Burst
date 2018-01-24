@@ -1,10 +1,11 @@
 Normal*0
-Retro*100
-Blue & Green*100
-Green & Orange*100
+Hipsterish*100
 Pixelated*250
-Outlined*250
-Red Retro*100
-Grape Fruit*100
+Stylish*250
+Outlined*500
+The Dreaming*250
+Blue Vibes*100
+Classic*250
+Hacker*500
+More JPEG*250
 Lucid Dreaming*500
-Hacker*250
