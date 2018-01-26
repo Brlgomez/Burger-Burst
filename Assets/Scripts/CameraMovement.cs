@@ -256,7 +256,7 @@ public class CameraMovement : MonoBehaviour
 
     public void MoveToPause()
     {
-        SetCameraAndDevicePosition(GetComponent<PositionManager>().PausePosition(), GetComponent<PositionManager>().DeviceFrontPosition());
+        SetCameraAndDevicePosition(GetComponent<PositionManager>().PausePosition(), GetComponent<PositionManager>().DeviceMiddlePosition());
     }
 
     public void MoveToUnpause(string area)

@@ -5,9 +5,9 @@ Ceramic *Ceramic *Ceramic *50*50*25
 Robotic *Robotic *Robotic *100*100*25
 Minimal *Minimal *Minimal *50*50*25
 Pancake TuesdayNEWLINE*Pancake TuesdayNEWLINE*Pancake TuesdayNEWLINE*50*50*25
-Bubbles *Electric Fish *Electric Blue *50*50*25
-Groovy Baby *Groovy Baby *Groovy Baby *50*50*25
-Shabby Chic *Shabby Chic *Shabby Chic *50*50*25
+Bubbles *Electric FishNEWLINE*Electric Blue *50*50*25
+Groovy Baby *Groovy BabyNEWLINE*Groovy Baby *50*50*25
+Shabby Chic *Shabby ChicNEWLINE*Shabby Chic *50*50*25
 Paw Print *Bow Wow *Woof *50*50*25
 Retro *Retro *Retro *50*50*25
 Gothic *Gothic *Gothic *100*100*25
