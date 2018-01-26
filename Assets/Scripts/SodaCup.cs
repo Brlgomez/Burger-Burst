@@ -141,7 +141,14 @@ public class SodaCup : MonoBehaviour
         }
         else if (worth > 1)
         {
-            Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Drinks", Color.green, 1);
+            if (worth == maxAmountOfDrinks)
+            {
+                Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Drinks", Color.yellow, 1);
+            }
+            else
+            {
+                Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Drinks", Color.green, 1);
+            }
         }
         if (worth > 0)
         {

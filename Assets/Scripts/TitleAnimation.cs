@@ -91,5 +91,8 @@ public class TitleAnimation : MonoBehaviour
         title.transform.localScale = Vector3.one * 3;
         zombieHands.transform.localScale = Vector3.one * 3;
         chefHat.transform.localScale = Vector3.one * 3;
+        title.AddComponent<FadeObject>();
+        zombieHands.AddComponent<FadeObject>();
+        chefHat.AddComponent<FadeObject>();
     }
 }

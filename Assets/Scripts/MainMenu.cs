@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
-    static int updateInterval = 30;
+    static int updateInterval = 60;
     GameObject target;
     Vector3 point1, point2, originalPoint;
     int lastScrollX;
@@ -19,7 +19,10 @@ public class MainMenu : MonoBehaviour
         Input.multiTouchEnabled = false;
         if (GetComponent<ScreenTextManagment>().GetMenu() == Menus.Menu.PhoneDown)
         {
-            GetComponent<ObjectManager>().TitleSign().transform.GetChild(0).gameObject.AddComponent<PingPongColor>().SetColors(null);
+            Color[] titleColors = new Color[2];
+            titleColors[0] = new Color(0, 0, 0, 0);
+            titleColors[1] = new Color(1, 1, 1, 1);
+            GetComponent<ObjectManager>().TitleSign().transform.GetChild(0).gameObject.AddComponent<PingPongColor>().SetColors(titleColors);
         }
     }
 

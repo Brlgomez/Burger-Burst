@@ -19,13 +19,13 @@ public class PingPongColor : MonoBehaviour
         {
             changeColorNumber = 0;
         }
+		else if (gameObject.GetComponent<SpriteRenderer>())
+		{
+			changeColorNumber = 2;
+		}
         else if (gameObject.GetComponent<Renderer>())
         {
             changeColorNumber = 1;
-        }
-        else if (gameObject.GetComponent<SpriteRenderer>())
-        {
-            changeColorNumber = 2;
         }
     }
 

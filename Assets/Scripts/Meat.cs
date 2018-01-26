@@ -118,7 +118,14 @@ public class Meat : MonoBehaviour
         }
         else if (worth > 1)
         {
-            Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Burgers", Color.green, 1);
+            if (worth == maxAmountOfBurgers)
+            {
+                Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Burgers", Color.yellow, 1);
+            }
+            else
+            {
+                Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Burgers", Color.green, 1);
+            }
         }
         if (worth > 0)
         {
@@ -126,8 +133,8 @@ public class Meat : MonoBehaviour
         }
         if (worth == maxAmountOfBurgers)
         {
-			Camera.main.GetComponent<OnlineManagement>().PerfectFoodItem();
-		}
+            Camera.main.GetComponent<OnlineManagement>().PerfectFoodItem();
+        }
         Camera.main.GetComponent<Gameplay>().AddBurgers(worth);
         RemoveObject(topBun);
         RemoveObject(bottomBun);

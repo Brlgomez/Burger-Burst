@@ -107,7 +107,14 @@ public class Fry : MonoBehaviour
         }
         else if (worth > 1)
         {
-            Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Fries", Color.green, 1);
+            if (worth == maxAmountOfFries)
+            {
+                Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Fries", Color.yellow, 1);
+            }
+            else
+            {
+                Camera.main.GetComponent<FloatingTextManagement>().AddFloatingText(gameObject, "+ " + worth + " Fries", Color.green, 1);
+            }
         }
         if (worth > 0)
         {
@@ -115,8 +122,8 @@ public class Fry : MonoBehaviour
         }
         if (worth == maxAmountOfFries)
         {
-			Camera.main.GetComponent<OnlineManagement>().PerfectFoodItem();
-		}
+            Camera.main.GetComponent<OnlineManagement>().PerfectFoodItem();
+        }
         Camera.main.GetComponent<Gameplay>().AddFries(worth);
         if (gameObject.GetComponent<FadeObject>() == null)
         {
