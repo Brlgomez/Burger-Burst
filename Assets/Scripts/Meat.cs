@@ -61,13 +61,13 @@ public class Meat : MonoBehaviour
             Camera.main.GetComponent<SoundAndMusicManager>().PlayDropPattySound(gameObject, (impactSpeed / 10));
             JustPlayedSound();
         }
-        if (collision.gameObject.name == "Grill Top" && timeOnGrill < maxTimeOnGrill)
+        if (collision.gameObject.name == "Grill Top" && timeOnGrill < maxTimeOnGrill && collision.gameObject.tag != "Fallen")
         {
             gameObject.AddComponent<CookMeat>();
             Camera.main.GetComponent<SoundAndMusicManager>().PlayLoopFromSourceAndRaiseVolume(gameObject, 2, 1);
             Camera.main.GetComponent<SoundAndMusicManager>().PlaySteamSound(gameObject);
         }
-        if (collision.gameObject.name == "Top_Bun(Clone)" && !touchingTop)
+        if (collision.gameObject.name == "Top_Bun(Clone)" && !touchingTop && collision.gameObject.tag != "Fallen")
         {
             if (!TouchingBottom(collision))
             {
@@ -75,7 +75,7 @@ public class Meat : MonoBehaviour
                 topBun = collision.gameObject;
             }
         }
-        if (collision.gameObject.name == "Bottom_Bun(Clone)" && !touchingBottom)
+        if (collision.gameObject.name == "Bottom_Bun(Clone)" && !touchingBottom && collision.gameObject.tag != "Fallen")
         {
             if (TouchingBottom(collision))
             {
