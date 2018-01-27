@@ -129,11 +129,11 @@ public class RemoveObjects : MonoBehaviour
                     }
                     else
                     {
-                        if (name == "Burger(Clone)")
+                        if (name == "Burger(Clone)" || name == "Burger(Clone)Copy")
                         {
                             Camera.main.GetComponent<SoundAndMusicManager>().PlayDropBurgerSound(gameObject, (impactSpeed / 12));
                         }
-                        else if (name == "Fries(Clone)")
+                        else if (name == "Fries(Clone)" || name == "Fries(Clone)Copy")
                         {
                             Camera.main.GetComponent<SoundAndMusicManager>().PlayDropFriesSound(gameObject, (impactSpeed / 12));
                         }

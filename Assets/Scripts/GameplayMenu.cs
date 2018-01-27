@@ -237,6 +237,7 @@ public class GameplayMenu : MonoBehaviour
         }
         if (GetComponent<PlayerPrefsManager>().GetCoins() >= GetComponent<Gameplay>().ContinuePrice())
         {
+            GetComponent<SoundAndMusicManager>().PlayBoughtItemWithCoinsSound();
             GetComponent<PlayerPrefsManager>().DecreaseCoins(GetComponent<Gameplay>().ContinuePrice());
             GetComponent<ScreenTextManagment>().PressedContinue();
             GetComponent<ScreenTextManagment>().CannotPressAnything();

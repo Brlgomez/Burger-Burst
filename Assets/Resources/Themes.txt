@@ -6,7 +6,7 @@ Robotic *Robotic *Robotic *100*100*25
 Minimal *Minimal *Minimal *50*50*25
 Pancake TuesdayNEWLINE*Pancake TuesdayNEWLINE*Pancake TuesdayNEWLINE*50*50*25
 Bubbles *Electric FishNEWLINE*Electric Blue *50*50*25
-Groovy Baby *Groovy BabyNEWLINE*Groovy Baby *50*50*25
+Groovy Baby *Groovy BabyNEWLINE*Groovy Baby *100*100*25
 Shabby Chic *Shabby ChicNEWLINE*Shabby Chic *50*50*25
 Paw Print *Bow Wow *Woof *50*50*25
 Retro *Retro *Retro *50*50*25
@@ -15,7 +15,7 @@ Criss Cross *Diamond *Cool *50*50*25
 Flower *Flower *Flower *50*50*25
 Hue *Hue *Hue *50*50*25
 Stars *Stars *Stars *50*50*25
-Plants & Beans *Plants & BeansNEWLINE*Plants & Beans *50*50*25
+Plants & Beans *Plants & BeansNEWLINE*Plants & Beans *100*100*25
 Bathroom Vibes *Bathroom VibesNEWLINE*Bathroom Vibes *50*50*25
 Valentine's *Valentine's *Valentine's *50*50*25
 Rainbow *Rainbow *Rainbow *200*200*100

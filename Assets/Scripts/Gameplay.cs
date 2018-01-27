@@ -122,10 +122,10 @@ public class Gameplay : MonoBehaviour
     void ReduceHealthLogic(int damage)
     {
         GetComponent<VibrationManager>().Vibrate();
-        GetComponent<SoundAndMusicManager>().PlayHealthDownSound(gameObject);
         life -= Mathf.RoundToInt(damage * defense);
         if (!gameOver)
         {
+            GetComponent<SoundAndMusicManager>().PlayHealthDownSound(gameObject);
             GetComponent<ScreenTextManagment>().ChangeHealthCount(-1);
             if (gameObject.GetComponent<GettingHurt>() == null)
             {
@@ -136,6 +136,7 @@ public class Gameplay : MonoBehaviour
         {
             gameOver = true;
             CheckSurvivalTime();
+            GetComponent<SoundAndMusicManager>().PlayGameOverSound(gameObject);
             GetComponent<GrabAndThrowObject>().SetGameOver(gameOver);
             if (GetComponent<CameraMovement>() != null)
             {
