@@ -421,6 +421,10 @@ public class Zombie : MonoBehaviour
             PlayGruntNoise();
             Died();
         }
+        else
+        {
+            SetUpSprites();
+        }
     }
 
     /* Waking up */
@@ -741,26 +745,30 @@ public class Zombie : MonoBehaviour
 
     void SetUpSprites()
     {
-        int spritePosition = 0;
-        if ((neededBurgers > 0 && neededFries == 0 && neededDrinks == 0) ||
-            (neededFries > 0 && neededBurgers == 0 && neededDrinks == 0) ||
-            (neededDrinks > 0 && neededFries == 0 && neededBurgers == 0))
+        for (int i = 0; i < 4; i++)
         {
-            if (neededBurgers > 0)
+            thinkBubble.transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = null;
+        }
+        int spritePosition = 0;
+        if ((neededBurgers - amountOfBurgers > 0 && neededFries - amountOfFries == 0 && neededDrinks - amountOfDrinks == 0) ||
+            (neededFries - amountOfFries > 0 && neededBurgers - amountOfBurgers == 0 && neededDrinks - amountOfDrinks == 0) ||
+            (neededDrinks - amountOfDrinks > 0 && neededFries - amountOfFries == 0 && neededBurgers - amountOfBurgers == 0))
+        {
+            if (neededBurgers - amountOfBurgers > 0)
             {
-                Sprite sprite = Camera.main.GetComponent<ZombieManager>().burgers[neededBurgers - 1];
+                Sprite sprite = Camera.main.GetComponent<ZombieManager>().burgers[neededBurgers - amountOfBurgers - 1];
                 thinkBubble.transform.GetChild(spritePosition).GetComponent<SpriteRenderer>().sprite = sprite;
                 spritePosition++;
             }
-            if (neededFries > 0)
+            if (neededFries - amountOfFries > 0)
             {
-                Sprite sprite = Camera.main.GetComponent<ZombieManager>().fries[neededFries - 1];
+                Sprite sprite = Camera.main.GetComponent<ZombieManager>().fries[neededFries - amountOfFries - 1];
                 thinkBubble.transform.GetChild(spritePosition).GetComponent<SpriteRenderer>().sprite = sprite;
                 spritePosition++;
             }
-            if (neededDrinks > 0)
+            if (neededDrinks - amountOfDrinks > 0)
             {
-                Sprite sprite = Camera.main.GetComponent<ZombieManager>().drinks[neededDrinks - 1];
+                Sprite sprite = Camera.main.GetComponent<ZombieManager>().drinks[neededDrinks - amountOfDrinks - 1];
                 thinkBubble.transform.GetChild(spritePosition).GetComponent<SpriteRenderer>().sprite = sprite;
                 spritePosition++;
             }
@@ -768,21 +776,21 @@ public class Zombie : MonoBehaviour
         else
         {
             spritePosition++;
-            if (neededBurgers > 0)
+            if (neededBurgers - amountOfBurgers > 0)
             {
-                Sprite sprite = Camera.main.GetComponent<ZombieManager>().burgers[neededBurgers - 1];
+                Sprite sprite = Camera.main.GetComponent<ZombieManager>().burgers[neededBurgers - amountOfBurgers - 1];
                 thinkBubble.transform.GetChild(spritePosition).GetComponent<SpriteRenderer>().sprite = sprite;
                 spritePosition++;
             }
-            if (neededFries > 0)
+            if (neededFries - amountOfFries > 0)
             {
-                Sprite sprite = Camera.main.GetComponent<ZombieManager>().fries[neededFries - 1];
+                Sprite sprite = Camera.main.GetComponent<ZombieManager>().fries[neededFries - amountOfFries - 1];
                 thinkBubble.transform.GetChild(spritePosition).GetComponent<SpriteRenderer>().sprite = sprite;
                 spritePosition++;
             }
-            if (neededDrinks > 0)
+            if (neededDrinks - amountOfDrinks > 0)
             {
-                Sprite sprite = Camera.main.GetComponent<ZombieManager>().drinks[neededDrinks - 1];
+                Sprite sprite = Camera.main.GetComponent<ZombieManager>().drinks[neededDrinks - amountOfDrinks - 1];
                 thinkBubble.transform.GetChild(spritePosition).GetComponent<SpriteRenderer>().sprite = sprite;
                 spritePosition++;
             }
