@@ -38,10 +38,6 @@ public class GrabAndThrowObject : MonoBehaviour
         {
             throwingDistance = 23;
         }
-        if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(GetComponent<PowerUpsManager>().moreHealth.powerUpNumber))
-        {
-            GetComponent<Gameplay>().ChangeMaxHealth();
-        }
         if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(GetComponent<PowerUpsManager>().defenseIncrease.powerUpNumber))
         {
             GetComponent<Gameplay>().IncreaseDefense();

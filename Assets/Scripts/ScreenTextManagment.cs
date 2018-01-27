@@ -608,23 +608,23 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeHealthTextColor()
     {
-        int n = Mathf.RoundToInt(Camera.main.GetComponent<Gameplay>().GetLife());
-        line1.GetComponent<TextMesh>().text = "";
+        int currentLife = Mathf.RoundToInt(Camera.main.GetComponent<Gameplay>().GetLife());
+        int maxLife = GetComponent<Gameplay>().GetMaxLife();
         if (!GetComponent<Gameplay>().HaveMoreLife())
         {
-            Color newColor = Color.Lerp(Color.red, textColor, ((float)n) / GetComponent<Gameplay>().GetMaxLife());
+            Color newColor = Color.Lerp(Color.red, textColor, ((float)currentLife) / maxLife);
             line1.transform.GetChild(4).GetComponent<SpriteRenderer>().color = newColor;
-            line1.transform.GetChild(4).transform.localScale = new Vector3((((float)n) / GetComponent<Gameplay>().GetMaxLife()) * 255, 90, 1);
+            line1.transform.GetChild(4).transform.localScale = new Vector3((((float)currentLife) / maxLife) * 255, 90, 1);
             line1.transform.GetChild(5).transform.localScale = new Vector3(0, 90, 1);
         }
         else
         {
-            if (n <= 100)
+            if (currentLife <= 100)
             {
-                Color newColor = Color.Lerp(Color.red, textColor, (((float)n) / (GetComponent<Gameplay>().GetMaxLife() / 2)));
+                Color newColor = Color.Lerp(Color.red, textColor, (((float)currentLife) / (maxLife / 2)));
                 line1.transform.GetChild(4).GetComponent<SpriteRenderer>().color = newColor;
                 line1.transform.GetChild(4).transform.localScale = new Vector3(
-                    (((float)n) / (GetComponent<Gameplay>().GetMaxLife() / 2)) * 255,
+                    (((float)currentLife) / (maxLife / 2)) * 255,
                     90,
                     1
                 );
@@ -635,12 +635,12 @@ ScreenTextManagment : MonoBehaviour
                 Color newColor = Color.Lerp(
                     Color.green,
                     Color.cyan,
-                    ((float)n - (GetComponent<Gameplay>().GetMaxLife() / 2)) / (GetComponent<Gameplay>().GetMaxLife() / 2)
+                    ((float)currentLife - (maxLife / 2)) / (maxLife / 2)
                 );
                 line1.transform.GetChild(4).transform.localScale = new Vector3(255, 90, 1);
                 line1.transform.GetChild(4).GetComponent<SpriteRenderer>().color = textColor;
                 line1.transform.GetChild(5).transform.localScale = new Vector3(
-                    (((float)n - (GetComponent<Gameplay>().GetMaxLife() / 2)) / (GetComponent<Gameplay>().GetMaxLife() / 2)) * 255,
+                    (((float)currentLife - (maxLife / 2)) / (maxLife / 2)) * 255,
                     90,
                     1
                 );
@@ -930,7 +930,7 @@ ScreenTextManagment : MonoBehaviour
         }
     }
 
-    public void Debug(string debug)
+    public void Debugs(string debug)
     {
         line5.GetComponent<TextMesh>().text = debug;
         line5.GetComponent<TextMesh>().characterSize = 0.15f;

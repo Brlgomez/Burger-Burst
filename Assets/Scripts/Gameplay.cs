@@ -20,7 +20,8 @@ public class Gameplay : MonoBehaviour
     float regenTimer;
     float defense = 1;
     bool moreLife;
-    int maxLifeWithBonus = 200;
+    static int maxLifeWithBonus = 200;
+    static int maxLifeWithoutBonus = 100;
 
     //Zombies
     static int minTimeForNewZombie = 6;
@@ -151,10 +152,18 @@ public class Gameplay : MonoBehaviour
 
     public void ChangeMaxHealth()
     {
-        maxLife = maxLifeWithBonus;
-        life = maxLifeWithBonus;
-        moreLife = true;
-        GetComponent<ScreenTextManagment>().ChangeHealthTextColor();
+        if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(GetComponent<PowerUpsManager>().moreHealth.powerUpNumber))
+        {
+            maxLife = maxLifeWithBonus;
+            life = maxLifeWithBonus;
+            moreLife = true;
+        }
+        else
+        {
+            maxLife = maxLifeWithoutBonus;
+            life = maxLifeWithoutBonus;
+            moreLife = false;
+        }
     }
 
     public float GetLife()
@@ -330,9 +339,7 @@ public class Gameplay : MonoBehaviour
     public void ResetValues()
     {
         continued = false;
-        maxLifeWithBonus = 200;
-        maxLife = 100;
-        life = 100;
+        ChangeMaxHealth();
         burgers = 25;
         fries = 25;
         drinks = 25;
@@ -356,9 +363,7 @@ public class Gameplay : MonoBehaviour
     public void Continue()
     {
         continued = true;
-        maxLifeWithBonus = 200;
-        maxLife = 100;
-        life = 100;
+        ChangeMaxHealth();
         burgers += 10;
         fries += 10;
         drinks += 10;

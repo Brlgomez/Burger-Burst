@@ -159,7 +159,6 @@ public class CameraMovement : MonoBehaviour
                     GetComponent<ScreenTextManagment>().PingPongHeart();
                     break;
             }
-            GetComponent<ScreenTextManagment>().ChangeToFrontArea();
         }
         else if (title)
         {
