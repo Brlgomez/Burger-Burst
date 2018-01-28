@@ -10,7 +10,7 @@ public class RemoveObjects : MonoBehaviour
     void OnCollisionEnter(Collision col)
     {
         PlayDropSound();
-        if (gameObject.tag == "GrillIngredientClone")
+        if (gameObject.tag == "GrillIngredientClone" && col.gameObject.tag != "GrillIngredientClone")
         {
             Vector3 grillRange = Camera.main.GetComponent<PositionManager>().GrillRange().position;
             if (Vector3.Distance(gameObject.transform.position, grillRange) > 1.25f)

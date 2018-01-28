@@ -162,8 +162,9 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.brandongomez.undeadcatering
     iOS: com.brandongomez.undeadcatering
-  buildNumber: {}
-  AndroidBundleVersionCode: 15
+  buildNumber:
+    iOS: 1
+  AndroidBundleVersionCode: 16
   AndroidMinSdkVersion: 16
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1

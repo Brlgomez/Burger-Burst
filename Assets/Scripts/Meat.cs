@@ -61,9 +61,20 @@ public class Meat : MonoBehaviour
             Camera.main.GetComponent<SoundAndMusicManager>().PlayDropPattySound(gameObject, (impactSpeed / 10));
             JustPlayedSound();
         }
+        if (touchingTop && topBun == null)
+        {
+            touchingTop = false;
+        }
+        if (touchingBottom && bottomBun == null)
+        {
+            touchingBottom = false;
+        }
         if (collision.gameObject.name == "Grill Top" && timeOnGrill < maxTimeOnGrill && collision.gameObject.tag != "Fallen")
         {
-            gameObject.AddComponent<CookMeat>();
+            if (GetComponent<CookMeat>() == null)
+            {
+                gameObject.AddComponent<CookMeat>();
+            }
             Camera.main.GetComponent<SoundAndMusicManager>().PlayLoopFromSourceAndRaiseVolume(gameObject, 2, 1);
             Camera.main.GetComponent<SoundAndMusicManager>().PlaySteamSound(gameObject);
         }
@@ -83,11 +94,20 @@ public class Meat : MonoBehaviour
                 bottomBun = collision.gameObject;
             }
         }
-        if (touchingTop && touchingBottom)
+        if (touchingTop && touchingBottom && bottomBun != null && topBun != null && bottomBun.tag != "Fallen" && topBun.tag != "Fallen")
         {
             BurgerCompleted();
         }
         CheckRange();
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.name == "Bottom_Bun(Clone)" && touchingBottom)
+        {
+            touchingBottom = false;
+            bottomBun = null;
+        }
     }
 
     bool TouchingBottom(Collision collision)
@@ -105,6 +125,10 @@ public class Meat : MonoBehaviour
 
     void BurgerCompleted()
     {
+        if (GetComponent<CookMeat>())
+        {
+            timeOnGrill = GetComponent<CookMeat>().GetTimeOnGrill();
+        }
         float percentage = (((maxTimeOnGrill / 2) - (Mathf.Abs(timeOnGrill - (maxTimeOnGrill / 2)))) / (maxTimeOnGrill / 2));
         int worth = Mathf.RoundToInt(maxAmountOfBurgers * percentage);
         if (worth == 0)
