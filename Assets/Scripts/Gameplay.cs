@@ -421,4 +421,9 @@ public class Gameplay : MonoBehaviour
         currentSurvivalTime = time;
         GetComponent<PlayerPrefsManager>().CheckSurvivalTime(time);
     }
+
+    public int GetTime()
+    {
+        return Mathf.RoundToInt(GetComponent<GrabAndThrowObject>().GetSurvivalTime());
+    }
 }

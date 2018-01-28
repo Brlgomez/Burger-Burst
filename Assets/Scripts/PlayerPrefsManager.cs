@@ -123,7 +123,15 @@ public class PlayerPrefsManager : MonoBehaviour
 
     public void CheckSurvivalTime(float time)
     {
-        int milliseconds = Mathf.RoundToInt(time * 1000);
+        int milliseconds;
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            milliseconds = Mathf.RoundToInt(time * 1000);
+        }
+        else
+        {
+            milliseconds = Mathf.RoundToInt(time * 100);
+        }
         IncreasePlayTimeInSeconds(Mathf.RoundToInt(time));
         if (milliseconds > PlayerPrefs.GetInt(longestSurvivalTime, 0))
         {
