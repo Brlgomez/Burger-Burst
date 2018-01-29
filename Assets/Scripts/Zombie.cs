@@ -700,7 +700,7 @@ public class Zombie : MonoBehaviour
                 halo2.enabled = true;
                 break;
             case "Death Zombie":
-                pointsMultiplier = 2;
+                pointsMultiplier = 3;
                 thisZombieType = ZombieType.instantKill;
                 powerParticles = upperBody.transform.GetChild(5).GetComponent<ParticleSystem>();
                 powerParticles.Play();

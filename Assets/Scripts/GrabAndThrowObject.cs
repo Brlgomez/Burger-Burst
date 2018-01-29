@@ -588,6 +588,7 @@ public class GrabAndThrowObject : MonoBehaviour
     {
         GetComponent<ZombieManager>().ResetValues();
         GetComponent<FloatingTextManagement>().DeleteAllText();
+        GetComponent<ZombieHeadManager>().DeleteAll();
         leftFryer.GetComponent<FryerBasket>().Restart();
         rightFryer.GetComponent<FryerBasket>().Restart();
         GameObject[] ingredients = GameObject.FindGameObjectsWithTag("Ingredient");

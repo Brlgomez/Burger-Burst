@@ -20,6 +20,7 @@ TagManager:
   - Lid
   - Basket
   - Dead Waiter
+  - Zombie Head
   layers:
   - Default
   - TransparentFX

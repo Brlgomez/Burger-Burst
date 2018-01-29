@@ -49,6 +49,13 @@ public class RemoveObjects : MonoBehaviour
                 col.transform.root.gameObject.GetComponent<Zombie>().AddToPlatter(gameObject);
             }
         }
+        else if (col.gameObject.tag == "Zombie Head" && gameObject.tag != "Fallen")
+        {
+            if (col.gameObject.GetComponent<ZombieHead>() != null)
+            {
+                col.gameObject.GetComponent<ZombieHead>().Hit(gameObject);
+            }
+        }
     }
 
     void OnTriggerExit(Collider col)

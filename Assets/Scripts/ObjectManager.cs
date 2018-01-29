@@ -7,14 +7,11 @@ public class ObjectManager : MonoBehaviour
     GameObject counterWall, grillWall, fryerWall, sodaWall;
     GameObject rightFryer, leftFryer, sodaFountain1, sodaFountain2, sodaFountain3;
     GameObject phone, led, powerUpsLed, coinsLed, highScoreLed, totalPointsLed;
-    GameObject fries, burger, drink;
-    GameObject meat, topBun, bottomBun, uncookedFries, friesBasket, cup, lid;
+    GameObject fries, burger, drink, meat, topBun, bottomBun, uncookedFries, friesBasket, cup, lid;
     GameObject foodTruck, titleSign;
     GameObject car, suv;
-    GameObject zombie;
-    GameObject blastParticles;
-    GameObject windParticles;
-    GameObject landOnZombieParticles;
+    GameObject zombie, zombieHead;
+    GameObject blastParticles, windParticles, landOnZombieParticles, headDeathParticles;
     GameObject coin, stereo, horn, vibratingDevice, postProcess;
 
     void Awake()
@@ -48,9 +45,11 @@ public class ObjectManager : MonoBehaviour
         car = GameObject.Find("Car");
         suv = GameObject.Find("Car2");
         zombie = GameObject.Find("Zombie");
+        zombieHead = GameObject.Find("Zombie Head");
         blastParticles = GameObject.Find("Blast Particles");
         windParticles = GameObject.Find("Wind Particles");
         landOnZombieParticles = GameObject.Find("Land on Zombie Particles");
+        headDeathParticles = GameObject.Find("Head Death Particles");
         coin = GameObject.Find("Coin");
         stereo = GameObject.Find("Speaker");
         horn = GameObject.Find("Horn");
@@ -115,6 +114,8 @@ public class ObjectManager : MonoBehaviour
 
     public GameObject Zombie() { return zombie; }
 
+    public GameObject ZombieHead() { return zombieHead; }
+
     public GameObject PowerUpsLed() { return powerUpsLed; }
 
     public GameObject BlastParticles() { return blastParticles; }
@@ -122,6 +123,8 @@ public class ObjectManager : MonoBehaviour
     public GameObject WindParticles() { return windParticles; }
 
     public GameObject LandOnZombieParticles() { return landOnZombieParticles; }
+
+    public GameObject HeadDeathParticles() { return headDeathParticles; }
 
     public GameObject Coin() { return coin; }
 

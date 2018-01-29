@@ -49,6 +49,10 @@ public class ZombieManager : MonoBehaviour
                     GetComponent<CarManager>().CreateNewCarWithNoZombie();
                 }
             }
+            if (Random.value > 0.95f)
+            {
+                GetComponent<ZombieHeadManager>().CreateZombieHead();
+            }
             time = 0;
         }
     }
