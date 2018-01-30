@@ -639,13 +639,17 @@ public class PlayerPrefsManager : MonoBehaviour
         graphicsLeft = graphicsCount - GetGraphicsUnlocked();
     }
 
-    public bool BoughtAllItems()
+    public float NotBoughtItemsPercentage()
     {
-        if (floorsLeft > 0 || wallsLeft > 0 || detailsLeft > 0 || powerUpsLeft > 0 || graphicsLeft > 0)
-        {
-            return false;
-        }
-        return true;
+        int allItems = (GetComponent<ThemeManager>().maxThemes * 3);
+        allItems += GetComponent<PowerUpsManager>().maxPowerUps;
+        allItems += GetComponent<GraphicsManager>().maxGraphics;
+        int itemsLeft = GetComponent<ThemeManager>().ItemsNotBought();
+        itemsLeft += GetComponent<PowerUpsManager>().PowerUpsNotBought();
+        itemsLeft += GetComponent<GraphicsManager>().GraphicsNotBought();
+        float percentage = Mathf.RoundToInt((((float)itemsLeft / allItems) * 100) * 10);
+        percentage /= 10;
+        return percentage;
     }
 
     public void SetTutorialThrow()

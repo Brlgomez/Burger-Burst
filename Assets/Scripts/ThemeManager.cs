@@ -92,4 +92,25 @@ public class ThemeManager : MonoBehaviour
     {
         details.mainTexture = (Texture)Resources.Load("Textures/Detail/Food Truck Detail " + (num + 1), typeof(Texture));
     }
+
+    public int ItemsNotBought()
+    {
+        int amount = 0;
+        for (int i = 0; i < maxThemes; i++)
+        {
+            if (flooringList[i].unlocked)
+            {
+                amount++;
+            }
+            if (wallList[i].unlocked)
+            {
+                amount++;
+            }
+            if (detailList[i].unlocked)
+            {
+                amount++;
+            }
+        }
+        return amount;
+    }
 }

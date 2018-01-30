@@ -431,6 +431,7 @@ ScreenTextManagment : MonoBehaviour
         middleObj.transform.GetChild(0).GetComponent<TextMesh>().text = "";
         GetComponent<VibrationManager>().SuccessTapticFeedback();
         GetComponent<SoundAndMusicManager>().PlayBoughtItemWithCoinsSound();
+        GetComponent<LEDManager>().NextUnlockText();
     }
 
     public void ChangeToGameOverText()

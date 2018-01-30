@@ -102,4 +102,17 @@ public class PowerUpsManager : MonoBehaviour
                 GetComponent<PowerUpsManager>().powerUpList[slot3PowerUp].sprite;
         }
     }
+
+    public int PowerUpsNotBought()
+    {
+        int amount = 0;
+        for (int i = 0; i < maxPowerUps; i++)
+        {
+            if (powerUpList[i].unlocked)
+            {
+                amount++;
+            }
+        }
+        return amount;
+    }
 }

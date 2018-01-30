@@ -56,13 +56,19 @@ public class LEDManager : MonoBehaviour
     {
         highScoreLed.GetComponent<TextMesh>().text = "High Score\n" + GetComponent<PlayerPrefsManager>().GetHighScore().ToString("n0");
         totalScoreLed.GetComponent<TextMesh>().text = "Total Points\n" + GetComponent<PlayerPrefsManager>().GetTotalPoints().ToString("n0");
+        NextUnlockText();
+    }
+
+    public void NextUnlockText()
+    {
         if (GetComponent<PlayerPrefsManager>().PointsToNextUpgrade() > -1)
         {
-            nextUnlockLed.GetComponent<TextMesh>().text = "Next Unlock\n" + GetComponent<PlayerPrefsManager>().PointsToNextUpgrade().ToString("n0");
+            nextUnlockLed.GetComponent<TextMesh>().text = "Next Item\n" + GetComponent<PlayerPrefsManager>().PointsToNextUpgrade().ToString("n0");
         }
         else
         {
             nextUnlockLed.GetComponent<TextMesh>().text = "All Items\nAvailable";
+            unlockedLed.GetComponent<TextMesh>().text = GetComponent<PlayerPrefsManager>().NotBoughtItemsPercentage() + " %\nUnlocked";
         }
     }
 
@@ -90,7 +96,7 @@ public class LEDManager : MonoBehaviour
 
     public void MakeUnlockTextBlink()
     {
-        if (unlockedLed.GetComponent<TextMesh>().text != "")
+        if (unlockedLed.GetComponent<TextMesh>().text != "" && !unlockedLed.GetComponent<TextMesh>().text.Contains("%"))
         {
             if (unlockedLed.GetComponent<PingPongColor>() == null)
             {

@@ -70,8 +70,8 @@ public class GraphicsManager : MonoBehaviour
                 GetComponent<UnityStandardAssets.ImageEffects.EdgeDetection>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.SepiaTone>().enabled = false;
                 GetComponent<UnityStandardAssets.ImageEffects.BloomOptimized>().enabled = false;
-				GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionRamp>().enabled = true;
-				GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionRamp>().textureRamp = summer;
+                GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionRamp>().enabled = true;
+                GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionRamp>().textureRamp = summer;
                 break;
             case 2:
                 GetComponent<Pixelate>().enabled = true;
@@ -156,5 +156,18 @@ public class GraphicsManager : MonoBehaviour
                 GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionRamp>().enabled = false;
                 break;
         }
+    }
+
+    public int GraphicsNotBought()
+    {
+        int amount = 0;
+        for (int i = 0; i < maxGraphics; i++)
+        {
+            if (graphicList[i].unlocked)
+            {
+                amount++;
+            }
+        }
+        return amount;
     }
 }
