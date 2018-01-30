@@ -67,8 +67,9 @@ public class LEDManager : MonoBehaviour
         }
         else
         {
+            float percentage = GetComponent<PlayerPrefsManager>().NotBoughtItemsPercentage();
             nextUnlockLed.GetComponent<TextMesh>().text = "All Items\nAvailable";
-            unlockedLed.GetComponent<TextMesh>().text = GetComponent<PlayerPrefsManager>().NotBoughtItemsPercentage() + " %\nUnlocked";
+            unlockedLed.GetComponent<TextMesh>().text = percentage.ToString("F1") + " %\nUnlocked";
         }
     }
 

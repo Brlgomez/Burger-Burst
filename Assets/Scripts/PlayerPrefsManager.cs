@@ -559,7 +559,7 @@ public class PlayerPrefsManager : MonoBehaviour
 
     void IncreaseNextUnlock()
     {
-        PlayerPrefs.SetInt(nextUnlock, Mathf.RoundToInt((UnityEngine.Random.Range(1, 4) + GetNextUnlock()) + 100));
+        PlayerPrefs.SetInt(nextUnlock, Mathf.RoundToInt((UnityEngine.Random.Range(1, 3) + GetNextUnlock()) + 100));
     }
 
     public string CheckIfAnythingUnlocked()
@@ -647,8 +647,7 @@ public class PlayerPrefsManager : MonoBehaviour
         int itemsLeft = GetComponent<ThemeManager>().ItemsNotBought();
         itemsLeft += GetComponent<PowerUpsManager>().PowerUpsNotBought();
         itemsLeft += GetComponent<GraphicsManager>().GraphicsNotBought();
-        float percentage = Mathf.RoundToInt((((float)itemsLeft / allItems) * 100) * 10);
-        percentage /= 10;
+        float percentage = ((float)itemsLeft / allItems) * 100;
         return percentage;
     }
 
