@@ -36,6 +36,7 @@ public class GameplayMenu : MonoBehaviour
 
     void GameplayPhoneInterface(GameObject obj)
     {
+        GetComponent<TutorialManager>().DeactivateCounterTapping();
         switch (obj.name)
         {
             case "Second Button":

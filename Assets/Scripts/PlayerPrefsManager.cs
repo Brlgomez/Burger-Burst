@@ -35,6 +35,8 @@ public class PlayerPrefsManager : MonoBehaviour
     static string wallsUnlocked = "WallpapersUnlocked";
     static string detailsUnlocked = "DetailsUnlocked";
     static string nextUnlock = "NextUnlock";
+    static string tutorialThrow = "TutorialThrow";
+    static string tutorialTap = "TutorialTap";
     int floorsLeft, wallsLeft, detailsLeft, powerUpsLeft, graphicsLeft;
 
     void Start()
@@ -635,6 +637,35 @@ public class PlayerPrefsManager : MonoBehaviour
         detailsLeft = themeCount - GetDetailUnlocked();
         powerUpsLeft = powerUpCount - GetPowerUpsUnlocked();
         graphicsLeft = graphicsCount - GetGraphicsUnlocked();
+    }
+
+    public bool BoughtAllItems()
+    {
+        if (floorsLeft > 0 || wallsLeft > 0 || detailsLeft > 0 || powerUpsLeft > 0 || graphicsLeft > 0)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    public void SetTutorialThrow()
+    {
+        PlayerPrefs.SetInt(tutorialThrow, 1);
+    }
+
+    public int GetTutorialThrow()
+    {
+        return PlayerPrefs.GetInt(tutorialThrow, 0);
+    }
+
+    public void SetTutorialTap()
+    {
+        PlayerPrefs.SetInt(tutorialTap, 1);
+    }
+
+    public int GetTutorialTap()
+    {
+        return PlayerPrefs.GetInt(tutorialTap, 0);
     }
 
     public void LoadPlayerPrefsFromSave(byte[] gameSave)

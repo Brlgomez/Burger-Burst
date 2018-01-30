@@ -144,6 +144,7 @@ public class CameraMovement : MonoBehaviour
         }
         if (gameplay)
         {
+            GetComponent<TutorialManager>().ActivateCounterThrowing();
             switch (gamePlayCommand)
             {
                 case "Restart":

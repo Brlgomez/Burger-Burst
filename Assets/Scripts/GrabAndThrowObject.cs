@@ -423,6 +423,10 @@ public class GrabAndThrowObject : MonoBehaviour
                 float yVelocity = diff.y * 5;
                 float zVelocity = diff.z * 17.5f;
                 Vector3 newVelocity = new Vector3(xVelocity, yVelocity, zVelocity);
+                if (newVelocity.magnitude > 5)
+                {
+                    GetComponent<TutorialManager>().DeactivateCounterThrowing();
+                }
                 if (newVelocity.magnitude > (throwingDistance * 0.66f))
                 {
                     newVelocity *= ((throwingDistance * 0.66f) / newVelocity.magnitude);
