@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class Zombie : MonoBehaviour
 {
@@ -812,11 +811,12 @@ public class Zombie : MonoBehaviour
 
     void OrderBubbleScale()
     {
-        thinkBubble.GetComponent<SpriteRenderer>().sortingOrder = -Mathf.RoundToInt(transform.position.z * 100) - 200;
-        thinkBubble.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = -Mathf.RoundToInt(transform.position.z * 100) - 199;
-        thinkBubble.transform.GetChild(1).GetComponent<SpriteRenderer>().sortingOrder = -Mathf.RoundToInt(transform.position.z * 100) - 199;
-        thinkBubble.transform.GetChild(2).GetComponent<SpriteRenderer>().sortingOrder = -Mathf.RoundToInt(transform.position.z * 100) - 198;
-        thinkBubble.transform.GetChild(3).GetComponent<SpriteRenderer>().sortingOrder = -Mathf.RoundToInt(transform.position.z * 100) - 197;
+        int order = -Mathf.RoundToInt(transform.position.z * 100);
+        thinkBubble.GetComponent<SpriteRenderer>().sortingOrder = order - 200;
+        thinkBubble.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = order - 199;
+        thinkBubble.transform.GetChild(1).GetComponent<SpriteRenderer>().sortingOrder = order - 199;
+        thinkBubble.transform.GetChild(2).GetComponent<SpriteRenderer>().sortingOrder = order - 198;
+        thinkBubble.transform.GetChild(3).GetComponent<SpriteRenderer>().sortingOrder = order - 197;
         if (thinkBubble.transform.localScale.x > bubbleMinScale)
         {
             if ((head.transform.position.z - endingZ) / (startingZ - endingZ) > bubbleMinScale)
