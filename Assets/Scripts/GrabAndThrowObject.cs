@@ -19,10 +19,13 @@ public class GrabAndThrowObject : MonoBehaviour
     bool frozen;
     bool gameOver, paused;
     float survivalTime;
+    Quaternion currentRotation;
+
     //float screenSizeVelocity;
 
     void Start()
     {
+        currentRotation = GetComponent<PositionManager>().GameplayPosition().rotation;
         counterWall = GetComponent<ObjectManager>().CounterWall();
         grillWall = GetComponent<ObjectManager>().GrillWall();
         fryerWall = GetComponent<ObjectManager>().FryerWall();
@@ -67,35 +70,61 @@ public class GrabAndThrowObject : MonoBehaviour
             GetComponent<WindManager>().WindUpdate(updateInterval);
             GetComponent<SoundAndMusicManager>().CheckIfMusicPlaying();
         }
+        if (GetComponent<CameraMovement>() == null && !gameOver)
+        {
+            Vector3 currRot = currentRotation.eulerAngles;
+            Vector3 gyro = Input.gyro.rotationRateUnbiased;
+            float newX = -gyro.x / 4;
+            float newY = -gyro.y / 4;
+            transform.Rotate(newX, newY, 0);
+            transform.eulerAngles = new Vector3(
+                ClampAngle(transform.eulerAngles.x, currRot.x - 10, currRot.x + 10),
+                ClampAngle(transform.eulerAngles.y, currRot.y - 10, currRot.y + 10),
+                0
+            );
+        }
+        Debugging();
+    }
 
-        if (Input.GetKeyDown("d") && !gameOver)
-            GetComponent<Gameplay>().ReduceHealth(10, gameObject);
-        if (Input.GetKeyDown("p") && !gameOver)
-            GetComponent<PlayerPrefsManager>().IncreaseTotalPoints(100);
-        if (Input.GetKeyDown("h") && !gameOver)
-            GetComponent<Gameplay>().AddLife(15, gameObject);
-        if (Input.GetKeyDown("q") && !gameOver)
+    //https://answers.unity.com/questions/659932/how-do-i-clamp-my-rotation.html
+    public static float ClampAngle(float angle, float min, float max)
+    {
+        angle = Mathf.Repeat(angle, 360);
+        min = Mathf.Repeat(min, 360);
+        max = Mathf.Repeat(max, 360);
+        bool inverse = false;
+        var tmin = min;
+        var tangle = angle;
+        if (min > 180)
         {
-            if (Camera.main.transform.GetComponent<Poisoned>())
-            {
-                Camera.main.transform.GetComponent<Poisoned>().ResetTime();
-            }
-            else
-            {
-                Camera.main.transform.gameObject.AddComponent<Poisoned>();
-            }
+            inverse = !inverse;
+            tmin -= 180;
         }
-        if (Input.GetKeyDown("w") && !gameOver)
+        if (angle > 180)
         {
-            if (Camera.main.GetComponent<Frozen>())
-            {
-                Camera.main.GetComponent<Frozen>().RestartTime();
-            }
-            else
-            {
-                Camera.main.gameObject.AddComponent<Frozen>();
-            }
+            inverse = !inverse;
+            tangle -= 180;
         }
+        var result = !inverse ? tangle > tmin : tangle < tmin;
+        if (!result)
+            angle = min;
+        inverse = false;
+        tangle = angle;
+        var tmax = max;
+        if (angle > 180)
+        {
+            inverse = !inverse;
+            tangle -= 180;
+        }
+        if (max > 180)
+        {
+            inverse = !inverse;
+            tmax -= 180;
+        }
+        result = !inverse ? tangle < tmax : tangle > tmax;
+        if (!result)
+            angle = max;
+        return angle;
     }
 
     void MouseDown()
@@ -668,5 +697,42 @@ public class GrabAndThrowObject : MonoBehaviour
     public void SetSurvivalTime(float time)
     {
         survivalTime = time;
+    }
+
+    public void SetRotation(Quaternion rot)
+    {
+        currentRotation = rot;
+    }
+
+    void Debugging()
+    {
+        if (Input.GetKeyDown("d") && !gameOver)
+            GetComponent<Gameplay>().ReduceHealth(10, gameObject);
+        if (Input.GetKeyDown("p") && !gameOver)
+            GetComponent<PlayerPrefsManager>().IncreaseTotalPoints(100);
+        if (Input.GetKeyDown("h") && !gameOver)
+            GetComponent<Gameplay>().AddLife(15, gameObject);
+        if (Input.GetKeyDown("q") && !gameOver)
+        {
+            if (Camera.main.transform.GetComponent<Poisoned>())
+            {
+                Camera.main.transform.GetComponent<Poisoned>().ResetTime();
+            }
+            else
+            {
+                Camera.main.transform.gameObject.AddComponent<Poisoned>();
+            }
+        }
+        if (Input.GetKeyDown("w") && !gameOver)
+        {
+            if (Camera.main.GetComponent<Frozen>())
+            {
+                Camera.main.GetComponent<Frozen>().RestartTime();
+            }
+            else
+            {
+                Camera.main.gameObject.AddComponent<Frozen>();
+            }
+        }
     }
 }

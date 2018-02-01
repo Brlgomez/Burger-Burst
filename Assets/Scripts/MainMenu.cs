@@ -12,9 +12,12 @@ public class MainMenu : MonoBehaviour
     bool changeScrollerObjects;
     GameObject currentSlot;
     int slotPosition = 1;
+    Quaternion currentRotation;
 
     void Start()
     {
+        currentRotation = GetComponent<PositionManager>().MenuPosition().rotation;
+        Input.gyro.enabled = true;
         Application.targetFrameRate = 60;
         Input.multiTouchEnabled = false;
         if (GetComponent<ScreenTextManagment>().GetMenu() == Menus.Menu.PhoneDown)
@@ -47,6 +50,19 @@ public class MainMenu : MonoBehaviour
         if (Time.frameCount % updateInterval == 0)
         {
             GetComponent<SoundAndMusicManager>().CheckIfMusicPlaying();
+        }
+        if (GetComponent<CameraMovement>() == null)
+        {
+            Vector3 currRot = currentRotation.eulerAngles;
+            Vector3 gyro = Input.gyro.rotationRateUnbiased;
+            float newX = -gyro.x / 4;
+            float newY = -gyro.y / 4;
+            transform.Rotate(newX, newY, 0);
+            transform.eulerAngles = new Vector3(
+                ClampAngle2(transform.eulerAngles.x, currRot.x - 10, currRot.x + 10),
+                ClampAngle2(transform.eulerAngles.y, currRot.y - 10, currRot.y + 10),
+                0
+            );
         }
     }
 
@@ -799,5 +815,50 @@ public class MainMenu : MonoBehaviour
             return hit.collider.gameObject;
         }
         return null;
+    }
+
+    public static float ClampAngle2(float angle, float min, float max)
+    {
+        angle = Mathf.Repeat(angle, 360);
+        min = Mathf.Repeat(min, 360);
+        max = Mathf.Repeat(max, 360);
+        bool inverse = false;
+        var tmin = min;
+        var tangle = angle;
+        if (min > 180)
+        {
+            inverse = !inverse;
+            tmin -= 180;
+        }
+        if (angle > 180)
+        {
+            inverse = !inverse;
+            tangle -= 180;
+        }
+        var result = !inverse ? tangle > tmin : tangle < tmin;
+        if (!result)
+            angle = min;
+        inverse = false;
+        tangle = angle;
+        var tmax = max;
+        if (angle > 180)
+        {
+            inverse = !inverse;
+            tangle -= 180;
+        }
+        if (max > 180)
+        {
+            inverse = !inverse;
+            tmax -= 180;
+        }
+        result = !inverse ? tangle < tmax : tangle > tmax;
+        if (!result)
+            angle = max;
+        return angle;
+    }
+
+    public void SetRotation(Quaternion rot)
+    {
+        currentRotation = rot;
     }
 }

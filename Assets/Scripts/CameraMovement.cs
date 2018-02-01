@@ -132,6 +132,14 @@ public class CameraMovement : MonoBehaviour
     {
         transform.position = towards.transform.position;
         transform.rotation = towards.transform.rotation;
+        if (GetComponent<GrabAndThrowObject>() != null)
+        {
+            GetComponent<GrabAndThrowObject>().SetRotation(towards.transform.rotation);
+        }
+        if (GetComponent<MainMenu>() != null)
+        {
+            GetComponent<MainMenu>().SetRotation(towards.transform.rotation);
+        }
         if (moveDevice)
         {
             transform.GetChild(1).localPosition = deviceTowards.localPosition;

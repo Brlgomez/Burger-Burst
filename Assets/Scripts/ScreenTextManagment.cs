@@ -54,7 +54,7 @@ ScreenTextManagment : MonoBehaviour
         EnableButton(line2, "Power Ups", powerUpSprite, Color.white);
         EnableButton(line3, "Customize", customizSprite, Color.white);
         EnableButton(line4, "Store", storeSprite, Color.white);
-        EnableButton(line5, "Stuff", other, Color.white);
+        EnableButton(line5, "Other", other, Color.white);
         TurnOffScrollList();
         TurnOffGameplayImages();
         GetComponent<LEDManager>().MakeUnlockTextBlink();

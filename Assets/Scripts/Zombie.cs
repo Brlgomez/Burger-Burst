@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Zombie : MonoBehaviour
 {
-    int updateInterval = 2;
+    int updateInterval = 1;
 
     int neededBurgers, neededFries, neededDrinks;
     int amountOfBurgers, amountOfFries, amountOfDrinks;
@@ -44,6 +44,7 @@ public class Zombie : MonoBehaviour
     ZombieSize thisZombieSize = ZombieSize.normal;
 
     Renderer myRenderer;
+    bool isVisible = true;
 
     void Awake()
     {
@@ -82,8 +83,29 @@ public class Zombie : MonoBehaviour
     {
         if (Time.frameCount % updateInterval == 0)
         {
+            if (!orderComplete && !frozen && isVisible)
+            {
+                if (head.transform.position.z > endingZ)
+                {
+                    leftHand.GetComponent<Rigidbody>().AddRelativeForce(-leftHand.transform.forward * Random.Range(20, 25));
+                    rightHand.GetComponent<Rigidbody>().AddRelativeForce(-rightHand.transform.forward * Random.Range(20, 25));
+                }
+                else if (head.transform.position.z <= endingZ)
+                {
+                    leftHand.GetComponent<Rigidbody>().AddRelativeForce(-leftHand.transform.forward * Random.Range(5, 10));
+                    rightHand.GetComponent<Rigidbody>().AddRelativeForce(-rightHand.transform.forward * Random.Range(5, 10));
+                }
+            }
+        }
+    }
+
+    void Update()
+    {
+        if (Time.frameCount % updateInterval == 0)
+        {
             if (!orderComplete && !frozen)
             {
+                IncreaseIdleSoundTimer();
                 if (head.transform.position.z > endingZ)
                 {
                     Walk();
@@ -92,7 +114,6 @@ public class Zombie : MonoBehaviour
                 {
                     NearFoodTruck();
                 }
-                IncreaseIdleSoundTimer();
             }
             if (orderComplete)
             {
@@ -101,7 +122,8 @@ public class Zombie : MonoBehaviour
             if (myRenderer.isVisible)
             {
                 updateInterval = 2;
-                OrderBubbleScale();
+				isVisible = true;
+				OrderBubbleScale();
                 if (powerParticles != null && powerParticles.isPaused)
                 {
                     powerParticles.Play();
@@ -109,7 +131,8 @@ public class Zombie : MonoBehaviour
             }
             else
             {
-                updateInterval = 6;
+                isVisible = false;
+				updateInterval = 6;
                 if (powerParticles != null && powerParticles.isPlaying)
                 {
                     powerParticles.Pause();
@@ -128,8 +151,6 @@ public class Zombie : MonoBehaviour
 
     void Walk()
     {
-        leftHand.GetComponent<Rigidbody>().AddRelativeForce(-leftHand.transform.forward * Random.Range(20, 25));
-        rightHand.GetComponent<Rigidbody>().AddRelativeForce(-rightHand.transform.forward * Random.Range(20, 25));
         if (Mathf.Round(head.transform.position.z) < endingZ - 0.25f)
         {
             GetComponent<Animator>().SetBool("Attacking", true);
@@ -145,6 +166,40 @@ public class Zombie : MonoBehaviour
                 transform.position, transform.position + transform.forward, Time.deltaTime * speed * updateInterval);
             GetComponent<Animator>().SetFloat("Speed", speed * animationSpeed);
             speed = originalSpeed;
+        }
+    }
+
+    void NearFoodTruck()
+    {
+        GetComponent<Animator>().SetFloat("Speed", 0);
+        damageTime += Time.deltaTime * updateInterval;
+        if (rightThigh.GetComponent<Rigidbody>().isKinematic)
+        {
+            rightThigh.GetComponent<Rigidbody>().isKinematic = false;
+            rightThigh.GetComponent<Rigidbody>().useGravity = true;
+            leftThigh.GetComponent<Rigidbody>().isKinematic = false;
+            leftThigh.GetComponent<Rigidbody>().useGravity = true;
+            upperBody.GetComponent<ConstantForce>().force = new Vector3(0, 150, 0);
+            rightFoot.GetComponent<ConstantForce>().force = new Vector3(0, -100, 0);
+            leftFoot.GetComponent<ConstantForce>().force = new Vector3(0, -100, 0);
+        }
+        if (damageTime > timeForDamage && playAttack)
+        {
+            if (Random.value > 0.5f)
+            {
+                GetComponent<Animator>().Play("Attack");
+            }
+            else
+            {
+                GetComponent<Animator>().Play("Attack Left");
+            }
+            playAttack = false;
+        }
+        if (damageTime > (timeForDamage + 0.25f))
+        {
+            ZombieDamageTypes();
+            damageTime = 0;
+            playAttack = true;
         }
     }
 
@@ -182,42 +237,6 @@ public class Zombie : MonoBehaviour
         if (ragDollTime < 0)
         {
             Camera.main.GetComponent<ZombieManager>().RemoveWaiter(gameObject);
-        }
-    }
-
-    void NearFoodTruck()
-    {
-        leftHand.GetComponent<Rigidbody>().AddRelativeForce(-leftHand.transform.forward * Random.Range(5, 10));
-        rightHand.GetComponent<Rigidbody>().AddRelativeForce(-rightHand.transform.forward * Random.Range(5, 10));
-        GetComponent<Animator>().SetFloat("Speed", 0);
-        damageTime += Time.deltaTime * updateInterval;
-        if (rightThigh.GetComponent<Rigidbody>().isKinematic)
-        {
-            rightThigh.GetComponent<Rigidbody>().isKinematic = false;
-            rightThigh.GetComponent<Rigidbody>().useGravity = true;
-            leftThigh.GetComponent<Rigidbody>().isKinematic = false;
-            leftThigh.GetComponent<Rigidbody>().useGravity = true;
-            upperBody.GetComponent<ConstantForce>().force = new Vector3(0, 150, 0);
-            rightFoot.GetComponent<ConstantForce>().force = new Vector3(0, -100, 0);
-            leftFoot.GetComponent<ConstantForce>().force = new Vector3(0, -100, 0);
-        }
-        if (damageTime > timeForDamage && playAttack)
-        {
-            if (Random.value > 0.5f)
-            {
-                GetComponent<Animator>().Play("Attack");
-            }
-            else
-            {
-                GetComponent<Animator>().Play("Attack Left");
-            }
-            playAttack = false;
-        }
-        if (damageTime > (timeForDamage + 0.25f))
-        {
-            ZombieDamageTypes();
-            damageTime = 0;
-            playAttack = true;
         }
     }
 

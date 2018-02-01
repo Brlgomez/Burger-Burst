@@ -49,7 +49,7 @@ public class ZombieManager : MonoBehaviour
                     GetComponent<CarManager>().CreateNewCarWithNoZombie();
                 }
             }
-            if (Random.value > 0.95f)
+            if (Random.value > 0.95f && GetComponent<Gameplay>().GetCompletedOrdersCount() > 5)
             {
                 GetComponent<ZombieHeadManager>().CreateZombieHead();
             }
@@ -122,7 +122,7 @@ public class ZombieManager : MonoBehaviour
         }
         else
         {
-            if (Random.value > 0.95f)
+            if (Random.value > 0.95f && GetComponent<Gameplay>().GetMaxLife() > GetComponent<Gameplay>().GetLife())
             {
                 newOutfit = healthOutfit;
 
