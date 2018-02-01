@@ -51,7 +51,7 @@ public class MainMenu : MonoBehaviour
         {
             GetComponent<SoundAndMusicManager>().CheckIfMusicPlaying();
         }
-        if (GetComponent<CameraMovement>() == null)
+        if (GetComponent<CameraMovement>() == null && SystemInfo.supportsGyroscope)
         {
             Vector3 currRot = currentRotation.eulerAngles;
             Vector3 gyro = Input.gyro.rotationRateUnbiased;

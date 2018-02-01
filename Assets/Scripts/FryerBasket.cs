@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class FryerBasket : MonoBehaviour
 {
-    bool down = true;
     float heightLimit;
     float bottomLimit;
 
@@ -14,30 +13,8 @@ public class FryerBasket : MonoBehaviour
         heightLimit = bottomLimit + 0.325f;
     }
 
-    public void PressedButton()
-    {
-        Camera.main.GetComponent<VibrationManager>().LightTapticFeedback();
-        down = !down;
-        if (gameObject.GetComponent<FryerLift>() != null)
-        {
-            Destroy(gameObject.GetComponent<FryerLift>());
-        }
-        gameObject.AddComponent<FryerLift>().Direction(down);
-    }
-
-    public float GetBottomLimit()
-    {
-        return bottomLimit;
-    }
-
-    public float GetHeightLimit()
-    {
-        return heightLimit;
-    }
-
     public void Restart()
     {
-        down = true;
         transform.position = new Vector3(transform.position.x, bottomLimit, transform.position.z);
     }
 }

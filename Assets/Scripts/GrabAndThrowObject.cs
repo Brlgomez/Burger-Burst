@@ -6,7 +6,7 @@ public class GrabAndThrowObject : MonoBehaviour
 {
     static int updateInterval = 30;
 
-    GameObject target, counterWall, grillWall, fryerWall, sodaWall, phone;
+    GameObject target, counterWall, grillWall, fryerWall, fryerHandleWall, sodaWall, phone;
     GameObject rightFryer, leftFryer, sodaFountain1, sodaFountain2, sodaFountain3;
     List<Vector3> positions = new List<Vector3>();
     Vector3 direction;
@@ -29,6 +29,7 @@ public class GrabAndThrowObject : MonoBehaviour
         counterWall = GetComponent<ObjectManager>().CounterWall();
         grillWall = GetComponent<ObjectManager>().GrillWall();
         fryerWall = GetComponent<ObjectManager>().FryerWall();
+        fryerHandleWall = GetComponent<ObjectManager>().FryerHandleWall();
         sodaWall = GetComponent<ObjectManager>().SodaWall();
         rightFryer = GetComponent<ObjectManager>().RightFryer();
         leftFryer = GetComponent<ObjectManager>().LeftFryer();
@@ -70,7 +71,7 @@ public class GrabAndThrowObject : MonoBehaviour
             GetComponent<WindManager>().WindUpdate(updateInterval);
             GetComponent<SoundAndMusicManager>().CheckIfMusicPlaying();
         }
-        if (GetComponent<CameraMovement>() == null && !gameOver)
+        if (GetComponent<CameraMovement>() == null && !gameOver && SystemInfo.supportsGyroscope)
         {
             Vector3 currRot = currentRotation.eulerAngles;
             Vector3 gyro = Input.gyro.rotationRateUnbiased;
@@ -86,47 +87,6 @@ public class GrabAndThrowObject : MonoBehaviour
         Debugging();
     }
 
-    //https://answers.unity.com/questions/659932/how-do-i-clamp-my-rotation.html
-    public static float ClampAngle(float angle, float min, float max)
-    {
-        angle = Mathf.Repeat(angle, 360);
-        min = Mathf.Repeat(min, 360);
-        max = Mathf.Repeat(max, 360);
-        bool inverse = false;
-        var tmin = min;
-        var tangle = angle;
-        if (min > 180)
-        {
-            inverse = !inverse;
-            tmin -= 180;
-        }
-        if (angle > 180)
-        {
-            inverse = !inverse;
-            tangle -= 180;
-        }
-        var result = !inverse ? tangle > tmin : tangle < tmin;
-        if (!result)
-            angle = min;
-        inverse = false;
-        tangle = angle;
-        var tmax = max;
-        if (angle > 180)
-        {
-            inverse = !inverse;
-            tangle -= 180;
-        }
-        if (max > 180)
-        {
-            inverse = !inverse;
-            tmax -= 180;
-        }
-        result = !inverse ? tangle < tmax : tangle > tmax;
-        if (!result)
-            angle = max;
-        return angle;
-    }
-
     void MouseDown()
     {
         positions.Clear();
@@ -134,6 +94,7 @@ public class GrabAndThrowObject : MonoBehaviour
         grillWall.GetComponent<Collider>().enabled = false;
         fryerWall.GetComponent<Collider>().enabled = false;
         sodaWall.GetComponent<Collider>().enabled = false;
+        fryerHandleWall.GetComponent<Collider>().enabled = false;
         RaycastHit hitInfo;
         target = ReturnClickedObject(out hitInfo);
         if (target != null && !paused)
@@ -282,7 +243,7 @@ public class GrabAndThrowObject : MonoBehaviour
     {
         if (GetComponent<Frozen>() == null)
         {
-            if (obj.name == "Right Fryer Button" || obj.name == "Left Fryer Button" || obj.tag == "Basket")
+            if (obj.tag == "Basket" || obj.name == "Fryer Handle")
             {
                 return obj;
             }
@@ -380,6 +341,11 @@ public class GrabAndThrowObject : MonoBehaviour
                 GetComponent<SoundAndMusicManager>().PlayDropBasketSound(target, 0.25f);
             }
         }
+        else if (target.name == "Fryer Handle")
+        {
+            fryerHandleWall.GetComponent<Collider>().enabled = true;
+            target.GetComponent<Collider>().enabled = false;
+        }
     }
 
     void MouseDownSodaMachine()
@@ -425,6 +391,25 @@ public class GrabAndThrowObject : MonoBehaviour
         if (target.tag == "Fries" || target.tag == "Basket")
         {
             ScreenPointToRayCalc(fryerWall);
+        }
+        if (target.name == "Fryer Handle")
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray.origin, ray.direction, out hit, 2.5f))
+            {
+                if (hit.transform.gameObject == fryerHandleWall)
+                {
+                    float y = hit.point.y;
+                    y = Mathf.Clamp(y, target.transform.position.y - 0.025f, target.transform.position.y + 0.025f);
+                    y = Mathf.Clamp(y, 1.625f, 2);
+                    target.transform.parent.transform.position = new Vector3(
+                        target.transform.parent.transform.position.x,
+                        y,
+                        target.transform.parent.transform.position.z
+                    );
+                }
+            }
         }
     }
 
@@ -484,18 +469,6 @@ public class GrabAndThrowObject : MonoBehaviour
 
     void MouseUpFryer()
     {
-        if (target.name == "Left Fryer Button")
-        {
-            target.GetComponent<Animator>().Play("ButtonClick");
-            leftFryer.GetComponent<FryerBasket>().PressedButton();
-            GetComponent<SoundAndMusicManager>().PlayButtonSound(target);
-        }
-        if (target.name == "Right Fryer Button")
-        {
-            target.GetComponent<Animator>().Play("ButtonClick");
-            rightFryer.GetComponent<FryerBasket>().PressedButton();
-            GetComponent<SoundAndMusicManager>().PlayButtonSound(target);
-        }
         if (target.tag == "Fries" || target.tag == "Basket")
         {
             target.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
@@ -506,6 +479,11 @@ public class GrabAndThrowObject : MonoBehaviour
             {
                 target.GetComponent<Rigidbody>().velocity = GetVelocity();
             }
+        }
+        if (target.name == "Fryer Handle")
+        {
+            fryerHandleWall.GetComponent<Collider>().enabled = false;
+            target.GetComponent<Collider>().enabled = true;
         }
     }
 
@@ -702,6 +680,47 @@ public class GrabAndThrowObject : MonoBehaviour
     public void SetRotation(Quaternion rot)
     {
         currentRotation = rot;
+    }
+
+    //https://answers.unity.com/questions/659932/how-do-i-clamp-my-rotation.html
+    public static float ClampAngle(float angle, float min, float max)
+    {
+        angle = Mathf.Repeat(angle, 360);
+        min = Mathf.Repeat(min, 360);
+        max = Mathf.Repeat(max, 360);
+        bool inverse = false;
+        var tmin = min;
+        var tangle = angle;
+        if (min > 180)
+        {
+            inverse = !inverse;
+            tmin -= 180;
+        }
+        if (angle > 180)
+        {
+            inverse = !inverse;
+            tangle -= 180;
+        }
+        var result = !inverse ? tangle > tmin : tangle < tmin;
+        if (!result)
+            angle = min;
+        inverse = false;
+        tangle = angle;
+        var tmax = max;
+        if (angle > 180)
+        {
+            inverse = !inverse;
+            tangle -= 180;
+        }
+        if (max > 180)
+        {
+            inverse = !inverse;
+            tmax -= 180;
+        }
+        result = !inverse ? tangle < tmax : tangle > tmax;
+        if (!result)
+            angle = max;
+        return angle;
     }
 
     void Debugging()

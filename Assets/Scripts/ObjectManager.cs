@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ObjectManager : MonoBehaviour
 {
-    GameObject counterWall, grillWall, fryerWall, sodaWall;
+    GameObject counterWall, grillWall, fryerWall, sodaWall, fryerHandleWall;
     GameObject rightFryer, leftFryer, sodaFountain1, sodaFountain2, sodaFountain3;
     GameObject phone, led, powerUpsLed, coinsLed, highScoreLed, totalPointsLed;
     GameObject fries, burger, drink, meat, topBun, bottomBun, uncookedFries, friesBasket, cup, lid;
@@ -19,6 +19,7 @@ public class ObjectManager : MonoBehaviour
         counterWall = GameObject.Find("Counter Wall");
         grillWall = GameObject.Find("Grill Wall");
         fryerWall = GameObject.Find("Fryer Wall");
+        fryerHandleWall = GameObject.Find("Fryer Handle Wall");
         sodaWall = GameObject.Find("Soda Wall");
         rightFryer = GameObject.Find("Fryer Basket Right");
         leftFryer = GameObject.Find("Fryer Basket Left");
@@ -63,6 +64,8 @@ public class ObjectManager : MonoBehaviour
     public GameObject GrillWall() { return grillWall; }
 
     public GameObject FryerWall() { return fryerWall; }
+
+    public GameObject FryerHandleWall() { return fryerHandleWall; }
 
     public GameObject SodaWall() { return sodaWall; }
 
