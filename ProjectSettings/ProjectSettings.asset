@@ -164,7 +164,7 @@ PlayerSettings:
     iOS: com.brandongomez.undeadcatering
   buildNumber:
     iOS: 3
-  AndroidBundleVersionCode: 18
+  AndroidBundleVersionCode: 19
   AndroidMinSdkVersion: 16
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1

@@ -432,7 +432,7 @@ public class SoundAndMusicManager : MonoBehaviour
     {
         if (canPlaySound)
         {
-            PlayClipAt(zombieIdleNoises[Random.Range(0, zombieIdleNoises.Length)], obj.transform.position, 1, pitch);
+            PlayClipAt(zombieIdleNoises[Random.Range(0, zombieIdleNoises.Length)], obj.transform.position, 0.75f, pitch);
         }
     }
 
@@ -440,7 +440,7 @@ public class SoundAndMusicManager : MonoBehaviour
     {
         if (canPlaySound)
         {
-            PlayClipAt(zombieGruntNoises[Random.Range(0, zombieGruntNoises.Length)], obj.transform.position, 1, pitch);
+            PlayClipAt(zombieGruntNoises[Random.Range(0, zombieGruntNoises.Length)], obj.transform.position, 1.25f, pitch);
         }
     }
 

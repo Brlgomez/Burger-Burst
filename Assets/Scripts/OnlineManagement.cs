@@ -68,6 +68,10 @@ public class OnlineManagement : MonoBehaviour
                 PushAllLeaderboards();
                 Social.ShowLeaderboardUI();
             }
+            else
+            {
+                LogIn();
+            }
         });
     }
 
@@ -216,6 +220,10 @@ public class OnlineManagement : MonoBehaviour
             if (success)
             {
                 Social.ShowAchievementsUI();
+            }
+            else
+            {
+                LogIn();
             }
         });
     }
