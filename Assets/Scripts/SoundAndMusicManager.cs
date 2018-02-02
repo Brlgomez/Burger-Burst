@@ -12,9 +12,7 @@ public class SoundAndMusicManager : MonoBehaviour
     public AudioClip foodComplete, badFood, dropDrink, healthUp, healthDown, punch;
     public AudioClip deathPunch, puff, sparkle, bubbling, death, ice, freeze, dropIce;
     public AudioClip woosh, buttonSound, iapSound, gameover;
-    public AudioClip[] walkOnGrass;
-    public AudioClip[] zombieIdleNoises;
-    public AudioClip[] zombieGruntNoises;
+    public AudioClip[] walkOnGrass, zombieIdleNoises, zombieGruntNoises, zombieGroans;
     public AudioClip[] music;
 
     bool canPlayMusic = true;
@@ -432,7 +430,7 @@ public class SoundAndMusicManager : MonoBehaviour
     {
         if (canPlaySound)
         {
-            PlayClipAt(zombieIdleNoises[Random.Range(0, zombieIdleNoises.Length)], obj.transform.position, 0.75f, pitch);
+            PlayClipAt(zombieIdleNoises[Random.Range(0, zombieIdleNoises.Length)], obj.transform.position, 1f, pitch);
         }
     }
 
@@ -440,7 +438,15 @@ public class SoundAndMusicManager : MonoBehaviour
     {
         if (canPlaySound)
         {
-            PlayClipAt(zombieGruntNoises[Random.Range(0, zombieGruntNoises.Length)], obj.transform.position, 1.25f, pitch);
+            PlayClipAt(zombieGruntNoises[Random.Range(0, zombieGruntNoises.Length)], obj.transform.position, 1.5f, pitch);
+        }
+    }
+
+    public void PlayZombieGroanSound(GameObject obj, float pitch)
+    {
+        if (canPlaySound)
+        {
+            PlayClipAt(zombieGroans[Random.Range(0, zombieGroans.Length)], obj.transform.position, 1.25f, pitch);
         }
     }
 

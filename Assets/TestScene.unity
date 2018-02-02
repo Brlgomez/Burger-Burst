@@ -108460,10 +108460,14 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 3b458d65a0f6440539eda2f302c532b6, type: 3}
   - {fileID: 8300000, guid: 8712762253d93446981eeac2d8ff4e52, type: 3}
   - {fileID: 8300000, guid: 9750224c75bfc49ad9397462375acd29, type: 3}
+  - {fileID: 8300000, guid: 45993562c2d0b4b5abfa29bcdef46fb8, type: 3}
+  - {fileID: 8300000, guid: b45428a030b9344069d54fb11611755f, type: 3}
   zombieGruntNoises:
   - {fileID: 8300000, guid: 82965f9cd02ca4cf7ac447ee107b8d17, type: 3}
   - {fileID: 8300000, guid: db665aa6a853d49f9b980a34089b1a91, type: 3}
   - {fileID: 8300000, guid: 5ab8a00a0467546089f5823a9c64be51, type: 3}
+  zombieGroans:
+  - {fileID: 8300000, guid: 65019db18b0564e4598383a9b1f5a588, type: 3}
   music:
   - {fileID: 8300000, guid: 3a08ae806946e442e86c91584ce144d9, type: 3}
   - {fileID: 8300000, guid: 269e8c5a2b09a4b25ba85ce02e779b2a, type: 3}

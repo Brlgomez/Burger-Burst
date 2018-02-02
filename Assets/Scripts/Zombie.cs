@@ -122,8 +122,8 @@ public class Zombie : MonoBehaviour
             if (myRenderer.isVisible)
             {
                 updateInterval = 2;
-				isVisible = true;
-				OrderBubbleScale();
+                isVisible = true;
+                OrderBubbleScale();
                 if (powerParticles != null && powerParticles.isPaused)
                 {
                     powerParticles.Play();
@@ -132,7 +132,7 @@ public class Zombie : MonoBehaviour
             else
             {
                 isVisible = false;
-				updateInterval = 6;
+                updateInterval = 6;
                 if (powerParticles != null && powerParticles.isPlaying)
                 {
                     powerParticles.Pause();
@@ -431,7 +431,7 @@ public class Zombie : MonoBehaviour
     {
         if (amountOfBurgers >= neededBurgers && amountOfFries >= neededFries && amountOfDrinks >= neededDrinks)
         {
-            upperBody.GetComponent<Rigidbody>().velocity += Vector3.up * 50;
+            upperBody.GetComponent<Rigidbody>().velocity += Vector3.up * 75;
             Camera.main.GetComponent<Gameplay>().IncreaseCompletedOrders();
             orderComplete = true;
             Camera.main.GetComponent<PlayerPrefsManager>().IncreaseOrdersCompleted();
@@ -441,6 +441,7 @@ public class Zombie : MonoBehaviour
         }
         else
         {
+            PlayGroanNoise();
             SetUpSprites();
         }
     }
@@ -885,6 +886,22 @@ public class Zombie : MonoBehaviour
     {
         GetComponent<Animator>().enabled = false;
         Destroy(gameObject.GetComponent<Zombie>());
+    }
+
+    void PlayGroanNoise()
+    {
+        if (thisZombieSize == ZombieSize.small)
+        {
+            Camera.main.GetComponent<SoundAndMusicManager>().PlayZombieGroanSound(gameObject, 2);
+        }
+        else if (thisZombieSize == ZombieSize.large)
+        {
+            Camera.main.GetComponent<SoundAndMusicManager>().PlayZombieGroanSound(gameObject, 0.75f);
+        }
+        else
+        {
+            Camera.main.GetComponent<SoundAndMusicManager>().PlayZombieGroanSound(gameObject, 1);
+        }
     }
 
     void PlayGruntNoise()

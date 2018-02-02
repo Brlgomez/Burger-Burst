@@ -71,7 +71,7 @@ public class GrabAndThrowObject : MonoBehaviour
             GetComponent<WindManager>().WindUpdate(updateInterval);
             GetComponent<SoundAndMusicManager>().CheckIfMusicPlaying();
         }
-        if (GetComponent<CameraMovement>() == null && !gameOver && SystemInfo.supportsGyroscope)
+        if (GetComponent<CameraMovement>() == null && SystemInfo.supportsGyroscope)
         {
             Vector3 currRot = currentRotation.eulerAngles;
             Vector3 gyro = Input.gyro.rotationRateUnbiased;
@@ -433,9 +433,9 @@ public class GrabAndThrowObject : MonoBehaviour
             {
                 Vector3 diff = positions[positions.Count - 1] - positions[0];
                 float speed = Vector3.Distance(positions[positions.Count - 1], positions[0]);
-                float xVelocity = (diff.x * 10) + ((target.transform.position.x * speed * 2));
-                float yVelocity = diff.y * 5;
-                float zVelocity = diff.z * 17.5f;
+                float xVelocity = (diff.x * 11) + ((target.transform.position.x * speed * 2));
+                float yVelocity = diff.y * 3;
+                float zVelocity = diff.z * 18;
                 Vector3 newVelocity = new Vector3(xVelocity, yVelocity, zVelocity);
                 if (newVelocity.magnitude > 5)
                 {
