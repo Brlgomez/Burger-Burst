@@ -31,7 +31,6 @@ public class TutorialManager : MonoBehaviour
         ActivateCounterTapping();
     }
 
-
     public IEnumerator ThrowingAnimation()
     {
         yield return new WaitForSeconds(0.5f);
@@ -41,7 +40,18 @@ public class TutorialManager : MonoBehaviour
         ActivateCounterThrowing();
     }
 
-    public void ActivateCounterTapping()
+    void ActivateCounterTapping()
+    {
+        StartCoroutine(PopTappingSprite());
+    }
+
+    IEnumerator PopTappingSprite()
+    {
+        yield return new WaitForSeconds(30f);
+        PlayTappingAnimation();
+    }
+
+    void PlayTappingAnimation()
     {
         if (GetComponent<PlayerPrefsManager>().GetTutorialTap() == 0)
         {
@@ -50,18 +60,18 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
-    public void DeactivateCounterTapping()
-    {
-        GetComponent<PlayerPrefsManager>().SetTutorialTap();
-        counterTapping.GetComponent<SpriteRenderer>().enabled = false;
-    }
-
-    public IEnumerator TappingAnimation()
+    IEnumerator TappingAnimation()
     {
         yield return new WaitForSeconds(0.5f);
         counterTapping.GetComponent<SpriteRenderer>().sprite = tapping[0];
         yield return new WaitForSeconds(0.5f);
         counterTapping.GetComponent<SpriteRenderer>().sprite = tapping[1];
-        ActivateCounterTapping();
+        PlayTappingAnimation();
+    }
+
+    public void DeactivateCounterTapping()
+    {
+        GetComponent<PlayerPrefsManager>().SetTutorialTap();
+        counterTapping.GetComponent<SpriteRenderer>().enabled = false;
     }
 }
