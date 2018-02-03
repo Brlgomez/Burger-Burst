@@ -138,7 +138,7 @@ public class ZombieManager : MonoBehaviour
     public void RemoveWaiter(GameObject waiter)
     {
         amountOfZombies--;
-        if (amountOfZombies == 0)
+        if (amountOfZombies == 0 && GetComponent<CarManager>().GetNumberOfZombieCars() == 0)
         {
             time = GetComponent<Gameplay>().GetTimeForNewZombie();
         }

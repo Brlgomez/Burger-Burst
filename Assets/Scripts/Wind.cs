@@ -14,7 +14,6 @@ public class Wind : MonoBehaviour
         time += Time.timeScale;
         if (time > timeToNextBurst)
         {
-            Debug.Log("Hi");
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, windRadius);
             for (int i = 0; i < hitColliders.Length; i++)
             {

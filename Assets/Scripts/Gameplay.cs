@@ -41,8 +41,10 @@ public class Gameplay : MonoBehaviour
     {
         if (!IsGameOver())
         {
-            float sizeOfText = Vector3.Distance(obj.transform.position, transform.position) / 2;
-            int addedPoints = (Mathf.RoundToInt(sizeOfText)) * multiplier;
+            float sizeOfText = Vector3.Distance(obj.transform.position, transform.position) * 0.4f;
+            float pointsMultiplied = (sizeOfText * 10) - 6;
+            pointsMultiplied = Mathf.Clamp(pointsMultiplied, 10, 10000);
+            int addedPoints = (Mathf.RoundToInt(pointsMultiplied)) * multiplier;
             if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(GetComponent<PowerUpsManager>().doublePoints.powerUpNumber))
             {
                 addedPoints *= 2;
@@ -353,6 +355,7 @@ public class Gameplay : MonoBehaviour
         chanceOfDifSizedZombie = 0;
         chanceOfSpecialZombie = 0;
         currentSurvivalTime = 0;
+        GetComponent<CarManager>().ResetValues();
         GetComponent<LEDManager>().ResetPointsText();
         GetComponent<WindManager>().ResetValues();
         GetComponent<DropMoreProducts>().ResetDroppedItems();
@@ -369,6 +372,7 @@ public class Gameplay : MonoBehaviour
         fries += 10;
         drinks += 10;
         regenTimer = 0;
+        GetComponent<CarManager>().ResetValues();
         GetComponent<DropMoreProducts>().ResetDroppedItems();
         GetComponent<ScreenTextManagment>().ChangeHeartSprite("");
         GetComponent<ScreenTextManagment>().RemovePingPongHeart();

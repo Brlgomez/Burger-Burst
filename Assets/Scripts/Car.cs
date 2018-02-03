@@ -137,6 +137,7 @@ public class Car : MonoBehaviour
     {
         if (col.name == "End")
         {
+            Camera.main.GetComponent<CarManager>().DecreaseNumberOfZombieCars();
             Destroy(gameObject);
         }
     }

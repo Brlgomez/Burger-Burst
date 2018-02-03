@@ -394,7 +394,7 @@ public class OnlineManagement : MonoBehaviour
 
     public void CheckScore(int score)
     {
-        if (score > 100)
+        if (score > 1000)
         {
             string achievement = "";
             if (deviceOS == OS.Android)
@@ -407,7 +407,7 @@ public class OnlineManagement : MonoBehaviour
             }
             CheckNormalAchievement(achievement);
         }
-        if (score > 1000)
+        if (score > 10000)
         {
             string achievement = "";
             if (deviceOS == OS.Android)

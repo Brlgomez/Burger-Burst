@@ -6,6 +6,7 @@ public class CarManager : MonoBehaviour
 {
     GameObject car, suv;
     public Texture[] paint;
+    int numberOfZombieCars;
 
     void Start()
     {
@@ -25,6 +26,7 @@ public class CarManager : MonoBehaviour
         {
             newCar = Instantiate(suv);
             newCar.AddComponent<Car>().AddMultiZombies();
+            numberOfZombieCars++;
         }
         newCar.tag = "Car";
         newCar.GetComponentInChildren<Renderer>().material.mainTexture = paint[Random.Range(0, paint.Length)];
@@ -56,5 +58,20 @@ public class CarManager : MonoBehaviour
             newCar.transform.position = new Vector3(-18.5f, 0, 40);
             newCar.transform.Rotate(new Vector3(0, 180, 0));
         }
+    }
+
+    public int GetNumberOfZombieCars()
+    {
+        return numberOfZombieCars;
+    }
+
+    public void DecreaseNumberOfZombieCars()
+    {
+        numberOfZombieCars--;
+    }
+
+    public void ResetValues()
+    {
+        numberOfZombieCars = 0;
     }
 }
