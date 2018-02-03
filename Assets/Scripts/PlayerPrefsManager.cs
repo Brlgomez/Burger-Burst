@@ -554,12 +554,12 @@ public class PlayerPrefsManager : MonoBehaviour
 
     int GetNextUnlock()
     {
-        return PlayerPrefs.GetInt(nextUnlock, 100);
+        return PlayerPrefs.GetInt(nextUnlock, 500);
     }
 
     void IncreaseNextUnlock()
     {
-        PlayerPrefs.SetInt(nextUnlock, Mathf.RoundToInt((UnityEngine.Random.Range(1, 3) + GetNextUnlock()) + 100));
+        PlayerPrefs.SetInt(nextUnlock, Mathf.RoundToInt((UnityEngine.Random.Range(10, 30) + GetNextUnlock()) + 500));
     }
 
     public string CheckIfAnythingUnlocked()
