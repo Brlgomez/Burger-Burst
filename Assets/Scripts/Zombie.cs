@@ -416,6 +416,7 @@ public class Zombie : MonoBehaviour
         Camera.main.GetComponent<VibrationManager>().MediumTapticFeedback();
         obj.GetComponent<RemoveObjects>().DropProduct();
         obj.GetComponent<ParticleSystem>().Stop();
+        obj.GetComponent<Collider>().isTrigger = true;
         Destroy(obj.GetComponent<Rigidbody>());
         Destroy(obj.GetComponent<RemoveObjects>());
         if (obj.GetComponent<MagnetPowerUp>() != null)
