@@ -63,7 +63,7 @@ public class GrabAndThrowObject : MonoBehaviour
         {
             MouseUp();
         }
-        if (Time.frameCount % updateInterval == 0 && !gameOver)
+        if (Time.frameCount % updateInterval == 0 && !gameOver && !paused)
         {
             survivalTime += Time.deltaTime * updateInterval;
             GetComponent<Gameplay>().RegenerationUpdate(updateInterval);
@@ -665,6 +665,11 @@ public class GrabAndThrowObject : MonoBehaviour
     public void SetPause(bool b)
     {
         paused = b;
+    }
+
+    public bool GetPaused()
+    {
+        return paused;       
     }
 
     public float GetSurvivalTime()

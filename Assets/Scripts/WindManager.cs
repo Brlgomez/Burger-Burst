@@ -73,7 +73,7 @@ public class WindManager : MonoBehaviour
 
     public void ResetValues()
     {
-        timeForNextWindChange = 90f;
+        timeForNextWindChange = 60f;
         timer = 0;
         StopWind();
     }
