@@ -400,7 +400,7 @@ public class GrabAndThrowObject : MonoBehaviour
                 if (hit.transform.gameObject == fryerHandleWall)
                 {
                     float y = hit.point.y;
-                    y = Mathf.Clamp(y, target.transform.position.y - 0.025f, target.transform.position.y + 0.025f);
+                    y = Mathf.Clamp(y, target.transform.position.y - 0.05f, target.transform.position.y + 0.05f);
                     y = Mathf.Clamp(y, 1.625f, 2);
                     target.transform.parent.transform.position = new Vector3(
                         target.transform.parent.transform.position.x,
@@ -435,7 +435,7 @@ public class GrabAndThrowObject : MonoBehaviour
                 float xVelocity = (diff.x * 10) + ((target.transform.position.x * speed * 3));
                 float yVelocity = diff.y * 3.5f;
                 float zVelocity = diff.z * 18;
-                Vector3 newVelocity = new Vector3(xVelocity, yVelocity, zVelocity);
+                Vector3 newVelocity = new Vector3(xVelocity, yVelocity, zVelocity) /* * (screenSize / 2.5f)*/;
                 if (newVelocity.magnitude > 5)
                 {
                     GetComponent<TutorialManager>().DeactivateCounterThrowing();
