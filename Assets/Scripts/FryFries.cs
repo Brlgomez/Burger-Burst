@@ -19,8 +19,8 @@ public class FryFries : MonoBehaviour
     void Start()
     {
         initialColor = gameObject.GetComponent<Renderer>().material.color;
-        friedColor = new Color(0.984f, 0.816f, 0.688f);
-        burntColor = new Color(0.5f, 0.375f, 0);
+        friedColor = new Color(1, 0.781f, 0.5f);
+        burntColor = new Color(0.25f, 0.125f, 0);
         particleSyst = transform.GetChild(0).GetComponent<ParticleSystem>();
         maxTimeInFryer = GetComponent<Fry>().GetMaxTimeInFryer();
         fryMaterial = GetComponent<Renderer>().material;
@@ -51,6 +51,7 @@ public class FryFries : MonoBehaviour
             particleSyst.Stop();
             fryMaterial.color = burntColor;
             GetComponent<Fry>().SetTimeInFryer(timeInFryer);
+            Camera.main.GetComponent<SoundAndMusicManager>().StopLoopFromSourceAndLowerVolume(gameObject, -1);
             Destroy(GetComponent<FryFries>());
         }
     }

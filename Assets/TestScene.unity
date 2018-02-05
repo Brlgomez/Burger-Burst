@@ -45975,7 +45975,7 @@ Transform:
   m_GameObject: {fileID: 665651184}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 2.5, y: 3, z: -6.3}
-  m_LocalScale: {x: 0.35, y: 1, z: 0.115}
+  m_LocalScale: {x: 0.35, y: 1, z: 0.12}
   m_Children: []
   m_Father: {fileID: 1374598562}
   m_RootOrder: 2
@@ -69417,7 +69417,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 933458919}
   m_LocalRotation: {x: 6.4262822e-12, y: 1, z: -0.0000018318508, w: 0.0000035952676}
-  m_LocalPosition: {x: -0.814, y: 0, z: -0.59200215}
+  m_LocalPosition: {x: -0.75, y: 0, z: -0.5}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 155393613}
@@ -108462,12 +108462,15 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9750224c75bfc49ad9397462375acd29, type: 3}
   - {fileID: 8300000, guid: 45993562c2d0b4b5abfa29bcdef46fb8, type: 3}
   - {fileID: 8300000, guid: b45428a030b9344069d54fb11611755f, type: 3}
+  - {fileID: 8300000, guid: c5b7cb9b4f9414648845aed89419087f, type: 3}
   zombieGruntNoises:
   - {fileID: 8300000, guid: 82965f9cd02ca4cf7ac447ee107b8d17, type: 3}
   - {fileID: 8300000, guid: db665aa6a853d49f9b980a34089b1a91, type: 3}
   - {fileID: 8300000, guid: 5ab8a00a0467546089f5823a9c64be51, type: 3}
+  - {fileID: 8300000, guid: e174a2f694aa4492b9a8c5d3ca2ac62f, type: 3}
   zombieGroans:
   - {fileID: 8300000, guid: 65019db18b0564e4598383a9b1f5a588, type: 3}
+  - {fileID: 8300000, guid: d6cc0ccd343544b8c9ef4eec20aea7e9, type: 3}
   music:
   - {fileID: 8300000, guid: 3a08ae806946e442e86c91584ce144d9, type: 3}
   - {fileID: 8300000, guid: 269e8c5a2b09a4b25ba85ce02e779b2a, type: 3}

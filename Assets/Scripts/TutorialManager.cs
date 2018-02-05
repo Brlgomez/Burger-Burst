@@ -53,8 +53,11 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator PopTappingSprite()
     {
-        yield return new WaitForSeconds(30f);
-        PlayTappingAnimation();
+        if (GetComponent<PlayerPrefsManager>().GetTutorialTap() == 0)
+        {
+            yield return new WaitForSeconds(30f);
+            PlayTappingAnimation();
+        }
     }
 
     void PlayTappingAnimation()

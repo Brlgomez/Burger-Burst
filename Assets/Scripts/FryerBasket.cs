@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class FryerBasket : MonoBehaviour
 {
-    float heightLimit;
     float bottomLimit;
 
     void Start()
     {
         bottomLimit = transform.position.y;
-        heightLimit = bottomLimit + 0.325f;
     }
 
     public void Restart()

@@ -41,7 +41,7 @@ public class Fry : MonoBehaviour
     {
         if (col.gameObject.name == "Hot Oil")
         {
-            if (GetComponent<FryFries>() == null)
+            if (GetComponent<FryFries>() == null && timeInFryer < maxTimeInFryer)
             {
                 transform.GetChild(0).GetComponent<ParticleSystem>().Play();
                 gameObject.AddComponent<FryFries>();

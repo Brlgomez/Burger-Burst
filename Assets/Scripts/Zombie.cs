@@ -442,6 +442,7 @@ public class Zombie : MonoBehaviour
         }
         else
         {
+            damageTime -= 0.5f;
             PlayGroanNoise();
             SetUpSprites();
         }
