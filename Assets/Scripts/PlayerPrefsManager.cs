@@ -37,6 +37,7 @@ public class PlayerPrefsManager : MonoBehaviour
     static string nextUnlock = "NextUnlock";
     static string tutorialThrow = "TutorialThrow";
     static string tutorialTap = "TutorialTap";
+    static string thingsUnlocked = "ThingsUnlocked";
     int floorsLeft, wallsLeft, detailsLeft, powerUpsLeft, graphicsLeft;
 
     void Start()
@@ -554,12 +555,23 @@ public class PlayerPrefsManager : MonoBehaviour
 
     int GetNextUnlock()
     {
-        return PlayerPrefs.GetInt(nextUnlock, 500);
+        return PlayerPrefs.GetInt(nextUnlock, 1000);
     }
 
     void IncreaseNextUnlock()
     {
-        PlayerPrefs.SetInt(nextUnlock, Mathf.RoundToInt((UnityEngine.Random.Range(10, 30) + GetNextUnlock()) + 500));
+        IncreaseThingsUnlocked();
+        PlayerPrefs.SetInt(nextUnlock, Mathf.RoundToInt((GetNextUnlock()) + 1000 + (GetThingsUnlocked() * 10)));
+    }
+
+    public int GetThingsUnlocked()
+    {
+        return PlayerPrefs.GetInt(thingsUnlocked, 0);
+    }
+
+    public void IncreaseThingsUnlocked()
+    {
+        PlayerPrefs.SetInt(thingsUnlocked, GetThingsUnlocked() + 1);
     }
 
     public string CheckIfAnythingUnlocked()

@@ -9,6 +9,8 @@ public class TutorialManager : MonoBehaviour
     public Sprite[] throwing;
     public Sprite[] tapping;
 
+    bool tappingActivated;
+
     void Start()
     {
         counterThrowing = GameObject.Find("Tutorial Counter");
@@ -26,9 +28,13 @@ public class TutorialManager : MonoBehaviour
 
     public void DeactivateCounterThrowing()
     {
-        GetComponent<PlayerPrefsManager>().SetTutorialThrow();
-        counterThrowing.GetComponent<SpriteRenderer>().enabled = false;
-        ActivateCounterTapping();
+        if (!tappingActivated)
+        {
+            tappingActivated = true;
+            GetComponent<PlayerPrefsManager>().SetTutorialThrow();
+            counterThrowing.GetComponent<SpriteRenderer>().enabled = false;
+            ActivateCounterTapping();
+        }
     }
 
     public IEnumerator ThrowingAnimation()
@@ -53,10 +59,14 @@ public class TutorialManager : MonoBehaviour
 
     void PlayTappingAnimation()
     {
-        if (GetComponent<PlayerPrefsManager>().GetTutorialTap() == 0)
+        if (GetComponent<PlayerPrefsManager>().GetTutorialTap() == 0 && GetComponent<GrabAndThrowObject>() != null && !GetComponent<Gameplay>().IsGameOver())
         {
             counterTapping.GetComponent<SpriteRenderer>().enabled = true;
             StartCoroutine(TappingAnimation());
+        }
+        else
+        {
+            TurnOffTappingSprite();
         }
     }
 
@@ -72,6 +82,11 @@ public class TutorialManager : MonoBehaviour
     public void DeactivateCounterTapping()
     {
         GetComponent<PlayerPrefsManager>().SetTutorialTap();
+        counterTapping.GetComponent<SpriteRenderer>().enabled = false;
+    }
+
+    public void TurnOffTappingSprite()
+    {
         counterTapping.GetComponent<SpriteRenderer>().enabled = false;
     }
 }

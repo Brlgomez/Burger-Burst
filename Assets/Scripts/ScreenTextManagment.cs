@@ -436,6 +436,7 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToGameOverText()
     {
+        GetComponent<TutorialManager>().TurnOffTappingSprite();
         CheckShakeText();
         RemovePingPongHeart();
         if (GetComponent<PlayerPrefsManager>().CheckHighScore(GetComponent<Gameplay>().GetPoints()))
@@ -488,6 +489,7 @@ ScreenTextManagment : MonoBehaviour
 
     public void ChangeToPauseText()
     {
+        GetComponent<TutorialManager>().TurnOffTappingSprite();
         RemovePingPongHeart();
         CheckShakeText();
         EnableButton(line1, "Resume", playSprite, Color.white);
