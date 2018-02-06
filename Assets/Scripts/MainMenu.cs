@@ -151,6 +151,10 @@ public class MainMenu : MonoBehaviour
                     MouseUpConfirmationDetailMenu();
                     break;
             }
+            if (target.name == "Steering_Wheel")
+            {
+                GetComponent<SoundAndMusicManager>().PlayHornSound();
+            }
         }
         point1 = Vector3.zero;
         point2 = Vector3.zero;
