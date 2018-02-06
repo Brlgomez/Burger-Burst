@@ -13,6 +13,8 @@ public class CameraMovement : MonoBehaviour
     bool unpause, gameplay, title, gameOver, grill, fryer, soda;
     string gamePlayCommand;
     GameObject phone;
+    bool gotCalculation;
+    float distance;
 
     void Start()
     {
@@ -28,6 +30,15 @@ public class CameraMovement : MonoBehaviour
     {
         if (moveToPosition)
         {
+            if (!gotCalculation)
+            {
+                distance = Vector3.Distance(towards.position, transform.position);
+                if (distance / 4 > 0.6f)
+                {
+                    GetComponent<SoundAndMusicManager>().PlayMovementWoosh(gameObject, distance / 4);
+                }
+                gotCalculation = true;
+            }
             if (speed < maxSpeed)
             {
                 speed += Time.unscaledDeltaTime * accelerating;

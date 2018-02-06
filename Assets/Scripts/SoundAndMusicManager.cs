@@ -11,7 +11,7 @@ public class SoundAndMusicManager : MonoBehaviour
     public AudioClip steam, button, dropCup, dropLid, dropPatty, dropFries, dropBasket;
     public AudioClip foodComplete, badFood, dropDrink, healthUp, healthDown, punch;
     public AudioClip deathPunch, puff, sparkle, bubbling, death, ice, freeze, dropIce;
-    public AudioClip woosh, buttonSound, iapSound, gameover;
+    public AudioClip woosh, buttonSound, iapSound, gameover, movementWoosh, beep;
     public AudioClip[] walkOnGrass, zombieIdleNoises, zombieGruntNoises, zombieGroans;
     public AudioClip[] music;
 
@@ -27,6 +27,7 @@ public class SoundAndMusicManager : MonoBehaviour
         canPlaySound = GetComponent<PlayerPrefsManager>().GetSound();
         musicSource = GetComponent<ObjectManager>().Stereo().GetComponent<AudioSource>();
         trackNumber = Random.Range(0, music.Length);
+        ShuffleMusic(music);
         PlayMusic();
     }
 
@@ -78,6 +79,17 @@ public class SoundAndMusicManager : MonoBehaviour
         }
     }
 
+    void ShuffleMusic(AudioClip[] clips)
+    {
+        for (int t = 0; t < clips.Length; t++)
+        {
+            AudioClip tmp = clips[t];
+            int r = Random.Range(t, clips.Length);
+            clips[t] = clips[r];
+            clips[r] = tmp;
+        }
+    }
+
     /* DEVICE SOUNDS */
 
     public void PlayBootUpSound()
@@ -86,6 +98,14 @@ public class SoundAndMusicManager : MonoBehaviour
         {
             source.clip = bootUp;
             source.Play();
+        }
+    }
+
+    public void PlayBeepSound(float pitch)
+    {
+        if (canPlaySound)
+        {
+            PlayClipAt(beep, transform.position, 1, pitch);
         }
     }
 
@@ -430,7 +450,7 @@ public class SoundAndMusicManager : MonoBehaviour
     {
         if (canPlaySound)
         {
-            PlayClipAt(zombieIdleNoises[Random.Range(0, zombieIdleNoises.Length)], obj.transform.position, 1f, pitch);
+            PlayClipAt(zombieIdleNoises[Random.Range(0, zombieIdleNoises.Length)], obj.transform.position, 1f, pitch).transform.parent = obj.transform;
         }
     }
 
@@ -438,7 +458,7 @@ public class SoundAndMusicManager : MonoBehaviour
     {
         if (canPlaySound)
         {
-            PlayClipAt(zombieGruntNoises[Random.Range(0, zombieGruntNoises.Length)], obj.transform.position, 1.5f, pitch);
+            PlayClipAt(zombieGruntNoises[Random.Range(0, zombieGruntNoises.Length)], obj.transform.position, 1.5f, pitch).transform.parent = obj.transform;
         }
     }
 
@@ -446,7 +466,7 @@ public class SoundAndMusicManager : MonoBehaviour
     {
         if (canPlaySound)
         {
-            PlayClipAt(zombieGroans[Random.Range(0, zombieGroans.Length)], obj.transform.position, 1.25f, pitch);
+            PlayClipAt(zombieGroans[Random.Range(0, zombieGroans.Length)], obj.transform.position, 1.25f, pitch).transform.parent = obj.transform;
         }
     }
 
@@ -526,7 +546,7 @@ public class SoundAndMusicManager : MonoBehaviour
     {
         if (canPlaySound)
         {
-            PlayClipAt(freeze, obj.transform.position, 1, 1);
+            PlayClipAt(freeze, obj.transform.position, 1, 1).transform.parent = obj.transform;
         }
     }
 
@@ -534,7 +554,15 @@ public class SoundAndMusicManager : MonoBehaviour
     {
         if (canPlaySound)
         {
-            PlayClipAt(bubbling, obj.transform.position, 1, 1);
+            PlayClipAt(bubbling, obj.transform.position, 1, 1).transform.parent = obj.transform;
+        }
+    }
+
+    public void PlayMovementWoosh(GameObject obj, float pitch)
+    {
+        if (canPlaySound)
+        {
+            PlayClipAt(movementWoosh, obj.transform.position, 1, pitch).transform.parent = obj.transform;
         }
     }
 

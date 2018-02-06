@@ -108451,6 +108451,8 @@ MonoBehaviour:
   buttonSound: {fileID: 8300000, guid: 13b59efad9bc74d489108ea583a6f395, type: 3}
   iapSound: {fileID: 8300000, guid: 39104bb6170f340ea822e19f61e0d972, type: 3}
   gameover: {fileID: 8300000, guid: 418b0a9b63606411d938a9ea68b79c6f, type: 3}
+  movementWoosh: {fileID: 8300000, guid: edea93ad2ddff4bf1b3b22ae712a24a6, type: 3}
+  beep: {fileID: 8300000, guid: e0281334332c648af957a1526ab0958a, type: 3}
   walkOnGrass:
   - {fileID: 8300000, guid: f3e9b36bd4d6b4c598ad8a819690c8c5, type: 3}
   - {fileID: 8300000, guid: a22565a88c43845e3831c34df9ce7153, type: 3}

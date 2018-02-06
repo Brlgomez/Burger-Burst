@@ -224,17 +224,19 @@ public class MainMenu : MonoBehaviour
 
     public IEnumerator PhoneStartUp()
     {
-        GetComponent<SoundAndMusicManager>().PlayBootUpSound();
         GameObject phone = GetComponent<ObjectManager>().Phone();
-        for (int i = 0; i < 5; i++)
+        for (int i = -3; i < 3; i++)
         {
             GetComponent<VibrationManager>().LightTapticFeedback();
+            GetComponent<SoundAndMusicManager>().PlayBeepSound(Mathf.Pow(1.05946f, (i * 2) - 1));
             phone.GetComponent<Renderer>().material.mainTexture = GetComponent<Textures>().phoneLoading;
             yield return new WaitForSeconds(0.25f);
             GetComponent<VibrationManager>().LightTapticFeedback();
+            GetComponent<SoundAndMusicManager>().PlayBeepSound(Mathf.Pow(1.05946f, (i * 2)));
             phone.GetComponent<Renderer>().material.mainTexture = GetComponent<Textures>().phoneLoading2;
             yield return new WaitForSeconds(0.25f);
         }
+        GetComponent<SoundAndMusicManager>().PlayBootUpSound();
         phone.GetComponent<Renderer>().material.mainTexture = GetComponent<Textures>().phoneOn;
         GetComponent<ScreenTextManagment>().ChangeToMenuText();
     }

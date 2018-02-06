@@ -443,6 +443,7 @@ public class Zombie : MonoBehaviour
         else
         {
             damageTime -= 0.5f;
+            damageTime = Mathf.Clamp(damageTime, 0, timeForDamage);
             PlayGroanNoise();
             SetUpSprites();
         }
