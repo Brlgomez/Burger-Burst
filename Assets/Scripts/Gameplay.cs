@@ -373,6 +373,7 @@ public class Gameplay : MonoBehaviour
         drinks += 10;
         regenTimer = 0;
         GetComponent<CarManager>().ResetValues();
+        GetComponent<WindManager>().ResetValues();
         GetComponent<DropMoreProducts>().ResetDroppedItems();
         GetComponent<ScreenTextManagment>().ChangeHeartSprite("");
         GetComponent<ScreenTextManagment>().RemovePingPongHeart();

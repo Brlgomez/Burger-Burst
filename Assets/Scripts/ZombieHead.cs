@@ -6,7 +6,7 @@ public class ZombieHead : MonoBehaviour
 {
     static float speed = 0.5f;
     static float timeForDisappear = 2;
-    static int maxTime = 60;
+    static int maxTime = 15;
     Vector3 startPos;
     float ellapsedTime;
     bool flying = true;
