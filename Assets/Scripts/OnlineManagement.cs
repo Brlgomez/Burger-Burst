@@ -24,7 +24,7 @@ public class OnlineManagement : MonoBehaviour
         {
             deviceOS = OS.iOS;
 #if (NO_GPGS)
-			GameCenterPlatform.ShowDefaultAchievementCompletionBanner(true);
+            GameCenterPlatform.ShowDefaultAchievementCompletionBanner(true);
 #endif
         }
         else
@@ -445,18 +445,22 @@ public class OnlineManagement : MonoBehaviour
 
     public void CheckTime(int milliseconds)
     {
-        if (milliseconds >= 600000)
+        string achievement = "";
+        if (deviceOS == OS.Android)
         {
-            string achievement = "";
-            if (deviceOS == OS.Android)
+            if (milliseconds >= 600000)
             {
                 achievement = GPGSIds.achievement_surviving_the_lunch_rush;
+                CheckNormalAchievement(achievement);
             }
-            else if (deviceOS == OS.iOS)
+        }
+        else if (deviceOS == OS.iOS)
+        {
+            if (milliseconds >= 60000)
             {
                 achievement = GCIds.achievement_surviving_the_lunch_rush;
+                CheckNormalAchievement(achievement);
             }
-            CheckNormalAchievement(achievement);
         }
     }
 
