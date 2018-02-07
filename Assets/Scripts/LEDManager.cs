@@ -39,7 +39,10 @@ public class LEDManager : MonoBehaviour
 
     public void UpdatePointsText(float number)
     {
-        pointsLed.AddComponent<ShakeText>();
+        if (pointsLed.GetComponent<ShakeText>() == null)
+        {
+            pointsLed.AddComponent<ShakeText>();
+        }
         pointsLed.GetComponent<TextMesh>().text = "P " + number.ToString("n0");
     }
 
@@ -50,7 +53,10 @@ public class LEDManager : MonoBehaviour
 
     public void UpdateCoinsText()
     {
-        coinsLed.AddComponent<ShakeText>();
+        if (coinsLed.GetComponent<ShakeText>() == null)
+        {
+            coinsLed.AddComponent<ShakeText>();
+        }
         coinsLed.GetComponent<TextMesh>().text = "    " + GetComponent<PlayerPrefsManager>().GetCoins().ToString("n0");
     }
 

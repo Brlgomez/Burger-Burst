@@ -144,7 +144,7 @@ public class GrabAndThrowObject : MonoBehaviour
                 {
                     return GetCounterObject(obj);
                 }
-                if (currentArea == Area.grill)
+                if (currentArea == Area.grill && Vector3.Distance(hit.point, ray.origin) > 0.75f)
                 {
                     return GetGrillObject(obj);
                 }
@@ -400,7 +400,7 @@ public class GrabAndThrowObject : MonoBehaviour
                 if (hit.transform.gameObject == fryerHandleWall)
                 {
                     float y = hit.point.y;
-                    y = Mathf.Clamp(y, target.transform.position.y - 0.05f, target.transform.position.y + 0.05f);
+                    y = Mathf.Clamp(y, target.transform.position.y - 0.045f, target.transform.position.y + 0.045f);
                     y = Mathf.Clamp(y, 1.625f, 2);
                     target.transform.parent.transform.position = new Vector3(
                         target.transform.parent.transform.position.x,
