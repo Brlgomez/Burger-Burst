@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ZombieManager : MonoBehaviour
 {
-    static int maxAmountOfZombies = 5;
+    static int maxAmountOfZombies = 6;
     float time;
 
     GameObject zombie;

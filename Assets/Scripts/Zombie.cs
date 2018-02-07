@@ -23,7 +23,7 @@ public class Zombie : MonoBehaviour
     static int maxDeathTime = 5;
     float alpha = 1;
     float ragDollTime = 1;
-    int timeForDamage = 3;
+    float timeForDamage = 2.5f;
     float damageTime;
     bool playAttack = true;
     static float bubbleMinScale = 0.15f;
@@ -33,7 +33,7 @@ public class Zombie : MonoBehaviour
     static int maxFrozenTime = 3;
     float frozenTime;
     bool frozen;
-    int damageAmount = 10;
+    int damageAmount = 16;
     int pointsMultiplier = 1;
     float timerForIdleNoise;
     int timeForNextIdelSound;
@@ -442,7 +442,7 @@ public class Zombie : MonoBehaviour
         }
         else
         {
-            damageTime -= 0.5f;
+            damageTime -= 0.25f;
             damageTime = Mathf.Clamp(damageTime, 0, timeForDamage);
             PlayGroanNoise();
             SetUpSprites();
@@ -743,6 +743,7 @@ public class Zombie : MonoBehaviour
                 break;
             case "Fast Zombie":
                 pointsMultiplier = 2;
+                timeForDamage = 1.25f;
                 thisZombieType = ZombieType.speed;
                 speed = 3;
                 originalSpeed = speed;

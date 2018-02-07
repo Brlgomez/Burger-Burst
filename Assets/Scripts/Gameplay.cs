@@ -25,7 +25,7 @@ public class Gameplay : MonoBehaviour
 
     //Zombies
     static int minTimeForNewZombie = 6;
-    float timeForNewZombie = 12;
+    float timeForNewZombie = 11;
     static float maxChanceOfDifSizedZombie = 0.25f;
     float chanceOfDifSizedZombie;
     static float maxChanceOfSpecialZombie = 0.25f;
@@ -270,11 +270,11 @@ public class Gameplay : MonoBehaviour
         completedOrders++;
         if (timeForNewZombie > minTimeForNewZombie)
         {
-            timeForNewZombie -= 0.1f;
+            timeForNewZombie -= 0.125f;
         }
         if (chanceOfSUV < maxChanceOfSUV)
         {
-            chanceOfSUV += 0.01f;
+            chanceOfSUV += 0.0125f;
         }
         if (chanceOfDifSizedZombie < maxChanceOfDifSizedZombie)
         {
@@ -350,7 +350,7 @@ public class Gameplay : MonoBehaviour
         foodMade = 0;
         regenTimer = 0;
         points = 0;
-        timeForNewZombie = 12;
+        timeForNewZombie = 11;
         chanceOfSUV = 0;
         chanceOfDifSizedZombie = 0;
         chanceOfSpecialZombie = 0;
