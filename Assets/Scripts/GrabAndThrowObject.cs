@@ -69,6 +69,10 @@ public class GrabAndThrowObject : MonoBehaviour
             GetComponent<ZombieManager>().ZombieUpdate(updateInterval);
             GetComponent<WindManager>().WindUpdate(updateInterval);
             GetComponent<SoundAndMusicManager>().CheckIfMusicPlaying();
+            if (currentArea != Area.counter)
+            {
+                GetComponent<TutorialManager>().IncreaseTimeNotPressedCounter(updateInterval * Time.deltaTime);
+            }
         }
         if (GetComponent<CameraMovement>() == null && SystemInfo.supportsGyroscope && !gameOver)
         {
@@ -83,7 +87,7 @@ public class GrabAndThrowObject : MonoBehaviour
                 0
             );
         }
-        Debugging();
+        //Debugging();
     }
 
     void MouseDown()

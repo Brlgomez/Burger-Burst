@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class TutorialManager : MonoBehaviour
 {
-    GameObject counterThrowing;
-    GameObject counterTapping;
-    public Sprite[] throwing;
-    public Sprite[] tapping;
+    GameObject counterThrowing, counterTapping, counterButton;
+    public Sprite[] throwing, tapping;
+    bool tappingActivated, counterButtonActivated, counterButtonOn;
 
-    bool tappingActivated;
+    int maxTimeNotPressedCounter = 30;
+    float timeNotPressedCounter;
 
     void Start()
     {
         counterThrowing = GameObject.Find("Tutorial Counter");
         counterTapping = GameObject.Find("Tutorial Tap");
+        counterButton = GameObject.Find("Tutorial Counter Button");
     }
 
     public void ActivateCounterThrowing()
@@ -85,11 +86,69 @@ public class TutorialManager : MonoBehaviour
     public void DeactivateCounterTapping()
     {
         GetComponent<PlayerPrefsManager>().SetTutorialTap();
-        counterTapping.GetComponent<SpriteRenderer>().enabled = false;
+        TurnOffTappingSprite();
     }
 
     public void TurnOffTappingSprite()
     {
         counterTapping.GetComponent<SpriteRenderer>().enabled = false;
+        counterButton.GetComponent<SpriteRenderer>().enabled = false;
+    }
+
+    /* Counter Button Tutorial */
+
+    public void IncreaseTimeNotPressedCounter(float time)
+    {
+        if (GetComponent<PlayerPrefsManager>().GetTutorialCounter() == 0 && !counterButtonOn)
+        {
+            timeNotPressedCounter += time;
+            if (timeNotPressedCounter > maxTimeNotPressedCounter)
+            {
+                counterButtonOn = true;
+                PlayCounterButtonAnimation();
+            }
+        }
+    }
+
+    public void DeactivateCounterButton()
+    {
+        GetComponent<PlayerPrefsManager>().SetTutorialCounter();
+        TurnOffCounterSprite();
+    }
+
+    public void TurnOffCounterSprite()
+    {
+        counterButton.GetComponent<SpriteRenderer>().enabled = false;
+    }
+
+    void PlayCounterButtonAnimation()
+    {
+        if (GetComponent<PlayerPrefsManager>().GetTutorialCounter() == 0 && GetComponent<GrabAndThrowObject>() != null && !GetComponent<Gameplay>().IsGameOver())
+        {
+            counterButton.GetComponent<SpriteRenderer>().enabled = true;
+            StartCoroutine(CounterButtonAnimation());
+        }
+        else
+        {
+            TurnOffCounterSprite();
+        }
+    }
+
+    IEnumerator CounterButtonAnimation()
+    {
+        yield return new WaitForSeconds(0.5f);
+        counterButton.GetComponent<SpriteRenderer>().sprite = tapping[0];
+        yield return new WaitForSeconds(0.5f);
+        counterButton.GetComponent<SpriteRenderer>().sprite = tapping[1];
+        PlayCounterButtonAnimation();
+    }
+
+    public void ResetCounterButton()
+    {
+        TurnOffCounterSprite();
+        if (GetComponent<PlayerPrefsManager>().GetTutorialCounter() == 0)
+        {
+            counterButtonOn = false;
+        }
     }
 }

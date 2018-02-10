@@ -361,6 +361,7 @@ public class Gameplay : MonoBehaviour
         GetComponent<DropMoreProducts>().ResetDroppedItems();
         GetComponent<ScreenTextManagment>().ChangeHeartSprite("");
         GetComponent<ScreenTextManagment>().RemovePingPongHeart();
+        GetComponent<TutorialManager>().ResetCounterButton();
         NotGameOver();
     }
 
@@ -377,6 +378,7 @@ public class Gameplay : MonoBehaviour
         GetComponent<DropMoreProducts>().ResetDroppedItems();
         GetComponent<ScreenTextManagment>().ChangeHeartSprite("");
         GetComponent<ScreenTextManagment>().RemovePingPongHeart();
+        GetComponent<TutorialManager>().ResetCounterButton();
         NotGameOver();
     }
 

@@ -37,6 +37,7 @@ public class PlayerPrefsManager : MonoBehaviour
     static string nextUnlock = "NextUnlock";
     static string tutorialThrow = "TutorialThrow";
     static string tutorialTap = "TutorialTap";
+    static string tutorialCounter = "TutorialCounter";
     static string thingsUnlocked = "ThingsUnlocked";
     int floorsLeft, wallsLeft, detailsLeft, powerUpsLeft, graphicsLeft;
 
@@ -681,6 +682,16 @@ public class PlayerPrefsManager : MonoBehaviour
     public int GetTutorialTap()
     {
         return PlayerPrefs.GetInt(tutorialTap, 0);
+    }
+
+    public void SetTutorialCounter()
+    {
+        PlayerPrefs.SetInt(tutorialCounter, 1);
+    }
+
+    public int GetTutorialCounter()
+    {
+        return PlayerPrefs.GetInt(tutorialCounter, 0);
     }
 
     public void LoadPlayerPrefsFromSave(byte[] gameSave)

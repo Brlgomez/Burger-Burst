@@ -72,6 +72,7 @@ public class GameplayMenu : MonoBehaviour
             case "Fifth Button":
                 if (GetComponent<GrabAndThrowObject>().currentArea != GrabAndThrowObject.Area.counter)
                 {
+                    GetComponent<TutorialManager>().DeactivateCounterButton();
                     GetComponent<GrabAndThrowObject>().currentArea = GrabAndThrowObject.Area.counter;
                     gameObject.GetComponent<ScreenTextManagment>().ChangeToFrontArea();
                     initialPosition = GetComponent<PositionManager>().GameplayPosition();
