@@ -123,7 +123,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 418613}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Right Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3864,7 +3864,7 @@ GameObject:
   - component: {fileID: 42826099}
   - component: {fileID: 42826101}
   - component: {fileID: 42826100}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Death Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10990,7 +10990,7 @@ GameObject:
   - component: {fileID: 75438719}
   - component: {fileID: 75438721}
   - component: {fileID: 75438720}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Lower_Body
   m_TagString: Waiter
   m_Icon: {fileID: 0}
@@ -11382,7 +11382,7 @@ GameObject:
   - component: {fileID: 91919795}
   - component: {fileID: 91919794}
   - component: {fileID: 91919796}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Left_Upper_Arm
   m_TagString: Waiter
   m_Icon: {fileID: 0}
@@ -19455,7 +19455,7 @@ GameObject:
   - component: {fileID: 184067285}
   - component: {fileID: 184067284}
   - component: {fileID: 184067286}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Left_Leg
   m_TagString: Waiter
   m_Icon: {fileID: 0}
@@ -20557,7 +20557,7 @@ GameObject:
   - component: {fileID: 277181783}
   - component: {fileID: 277181785}
   - component: {fileID: 277181788}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Upper_Body
   m_TagString: Waiter
   m_Icon: {fileID: 0}
@@ -20910,7 +20910,7 @@ GameObject:
   - component: {fileID: 310306226}
   - component: {fileID: 310306228}
   - component: {fileID: 310306229}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Left_Foot
   m_TagString: Waiter
   m_Icon: {fileID: 0}
@@ -29024,7 +29024,7 @@ GameObject:
   - component: {fileID: 419554225}
   - component: {fileID: 419554224}
   - component: {fileID: 419554226}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Right_Forearm
   m_TagString: Waiter
   m_Icon: {fileID: 0}
@@ -29442,7 +29442,7 @@ GameObject:
   - component: {fileID: 460220126}
   - component: {fileID: 460220125}
   - component: {fileID: 460220127}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Heart Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33063,7 +33063,7 @@ GameObject:
   - component: {fileID: 477247588}
   - component: {fileID: 477247587}
   - component: {fileID: 477247589}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Left_Thigh
   m_TagString: Waiter
   m_Icon: {fileID: 0}
@@ -33283,7 +33283,7 @@ GameObject:
   - component: {fileID: 486856869}
   - component: {fileID: 486856871}
   - component: {fileID: 486856870}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Hair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37477,7 +37477,7 @@ GameObject:
   - component: {fileID: 532838154}
   - component: {fileID: 532838153}
   - component: {fileID: 532838155}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Left_Forearm
   m_TagString: Waiter
   m_Icon: {fileID: 0}
@@ -37743,7 +37743,7 @@ GameObject:
   - component: {fileID: 553073876}
   - component: {fileID: 553073879}
   - component: {fileID: 553073878}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Right_Hand
   m_TagString: Waiter
   m_Icon: {fileID: 0}
@@ -46486,7 +46486,7 @@ GameObject:
   m_Component:
   - component: {fileID: 701670605}
   - component: {fileID: 701670606}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Item 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55323,7 +55323,7 @@ GameObject:
   - component: {fileID: 876961256}
   - component: {fileID: 876961255}
   - component: {fileID: 876961257}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Sparkle Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71084,7 +71084,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1105424027}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Left Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71633,7 +71633,7 @@ GameObject:
   - component: {fileID: 1137897180}
   - component: {fileID: 1137897179}
   - component: {fileID: 1137897181}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Snow Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76868,7 +76868,7 @@ GameObject:
   - component: {fileID: 1313123436}
   - component: {fileID: 1313123439}
   - component: {fileID: 1313123438}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Left_Hand
   m_TagString: Waiter
   m_Icon: {fileID: 0}
@@ -80935,7 +80935,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1416851934}
   - component: {fileID: 1416851935}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Think Bubble
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86343,7 +86343,7 @@ GameObject:
   - component: {fileID: 1483486313}
   - component: {fileID: 1483486312}
   - component: {fileID: 1483486314}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Right_Upper_Arm
   m_TagString: Waiter
   m_Icon: {fileID: 0}
@@ -94351,7 +94351,7 @@ GameObject:
   - component: {fileID: 1546090972}
   - component: {fileID: 1546090971}
   - component: {fileID: 1546090973}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Right_Leg
   m_TagString: Waiter
   m_Icon: {fileID: 0}
@@ -94501,7 +94501,7 @@ GameObject:
   - component: {fileID: 1567563018}
   - component: {fileID: 1567563017}
   - component: {fileID: 1567563022}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Head
   m_TagString: Waiter
   m_Icon: {fileID: 0}
@@ -94698,7 +94698,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1573734430}
   - component: {fileID: 1573734431}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Item 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94900,7 +94900,7 @@ GameObject:
   - component: {fileID: 1588457872}
   - component: {fileID: 1588457871}
   - component: {fileID: 1588457873}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Skull Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105900,7 +105900,7 @@ GameObject:
   - component: {fileID: 1651818906}
   - component: {fileID: 1651818908}
   - component: {fileID: 1651818909}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Right_Foot
   m_TagString: Waiter
   m_Icon: {fileID: 0}
@@ -106767,7 +106767,7 @@ GameObject:
   - component: {fileID: 1739818922}
   - component: {fileID: 1739818921}
   - component: {fileID: 1739818923}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Right_Thigh
   m_TagString: Waiter
   m_Icon: {fileID: 0}
@@ -107857,7 +107857,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1849701893}
   - component: {fileID: 1849701894}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Item 0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108848,7 +108848,6 @@ MonoBehaviour:
   tapping:
   - {fileID: 21300000, guid: 462073039b9764b108842a864d76d8b1, type: 3}
   - {fileID: 21300000, guid: 921e041dc6ac44785af559fd8b09e5f3, type: 3}
-  counter: []
 --- !u!1001 &1867519524
 Prefab:
   m_ObjectHideFlags: 0
@@ -113769,7 +113768,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1989931639}
   - component: {fileID: 1989931640}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Item 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114485,7 +114484,7 @@ GameObject:
   - component: {fileID: 2047138153}
   - component: {fileID: 2047138154}
   - component: {fileID: 2047138155}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Zombie
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118868,7 +118867,7 @@ GameObject:
   - component: {fileID: 2119995632}
   - component: {fileID: 2119995631}
   - component: {fileID: 2119995633}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bubble Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
