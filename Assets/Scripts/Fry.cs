@@ -127,12 +127,20 @@ public class Fry : MonoBehaviour
         Camera.main.GetComponent<Gameplay>().AddFries(worth);
         if (gameObject.GetComponent<FadeObject>() == null)
         {
+            gameObject.tag = "Fallen";
+            basket.tag = "Fallen";
             Camera.main.GetComponent<DropMoreProducts>().DropFries();
             Camera.main.GetComponent<DropMoreProducts>().DropBasket();
             gameObject.AddComponent<FadeObject>();
             basket.AddComponent<FadeObject>();
+            gameObject.GetComponent<Collider>().enabled = false;
+            basket.GetComponent<Collider>().enabled = false;
+            gameObject.GetComponent<Rigidbody>().isKinematic = true;
+            gameObject.GetComponent<Rigidbody>().useGravity = false;
+            basket.GetComponent<Rigidbody>().isKinematic = true;
+            basket.GetComponent<Rigidbody>().useGravity = false;
+            Destroy(gameObject.GetComponent<FryFries>());
         }
-        Destroy(gameObject.GetComponent<FryFries>());
     }
 
     void CheckRange()

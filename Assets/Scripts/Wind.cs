@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Wind : MonoBehaviour
 {
     public float windStrength;
-    static int windRadius = 15;
+    static float windRadius = 14.5f;
     static float timeToNextBurst = 0.1f;
     float time;
 

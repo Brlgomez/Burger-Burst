@@ -118,7 +118,7 @@ public class DropMoreProducts : MonoBehaviour
 
     public void DropFries()
     {
-        if (GameObject.FindGameObjectsWithTag("Fries").Length <= 2)
+        if (GameObject.FindGameObjectsWithTag("Fries").Length <= 1)
         {
             GameObject newProduct = Instantiate(uncookedFries);
             AddNewProduct(newProduct, "Fries", Camera.main.GetComponent<PositionManager>().FriesPosition().position);
@@ -129,7 +129,7 @@ public class DropMoreProducts : MonoBehaviour
 
     public void DropBasket()
     {
-        if (GameObject.FindGameObjectsWithTag("Basket").Length <= 2)
+        if (GameObject.FindGameObjectsWithTag("Basket").Length <= 1)
         {
             GameObject newProduct = Instantiate(friesBasket);
             AddNewProduct(newProduct, "Basket", Camera.main.GetComponent<PositionManager>().BasketPosition().position);

@@ -657,11 +657,19 @@ public class GrabAndThrowObject : MonoBehaviour
 
     public void SetFrozen(bool b)
     {
+        if (b)
+        {
+            MouseUp();
+        }
         frozen = b;
     }
 
     public void SetGameOver(bool b)
     {
+        if (b)
+        {
+            MouseUp();
+        }
         gameOver = b;
     }
 
