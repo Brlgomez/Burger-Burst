@@ -404,7 +404,7 @@ public class MainMenu : MonoBehaviour
         switch (target.name)
         {
             case "Third Button":
-                GetComponent<ScreenTextManagment>().BuyUpgrade();
+                GetComponent<ScreenTextManagment>().BuyUpgrade(currentSlot, slotPosition);
                 GetComponent<ScreenTextManagment>().ChangeToUpgradeText();
                 GetComponent<MenuSlider>().HighLightSlot(currentSlot.transform.parent.gameObject);
                 break;

@@ -386,11 +386,12 @@ ScreenTextManagment : MonoBehaviour
         BoughtItem(middleObj);
     }
 
-    public void BuyUpgrade()
+    public void BuyUpgrade(GameObject currentSlot, int slotPosition)
     {
         GameObject middleObj = GetComponent<MenuSlider>().GetMiddleObject();
         GetComponent<PlayerPrefsManager>().BuyPowerUp(GetComponent<MenuSlider>().GetMiddleObjectNumber());
         GetComponent<PowerUpsManager>().powerUpList[int.Parse(middleObj.GetComponent<SpriteRenderer>().sprite.name)].unlocked = true;
+        GetComponent<MenuSlider>().ChangeSlotSprite(currentSlot, slotPosition);
         BoughtItem(middleObj);
     }
 
