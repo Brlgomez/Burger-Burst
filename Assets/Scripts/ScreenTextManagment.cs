@@ -838,6 +838,8 @@ ScreenTextManagment : MonoBehaviour
     {
         GetComponent<MenuSlider>().TurnOffScrollView();
         line3.GetComponent<TextMesh>().characterSize = 0.025f;
+        scrollView.transform.GetChild(5).GetComponent<SpriteRenderer>().enabled = false;
+        scrollView.transform.GetChild(6).GetComponent<SpriteRenderer>().enabled = false;
     }
 
     void TurnOnScrollList(Menus.Menu menu)
@@ -846,6 +848,8 @@ ScreenTextManagment : MonoBehaviour
         ChangeSliderInfo();
         line2.transform.GetChild(0).gameObject.layer = 2;
         line3.GetComponent<TextMesh>().characterSize = 0.01625f;
+        scrollView.transform.GetChild(5).GetComponent<SpriteRenderer>().enabled = true;
+        scrollView.transform.GetChild(6).GetComponent<SpriteRenderer>().enabled = true;
     }
 
     public void CannotPressAnything()
