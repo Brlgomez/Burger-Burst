@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Liquid : MonoBehaviour
 {
@@ -16,16 +14,19 @@ public class Liquid : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        velocityMagnitude = col.GetComponent<Rigidbody>().velocity.magnitude;
-        GetComponent<Animator>().Play("Oil");
-        if (velocityMagnitude / 3 > 0.20f)
+        if (col.name != "Bottom Collider")
         {
-            Camera.main.GetComponent<SoundAndMusicManager>().PlayFromSourceWithSelectedVolume(gameObject, velocityMagnitude / 3);
-        }
-        if (col.GetComponent<Rigidbody>() != null && velocityMagnitude > 1)
-        {
-            transform.GetChild(0).GetComponent<ParticleSystem>().Play();
-            mainModule.startSpeed = velocityMagnitude;
+            velocityMagnitude = col.GetComponent<Rigidbody>().velocity.magnitude;
+            GetComponent<Animator>().Play("Oil");
+            if (velocityMagnitude / 3 > 0.20f)
+            {
+                Camera.main.GetComponent<SoundAndMusicManager>().PlayFromSourceWithSelectedVolume(gameObject, velocityMagnitude / 3);
+            }
+            if (col.GetComponent<Rigidbody>() != null && velocityMagnitude > 1)
+            {
+                transform.GetChild(0).GetComponent<ParticleSystem>().Play();
+                mainModule.startSpeed = velocityMagnitude;
+            }
         }
     }
 }

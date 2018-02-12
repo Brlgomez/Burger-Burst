@@ -61,6 +61,7 @@ public class CookMeat : MonoBehaviour
         {
             burned = true;
             Camera.main.GetComponent<OnlineManagement>().BurnedBurger();
+            Camera.main.GetComponent<SoundAndMusicManager>().StopLoopFromSourceAndLowerVolume(gameObject, -2);
         }
     }
 
