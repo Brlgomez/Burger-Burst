@@ -168,8 +168,9 @@ public class DropMoreProducts : MonoBehaviour
         newDrink.transform.localPosition = oldProduct.transform.localPosition;
         newDrink.transform.localRotation = oldProduct.transform.localRotation;
         newDrink.transform.localScale = oldProduct.transform.localScale;
-        newDrink.GetComponent<Rigidbody>().isKinematic = false;
-        newDrink.GetComponent<Rigidbody>().useGravity = true;
+        newDrink.GetComponent<Rigidbody>().isKinematic = true;
+        newDrink.GetComponent<Rigidbody>().useGravity = false;
+        newDrink.GetComponent<Collider>().enabled = false;
         newDrink.tag = "Fallen";
         newDrink.AddComponent<FadeObject>();
         Destroy(oldProduct);

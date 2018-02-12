@@ -6,6 +6,7 @@ public class RemoveObjects : MonoBehaviour
 {
     bool hasDropped;
     bool justPlayedSound;
+    bool copied;
 
     void OnCollisionEnter(Collision col)
     {
@@ -69,12 +70,13 @@ public class RemoveObjects : MonoBehaviour
                     gameObject.AddComponent<MagnetPowerUp>();
                 }
             }
-            if (Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(Camera.main.GetComponent<PowerUpsManager>().throwMultiple.powerUpNumber))
+            if (Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(Camera.main.GetComponent<PowerUpsManager>().throwMultiple.powerUpNumber) && !copied)
             {
-                if (!gameObject.name.EndsWith("Copy"))
+                if (!gameObject.name.EndsWith("Copy", System.StringComparison.Ordinal))
                 {
                     Camera.main.GetComponent<SoundAndMusicManager>().PlayPuffSound(gameObject);
                     Camera.main.GetComponent<CopyPowerUp>().CopyObject(gameObject);
+                    copied = true;
                 }
             }
             DropProduct();
@@ -110,7 +112,11 @@ public class RemoveObjects : MonoBehaviour
     {
         string oldTag = gameObject.tag;
         gameObject.tag = "Fallen";
-        if (gameObject.GetComponent<FadeObject>() == null)
+        if (GetComponent<ParticleSystem>() != null)
+        {
+            GetComponent<ParticleSystem>().Stop();
+        }
+        if (GetComponent<FadeObject>() == null)
         {
             gameObject.AddComponent<FadeObject>();
             Destroy(GetComponent<RemoveObjects>());
