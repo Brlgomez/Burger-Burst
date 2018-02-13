@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class ArrowDirection : MonoBehaviour 
+public class ArrowDirection : MonoBehaviour
 {
     public float fromCounterDirection;
     public float fromBurgerDirection;

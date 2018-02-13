@@ -1,15 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Car : MonoBehaviour
 {
-    int updateInterval = 1;
-
-    float speed = 10;
     static int maxSpeed = 10;
     static int acceleration = 10;
     static int deceleration = 10;
+
+    int updateInterval = 1;
+    float speed = 10;
     float randomStoppingPos, suvRand1, suvRand2;
     bool slowDown;
     bool slowingDown;

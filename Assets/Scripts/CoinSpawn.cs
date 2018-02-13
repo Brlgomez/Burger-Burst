@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CoinSpawn : MonoBehaviour
 {
     static float timeBetweenCoins = 0.5f;
+
     int amountOfCoins = 1;
     GameObject coin;
     Vector3 coinSpawnPosition;

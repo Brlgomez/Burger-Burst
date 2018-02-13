@@ -3,12 +3,13 @@
 public class AftermathText : MonoBehaviour
 {
     static int updateInterval = 2;
-    static float maxTime = 1.25f;
-    static float fadeTime = 1;
+    static float timeToFade = 1;
+    static float fadeTime = 0.25f;
     static float horizontalSpeed = 2.5f;
     static float horizontalDistance = 0.2f;
 
     float alpha = 1;
+    float maxTime;
     float time;
     float distance;
     Vector3 startPosition;
@@ -23,24 +24,25 @@ public class AftermathText : MonoBehaviour
         transform.Rotate(0, 180, 0);
         textColor = GetComponent<Renderer>().material;
         distance = (Vector3.Distance(Camera.main.transform.position, transform.position)) / 4;
+        maxTime = timeToFade + fadeTime;
     }
 
     void Update()
     {
         if (Time.frameCount % updateInterval == 0)
         {
+            time += Time.deltaTime * updateInterval;
             ChangeAlpha();
         }
     }
 
     void ChangeAlpha()
     {
-        time += Time.deltaTime * updateInterval;
         float newX = startPosition.x + (Mathf.Sin((time) * horizontalSpeed) * horizontalDistance) * distance;
         transform.position = new Vector3(newX, transform.position.y, transform.position.z);
-        if (time > fadeTime)
+        if (time > timeToFade)
         {
-            alpha = 1 - ((time - fadeTime) / (maxTime - fadeTime));
+            alpha = 1 - ((time - timeToFade) / fadeTime);
             textColor.color = new Color(textColor.color.r, textColor.color.g, textColor.color.b, alpha);
         }
         if (time > maxTime)

@@ -1,19 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
     static int updateInterval = 10;
     static int maxSpeed = 15;
     static int accelerating = 15;
+
     float speed;
     Transform towards, deviceTowards;
     bool moveToPosition, moveDevice, moveArrows;
     bool unpause, gameplay, title, gameOver, grill, fryer, soda;
     string gamePlayCommand;
     GameObject phone;
-    bool gotCalculation;
     float distance;
 
     void Start()
@@ -30,40 +28,22 @@ public class CameraMovement : MonoBehaviour
     {
         if (moveToPosition)
         {
-            if (!gotCalculation)
-            {
-                distance = Vector3.Distance(towards.position, transform.position);
-                if (distance / 4 > 0.6f)
-                {
-                    GetComponent<SoundAndMusicManager>().PlayMovementWoosh(gameObject, distance / 4);
-                }
-                gotCalculation = true;
-            }
             if (speed < maxSpeed)
             {
                 speed += Time.unscaledDeltaTime * accelerating;
             }
             MoveCamera();
+            if (moveArrows)
+            {
+                MoveArrows();
+            }
             if (moveDevice)
             {
                 MoveDevice();
             }
             if (Time.frameCount % updateInterval == 0)
             {
-                if (Vector3.Distance(transform.position, towards.transform.position) < 0.001f)
-                {
-                    if (Quaternion.Angle(transform.rotation, towards.transform.rotation) < 0.1f)
-                    {
-                        if (moveDevice && Vector3.Distance(transform.GetChild(1).localPosition, deviceTowards.transform.localPosition) < 0.001f)
-                        {
-                            Finished();
-                        }
-                        else if (!moveDevice)
-                        {
-                            Finished();
-                        }
-                    }
-                }
+                CheckIfFinished();
             }
         }
     }
@@ -80,45 +60,42 @@ public class CameraMovement : MonoBehaviour
             towards.transform.rotation,
             Time.unscaledDeltaTime * speed
         );
-        if (moveArrows)
-        {
-            MoveArrows();
-        }
     }
 
     void MoveArrows()
     {
         for (int i = 1; i <= 4; i++)
         {
+            GameObject arrow = phone.transform.GetChild(i).GetChild(3).gameObject;
             if (grill)
             {
-                phone.transform.GetChild(i).GetChild(3).transform.localEulerAngles = Vector3.Lerp(
-                   phone.transform.GetChild(i).GetChild(3).transform.localEulerAngles,
-                   new Vector3(0, 0, phone.transform.GetChild(i).GetChild(3).GetComponent<ArrowDirection>().fromBurgerDirection),
-                   Time.unscaledDeltaTime * speed
+                arrow.transform.localEulerAngles = Vector3.Lerp(
+                    arrow.transform.localEulerAngles,
+                    new Vector3(0, 0, arrow.GetComponent<ArrowDirection>().fromBurgerDirection),
+                    Time.unscaledDeltaTime * speed
                );
             }
             else if (fryer)
             {
-                phone.transform.GetChild(i).GetChild(3).transform.localEulerAngles = Vector3.Lerp(
-                    phone.transform.GetChild(i).GetChild(3).transform.localEulerAngles,
-                    new Vector3(0, 0, phone.transform.GetChild(i).GetChild(3).GetComponent<ArrowDirection>().fromFriesDirection),
+                arrow.transform.localEulerAngles = Vector3.Lerp(
+                    arrow.transform.localEulerAngles,
+                    new Vector3(0, 0, arrow.GetComponent<ArrowDirection>().fromFriesDirection),
                     Time.unscaledDeltaTime * speed
                 );
             }
             else if (soda)
             {
-                phone.transform.GetChild(i).GetChild(3).transform.localEulerAngles = Vector3.Lerp(
-                    phone.transform.GetChild(i).GetChild(3).transform.localEulerAngles,
-                    new Vector3(0, 0, phone.transform.GetChild(i).GetChild(3).GetComponent<ArrowDirection>().fromDrinkDirection),
+                arrow.transform.localEulerAngles = Vector3.Lerp(
+                    arrow.transform.localEulerAngles,
+                    new Vector3(0, 0, arrow.GetComponent<ArrowDirection>().fromDrinkDirection),
                     Time.unscaledDeltaTime * speed
                 );
             }
             else
             {
-                phone.transform.GetChild(i).GetChild(3).transform.localEulerAngles = Vector3.Lerp(
-                    phone.transform.GetChild(i).GetChild(3).transform.localEulerAngles,
-                    new Vector3(0, 0, phone.transform.GetChild(i).GetChild(3).GetComponent<ArrowDirection>().fromCounterDirection),
+                arrow.transform.localEulerAngles = Vector3.Lerp(
+                    arrow.transform.localEulerAngles,
+                    new Vector3(0, 0, arrow.GetComponent<ArrowDirection>().fromCounterDirection),
                     Time.unscaledDeltaTime * speed
                 );
             }
@@ -137,6 +114,21 @@ public class CameraMovement : MonoBehaviour
             deviceTowards.transform.localRotation,
             Time.unscaledDeltaTime * speed
         );
+    }
+
+    void CheckIfFinished()
+    {
+        if (Vector3.Distance(transform.position, towards.transform.position) < 0.001f && Quaternion.Angle(transform.rotation, towards.transform.rotation) < 0.1f)
+        {
+            if (moveDevice && Vector3.Distance(transform.GetChild(1).localPosition, deviceTowards.transform.localPosition) < 0.001f)
+            {
+                Finished();
+            }
+            else if (!moveDevice)
+            {
+                Finished();
+            }
+        }
     }
 
     void Finished()
@@ -202,8 +194,8 @@ public class CameraMovement : MonoBehaviour
 
     public void MoveToMenu(bool moveDev)
     {
-        SetCameraAndDevicePosition(GetComponent<PositionManager>().MenuPosition(), GetComponent<PositionManager>().DeviceMiddlePosition());
         moveDevice = moveDev;
+        SetCameraAndDevicePosition(GetComponent<PositionManager>().MenuPosition(), GetComponent<PositionManager>().DeviceMiddlePosition());
     }
 
     public void MoveToPowerUp()
@@ -344,6 +336,7 @@ public class CameraMovement : MonoBehaviour
     {
         towards = movingTowards;
         moveToPosition = true;
+        PlayWooshSound();
     }
 
     void SetCameraAndDevicePosition(Transform movingTowards, Transform deviceMovingTowards)
@@ -352,5 +345,15 @@ public class CameraMovement : MonoBehaviour
         deviceTowards = deviceMovingTowards;
         moveToPosition = true;
         moveDevice = true;
+        PlayWooshSound();
+    }
+
+    void PlayWooshSound()
+    {
+        distance = Vector3.Distance(towards.position, transform.position);
+        if (distance / 4 > 0.65f)
+        {
+            GetComponent<SoundAndMusicManager>().PlayMovementWoosh(gameObject, distance / 4);
+        }
     }
 }

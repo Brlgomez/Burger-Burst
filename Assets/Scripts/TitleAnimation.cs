@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TitleAnimation : MonoBehaviour
 {
     static int speed = 3;
+
     GameObject title, zombieHands, chefHat;
     float time;
     bool titleZoomed, imagesZoomed, goingLeft;
