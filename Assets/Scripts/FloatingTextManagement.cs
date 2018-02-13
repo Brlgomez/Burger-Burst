@@ -21,7 +21,7 @@ public class FloatingTextManagement : MonoBehaviour
             obj.transform.position.z
         );
         newAftermathText.transform.localScale *= size;
-        newAftermathText.AddComponent<AftermathText>().GetComponent<AftermathText>().UpdateText(text, size / 2);
+        newAftermathText.AddComponent<AftermathText>().GetComponent<AftermathText>().UpdateText(text);
         newAftermathText.tag = "FloatingText";
     }
 
