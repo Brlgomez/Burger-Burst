@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ZombieHead : MonoBehaviour
 {
@@ -69,6 +67,7 @@ public class ZombieHead : MonoBehaviour
             GetComponent<Rigidbody>().useGravity = true;
             GetComponent<Rigidbody>().velocity = product.GetComponent<Rigidbody>().velocity;
             GetComponent<Rigidbody>().angularVelocity = product.GetComponent<Rigidbody>().angularVelocity;
+            particles.Stop();
             Destroy(product.GetComponent<RemoveObjects>());
             product.GetComponent<Rigidbody>().useGravity = false;
             product.GetComponent<Rigidbody>().isKinematic = true;

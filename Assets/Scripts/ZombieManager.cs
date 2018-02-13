@@ -1,12 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ZombieManager : MonoBehaviour
 {
-    static int maxAmountOfZombies = 6;
-    float time;
+    static int maxAmountOfZombies = 5;
 
+    float time;
     GameObject zombie;
     Vector3 gameplayPosition;
     int amountOfZombies;
@@ -44,7 +42,7 @@ public class ZombieManager : MonoBehaviour
             if (GetCount() < maxAmountOfZombies && !GetComponent<Gameplay>().IsGameOver())
             {
                 GetComponent<CarManager>().CreateNewCarWithZombie();
-                if (Random.value < 0.25f)
+                if (Random.value < 0.25f && amountOfZombies < maxAmountOfZombies / 2)
                 {
                     GetComponent<CarManager>().CreateNewCarWithNoZombie();
                 }
