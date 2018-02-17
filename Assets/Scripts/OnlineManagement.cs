@@ -13,9 +13,11 @@ public class OnlineManagement : MonoBehaviour
 {
     public enum OS { iOS, Android, Unknown };
     OS deviceOS;
+    GameObject thirdLine;
 
     void Awake()
     {
+        thirdLine = GetComponent<ObjectManager>().Phone().transform.GetChild(2).gameObject;
         if (Application.platform == RuntimePlatform.Android)
         {
             deviceOS = OS.Android;
@@ -42,13 +44,26 @@ public class OnlineManagement : MonoBehaviour
         }
         if (deviceOS == OS.iOS || deviceOS == OS.Android)
         {
-            LogIn();
+            LogIn(null);
         }
     }
 
-    public void LogIn()
+    public void LogIn(GameObject line)
     {
-        Social.localUser.Authenticate((bool success) => { });
+        Social.localUser.Authenticate((bool success) =>
+        {
+            if (!success && line != null)
+            {
+                if (deviceOS == OS.iOS)
+                {
+                    line.GetComponent<TextMesh>().text = "Cannot sign in to\nGame Center";
+                }
+                if (deviceOS == OS.Android)
+                {
+                    line.GetComponent<TextMesh>().text = "Cannot sign in to\nGoogle Play Games";
+                }
+            }
+        });
     }
 
     /* 
@@ -70,7 +85,7 @@ public class OnlineManagement : MonoBehaviour
             }
             else
             {
-                LogIn();
+                LogIn(thirdLine);
             }
         });
     }
@@ -223,7 +238,7 @@ public class OnlineManagement : MonoBehaviour
             }
             else
             {
-                LogIn();
+                LogIn(thirdLine);
             }
         });
     }

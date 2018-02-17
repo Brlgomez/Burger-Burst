@@ -196,9 +196,16 @@ public class Zombie : MonoBehaviour
         }
         if (damageTime > (timeForDamage + 0.25f))
         {
-            ZombieDamageTypes();
-            damageTime = 0;
-            playAttack = true;
+            if (Camera.main.GetComponent<GrabAndThrowObject>() != null)
+            {
+                ZombieDamageTypes();
+                damageTime = 0;
+                playAttack = true;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
     }
 
