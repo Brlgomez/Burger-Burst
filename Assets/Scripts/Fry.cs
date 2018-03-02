@@ -14,11 +14,11 @@ public class Fry : MonoBehaviour
     {
         if (Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(Camera.main.GetComponent<PowerUpsManager>().quickerCooking.powerUpNumber))
         {
-            maxTimeInFryer *= 0.75f;
+            maxTimeInFryer *= 0.5f;
         }
         if (Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(Camera.main.GetComponent<PowerUpsManager>().makeMoreFood.powerUpNumber))
         {
-            maxAmountOfFries = 12;
+            maxAmountOfFries = 15;
         }
     }
 

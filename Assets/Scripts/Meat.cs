@@ -15,11 +15,11 @@ public class Meat : MonoBehaviour
     {
         if (Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(Camera.main.GetComponent<PowerUpsManager>().quickerCooking.powerUpNumber))
         {
-            maxTimeOnGrill *= 0.75f;
+            maxTimeOnGrill *= 0.5f;
         }
         if (Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(Camera.main.GetComponent<PowerUpsManager>().makeMoreFood.powerUpNumber))
         {
-            maxAmountOfBurgers = 12;
+            maxAmountOfBurgers = 15;
         }
     }
 

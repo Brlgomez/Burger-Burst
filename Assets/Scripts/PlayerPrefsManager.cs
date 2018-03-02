@@ -556,13 +556,13 @@ public class PlayerPrefsManager : MonoBehaviour
 
     int GetNextUnlock()
     {
-        return PlayerPrefs.GetInt(nextUnlock, 1000);
+        return PlayerPrefs.GetInt(nextUnlock, 500);
     }
 
     void IncreaseNextUnlock()
     {
         IncreaseThingsUnlocked();
-        PlayerPrefs.SetInt(nextUnlock, Mathf.RoundToInt((GetNextUnlock()) + 1000 + (GetThingsUnlocked() * 10)));
+        PlayerPrefs.SetInt(nextUnlock, Mathf.RoundToInt((GetNextUnlock()) + 500 + (GetThingsUnlocked() * 5)));
     }
 
     public int GetThingsUnlocked()

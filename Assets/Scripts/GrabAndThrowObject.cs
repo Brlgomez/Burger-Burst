@@ -87,7 +87,7 @@ public class GrabAndThrowObject : MonoBehaviour
                 0
             );
         }
-        //Debugging();
+        Debugging();
     }
 
     void MouseDown()
@@ -440,6 +440,10 @@ public class GrabAndThrowObject : MonoBehaviour
                 float yVelocity = diff.y * 3.5f;
                 float zVelocity = diff.z * 20;
                 Vector3 newVelocity = new Vector3(xVelocity, yVelocity, zVelocity) /* * (screenSize / 2.5f)*/;
+                if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(GetComponent<PowerUpsManager>().throwFurther.powerUpNumber))
+                {
+                    newVelocity *= 1.25f;
+                }
                 if (newVelocity.magnitude > 5)
                 {
                     GetComponent<TutorialManager>().DeactivateCounterThrowing();

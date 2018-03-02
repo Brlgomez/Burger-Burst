@@ -114,11 +114,7 @@ public class ZombieManager : MonoBehaviour
     Texture PickZombieOutfit()
     {
         Texture newOutfit;
-        if (Random.value < GetComponent<Gameplay>().GetChanceOfSpecialZombie())
-        {
-            newOutfit = specialOutfits[Random.Range(0, specialOutfits.Length)];
-        }
-        else
+        if (GetComponent<PlayerPrefsManager>().ContainsUpgrade(GetComponent<PowerUpsManager>().onlySpecialZombies.powerUpNumber))
         {
             if (Random.value > 0.95f && GetComponent<Gameplay>().GetMaxLife() > GetComponent<Gameplay>().GetLife())
             {
@@ -127,7 +123,26 @@ public class ZombieManager : MonoBehaviour
             }
             else
             {
-                newOutfit = outfits[Random.Range(0, outfits.Length)];
+                newOutfit = specialOutfits[Random.Range(0, specialOutfits.Length)];
+            }
+        }
+        else
+        {
+            if (Random.value < GetComponent<Gameplay>().GetChanceOfSpecialZombie())
+            {
+                newOutfit = specialOutfits[Random.Range(0, specialOutfits.Length)];
+            }
+            else
+            {
+                if (Random.value > 0.95f && GetComponent<Gameplay>().GetMaxLife() > GetComponent<Gameplay>().GetLife())
+                {
+                    newOutfit = healthOutfit;
+
+                }
+                else
+                {
+                    newOutfit = outfits[Random.Range(0, outfits.Length)];
+                }
             }
         }
         return newOutfit;

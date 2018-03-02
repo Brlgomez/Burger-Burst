@@ -23,11 +23,11 @@ public class SodaCup : MonoBehaviour
     {
         if (Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(Camera.main.GetComponent<PowerUpsManager>().quickerCooking.powerUpNumber))
         {
-            maxTimeUnderFountain *= 0.75f;
+            maxTimeUnderFountain *= 0.5f;
         }
         if (Camera.main.GetComponent<PlayerPrefsManager>().ContainsUpgrade(Camera.main.GetComponent<PowerUpsManager>().makeMoreFood.powerUpNumber))
         {
-            maxAmountOfDrinks = 6;
+            maxAmountOfDrinks = 7;
         }
         currentY = transform.GetChild(0).transform.localPosition.y;
         currentScale = transform.GetChild(0).transform.localScale.x;

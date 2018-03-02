@@ -18,3 +18,4 @@ Chance of dodgingNEWLINEattacks*200
 Immuned to posionNEWLINEzombies*150
 Immuned to iceNEWLINEzombies*150
 Food freezes zombies*300
+Only special zombies*250

@@ -9,7 +9,7 @@ public class PowerUpsManager : MonoBehaviour
     public PowerUp throwFurther, quickerCooking, makeMoreFood, defenseIncrease, moreHealth;
     public PowerUp largerFood, regenHealth, regenBurgers, regenFries, regenDrinks, doublePoints;
     public PowerUp doubleCoins, throwMultiple, magnet, noWind, noInstantKill, luck, noPoison, noIce;
-    public PowerUp freeze;
+    public PowerUp freeze, onlySpecialZombies;
     string[] allDescriptions;
     int powerUpInc;
     List<PowerUp> powerUpListTemp = new List<PowerUp>();
@@ -59,6 +59,7 @@ public class PowerUpsManager : MonoBehaviour
         noPoison = CreatePowerUp();
         noIce = CreatePowerUp();
         freeze = CreatePowerUp();
+        onlySpecialZombies = CreatePowerUp();
 
         SetPowerUpLists();
     }
