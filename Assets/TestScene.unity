@@ -76949,7 +76949,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 87929427
+  randomSeed: -1569501264
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -77392,14 +77392,14 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 5
     enabled: 1
-    type: 15
-    angle: 25
-    length: 5
+    type: 8
+    angle: 15
+    length: 1.5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
     donutRadius: 0.2
-    m_Position: {x: 0, y: 0.5, z: 0}
-    m_Rotation: {x: 0, y: 0, z: 0}
+    m_Position: {x: 0, y: 1.25, z: 0}
+    m_Rotation: {x: 90, y: 0, z: 0}
     m_Scale: {x: 1.5, y: 2, z: 1.5}
     placementMode: 0
     m_MeshMaterialIndex: 0
@@ -77414,7 +77414,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 1
+      value: 0.15
       mode: 0
       spread: 0
       speed:
@@ -115763,6 +115763,7 @@ MonoBehaviour:
   ice: {fileID: 8300000, guid: 2bac22bf27e744ffb9566a2f8083b4c8, type: 3}
   freeze: {fileID: 8300000, guid: b90b7cd3223d444378e448a43a621441, type: 3}
   dropIce: {fileID: 8300000, guid: d009a9faaf67348a4a39021d3df85031, type: 3}
+  drip: {fileID: 8300000, guid: 66f4d9915417f4a87902ef7edc7499d0, type: 3}
   woosh: {fileID: 8300000, guid: 474fd26e7896c4c799975e0c12611fae, type: 3}
   buttonSound: {fileID: 8300000, guid: 13b59efad9bc74d489108ea583a6f395, type: 3}
   iapSound: {fileID: 8300000, guid: 39104bb6170f340ea822e19f61e0d972, type: 3}

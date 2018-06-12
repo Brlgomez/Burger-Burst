@@ -312,7 +312,7 @@ public class Zombie : MonoBehaviour
                 thisZombieType = ZombieType.regular;
                 powerParticles.Play();
                 powerParticles.Stop();
-                //Camera.main.GetComponent<SoundAndMusicManager>().StopLoopFromSourceAndLowerVolume(gameObject, -1);
+                Camera.main.GetComponent<SoundAndMusicManager>().StopLoopFromSourceAndLowerVolume(gameObject, -1);
                 Camera.main.GetComponent<Gameplay>().ReduceHealth(damageAmount, upperBody);
                 GameObject splatterParticles = Camera.main.gameObject.transform.Find("Splatter Particles").gameObject;
                 Instantiate(splatterParticles, Camera.main.gameObject.transform);
@@ -781,7 +781,7 @@ public class Zombie : MonoBehaviour
                 thisZombieType = ZombieType.splatter;
                 powerParticles = upperBody.transform.GetChild(8).GetComponent<ParticleSystem>();
                 powerParticles.Play();
-                //Camera.main.GetComponent<SoundAndMusicManager>().PlayZombieIceSound(GetComponent<AudioSource>());
+                Camera.main.GetComponent<SoundAndMusicManager>().PlayZombieDripSound(GetComponent<AudioSource>());
                 Behaviour halo6 = (Behaviour)powerParticles.GetComponent("Halo");
                 halo6.enabled = true;
                 break;

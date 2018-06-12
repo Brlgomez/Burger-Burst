@@ -1,6 +1,6 @@
 ﻿<Properties StartupConfiguration="{DED20BBC-E9EC-CBF7-0720-82F8021659E9}|">
   <MonoDevelop.Ide.ItemProperties.Burger_220Burst PreferredExecutionTarget="Unity.Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Resources/Credits.txt">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/SoundAndMusicManager.cs">
     <Files>
       <File FileName="Assets/Scripts/GrabAndThrowObject.cs" Line="90" Column="17" />
       <File FileName="Assets/Scripts/ScreenTextManagment.cs" Line="252" Column="58" />
@@ -9,8 +9,9 @@
       <File FileName="Assets/Scripts/MainMenu.cs" Line="81" Column="5" />
       <File FileName="Assets/Resources/Credits.txt" Line="5" Column="20" />
       <File FileName="Assets/Scripts/ZombieManager.cs" Line="27" Column="37" />
-      <File FileName="Assets/Scripts/Zombie.cs" Line="320" Column="74" />
+      <File FileName="Assets/Scripts/Zombie.cs" Line="315" Column="77" />
       <File FileName="Assets/Scripts/PowerUpsManager.cs" Line="32" Column="10" />
+      <File FileName="Assets/Scripts/SoundAndMusicManager.cs" Line="13" Column="86" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

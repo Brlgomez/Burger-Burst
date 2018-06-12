@@ -10,7 +10,7 @@ public class SoundAndMusicManager : MonoBehaviour
     public AudioClip boughtItemWithCoins, horn, vibrate, stereoSwitch, bootUp, highScore;
     public AudioClip steam, button, dropCup, dropLid, dropPatty, dropFries, dropBasket;
     public AudioClip foodComplete, badFood, dropDrink, healthUp, healthDown, punch;
-    public AudioClip deathPunch, puff, sparkle, bubbling, death, ice, freeze, dropIce;
+    public AudioClip deathPunch, puff, sparkle, bubbling, death, ice, freeze, dropIce, drip;
     public AudioClip woosh, buttonSound, iapSound, gameover, movementWoosh, beep;
     public AudioClip[] walkOnGrass, zombieIdleNoises, zombieGruntNoises, zombieGroans;
     public AudioClip[] music;
@@ -538,6 +538,16 @@ public class SoundAndMusicManager : MonoBehaviour
         {
             zombieSource.volume = 1;
             zombieSource.clip = ice;
+            zombieSource.Play();
+        }
+    }
+
+    public void PlayZombieDripSound(AudioSource zombieSource)
+    {
+        if (canPlaySound)
+        {
+            zombieSource.volume = 1;
+            zombieSource.clip = drip;
             zombieSource.Play();
         }
     }
